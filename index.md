@@ -7,7 +7,6 @@ layout: default
     <div class="aside">
       <div class="info-card">
         <h1>DavidDong</h1>
-        <a href="http://weibo.com/beiyuu/" target="_blank"><img src="http://www.weibo.com/favicon.ico" alt="" width="25"/></a>
       </div>
       <div id="particles-js"></div>
     </div>
