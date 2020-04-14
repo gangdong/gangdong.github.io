@@ -1,11 +1,17 @@
 ---
-layout: page
-title: 404
-tagline: Page does't exist
+layout: default
+title: 出错啦！
 ---
-{% include JB/setup %}
 
-<h2 class="post-title">404 - U R Lost!!!</h2>
-<p>您光临了我的 <b>404</b><sup>&reg;</sup><i>页面！</i></p>
-<p>网站结构调整，请使用<b>左</b>侧的 <b>搜索</b> 或<span style="color:red;">前往 <b><a href="/archive.html">归档</a></b> 页面自行探索！</span></p>
-<p><img src="{{ site.JB.IMAGE_PATH }}/404.png" width="425" height="427" alt="U R Lost!!!" title="U R Lost!!!" /></p>
+<body>
+  <div class="post-wrapper">
+    <h1 class="post-title" style="margin-bottom: 50px;"><a href="{{ page.url }}" title="{{ page.title }}">{{ page.title }}</a></h1>
+    <ul>
+      {% for post in site.categories.blog %}
+      <li>
+        <a href="{{ post.url }}" class="title">{{ post.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</body>

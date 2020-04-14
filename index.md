@@ -1,23 +1,28 @@
 ---
 layout: default
-title: ChenJun(Zhu8)的个人网站
-tagline: 浮生志
-description: ChenJun(Zhu8)的个人网志
-jumbotron__:
-    title: ChenJun(Zhu8)的个人网站
-    body: 我也不知道这是干啥的，擦！
-services: 
-  - name: WeiBo
-    title: 新浪微博
-    subtitle: Zhu8's Sina Weibo!
-    emblem: <iframe width="100%" height="300" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=300&fansRow=2&ptype=0&speed=0&skin=1&isTitle=0&noborder=1&isWeibo=1&isFans=0&uid=1619722161&verifier=918e85d6&dpc=1"></iframe>
-    description: 猪八的微博
-    details: 
 ---
-<!-- Nav tabs -->
-<ul class="nav nav-pills nav-justifiedx">
-    <li class="active"><a href="/">Home | 首页</a></li>
-    <li class=""><a href="/archive.html">Archive | 归档</a></li>
-</ul>
-{% include home.html %}
-{% include articles.html %}
+
+<body>
+  <div class="index-wrapper">
+    <div class="aside">
+      <div class="info-card">
+        <h1>BeiYuu</h1>
+        <a href="http://weibo.com/beiyuu/" target="_blank"><img src="http://www.weibo.com/favicon.ico" alt="" width="25"/></a>
+        <a href="http://www.douban.com/people/beiyuu/" target="_blank"><img src="http://www.douban.com/favicon.ico" alt="" width="22"/></a>
+        <a href="http://instagram.com/beiyuu/" target="_blank"><img src="http://d36xtkk24g8jdx.cloudfront.net/bluebar/00c6602/images/ico/favicon.ico" alt="" width="22"/></a>
+      </div>
+      <div id="particles-js"></div>
+    </div>
+
+    <div class="index-content">
+      <ul class="artical-list">
+        {% for post in site.categories.blog %}
+        <li>
+          <a href="{{ post.url }}" class="title">{{ post.title }}</a>
+          <div class="title-desc">{{ post.description }}</div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</body>
