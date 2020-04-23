@@ -8,9 +8,9 @@
       <section class="about">
         <a href="/"><img src="{{ "/assets/portfolio.png" | relative_url }}" alt="{{ site.simplywhite.name }}"></a>
         <h2 id="title">
-          <a href="/">David Dong</a>
+          <a href="/">{{ site.simplywhite.name }}</a>
         </h2>
-        <p class="tagline">Java/C/C#/Python</p>
+        <p class="tagline">{{ site.simplywhite.tagline }}</p>
         <ul class="social">
           {%- if site.simplywhite.social_links.github -%}
             <a href="https://github.com/gangdong">
