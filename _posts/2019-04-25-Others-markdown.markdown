@@ -169,7 +169,7 @@ int void main(){
 
 <br><br><br>
 
-<font size="2" color="red">作者：David Dong<br></font>
+<font size="2" color=#aaa>作者：David Dong<br></font>
 <font size="2" color="red">来源：https://gangdong.github.io/daviddong-blog.github.io/others/2019/04/25/markdown.html</font>
 <font size="2" color="red">转载请注明出处。</font>
 <span id="busuanzi_container_page_pv" ></span><font size="2">
