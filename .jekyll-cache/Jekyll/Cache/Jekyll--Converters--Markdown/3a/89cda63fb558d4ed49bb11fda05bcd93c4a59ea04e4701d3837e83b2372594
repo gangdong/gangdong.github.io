@@ -1,10 +1,10 @@
-I"?<p>因为工作的原因，对github的使用比较多,github也提供了个人主页的功能，因此就想把个人的博客迁到Github上来。Github上托管的方式属于静态访问，但是能够完全满足我的需求。只要按照github格式要求，新建一个仓库，把网站代码上传到里面，那么就可以在任何时候任何地方都能够访问了。那么如何搭建这个代码托管仓库呢？
+I"K<p>因为工作的原因，对github的使用比较多,github也提供了个人主页的功能，因此就想把个人的博客迁到Github上来。Github上托管的方式属于静态访问，但是能够完全满足我的需求。只要按照github格式要求，新建一个仓库，把网站代码上传到里面，那么就可以在任何时候任何地方都能够访问了。那么如何搭建这个代码托管仓库呢？
 可以参考 Github 官网上的教程 <a href="https://pages.github.com">官方链接</a><br />
 这里简单做一个总结，<br /></p>
 <ol>
   <li>申请一个github的账号，如果已经有了可以忽略这步。<br /></li>
   <li>新建一个repository,如下图所示 <br />
-<img src="/assets/create-repository.png" alt="create" />
+<img src="site.baseurl/assets/create-repository.png" alt="create" />
 输入repository的名字，注意这里一定要用申请的主页的地址加github.io结尾！
 <img src="/assets/create-repository2.png" alt="create2" /></li>
   <li>点击create repository 按钮，仓库就创建好了。<br /></li>
