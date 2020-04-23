@@ -149,20 +149,20 @@ int void main(){
 <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
 <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script>
 <div id="gitalk-container"></div>
-    <script type="text/javascript">
-    var gitalk = new Gitalk({
+<script type="text/javascript">
+   var gitalk = new Gitalk({
 
-    // gitalk的主要参数
-        clientID: '5e24fc307693a6df3bc5',
-        clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
-        repo: 'daviddong.github.io',
-        owner: 'gangdong',
-        admin: ['gangdong'],
-        id: '',
+   // gitalk的主要参数
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'daviddong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: '',
     
     });
-    gitalk.render('gitalk-container');
-
+   gitalk.render('gitalk-container');
+</script>
 
 <!-- Gitalk end -->
 
