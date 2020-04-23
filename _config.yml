@@ -52,7 +52,7 @@ simplywhite:
 theme: simplywhite
 
 #simplywhite:
-#  disqus_shortname: games
+  disqus_shortname: games
 #simplywhite:
 #  navigation:
 #    - title: My Work
