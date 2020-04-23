@@ -25,7 +25,6 @@ Bundle提供了各种常用类型的putXxx()/getXxx()方法，用于读写基本
    admin: ['gangdong'],
    id: '/others/2019/04/25/Others-markdown.html',
    title: 'comments'
-   distractionFreeMode: false
     });
    gitalk.render('gitalk-container');
 </script>
