@@ -1,0 +1,102 @@
+I"e#<p>目前工作中用到了JXL库来处理Windows的excel文档，这里做一个总结记录。以方便未来查找。</p>
+
+<p>JXL.jar是一个Java类包，封装了对Excel文档的操作。提供了一系列接口，方便编程者读写编辑Excel类型的文档。<br /></p>
+
+<p>JXL的官方下载地址 <a href="http://maven.ibiblio.org/maven2/net/sourceforge/jexcelapi/jxl/2.6.12/">官方地址</a><br /></p>
+
+<p>将下载后的文件解包，得到JXL.JAR，放入classpath。如果包不能正常的加载，可以把你下载好的JXL.JAR包放入本机jre的安装目录下。</p>
+
+<p>直接讲用法不如</p>
+
+<p>导入jxl的类库。</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">jxl.Cell</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">jxl.Sheet</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">jxl.Workbook</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">jxl.write.Label</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">jxl.write.WritableSheet</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">jxl.write.WritableWorkbook</span><span class="o">;</span>
+
+</code></pre></div></div>
+<p>打开读取Excel表格的方法。<br /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                  <span class="k">try</span><span class="o">{</span>
+
+                    <span class="c1">//声明一个workbook的对象，workbook代表选取Excel文件的工作薄</span>
+                    <span class="nc">Workbook</span> <span class="n">book</span> <span class="o">=</span> <span class="nc">Workbook</span><span class="o">.</span><span class="na">getWorkbook</span><span class="o">(</span><span class="n">fileChooser</span><span class="o">.</span><span class="na">getSelectedFile</span><span class="o">());</span>
+                    <span class="c1">//Sheet对象表示当前工作中的一页，getSheet 参数代表页码的索引</span>
+                    <span class="nc">Sheet</span> <span class="n">sheet</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="na">getSheet</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+                    <span class="c1">//Cell 对象代表一个单元格。getCell 参数为该单元格的行和列索引</span>
+                    <span class="nc">Cell</span> <span class="n">cell</span> <span class="o">=</span> <span class="n">sheet</span><span class="o">.</span><span class="na">getCell</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span>
+                    <span class="c1">//分别读取单元格（0，1）（1，1）（2，1）的内容</span>
+                    <span class="nc">String</span> <span class="n">strIndex</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="na">getContents</span><span class="o">();</span>
+                    <span class="n">cell</span> <span class="o">=</span> <span class="n">sheet</span><span class="o">.</span><span class="na">getCell</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span>
+                    <span class="nc">String</span> <span class="n">strTime</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="na">getContents</span><span class="o">();</span>
+                    <span class="n">cell</span> <span class="o">=</span> <span class="n">sheet</span><span class="o">.</span><span class="na">getCell</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span>
+                    <span class="nc">String</span> <span class="n">strRefSpeed</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="na">getContents</span><span class="o">();</span>
+
+                    <span class="o">...</span>
+                    <span class="o">}</span>
+                  <span class="k">catch</span><span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">){</span>
+                    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+                  <span class="o">}</span>
+</code></pre></div></div>
+<p>创建一个Excel workbook的方法。<br /></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>              <span class="k">try</span> <span class="o">{</span>
+                    <span class="c1">// 建立文件</span>
+                    <span class="nc">WritableWorkbook</span> <span class="n">book</span> <span class="o">=</span> <span class="nc">Workbook</span><span class="o">.</span><span class="na">createWorkbook</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>
+                    <span class="nc">WritableSheet</span> <span class="n">sheet</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="na">createSheet</span><span class="o">(</span><span class="s">"第一页"</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+
+                    <span class="nc">Date</span> <span class="n">currentTime</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Date</span><span class="o">();</span>
+                    <span class="nc">SimpleDateFormat</span> <span class="n">formatter</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SimpleDateFormat</span><span class="o">(</span><span class="s">"yyyy-MM-dd HH:mm:ss"</span><span class="o">);</span>
+                    <span class="nc">String</span> <span class="n">dateString</span> <span class="o">=</span> <span class="n">formatter</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="n">currentTime</span><span class="o">);</span>
+                    <span class="nc">Label</span> <span class="n">date</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Label</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="s">"数据保存时间："</span> <span class="o">+</span> <span class="n">dateString</span><span class="o">);</span>
+                    <span class="o">...</span>
+                    <span class="k">try</span><span class="o">{</span>
+
+                        <span class="n">sheet</span><span class="o">.</span><span class="na">addCell</span><span class="o">(</span><span class="n">date</span><span class="o">);</span>
+                        <span class="n">book</span><span class="o">.</span><span class="na">write</span><span class="o">();</span>
+                        <span class="n">book</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+                    <span class="o">}</span>
+                    <span class="k">catch</span><span class="o">(</span><span class="n">jxl</span><span class="o">.</span><span class="na">write</span><span class="o">.</span><span class="na">WriteException</span> <span class="n">e</span><span class="o">){</span>
+    
+                    <span class="o">}</span>
+                   <span class="o">}</span>
+                   <span class="k">catch</span><span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">){</span>
+
+                   <span class="o">}</span>
+
+
+
+</code></pre></div></div>
+<!-- Gitalk 评论 start  -->
+<!-- Link Gitalk 的支持文件  -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+<script type="text/javascript">
+   var gitalk = new Gitalk({
+
+   // gitalk的主要参数
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'daviddong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: 'java/2012/11/17/Java-jxl.html',
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+</script>
+
+<!-- Gitalk end -->
+
+<p><br /><br /><br /></p>
+
+<font size="2" color="#aaa">作者：David Dong<br /></font>
+<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong.github.io/java/2012/11/17/Java-jxl.html</font>
+<font size="2" color="#aaa">转载请注明出处。</font>
+<p><span id="busuanzi_container_page_pv"></span><font size="2" color="#aaa">
+本文总阅读量</font><font size="2" color="#aaa"><span id="busuanzi_value_page_pv">&lt;/font&gt;</span><font size="2" color="#aaa">次</font></font></p>
+:ET
