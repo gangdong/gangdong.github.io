@@ -143,21 +143,33 @@ int void main(){
 最后再介绍几款好用的**markdown**的编辑器，方便网友使用。<br>
 目前比较主流的支持**markdown**语言的编辑有markdownpad,typora,sublime,Mou,atom,Cmd Markdown 等，这些软件大部分都能支持windows/liunx和ios(Mou只支持ios)的平台。而且大部分是免费使用。功能上大同小异，都支持实时预览和HTML/PDF输出，有些还能够自定义语法的高亮显示等。我目前使用的是markdownpad,编辑起来还是很方便的。
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<!-- Gitalk 评论 start  -->
+{% if site.gitalk.enable %}
+<!-- Link Gitalk 的支持文件  -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script>
+
 <div id="gitalk-container"></div>
-<script>
+    <script type="text/javascript">
     var gitalk = new Gitalk({
-        id: '/spring/2019/03/06/javaconfig-bean.html',	// 自动生成每个页面的地址，注意不要重复
-        clientID: 'clientID',
-        clientSecret: 'clientSecret',
-        repo: 'zwwhnly.github.io',	// GitHub仓库名
-        owner: 'zwwhnly',	// GitHub用户名
-        admin: ['zwwhnly'],	// GitHub用户名
-        perPage: 50
-    })
+
+    // gitalk的主要参数
+        clientID: `Github Application clientID`,
+        clientSecret: `Github Application clientSecret`,
+        repo: `存储你评论 issue 的 Github 仓库名`,
+        owner: 'Github 用户名',
+        admin: ['Github 用户名'],
+        id: '页面的唯一标识，gitalk会根据这个标识自动创建的issue的标签',
+    
+    });
     gitalk.render('gitalk-container');
 </script>
+{% endif %}
+<!-- Gitalk end -->
+
+
+
+
 
 作者：David Dong<br>
 来源：https://gangdong.github.io/daviddong-blog.github.io/others/2019/04/25/markdown.html<br>
