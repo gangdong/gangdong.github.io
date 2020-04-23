@@ -1,19 +1,15 @@
----
-layout: post
-title:  "Bundle 在android中的应用"
-date:   2019-04-14 21:03:36 +0530
-categories: Java Android
----
-Android中Bundle类的作用<br>
-根据google <a href="http://developer.android.com/reference/android/os/Bundle.html">官方文档</a> <br>Bundle类用作携带数据，它类似于Map，用于存放key-value名值对形式的值.<br>
+I"�<p>Android中Bundle类的作用<br />
+根据google <a href="http://developer.android.com/reference/android/os/Bundle.html">官方文档</a> <br />Bundle类用作携带数据，它类似于Map，用于存放key-value名值对形式的值.<br />
 Bundle经常使用在Activity之间或者线程间传递数据，传递的数据可以是boolean、byte、int、long、float、double、string等基本类型或它们对应的数组，也可以是对象或对象数组。
 当Bundle传递的是对象或对象数组时，必须实现Serializable 或Parcelable接口。
-Bundle提供了各种常用类型的putXxx()/getXxx()方法，用于读写基本类型的数据。（各种方法可以查看API）
+Bundle提供了各种常用类型的putXxx()/getXxx()方法，用于读写基本类型的数据。（各种方法可以查看API）</p>
 
 <!-- Gitalk 评论 start  -->
 <!-- Link Gitalk 的支持文件  -->
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+
 <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
 <div id="gitalk-container"></div>
 <script type="text/javascript">
    var gitalk = new Gitalk({
@@ -23,15 +19,16 @@ Bundle提供了各种常用类型的putXxx()/getXxx()方法，用于读写基本
    repo: 'daviddong.github.io',
    owner: 'gangdong',
    admin: ['gangdong'],
-   id: 'java/android/2019/04/14/bundle.html',
+   id: '/others/2019/04/25/Others-markdown.html',
    title: 'comments'
     });
    gitalk.render('gitalk-container');
 </script>
+
 <!-- Gitalk end -->
 
-
-<br><br>
-作者：David Dong<br>
-来源：https://gangdong.github.io/daviddong-blog.github.io/others/2019/04/25/markdown.html<br>
-转载请注明出处。
+<p><br /><br />
+作者：David Dong<br />
+来源：https://gangdong.github.io/daviddong-blog.github.io/others/2019/04/25/markdown.html<br />
+转载请注明出处。</p>
+:ET
