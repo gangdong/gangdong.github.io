@@ -36,10 +36,10 @@ Throwable 主要提供了如下的一些方法。<br>
 <br>
 **ERROR**是指的系统的错误，用户无法处理，比如内存溢出等，只有通过修改程序来更正，因此遇到此类错误会让程序终止运行。<br>
 ERROR和子类的关系如下图所示。<br>
-![Error/subclass](/assets/image/java-throwable-error.png)<br>
+![Error/subclass](https://gangdong.github.io/daviddong.github.io//assets/image/java-throwable-error.png)<br>
 **EXCEPTION**指的是运行时的异常，是用户可以进行处理的异常。<br>
 EXCEPTION类和子类的关系如下。<br>
-![Exception/subclass](/assets/image/java-throwable-exception.png)<br>
+![Exception/subclass](https://gangdong.github.io/daviddong.github.io//assets/image/java-throwable-exception.png)<br>
 #### **Exception** 和 **RuntimeException**<br>
 可以看到RuntimeException是Exception的子类，实际上RuntimeException对应的是非检查性异常，用户可以处理也可以不处理，而如何继承的是exception,则为检查性异常，用户必须用try-catch来处理异常。<br>
 一个简单的例子。
