@@ -4,9 +4,11 @@
     {%- include head.html -%}
   </head>
   <body>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv" style='display:none'>本站总访问量 <span id="busuanzi_value_site_pv"></span> 次</span>
     <main class="container">
       <section class="about">
-        <a href="https://gangdong.github.io/daviddong.github.io//"><img src="{{ "/assets/portfolio.png" | relative_url }}" alt="{{ site.simplywhite.name }}"></a>
+        <a href="https://gangdong.github.io/daviddong.github.io/"><img src="{{ "/assets/portfolio.png" | relative_url }}" alt="{{ site.simplywhite.name }}"></a>
         <h2 id="title">
           <a href="https://gangdong.github.io/daviddong.github.io">{{ site.simplywhite.name }}</a>
         </h2>
@@ -56,8 +58,6 @@
 
 		gtag('config', '{{ site.simplywhite.analytics_id }}');
 	</script>
-    {%- endif -%}
-	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span id="busuanzi_container_site_pv" style='display:none'>本站总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> 
+    {%- endif -%} 
   </body>
 </html>
