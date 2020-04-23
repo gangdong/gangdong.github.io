@@ -488,6 +488,7 @@ public class ReadSerial extends Thread {
 <div id="gitalk-container"></div>
 <script type="text/javascript">
    var gitalk = new Gitalk({
+
    // gitalk的主要参数
    clientID: '5e24fc307693a6df3bc5',
    clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
@@ -501,9 +502,10 @@ public class ReadSerial extends Thread {
 </script>
 <!-- Gitalk end -->
 
+<br><br><br>
 
-<br><br>
-
-作者：David Dong<br>
-来源：https://gangdong.github.io/daviddong-blog.github.io/java/android/2019/04/14/bundle.html<br>
-转载请注明出处。
+<font size="2" color="#aaa">作者：David Dong<br></font>
+<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong.github.io/java/2012/10/21/Java-serialcom.html</font>
+<font size="2" color="#aaa">转载请注明出处。</font>
+<span id="busuanzi_container_page_pv" ></span><font size="2" color="#aaa">
+本文总阅读量</font><font size="2" color="#aaa"><span id="busuanzi_value_page_pv"></font></span><font size="2" color="#aaa">次</font>
