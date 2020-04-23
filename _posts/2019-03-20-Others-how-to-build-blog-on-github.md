@@ -9,7 +9,7 @@ categories: Github
 这里简单做一个总结，<br>
 1. 申请一个github的账号，如果已经有了可以忽略这步。<br>
 2. 新建一个repository,如下图所示 <br>
-![create](site.baseurl/assets/create-repository.png)
+![create](https://gangdong.github.io/daviddong.github.io/assets/create-repository.png)
 输入repository的名字，注意这里一定要用申请的主页的地址加github.io结尾！
 ![create2](/assets/create-repository2.png)
 3. 点击create repository 按钮，仓库就创建好了。<br>
