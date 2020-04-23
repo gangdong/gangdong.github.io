@@ -51,8 +51,8 @@ simplywhite:
 # Build settings
 theme: simplywhite
 
-simplywhite:
-  disqus_shortname: games
+#simplywhite:
+  #disqus_shortname: games
 #simplywhite:
 #  navigation:
 #    - title: My Work
