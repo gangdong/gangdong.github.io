@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Java 的异常处理"
-date:   2012-05-27 20:02:36 +0530
+date:   2012-05-27 20:02:36 +0800
 categories: Java
 ---
 想要理解Java的异常处理机制，只要掌握好这五个keywords 就可以了。<br>

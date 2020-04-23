@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "触控IC驱动代码分析"
-date:   2014-06-25 17:18:35 +0530
+date:   2014-06-25 17:18:35 +0800
 categories: touch
 published: false
 ---

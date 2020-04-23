@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Java 的Iterable接口使用"
-date:   2012-07-18 13:27:23 +0530
+date:   2012-07-18 13:27:23 +0800
 categories: Java
 published: false
 ---

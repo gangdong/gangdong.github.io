@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Android 触摸事件处理机制(1)"
-date:   2014-09-06 20:36:41 +0530
+date:   2014-09-06 20:36:41 +0800
 categories: android
 published: false
 ---

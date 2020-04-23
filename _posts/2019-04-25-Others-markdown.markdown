@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Mark一下 Markdown 语言的基本语法"
-date:   2019-04-25 11:03:36 +0530
+date:   2019-04-25 11:03:36 +0800
 categories: Others
 ---
 最近在写博客的时候用到了Markdown语言，做为一个学习总结，有必要把常用的语法mark一下。
