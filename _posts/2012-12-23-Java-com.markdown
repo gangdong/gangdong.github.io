@@ -210,8 +210,9 @@ public class ServiceCom implements ServiceComInterface {
 </script>
 <!-- Gitalk end -->
 
-<br><br>
-
-作者：David Dong<br>
-来源：https://gangdong.github.io/daviddong-blog.github.io/java/android/2019/04/14/bundle.html<br>
-转载请注明出处。
+<br><br><br>
+<font size="2" color="#aaa">作者：David Dong<br></font>
+<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong.github.io/java/2012/12/23/Java-com.html</font>
+<font size="2" color="#aaa">转载请注明出处。</font>
+<span id="busuanzi_container_page_pv" ></span><font size="2" color="#aaa">
+本文总阅读量</font><font size="2" color="#aaa"><span id="busuanzi_value_page_pv"></font></span><font size="2" color="#aaa">次</font>
