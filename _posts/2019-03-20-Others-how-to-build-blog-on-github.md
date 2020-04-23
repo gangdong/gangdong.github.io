@@ -11,11 +11,11 @@ categories: Github
 2. 新建一个repository,如下图所示 <br>
 ![create](assets/create-repository.png)
 输入repository的名字，注意这里一定要用申请的主页的地址加github.io结尾！
-![create2](/assets/create-repository2.png)
+![create2](assets/create-repository2.png)
 3. 点击create repository 按钮，仓库就创建好了。<br>
 4. 进入到刚刚建好的仓库的setting页面，会看到你的仓库的名称和个人网页的访问地址。记录下来在浏览器里打开相应的地址就可以看到你的主页内容了。这里要在仓库的根目录下新建一个index.html的文档，
 用来修改网页的内容，提交后可以实时看到修改的内容。<br>
-![create3](/assets/create-repository4.png)
+![create3](assets/create-repository4.png)
 至此，一个个人主页基本就搭建好了。接下来就可以添加内容到主页中去了。github提供了很多好的主题模板，大家可以直接使用模板来创建会更加快捷一些。github上的主题模板大多是基于jekyII 来搭建的，因此有必要对jekyII做一些了解。关于jekyII的内容不在本文的讨论中。我会单独在写一篇文章对jekyII做一个介绍。
 <br>
 
