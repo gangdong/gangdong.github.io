@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {%- include head.html -%}
+  </head>
+  <body>
+    <main class="container">
+      <section class="about">
+        <a href="/"><img src="{{ "/assets/portfolio.png" | relative_url }}" alt="{{ site.simplywhite.name }}"></a>
+        <h2 id="title">
+          <a href="/">David Dong</a>
+        </h2>
+        <p class="tagline">Java/C/C#/Python</p>
+        <ul class="social">
+          {%- if site.simplywhite.social_links.github -%}
+            <a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a>
+          {%- endif -%}
+          {%- if site.simplywhite.social_links.linkedIn -%}
+            <a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a>
+          {%- endif -%}
+        </ul>
+
+        {%- if site.simplywhite.navigation -%}
+          <nav class="navigation">
+            <ul>
+              {% for link in site.simplywhite.navigation %}
+                <li>
+                  <a href="{{ link.url }}">{{ link.title }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          </nav>
+        {%- endif -%}
+
+        <p>&copy;
+          {{ "now" | date: "%Y" }}</p>
+      </section>
+      <section class="content">
+        {{ content }}
+      </section>
+    </main>
+    {%- if site.simplywhite.analytics_id -%}
+      <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.simplywhite.analytics_id }}"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', '{{ site.simplywhite.analytics_id }}');
+	</script>
+    {%- endif -%}
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv" style='display:none'>本站总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> 
+  </body>
+</html>
