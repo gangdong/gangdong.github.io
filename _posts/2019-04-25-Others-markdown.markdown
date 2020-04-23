@@ -160,7 +160,6 @@ int void main(){
    admin: ['gangdong'],
    id: '/others/2019/04/25/Others-markdown.html',
    title: 'comments'
-   distractionFreeMode: false
     });
    gitalk.render('gitalk-container');
 </script>
