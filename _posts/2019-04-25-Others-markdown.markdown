@@ -158,7 +158,7 @@ int void main(){
    repo: 'daviddong.github.io',
    owner: 'gangdong',
    admin: ['gangdong'],
-   id: md5(location.pathname),
+   id: '/others/2019/04/25/Others-markdown.html',
     
     });
    gitalk.render('gitalk-container');
