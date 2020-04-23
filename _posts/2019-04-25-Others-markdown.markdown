@@ -144,7 +144,7 @@ int void main(){
 目前比较主流的支持**markdown**语言的编辑有markdownpad,typora,sublime,Mou,atom,Cmd Markdown 等，这些软件大部分都能支持windows/liunx和ios(Mou只支持ios)的平台。而且大部分是免费使用。功能上大同小异，都支持实时预览和HTML/PDF输出，有些还能够自定义语法的高亮显示等。我目前使用的是markdownpad,编辑起来还是很方便的。
 
 <!-- Gitalk 评论 start  -->
-{% if site.gitalk.enable %}
+
 <!-- Link Gitalk 的支持文件  -->
 <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
 <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script>
@@ -154,17 +154,17 @@ int void main(){
     var gitalk = new Gitalk({
 
     // gitalk的主要参数
-        clientID: `Github Application clientID`,
-        clientSecret: `Github Application clientSecret`,
-        repo: `存储你评论 issue 的 Github 仓库名`,
-        owner: 'Github 用户名',
-        admin: ['Github 用户名'],
-        id: '页面的唯一标识，gitalk会根据这个标识自动创建的issue的标签',
+        clientID: '5e24fc307693a6df3bc5',
+        clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+        repo: 'daviddong.github.io',
+        owner: 'gangdong',
+        admin: ['gangdong'],
+        id: '',
     
     });
     gitalk.render('gitalk-container');
 </script>
-{% endif %}
+
 <!-- Gitalk end -->
 
 
