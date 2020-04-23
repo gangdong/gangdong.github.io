@@ -170,7 +170,7 @@ int void main(){
 <br><br><br>
 
 <font size="2" color="#aaa">作者：David Dong<br></font>
-<font size="2" color="red">来源：https://gangdong.github.io/daviddong-blog.github.io/others/2019/04/25/markdown.html</font>
-<font size="2" color="red">转载请注明出处。</font>
-<span id="busuanzi_container_page_pv" ></span><font size="2">
-本文总阅读量</font><font size="2"><span id="busuanzi_value_page_pv"></font></span><font size="2">次</font>
+<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong-blog.github.io/others/2019/04/25/markdown.html</font>
+<font size="2" color="#aaa">转载请注明出处。</font>
+<span id="busuanzi_container_page_pv" ></span><font size="2" color="#aaa">
+本文总阅读量</font><font size="2" color="#aaa"><span id="busuanzi_value_page_pv"></font></span><font size="2" color="#aaa">次</font>
