@@ -1,0 +1,119 @@
+I"S<p>I was trying to add comment function under my personal website. Since my personal website was built on the github by jekyII, which is a static website. Therefore to implement the comment function, I need the help with the third-party software. Of course, disqus is the first candidate that you can think about but it is not good option for china user as some known reason. After searched some popular website comments tools, I decided to use gitalk to construct the comment function.</p>
+
+<p>Github is all-powerful, you can find everything on it. Gittalk is a comment component based on Github Issue and Preact. Actually it is github project, designed for
+the official website link is <a href="https://github.com/gitalk/gitalk#install">Gitalk</a> 
+it is amazing easy to use and no need the server support in background. Moreover it can support multiple language includes Chinese among them.</p>
+
+<p>The installation is simple, please refer to below procedure.</p>
+
+<ol>
+  <li>register a github application,as a GitHub application you need to get an authorization before use it. The path to open OAuth Apps page is github homepage-&gt;Settings-&gt;Developer Settings-&gt;OAuth Apps.<br /> 
+<img src="/assets/image/others-gitalk-oauth-apps.png" alt="oAuth Apps" />
+You must specify the website domain url in the Authorization callback URL field.
+After registration, you will get a ‘Client ID’ and ‘Client Secret’, remember these two numbers, you will need to fill them in the following step.
+<img src="/assets/image/others-gitalk-oauth-apps-clientID.png" alt="oAuth Apps" />
+Please note, the user number is zero at this moment in where you haven’t authenticate the application. You need to do it later.
+Now you have register github application for gitalk.</li>
+  <li>Next,copy below code into the page where you want to use gitalk or add it into the posts page, it depends on your website structure. <br />
+<img src="/assets/image/others-gitalk-code.png" alt="code" />
+below is the setting options.<br />
+—–
+    <ul>
+      <li><strong>clientID</strong> String<br />
+<em>Required. GitHub Application Client ID.</em></li>
+      <li><strong>clientSecret</strong> String<br />
+<em>Required. GitHub Application Client Secret.</em></li>
+      <li><strong>repo</strong> String<br />
+<em>Required. GitHub repository.</em></li>
+      <li><strong>owner</strong> String<br />
+<em>Required. GitHub repository owner. Can be personal user or organization.</em></li>
+      <li><strong>admin</strong> Array<br />
+<em>Required. GitHub repository owner and collaborators. (Users who having write access to this repository)</em></li>
+      <li><strong>id</strong> String<br />
+<em>Default: location.href.The unique id of the page. Length must less than 50.</em></li>
+      <li><strong>number</strong> Number<br />
+<em>Default: -1.
+The issue ID of the page, if the number attribute is not defined, issue will be located using id.</em></li>
+      <li><strong>labels</strong> Array<br />
+<em>Default: [‘Gitalk’].
+GitHub issue labels.</em></li>
+      <li><strong>title</strong> String<br />
+<em>Default: document.title.
+GitHub issue title.</em></li>
+      <li><strong>body</strong> String<br />
+<em>Default: location.href + header.meta[description].
+GitHub issue body.</em></li>
+      <li><strong>language</strong> String<br />
+<em>Default: navigator.language || navigator.userLanguage.
+Localization language key, en, zh-CN and zh-TW are currently available.</em></li>
+      <li><strong>perPage</strong> Number<br />
+<em>Default: 10.
+Pagination size, with maximum 100.</em></li>
+      <li><strong>distractionFreeMode</strong> Boolean<br />
+<em>Default: false.
+Facebook-like distraction free mode.</em></li>
+      <li><strong>pagerDirection</strong> String<br />
+<em>Default: ‘last’
+Comment sorting direction, available values are last and first.</em></li>
+      <li><strong>createIssueManually</strong> Boolean<br />
+<em>Default: false.
+By default, Gitalk will create a corresponding github issue for your every single page automatically when the logined user is belong to the admin users. You can create it manually by setting this option to true.</em></li>
+      <li><strong>proxy</strong> String<br />
+<em>Default: <a href="https://cors-anywhere.herokuapp.com/">https://cors-anywhere.herokuapp.com/</a><a href="https://github.com/login/oauth/access_token">https://github.com/login/oauth/access_token</a>.
+GitHub oauth request reverse proxy for CORS. Why need this?</em></li>
+      <li><strong>flipMoveOptions</strong> Object<br />
+*Default:
+        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+ staggerDelayBy: 150,
+ appearAnimation: 'accordionVertical',
+ enterAnimation: 'accordionVertical',
+ leaveAnimation: 'accordionVertical',
+}
+</code></pre></div>        </div>
+        <p>Comment list animation. <a href="https://github.com/joshwcomeau/react-flip-move/blob/master/documentation/enter_leave_animations.md">Reference</a>*</p>
+      </li>
+      <li><strong>enableHotKey</strong> Boolean<br />
+<em>Default: true.
+Enable hot key (cmd|ctrl + enter) submit comment.</em></li>
+    </ul>
+  </li>
+</ol>
+
+<p>For now, the gitalk comment component has been added into your website successfully.
+The appearance is like this.<br />
+<img src="/assets/image/others-gitalk-effect.png" alt="effect" />
+At the first loading, you will be requested to sign in your github account to active the comment function. Then you can use it for now!<br />
+If you like this paragraph or you have anything would like to share, comment  at below! :) <br /></p>
+
+<!-- Gitalk 评论 start  -->
+<!-- Link Gitalk 的支持文件  -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+<script type="text/javascript">
+   var gitalk = new Gitalk({
+
+   // gitalk的主要参数
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'daviddong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: 'java/2012/02/23/Java-pointer.html',
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+</script>
+
+<!-- Gitalk end -->
+
+<p><br /><br /><br /></p>
+
+<font size="2" color="#aaa">作者：David Dong<br /></font>
+<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong.github.io/java/2012/02/23/Java-pointer.html</font>
+<font size="2" color="#aaa">转载请注明出处。</font>
+<p><span id="busuanzi_container_page_pv"></span><font size="2" color="#aaa">
+本文总阅读量</font><font size="2" color="#aaa"><span id="busuanzi_value_page_pv">&lt;/font&gt;</span><font size="2" color="#aaa">次</font></font></p>
+:ET

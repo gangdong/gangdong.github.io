@@ -4,13 +4,16 @@ title:  "Gitalk usage"
 date:   2019-05-12 12:22:01 +0800
 categories: Others
 ---
-I was trying to add comment function under my personal website. Since my personal website was built on the github by jekyII, which is a static website. Therefore to implement the comment function, I need the help with the third-party software. Of course, disqus is the first candidate that you can think about but it is not good option for china user as some known reason. After searched some popular website comments tools, I decided to use gitalk to construct the comment function.
+I has been trying to add comment function under my personal website during the past few days. My personal website was built on the github by jekyII, Jekyll is just a tool for generating static web pages, and does not need database support which means,  I need the help with the third-party software tool. <br>
+Of course, disqus is the first candidate that you can think about however it is not a good option for china users as some known reason. After searched some popular third-party tools, I decided to use gitalk to construct the comment function.
 
-Github is all-powerful, you can find everything on it. Gittalk is a comment component based on Github Issue and Preact. Actually it is github project, designed for
-the official website link is [Gitalk](https://github.com/gitalk/gitalk#install) 
-it is amazing easy to use and no need the server support in background. Moreover it can support multiple language includes Chinese among them.
+Remember "Github is all-powerful, you can find everything on it". I found Gitalk on the Github. Gitalk is a comment component based on Github issue and preact. Actually it is a github project, designed for serving the github users and easy to be applied on the github pages. Gitalk stores the comments into your repositories issues and doesn't need any extra database.<br>
 
-The installation is simple, please refer to below procedure.
+The official web page link of Gitalk is [Gitalk](https://github.com/gitalk/gitalk#install) <br>
+
+It is amazing easy to use and no need the database support in background. Moreover it can support multiple languages includes Chinese among them.
+
+The installation is simple, just refer to below procedure.
 
 1. register a github application,as a GitHub application you need to get an authorization before use it. The path to open OAuth Apps page is github homepage->Settings->Developer Settings->OAuth Apps.<br> 
 ![oAuth Apps](/assets/image/others-gitalk-oauth-apps.png)
@@ -21,7 +24,7 @@ Please note, the user number is zero at this moment in where you haven't authent
 Now you have register github application for gitalk. 
 2. Next,copy below code into the page where you want to use gitalk or add it into the posts page, it depends on your website structure. <br>
 ![code](/assets/image/others-gitalk-code.png)
-below is the setting options.<br>
+Below are the setting options.<br>
 -----
 + **clientID** String<br>
 *Required. GitHub Application Client ID.*
@@ -42,11 +45,9 @@ The issue ID of the page, if the number attribute is not defined, issue will be 
 *Default: ['Gitalk'].
 GitHub issue labels.*
 + **title** String<br>
-*Default: document.title.
-GitHub issue title.*
+*Default: document.title.GitHub issue title.*
 + **body** String<br>
-*Default: location.href + header.meta[description].
-GitHub issue body.*
+*Default: location.href + header.meta[description].GitHub issue body.*
 + **language** String<br>
 *Default: navigator.language || navigator.userLanguage.
 Localization language key, en, zh-CN and zh-TW are currently available.*
@@ -79,11 +80,11 @@ Comment list animation. [Reference](https://github.com/joshwcomeau/react-flip-mo
 + **enableHotKey** Boolean<br>
 *Default: true.
 Enable hot key (cmd|ctrl + enter) submit comment.*
-
-till now, the gitalk comment component has been added into your website successfully.
+Since the gitalk uses the issues to store the comments, so don't forget to enable your repositories issue function (default is enable).
+For now, the gitalk comment component has been added into your website successfully.
 The appearance is like this.<br>
-[effect](/assets/image/others-gitalk-effect.png)
-At the first loading, you will be requested to sign in your github account to active the comment function. Then you can use it for now!<br>
+![effect](/assets/image/others-gitalk-effect.png)
+When the first loading, you will be requested to sign in your github account to active the comment function.After you active it you can use it!<br>
 If you like this paragraph or you have anything would like to share, comment  at below! :) <br>
 
 <!-- Gitalk 评论 start  -->
