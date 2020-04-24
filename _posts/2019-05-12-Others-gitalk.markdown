@@ -5,7 +5,7 @@ date:   2019-05-12 12:22:01 +0800
 categories: Others
 ---
 I has been trying to add comment function under my personal website during the past few days. My personal website was built on the github by jekyII, Jekyll is just a tool for generating static web pages, and does not need database support which means,  I need the help with the third-party software tool. <br>
-Of course, disqus is the first candidate that you can think about however it is not a good option for china users as some known reason. After searched some popular third-party tools, I decided to use gitalk to construct the comment function.
+Of course, disqus is the first candidate that you can think about however it is not a good option for china users as some known reason. After searched some popular third-party tools, I decided to use Gitalk to construct the comment function.
 
 Remember "Github is all-powerful, you can find everything on it". I found Gitalk on the Github. Gitalk is a comment component based on Github issue and preact. Actually it is a github project, designed for serving the github users and easy to be applied on the github pages. Gitalk stores the comments into your repositories issues and doesn't need any extra database.<br>
 
@@ -84,7 +84,7 @@ Since the Gitalk uses the issues to store the comments, so don't forget to enabl
 For now, the Gitalk comment component has been added into your website successfully.<br>
 The appearance is like this.<br>
 ![effect](https://gangdong.github.io/daviddong.github.io/assets/image/others-gitalk-effect.png)
-When the first loading, you will be requested to sign in your github account to active the comment function. Active it then you can use it now!<br>
+When first loading, you will be requested to sign in your github account to active the comment function. Active it then you can use it now!<br>
 If you like this page or you have anything would like to share, comment  at below! :) <br>
 
 <!-- Gitalk 评论 start  -->
