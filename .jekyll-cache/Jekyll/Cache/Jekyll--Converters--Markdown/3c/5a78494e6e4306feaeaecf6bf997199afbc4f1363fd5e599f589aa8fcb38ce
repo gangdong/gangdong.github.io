@@ -1,0 +1,75 @@
+I"N<p>I was trying to add comment function under my personal website. Since my personal website was built on the github by jekyII, which is a static website. Therefore to implement the comment function, I need the help with the third-party software. Of course, disqus is the first candidate that you can think about but it is not good option for china user as some known reason. After searched some popular website comments tools, I decided to use gitalk to construct the comment function.</p>
+
+<p>Github is all-powerful, you can find everything on it. Gittalk is a comment component based on Github Issue and Preact. Actually it is github project, designed for
+the official website link is <a href="https://github.com/gitalk/gitalk#install">Gitalk</a> 
+it is amazing easy to use and no need the server support in background. Moreover it can support multiple language includes Chinese among them.</p>
+
+<p>The installation is simple, please refer to below procedure.</p>
+
+<ol>
+  <li>register a github application,as a GitHub application you need to get an authorization before use it. The path to open OAuth Apps page is github homepage-&gt;Settings-&gt;Developer Settings-&gt;OAuth Apps.<br /> 
+<img src="/assets/image/others-gitalk-oauth-apps.png" alt="oAuth Apps" />
+You must specify the website domain url in the Authorization callback URL field.
+After registration, you will get a ‘Client ID’ and ‘Client Secret’, remember these two numbers, you will need to fill them in the following step.
+<img src="/assets/image/others-gitalk-oauth-apps-clientID.png" alt="oAuth Apps" />
+Please note, the user number is zero at this moment in where you haven’t authenticate the application. You need to do it later.
+Now you have register github application for gitalk.</li>
+  <li>Next,copy below code into the page where you want to use gitalk or add it into the posts page, it depends on your website structure. <br /></li>
+</ol>
+
+<!-- Gitalk comments start  -->
+<!-- Link Gitalk support import  -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<!-- create div  -->
+<div id="gitalk-container"></div>
+<script type="text/javascript">
+   var gitalk = new Gitalk({
+   clientID: 'GitHub Application Client ID',
+   clientSecret: 'GitHub Application Client Secret',
+   repo: 'GitHub repo',
+   owner: 'GitHub repo owner',
+   admin: ['GitHub repo owner and collaborators, only these guys can initialize github issues'],
+   id: location.pathname,      // Ensure uniqueness and length less than 50
+   distractionFreeMode: false  // Facebook-like distraction free mode
+   title: 'your title'
+    });
+   gitalk.render('gitalk-container');
+</script>
+
+<!-- Gitalk end -->
+
+<!-- Gitalk 评论 start  -->
+<!-- Link Gitalk 的支持文件  -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+<script type="text/javascript">
+   var gitalk = new Gitalk({
+
+   // gitalk的主要参数
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'daviddong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: 'java/2012/02/23/Java-pointer.html',
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+</script>
+
+<!-- Gitalk end -->
+
+<p><br /><br /><br /></p>
+
+<font size="2" color="#aaa">作者：David Dong<br /></font>
+<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong.github.io/java/2012/02/23/Java-pointer.html</font>
+<font size="2" color="#aaa">转载请注明出处。</font>
+<p><span id="busuanzi_container_page_pv"></span><font size="2" color="#aaa">
+本文总阅读量</font><font size="2" color="#aaa"><span id="busuanzi_value_page_pv">&lt;/font&gt;</span><font size="2" color="#aaa">次</font></font></p>
+:ET

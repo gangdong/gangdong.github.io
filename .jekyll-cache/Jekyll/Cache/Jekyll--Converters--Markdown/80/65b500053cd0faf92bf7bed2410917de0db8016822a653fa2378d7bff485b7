@@ -1,0 +1,2 @@
+I"ë<p>I was trying to add comment function under my personal website. Since my personal website was built on the github by jekyII, which is a static website. Therefore to implement the comment function, I need the help with the third-party software. Of course, disqus is the first candidate that you can think about but it is not good option for china user as some known reason. After searched some popular website comments tools, I decided to use gitalk to construct the comment function.</p>
+:ET
