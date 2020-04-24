@@ -21,8 +21,8 @@ You must specify the website domain url in the Authorization callback URL field.
 After registration, you will get a 'Client ID' and 'Client Secret', remember these two numbers, you will need to fill them in the following step.
 ![oAuth Apps](https://gangdong.github.io/daviddong.github.io/assets/image/others-gitalk-oauth-apps-clientID.png)
 Please note, the user number is zero at this moment in where you haven't authenticate the application. You need to do it later.
-Now you have register github application for gitalk. 
-2. Next,copy below code into the page where you want to use gitalk or add it into the posts page, it depends on your website structure. <br>
+Now you have registered github application for Gitalk. 
+2. Next,copy below code into the page where you want to use Gitalk or add it into the posts page, it depends on your website's structure. <br>
 ![code](https://gangdong.github.io/daviddong.github.io/assets/image/others-gitalk-code.png)
 Below are the setting options.<br>
 -----
@@ -79,9 +79,9 @@ GitHub oauth request reverse proxy for CORS. Why need this?*
 Comment list animation. [Reference](https://github.com/joshwcomeau/react-flip-move/blob/master/documentation/enter_leave_animations.md)*
 + **enableHotKey** Boolean<br>
 *Default: true.
-Enable hot key (cmd|ctrl + enter) submit comment.*
-Since the gitalk uses the issues to store the comments, so don't forget to enable your repositories issue function (default is enable).
-For now, the gitalk comment component has been added into your website successfully.
+Enable hot key (cmd|ctrl + enter) submit comment.*<br><br>
+Since the gitalk uses the issues to store the comments, so don't forget to enable your repositories issue function (default is enable).<br>
+For now, the gitalk comment component has been added into your website successfully.<br>
 The appearance is like this.<br>
 ![effect](https://gangdong.github.io/daviddong.github.io/assets/image/others-gitalk-effect.png)
 When the first loading, you will be requested to sign in your github account to active the comment function.After you active it you can use it!<br>
