@@ -21,11 +21,11 @@ You must specify the website domain url in the Authorization callback URL field.
 After registration, you will get a 'Client ID' and 'Client Secret', remember these two numbers, you will need to fill them in the following step.
 ![oAuth Apps](https://gangdong.github.io/daviddong.github.io/assets/image/others-gitalk-oauth-apps-clientID.png)
 Please note, the user number is zero at this moment in where you haven't authenticate the application. You need to do it later.
-Now you have registered github application for Gitalk. 
+Now you have registered github application for Gitalk. <br>
 2. Next,copy below code into the page where you want to use Gitalk or add it into the posts page, it depends on your website's structure. <br>
 ![code](https://gangdong.github.io/daviddong.github.io/assets/image/others-gitalk-code.png)
 Below are the setting options.<br>
------
+----------
 + **clientID** String<br>
 *Required. GitHub Application Client ID.*
 + **clientSecret** String<br>
@@ -80,11 +80,11 @@ Comment list animation. [Reference](https://github.com/joshwcomeau/react-flip-mo
 + **enableHotKey** Boolean<br>
 *Default: true.
 Enable hot key (cmd|ctrl + enter) submit comment.*<br><br>
-Since the gitalk uses the issues to store the comments, so don't forget to enable your repositories issue function (default is enable).<br>
-For now, the gitalk comment component has been added into your website successfully.<br>
+Since the Gitalk uses the issues to store the comments, so don't forget to enable your repositories issue function (default is enable).<br>
+For now, the Gitalk comment component has been added into your website successfully.<br>
 The appearance is like this.<br>
 ![effect](https://gangdong.github.io/daviddong.github.io/assets/image/others-gitalk-effect.png)
-When the first loading, you will be requested to sign in your github account to active the comment function.After you active it you can use it!<br>
+When the first loading, you will be requested to sign in your github account to active the comment function. Active it then you can use it now!<br>
 If you like this paragraph or you have anything would like to share, comment  at below! :) <br>
 
 <!-- Gitalk 评论 start  -->
