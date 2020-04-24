@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Gitalk usage"
+title:  "Gitalk Usage"
 date:   2019-05-12 12:22:01 +0800
 categories: Others
 ---
