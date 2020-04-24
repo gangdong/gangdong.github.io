@@ -16,14 +16,14 @@ It is amazing easy to use and no need the database support in background. Moreov
 The installation is simple, just refer to below procedure.
 
 1. register a github application,as a GitHub application you need to get an authorization before use it. The path to open OAuth Apps page is github homepage->Settings->Developer Settings->OAuth Apps.<br> 
-![oAuth Apps](/assets/image/others-gitalk-oauth-apps.png)
+![oAuth Apps](https://gangdong.github.io/daviddong.github.io/assets/image/others-gitalk-oauth-apps.png)
 You must specify the website domain url in the Authorization callback URL field.
 After registration, you will get a 'Client ID' and 'Client Secret', remember these two numbers, you will need to fill them in the following step.
-![oAuth Apps](/assets/image/others-gitalk-oauth-apps-clientID.png)
+![oAuth Apps](https://gangdong.github.io/daviddong.github.io/assets/image/others-gitalk-oauth-apps-clientID.png)
 Please note, the user number is zero at this moment in where you haven't authenticate the application. You need to do it later.
 Now you have register github application for gitalk. 
 2. Next,copy below code into the page where you want to use gitalk or add it into the posts page, it depends on your website structure. <br>
-![code](/assets/image/others-gitalk-code.png)
+![code](https://gangdong.github.io/daviddong.github.io/assets/image/others-gitalk-code.png)
 Below are the setting options.<br>
 -----
 + **clientID** String<br>
@@ -64,7 +64,7 @@ Comment sorting direction, available values are last and first.*
 *Default: false.
 By default, Gitalk will create a corresponding github issue for your every single page automatically when the logined user is belong to the admin users. You can create it manually by setting this option to true.*
 + **proxy** String<br>
-*Default: [https://cors-anywhere.herokuapp.com/](https://cors-anywhere.herokuapp.com/)[https://github.com/login/oauth/access_token](https://github.com/login/oauth/access_token).
+*Default: [https://cors-anywhere.herokuapp.com/](https://cors-anywhere.herokuapp.com/) [https://github.com/login/oauth/access_token](https://github.com/login/oauth/access_token).
 GitHub oauth request reverse proxy for CORS. Why need this?*
 + **flipMoveOptions** Object<br>
 *Default:
@@ -83,7 +83,7 @@ Enable hot key (cmd|ctrl + enter) submit comment.*
 Since the gitalk uses the issues to store the comments, so don't forget to enable your repositories issue function (default is enable).
 For now, the gitalk comment component has been added into your website successfully.
 The appearance is like this.<br>
-![effect](/assets/image/others-gitalk-effect.png)
+![effect](https://gangdong.github.io/daviddong.github.io/assets/image/others-gitalk-effect.png)
 When the first loading, you will be requested to sign in your github account to active the comment function.After you active it you can use it!<br>
 If you like this paragraph or you have anything would like to share, comment  at below! :) <br>
 
@@ -101,7 +101,7 @@ If you like this paragraph or you have anything would like to share, comment  at
    repo: 'daviddong.github.io',
    owner: 'gangdong',
    admin: ['gangdong'],
-   id: 'java/2012/02/23/Java-pointer.html',
+   id: 'others/2019/05/12/Others-gitalk.html',
    title: 'comments'
     });
    gitalk.render('gitalk-container');
@@ -111,7 +111,7 @@ If you like this paragraph or you have anything would like to share, comment  at
 <br><br><br>
 
 <font size="2" color="#aaa">作者：David Dong<br></font>
-<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong.github.io/java/2012/02/23/Java-pointer.html</font>
+<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong.github.io/others/2019/05/12/Others-gitalk.html</font>
 <font size="2" color="#aaa">转载请注明出处。</font>
 <span id="busuanzi_container_page_pv" ></span><font size="2" color="#aaa">
 本文总阅读量</font><font size="2" color="#aaa"><span id="busuanzi_value_page_pv"></font></span><font size="2" color="#aaa">次</font>
