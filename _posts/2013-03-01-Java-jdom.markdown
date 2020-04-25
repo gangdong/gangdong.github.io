@@ -7,13 +7,13 @@ categories: Java
 
 最近工作中使用到了JDOM工具包来编辑XML类型的文档。JDOM是一种使用 XML 的Java 工具包。基于 Java 平台并通过 Java 代码来访问、操作并输出 XML 数据。
 
-以下的介绍转载自[百度百科](https://baike.baidu.com/item/JDOM/2229885?fr=aladdin),JDOM的[下载地址](http://www.jdom.org/downloads/index.html)
+以下的介绍转载自[百度百科](https://baike.baidu.com/item/JDOM/2229885?fr=aladdin), JDOM工具包的[下载地址](http://www.jdom.org/downloads/index.html)
 ```
 JDOM是一个开源项目，它基于树型结构，利用纯JAVA的技术对XML文档实现解析、生成、序列化以及多种操作。
 JDOM 直接为JAVA编程服务。它利用更为强有力的JAVA语言的诸多特性（方法重载、集合概念以及映射），把SAX和DOM的功能有效地结合起来。
 Jdom是用Java语言读、写、操作XML的新API函数。Jason Hunter 和 Brett McLaughlin公开发布了它的1.0版本。在直觉、简单和高效的前提下，这些API函数被最大限度的优化。
 ```
-XML 类型文档是一个树状结构，因此在创建或者访问是要首先定位到根节点。然后依照依照分支去搜寻要定位的节点。<br>
+XML 类型文档是一个树状结构，因此在创建或者访问是要首先定位到根节点。然后依照分支去搜寻要定位的节点。<br>
 
 以下是我实现的用JDOM 操作XML文档的示列代码。
 

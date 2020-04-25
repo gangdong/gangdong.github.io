@@ -5,7 +5,7 @@ date:   2012-11-17 17:25:19 +0800
 categories: Java
 ---
 
-目前工作中用到了JXL库来处理Windows的excel文档，这里做一个总结记录。以方便未来查找。
+因为工作中用到了JXL库来处理Windows的excel文档，这里做一个总结记录。以方便未来查找。
 
 JXL.jar是一个Java类包，封装了对Excel文档的操作。提供了一系列接口，方便编程者读写编辑Excel类型的文档。<br>
 
@@ -13,7 +13,7 @@ JXL的官方下载地址 [官方地址](http://maven.ibiblio.org/maven2/net/sour
 
 将下载后的文件解包，得到JXL.JAR，放入classpath。如果包不能正常的加载，可以把你下载好的JXL.JAR包放入本机jre的安装目录下。
 
-直接讲用法不如
+直接讲用法不如看代码，以下是一些使用JXL库的简单操作。
 
 导入jxl的类库。
 ```java

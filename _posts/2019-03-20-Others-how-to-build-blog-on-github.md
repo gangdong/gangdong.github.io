@@ -3,6 +3,7 @@ layout: post
 title:  "如何在github上构建个人blog"
 date:   2019-03-23 21:03:36 +0800
 categories: Github
+published: false
 ---
 因为工作的原因，对github的使用比较多,github也提供了个人主页的功能，因此就想把个人的博客迁到Github上来。Github上托管的方式属于静态访问，但是能够完全满足我的需求。只要按照github格式要求，新建一个仓库，把网站代码上传到里面，那么就可以在任何时候任何地方都能够访问了。那么如何搭建这个代码托管仓库呢？
 可以参考 Github 官网上的教程 [官方链接](https://pages.github.com)<br>
