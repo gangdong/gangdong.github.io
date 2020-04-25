@@ -6,20 +6,19 @@ categories: C Touch Linux
 published: true
 ---
 今天来讲一下touch controller IC 在android上的驱动代码。<br>
-Touch Screen 作为一个input device,驱动代码当然要符合 android 对输入设备的一般性要求。<br>
+Touch Screen 作为一个input device, 驱动代码当然要符合 android 对输入设备的一般性要求。<br>
 实际上驱动代码完成的工作相对简单，主要有这么几个内容。<br>
 + 初始化设备
 + 完成Input device在 andorid 的注册
 + 注册中断
-+ 初始化相关的文件节点
++ 初始化相关的系统文件节点
 + 上报input event给上层EventHub
 + 提供一些调试接口
 
-下面就以ATMEL MAXTOUCH IC 的驱动代码为例，分析相关的实现。源码请参考 github 的项目主页<br> 
+下面就以ATMEL Maxtouch IC 的驱动代码为例，分析相关的实现过程。 源码请参考 github 的项目主页<br> 
 [github 源码]()
 
-
-首先Touch IC 是一个I2C的设备，因此需要在内核里注册I2C的设备并和驱动代码匹配。内核搜索设备驱动并以注册设备匹配的内容可以去参考相关的文档，这里需要注意的是 i2c_device_id 里的ID一定要和DTSI 里面注册的ID信息一致。才能保证内核会加载到正确的驱动代码。
+首先Touch IC 是一个I2C的设备，因此需要在内核里注册I2C的设备并和驱动代码匹配。有关内核搜索设备驱动并和注册设备匹配的内容可以去参考相关的文档，这里需要注意的是 i2c_device_id 里的ID名称一定要和设备树里面注册的ID名称一致。才能保证内核会加载到正确的驱动代码。
 ```c
 static const struct i2c_device_id mxt_id[] = {
 	{ "qt602240_ts", 0 },
@@ -81,7 +80,7 @@ static int __devinit mxt_probe(struct i2c_client *client,
 /* Initialize i2c device */
 	error = mxt_initialize(data);
 ```
-接下来要执行mxt_initialize(data)这个函数来做设备的硬件初始化。我们来看看硬件初始化里面都做了哪些事情。
+接下来要执行mxt_initialize()这个函数来做设备的硬件初始化。我们来看看硬件初始化里面都做了哪些事情。
 ```c
 static int mxt_initialize(struct mxt_data *data)
 {
@@ -151,11 +150,11 @@ static int mxt_initialize(struct mxt_data *data)
 	return 0;
 }
 ```
-我们看到首先要从芯片内部读取相关的ID信息，这些信息是存储在芯片内部memeory的固定的地址。调用的函数，该函数的返回值反应了读取的结果，如果不为零说明读取失败，芯片状态异常，这时要通过发送命令让芯片进入bootloader模式，重新复位。
+我们看到首先要从芯片内部读取相关的设备信息(芯片型号，版本信息等)，这些信息是存储在芯片内部memeory的固定的地址。调用的函数mxt_get_info()，该函数的返回值表示读取的结果，如果不为零说明读取失败，芯片状态异常，这时要通过发送命令让芯片进入bootloader模式(mxt_probe_bootloader()函数)，重新复位。
 ```c
 error = mxt_get_info(data);
 ```
-如果读取正确，设置芯片状态为APP_MODE，这时会读取object_table，ATMEL的Touch IC内部维护了一个寄存器的地址列表，通过读取该列表来初始化寄存器的地址。从而可以读写内部寄存器。具体的内容需要参考芯片的技术手册。
+如果读取正确，设置芯片状态为APP_MODE，这时会读取object_table，ATMEL的Touch IC内部维护了一个寄存器的地址列表，不同型号的IC，该地址列表内容有所不同。通过读取该列表来初始化寄存器的地址。从而可以读写内部寄存器。具体的内容需要参考芯片的技术手册。
 ```c
 error = mxt_get_object_table(data);
 ```
@@ -178,7 +177,7 @@ error = mxt_check_message_length(data);
 		return error;
 	}
 ```
-最后一步是读取寄存器内部配置的显示屏的分辨率信息，为以后上报touch event的坐标做准备。
+最后一步是读取寄存器内部配置的显示屏的分辨率信息，为以后上报touch event的坐标数据做准备。
 ```c
 error = mxt_read_resolution(data);
 ```
@@ -228,10 +227,14 @@ error = mxt_read_resolution(data);
 		goto err_free_irq;
 	}
 ```
-这里设计到linux input 设备的初始化，需要调用__set_bit(),input_set_abs_params()来做输入设备的一些必要的配置，比如多少个手指，分辨率是多少等，具体可以参考相关的文档。
-之后调用input_register_device()函数来将刚才配置好的Input device注册到kernal中去。
+以上为注册Input device的代码，这里涉及到Linux input 设备的初始化，需要调用__set_bit(), input_set_abs_params()来做输入设备的一些必要的配置，比如多少个手指，分辨率是多少等，具体可以参考相关的文档。<br>
+之后调用input_register_device()函数来将刚才配置好的Input device注册到kernel中去。
 
-之后的申请中断就比较简单，需要调用request_threaded_irq()函数，该函数的参数中需要传入 1. 该设备申请的中断号，这个在DTS中定义。 2. 中断处理函数名 3. 中断的类型 4. 驱动的名字
+之后的申请中断就比较简单，需要调用request_threaded_irq()函数，该函数的参数中需要传入 
+1. 该设备申请的中断号，这个在DTS中定义。 
+2. 2. 中断处理函数名 
+3. 3. 中断的类型 
+4. 4. 驱动的名字
 ```c
 error = request_threaded_irq(client->irq, NULL, mxt_interrupt,
 			pdata->irqflags, client->dev.driver->name, data);
@@ -240,7 +243,7 @@ error = request_threaded_irq(client->irq, NULL, mxt_interrupt,
 		goto err_free_object;
 	}
 ```
-最后是注册sys文件节点，通过读写这些节点可以完成对芯片的特定操作，比如升级固件，配置文件等。
+最后是注册sys文件节点，后期通过读写这些文件节点可以完成对芯片的特定操作，比如升级固件，配置文件等。
 ```c
 error = sysfs_create_group(&client->dev.kobj, &mxt_attr_group);
 	if (error) {
@@ -449,19 +452,19 @@ static void mxt_input_report(struct mxt_data *data, int single_id)
 	input_sync(input_dev);
 }
 ```
-mxt_input_report()主要调用了如下的Linux kernal函数来上报消息。<br>
+mxt_input_report()主要调用了如下的Linux kernel函数来上报消息。<br>
 + input_mt_slot()
 + input_mt_report_slot_state()
 + input_report_abs()
 + input_report_key()
-+ input_sync()
++ input_sync()<br>
 其中 input_mt_slot() 是指明当前上报的slot号，目前的代码使用的是protocol B协议来处理touch事件，protocol B 会为每个手指分配一个slot，不同手指的数据会被封装到不同的slot中，这样可以保证不同的手指消息被区分开来传送。可以更好的支持多指触控(不同于协议A，触控IC 的firmware可以计算划分不同的手指信息，无需上层的算法参与，可以提高响应速度)，详细的内容可以参考。
 input_mt_report_slot_state()是设定当前slot的状态，比如按下，抬起等。
 如果是按下状态，还要调用input_report_abs()函数来上报当前的坐标信息。
 如果是按键事件，调用input_report_key()来上报当前的按键信息。
 最后input_sync()来将所有的信息打包成一个数据帧来发送，注意如果不执行这个函数，之前的信息无效，不会被发送给上层。
 
-好了，到这里整个驱动代码所要完成的主要任务都已经完成了。从整个流程来看虽然比较简单，但是触控IC的驱动程序作为硬件设备和kernel的接口，还是起到了非常重要的作用。对于设备的Bringup，还是要十分重视。<br>
+好了，到这里整个驱动代码所要完成的主要任务都已经完成了。从整个流程来看虽然比较简单，但是触控IC的驱动程序作为硬件设备和Linux kernel的接口，还是起到了非常重要的作用。对于设备的驱动代码，还是要十分重视。<br>
 <!-- Gitalk 评论 start  -->
 <!-- Link Gitalk 的支持文件  -->
 <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
