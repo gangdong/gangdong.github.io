@@ -16,7 +16,7 @@ Touch Screen 作为一个input device, 驱动代码当然要符合 android 对�
 + 提供一些调试接口
 
 下面就以ATMEL Maxtouch IC 的驱动代码为例，分析相关的实现过程。 源码请参考 github 的项目主页<br> 
-[github 源码]()
+[github 源码](https://github.com/atmel-maxtouch/maXTouch_linux)
 
 首先Touch IC 是一个I2C的设备，因此需要在内核里注册I2C的设备并和驱动代码匹配。有关内核搜索设备驱动并和注册设备匹配的内容可以去参考相关的文档，这里需要注意的是 i2c_device_id 里的ID名称一定要和设备树里面注册的ID名称一致。才能保证内核会加载到正确的驱动代码。
 ```c
@@ -154,7 +154,7 @@ static int mxt_initialize(struct mxt_data *data)
 ```c
 error = mxt_get_info(data);
 ```
-如果读取正确，设置芯片状态为APP_MODE，这时会读取object_table，ATMEL的Touch IC内部维护了一个寄存器的地址列表，不同型号的IC，该地址列表内容有所不同。通过读取该列表来初始化寄存器的地址。从而可以读写内部寄存器。具体的内容需要参考芯片的技术手册。
+如果读取正确，设置芯片状态为APP_MODE，这时会读取object_table，ATMEL的Touch IC内部维护了一个寄存器的地址列表，不同型号的IC，该地址列表内容有所不同。通过读取该列表来初始化寄存器的地址。从而可以正确读写内部寄存器。具体的内容需要参考芯片的技术手册。
 ```c
 error = mxt_get_object_table(data);
 ```
@@ -227,14 +227,13 @@ error = mxt_read_resolution(data);
 		goto err_free_irq;
 	}
 ```
-以上为注册Input device的代码，这里涉及到Linux input 设备的初始化，需要调用__set_bit(), input_set_abs_params()来做输入设备的一些必要的配置，比如多少个手指，分辨率是多少等，具体可以参考相关的文档。<br>
-之后调用input_register_device()函数来将刚才配置好的Input device注册到kernel中去。
-
-之后的申请中断就比较简单，需要调用request_threaded_irq()函数，该函数的参数中需要传入 
+以上为注册Input device的代码，这里涉及到Linux input 设备的初始化，需要调用__set_bit(), input_set_abs_params()函数来完成输入设备的一些必要的配置，比如多少个手指，分辨率是多少等，具体可以参考相关的文档。<br>
+最后调用input_register_device()函数来将刚才配置好的Input device注册到kernel中去。
+关于申请中断就比较简单，需要调用request_threaded_irq()函数，该函数的参数中需要传入 
 1. 该设备申请的中断号，这个在DTS中定义。 
-2. 2. 中断处理函数名 
-3. 3. 中断的类型 
-4. 4. 驱动的名字
+2. 中断处理函数名 
+3. 中断的类型 
+4. 驱动的名字
 ```c
 error = request_threaded_irq(client->irq, NULL, mxt_interrupt,
 			pdata->irqflags, client->dev.driver->name, data);
@@ -243,7 +242,7 @@ error = request_threaded_irq(client->irq, NULL, mxt_interrupt,
 		goto err_free_object;
 	}
 ```
-最后是注册sys文件节点，后期通过读写这些文件节点可以完成对芯片的特定操作，比如升级固件，配置文件等。
+最后的步骤是注册sys文件节点，后期通过读写这些文件节点可以完成对芯片的特定操作，比如升级固件，配置文件等。
 ```c
 error = sysfs_create_group(&client->dev.kobj, &mxt_attr_group);
 	if (error) {
@@ -262,7 +261,7 @@ static struct attribute *mxt_attrs[] = {
 	NULL
 };
 ```
-至此，驱动的加载已经完成，该驱动支持的设备已经可以正常使用。当然驱动代码还有其他的一些任务，比如定义系统休眠，唤醒时的操作。实际上就是设备上下电相关的一些操作。如果需要修改设备上下电的策略，需要修改mxt_start()和mxt_stop()两个函数内容。
+至此，驱动的加载已经完成，该驱动支持的设备已经可以正常使用。当然驱动代码还有其他的一些任务，比如定义系统休眠，唤醒时的操作。实际上就是设备上下电相关的一些操作。如果需要更改设备上下电时的策略，则要对mxt_start()和mxt_stop()两个函数内容进行修改。
 ```c
 static int mxt_suspend(struct device *dev)
 {
@@ -342,7 +341,8 @@ end:
 	return IRQ_HANDLED;
 }
 ```
-可以看到，在中断处理函数中使用了轮询的方法，通过mxt_read_message()函数来读取IC准备好的数据，直到所有数据都被读取，然后调用mxt_input_touchevent()函数将读取的数据打包发送。mxt_input_touchevent()函数的实现如下。
+可以看到，在中断处理函数中使用了轮询的方法，通过mxt_read_message()函数来读取IC准备好的数据，直到所有数据都被读取，然后调用mxt_input_touchevent()函数将读取的数据打包发送。
+mxt_input_touchevent()函数的实现如下。
 ```c
 static void mxt_input_touchevent(struct mxt_data *data,
 				      struct mxt_message *message, int id)
@@ -407,7 +407,8 @@ static void mxt_input_touchevent(struct mxt_data *data,
 	mxt_input_report(data, id);
 }
 ```
-mxt_input_touchevent()是十分重要的函数，在这个函数里会根据读取到的数据判断当前touch的状态，比如手指是抬起，抑制还是按压，移动。针对不同的状态会发送不同的消息类型给上层。具体的传送通过mxt_input_report()函数执行。mxt_input_report()的函数体如下。
+mxt_input_touchevent()是十分重要的函数，在这个函数里会根据读取到的数据判断当前touch的状态，比如手指是抬起，抑制还是按压，移动。针对不同的状态会发送不同的消息类型给上层。具体的传送通过mxt_input_report()函数执行。
+mxt_input_report()的函数体如下。
 ```c
 static void mxt_input_report(struct mxt_data *data, int single_id)
 {
@@ -479,7 +480,7 @@ input_mt_report_slot_state()是设定当前slot的状态，比如按下，抬起
    repo: 'daviddong.github.io',
    owner: 'gangdong',
    admin: ['gangdong'],
-   id: 'github/2019/03/23/Others-how-to-build-blog-on-github.html',
+   id: 'c/touch/linux/2014/06/25/Touch-driver.html',
    title: 'comments'
     });
    gitalk.render('gitalk-container');

@@ -84,7 +84,9 @@ Since the Gitalk uses the issues to store the comments, so don't forget to enabl
 For now, the Gitalk comment component has been added into your website successfully.<br>
 The appearance is like this.<br>
 ![effect](https://gangdong.github.io/daviddong.github.io/assets/image/others-gitalk-effect.png)
-When first loading, you will be requested to sign in your github account to active the comment function. Active it then you can use it now!<br>
+When first loading, you will be requested to sign in your github account to active the comment function.
+![firstload](https://gangdong.github.io/daviddong.github.io/assets/image/others-gitalk-first-loading.png)
+Active it then you can use it now!<br>
 If you like this page or you have anything would like to share, comment  at below! :) <br>
 
 <!-- Gitalk 评论 start  -->
