@@ -15,7 +15,7 @@ Touch Screen 作为一个input device, 驱动代码当然要符合 android 对�
 + 上报input event给上层EventHub
 + 提供一些调试接口
 
-下面就以ATMEL Maxtouch IC 的驱动代码为例，分析相关的实现过程。 源码请参考 github 的项目主页<br> 
+下面就以ATMEL maXTouch IC 的驱动代码为例，分析相关的实现过程。 源码请参考 github 的项目主页<br> 
 [github 源码](https://github.com/atmel-maxtouch/maXTouch_linux)
 
 首先Touch IC 是一个I2C的设备，因此需要在内核里注册I2C的设备并和驱动代码匹配。有关内核搜索设备驱动并和注册设备匹配的内容可以去参考相关的文档，这里需要注意的是 i2c_device_id 里的ID名称一定要和设备树里面注册的ID名称一致。才能保证内核会加载到正确的驱动代码。
@@ -234,6 +234,7 @@ error = mxt_read_resolution(data);
 2. 中断处理函数名 
 3. 中断的类型 
 4. 驱动的名字
+
 ```c
 error = request_threaded_irq(client->irq, NULL, mxt_interrupt,
 			pdata->irqflags, client->dev.driver->name, data);
@@ -458,7 +459,8 @@ mxt_input_report()主要调用了如下的Linux kernel函数来上报消息。<b
 + input_mt_report_slot_state()
 + input_report_abs()
 + input_report_key()
-+ input_sync()<br>
++ input_sync()
+
 其中 input_mt_slot() 是指明当前上报的slot号，目前的代码使用的是protocol B协议来处理touch事件，protocol B 会为每个手指分配一个slot，不同手指的数据会被封装到不同的slot中，这样可以保证不同的手指消息被区分开来传送。可以更好的支持多指触控(不同于协议A，触控IC 的firmware可以计算划分不同的手指信息，无需上层的算法参与，可以提高响应速度)，详细的内容可以参考。
 input_mt_report_slot_state()是设定当前slot的状态，比如按下，抬起等。
 如果是按下状态，还要调用input_report_abs()函数来上报当前的坐标信息。
