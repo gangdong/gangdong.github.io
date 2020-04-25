@@ -2,7 +2,7 @@
 layout: post
 title:  "ATMEL 触控IC驱动代码分析"
 date:   2014-06-25 17:18:35 +0800
-categories: c touch linux
+categories: C Touch Linux
 published: true
 ---
 今天来讲一下touch controller IC 在android上的驱动代码。<br>
@@ -486,7 +486,7 @@ input_mt_report_slot_state()是设定当前slot的状态，比如按下，抬起
 <br><br><br>
 
 <font size="2" color="#aaa">作者：David Dong<br></font>
-<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong.github.io/github/2019/03/23/Others-how-to-build-blog-on-github.html</font>
+<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong.github.io/c/touch/linux/2014/06/25/Touch-driver.html</font>
 <font size="2" color="#aaa">转载请注明出处。</font>
 <span id="busuanzi_container_page_pv" ></span><font size="2" color="#aaa">
 本文总阅读量</font><font size="2" color="#aaa"><span id="busuanzi_value_page_pv"></font></span><font size="2" color="#aaa">次</font>
