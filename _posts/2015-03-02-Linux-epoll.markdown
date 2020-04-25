@@ -2,7 +2,7 @@
 layout: post
 title:  "poll(),pipe()函数使用说明"
 date:   2015-03-02 20:12:01 +0800
-categories: linux
+categories: Linux
 ---
 #### poll()函数
 Linux 中 poll() 函数用来监听并等待多个文件描述符的属性变化。<br>

@@ -2,7 +2,7 @@
 layout: post
 title:  "Linux fork()函数"
 date:   2015-03-22 20:12:01 +0800
-categories: linux
+categories: Linux
 ---
 在Linux中每个进程拥有独立的地址空间,地址空间包括代码段、数据段和堆栈段。<br>
 **代码段**：存储程序的代码<br>
