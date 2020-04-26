@@ -20,7 +20,7 @@ The installation is simple, just refer to below procedure.
 You must specify the website domain url in the Authorization callback URL field.
 After registration, you will get a 'Client ID' and 'Client Secret', remember these two numbers, you will need to fill them in the following step.
 ![oAuth Apps](https://gangdong.github.io/daviddong.github.io/assets/image/others-gitalk-oauth-apps-clientID.png)
-Please note, the user number is zero at this moment in where you haven't authenticated the application. You need to do it later.
+Please note, the user number is zero at this moment when you haven't authenticated the application. You need to do it later.
 Now you have registered github application for Gitalk. <br>
 2. Next,copy below code into the page where you want to use Gitalk or add it into the posts page, it depends on your website's structure. <br>
 ![code](https://gangdong.github.io/daviddong.github.io/assets/image/others-gitalk-code.png)

@@ -5,7 +5,7 @@ date:   2012-11-17 17:25:19 +0800
 categories: Java
 ---
 
-因为工作中用到了JXL库来处理Windows的excel文档，这里做一个总结记录。以方便未来查找。
+因为开发中用到了JXL库来处理Windows的excel文档，这里做一个总结记录。以方便未来查找。
 
 JXL.jar是一个Java类包，封装了对Excel文档的操作。提供了一系列接口，方便编程者读写编辑Excel类型的文档。<br>
 
@@ -74,10 +74,11 @@ import jxl.write.WritableWorkbook;
                    catch(IOException e){
 
                    }
-
-
-
 ```
+具体的使用案例可以参考我的Github下的项目。 
+[Github project](https://github.com/gangdong/BLDC)
+
+
 <!-- Gitalk 评论 start  -->
 <!-- Link Gitalk 的支持文件  -->
 <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">

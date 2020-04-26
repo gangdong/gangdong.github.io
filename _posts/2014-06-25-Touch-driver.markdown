@@ -75,7 +75,7 @@ static int __devinit mxt_probe(struct i2c_client *client,
 		goto err_free_mem;
 	}
 ```
-其中input_allocate_device()这个函数会为input_dev这个结构体申请内存。关于这个函数的说明请参考我的另一篇文章 [另一篇文章]()
+这里面结构体input_dev用于描述一个输入子系统设备，何驱动设备如果想标明自己是输入设备，都应该通过初始化这样的结构体。input_allocate_device()这个函数会为input_dev这个结构体申请内存并完成这个结构体在内核中的注册。关于这个函数的说明请参考我的另一篇文章 [另一篇文章]()
 ```c
 /* Initialize i2c device */
 	error = mxt_initialize(data);
