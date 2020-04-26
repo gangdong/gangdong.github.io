@@ -144,7 +144,6 @@ int void main(){
 目前比较主流的支持**markdown**语言的编辑有markdownpad,typora,sublime,Mou,atom,Cmd Markdown 等，这些软件大部分都能支持windows/liunx和ios(Mou只支持ios)的平台。而且大部分是免费使用。功能上大同小异，都支持实时预览和HTML/PDF输出，有些还能够自定义语法的高亮显示等。我目前使用的是markdownpad,编辑起来还是很方便的。
 
 <!-- Gitalk 评论 start  -->
-
 <!-- Link Gitalk 的支持文件  -->
 <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
 <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
@@ -164,8 +163,6 @@ int void main(){
    gitalk.render('gitalk-container');
 </script>
 <!-- Gitalk end -->
-
-
 
 <br><br><br>
 
