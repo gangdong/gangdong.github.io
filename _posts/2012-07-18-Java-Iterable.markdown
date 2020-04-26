@@ -7,21 +7,22 @@ published: true
 ---
 
 Iterable<>是Java.lang包中定义的一个接口, 
-根据Java文档的介绍该接口主要声明了一个iterator()方法，该方法返回一个iterator<>接口。
+根据Java文档的介绍该接口主要声明了一个Iterator()方法，该方法返回一个Iterator<>接口。
 [Iterable Java 文档](https://docs.oracle.com/javase/8/docs/api/)
 ![Iterable](https://gangdong.github.io/daviddong.github.io/assets/image/java-iterable-function)
-那我们接下来看一看iterator<>接口主要内容，iterator<>接口的Java 文档里说明
-iterator<>接口主要声明了三个方法。
+<br>
+那我们接下来看一看Iterator<>接口主要内容，Iterator<>接口的Java 文档里说明
+Iterator<>接口主要声明了三个方法。[Iterator Java 文档](https://docs.oracle.com/javase/8/docs/api/)
 + boolean hasNext()
 + E next()
 + default void remove()
 
-看到这里就很清楚了，实现了iterator<>接口的类可以进行迭代遍历，iterator<>接口通过对以上3个方法的封装实现了对遍历访问的支持。Java里的集合类都实现了iterator<>接口。
+看到这里就很清楚了，实现了Iterator<>接口的类可以进行迭代遍历，Iterator<>接口通过对以上3个方法的封装实现了对遍历访问的支持。Java里的集合类都实现了Iterator<>接口。
 
 一个简单的应用例子。
-Student.java
+Student.java - 基本的数据类
 ```java
-package com.daviddong.example.iterator
+package com.daviddong.example.Iterator
 
 public class Student {
 
@@ -71,9 +72,9 @@ public class Student {
 
 }
 ```
-MyIterableClass.java
+MyIterableClass.java - 实现了Iterator接口
 ```java
-package com.daviddong.example.iterator;
+package com.daviddong.example.Iterator;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -108,7 +109,7 @@ public class MyIterableClass implements Iterator {
 ```
 APP.java
 ```java
-package com.daviddong.example.iterator
+package com.daviddong.example.Iterator
 
 import java.util.ArrayList;
 import java.util.Random;
