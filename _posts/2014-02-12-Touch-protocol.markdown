@@ -59,13 +59,13 @@ Linux 下的触摸协议分为协议A(protocol A)和协议B(protocol B)。
 
 事件类型|含义|
 ---|:---|
-ABS_MT_POSITION_X|:接触面的形心的Ｘ坐标值:|
-ABS_MT_POSITION_Y|:接触面的形心的Ｙ坐标值:|
-ABS_MT_TOUCH_MAJOR|:触点主轴长度:|
-ABS_MT_TOUCH_MINOR|:触点的短轴长度:|
-ABS_MT_PRESSURE|:接触区域上的压力:|
-ABS_MT_TOOL_TYPE|:接触工具类型（比如手指和笔）:|
-ABS_MT_TRACKING_ID|:为接触点分配的ID:|
+ABS_MT_POSITION_X|:接触面的形心的Ｘ坐标值|
+ABS_MT_POSITION_Y|:接触面的形心的Ｙ坐标值|
+ABS_MT_TOUCH_MAJOR|:触点主轴长度|
+ABS_MT_TOUCH_MINOR|:触点的短轴长度|
+ABS_MT_PRESSURE|:接触区域上的压力|
+ABS_MT_TOOL_TYPE|:接触工具类型（比如手指和笔）|
+ABS_MT_TRACKING_ID|:为接触点分配的ID|
 
 
 以上为多点触摸协议的基本内容，目前触控设备大多具备硬件识别并区分触摸点的能力，因此协议A基本上已经很少使用了。
