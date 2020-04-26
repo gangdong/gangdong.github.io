@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Java 的finalize()方法的总结"
+title:  "Java 的finalize()方法总结"
 date:   2012-06-04 23:42:04 +0800
 categories: Java
 published: true
