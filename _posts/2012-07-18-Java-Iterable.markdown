@@ -6,9 +6,10 @@ categories: Java
 published: true
 ---
 
-Iterable<>是Java.lang包中定义的一个接口, Java 文档 [Iterable Java 文档](https://docs.oracle.com/javase/8/docs/api/)
-从以下可以看出该接口主要声明了一个iterator()方法，该方法返回一个iterator<>接口。
-![Iterable](/assets/image/java-iterable-function.png)
+Iterable<>是Java.lang包中定义的一个接口, 
+根据Java文档的介绍该接口主要声明了一个iterator()方法，该方法返回一个iterator<>接口。
+[Iterable Java 文档](https://docs.oracle.com/javase/8/docs/api/)
+![Iterable](https://gangdong.github.io/daviddong.github.io/assets/image/java-iterable-function.png)
 那我们接下来看一看iterator<>接口主要内容，iterator<>接口的Java 文档里说明
 iterator<>接口主要声明了三个方法。
 + boolean hasNext()
@@ -168,7 +169,7 @@ public class App {
    repo: 'daviddong.github.io',
    owner: 'gangdong',
    admin: ['gangdong'],
-   id: 'c/touch/linux/2014/06/25/Touch-driver.html',
+   id: 'java/2012/07/18/Java-Iterable.html',
    title: 'comments'
     });
    gitalk.render('gitalk-container');
@@ -178,7 +179,7 @@ public class App {
 <br><br><br>
 
 <font size="2" color="#aaa">作者：David Dong<br></font>
-<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong.github.io/c/touch/linux/2014/06/25/Touch-driver.html</font>
+<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong.github.io/java/2012/07/18/Java-Iterable.html</font>
 <font size="2" color="#aaa">转载请注明出处。</font>
 <span id="busuanzi_container_page_pv" ></span><font size="2" color="#aaa">
 本文总阅读量</font><font size="2" color="#aaa"><span id="busuanzi_value_page_pv"></font></span><font size="2" color="#aaa">次</font>
