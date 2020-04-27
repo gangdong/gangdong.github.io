@@ -159,14 +159,8 @@ public class MyRunnable implements Runnable{
 最后在介绍一些Thread类的常用方法。<br>
 
 ruturn|Function|Description
----|:--:|---:
+---|:--:|---
 Thread|currentThread|返回代码段当前被调用的线程
-static void|sleep()|在指定的毫秒数内让当前"正在执行的线程"休眠（暂停执行）
-void|start()|启动当前线程
-
-ruturn|Function|Description
----|:--:|---:
-Thread|currentThread()|返回代码段当前被调用的线程
 static void|sleep()|在指定的毫秒数内让当前"正在执行的线程"休眠（暂停执行）
 void|start()|启动当前线程
 boolean|isAlive()|当前线程是否处于激活状态
@@ -174,6 +168,13 @@ String|getName()|返回当前线程的名字
 long|getID()|返回当前线程的ID
 void|setPriority()|设置优先级
 boolean|isDaemon()|是否为守护进程
+
+
+
+
+
+
+
 <br>
 <!-- Gitalk 评论 start  -->
 <!-- Link Gitalk 的支持文件  -->
