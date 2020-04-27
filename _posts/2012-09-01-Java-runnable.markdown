@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Java 的线程和Runable接口"
+title:  "Java 的线程和Runnable接口"
 date:   2012-09-01 13:27:23 +0800
 categories: Java
 published: true
@@ -158,7 +158,7 @@ public class MyRunnable implements Runnable{
 现在我们看到共享资源是按顺序被调用且没有重复。<br>
 最后在介绍一些Thread类的常用方法。<br>
 
-ruturn|Function|Description
+**return**|**Function**|**Description**
 ---|:--|---
 Thread|currentThread|返回代码段当前被调用的线程
 void|sleep()|在指定的毫秒数内让当前"正在执行的线程"休眠（暂停执行）
