@@ -12,7 +12,7 @@ Of course, disqus is the first candidate that you can think about however it is 
 
 Remember "Github is all-powerful, you can find everything on it". I found Gitalk on the Github. Gitalk is a comment component based on Github issue and preact. Actually it is a github project, designed for serving the github users and easy to be applied on the github pages. Gitalk stores the comments into your repository issues and doesn't need any extra database.<br>
 
-The official web page link of Gitalk is [Gitalk](https://github.com/gitalk/gitalk#install) <br>
+The official github page link of Gitalk is [Gitalk page](https://github.com/gitalk/gitalk#install) <br>
 
 It is amazing easy to use and no need the database support in background. Moreover it can support multiple languages includes Chinese among them.
 
