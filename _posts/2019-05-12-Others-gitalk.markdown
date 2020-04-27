@@ -4,7 +4,7 @@ title:  "Gitalk Usage"
 date:   2019-05-12 12:22:01 +0800
 categories: Others
 ---
-If you are looking for how to add comment function on your personal blog, this article probably can help you.
+If you are looking for a quick solution about how to add comment function on your personal blog, this article probably can help you.
 
 I has been trying to add comment function under my personal website during the past few days. My personal website was built on the github by jekyll, Jekyll is just a tool for generating static web pages, and does not need database support which means,  I need the help with the third-party software tool. <br>
 
