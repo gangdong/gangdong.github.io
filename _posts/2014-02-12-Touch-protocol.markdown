@@ -28,7 +28,7 @@ Linux 下的触摸协议分为协议A(protocol A)和协议B(protocol B)。
 #### 协议B
 协议B针对的设备有能力鉴别并追踪触摸点。因此在上报每个点的坐标信息以外会附带上触摸点的信息（例如代表是由哪个手指触摸）。
 比如ATMEL mxTouch IC 的上报信息格式。<br>
-[maXTouch message](https:/gangdong.github.io/daviddong.github.io//assets/image/touch-protocol-b-reportid.png)
+![maXTouch message](https:/gangdong.github.io/daviddong.github.io//assets/image/touch-protocol-b-reportid.png)
 
 这就要求协议B里需要能够上报触摸点的信息，并能够根据不同的触摸点来打包发送数据。这样做的好处是大量的工作由底层的硬件来完成，无需上层运行算法来过滤和追踪触摸点的轨迹。
 与协议A不同，协议B在每个数据包的开头以slot为参数调用input_mt_slot()来分离触点数据包。这会产生一个ABS_MT_SLOT事件，从而通知接收者准备所给的slot的更新。而在传送的结尾和协议A相同，都是由input_sync()来通知本次传送的结束。
