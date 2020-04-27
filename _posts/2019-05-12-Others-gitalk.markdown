@@ -7,9 +7,10 @@ categories: Others
 If you are looking for how to add comment function on your personal blog, this article probably can help you.
 
 I has been trying to add comment function under my personal website during the past few days. My personal website was built on the github by jekyll, Jekyll is just a tool for generating static web pages, and does not need database support which means,  I need the help with the third-party software tool. <br>
+
 Of course, disqus is the first candidate that you can think about however it is not a good option for china users as some known reason. After searched some popular third-party tools, I decided to use Gitalk to construct the comment function.
 
-Remember "Github is all-powerful, you can find everything on it". I found Gitalk on the Github. Gitalk is a comment component based on Github issue and preact. Actually it is a github project, designed for serving the github users and easy to be applied on the github pages. Gitalk stores the comments into your repositories issues and doesn't need any extra database.<br>
+Remember "Github is all-powerful, you can find everything on it". I found Gitalk on the Github. Gitalk is a comment component based on Github issue and preact. Actually it is a github project, designed for serving the github users and easy to be applied on the github pages. Gitalk stores the comments into your repository issues and doesn't need any extra database.<br>
 
 The official web page link of Gitalk is [Gitalk](https://github.com/gitalk/gitalk#install) <br>
 
@@ -82,12 +83,14 @@ Comment list animation. [Reference](https://github.com/joshwcomeau/react-flip-mo
 + **enableHotKey** Boolean<br>
 *Default: true.
 Enable hot key (cmd|ctrl + enter) submit comment.*<br><br>
-Since the Gitalk uses the issues to store the comments, so don't forget to enable your repositories issue function (default is enable).<br>
+Since the Gitalk uses the repository issues to store the comments, so don't forget to enable your repository issue function (default is enable).<br>
+
 For now, the Gitalk comment component has been added into your website successfully.<br>
 The appearance is like this.<br>
 ![effect](https://gangdong.github.io/daviddong.github.io/assets/image/others-gitalk-effect.png)
-When first loading, you will be requested to sign in your github account to active the comment function.
+When first loading, you will be requested to sign in your github account to active the comment function.<br>
 ![firstload](https://gangdong.github.io/daviddong.github.io/assets/image/others-gitalk-first-loading.png)
+<br>
 Active it then you can use it now!<br>
 If you like this page or you have anything would like to share, comment  at below! :) <br>
 
