@@ -5,9 +5,9 @@ date:   2012-07-18 13:27:23 +0800
 categories: Java
 published: true
 ---
-
 Iterable<>是Java.lang包中定义的一个接口, 
 根据Java文档的介绍该接口主要声明了一个Iterator()方法，该方法返回一个Iterator<>接口。
+
 [Iterable Java 文档](https://docs.oracle.com/javase/8/docs/api/)
 ![Iterable](https://gangdong.github.io/daviddong.github.io/assets/image/java-iterable-function.png)
 <br>
