@@ -161,8 +161,8 @@ public class MyRunnable implements Runnable{
 ruturn|Function|Description
 ---|:--:|---:
 Thread|currentThread|返回代码段当前被调用的线程
-C|否|否
-Python|是|是
+static void|sleep()|在指定的毫秒数内让当前"正在执行的线程"休眠（暂停执行）
+void|start()|启动当前线程
 
 ruturn|Function|Description
 ---|:--:|---:
