@@ -159,7 +159,7 @@ public class MyRunnable implements Runnable{
 最后在介绍一些Thread类的常用方法。<br>
 
 ruturn|Function|Description
----|:--:|---
+---|:--|---
 Thread|currentThread|返回代码段当前被调用的线程
 static void|sleep()|在指定的毫秒数内让当前"正在执行的线程"休眠（暂停执行）
 void|start()|启动当前线程
