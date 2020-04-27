@@ -3,7 +3,7 @@ layout: post
 title:  "Java 的线程和Runable接口"
 date:   2012-09-01 13:27:23 +0800
 categories: Java
-published: false
+published: true
 ---
 Java 实现多线程编程的方式有两种，一种是继承 Thread 类，另一种是实现 Runnable 接口。
 
