@@ -5,6 +5,8 @@ date:   2019-03-23 21:03:36 +0800
 categories: Github
 ---
 This page will introduce how to build your personal blog based on github pages.<br>
+
+
 Because I have much work on the github and github also provides the personal homepage service. It is possible to build your personal website on it. To me, it is a good idea to move my personal blog to github in the benefit of saving lots of time on the maintenance of the blog contents on different sites. That's why I'd like to do this thing. The way of hosting your website on GitHub is static access, but it can fully meet my needs. So here comes the question, how do we build it on github? The procedure is simple, just need to create a new repository and upload your website code onto it. After then you can access it at any time and anywhere.
 To learn how to build your website on the github, a quick way is referring to the official help document.
 [Link](https://pages.github.com)<br>
