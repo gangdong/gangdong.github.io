@@ -6,7 +6,6 @@ categories: Java
 published: true
 ---
 Java 实现多线程编程的方式有两种，一种是继承 Thread 类，另一种是实现 Runnable 接口。
-
 我们会分别介绍这两种用法以及使用上的区别。
 
 Java 通过Thread类来实现多线程，关于Thread类的介绍，可以查阅Java文档。
@@ -157,9 +156,10 @@ public class MyRunnable implements Runnable{
 线程Thread-4 被调用 10次
 ```
 现在我们看到共享资源是按顺序被调用且没有重复。
-最后在介绍一些Thread类的常用方法。
+最后在介绍一些Thread类的常用方法。<br>
+
 ruturn|Function|Description
----|:--:|---
+---|:--:|---:
 Thread|currentThread()|返回代码段当前被调用的线程
 static void|sleep()|在指定的毫秒数内让当前"正在执行的线程"休眠（暂停执行）
 void|start()|启动当前线程
