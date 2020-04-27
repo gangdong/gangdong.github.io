@@ -5,7 +5,7 @@ date:   2013-03-01 9:01:11 +0800
 categories: Java
 ---
 
-最近工作中使用到了JDOM工具包来编辑XML类型的文档。JDOM是一种使用 XML 的Java 工具包。基于 Java 平台并通过 Java 代码来访问、操作并输出 XML 数据。
+最近的开发工作中使用到了JDOM工具包来编辑XML类型的文档。JDOM是一种使用 XML 的Java 工具包。基于 Java 平台并通过 Java 代码来访问、操作并输出 XML 数据。
 
 以下的介绍转载自[百度百科](https://baike.baidu.com/item/JDOM/2229885?fr=aladdin), JDOM工具包的[下载地址](http://www.jdom.org/downloads/index.html)
 ```
