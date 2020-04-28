@@ -10,7 +10,7 @@ show_excerpts: true # set to true to show excerpts on the homepage
 # refer to http://shopify.github.io/liquid/filters/date/ if you want to customize this
 sass:
   sass_dir: _sass
-Minimal:
+minimal:
   name: David Dong
   tagline: Java/C/C#/Python
   date_format: "%b %-d, %Y"
@@ -48,11 +48,11 @@ Minimal:
 # - about.md
 
 # Build settings
-theme: Minimal
+theme: minimal
 
-#Minimal:
+#minimal:
 #  disqus_shortname: games
-#Minimal:
+#minimal:
 #  navigation:
 #    - title: My Work
 #      url: "/my-work"
