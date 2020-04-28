@@ -9,7 +9,6 @@ published: true
 
 ## 概述
 当前业界广泛应用的标准是TOUCH IC 能够在40V Vpp 充电器噪声的环境下检测到微库仑级别的电荷变化。
-
 如图所示，一个大噪声的充电器可以将共模噪声注入到触摸屏系统中。
 
 ![touch-noise-system](https://gangdong.github.io/daviddong.github.io/assets/image/touch-noise-system.png)
