@@ -1,4 +1,4 @@
-I"u<p>This page is trying to present a brief introduction to android fingerprint framework, aimed at helping anyone who want to learn android fingerprint related knowledge, created by referring some materials and android source code.</p>
+I"�<p>This page is trying to present a brief introduction to android fingerprint framework, aimed at helping anyone who want to learn android fingerprint related knowledge, created by referring some materials and android source code.</p>
 
 <p>There are many articles throughout the internet to teach the fingerprint technology on android platform. However, from my point of view, some of them are too complicated and some are simple. I wrote this article  by referring android source code and according to my personal working experiences, try to make the contents generally, easy to understand.</p>
 
@@ -14,12 +14,12 @@
   <li><strong>FingerprintService</strong> operates in the system process, which handles communication with fingerprint HAL.</li>
   <li><strong>Fingerprint HAL</strong> is a C/C++ implementation of the IBiometricsFingerprint HIDL interface. This contains the vendor-specific library that communicates with the device-specific hardware.</li>
   <li><strong>Keystore API</strong> and Keymaster components provide hardware-backed cryptography for secure key storage in a secure environment, such as the Trusted Execution Environment (TEE).
-<img src="/assets/image/android-fingerprint-framework-framework.png" alt="framework" />
+<img src="https://gangdong.github.io/daviddong.github.io/assets/image/android-fingerprint-framework-framework.png" alt="framework" />
 A vendor-specific HAL implementation must use the communication protocol required by a TEE. Raw images and processed fingerprint features must not be passed in untrusted memory. All such biometric data needs to be stored in the secure hardware such as the TEE. Rooting must not be able to compromise biometric data.</li>
 </ul>
 
 <p>FingerprintService and fingerprintd make calls through the Fingerprint HAL to the vendor-specific library to enroll fingerprints and perform other operations.
-<img src="/assets/image/android-fingerprint-framework-tee.png" alt="tee" /></p>
+<img src="https://gangdong.github.io/daviddong.github.io/assets/image/android-fingerprint-framework-tee.png" alt="tee" /></p>
 <h4 id="implementation-guidelines">Implementation guidelines</h4>
 
 <p>The following Fingerprint HAL guidelines are designed to ensure that fingerprint data is not leaked and is removed when a user is removed from a device:</p>
@@ -59,7 +59,7 @@ Implementations must either use the file-system path provided by the</li>
    repo: 'daviddong.github.io',
    owner: 'gangdong',
    admin: ['gangdong'],
-   id: 'others/2019/05/12/Others-gitalk.html',
+   id: 'android/fingerprint/2019/10/03/Fingerprint-framework.html',
    title: 'comments'
     });
    gitalk.render('gitalk-container');
@@ -70,7 +70,7 @@ Implementations must either use the file-system path provided by the</li>
 <p><br /><br /><br /></p>
 
 <font size="2" color="#aaa">作者：David Dong<br /></font>
-<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong.github.io/others/2019/05/12/Others-gitalk.html</font>
+<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/10/03/Fingerprint-framework.html</font>
 <font size="2" color="#aaa">转载请注明出处。</font>
 <p><span id="busuanzi_container_page_pv"></span><font size="2" color="#aaa">
 本文总阅读量</font><font size="2" color="#aaa"><span id="busuanzi_value_page_pv">&lt;/font&gt;</span><font size="2" color="#aaa">次</font></font></p>
