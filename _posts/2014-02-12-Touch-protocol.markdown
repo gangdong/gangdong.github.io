@@ -141,7 +141,7 @@ static void mxt_input_report(struct mxt_data *data, int single_id)
    repo: 'daviddong.github.io',
    owner: 'gangdong',
    admin: ['gangdong'],
-   id: '/others/2019/04/25/Others-markdown.html',
+   id: 'touch/linux/2014/02/12/Touch-protocol.html',
    title: 'comments'
     });
    gitalk.render('gitalk-container');
@@ -150,7 +150,7 @@ static void mxt_input_report(struct mxt_data *data, int single_id)
 
 <br><br><br>
 <font size="2" color="#aaa">作者：David Dong<br></font>
-<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong-blog.github.io/others/2019/04/25/markdown.html</font>
+<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong.github.io/touch/linux/2014/02/12/Touch-protocol.html</font>
 <font size="2" color="#aaa">转载请注明出处。</font>
 <span id="busuanzi_container_page_pv" ></span><font size="2" color="#aaa">
 本文总阅读量</font><font size="2" color="#aaa"><span id="busuanzi_value_page_pv"></font></span><font size="2" color="#aaa">次</font>
