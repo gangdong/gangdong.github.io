@@ -12,7 +12,7 @@ published: true
 
 如图所示，一个大噪声的充电器可以将共模噪声注入到触摸屏系统中。
 
-![touch-noise-system](/assets/image/touch-noise-system.png)
+![touch-noise-system](https://gangdong.github.io/daviddong.github.io/assets/image/touch-noise-system.png)
 
 ## 触摸屏电源输入端的要求
 
@@ -25,7 +25,7 @@ published: true
 
 为了规范充电器噪声的标准，许多 OEM 厂商联合起来创建了 EN 规范，这些规范对充电器在任何频率下发出的最大噪声水平进行了限定。请参见EN 62684-2010 和 EN 301489-34v1.1.1。
 
-![touch-noise-en-spec](/assets/image/touch-noise-en-spce.png)
+![touch-noise-en-spec](https://gangdong.github.io/daviddong.github.io/assets/image/touch-noise-en-spce.png)
 
 规范中规定在1k Hz到10k Hz 频谱范围内，充电器噪声的峰峰值不应该大于 1V Vpp。在高于10k Hz 的频谱范围，充电器输出的噪声的峰峰值应该随着频率的升高按指数级降低。需要指出的是该规范较为严格，目前市场上多数的充电器都没有严格按照该规范的要求设计，从而造成输出的噪声远远大于规范的要求。
 目前主流的触控IC厂家内部要求IC 在1k  Hz – 400k Hz的工作频段下能够抗住至少40V Vpp的充电器噪声。例如CYPRESS 可以满足95v Vpp 以上的抗噪要求，ATMEL的Maxcharger 技术可以在某些频段上实现最大240v Vpp噪声下的良好工作。
@@ -34,7 +34,7 @@ published: true
 
 充电器的噪声属于共模噪声，噪声源会造成系统GND的浮动，从而产生一个 Vpp-noise大小的电压偏差。
 
-![touch-noise-model](/assets/image/touch-noise-model.png)
+![touch-noise-model](https://gangdong.github.io/daviddong.github.io/assets/image/touch-noise-model.png)
 
 基于以上模型，可以按照如下步骤测量充电器耦合进系统的噪声。
 
@@ -42,7 +42,7 @@ published: true
 2. 示波器调到FFT分析窗口。
 3. 示波器/频谱分析仪的探头的正极与待测设备的直流GND 相连; 探头的负极不要和待测设备相连, 可以和示波器/频谱分析仪的大地相连。
 4. 确保示波器的GND和大地相连。
-![touch-noise-measurement](/assets/image/touch-noise-measurement.png)
+![touch-noise-measurement](https://gangdong.github.io/daviddong.github.io/assets/image/touch-noise-measurement.png)
 
 ## 对触摸屏设计的一些要求
 
@@ -56,7 +56,7 @@ published: true
 下面是两个触控IC厂家对于触摸屏设计的一些规范。
 
 厂家1 对于ITO阻抗的要求
-![touch-noise-ito](/assets/image/touch-noise-ito-res.png)
+![touch-noise-ito](https://gangdong.github.io/daviddong.github.io/assets/image/touch-noise-ito-res.png)
 
 不建议使用菱形图案的屏体图案设计, 因为该设计较宽的RX面积一般难以达到抗噪声的性能要求。
 *注RX电阻包括了ITO 电阻+走线 (如金属走线) 电阻. 对于尺寸较大的屏(如7’’及7’’以上的TP), RX 单边走线难以
@@ -64,7 +64,7 @@ published: true
 
 厂家2 对于 ITO 图案的改进 
 对传统的diamond图案做了改进，减少了RX的宽度。
-![touch-noise-pattern](/assets/image/touch-noise-ito-pattern.png)
+![touch-noise-pattern](https://gangdong.github.io/daviddong.github.io/assets/image/touch-noise-ito-pattern.png)
 
 ## TOUCH IC 的降噪方法
 
@@ -76,7 +76,7 @@ published: true
 信噪比是触摸屏控制器的性能指标，现在已经作为行业标准被大家接受。
 在电容式触摸屏中的信躁比定义为触摸的信号和叠加在信号之上的噪声信号的峰峰值之间的比值。信号就是加上测量到的手指电容后的实际电容的变化量。手指电容取决于传感器覆盖物厚度、手指大小，DUT到地的寄生电容，以及传感器模式。噪声成分依赖于内部控制器噪声和外部噪声源。
 
-![touch-noise-snr](/assets/image/touch-noise-snr.png)
+![touch-noise-snr](https://gangdong.github.io/daviddong.github.io/assets/image/touch-noise-snr.png)
 
 由于触摸控制 IC 模拟端得到的原始信噪比与触摸屏的驱动电压成正比，因此可以期望采用高驱动电压 (TX)的方式来提高系统的信噪比。
 
@@ -107,7 +107,7 @@ published: true
    repo: 'daviddong.github.io',
    owner: 'gangdong',
    admin: ['gangdong'],
-   id: 'java/2012/12/23/Java-com.html',
+   id: 'touch/2013/12/15/Touch-noise.html',
    title: 'comments'
     });
    gitalk.render('gitalk-container');
@@ -116,7 +116,7 @@ published: true
 
 <br><br><br>
 <font size="2" color="#aaa">作者：David Dong<br></font>
-<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong.github.io/java/2012/12/23/Java-com.html</font>
+<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong.github.io/touch/2013/12/15/Touch-noise.html</font>
 <font size="2" color="#aaa">转载请注明出处。</font>
 <span id="busuanzi_container_page_pv" ></span><font size="2" color="#aaa">
 本文总阅读量</font><font size="2" color="#aaa"><span id="busuanzi_value_page_pv"></font></span><font size="2" color="#aaa">次</font>
