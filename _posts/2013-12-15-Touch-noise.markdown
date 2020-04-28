@@ -25,7 +25,7 @@ published: true
 
 为了规范充电器噪声的标准，许多 OEM 厂商联合起来创建了 EN 规范，这些规范对充电器在任何频率下发出的最大噪声水平进行了限定。请参见EN 62684-2010 和 EN 301489-34v1.1.1。
 
-![touch-noise-en-spec](https://gangdong.github.io/daviddong.github.io/assets/image/touch-noise-en-spce.png)
+![touch-noise-en-spec](https://gangdong.github.io/daviddong.github.io/assets/image/touch-noise-en-spec.png)
 
 规范中规定在1k Hz到10k Hz 频谱范围内，充电器噪声的峰峰值不应该大于 1V Vpp。在高于10k Hz 的频谱范围，充电器输出的噪声的峰峰值应该随着频率的升高按指数级降低。需要指出的是该规范较为严格，目前市场上多数的充电器都没有严格按照该规范的要求设计，从而造成输出的噪声远远大于规范的要求。
 目前主流的触控IC厂家内部要求IC 在1k  Hz – 400k Hz的工作频段下能够抗住至少40V Vpp的充电器噪声。例如CYPRESS 可以满足95v Vpp 以上的抗噪要求，ATMEL的Maxcharger 技术可以在某些频段上实现最大240v Vpp噪声下的良好工作。
