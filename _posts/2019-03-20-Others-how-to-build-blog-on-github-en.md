@@ -35,7 +35,7 @@ See you soon.<br>
    repo: 'daviddong.github.io',
    owner: 'gangdong',
    admin: ['gangdong'],
-   id: 'github/2019/03/23/Others-how-to-build-blog-on-github.html',
+   id: 'web/github/2019/03/23/Others-how-to-build-blog-on-github-en.html',
    title: 'comments'
     });
    gitalk.render('gitalk-container');
@@ -45,7 +45,7 @@ See you soon.<br>
 <br><br><br>
 
 <font size="2" color="#aaa">作者：David Dong<br></font>
-<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong.github.io/github/2019/03/23/Others-how-to-build-blog-on-github.html</font>
+<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong.github.io/web/github/2019/03/23/Others-how-to-build-blog-on-github-en.html</font>
 <font size="2" color="#aaa">转载请注明出处。</font>
 <span id="busuanzi_container_page_pv" ></span><font size="2" color="#aaa">
 本文总阅读量</font><font size="2" color="#aaa"><span id="busuanzi_value_page_pv"></font></span><font size="2" color="#aaa">次</font>

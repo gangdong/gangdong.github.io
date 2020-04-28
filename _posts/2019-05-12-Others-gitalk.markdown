@@ -109,7 +109,7 @@ If you like this page or you have anything would like to share, comment  at belo
    repo: 'daviddong.github.io',
    owner: 'gangdong',
    admin: ['gangdong'],
-   id: 'others/2019/05/12/Others-gitalk.html',
+   id: 'web/2019/05/12/Others-gitalk.html',
    title: 'comments'
     });
    gitalk.render('gitalk-container');
@@ -119,7 +119,7 @@ If you like this page or you have anything would like to share, comment  at belo
 <br><br><br>
 
 <font size="2" color="#aaa">作者：David Dong<br></font>
-<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong.github.io/others/2019/05/12/Others-gitalk.html</font>
+<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong.github.io/web/2019/05/12/Others-gitalk.html</font>
 <font size="2" color="#aaa">转载请注明出处。</font>
 <span id="busuanzi_container_page_pv" ></span><font size="2" color="#aaa">
 本文总阅读量</font><font size="2" color="#aaa"><span id="busuanzi_value_page_pv"></font></span><font size="2" color="#aaa">次</font>
