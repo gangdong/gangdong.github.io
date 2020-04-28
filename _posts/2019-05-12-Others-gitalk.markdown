@@ -2,7 +2,7 @@
 layout: post
 title:  "Gitalk Usage"
 date:   2019-05-12 12:22:01 +0800
-categories: Others
+categories: Web
 ---
 If you are looking for a quick solution about how to add comment function on your personal blog, this article probably can help you.
 

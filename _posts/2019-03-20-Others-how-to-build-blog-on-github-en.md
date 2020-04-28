@@ -2,7 +2,7 @@
 layout: post
 title:  "How to build your personal blog on github"
 date:   2019-03-23 21:03:36 +0800
-categories: Github
+categories: Web Github
 ---
 This page will introduce how to build your personal blog based on github pages.<br>
 
