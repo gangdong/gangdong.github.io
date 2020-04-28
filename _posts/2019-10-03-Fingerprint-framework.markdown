@@ -42,7 +42,9 @@ below is work process I summarized.
 4. Fingerprint Hal interacts with fingerprint hardware through fingerprint manufacturer's driver 
 5. For the sake of security, the hardware spi of fingerprint is mounted in the tee environment. The data collection of fingerprint image and the related processing of algorithm are all carried out in the tee environment. The REE side only gets the result of the tee side
 
+In the next article, I will make a detailed introduction for the process by referring to the android source code.
 
+To be continued...
 
 
 

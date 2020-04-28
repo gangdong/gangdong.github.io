@@ -1,4 +1,4 @@
-I"�<p>This page is trying to present a brief introduction to android fingerprint framework, aimed at helping anyone who want to learn android fingerprint related knowledge, created by referring some materials and android source code.</p>
+I"e<p>This page is trying to present a brief introduction to android fingerprint framework, aimed at helping anyone who want to learn android fingerprint related knowledge, created by referring some materials and android source code.</p>
 
 <p>There are many articles throughout the internet to teach the fingerprint technology on android platform. However, from my point of view, some of them are too complicated and some are simple. I wrote this article  by referring android source code and according to my personal working experiences, try to make the contents generally, easy to understand.</p>
 
@@ -40,6 +40,10 @@ setActiveGroup() function or provide a way to erase all user template data when 
   <li>Fingerprint Hal interacts with fingerprint hardware through fingerprint manufacturer’s driver</li>
   <li>For the sake of security, the hardware spi of fingerprint is mounted in the tee environment. The data collection of fingerprint image and the related processing of algorithm are all carried out in the tee environment. The REE side only gets the result of the tee side</li>
 </ol>
+
+<p>In the next article, I will make a detailed introduction for the process by referring to the android source code.</p>
+
+<p>To be continued…</p>
 
 <p><br />
 <!-- Gitalk 评论 start  -->
