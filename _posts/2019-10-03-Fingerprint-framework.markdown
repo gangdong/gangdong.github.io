@@ -33,7 +33,6 @@ Below part is official description about fingerprint from android docs.
 + *Fingerprint templates must be signed with a private, device-specific key. For Advanced Encryption Standard (AES), at a minimum a template must be signed with the absolute file-system path, group, and finger ID such that template files are inoperable on another device or for anyone other than the user that enrolled them on the same device. For example, copying fingerprint data from a different user on the same device or from another device must not work.*
 + *Implementations must either use the file-system path provided by the 
 setActiveGroup() function or provide a way to erase all user template data when the user is removed. It's strongly recommended that fingerprint template files be stored as encrypted and stored in the path provided. If this is infeasible due to TEE storage requirements, the implementer must add hooks to ensure removal of the data when the user is removed.*
-
 ### working process
 below is work process I summarized.
 1. Start the fingerprint daemons in init.rc            

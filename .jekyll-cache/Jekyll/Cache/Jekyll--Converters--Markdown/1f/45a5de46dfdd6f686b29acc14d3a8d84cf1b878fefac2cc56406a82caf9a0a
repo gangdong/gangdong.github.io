@@ -1,4 +1,4 @@
-I"�<p>This page will introduce how to build your personal blog based on github pages.<br /></p>
+I"�<p>This page will introduce how to build your personal blog based on github pages.<br /></p>
 
 <p>Because I have much work on the github and github also provides the personal homepage service. It is possible to build your personal website on it. To me, it is a good idea to move my personal blog to github in the benefit of saving lots of time on the maintenance of the blog contents on different sites. That’s why I’d like to do this thing. The way of hosting your website on GitHub is static access, but it can fully meet my needs. So here comes the question, how do we build it on github? The procedure is simple, just need to create a new repository and upload your website code onto it. After then you can access it at any time and anywhere.
 To learn how to build your website on the github, a quick way is referring to the official help document.
@@ -33,7 +33,7 @@ See you soon.<br /></li>
    repo: 'daviddong.github.io',
    owner: 'gangdong',
    admin: ['gangdong'],
-   id: 'github/2019/03/23/Others-how-to-build-blog-on-github.html',
+   id: 'web/github/2019/03/23/Others-how-to-build-blog-on-github-en.html',
    title: 'comments'
     });
    gitalk.render('gitalk-container');
@@ -44,7 +44,7 @@ See you soon.<br /></li>
 <p><br /><br /><br /></p>
 
 <font size="2" color="#aaa">作者：David Dong<br /></font>
-<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong.github.io/github/2019/03/23/Others-how-to-build-blog-on-github.html</font>
+<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong.github.io/web/github/2019/03/23/Others-how-to-build-blog-on-github-en.html</font>
 <font size="2" color="#aaa">转载请注明出处。</font>
 <p><span id="busuanzi_container_page_pv"></span><font size="2" color="#aaa">
 本文总阅读量</font><font size="2" color="#aaa"><span id="busuanzi_value_page_pv">&lt;/font&gt;</span><font size="2" color="#aaa">次</font></font></p>
