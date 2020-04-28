@@ -25,6 +25,7 @@ After registration, you will get a 'Client ID' and 'Client Secret', remember the
 ![oAuth Apps](https://gangdong.github.io/daviddong.github.io/assets/image/others-gitalk-oauth-apps-clientID.png)
 Please note, the user number is zero at this moment when you haven't authenticated the application. You need to do it later.
 Now you have registered github application for Gitalk. <br>
+
 2. Next,copy below code into the page where you want to use Gitalk or add it into the posts page, it depends on your website's structure. <br>
 ![code](https://gangdong.github.io/daviddong.github.io/assets/image/others-gitalk-code.png)
 Below are the setting options.<br>
