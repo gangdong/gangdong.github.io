@@ -109,7 +109,7 @@ If you like this page or you have anything would like to share, comment  at belo
    repo: 'daviddong.github.io',
    owner: 'gangdong',
    admin: ['gangdong'],
-   id: 'web/2019/05/12/Others-gitalk.html',
+   id: 'others/2019/05/12/Others-gitalk.html',
    title: 'comments'
     });
    gitalk.render('gitalk-container');
