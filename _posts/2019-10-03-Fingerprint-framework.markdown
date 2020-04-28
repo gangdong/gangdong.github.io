@@ -3,7 +3,7 @@ layout: post
 title:  "Android Fingerprint Framework (1)"
 date:   2019-10-03 15:17:47 +0800
 categories: Android Fingerprint
-Published: true
+Published: false
 ---
 This page is trying to present a brief introduction to android fingerprint framework, aimed at helping anyone who want to learn android fingerprint related knowledge, created by referring some materials and android source code. 
 
