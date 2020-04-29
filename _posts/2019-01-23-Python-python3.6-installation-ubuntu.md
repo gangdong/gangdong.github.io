@@ -35,7 +35,7 @@ sudo add-apt-repository ppa:jonathonf/python-3.6
 sudo apt-get update
 sudo apt-get install python3.6
 ```
-Unfortunately it doesn't work on my installation for the PPA has been removed. so I turned to the second way to download the source code and compile install.
+Unfortunately it doesn't work on my installation for the PPA has been removed. so I turned to the second way to download the source code and compiling install.
 The command as below.
 ```
 wget https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tar.xz
@@ -51,13 +51,13 @@ Waiting for the installation complete. Then check the python version, if you see
 david@david-VirtualBox:~$ python --version
 Python 3.6.0
 ```
-If you don't see the Python3.6.0, instead, you see Python3.5.0 or else, which means your system's default python APP is python3.5. You need to use "update-alternatives --config python" command to switch it to python3.6.<br> 
+If you don't see the Python3.6.x, instead, you see Python3.5.x or else, which means your system's default python version isn't python3.6. You need to use "update-alternatives --config python" command to switch it to python3.6.<br> 
 Like this.
 ```
 sudo update-alternatives --list python
 sudo update-alternatives --config python
 ```
-If you find below message, represents the alternatives cannot recognize python and you will need to install python into your alternatives list firstly.
+If you find below message, represents the alternatives failed to recognize python and you must install python into your alternatives list firstly.
 ```
 update-alternatives：error：no alternatives for python
 ```
@@ -68,7 +68,7 @@ sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.5 2
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1 
 ```
 The last character of above each command sets the priority of your pythons on the system. The bigger the higer priority. 
-After installment, check again. you will see all your python on your system are in the alternatives.
+After installment, check again. you will see all your pythons are in the alternatives.
 ```
 david@david-VirtualBox:~$ sudo update-alternatives --list python
 /home/david/Python-3.6.0
@@ -93,7 +93,7 @@ If you see below menu, congratulations, just select the one you want.
 
 要维持当前值[*]请按<回车键>，或者键入选择的编号：
 ```
-We have done all the job for now. Hope this short article is able to give you some help if you have the same requirement as me. 
+We have done all the job for now. Hope this short article is able to give you help if you have the same requirement as me. 
 If you have any question, please ask at below comment box.
 <br>
 <!-- Gitalk 评论 start  -->
