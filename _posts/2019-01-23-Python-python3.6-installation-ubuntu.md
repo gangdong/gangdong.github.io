@@ -8,11 +8,11 @@ published: true
 Today I spent some time installing the python3.6 on my ubuntu16.04.
 Here is a short note for the whole process, which might be useful for anyone who want to do the same thing.
 
-The first thing before you start to install the python3.6, you need to know which version of python is running on your system. On ubuntu16.04 you can use below command to check your python version.
+The first thing before you start to install the python3.6 is that you need to know which version of pythons are on your system. On ubuntu16.04 you can use below command to check your python version.
 ```shell
 ls /usr/local/lib/
 ```
-before the installation, I have python2.7 and python3.5 on my ubuntu system. They are actually default installed by ubuntu16.04 build.
+For example, before the installation, I have python2.7 and python3.5 on my ubuntu system. They are actually default installed by ubuntu16.04 build.
 ```
 david@david-VirtualBox:/$ ls /usr/local/lib/
 python2.7  python3.5  
