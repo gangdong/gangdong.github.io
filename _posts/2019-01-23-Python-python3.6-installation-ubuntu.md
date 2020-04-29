@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Install python 3.6 on ubuntu 16.04"
+title:  "Install python3.6 on ubuntu16.04"
 date:   2019-01-23 23:07:49 +0800
 categories: Python
 published: true
@@ -22,19 +22,20 @@ then input
 ```
 python --version
 ```
-to check which version python is your default python application. If you want to switch to python3.5, input below command
+to check which version python is your default python application. If you want to switch to another python version, input below command
 ```
 echo alias python=python3 >> ~/.bashrc
 source ~/.bashrc
 python --version
 ```
-But python3.5 is still not the right one, what I need to python3.6. To install python3.6, there are usually two ways. one is using apt-get install. The command is as below.
+I switched my default python version to python3.5.
+But python3.5 is still not the right one, what I need is python3.6. To install python3.6, there are usually two methods. one is using apt-get install. The command is as below.
 ```
 sudo add-apt-repository ppa:jonathonf/python-3.6
 sudo apt-get update
 sudo apt-get install python3.6
 ```
-but it doesn't work on my installation for PPA has been removed. so I turned to the second way to download the source code and compile install.
+Unfortunately it doesn't work on my installation for the PPA has been removed. so I turned to the second way to download the source code and compile install.
 The command as below.
 ```
 wget https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tar.xz
@@ -50,7 +51,7 @@ Waiting for the installation complete. Then check the python version, if you see
 david@david-VirtualBox:~$ python --version
 Python 3.6.0
 ```
-If you don't see the Python3.6.0, instead, you see Python3.5.0, which means your system's default python APP is python3.5. You need to use "update-alternatives --config python" command to switch it to python3.6. 
+If you don't see the Python3.6.0, instead, you see Python3.5.0 or else, which means your system's default python APP is python3.5. You need to use "update-alternatives --config python" command to switch it to python3.6.<br> 
 Like this.
 ```
 sudo update-alternatives --list python
@@ -66,7 +67,7 @@ sudo update-alternatives --install /usr/bin/python python /home/david/Python-3.6
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.5 2
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1 
 ```
-The last character of above each command sets the priority of your python version on the system. The big the higer priority. 
+The last character of above each command sets the priority of your pythons on the system. The bigger the higer priority. 
 After installment, check again. you will see all your python on your system are in the alternatives.
 ```
 david@david-VirtualBox:~$ sudo update-alternatives --list python
@@ -79,7 +80,7 @@ Then switch to root user and execute the last command to choose which python you
 sudo su
 update-alternatives --config python
 ```
-you will see below menu and select the one you want.
+If you see below menu, congratulations, just select the one you want.
 ```
 有 3 个候选项可用于替换 python (提供 /usr/bin/python)。
 
