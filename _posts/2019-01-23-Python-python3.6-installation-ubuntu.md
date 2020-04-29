@@ -51,10 +51,50 @@ david@david-VirtualBox:~$ python --version
 Python 3.6.0
 ```
 If you don't see the Python3.6.0, instead, you see Python3.5.0, which means your system's default python APP is python3.5. You need to use "update-alternatives --config python" command to switch it to python3.6. 
+Like this.
+```
+sudo update-alternatives --list python
+sudo update-alternatives --config python
+```
+If you find below message, represents the alternatives cannot recognize python and you will need to install python into your alternatives list firstly.
+```
+update-alternatives：error：no alternatives for python
+```
+install your python as below command.
+```
+sudo update-alternatives --install /usr/bin/python python /home/david/Python-3.6.0 3
+sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.5 2
+sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1 
+```
+The last character of above each command sets the priority of your python version on the system. The big the higer priority. 
+After installment, check again. you will see all your python on your system are in the alternatives.
+```
+david@david-VirtualBox:~$ sudo update-alternatives --list python
+/home/david/Python-3.6.0
+/usr/bin/python2.7
+/usr/bin/python3.5
+```
+Then switch to root user and execute the last command to choose which python you are going to set as default.
+```
+sudo su
+update-alternatives --config python
+```
+you will see below menu and select the one you want.
+```
+有 3 个候选项可用于替换 python (提供 /usr/bin/python)。
 
+  选择       路径                    优先级  状态
+------------------------------------------------------------
+* 0            /home/david/Python-3.6.0   3         自动模式
+  1            /home/david/Python-3.6.0   3         手动模式
+  2            /usr/bin/python2.7         1         手动模式
+  3            /usr/bin/python3.5         2         手动模式
 
-
-
+要维持当前值[*]请按<回车键>，或者键入选择的编号：
+```
+We have done all the job for now. Hope this short article is able to give you some help if you have the same requirement as me. 
+If you have any question, please ask at below comment box.
+<br>
 <!-- Gitalk 评论 start  -->
 <!-- Link Gitalk 的支持文件  -->
 <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
