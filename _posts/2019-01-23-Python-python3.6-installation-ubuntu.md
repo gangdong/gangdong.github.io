@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Install python3.6 on ubuntu16.04"
+title:  "Install python 3.6 on ubuntu 16.04"
 date:   2019-01-23 23:07:49 +0800
 categories: Python
 published: true
@@ -50,7 +50,7 @@ Waiting for the installation complete. Then check the python version, if you see
 david@david-VirtualBox:~$ python --version
 Python 3.6.0
 ```
-If you don't see the Python3.6.0, instead, you see Python3.5.0, which means your system's default python APP is python3.5. You need to use "update-alternatives --config python" to switch it to python3.6. 
+If you don't see the Python3.6.0, instead, you see Python3.5.0, which means your system's default python APP is python3.5. You need to use "update-alternatives --config python" command to switch it to python3.6. 
 
 
 
@@ -69,7 +69,7 @@ If you don't see the Python3.6.0, instead, you see Python3.5.0, which means your
    repo: 'daviddong.github.io',
    owner: 'gangdong',
    admin: ['gangdong'],
-   id: 'github/2019/03/23/Others-how-to-build-blog-on-github.html',
+   id: 'python/2019/01/23/Python-python3.6-installation-ubuntu.html',
    title: 'comments'
     });
    gitalk.render('gitalk-container');
@@ -79,7 +79,7 @@ If you don't see the Python3.6.0, instead, you see Python3.5.0, which means your
 <br><br><br>
 
 <font size="2" color="#aaa">作者：David Dong<br></font>
-<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong.github.io/github/2019/03/23/Others-how-to-build-blog-on-github.html</font>
+<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong.github.io/python/2019/01/23/Python-python3.6-installation-ubuntu.html</font>
 <font size="2" color="#aaa">转载请注明出处。</font>
 <span id="busuanzi_container_page_pv" ></span><font size="2" color="#aaa">
 本文总阅读量</font><font size="2" color="#aaa"><span id="busuanzi_value_page_pv"></font></span><font size="2" color="#aaa">次</font>
