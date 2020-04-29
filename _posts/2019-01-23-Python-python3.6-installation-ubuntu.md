@@ -5,7 +5,7 @@ date:   2019-01-23 23:07:49 +0800
 categories: Python
 published: true
 ---
-Today I spent hours in installing the python3.6 on my ubuntu16.04.
+Today I spent some time installing the python3.6 on my ubuntu16.04.
 Here is a short note for the whole process, which might be useful for anyone who want to do the same thing.
 
 The first thing before you start to install the python3.6, you need to know which version of python is running on your system. On ubuntu16.04 you can use below command to check your python version.
