@@ -7,7 +7,7 @@ Published: false
 ---
 This page is trying to present a brief introduction to android fingerprint framework, aimed at helping anyone who want to learn android fingerprint related knowledge, created by referring some materials and android source code. 
 
-There are many articles throughout the internet to teach the fingerprint technology on android platform. However, from my point of view, some of them are too complicated and some are simple. I wrote this article  by referring android source code and according to my personal working experiences, try to make the contents generally, easy to understand. 
+There are many articles throughout the internet to teach the fingerprint technology on android platform. However, from my point of view, some of them are too complicated and some are simple. I wrote this article  by referring android source code and according to my personal working experiences, try to make the contents short, easy to understand. 
 
 From android6.0(API23),android added fingerprint API interface, that is FingerprintManager to support fingerprint identification. While at androidP(API28), it is deprecated and replaced by BiometricPrompt API interface.
 
