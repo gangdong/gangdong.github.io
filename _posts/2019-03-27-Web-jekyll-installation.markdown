@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Getting started with Jekyll for your own website on Github (I)
+title:  Getting started with Jekyll(1)
 date:   2019-03-27 20:56:30 +0800
 categories: Web
 published: true
