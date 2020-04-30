@@ -23,6 +23,7 @@ then input "python --version" to check which version python is your default pyth
 python --version
 ```
 If you want to switch to another python version, input below command
+
 ```shell
 echo alias python=python3 >> ~/.bashrc
 source ~/.bashrc
