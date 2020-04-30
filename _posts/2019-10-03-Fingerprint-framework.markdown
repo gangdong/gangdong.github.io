@@ -18,7 +18,7 @@ Below part is official description about fingerprint from android docs.
 + ***BiometricManager*** *interacts directly with an app in an app process. Each app has an instance of IBiometricsFingerprint.hal*
 + ***FingerprintService*** *operates in the system process, which handles communication with fingerprint HAL.*
 + ***Fingerprint HAL*** *is a C/C++ implementation of the IBiometricsFingerprint HIDL interface. This contains the vendor-specific library that communicates with the device-specific hardware.*
-+ ***Keystore API*** and Keymaster *components provide hardware-backed cryptography for secure key storage in a secure environment, such as the Trusted Execution Environment (TEE).*
++ ***Keystore API and Keymaster*** *components provide hardware-backed cryptography for secure key storage in a secure environment, such as the Trusted Execution Environment (TEE).*
 ![framework](https://gangdong.github.io/daviddong.github.io/assets/image/android-fingerprint-framework-framework.png)
 *A vendor-specific HAL implementation must use the communication protocol required by a TEE. Raw images and processed fingerprint features must not be passed in untrusted memory. All such biometric data needs to be stored in the secure hardware such as the TEE. Rooting must not be able to compromise biometric data.*
 
