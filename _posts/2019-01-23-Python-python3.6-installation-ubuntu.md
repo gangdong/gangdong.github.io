@@ -62,7 +62,7 @@ If you find below message, represents the alternatives failed to recognize pytho
 ```shell
 update-alternatives：error：no alternatives for python
 ```
-install your python as below command.
+install your python by below command.
 ```shell
 sudo update-alternatives --install /usr/bin/python python /home/david/Python-3.6.0 3
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.5 2
