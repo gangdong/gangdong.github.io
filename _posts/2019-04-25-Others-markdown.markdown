@@ -56,7 +56,7 @@ Markdown 的语法学习归纳起来可以从下面几个方面来学习。
 ![picname](图片地址''图片title'')
 ```
 <br>效果如下：<br>
-![示例图片](https://gangdong.github.io/daviddong-blog.github.io/assets/portfolio.png "example")
+![示例图片](https://gangdong.github.io/daviddong.github.io/assets/portfolio.png "example")
 
 ### 链接
 **语法**
