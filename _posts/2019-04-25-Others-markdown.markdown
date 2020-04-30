@@ -66,7 +66,7 @@ Markdown 的语法学习归纳起来可以从下面几个方面来学习。
 ```
 <br>效果如下：<br>
 
-[David的博客](https://gangdong.github.io/daviddong-blog.github.io/ "welcome")<br>
+[DAVID DONG的博客](https://gangdong.github.io/daviddong.github.io/  "Welcome to David Dong's personal blog!")<br>
 ### 分割线
 **语法**
 三个或者更多的 --- 或者 *** <br>
