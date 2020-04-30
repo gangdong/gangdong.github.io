@@ -5,9 +5,9 @@ date:   2019-03-27 20:56:30 +0800
 categories: Web
 published: true
 ---
-In my last article, I have introduced how to create a blog based on Github pages, open it [Here]() if you haven't read it.
-
+In my last article, I have introduced how to create a blog based on Github pages, open it [Here]() if you haven't read it.<br>
 This page will give a brief introduction about Jekyll and its installation.
+
 ###Jekyll
 Jekyll is a simple and free blog generation tool, similar to WordPress. But it's very different from WordPress because Jekyll is just a tool for generating static web pages and does not need database support. But it can work with third-party services, such as Disqus. The key is that Jekyll can be deployed on GitHub free of charge and can bind its own domain name.
 
