@@ -18,12 +18,12 @@ david@david-VirtualBox:/$ ls /usr/local/lib/
 python2.7  python3.5  
 david@david-VirtualBox:/$ 
 ```
-then input to check which version python is your default python application. 
+then input "python --version" to check which version python is your default python application. 
 ```python
 python --version
 ```
 If you want to switch to another python version, input below command
-```shell
+```shell python
 echo alias python=python3 >> ~/.bashrc
 source ~/.bashrc
 python --version
@@ -35,7 +35,7 @@ sudo add-apt-repository ppa:jonathonf/python-3.6
 sudo apt-get update
 sudo apt-get install python3.6
 ```
-Unfortunately it doesn't work on my installation for the PPA has been removed. so I turned to the second way to download the source code and compiling install.
+Unfortunately it doesn't work on my installation for the PPA has been removed. Therefore I turned to the second way to download the source code and compile, install.
 The command as below.
 ```shell
 wget https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tar.xz
