@@ -52,14 +52,14 @@ Server running... press ctrl-c to stop.
 So far you can input http://127.0.0.1:4000/ in the browser to browse the blog you just created.
 
 ### Jekyll theme
-Jekyll provides a lot of beautiful theme templates, you can easy use them to power your website.<br> 
-you can view the demo and download the source code to use it on your own website.
+Jekyll provides a lot of beautiful theme templates, you can use them to power your website easily.<br> 
+you can view the demo, download the source code and use it on your own website.
 
 ![Jekyll theme pic](https://gangdong.github.io/daviddong.github.io/assets/image/web-jekyll-1-template.png)
 
 Now go and choose one you like -> [Jekyll theme](http://jekyllthemes.org/).
 
-Next article, I will introduce the Jekyll grammar.
+Next article, I will introduce the Jekyll grammar. If you have questions about this atricle, please add them at below comment box. I will try to answer you as prompt as I can.
 
 <br>
 <!-- Gitalk 评论 start  --> 
