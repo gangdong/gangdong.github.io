@@ -5,10 +5,10 @@ date:   2019-03-27 20:56:30 +0800
 categories: Web
 published: true
 ---
-In my last article, I have introduced how to create a blog based on Github pages, open it [Here]() if you haven't read it.<br>
-This page will give a brief introduction about Jekyll and its installation.
+In my last article, I have introduced how to create a blog based on Github pages, open it [here]() if you haven't read it.<br>
+Following this page will give a brief introduction about Jekyll and its installation.
 
-###Jekyll
+### Jekyll
 Jekyll is a simple and free blog generation tool, similar to WordPress. But it's very different from WordPress because Jekyll is just a tool for generating static web pages and does not need database support. But it can work with third-party services, such as Disqus. The key is that Jekyll can be deployed on GitHub free of charge and can bind its own domain name.
 
 As a static site generator, Jekyll provides many advantages, For example, a website constructed by Jekyll will get a faster page speed over a dynamic, database driven site.
@@ -18,7 +18,7 @@ Jekyll also offers a way of storing data in a more human readable format, such a
 And others are Jekyll gives the developer more freedom to design and build the site. It is freely to write your own html and text onto the page in the format you want it.
 
 Let's turn to how to build the website by Jekyll, I suggests you construct your website on Github pages because Jekyll is well deployed on Github and there are many Jekyll theme templates for you powering your website. More important is all of these are totally free of charge. If you like, you can even bind your domain on it. 
-###Installation
+### Installation
 The first step is installing the Jekyll tools on your PC, here I just introduce the installation on windows platform.
 
 1. download Ruby [Here](https://rubyinstaller.org/) and install. You can skip it if you have already had.
@@ -50,7 +50,7 @@ if you see below output message, the Jekyll is working on your PC now.
   Server running... press ctrl-c to stop.
 ```
 So far you can input http://127.0.0.1:4000/ in the browser to browse the blog you just created.
-###Jekyll theme
+### Jekyll theme
 Jekyll provides a lot of beautiful theme templates, you can easy use them to power your website.<br> 
 you can view the demo and download the source code to use it on your own website.
 
@@ -72,7 +72,7 @@ Next article, I will introduce the Jekyll grammar.
    repo: 'daviddong.github.io',
    owner: 'gangdong',
    admin: ['gangdong'],
-   id: '/others/2019/04/25/Others-markdown.html',
+   id: 'web/2019/03/27/Web-jekyll-installation.html',
    title: 'comments'
     });
    gitalk.render('gitalk-container');
@@ -82,7 +82,7 @@ Next article, I will introduce the Jekyll grammar.
 <br><br><br>
 
 <font size="2" color="#aaa">作者：David Dong<br></font>
-<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong-blog.github.io/others/2019/04/25/markdown.html</font>
+<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong.github.io/web/2019/03/27/Web-jekyll-installation.html</font>
 <font size="2" color="#aaa">转载请注明出处。</font>
 <span id="busuanzi_container_page_pv" ></span><font size="2" color="#aaa">
 本文总阅读量</font><font size="2" color="#aaa"><span id="busuanzi_value_page_pv"></font></span><font size="2" color="#aaa">次</font>
