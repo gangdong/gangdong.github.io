@@ -5,9 +5,7 @@ date:   2019-03-27 20:56:30 +0800
 categories: Web
 published: true
 ---
-I have constructed my personal website by jekyll on github pages, I thought I would write a little blog post about how to make your own website by jekyll on GitHub Pages.
-
-I would separate the contents into two short Blogs to introduce, reading long articles are always easy to make people feel weary.
+In my last article, I have introduced how to create a blog based on Github pages, open it [Here]() if you haven't read it.
 
 This page will give a brief introduction about Jekyll and its installation.
 ###Jekyll
