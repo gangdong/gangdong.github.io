@@ -56,7 +56,7 @@ Markdown 的语法学习归纳起来可以从下面几个方面来学习。
 ![picname](图片地址''图片title'')
 ```
 <br>效果如下：<br>
-![示例图片](https://gangdong.github.io/daviddong.github.io/assets/portfolio.png "example")
+![示例图片](https://gangdong.github.io/daviddong.github.io/assets/image/others-markdown-example.png "example")
 
 ### 链接
 **语法**
@@ -66,7 +66,7 @@ Markdown 的语法学习归纳起来可以从下面几个方面来学习。
 ```
 <br>效果如下：<br>
 
-[DAVID DONG的博客](https://gangdong.github.io/daviddong.github.io/  "Welcome to David Dong's personal blog!")<br>
+[DAVID DONG的博客](https://gangdong.github.io/daviddong.github.io/  "Welcome to David Dong's blog!")<br>
 ### 分割线
 **语法**
 三个或者更多的 --- 或者 *** <br>
