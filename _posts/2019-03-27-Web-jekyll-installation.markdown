@@ -9,7 +9,7 @@ In my last article, I have introduced how to create a blog based on Github pages
 Following that article, this page will give a brief introduction about Jekyll and its installation.
 
 ### Jekyll
-what's Jekyll?
+What's Jekyll?
 Jekyll is a simple and free blog generation tool, similar to WordPress. But it's very different from WordPress because Jekyll is just a tool for generating static web pages and does not need database support. It can work with third-party services, such as Disqus. The key is that Jekyll can be deployed on GitHub free of charge and can bind its own domain name.
 
 As a static site generator, Jekyll provides many advantages, for example, a website constructed by Jekyll will get a faster page speed over a dynamic, database driven site.
@@ -42,7 +42,7 @@ jekyll new testblog
 cd testblog
 jekyll server
 ```
-if you see below output message, the Jekyll is working on your PC now.
+If you see below output message, the Jekyll is working on your PC now.
 ```
 Generating...
     done in 1.684 seconds.
