@@ -53,9 +53,8 @@ So far you can input http://127.0.0.1:4000/ in the browser to browse the blog yo
 ### Jekyll theme
 Jekyll provides a lot of beautiful theme templates, you can easy use them to power your website.<br> 
 you can view the demo and download the source code to use it on your own website.
-
-Now go and choose one you like 
-![Jekyll theme](http://jekyllthemes.org/).
+![Jekyll theme](https://gangdong.github.io/daviddong.github.io/assets/image/web-jekyll-1-template.png)
+Now go and choose one you like [Jekyll theme](http://jekyllthemes.org/).
 
 Next article, I will introduce the Jekyll grammar.
 <br>
