@@ -4,7 +4,7 @@ title:  "Bundle 在android中的应用"
 date:   2014-04-14 21:03:36 +0800
 categories: Android
 ---
-Android中Bundle类的作用，根据google [官方文档](http://developer.android.com/reference/android/os/Bundle.html)<br>Bundle类用作携带数据，它类似于Map，用于存放key-value名值对形式的值.<br>
+Android中Bundle类的作用，根据google [官方文档](http://developer.android.com/reference/android/os/Bundle.html)<br>Bundle类用作携带数据，它类似于Map，用于存放key-value名值对形式的值。<br>
 
 Bundle经常使用在Activity之间或者线程间传递数据，传递的数据可以是***boolean、byte、int、long、float、double、string***等基本类型或它们对应的数组，也可以是对象或对象数组。
 当Bundle传递的是对象或对象数组时，必须实现Serializable 或Parcelable接口。
