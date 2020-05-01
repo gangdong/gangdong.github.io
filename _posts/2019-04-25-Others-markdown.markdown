@@ -4,8 +4,7 @@ title:  "Mark一下 Markdown 语言的基本语法"
 date:   2019-04-25 11:03:36 +0800
 categories: Others
 ---
-最近在写博客的时候用到了Markdown语言，做为一个学习总结，有必要把常用的语法mark一下。
-
+最近在写博客的时候用到了Markdown语言，做为一个学习总结，有必要把常用的语法mark一下。<br>
 Markdown 是一种轻量级的「标记语言」，它允许人们使用易读易写的纯文本格式编写文档。
 Markdown 的语法十分简单。常用的标记符号也不超过十个，Markdown编写的文档可以导出 HTML 、Word、图像、PDF、Epub 等多种格式的文档。
 
