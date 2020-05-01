@@ -11,6 +11,8 @@ Let's start this article from the source code of the theme you downloaded.
 
 ### Jekyll directory structure
 Unzip the package you downloaded and check the directory structure.The Jekyll directory structure mainly includes the following directories.
+
+
 ```
 _posts blog contents
 _pages 其他需要生成的网页，如About页
