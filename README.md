@@ -8,6 +8,8 @@ If you want to learn more about me, please visit my another blog or homepage.
 
 [David Dong's Album](https://rainbow-ux.github.io/traveler-blog.github.io/) | [Github homepage](https://github.com/gangdong/) | [LinkedIn](https://www.linkedin.com/in/刚-董-25208ba0/)
 
+![blog](https://gangdong.github.io/daviddong.github.io/assets/screenshot.png)
+
 This blog uses implistic jekyll portfolio-style theme.
 
 About jekyll theme.
