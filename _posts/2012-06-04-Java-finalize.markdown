@@ -21,34 +21,4 @@ Java提供的finalize()方法是定义JObject类中的方法。作用是帮助�
 + finalize()方法可以被用来进行系统资源的释放
 + 系统在进行垃圾回收，准备释放对象所占用的内存空间之前会调用对象的finalize()方法
 + 因为系统进行垃圾回收的时机不确定，所以finalize()的执行时间是不确定的
-+ finalize()只会在对象内存回收前被调用一次
-
-<br>
-<!-- Gitalk 评论 start  -->
-<!-- Link Gitalk 的支持文件  -->
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-<div id="gitalk-container"></div>
-<script type="text/javascript">
-   var gitalk = new Gitalk({
-
-   // gitalk的主要参数
-   clientID: '5e24fc307693a6df3bc5',
-   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
-   repo: 'daviddong.github.io',
-   owner: 'gangdong',
-   admin: ['gangdong'],
-   id: 'java/2012/06/04/Java-finalize.html',
-   title: 'comments'
-    });
-   gitalk.render('gitalk-container');
-</script>
-<!-- Gitalk end -->
-
-<br><br><br>
-
-<font size="2" color="#aaa">作者：David Dong<br></font>
-<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong.github.io/java/2012/06/04/Java-finalize.html</font>
-<font size="2" color="#aaa">转载请注明出处。</font>
-<span id="busuanzi_container_page_pv" ></span><font size="2" color="#aaa">
-本文总阅读量</font><font size="2" color="#aaa"><span id="busuanzi_value_page_pv"></font></span><font size="2" color="#aaa">次</font>
++ finalize()只会在对象内存回收前被调用一次。

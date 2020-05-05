@@ -25,9 +25,3 @@ published: false
 4. 事件分发部分
 
 
-
-<br>
-<br>
-作者：David Dong<br>
-来源：https://gangdong.github.io/daviddong-blog.github.io/java/android/2019/04/14/bundle.html<br>
-转载请注明出处。

@@ -469,31 +469,3 @@ input_mt_report_slot_state()是设定当前slot的状态，比如按下，抬起
 最后input_sync()来将所有的信息打包成一个数据帧来发送，注意如果不执行这个函数，之前的信息无效，不会被发送给上层。
 
 好了，到这里整个驱动代码所要完成的主要任务都已经完成了。从整个流程来看虽然比较简单，但是触控IC的驱动程序作为硬件设备和Linux kernel的接口，还是起到了非常重要的作用。对于设备的驱动代码，还是要十分重视。<br>
-<!-- Gitalk 评论 start  -->
-<!-- Link Gitalk 的支持文件  -->
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-<div id="gitalk-container"></div>
-<script type="text/javascript">
-   var gitalk = new Gitalk({
-
-   // gitalk的主要参数
-   clientID: '5e24fc307693a6df3bc5',
-   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
-   repo: 'daviddong.github.io',
-   owner: 'gangdong',
-   admin: ['gangdong'],
-   id: 'c/touch/linux/2014/06/25/Touch-driver.html',
-   title: 'comments'
-    });
-   gitalk.render('gitalk-container');
-</script>
-<!-- Gitalk end -->
-
-<br><br><br>
-
-<font size="2" color="#aaa">作者：David Dong<br></font>
-<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong.github.io/c/touch/linux/2014/06/25/Touch-driver.html</font>
-<font size="2" color="#aaa">转载请注明出处。</font>
-<span id="busuanzi_container_page_pv" ></span><font size="2" color="#aaa">
-本文总阅读量</font><font size="2" color="#aaa"><span id="busuanzi_value_page_pv"></font></span><font size="2" color="#aaa">次</font>

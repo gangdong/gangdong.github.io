@@ -103,31 +103,3 @@ fork时子进程获得父进程数据空间、堆和栈的复制，所以变量�
 [https://www.cnblogs.com/zhangchaoyang/articles/2317420.html](https://www.cnblogs.com/zhangchaoyang/articles/2317420.html)
 [https://blog.csdn.net/zhangxiao93/article/details/72811700](https://blog.csdn.net/zhangxiao93/article/details/72811700)
 <br>
-<!-- Gitalk 评论 start  -->
-<!-- Link Gitalk 的支持文件  -->
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-<div id="gitalk-container"></div>
-<script type="text/javascript">
-   var gitalk = new Gitalk({
-
-   // gitalk的主要参数
-   clientID: '5e24fc307693a6df3bc5',
-   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
-   repo: 'daviddong.github.io',
-   owner: 'gangdong',
-   admin: ['gangdong'],
-   id: 'linux/2015/03/22/Linux-fork.html',
-   title: 'comments'
-    });
-   gitalk.render('gitalk-container');
-</script>
-<!-- Gitalk end -->
-
-<br><br><br>
-
-<font size="2" color="#aaa">作者：David Dong<br></font>
-<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong.github.io/linux/2015/03/22/Linux-fork.html</font>
-<font size="2" color="#aaa">转载请注明出处。</font>
-<span id="busuanzi_container_page_pv" ></span><font size="2" color="#aaa">
-本文总阅读量</font><font size="2" color="#aaa"><span id="busuanzi_value_page_pv"></font></span><font size="2" color="#aaa">次</font>

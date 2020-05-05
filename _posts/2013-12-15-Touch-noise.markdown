@@ -87,29 +87,3 @@ published: true
 ## 总结
 随着智能手机的广泛普及，电容触摸屏得到了越来越多的应用，同时对其抗噪的能力也提出了更大的挑战。当前的趋势是要求TOUCH IC具有更快的对噪声作出反应的能力，在不增加过多成本的前提下能实现更小的功率消耗同时不会过多的降低系统的报点率。尽管在整个嵌入式系统中，电容触摸屏实现了一些最先进的功能，包括FIR 滤波器，高级非线性滤波方法、内置抗噪声硬件、跳频功能或其他方法等。但是但抗噪声能力的提升仍然具有很大的提升空间。各家TOUCH IC厂家也在积极的研发创新，新的降噪算法会不断出现。
 <br>
-<!-- Gitalk 评论 start  -->
-<!-- Link Gitalk 的支持文件  -->
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-<div id="gitalk-container"></div>
-<script type="text/javascript">
-   var gitalk = new Gitalk({
-   // gitalk的主要参数
-   clientID: '5e24fc307693a6df3bc5',
-   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
-   repo: 'daviddong.github.io',
-   owner: 'gangdong',
-   admin: ['gangdong'],
-   id: 'touch/2013/12/15/Touch-noise.html',
-   title: 'comments'
-    });
-   gitalk.render('gitalk-container');
-</script>
-<!-- Gitalk end -->
-
-<br><br><br>
-<font size="2" color="#aaa">作者：David Dong<br></font>
-<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong.github.io/touch/2013/12/15/Touch-noise.html</font>
-<font size="2" color="#aaa">转载请注明出处。</font>
-<span id="busuanzi_container_page_pv" ></span><font size="2" color="#aaa">
-本文总阅读量</font><font size="2" color="#aaa"><span id="busuanzi_value_page_pv"></font></span><font size="2" color="#aaa">次</font>
