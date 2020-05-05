@@ -55,6 +55,6 @@ This page's collection is {{page.collection}}
 This page's tags is {{page.tags}}
 This page's dir is {{page.dir}}
 This page's path is {{page.path}}
-
+This site's url is {{site.url}}
 ````
 
