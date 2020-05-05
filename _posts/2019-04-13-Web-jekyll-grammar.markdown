@@ -12,5 +12,10 @@ This page will give a brief introduction of the Jekyll grammar, let's start this
 ### Jekyll directory structure
 Unzip the package you downloaded and check the directory structure.The Jekyll directory structure mainly includes the following directories.
 
+![directory](https://gangdong.github.io/daviddong.github.io/assets/image/web-jekyll-2-directory.png)
+
+The description of each folder.
+
+![directory](https://gangdong.github.io/daviddong.github.io/assets/image/web-jekyll-2-directory-description.png)
 
 
