@@ -14,12 +14,12 @@ To learn how to build your website on the github, a quick way is referring to th
 Here is a short summary，<br>
 1. apply a github account, you can skip this step if you already have.<br>
 2. create a new repository as below. <br>
-![create](https://gangdong.github.io/daviddong.github.io/assets/create-repository.png)
+![create](https://gangdong.github.io/daviddong.github.io/assets/image/others-blog-create-repository.png)
 fill the name of repository，please note the name must be your website's url and ending with github.io!
-![create2](https://gangdong.github.io/daviddong.github.io/assets/create-repository2.png)
+![create2](https://gangdong.github.io/daviddong.github.io/assets/image/others-blog-create-repository2.png)
 3. click create repository button，the repository will be created。<br>
 4. open the settings page of your new repository, find your website url and record it. Input your website url into the web browser and then you will see your website's homepage. It is an empty page at the beginning. To add content, you need to create a index.html file in your repository directory. Write what you want into it and submit the modification, you we will see the contents you added.<br>
-![create3](https://gangdong.github.io/daviddong.github.io/assets/create-repository4.png)
+![create3](https://gangdong.github.io/daviddong.github.io/assets/image/others-blog-create-repository4.png)
 For now, all work are done! you've got your personal website with some simple elements. If you want to enrich your website, You need to do some extra work. A fast way is to use github template. GitHub provides many beautiful theme templates. You can use them directly to create your own. The theme templates on GitHub are mostly built based on jekyll, so it is necessary to understand jekyll. However the introduction of jekyll is not discussed in this paper. I'll write a separate article for jekyll.<br>
 See you soon.<br>
 
