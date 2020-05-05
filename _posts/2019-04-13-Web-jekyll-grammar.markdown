@@ -18,4 +18,7 @@ The description of each folder.
 
 ![directory](https://gangdong.github.io/daviddong.github.io/assets/image/web-jekyll-2-directory-description.png)
 
+Every file or directory beginning with the following characters: ., _ , # or ~ in the source directory will not be included in the destination folder. Such paths will have to be explicitly specified via the config file in the include directive to make sure they’re copied over.
+
+### Liquid
 
