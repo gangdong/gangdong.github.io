@@ -143,32 +143,3 @@ int void main(){
 到这里**markdown**一些基本的命令就讲完了，用**markdown**写文档还是很方便的。
 最后再介绍几款好用的**markdown**的编辑器，方便网友使用。<br>
 目前比较主流的支持**markdown**语言的编辑有markdownpad,typora,sublime,Mou,atom,Cmd Markdown 等，这些软件大部分都能支持windows/liunx和ios(Mou只支持ios)的平台。而且大部分是免费使用。功能上大同小异，都支持实时预览和HTML/PDF输出，有些还能够自定义语法的高亮显示等。我目前使用的是markdownpad,编辑起来还是很方便的。
-
-<!-- Gitalk 评论 start  -->
-<!-- Link Gitalk 的支持文件  -->
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-<div id="gitalk-container"></div>
-<script type="text/javascript">
-   var gitalk = new Gitalk({
-
-   // gitalk的主要参数
-   clientID: '5e24fc307693a6df3bc5',
-   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
-   repo: 'daviddong.github.io',
-   owner: 'gangdong',
-   admin: ['gangdong'],
-   id: '/others/2019/04/25/Others-markdown.html',
-   title: 'comments'
-    });
-   gitalk.render('gitalk-container');
-</script>
-<!-- Gitalk end -->
-
-<br><br><br>
-
-<font size="2" color="#aaa">作者：David Dong<br></font>
-<font size="2" color="#aaa">来源：https://gangdong.github.io/daviddong-blog.github.io/others/2019/04/25/markdown.html</font>
-<font size="2" color="#aaa">转载请注明出处。</font>
-<span id="busuanzi_container_page_pv" ></span><font size="2" color="#aaa">
-本文总阅读量</font><font size="2" color="#aaa"><span id="busuanzi_value_page_pv"></font></span><font size="2" color="#aaa">次</font>
