@@ -48,7 +48,7 @@ above is the description from the official docs. talk is always easy, next I wil
 This page's title is {{page.title}}
 This page's name is {{page.name}}
 This page's url is {{page.url}}
-This page's id is {{page}.id}
+This page's id is {{page.id}}
 This page's date is {{page.date}}
 This page's categories is {{page.categories}}
 ````
