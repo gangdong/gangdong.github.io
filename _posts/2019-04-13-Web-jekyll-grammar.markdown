@@ -22,8 +22,7 @@ Every file or directory beginning with the following characters: ., _ , # or ~ i
 
 ### Liquid
 
-Jekyll uses the Liquid templating language to process templates.
-Generally in Liquid you output content using two curly braces e.g. {{ variable }} and perform logic statements by surrounding them in a curly brace percentage sign e.g. {% if statement %}. To learn more about Liquid, check out the [official Liquid Documentation](https://shopify.github.io/liquid/).
+
 
 ### Variables
 
