@@ -12,26 +12,34 @@ Let's start this article from the source code of the theme you downloaded.
 ### Jekyll directory structure
 Unzip the package you downloaded and check the directory structure.The Jekyll directory structure mainly includes the following directories.
 
+![directory](https://gangdong.github.io/daviddong.github.io/assets/image/web-jekyll-2-directory.png)
 
-```
-_posts blog contents
-_pages 其他需要生成的网页，如About页
-_layouts 网页排版模板
-_includes 被模板包含的HTML片段，可在_config.yml中修改位置
-assets 辅助资源 css布局 js脚本 图片等
-_data 动态数据
-_sites 最终生成的静态网页
-_config.yml 网站的一些配置信息
-index.html 网站的入口
+The description of each folder.
 
+![directory](https://gangdong.github.io/daviddong.github.io/assets/image/web-jekyll-2-directory-description.png)
 
-作者：leach_chen
-链接：https://www.jianshu.com/p/9f71e260925d
-来源：简书
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
-```
+Every file or directory beginning with the following characters: ., _ , # or ~ in the source directory will not be included in the destination folder. Such paths will have to be explicitly specified via the config file in the include directive to make sure they’re copied over.
 
+### Liquid
 
+Jekyll uses the Liquid templating language to process templates.
+Generally in Liquid you output content using two curly braces e.g. {{ variable }} and perform logic statements by surrounding them in a curly brace percentage sign e.g. {% if statement %}. To learn more about Liquid, check out the [official Liquid Documentation](https://shopify.github.io/liquid/).
+
+### Variables
+
+ekyll traverses your site looking for files to process. Any files with front matter are subject to processing. For each of these files, Jekyll makes a variety of data available via Liquid. The following is a reference of the available data.
+
+#### global variables
+![directory](https://gangdong.github.io/daviddong.github.io/assets/image/web-jekyll-2-variables-global.png)
+
+#### site variables
+![directory](https://gangdong.github.io/daviddong.github.io/assets/image/web-jekyll-2-variables-site.png)
+
+#### page variables
+![directory](https://gangdong.github.io/daviddong.github.io/assets/image/web-jekyll-2-variables-page.png)
+
+#### paginator variables
+![directory](https://gangdong.github.io/daviddong.github.io/assets/image/web-jekyll-2-variables-paginator.png)
 
 
 <br>
