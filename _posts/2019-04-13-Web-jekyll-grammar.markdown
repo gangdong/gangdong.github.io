@@ -55,7 +55,6 @@ This page's collection is {{page.collection}}
 This page's tags is {{page.tags}}
 This page's dir is {{page.dir}}
 This page's path is {{page.path}}
-This page's next is {{page.next}}
-This page's pre is {{page.previous}}
+
 ````
 
