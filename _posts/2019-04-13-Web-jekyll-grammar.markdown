@@ -42,3 +42,7 @@ Jekyll traverses your site looking for files to process. Any files with front ma
 #### paginator variables
 ![directory](https://gangdong.github.io/daviddong.github.io/assets/image/web-jekyll-2-variables-paginator.png)
 
+above is the description from the official docs. talk is always easy, next I will write some code to demonstrate the usage. 
+
+I am {{page.title}}.
+
