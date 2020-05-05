@@ -43,9 +43,9 @@ Jekyll traverses your site looking for files to process. Any files with front ma
 ![directory](https://gangdong.github.io/daviddong.github.io/assets/image/web-jekyll-2-variables-paginator.png)
 
 above is the description from the official docs. talk is always easy, next I will write some code to demonstrate the usage. 
-
+[This page's title is {{page.title}}]:
 ```Jekyll
-#This page's title is {{page.title}}
+This page's title is {{page.title}}
 This page's name is {{page.name}}
 This page's url is {{page.url}}
 This page's id is {{page.id}}
