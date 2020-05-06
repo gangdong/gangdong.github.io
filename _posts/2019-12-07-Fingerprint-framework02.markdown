@@ -136,7 +136,7 @@ android path: root/frameworks/base/services/java/com/android/server/SystemServer
 this class is incharge of the system service operation, include start up the necessary service.
 When Android system loads system server, start fingerprint service.
 
-```
+```java
 import com.android.server.fingerprint.FingerprintService;
 
 if (mPackageManager.hasSystemFeature(PackageManager.FEATURE_FINGERPRINT)) {
@@ -151,9 +151,51 @@ keep finding the
 android path: root/frameworks/base/services/core/java/com/android/server/fingerprint/FingerprintService.java <br>
 FingerprintService is a subclass of SystemService class and implements the IHwbinder interface.
 
-```
+```java
 public class FingerprintService extends SystemService implements IHwBinder.DeathRecipient {
 
+    public synchronized IBiometricsFingerprint getFingerprintDaemon() {
+        if (mDaemon == null) {
+            Slog.v(TAG, "mDaemon was null, reconnect to fingerprint");
+            try {
+                mDaemon = IBiometricsFingerprint.getService();
+            } catch (java.util.NoSuchElementException e) {
+                // Service doesn't exist or cannot be opened. Logged below.
+            } catch (RemoteException e) {
+                Slog.e(TAG, "Failed to get biometric interface", e);
+            }
+            if (mDaemon == null) {
+                Slog.w(TAG, "fingerprint HIDL not available");
+                return null;
+            }
+
+            mDaemon.asBinder().linkToDeath(this, 0);
+
+            try {
+                mHalDeviceId = mDaemon.setNotify(mDaemonCallback);
+            } catch (RemoteException e) {
+                Slog.e(TAG, "Failed to open fingerprint HAL", e);
+                mDaemon = null; // try again later!
+            }
+
+            if (DEBUG) Slog.v(TAG, "Fingerprint HAL id: " + mHalDeviceId);
+            if (mHalDeviceId != 0) {
+                loadAuthenticatorIds();
+                updateActiveGroup(ActivityManager.getCurrentUser(), null);
+                doFingerprintCleanupForUser(ActivityManager.getCurrentUser());
+            } else {
+                Slog.w(TAG, "Failed to open Fingerprint HAL!");
+                MetricsLogger.count(mContext, "fingerprintd_openhal_error", 1);
+                mDaemon = null;
+            }
+        }
+        return mDaemon;
+    }
 
 }
 ```
+let's see the mehtod getFingerprintDaemon(), this method will acquire the fingerprint remote service object, that is, the object of fingerprint daemon (system/core/fingerprintd), which has been registered in the init.rc. Then initialize the remote service fingerprintdaemon and set the callback mDaemonCallback.
+
+It can be seen from the above that the fingerprint service in the framework calls the fingerprint remote service of the native layer fingerprint daemon (related to the hardware), which can be regarded as the client of the fingerprint remote service fingerprint daemon.
+
+Ok, we have seen the working process of framework layer and how they register the system service and access the HAL library by calling the remote fingerprint service through Binder. Let's move to native layer in next article.
