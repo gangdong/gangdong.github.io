@@ -4,6 +4,7 @@ title:  "Android Fingerprint Framework (2)"
 date:   2019-12-07 23:52:01 +0800
 categories: Android Fingerprint
 Published: true
+localdocs: {{page.url}}/daviddong.github.io/assets/docs/
 ---
 This blog will follow the last article to introduce the android fingerprint framework from the source code inspecting.
 
@@ -68,7 +69,7 @@ int main() {
 }
 ```
 from the [FingerprintDaemonProxy.h]({{site.url}}/daviddong.github.io/assets/docs/FingerprintDaemonProxy.h), we find the remote service is fingerprint daemon. Fingerprinted registers the remote service to the servcemanager for the customer to call.
-The protocol interface is IFingerprintdaemon. Fingerprintservice in the framework will eventually call the remote service, that is, the method in fingerprintdaemonproxy.cpp.
+The protocol interface is IFingerprintdaemon. Fingerprintservice in the framework will eventually call the remote service, that is, the method in [fingerprintdaemonproxy.cpp]({{site.url}}/daviddong.github.io/assets/docs/fingerprintdaemonproxy.cpp).
 ```c++
 #ifndef FINGERPRINT_DAEMON_PROXY_H_
 #define FINGERPRINT_DAEMON_PROXY_H_
@@ -121,7 +122,7 @@ class FingerprintDaemonProxy : public BnFingerprintDaemon {
 ```
 2. Step two - Startup FingerprintService
 Next, we will move to framework layer to find how the fingerprint service start up. 
-open the SystemServer.java file at /frameworks/base/services/java/com/android/server/SystemServer.java  
+open the [SystemServer.java]({{page.localdocs}}/SystemServer.java) file at /frameworks/base/services/java/com/android/server/SystemServer.java  
 this class is incharge of the system service operation, include start up the necessary service.
 When Android system loads system server, start fingerprint service.
 
