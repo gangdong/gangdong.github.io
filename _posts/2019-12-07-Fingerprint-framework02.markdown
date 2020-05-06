@@ -7,7 +7,7 @@ Published: true
 ---
 This blog will follow the last article to introduce the android fingerprint framework from the source code inspecting.
 
-####Step one - startup fingerprintd service
+### Step one - startup fingerprintd service
 looking at the init.rc file, this task is assigned at init.rc when the android system boots up, start the fingerprint daemon service.
 ```
 service fingerprintd /system/bin/fingerprintd
