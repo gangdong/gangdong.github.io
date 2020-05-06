@@ -339,31 +339,64 @@ Let's turn back to the FingerprintDaemonProxy::openHal() to see how it call the 
 
 ```c++
 int64_t FingerprintDaemonProxy::openHal() {
-
     ALOG(LOG_VERBOSE, LOG_TAG, "nativeOpenHal()\n");
-
     int err;
-
     const hw_module_t *hw_module = NULL;
-
     if (0 != (err = hw_get_module(FINGERPRINT_HARDWARE_MODULE_ID, &hw_module))) {
-
         ALOGE("Can't open fingerprint HW Module, error: %d", err);
-
         return 0;
-
     }
-
     if (NULL == hw_module) {
-
-     ALOGE("No valid fingerprint module");
-
+        ALOGE("No valid fingerprint module");
         return 0;
-
     }
 
-    ......
+    mModule = reinterpret_cast<const fingerprint_module_t*>(hw_module);
 
+    if (mModule->common.methods->open == NULL) {
+        ALOGE("No valid open method");
+        return 0;
+    }
+
+    hw_device_t *device = NULL;
+
+    if (0 != (err = mModule->common.methods->open(hw_module, NULL, &device))) {
+        ALOGE("Can't open fingerprint methods, error: %d", err);
+        return 0;
+    }
+
+    if (kVersion != device->version) {
+        ALOGE("Wrong fp version. Expected %d, got %d", kVersion, device->version);
+        // return 0; // FIXME
+    }
+
+    mDevice = reinterpret_cast<fingerprint_device_t*>(device);
+    err = mDevice->set_notify(mDevice, hal_notify_callback);
+    if (err < 0) {
+        ALOGE("Failed in call to set_notify(), err=%d", err);
+        return 0;
+    }
+
+    // Sanity check - remove
+    if (mDevice->notify != hal_notify_callback) {
+        ALOGE("NOTIFY not set properly: %p != %p", mDevice->notify, hal_notify_callback);
+    }
+
+    ALOG(LOG_VERBOSE, LOG_TAG, "fingerprint HAL successfully initialized");
+    return reinterpret_cast<int64_t>(mDevice); // This is just a handle
 }
 ```
+openHal() will call the hw_get_module() to get the pointer to hw_module_t module, after then it will call the open() function. For now, the fingerprintd is able to operate fingerprint device through the
+hw_device_t.
 
+the funciton of the fingerprint module can be found at 
+[fingerprint.h]() and [fingerprint.c]().
+
+so far, we have seen the whole process of the fingerprint.
+now we can give the summary for the flow.
+
+ServiceServer->FingerprintService.java->FingerprintDaemonProxy.cpp->fingerprint.c->vendorHal.cpp->vendorCA.cpp--------TEE->TA.c 
+
+However, from android8, android has made some change for the HAL access method, and import the hidl concept. so the contents we introduced is for the android version early android 8.
+
+next, I will write a article to introduce the difference of the fingerprint implementation after android 8 version. 
