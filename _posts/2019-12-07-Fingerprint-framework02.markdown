@@ -18,9 +18,9 @@ group root sdcard_r sdcard_rw
 let's check the fingerprintd program.<br> 
 Here recommend a useful website for your view/investigate the android source code. [Android Community](https://www.androidos.net.cn/android/10.0.0_r6/xref)
 
-we can see the path is system/core/fingerprintd/ and the directory structure is as below.
+We can see the path is system/core/fingerprintd/ and the directory structure is as below.
 ![fingerprintd directory structure](https://gangdong.github.io/daviddong.github.io/assets/image/android-fingerprint-framework2-fingerprintd-directory.png)
-read the Android.mk
+read the [Android.mk]({{site.url}}/daviddong.github.io/assets/docs/Android.mk)
 ```android
 LOCAL_PATH := $(call my-dir)
 
@@ -41,7 +41,7 @@ LOCAL_SHARED_LIBRARIES := \
 include $(BUILD_EXECUTABLE)
 ```
 This package is built as a executable programm.
-open the [fingerprintd.cpp](https://www.androidos.net.cn/android/7.1.1_r28/xref/system/core/fingerprintd/fingerprintd.cpp)
+open the [fingerprintd.cpp](https://gangdong.github.io/daviddong.github.io/assets/docs/fingerprintd.cpp)
 the task of the main() is very simple, just create a FingerprintDaemonProxy object and add it into the service queue. 
 ```c++
 #include "FingerprintDaemonProxy.h"
@@ -67,7 +67,7 @@ int main() {
     return 0;
 }
 ```
-from the FingerprintDaemonProxy.h, we find the remote service is fingerprint daemon. Fingerprinted registers the remote service to the servcemanager for the customer to call.
+from the [FingerprintDaemonProxy.h](), we find the remote service is fingerprint daemon. Fingerprinted registers the remote service to the servcemanager for the customer to call.
 The protocol interface is IFingerprintdaemon. Fingerprintservice in the framework will eventually call the remote service, that is, the method in fingerprintdaemonproxy.cpp.
 ```c++
 #ifndef FINGERPRINT_DAEMON_PROXY_H_
