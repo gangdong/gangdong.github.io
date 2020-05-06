@@ -16,7 +16,7 @@ user root
 group root sdcard_r sdcard_rw
 ``` 
 let's check the fingerprintd program.<br> 
-Here recommend a useful website for your view/investigate the android source code. 
+Here recommend a useful website for your view/investigate the android source code.<br> 
 [Android Community](https://www.androidos.net.cn/android/10.0.0_r6/xref)
 
 We can see the path is system/core/fingerprintd/ and the directory structure is as below.
@@ -42,9 +42,9 @@ LOCAL_SHARED_LIBRARIES := \
 	libkeystore_binder
 include $(BUILD_EXECUTABLE)
 ```
-This package is built as a executable program.
+This package is built as a executable program.<br>
 open the 
-[fingerprintd.cpp]({{site.url}}/daviddong.github.io/assets/docs/fingerprintd.cpp)
+[fingerprintd.cpp]({{site.url}}/daviddong.github.io/assets/docs/fingerprintd.cpp)<br>
 android path: root/system/core/fingerprintd/fingerprintd.cpp<br>
 the task of the main() is very simple, just create a FingerprintDaemonProxy object and add it into the service queue. 
 ```c++
@@ -72,11 +72,11 @@ int main() {
 }
 ```
 from the 
-[FingerprintDaemonProxy.h]({{site.url}}/daviddong.github.io/assets/docs/FingerprintDaemonProxy.h)
+[FingerprintDaemonProxy.h]({{site.url}}/daviddong.github.io/assets/docs/FingerprintDaemonProxy.h)<br>
 android path: root/system/core/fingerprintd/FingerprintDaemonProxy.h<br>
 we find the remote service is fingerprint daemon. Fingerprinted registers the remote service to the servcemanager for the customer to call.
 The protocol interface is IFingerprintdaemon. Fingerprintservice in the framework will eventually call the remote service, that is, the method in 
-[fingerprintdaemonproxy.cpp]({{site.url}}/daviddong.github.io/assets/docs/fingerprintdaemonproxy.cpp).
+[fingerprintdaemonproxy.cpp]({{site.url}}/daviddong.github.io/assets/docs/fingerprintdaemonproxy.cpp).<br>
 android path: root/system/core/fingerprintd/fingerprintdaemonproxy.cpp<br>
 ```c++
 #ifndef FINGERPRINT_DAEMON_PROXY_H_
@@ -131,7 +131,7 @@ class FingerprintDaemonProxy : public BnFingerprintDaemon {
 ### Step two - Startup FingerprintService
 Next, we will move to framework layer to find how the fingerprint service start up. 
 open the 
-[SystemServer.java]({{site.url}}/daviddong.github.io/assets/docs/SystemServer.java)
+[SystemServer.java]({{site.url}}/daviddong.github.io/assets/docs/SystemServer.java)<br>
 android path: root/frameworks/base/services/java/com/android/server/SystemServer.java  <br>
 this class is incharge of the system service operation, include start up the necessary service.
 When Android system loads system server, start fingerprint service.
@@ -147,7 +147,7 @@ if (mPackageManager.hasSystemFeature(PackageManager.FEATURE_FINGERPRINT)) {
 ```
 
 keep finding the 
-[FingerprintService.java](https://gangdong.github.io/daviddong.github.io/assets/docs/FingerprintService.java).
+[FingerprintService.java](https://gangdong.github.io/daviddong.github.io/assets/docs/FingerprintService.java).<br>
 android path: root/frameworks/base/services/core/java/com/android/server/fingerprint/FingerprintService.java <br>
 FingerprintService is a subclass of SystemService class and implements the IHwbinder interface.
 
