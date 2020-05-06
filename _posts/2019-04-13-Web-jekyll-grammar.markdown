@@ -68,3 +68,13 @@ Jekyll has below commands
 **jekyll clean:**Delete all generated files: destination folder, metadata file, sass and Jekyll caches.<br>
 **jekyll help:**Display help information, or display help information for specific subcommands, such as Jekyll help build.<br>
 **jekyll new-theme:**Creates a new Jekyll theme scaffold.<br>
+
+above contents are not include all of the Jekyll's grammar, there are some other part, such as 
++ Jekyll configuraiton
++ Includes
++ Layouts
++ Permalinks
++ Themes
++ Pagination 
+
+Due to the blog's length limitation, I cannot list all of the contents, if you are interesing in the other part, please find more details at below website [Jekyll Tutorial](https://jekyll.zcopy.site/docs/).
