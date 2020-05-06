@@ -7,7 +7,7 @@ Published: true
 ---
 This blog will follow the last article to introduce the android fingerprint framework from the source code inspecting.
 
-1. Step one - startup fingerprintd service
+####Step one - startup fingerprintd service
 looking at the init.rc file, this task is assigned at init.rc when the android system boots up, start the fingerprint daemon service.
 ```
 service fingerprintd /system/bin/fingerprintd
@@ -16,11 +16,14 @@ user root
 group root sdcard_r sdcard_rw
 ``` 
 let's check the fingerprintd program.<br> 
-Here recommend a useful website for your view/investigate the android source code. [Android Community](https://www.androidos.net.cn/android/10.0.0_r6/xref)
+Here recommend a useful website for your view/investigate the android source code. 
+[Android Community](https://www.androidos.net.cn/android/10.0.0_r6/xref)
 
 We can see the path is system/core/fingerprintd/ and the directory structure is as below.
 ![fingerprintd directory structure](https://gangdong.github.io/daviddong.github.io/assets/image/android-fingerprint-framework2-fingerprintd-directory.png)
-read the [Android.mk]({{site.url}}/daviddong.github.io/assets/docs/Android.mk)
+read the 
+[Android.mk]({{site.url}}/daviddong.github.io/assets/docs/Android.mk)<br>
+androdi path: root/system/core/fingerprintd/Android.mk 
 ```android
 LOCAL_PATH := $(call my-dir)
 
