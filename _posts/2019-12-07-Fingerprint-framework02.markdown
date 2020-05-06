@@ -41,7 +41,7 @@ LOCAL_SHARED_LIBRARIES := \
 include $(BUILD_EXECUTABLE)
 ```
 This package is built as a executable programm.
-open the [fingerprintd.cpp](https://gangdong.github.io/daviddong.github.io/assets/docs/fingerprintd.CPP)
+open the [fingerprintd.cpp]({{site.url}}/daviddong.github.io/assets/docs/fingerprintd.cpp)
 the task of the main() is very simple, just create a FingerprintDaemonProxy object and add it into the service queue. 
 ```c++
 #include "FingerprintDaemonProxy.h"
@@ -67,7 +67,7 @@ int main() {
     return 0;
 }
 ```
-from the [FingerprintDaemonProxy.h](), we find the remote service is fingerprint daemon. Fingerprinted registers the remote service to the servcemanager for the customer to call.
+from the [FingerprintDaemonProxy.h]({{site.url}}/daviddong.github.io/assets/docs/FingerprintDaemonProxy.h), we find the remote service is fingerprint daemon. Fingerprinted registers the remote service to the servcemanager for the customer to call.
 The protocol interface is IFingerprintdaemon. Fingerprintservice in the framework will eventually call the remote service, that is, the method in fingerprintdaemonproxy.cpp.
 ```c++
 #ifndef FINGERPRINT_DAEMON_PROXY_H_
