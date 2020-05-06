@@ -4,7 +4,6 @@ title:  "Android Fingerprint Framework (2)"
 date:   2019-12-07 23:52:01 +0800
 categories: Android Fingerprint
 Published: true
-localdocs: https://gangdong.github.io/daviddong.github.io/assets/docs/
 ---
 This blog will follow the last article to introduce the android fingerprint framework from the source code inspecting.
 
@@ -122,7 +121,7 @@ class FingerprintDaemonProxy : public BnFingerprintDaemon {
 ```
 2. Step two - Startup FingerprintService
 Next, we will move to framework layer to find how the fingerprint service start up. 
-open the [SystemServer.java]({{page.localdocs}}/SystemServer.java) file at /frameworks/base/services/java/com/android/server/SystemServer.java  
+open the [SystemServer.java]({{site.url}}/daviddong.github.io/assets/docs/SystemServer.java) file at /frameworks/base/services/java/com/android/server/SystemServer.java  
 this class is incharge of the system service operation, include start up the necessary service.
 When Android system loads system server, start fingerprint service.
 
