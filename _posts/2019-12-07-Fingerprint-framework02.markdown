@@ -41,7 +41,7 @@ LOCAL_SHARED_LIBRARIES := \
 include $(BUILD_EXECUTABLE)
 ```
 This package is built as a executable programm.
-open the [fingerprintd.cpp](https://gangdong.github.io/daviddong.github.io/assets/docs/fingerprintd.cpp)
+open the [fingerprintd.cpp](https://gangdong.github.io/daviddong.github.io/assets/docs/fingerprintd.CPP)
 the task of the main() is very simple, just create a FingerprintDaemonProxy object and add it into the service queue. 
 ```c++
 #include "FingerprintDaemonProxy.h"
