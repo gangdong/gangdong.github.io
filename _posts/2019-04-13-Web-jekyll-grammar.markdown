@@ -43,7 +43,7 @@ Jekyll traverses your site looking for files to process. Any files with front ma
 ![directory](https://gangdong.github.io/daviddong.github.io/assets/image/web-jekyll-2-variables-paginator.png)
 
 above is the description from the official docs. talk is always easy, next I will write some code to demonstrate the usage. 
-
+below shows the variables value of my blog.
 ```Jekyll
 This page's title is {{page.title}}
 This page's name is {{page.name}}
@@ -56,6 +56,15 @@ This page's tags is {{page.tags}}
 This page's dir is {{page.dir}}
 This page's path is {{page.path}}
 This site's url is {{site.url}}
-
 ````
+#### Jekyll command
+Jekyll has below commands
 
+**Jekyll new PATH:** Create a new site in the specified directory using the gem based default theme. <br>
+**jekyll new PATH --blank：**Create a new blank site in the specified directory.<br>
+**jekyll build or jekyll b:**Perform a build and output the generated site to the. / site (default) directory.<br>
+**jekyll serve or jekyll s:**Build site and provide local access service when source file changes.<br>
+**jekyll doctor:**Output any deprecated features or configuration issues.<br>
+**jekyll clean:**Delete all generated files: destination folder, metadata file, sass and Jekyll caches.<br>
+**jekyll help:**Display help information, or display help information for specific subcommands, such as Jekyll help build.<br>
+**jekyll new-theme:**Creates a new Jekyll theme scaffold.<br>
