@@ -15,7 +15,7 @@ The hardware abstract layer (HAL) of Android system runs in user space. It shiel
 
 The hardware abstraction layer of Android system manages various hardware access interfaces in the form of modules. Each hardware module has a dynamic link library .So file. The compilation of these dynamic link libraries needs to conform to certain specifications. In Android system, each hardware abstraction layer module is described by HW]hw_module_t, and the hardware device is described by hw_device_t.
 
-These definition of these two struct is defined at [hardware.h]({{site.url}/daviddong.github.io/assets/docs/hardware.h})<br>
+These definition of these two struct is defined at [hardware.h]({{site.url}}/daviddong.github.io/assets/docs/hardware.h})<br>
 android path: rot/hardware/libhardware/include/hardware/hardware.h
 
 ```c
@@ -334,3 +334,36 @@ int hw_get_module(const char *id, const struct hw_module_t **module)
 
 ```
 hw_get_module() will call the hw_get_module_by_class function. First, it will read the system property "ro. Hardware" through the property_get function. If it is found, use the hw_module_exists function to check whether the .So file exists. If it exists, load it directly else if it does not exist, continue to search for the variant_keys array. Checking system attribute values. If it exists, load it directly. If it does not exist still, load the default.
+
+Let's turn back to the FingerprintDaemonProxy::openHal() to see how it call the hw_get_module() function.
+
+```c++
+int64_t FingerprintDaemonProxy::openHal() {
+
+    ALOG(LOG_VERBOSE, LOG_TAG, "nativeOpenHal()\n");
+
+    int err;
+
+    const hw_module_t *hw_module = NULL;
+
+    if (0 != (err = hw_get_module(FINGERPRINT_HARDWARE_MODULE_ID, &hw_module))) {
+
+        ALOGE("Can't open fingerprint HW Module, error: %d", err);
+
+        return 0;
+
+    }
+
+    if (NULL == hw_module) {
+
+     ALOGE("No valid fingerprint module");
+
+        return 0;
+
+    }
+
+    ......
+
+}
+```
+
