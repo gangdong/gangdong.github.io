@@ -4,7 +4,7 @@ title:  "Android Fingerprint Framework (2)"
 date:   2019-12-07 23:52:01 +0800
 categories: Android Fingerprint
 Published: true
-localdocs: {{page.url}}/daviddong.github.io/assets/docs/
+localdocs: https://gangdong.github.io/daviddong.github.io/assets/docs/
 ---
 This blog will follow the last article to introduce the android fingerprint framework from the source code inspecting.
 
