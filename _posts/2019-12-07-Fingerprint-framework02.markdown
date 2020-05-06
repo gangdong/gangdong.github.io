@@ -124,10 +124,9 @@ Next, we will move to framework layer to find how the fingerprint service start 
 open the SystemServer.java file at /frameworks/base/services/java/com/android/server/SystemServer.java  
 this class is incharge of the system service operation, include start up the necessary service.
 When Android system loads system server, start fingerprint service.
+
 ```
-...
 import com.android.server.fingerprint.FingerprintService;
-...
 
 if (mPackageManager.hasSystemFeature(PackageManager.FEATURE_FINGERPRINT)) {
                 traceBeginAndSlog("StartFingerprintSensor");
@@ -135,9 +134,11 @@ if (mPackageManager.hasSystemFeature(PackageManager.FEATURE_FINGERPRINT)) {
                 traceEnd();
             }
 ```
+
 keep finding the [FingerprintService.java](https://gangdong.github.io/daviddong.github.io/assets/docs/FingerprintService.java).
 the path is /frameworks/base/services/core/java/com/android/server/fingerprint/FingerprintService.java
 FingerprintService is a subclass of SystemService class and implements the IHwbinder interface.
+
 ```
 public class FingerprintService extends SystemService implements IHwBinder.DeathRecipient {
 
