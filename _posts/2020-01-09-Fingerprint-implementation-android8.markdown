@@ -239,8 +239,8 @@ So far, we can change the fingerprint framework of Android 8.0 as below.
 The related source code and android path can be found at below table<br>
 
 **file**|**android path**|
--|:--|
-[fingerprint@2.1-service.rc]({{site.url}}/daviddong.github.io/assets/docs/android.hardware.biometrics.fingerprint@2.1-service.rc)|root/hardware/interfaces/biometrics/fingerprint/2.1/default/|
+:--|:--|
+
 [service.cpp]({{site.url}}/daviddong.github.io/assets/docs/service.cpp)|root/hardware/interfaces/biometrics/fingerprint/2.1/default/|
 [BiometricsFingerprint.cpp]({{site.url}}/daviddong.github.io/assets/docs/BiometricsFingerprint.cpp)|root/hardware/interfaces/biometrics/fingerprint/2.1/default/|
 [BiometricsFingerprint.h]({{site.url}}/daviddong.github.io/assets/docs/BiometricsFingerprint.h)|root/hardware/interfaces/biometrics/fingerprint/2.1/default/
