@@ -88,7 +88,14 @@ so the whole work flow is following below chart.
 The related source code and android path can be found at below <br>
 
 file|android path|
----|:--:|
+---|:--|
 [init.rc]({{site.url}}/daviddong.github.io/assets/docs/init.rc)|root/system/core/rootdir/init.rc|
 [fingerprintd.cpp]({{site.url}}/daviddong.github.io/assets/docs/fingerprintd.cpp)|root/system/core/fingerprintd/fingerprintd.cpp|
-[FingerprintDaemonProxy.h]({{site.url}}/daviddong.github.io/assets/docs/FingerprintDaemonProxy.h)|root/system/core/fingerprintd/|
+[FingerprintDaemonProxy.h]({{site.url}}/daviddong.github.io/assets/docs/FingerprintDaemonProxy.h)|root/system/core/fingerprintd/|fingerprintdaemonproxy.h
+[fingerprintdaemonproxy.cpp]({{site.url}}/daviddong.github.io/assets/docs/fingerprintdaemonproxy.cpp)|root/system/core/fingerprintd/fingerprintdaemonproxy.cpp
+[SystemServer.java]({{site.url}}/daviddong.github.io/assets/docs/SystemServer.java)|root/frameworks/base/services/java/com/android/server/SystemServer.java
+[FingerprintService.java](https://gangdong.github.io/daviddong.github.io/assets/docs/FingerprintService.java)|root/frameworks/base/services/core/java/com/android/server/fingerprint/FingerprintService.java
+[hardware.h]({{site.url}}/daviddong.github.io/assets/docs/hardware.h})|root/hardware/libhardware/include/hardware/hardware.h
+[hardware.c]({{site.url}}/daviddong.github.io/assets/docs/hardware.c)|root/hardware/libhardware/hardware.c
+
+

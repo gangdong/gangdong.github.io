@@ -16,7 +16,7 @@ The hardware abstract layer (HAL) of Android system runs in user space. It shiel
 The hardware abstraction layer of Android system manages various hardware access interfaces in the form of modules. Each hardware module has a dynamic link library .So file. The compilation of these dynamic link libraries needs to conform to certain specifications. In Android system, each hardware abstraction layer module is described by HW]hw_module_t, and the hardware device is described by hw_device_t.
 
 These definition of these two struct is defined at [hardware.h]({{site.url}}/daviddong.github.io/assets/docs/hardware.h})<br>
-android path: rot/hardware/libhardware/include/hardware/hardware.h
+android path: root/hardware/libhardware/include/hardware/hardware.h
 
 ```c
 typedef struct hw_module_t {
