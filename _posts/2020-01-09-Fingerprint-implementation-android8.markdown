@@ -8,10 +8,15 @@ Published: true
 Since version 8.0, Android has fully introduced HIDL to separate vendor partition from sysem partition, so that Android is able to upgrade framework through OTA without recompiling HAL. Correspondingly, the framework of fingerprint has also been changed. 
 This page will give a introduction about the difference of the fingerprint framework between android 7.0 (and early version) and android 8.0 (and later version).
 
-After the study of the previous three articles, we have learned the fingerprint framework on the android, here give a short summary for anyone who has not read these article yet. <br>
+After the study of the previous three articles, <br>
+[Android Fingerprint Framework (1)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/10/03/Fingerprint-framework01.html)
+[Android Fingerprint Framework (2)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/10/03/Fingerprint-framework02.html)
+[Android Fingerprint Framework (3)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/10/03/Fingerprint-framework03.html)<br>
+we have learned the fingerprint framework on the android, here give a short summary for anyone who has not read these articles yet. <br>
+
 ![framework](https://gangdong.github.io/daviddong.github.io/assets/image/android-fingerprint-framework-framework.png)
 
-The fingerprint application kicks off the work flow and this is the fingerprint management entry defined by Android system layer.
+The fingerprint application will start the work flow and this is the fingerprint management entry defined by Android system layer.
 
 1. init.rc starts up the Fingerprintd process during the system boot up.Fingerpringd then register Ifingerprintdaemon remote service to servcemanager.
 2. System server will start fingerprint system service fingerprintservice.<br>
