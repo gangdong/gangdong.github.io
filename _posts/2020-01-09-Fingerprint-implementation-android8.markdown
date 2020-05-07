@@ -23,25 +23,45 @@ From the top layer, the fingerprint application will start the work flow and thi
 In the framework internal, some tasks will be done to handler the request from application.
 
 1. init.rc starts up the Fingerprintd process during the system boot up.Fingerpringd then register IFingerprintDaemon remote service to ServiceManager.
+
 2. System Server will start fingerprint system service FingerprintService.<br>
+**SystemServer.java**
 ```java
 mSystemServiceManager.startService(FingerprintService.class);
 ```
-3. Fingerprint Service calls the interface of Fingerprintd to communicate with Fingerprint HAL layer. 
 
-```java
-
-private static final String FINGERPRINTD = "android.hardware.fingerprint.IFingerprintDaemon";
-
-mDaemon = IFingerprintDaemon.Stub.asInterface(ServiceManager.getService(FINGERPRINTD));
-
-mDaemon.asBinder().linkToDeath(this, 0);
-mDaemon.init(mDaemonCallback);
-mHalDeviceId = mDaemon.openHal();
+3. Fingerprint Service calls the interface of Fingerprintd to communicate with Fingerprint HAL layer.<br>
+**FingerprintService.java**
+```c++
+public IFingerprintDaemon getFingerprintDaemon() {
+        if (mDaemon == null) {
+            mDaemon = IFingerprintDaemon.Stub.asInterface(ServiceManager.getService(FINGERPRINTD));
+            if (mDaemon != null) {
+                try {
+                    mDaemon.asBinder().linkToDeath(this, 0);
+                    mDaemon.init(mDaemonCallback);
+                    mHalDeviceId = mDaemon.openHal();
+                    if (mHalDeviceId != 0) {
+                        updateActiveGroup(ActivityManager.getCurrentUser(), null);
+                    } else {
+                        Slog.w(TAG, "Failed to open Fingerprint HAL!");
+                        MetricsLogger.count(mContext, "fingerprintd_openhal_error", 1);
+                        mDaemon = null;
+                    }
+                } catch (RemoteException e) {
+                    Slog.e(TAG, "Failed to open fingeprintd HAL", e);
+                    mDaemon = null; // try again later!
+                }
+            } else {
+                Slog.w(TAG, "fingerprint service not available");
+            }
+        }
+        return mDaemon;
+    }
 ```
-
 4. Fingerprintd calls FingerprintDaemonProxy function to open HAL.
-```
+**FingerprintDaemonProxy.cpp**
+```c++
 int64_t FingerprintDaemonProxy::openHal() {
     ALOG(LOG_VERBOSE, LOG_TAG, "nativeOpenHal()\n");
     int err;
@@ -92,14 +112,14 @@ int64_t FingerprintDaemonProxy::openHal() {
 ```
 
 5. The HAL code is at below android path normally.<br>
-　　/hardware/libhardware/include/hardware/fingerprint.h
-　　/hardware/libhardware/modules/fingerprint
+   /hardware/libhardware/include/hardware/fingerprint.h
+　 /hardware/libhardware/modules/fingerprint.c
 
 I drew a flow chart to help understand the whole flow more clearly.
 
 ![workflow](https://gangdong.github.io/daviddong.github.io/assets/image/android-fingerprint-android8-workflow.png)
 
-The related source code and android path can be found at below table.<br>
+The related source code and android path can be found at below table. Android 7.0 (NOUGAT)<br>
 
 **File**|**Android Path**|
 :--|:--|
@@ -125,11 +145,13 @@ Android 8.0 removed Fingerprintd, instead, FingerprintService accesses HAL by ca
 
 We can find the change in getFingerprintDaemon() method.
 
-In Android 7.0
+In Android 7.0<br>
+**FingerprintService.java**
 ```java
 mDaemon = IFingerprintDaemon.Stub.asInterface(ServiceManager.getService(FINGERPRINTD));
 ```
-While in Android 8.0, mDaemon is achieved from the service of IBiometricsFingerprint.
+While in Android 8.0, mDaemon is achieved from the service of IBiometricsFingerprint.<br>
+**FingerprintService.java**
 ```java
 mDaemon = IBiometricsFingerprint.getService();
 ```
@@ -138,9 +160,9 @@ IBiometricsFingerprint is a new fingerprint HIDL interface which was introduced 
 use HIDL language format defined a series standard fingerprint operation interfaces. 
 And [biometricsfingerprint.cpp]({{site.url}}/daviddong.github.io/assets/docs/BiometricsFingerprint.cpp) class realized the ibiometricsfingerprint interface.
 
-We may notice that the IBiometricsFingerprint returns a service for caller, actually there is a  file in the HIDL sub-directory <br>
-[android.hardware.biometrics.fingerprint@2.1-service.rc]({{site.url}}/daviddong.github.io/assets/docs/android.hardware.biometrics.fingerprint@2.1-service.rc), which will start fps_hal service.
-
+We may notice that the IBiometricsFingerprint returns a service for caller, actually there is a  file in the HIDL sub-directory: <br>
+[android.hardware.biometrics.fingerprint@2.1-service.rc]({{site.url}}/daviddong.github.io/assets/docs/android.hardware.biometrics.fingerprint@2.1-service.rc), which will start fps_hal service.<br>
+**fingerprint@2.1-service.rc**
 ```shell
  service fps_hal /vendor/bin/hw/android.hardware.biometrics.fingerprint@2.1-service
     # "class hal" causes a race condition on some devices due to files created
@@ -151,8 +173,9 @@ We may notice that the IBiometricsFingerprint returns a service for caller, actu
     group system input
 ```
 The files of the fingerprint HIDL related.
-![hidl file]({{site.url}}/daviddong.github.io/assets/docs/android-fingerprint-android8-hidl.hal)
+![hidl file]({{site.url}}/daviddong.github.io/assets/image/android-fingerprint-android8-hidl.png)
 
+If we look at the **Service.cpp**, we will find the service acturally will create a BiometricsFingerprint instance and register as service.
 ```c++
 int main() {
     android::sp<IBiometricsFingerprint> bio = BiometricsFingerprint::getInstance();
@@ -170,7 +193,8 @@ int main() {
     return 0; // should never get here
 }
 ```
-In the constructor of BiometricsFingerprint class, it calls openHal() to open HAL module. 
+In the constructor of BiometricsFingerprint class, it calls openHal() to open HAL module. <br>
+**BiometricsFingerprint.cpp**
 ```c++
 BiometricsFingerprint::BiometricsFingerprint() : mClientCallback(nullptr), mDevice(nullptr) {
     sInstance = this; // keep track of the most recent instance
@@ -181,7 +205,8 @@ BiometricsFingerprint::BiometricsFingerprint() : mClientCallback(nullptr), mDevi
 }
 
 ```
-Let's check the openHal() function.
+Let's check the openHal() function.<br>
+**BiometricsFingerprint.cpp**
 ```c++
 fingerprint_device_t* BiometricsFingerprint::openHal() {
     int err;
@@ -240,11 +265,11 @@ The related source code and android path can be found at below table<br>
 
 **File**|**Android Path**|
 :--|:--|
-[service.cpp]({{site.url}}/daviddong.github.io/assets/docs/service.cpp)|root/hardware/interfaces/biometrics/fingerprint/2.1/default/|
-[BiometricsFingerprint.cpp]({{site.url}}/daviddong.github.io/assets/docs/BiometricsFingerprint.cpp)|root/hardware/interfaces/biometrics/fingerprint/2.1/default/|
-[BiometricsFingerprint.h]({{site.url}}/daviddong.github.io/assets/docs/BiometricsFingerprint.h)|root/hardware/interfaces/biometrics/fingerprint/2.1/default/
-[BiometricsFingerprint.h]({{site.url}}/daviddong.github.io/assets/docs/
-IBiometricsFingerprint.hal)|root/hardware/iIBiometricsFingerprint.halnterfaces/biometrics/fingerprint/2.1
-[BiometricsFingerprint.h]({{site.url}}/daviddong.github.io/assets/docs/IBiometricsFingerprintClientCallback.hal)|root/hardware/iIBiometricsFingerprint.halnterfaces/biometrics/fingerprint/2.1
+[fingerprint@2.1-service]({{site.url}}/daviddong.github.io/assets/docs/android.hardware.biometrics.fingerprint@2.1-service.rc)|root/hardware/interfaces/biometrics/fingerprint/2.1/default|
+[service.cpp]({{site.url}}/daviddong.github.io/assets/docs/service.cpp)|root/hardware/interfaces/biometrics/fingerprint/2.1/default|
+[BiometricsFingerprint.h]({{site.url}}/daviddong.github.io/assets/docs/BiometricsFingerprint.h)|root/hardware/interfaces/biometrics/fingerprint/2.1/default|
+[BiometricsFingerprint.cpp]({{site.url}}/daviddong.github.io/assets/docs/BiometricsFingerprint.cpp)|root/hardware/interfaces/biometrics/fingerprint/2.1/default|
+[IBiometricsFingerprint.hal]({{site.url}}/daviddong.github.io/assets/docs/IBiometricsFingerprint.hal)|root/hardware/interfaces/biometrics/fingerprint/2.1|
+[IBiometricsFingerprintClientCallback.hal]({{site.url}}/daviddong.github.io/assets/docs/IBiometricsFingerprintClientCallback.hal)|root/hardware/interfaces/biometrics/fingerprint/2.1|
 
 Now, I think the main difference of the fingerprint framework on Android 8.0 has been introduced and if you have further questions, you can ask at comment box, I will reply to you as soon as I can.  

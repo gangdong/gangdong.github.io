@@ -1,0 +1,80 @@
+I"�<p>Today I spent some time installing the python3.6 on my ubuntu16.04.
+Here is a short note for the whole process, which might be useful for anyone who want to do the same thing.</p>
+
+<p>The first thing before you start to install the python3.6 is that you need to know which version of pythons are on your system. On ubuntu16.04 you can use below command to check your python version.</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /usr/local/lib/
+</code></pre></div></div>
+<p>For example, before the installation, I have python2.7 and python3.5 on my ubuntu system. They are actually default installed by ubuntu16.04 build.</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>david@david-VirtualBox:/<span class="nv">$ </span><span class="nb">ls</span> /usr/local/lib/
+python2.7  python3.5  
+david@david-VirtualBox:/<span class="nv">$ </span>
+</code></pre></div></div>
+<p>then input “python –version” to check which version python is your default python application.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
+</code></pre></div></div>
+<p>If you want to switch to another python version, input below command</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo alias </span><span class="nv">python</span><span class="o">=</span>python3 <span class="o">&gt;&gt;</span> ~/.bashrc
+<span class="nb">source</span> ~/.bashrc
+python <span class="nt">--version</span>
+</code></pre></div></div>
+<p>Here I switched my default python version to python3.5.
+But python3.5 is still not the right one, what I need is python3.6. To install python3.6, there are usually two methods. one is using apt-get install. The command is as below.</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>add-apt-repository ppa:jonathonf/python-3.6
+<span class="nb">sudo </span>apt-get update
+<span class="nb">sudo </span>apt-get <span class="nb">install </span>python3.6
+</code></pre></div></div>
+<p>Unfortunately it doesn’t work on my installation for the PPA has been removed. Therefore I turned to the second way to download the source code and compile, install.
+The command as below.</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tar.xz
+xz <span class="nt">-d</span> Python-3.6.0.tar.xz
+<span class="nb">tar</span> <span class="nt">-xvf</span>  Python-3.6.0.tar
+<span class="nb">cd </span>Python-3.6.0
+./configure
+make
+<span class="nb">sudo </span>make <span class="nb">install</span>
+</code></pre></div></div>
+<p>Waiting for the installation complete. Then check the python version, if you see the “Python 3.6.x”, python3.6 has been installed successfully on your ubuntu16.04.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">david</span><span class="o">@</span><span class="n">david</span><span class="o">-</span><span class="n">VirtualBox</span><span class="p">:</span><span class="o">~</span><span class="err">$</span> <span class="n">python</span> <span class="o">--</span><span class="n">version</span>
+<span class="n">Python</span> <span class="mf">3.6</span><span class="p">.</span><span class="mi">0</span>
+</code></pre></div></div>
+<p>If you don’t see the Python3.6.x, instead, you see Python3.5.x or else, which means your system’s default python version isn’t python3.6. You need to use “update-alternatives –config python” command to switch it to python3.6.<br /> 
+Like this.</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>update-alternatives <span class="nt">--list</span> python
+<span class="nb">sudo </span>update-alternatives <span class="nt">--config</span> python
+</code></pre></div></div>
+<p>If you find below message, represents the alternatives failed to recognize python and you must install python into your alternatives list firstly.</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>update-alternatives：error：no alternatives <span class="k">for </span>python
+</code></pre></div></div>
+<p>install your python by below command.</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>update-alternatives <span class="nt">--install</span> /usr/bin/python python /home/david/Python-3.6.0 3
+<span class="nb">sudo </span>update-alternatives <span class="nt">--install</span> /usr/bin/python python /usr/bin/python3.5 2
+<span class="nb">sudo </span>update-alternatives <span class="nt">--install</span> /usr/bin/python python /usr/bin/python2.7 1 
+</code></pre></div></div>
+<p>The last character of above each command sets the priority of your pythons on the system. The bigger the higer priority. 
+After installment, check again. you will see all your pythons are in the alternatives.</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>david@david-VirtualBox:~<span class="nv">$ </span><span class="nb">sudo </span>update-alternatives <span class="nt">--list</span> python
+/home/david/Python-3.6.0
+/usr/bin/python2.7
+/usr/bin/python3.5
+</code></pre></div></div>
+<p>Then switch to root user and execute the last command to choose which python you are going to set as default.</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>su
+update-alternatives <span class="nt">--config</span> python
+</code></pre></div></div>
+<p>If you see below menu, congratulations, just select the one you want.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>有 3 个候选项可用于替换 python (提供 /usr/bin/python)。
+
+  选择       路径                    优先级  状态
+------------------------------------------------------------
+* 0            /home/david/Python-3.6.0   3         自动模式
+  1            /home/david/Python-3.6.0   3         手动模式
+  2            /usr/bin/python2.7         1         手动模式
+  3            /usr/bin/python3.5         2         手动模式
+
+要维持当前值[*]请按&lt;回车键&gt;，或者键入选择的编号：
+</code></pre></div></div>
+<p>We have done all the job for now. Hope this short article is able to give you help if you have the same requirement as me. 
+If you have any question, please ask at below comment box.
+<br /></p>
+:ET

@@ -1,0 +1,394 @@
+I"�]<p>We have talked in <a href="">last article</a> the android fingerprint work flow</p>
+<ol>
+  <li>Init.rc, start fingerprintd and register the remote service fingerprintdaemon with servicemanager</li>
+  <li>The system loads systemserver and starts fingerprint service.</li>
+  <li>Fingerservice gets the object of the remote service fingerprintdaemon, and calls the related methods to access the HAL.
+fingerprintDaemoProxy::openHal() will call the native library xx.so to access native code.</li>
+</ol>
+
+<p>The hardware abstract layer (HAL) of Android system runs in user space. It shields the implementation details of hardware driver module downward and provides hardware access service (JNI or binder) upward. Through the hardware abstraction layer, Android system is divided into two layers to support hardware devices, one layer is implemented in user space, the other is implemented in kernel space. In traditional Linux system, the support for hardware is completely implemented in kernel space, that is, the support for hardware is completely implemented in hardware driver module.</p>
+
+<p>The hardware abstraction layer of Android system manages various hardware access interfaces in the form of modules. Each hardware module has a dynamic link library .So file. The compilation of these dynamic link libraries needs to conform to certain specifications. In Android system, each hardware abstraction layer module is described by HW]hw_module_t, and the hardware device is described by hw_device_t.</p>
+
+<p>These definition of these two struct is defined at <a href="http://localhost:4000/daviddong.github.io/assets/docs/hardware.h}">hardware.h</a><br />
+android path: root/hardware/libhardware/include/hardware/hardware.h</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">typedef</span> <span class="k">struct</span> <span class="n">hw_module_t</span> <span class="p">{</span>
+    <span class="cm">/** tag must be initialized to HARDWARE_MODULE_TAG */</span>
+    <span class="kt">uint32_t</span> <span class="n">tag</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * The API version of the implemented module. The module owner is
+     * responsible for updating the version when a module interface has
+     * changed.
+     *
+     * The derived modules such as gralloc and audio own and manage this field.
+     * The module user must interpret the version field to decide whether or
+     * not to inter-operate with the supplied module implementation.
+     * For example, SurfaceFlinger is responsible for making sure that
+     * it knows how to manage different versions of the gralloc-module API,
+     * and AudioFlinger must know how to do the same for audio-module API.
+     *
+     * The module API version should include a major and a minor component.
+     * For example, version 1.0 could be represented as 0x0100. This format
+     * implies that versions 0x0100-0x01ff are all API-compatible.
+     *
+     * In the future, libhardware will expose a hw_get_module_version()
+     * (or equivalent) function that will take minimum/maximum supported
+     * versions as arguments and would be able to reject modules with
+     * versions outside of the supplied range.
+     */</span>
+    <span class="kt">uint16_t</span> <span class="n">module_api_version</span><span class="p">;</span>
+<span class="cp">#define version_major module_api_version
+</span>    <span class="cm">/**
+     * version_major/version_minor defines are supplied here for temporary
+     * source code compatibility. They will be removed in the next version.
+     * ALL clients must convert to the new version format.
+     */</span>
+
+    <span class="cm">/**
+     * The API version of the HAL module interface. This is meant to
+     * version the hw_module_t, hw_module_methods_t, and hw_device_t
+     * structures and definitions.
+     *
+     * The HAL interface owns this field. Module users/implementations
+     * must NOT rely on this value for version information.
+     *
+     * Presently, 0 is the only valid value.
+     */</span>
+    <span class="kt">uint16_t</span> <span class="n">hal_api_version</span><span class="p">;</span>
+<span class="cp">#define version_minor hal_api_version
+</span>
+    <span class="cm">/** Identifier of module */</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">id</span><span class="p">;</span>
+
+    <span class="cm">/** Name of this module */</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>
+
+    <span class="cm">/** Author/owner/implementor of the module */</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">author</span><span class="p">;</span>
+
+    <span class="cm">/** Modules methods */</span>
+    <span class="k">struct</span> <span class="n">hw_module_methods_t</span><span class="o">*</span> <span class="n">methods</span><span class="p">;</span>
+
+    <span class="cm">/** module's dso */</span>
+    <span class="kt">void</span><span class="o">*</span> <span class="n">dso</span><span class="p">;</span>
+
+<span class="cp">#ifdef __LP64__
+</span>    <span class="kt">uint64_t</span> <span class="n">reserved</span><span class="p">[</span><span class="mi">32</span><span class="o">-</span><span class="mi">7</span><span class="p">];</span>
+<span class="cp">#else
+</span>    <span class="cm">/** padding to 128 bytes, reserved for future use */</span>
+    <span class="kt">uint32_t</span> <span class="n">reserved</span><span class="p">[</span><span class="mi">32</span><span class="o">-</span><span class="mi">7</span><span class="p">];</span>
+<span class="cp">#endif
+</span>
+<span class="p">}</span> <span class="n">hw_module_t</span><span class="p">;</span>
+
+<span class="cm">/**
+ * Every device data structure must begin with hw_device_t
+ * followed by module specific public methods and attributes.
+ */</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">hw_device_t</span> <span class="p">{</span>
+    <span class="cm">/** tag must be initialized to HARDWARE_DEVICE_TAG */</span>
+    <span class="kt">uint32_t</span> <span class="n">tag</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * Version of the module-specific device API. This value is used by
+     * the derived-module user to manage different device implementations.
+     *
+     * The module user is responsible for checking the module_api_version
+     * and device version fields to ensure that the user is capable of
+     * communicating with the specific module implementation.
+     *
+     * One module can support multiple devices with different versions. This
+     * can be useful when a device interface changes in an incompatible way
+     * but it is still necessary to support older implementations at the same
+     * time. One such example is the Camera 2.0 API.
+     *
+     * This field is interpreted by the module user and is ignored by the
+     * HAL interface itself.
+     */</span>
+    <span class="kt">uint32_t</span> <span class="n">version</span><span class="p">;</span>
+
+    <span class="cm">/** reference to the module this device belongs to */</span>
+    <span class="k">struct</span> <span class="n">hw_module_t</span><span class="o">*</span> <span class="n">module</span><span class="p">;</span>
+
+    <span class="cm">/** padding reserved for future use */</span>
+<span class="cp">#ifdef __LP64__
+</span>    <span class="kt">uint64_t</span> <span class="n">reserved</span><span class="p">[</span><span class="mi">12</span><span class="p">];</span>
+<span class="cp">#else
+</span>    <span class="kt">uint32_t</span> <span class="n">reserved</span><span class="p">[</span><span class="mi">12</span><span class="p">];</span>
+<span class="cp">#endif
+</span>
+    <span class="cm">/** Close this device */</span>
+    <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">close</span><span class="p">)(</span><span class="k">struct</span> <span class="n">hw_device_t</span><span class="o">*</span> <span class="n">device</span><span class="p">);</span>
+
+<span class="p">}</span> <span class="n">hw_device_t</span><span class="p">;</span>
+</code></pre></div></div>
+<p>except that, this header file also declares the module name and two important functions.</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * Name of the hal_module_info
+ */</span>
+<span class="cp">#define HAL_MODULE_INFO_SYM         HMI
+</span>
+<span class="cm">/**
+ * Get the module info associated with a module by id.
+ *
+ * @return: 0 == success, &lt;0 == error and *module == NULL
+ */</span>
+<span class="kt">int</span> <span class="nf">hw_get_module</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">id</span><span class="p">,</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">hw_module_t</span> <span class="o">**</span><span class="n">module</span><span class="p">);</span>
+
+<span class="cm">/**
+ * Get the module info associated with a module instance by class 'class_id'
+ * and instance 'inst'.
+ *
+ * Some modules types necessitate multiple instances. For example audio supports
+ * multiple concurrent interfaces and thus 'audio' is the module class
+ * and 'primary' or 'a2dp' are module interfaces. This implies that the files
+ * providing these modules would be named audio.primary.&lt;variant&gt;.so and
+ * audio.a2dp.&lt;variant&gt;.so
+ *
+ * @return: 0 == success, &lt;0 == error and *module == NULL
+ */</span>
+<span class="kt">int</span> <span class="nf">hw_get_module_by_class</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">class_id</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">inst</span><span class="p">,</span>
+                           <span class="k">const</span> <span class="k">struct</span> <span class="n">hw_module_t</span> <span class="o">**</span><span class="n">module</span><span class="p">);</span>
+</code></pre></div></div>
+<p>these two functions are realized at <a href="http://localhost:4000/daviddong.github.io/assets/docs/hardware.c">hardware.c</a><br />
+android path: root/hardware/libhardware/hardware.c 
+from the file, we can find the module search path is as below.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/** Base path of the hal modules */
+#if defined(__LP64__)
+#define HAL_LIBRARY_PATH1 "/system/lib64/hw"
+#define HAL_LIBRARY_PATH2 "/vendor/lib64/hw"
+#define HAL_LIBRARY_PATH3 "/odm/lib64/hw"
+#else
+#define HAL_LIBRARY_PATH1 "/system/lib/hw"
+#define HAL_LIBRARY_PATH2 "/vendor/lib/hw"
+#define HAL_LIBRARY_PATH3 "/odm/lib/hw"
+#endif
+
+static const char *variant_keys[] = {
+    "ro.hardware",  /* This goes first so that it can pick up a different
+                       file on the emulator. */
+    "ro.product.board",
+    "ro.board.platform",
+    "ro.arch"
+};
+
+static const int HAL_VARIANT_KEYS_COUNT =
+    (sizeof(variant_keys)/sizeof(variant_keys[0]));
+
+/**
+ * Load the file defined by the variant and if successful
+ * return the dlopen handle and the hmi.
+ * @return 0 = success, !0 = failure.
+ */
+static int load(const char *id,
+        const char *path,
+        const struct hw_module_t **pHmi)
+{
+    int status = -EINVAL;
+    void *handle = NULL;
+    struct hw_module_t *hmi = NULL;
+
+    /*
+     * load the symbols resolving undefined symbols before
+     * dlopen returns. Since RTLD_GLOBAL is not or'd in with
+     * RTLD_NOW the external symbols will not be global
+     */
+    handle = dlopen(path, RTLD_NOW);
+    if (handle == NULL) {
+        char const *err_str = dlerror();
+        ALOGE("load: module=%s\n%s", path, err_str?err_str:"unknown");
+        status = -EINVAL;
+        goto done;
+    }
+
+    /* Get the address of the struct hal_module_info. */
+    const char *sym = HAL_MODULE_INFO_SYM_AS_STR;
+    hmi = (struct hw_module_t *)dlsym(handle, sym);
+    if (hmi == NULL) {
+        ALOGE("load: couldn't find symbol %s", sym);
+        status = -EINVAL;
+        goto done;
+    }
+
+    /* Check that the id matches */
+    if (strcmp(id, hmi-&gt;id) != 0) {
+        ALOGE("load: id=%s != hmi-&gt;id=%s", id, hmi-&gt;id);
+        status = -EINVAL;
+        goto done;
+    }
+
+    hmi-&gt;dso = handle;
+
+    /* success */
+    status = 0;
+
+    done:
+    if (status != 0) {
+        hmi = NULL;
+        if (handle != NULL) {
+            dlclose(handle);
+            handle = NULL;
+        }
+    } else {
+        ALOGV("loaded HAL id=%s path=%s hmi=%p handle=%p",
+                id, path, *pHmi, handle);
+    }
+
+    *pHmi = hmi;
+
+    return status;
+}
+
+/*
+ * Check if a HAL with given name and subname exists, if so return 0, otherwise
+ * otherwise return negative.  On success path will contain the path to the HAL.
+ */
+static int hw_module_exists(char *path, size_t path_len, const char *name,
+                            const char *subname)
+{
+    snprintf(path, path_len, "%s/%s.%s.so",
+             HAL_LIBRARY_PATH3, name, subname);
+    if (access(path, R_OK) == 0)
+        return 0;
+
+    snprintf(path, path_len, "%s/%s.%s.so",
+             HAL_LIBRARY_PATH2, name, subname);
+    if (access(path, R_OK) == 0)
+        return 0;
+
+    snprintf(path, path_len, "%s/%s.%s.so",
+             HAL_LIBRARY_PATH1, name, subname);
+    if (access(path, R_OK) == 0)
+        return 0;
+
+    return -ENOENT;
+}
+
+int hw_get_module_by_class(const char *class_id, const char *inst,
+                           const struct hw_module_t **module)
+{
+    int i = 0;
+    char prop[PATH_MAX] = {0};
+    char path[PATH_MAX] = {0};
+    char name[PATH_MAX] = {0};
+    char prop_name[PATH_MAX] = {0};
+
+
+    if (inst)
+        snprintf(name, PATH_MAX, "%s.%s", class_id, inst);
+    else
+        strlcpy(name, class_id, PATH_MAX);
+
+    /*
+     * Here we rely on the fact that calling dlopen multiple times on
+     * the same .so will simply increment a refcount (and not load
+     * a new copy of the library).
+     * We also assume that dlopen() is thread-safe.
+     */
+
+    /* First try a property specific to the class and possibly instance */
+    snprintf(prop_name, sizeof(prop_name), "ro.hardware.%s", name);
+    if (property_get(prop_name, prop, NULL) &gt; 0) {
+        if (hw_module_exists(path, sizeof(path), name, prop) == 0) {
+            goto found;
+        }
+    }
+
+    /* Loop through the configuration variants looking for a module */
+    for (i=0 ; i&lt;HAL_VARIANT_KEYS_COUNT; i++) {
+        if (property_get(variant_keys[i], prop, NULL) == 0) {
+            continue;
+        }
+        if (hw_module_exists(path, sizeof(path), name, prop) == 0) {
+            goto found;
+        }
+    }
+
+    /* Nothing found, try the default */
+    if (hw_module_exists(path, sizeof(path), name, "default") == 0) {
+        goto found;
+    }
+
+    return -ENOENT;
+
+found:
+    /* load the module, if this fails, we're doomed, and we should not try
+     * to load a different variant. */
+    return load(class_id, path, module);
+}
+
+int hw_get_module(const char *id, const struct hw_module_t **module)
+{
+    return hw_get_module_by_class(id, NULL, module);
+}
+
+</code></pre></div></div>
+<p>hw_get_module() will call the hw_get_module_by_class function. First, it will read the system property “ro. Hardware” through the property_get function. If it is found, use the hw_module_exists function to check whether the .So file exists. If it exists, load it directly else if it does not exist, continue to search for the variant_keys array. Checking system attribute values. If it exists, load it directly. If it does not exist still, load the default.</p>
+
+<p>Let’s turn back to the FingerprintDaemonProxy::openHal() to see how it call the hw_get_module() function.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int64_t</span> <span class="n">FingerprintDaemonProxy</span><span class="o">::</span><span class="n">openHal</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">ALOG</span><span class="p">(</span><span class="n">LOG_VERBOSE</span><span class="p">,</span> <span class="n">LOG_TAG</span><span class="p">,</span> <span class="s">"nativeOpenHal()</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">err</span><span class="p">;</span>
+    <span class="k">const</span> <span class="n">hw_module_t</span> <span class="o">*</span><span class="n">hw_module</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">!=</span> <span class="p">(</span><span class="n">err</span> <span class="o">=</span> <span class="n">hw_get_module</span><span class="p">(</span><span class="n">FINGERPRINT_HARDWARE_MODULE_ID</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">hw_module</span><span class="p">)))</span> <span class="p">{</span>
+        <span class="n">ALOGE</span><span class="p">(</span><span class="s">"Can't open fingerprint HW Module, error: %d"</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">NULL</span> <span class="o">==</span> <span class="n">hw_module</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ALOGE</span><span class="p">(</span><span class="s">"No valid fingerprint module"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">mModule</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">fingerprint_module_t</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">hw_module</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">mModule</span><span class="o">-&gt;</span><span class="n">common</span><span class="p">.</span><span class="n">methods</span><span class="o">-&gt;</span><span class="n">open</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ALOGE</span><span class="p">(</span><span class="s">"No valid open method"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">hw_device_t</span> <span class="o">*</span><span class="n">device</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">!=</span> <span class="p">(</span><span class="n">err</span> <span class="o">=</span> <span class="n">mModule</span><span class="o">-&gt;</span><span class="n">common</span><span class="p">.</span><span class="n">methods</span><span class="o">-&gt;</span><span class="n">open</span><span class="p">(</span><span class="n">hw_module</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">device</span><span class="p">)))</span> <span class="p">{</span>
+        <span class="n">ALOGE</span><span class="p">(</span><span class="s">"Can't open fingerprint methods, error: %d"</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">kVersion</span> <span class="o">!=</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">version</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ALOGE</span><span class="p">(</span><span class="s">"Wrong fp version. Expected %d, got %d"</span><span class="p">,</span> <span class="n">kVersion</span><span class="p">,</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">version</span><span class="p">);</span>
+        <span class="c1">// return 0; // FIXME</span>
+    <span class="p">}</span>
+
+    <span class="n">mDevice</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">fingerprint_device_t</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">device</span><span class="p">);</span>
+    <span class="n">err</span> <span class="o">=</span> <span class="n">mDevice</span><span class="o">-&gt;</span><span class="n">set_notify</span><span class="p">(</span><span class="n">mDevice</span><span class="p">,</span> <span class="n">hal_notify_callback</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">err</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ALOGE</span><span class="p">(</span><span class="s">"Failed in call to set_notify(), err=%d"</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Sanity check - remove</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">mDevice</span><span class="o">-&gt;</span><span class="n">notify</span> <span class="o">!=</span> <span class="n">hal_notify_callback</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ALOGE</span><span class="p">(</span><span class="s">"NOTIFY not set properly: %p != %p"</span><span class="p">,</span> <span class="n">mDevice</span><span class="o">-&gt;</span><span class="n">notify</span><span class="p">,</span> <span class="n">hal_notify_callback</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">ALOG</span><span class="p">(</span><span class="n">LOG_VERBOSE</span><span class="p">,</span> <span class="n">LOG_TAG</span><span class="p">,</span> <span class="s">"fingerprint HAL successfully initialized"</span><span class="p">);</span>
+    <span class="k">return</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">int64_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">mDevice</span><span class="p">);</span> <span class="c1">// This is just a handle</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>openHal() will call the hw_get_module() to get the pointer to hw_module_t module, after then it will call the open() function. For now, the fingerprintd is able to operate fingerprint device through the
+hw_device_t.</p>
+
+<p>the funciton of the fingerprint module can be found at 
+<a href="">fingerprint.h</a> and <a href="">fingerprint.c</a>.</p>
+
+<p>so far, we have seen the whole process of the fingerprint.
+now we can give the summary for the flow.</p>
+
+<p>ServiceManager-&gt;FingerprintService.java-&gt;FingerprintDaemonProxy.cpp-&gt;fingerprint.c-&gt;vendorHal.cpp-&gt;vendorCA.cpp——–TEE-&gt;TA.c</p>
+
+<p>However, from android8, android has made some change for the HAL access method, and import the hidl concept. so the contents we introduced is for the android version early android 8.</p>
+
+<p>next, I will write a article to introduce the difference of the fingerprint implementation after android 8 version.</p>
+:ET

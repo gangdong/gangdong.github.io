@@ -1,0 +1,214 @@
+I"�w<p>最近的开发工作中使用到了JDOM工具包来编辑XML类型的文档。JDOM是一种使用 XML 的Java 工具包。基于 Java 平台并通过 Java 代码来访问、操作并输出 XML 数据。</p>
+
+<p>以下的介绍转载自<a href="https://baike.baidu.com/item/JDOM/2229885?fr=aladdin">百度百科</a>, JDOM工具包的<a href="http://www.jdom.org/downloads/index.html">下载地址</a></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>JDOM是一个开源项目，它基于树型结构，利用纯JAVA的技术对XML文档实现解析、生成、序列化以及多种操作。
+JDOM 直接为JAVA编程服务。它利用更为强有力的JAVA语言的诸多特性（方法重载、集合概念以及映射），把SAX和DOM的功能有效地结合起来。
+Jdom是用Java语言读、写、操作XML的新API函数。Jason Hunter 和 Brett McLaughlin公开发布了它的1.0版本。在直觉、简单和高效的前提下，这些API函数被最大限度的优化。
+</code></pre></div></div>
+<p>XML 类型文档是一个树状结构，因此在创建或者访问是要首先定位到根节点。然后依照分支去搜寻要定位的节点。<br /></p>
+
+<p>以下是我实现的用JDOM 操作XML文档的示列代码。</p>
+
+<p>ServiceXmlInterface.java</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">/*</span>
+ <span class="p">*</span> <span class="k">To</span> <span class="n">change</span> <span class="n">this</span> <span class="n">template</span><span class="p">,</span> <span class="n">choose</span> <span class="n">Tools</span> <span class="p">|</span> <span class="n">Templates</span>
+ <span class="p">*</span> <span class="k">and</span> <span class="n">open</span> <span class="n">the</span> <span class="n">template</span> <span class="k">in</span> <span class="n">the</span> <span class="n">editor</span><span class="p">.</span>
+ <span class="p">*/</span>
+<span class="k">package</span> <span class="n">org</span><span class="p">.</span><span class="n">dong</span><span class="p">.</span><span class="n">service</span><span class="p">.</span><span class="n">xml</span><span class="p">;</span>
+
+<span class="p">/**</span>
+ <span class="p">*</span>
+ <span class="p">*</span> <span class="p">@</span><span class="n">author</span> <span class="n">Dong</span> <span class="n">Gang</span>
+ <span class="p">*/</span>
+<span class="k">public</span> <span class="n">interface</span> <span class="n">ServiceXmlInterface</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="n">void</span> <span class="n">generateXml</span><span class="p">(</span><span class="k">String</span> <span class="n">path</span><span class="p">,</span><span class="k">String</span> <span class="n">content</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>ServiceXml.java 封装XML文档的操作，实现了ServiceXmlInterface 接口。<br /></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">org.dong.service.xml</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.jdom.Attribute</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.jdom.Comment</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.jdom.Document</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.jdom.Element</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.jdom.JDOMException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.jdom.input.SAXBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.jdom.output.Format</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.jdom.output.XMLOutputter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.openide.util.Exceptions</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ServiceXml</span> <span class="kd">implements</span> <span class="nc">ServiceXmlInterface</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="nc">ServiceXml</span> <span class="n">serviceXmlInstance</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">Document</span> <span class="n">doc</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">Element</span> <span class="n">rootElement</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="nf">ServiceXml</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+	<span class="c1">//单例模式，保证全局唯一句柄</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">ServiceXml</span> <span class="nf">getInstance</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">serviceXmlInstance</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">serviceXmlInstance</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ServiceXml</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">serviceXmlInstance</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">//读取XML文档</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">loadConfigurationFile</span><span class="o">(</span><span class="nc">String</span> <span class="n">path</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="nc">SAXBuilder</span> <span class="n">builder</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SAXBuilder</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="nc">InputStreamReader</span> <span class="n">isr</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">InputStreamReader</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileInputStream</span><span class="o">(</span><span class="n">path</span><span class="o">),</span> <span class="s">"gbk"</span><span class="o">);</span>
+
+                <span class="k">try</span> <span class="o">{</span>
+                    <span class="n">doc</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">build</span><span class="o">(</span><span class="n">isr</span><span class="o">);</span>
+ 					<span class="c1">//得到根节点</span>
+                    <span class="n">rootElement</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="na">getRootElement</span><span class="o">();</span>
+					<span class="c1">//得到子节点的列表</span>
+                    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Element</span><span class="o">&gt;</span> <span class="n">rootList</span> <span class="o">=</span> <span class="n">rootElement</span><span class="o">.</span><span class="na">getChildren</span><span class="o">();</span>
+					
+                    <span class="c1">//以下遍历子节点的内容</span>
+                    <span class="k">if</span> <span class="o">(!</span><span class="n">rootList</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+                        <span class="nc">Element</span> <span class="n">fileList</span> <span class="o">=</span> <span class="n">rootElement</span><span class="o">.</span><span class="na">getChild</span><span class="o">(</span><span class="s">"files-list"</span><span class="o">);</span>
+                        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Element</span><span class="o">&gt;</span> <span class="n">fileElements</span> <span class="o">=</span> <span class="n">fileList</span><span class="o">.</span><span class="na">getChildren</span><span class="o">();</span>
+                        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">fileNames</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;();</span>
+                        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">fileElements</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                            <span class="nc">Element</span> <span class="n">fileElement</span> <span class="o">=</span> <span class="n">fileElements</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+                            <span class="nc">String</span> <span class="n">fileName</span> <span class="o">=</span> <span class="n">fileElement</span><span class="o">.</span><span class="na">getAttributeValue</span><span class="o">(</span><span class="s">"name"</span><span class="o">);</span>
+                            <span class="n">fileNames</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">fileName</span><span class="o">);</span>
+                        <span class="o">}</span>
+                        <span class="nc">ConstantFactory</span><span class="o">.</span><span class="na">globalConfStore</span><span class="o">.</span><span class="na">setFiles</span><span class="o">(</span><span class="n">fileNames</span><span class="o">);</span>
+
+                        <span class="nc">Element</span> <span class="n">uiStyleElement</span> <span class="o">=</span> <span class="n">rootElement</span><span class="o">.</span><span class="na">getChild</span><span class="o">(</span><span class="s">"ui-style"</span><span class="o">);</span>
+                        <span class="nc">String</span> <span class="n">uiStyle</span> <span class="o">=</span> <span class="n">uiStyleElement</span><span class="o">.</span><span class="na">getAttributeValue</span><span class="o">(</span><span class="s">"name"</span><span class="o">);</span>
+                        <span class="nc">ConstantFactory</span><span class="o">.</span><span class="na">globalConfStore</span><span class="o">.</span><span class="na">setUiStyle</span><span class="o">(</span><span class="n">uiStyle</span><span class="o">);</span>
+
+                        <span class="nc">Element</span> <span class="n">ruleChk</span> <span class="o">=</span> <span class="n">rootElement</span><span class="o">.</span><span class="na">getChild</span><span class="o">(</span><span class="s">"check-warning"</span><span class="o">);</span>
+                        <span class="nc">String</span> <span class="n">chkWarningInfo</span> <span class="o">=</span> <span class="n">ruleChk</span><span class="o">.</span><span class="na">getAttributeValue</span><span class="o">(</span><span class="s">"value"</span><span class="o">);</span>
+                        <span class="nc">ConstantFactory</span><span class="o">.</span><span class="na">globalConfStore</span><span class="o">.</span><span class="na">setExeWarningChk</span><span class="o">(</span><span class="n">chkWarningInfo</span><span class="o">);</span>
+
+                        <span class="nc">Element</span> <span class="n">formatElement</span> <span class="o">=</span> <span class="n">rootElement</span><span class="o">.</span><span class="na">getChild</span><span class="o">(</span><span class="s">"format"</span><span class="o">);</span>
+                        <span class="nc">String</span> <span class="n">format</span> <span class="o">=</span> <span class="n">formatElement</span><span class="o">.</span><span class="na">getAttributeValue</span><span class="o">(</span><span class="s">"value"</span><span class="o">);</span>
+                        <span class="nc">ConstantFactory</span><span class="o">.</span><span class="na">globalConfStore</span><span class="o">.</span><span class="na">setFormat</span><span class="o">(</span><span class="n">format</span><span class="o">);</span>
+
+                        <span class="nc">Element</span> <span class="n">recordNumberElement</span> <span class="o">=</span> <span class="n">rootElement</span><span class="o">.</span><span class="na">getChild</span><span class="o">(</span><span class="s">"record-number"</span><span class="o">);</span>
+                        <span class="nc">String</span> <span class="n">recordNumber</span> <span class="o">=</span> <span class="n">recordNumberElement</span><span class="o">.</span><span class="na">getAttributeValue</span><span class="o">(</span><span class="s">"value"</span><span class="o">);</span>
+                        <span class="nc">ConstantFactory</span><span class="o">.</span><span class="na">globalConfStore</span><span class="o">.</span><span class="na">setRecordNumber</span><span class="o">(</span><span class="n">recordNumber</span><span class="o">);</span>
+
+                    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                    <span class="o">}</span>
+                <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="nc">Logger</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="nc">XMLParser</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getName</span><span class="o">()).</span><span class="na">log</span><span class="o">(</span><span class="nc">Level</span><span class="o">.</span><span class="na">SEVERE</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">ex</span><span class="o">);</span>
+                <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">JDOMException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+                <span class="o">}</span>
+
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">UnsupportedEncodingException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+                <span class="nc">Exceptions</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">(</span><span class="n">ex</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">FileNotFoundException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">Exceptions</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">(</span><span class="n">ex</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+<span class="c1">//生成XML Document 实例，返回值为一个XML Document 类型的对象</span>
+<span class="kd">public</span> <span class="nc">Document</span> <span class="nf">generateConfigurationFile</span><span class="o">(</span><span class="nc">GlobalConfigurationStore</span> <span class="n">gcs</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="nc">Document</span> <span class="n">doc</span><span class="o">;</span>
+        <span class="c1">//生成根节点</span>
+        <span class="nc">Element</span> <span class="n">rootElement</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Element</span><span class="o">(</span><span class="s">"global-configuration"</span><span class="o">);</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Document</span><span class="o">(</span><span class="n">rootElement</span><span class="o">);</span>
+        <span class="c1">//根节点内容</span>
+        <span class="n">rootElement</span><span class="o">.</span><span class="na">addContent</span><span class="o">(</span><span class="k">new</span> <span class="nc">Comment</span><span class="o">(</span><span class="s">"Global Configuration infomation."</span><span class="o">));</span>
+        <span class="nc">Element</span> <span class="n">fileList</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Element</span><span class="o">(</span><span class="s">"files-list"</span><span class="o">);</span>
+        <span class="n">fileList</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="k">new</span> <span class="nc">Attribute</span><span class="o">(</span><span class="s">"count"</span><span class="o">,</span> <span class="nc">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">gcs</span><span class="o">.</span><span class="na">getFiles</span><span class="o">().</span><span class="na">size</span><span class="o">())));</span>
+        <span class="n">rootElement</span><span class="o">.</span><span class="na">addContent</span><span class="o">(</span><span class="n">fileList</span><span class="o">);</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">fileNames</span> <span class="o">=</span> <span class="n">gcs</span><span class="o">.</span><span class="na">getFiles</span><span class="o">();</span>
+        <span class="c1">//生成子节点</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">fileNames</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="nc">Element</span> <span class="n">fileElement</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Element</span><span class="o">(</span><span class="s">"file"</span><span class="o">);</span>
+            <span class="n">fileElement</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="k">new</span> <span class="nc">Attribute</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="n">fileNames</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">)));</span>
+            <span class="n">fileList</span><span class="o">.</span><span class="na">addContent</span><span class="o">(</span><span class="n">fileElement</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="nc">Element</span> <span class="n">uiStyleElement</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Element</span><span class="o">(</span><span class="s">"ui-style"</span><span class="o">);</span>
+        <span class="nc">String</span> <span class="n">uiStyle</span> <span class="o">=</span> <span class="n">gcs</span><span class="o">.</span><span class="na">getUiStyle</span><span class="o">();</span>
+        <span class="n">uiStyleElement</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="k">new</span> <span class="nc">Attribute</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="n">uiStyle</span><span class="o">));</span>
+        <span class="n">rootElement</span><span class="o">.</span><span class="na">addContent</span><span class="o">(</span><span class="n">uiStyleElement</span><span class="o">);</span>
+
+        <span class="nc">Element</span> <span class="n">ruleChk</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Element</span><span class="o">(</span><span class="s">"check-warning"</span><span class="o">);</span>
+        <span class="nc">String</span> <span class="n">checkWarning</span> <span class="o">=</span> <span class="n">gcs</span><span class="o">.</span><span class="na">getExeWarningChk</span><span class="o">();</span>
+        <span class="n">ruleChk</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="k">new</span> <span class="nc">Attribute</span><span class="o">(</span><span class="s">"value"</span><span class="o">,</span> <span class="n">checkWarning</span><span class="o">));</span>
+        <span class="n">rootElement</span><span class="o">.</span><span class="na">addContent</span><span class="o">(</span><span class="n">ruleChk</span><span class="o">);</span>
+
+        <span class="nc">Element</span> <span class="n">formatElement</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Element</span><span class="o">(</span><span class="s">"format"</span><span class="o">);</span>
+        <span class="nc">String</span> <span class="n">format</span> <span class="o">=</span> <span class="n">gcs</span><span class="o">.</span><span class="na">getFormat</span><span class="o">();</span>
+        <span class="n">formatElement</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="k">new</span> <span class="nc">Attribute</span><span class="o">(</span><span class="s">"value"</span><span class="o">,</span> <span class="n">format</span><span class="o">));</span>
+        <span class="n">rootElement</span><span class="o">.</span><span class="na">addContent</span><span class="o">(</span><span class="n">formatElement</span><span class="o">);</span>
+
+        <span class="nc">Element</span> <span class="n">recordNumberElement</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Element</span><span class="o">(</span><span class="s">"record-number"</span><span class="o">);</span>
+        <span class="nc">String</span> <span class="n">recordNumber</span> <span class="o">=</span> <span class="n">gcs</span><span class="o">.</span><span class="na">getRecordNumber</span><span class="o">();</span>
+        <span class="n">recordNumberElement</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="k">new</span> <span class="nc">Attribute</span><span class="o">(</span><span class="s">"value"</span><span class="o">,</span> <span class="n">recordNumber</span><span class="o">));</span>
+        <span class="n">rootElement</span><span class="o">.</span><span class="na">addContent</span><span class="o">(</span><span class="n">recordNumberElement</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">doc</span><span class="o">;</span>
+    <span class="o">}</span>
+
+<span class="c1">//由Document 对象生成一个XML文档</span>
+ <span class="kd">public</span> <span class="kt">void</span> <span class="nf">generateXml</span><span class="o">(</span><span class="nc">String</span> <span class="n">path</span><span class="o">,</span> <span class="nc">Document</span> <span class="n">document</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="nc">File</span> <span class="n">testFile</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">File</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
+            <span class="nc">FileWriter</span> <span class="n">hWriter</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileWriter</span><span class="o">(</span><span class="n">testFile</span><span class="o">);</span>
+            <span class="nc">Format</span> <span class="n">format</span> <span class="o">=</span> <span class="nc">Format</span><span class="o">.</span><span class="na">getPrettyFormat</span><span class="o">();</span>
+            <span class="n">format</span><span class="o">.</span><span class="na">setIndent</span><span class="o">(</span><span class="s">"    "</span><span class="o">);</span>
+            <span class="n">format</span><span class="o">.</span><span class="na">setEncoding</span><span class="o">(</span><span class="s">"gbk"</span><span class="o">);</span>
+            <span class="c1">//格式化</span>
+            <span class="nc">XMLOutputter</span> <span class="n">out</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">XMLOutputter</span><span class="o">(</span><span class="n">format</span><span class="o">);</span>
+
+            <span class="k">if</span> <span class="o">(!</span><span class="n">testFile</span><span class="o">.</span><span class="na">exists</span><span class="o">())</span> <span class="o">{</span>
+                <span class="n">testFile</span><span class="o">.</span><span class="na">createNewFile</span><span class="o">();</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="o">}</span>
+            <span class="c1">//输出文件</span>
+            <span class="n">out</span><span class="o">.</span><span class="na">output</span><span class="o">(</span><span class="n">document</span><span class="o">,</span> <span class="n">hWriter</span><span class="o">);</span>
+            <span class="n">hWriter</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+</code></pre></div></div>
+<p>如以上代码，使用JDOM解析一个XML文档的步骤如下。<br /></p>
+
+<ol>
+  <li>实例化一个合适的解析器对象,本例中我们使用SAXBuilder<br />
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">SAXBuilder</span> <span class="n">builder</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SAXBuilder</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>以包含XML数据的文件为参数，构建一个文档对象myDocument<br />
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">InputStreamReader</span> <span class="n">isr</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">InputStreamReader</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileInputStream</span><span class="o">(</span><span class="n">path</span><span class="o">),</span> <span class="s">"gbk"</span><span class="o">);</span>
+<span class="nc">Document</span> <span class="n">doc</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">build</span><span class="o">(</span><span class="n">isr</span><span class="o">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>找到根元素
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Element</span> <span class="n">rootElement</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="na">getRootElement</span><span class="o">();</span>
+</code></pre></div>    </div>
+    <p>一旦你获取了根元素，你就可以很方便地对它下面的子元素进行操作了，<br /></p>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Element</span><span class="o">&gt;</span> <span class="n">rootList</span> <span class="o">=</span> <span class="n">rootElement</span><span class="o">.</span><span class="na">getChildren</span><span class="o">();</span>
+</code></pre></div>    </div>
+    <p>下面对Element对象的一些常用方法作一下简单说明：<br />
+<strong><em>getChild(“childname”)</em></strong> 返回指定名字的子节点,如果同一级有多个同名子节点，则只返回第一个；如果没有返回null值。<br />
+<strong><em>getChildren(“childname”)</em></strong> 返回指定名字的子节点List集合。这样你就可以遍历所有的同一级同名子节点。<br />
+<strong><em>getAttributeValue(“name”)</em></strong> 返回指定属性名字的值。如果没有该属性则返回null,有该属性但是值为空，则返回空字符串。<br />
+<strong><em>getChildText(“childname”)</em></strong> 返回指定子节点的内容文本值。<br />
+<strong><em>getText()</em></strong> 返回该元素的内容文本值。<br />
+<strong><em>setText(“content”)</em></strong> 修改该元素的内容文本值。<br />
+<strong><em>remove(“index”)</em></strong> 删除第index+1个子元素<br />
+<strong><em>removeAll(“Children”)</em></strong> 删除Children的子元素<br />
+<strong><em>removeChildren(“childname”)</em></strong> 删除名字为childname的子元素<br />
+<strong><em>add(“Element”)</em></strong> 添加Element<br />
+<strong><em>add(“index”,”Element”)</em></strong> 添加Element<br /></p>
+  </li>
+</ol>
+:ET

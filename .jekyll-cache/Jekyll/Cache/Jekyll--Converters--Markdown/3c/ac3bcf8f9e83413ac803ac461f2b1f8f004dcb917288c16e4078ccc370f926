@@ -1,0 +1,47 @@
+I"�<p>This page is trying to present a brief introduction to android fingerprint framework, aimed at helping anyone who want to learn android fingerprint related knowledge, created by referring some materials and android source code.</p>
+
+<p>There are many articles throughout the internet to teach the fingerprint technology on android platform. However, from my point of view, some of them are too complicated and some are simple. I wrote this article  by referring android source code and according to my personal working experiences, try to make the contents short, easy to understand.</p>
+
+<p>From android6.0(API23),android added fingerprint API interface, that is FingerprintManager to support fingerprint identification. While at androidP(API28), it is deprecated and replaced by BiometricPrompt API interface.</p>
+
+<p>Below part is official description about fingerprint from android docs.</p>
+<h3 id="architecture"><em>Architecture</em></h3>
+<p><em>The Fingerprint HAL interacts with the following components.</em></p>
+
+<ul>
+  <li><strong><em>BiometricManager</em></strong> <em>interacts directly with an app in an app process. Each app has an instance of IBiometricsFingerprint.hal</em></li>
+  <li><strong><em>FingerprintService</em></strong> <em>operates in the system process, which handles communication with fingerprint HAL.</em></li>
+  <li><strong><em>Fingerprint HAL</em></strong> <em>is a C/C++ implementation of the IBiometricsFingerprint HIDL interface. This contains the vendor-specific library that communicates with the device-specific hardware.</em></li>
+  <li><strong><em>Keystore API and Keymaster</em></strong> <em>components provide hardware-backed cryptography for secure key storage in a secure environment, such as the Trusted Execution Environment (TEE).</em>
+<img src="https://gangdong.github.io/daviddong.github.io/assets/image/android-fingerprint-framework-framework.png" alt="framework" />
+<em>A vendor-specific HAL implementation must use the communication protocol required by a TEE. Raw images and processed fingerprint features must not be passed in untrusted memory. All such biometric data needs to be stored in the secure hardware such as the TEE. Rooting must not be able to compromise biometric data.</em></li>
+</ul>
+
+<p><em>FingerprintService and fingerprintd make calls through the Fingerprint HAL to the vendor-specific library to enroll fingerprints and perform other operations.</em>
+<img src="https://gangdong.github.io/daviddong.github.io/assets/image/android-fingerprint-framework-tee.png" alt="tee" /></p>
+<h3 id="implementation-guidelines"><em>Implementation guidelines</em></h3>
+<p><em>The following Fingerprint HAL guidelines are designed to ensure that fingerprint data is not leaked and is removed when a user is removed from a device:</em></p>
+
+<ul>
+  <li><em>Raw fingerprint data or derivatives (for example, templates) must never be accessible from outside the sensor driver or TEE. If the hardware supports a TEE, hardware access must be limited to the TEE and protected by an SELinux policy. The Serial Peripheral Interface (SPI) channel must be accessible only to the TEE and there must be an explicit SELinux policy on all device files.</em></li>
+  <li><em>Fingerprint acquisition, enrollment, and recognition must occur inside the TEE.</em></li>
+  <li><em>Only the encrypted form of the fingerprint data can be stored on the file system, even if the file system itself is encrypted.</em></li>
+  <li><em>Fingerprint templates must be signed with a private, device-specific key. For Advanced Encryption Standard (AES), at a minimum a template must be signed with the absolute file-system path, group, and finger ID such that template files are inoperable on another device or for anyone other than the user that enrolled them on the same device. For example, copying fingerprint data from a different user on the same device or from another device must not work.</em></li>
+  <li><em>Implementations must either use the file-system path provided by the 
+setActiveGroup() function or provide a way to erase all user template data when the user is removed. It’s strongly recommended that fingerprint template files be stored as encrypted and stored in the path provided. If this is infeasible due to TEE storage requirements, the implementer must add hooks to ensure removal of the data when the user is removed.</em>
+    <h3 id="working-process">working process</h3>
+    <p>below is work process I summarized.</p>
+    <ol>
+      <li>Start the fingerprint daemons in init.rc</li>
+      <li>System server will start fingerprint system service fingerprint service</li>
+      <li>Fingerprint Setvice calls the interface of fingerprint to communicate with the fingerprint Hal layer</li>
+      <li>Fingerprint Hal interacts with fingerprint hardware through fingerprint manufacturer’s driver</li>
+      <li>For the sake of security, the hardware spi of fingerprint is mounted in the tee environment. The data collection of fingerprint image and the related processing of algorithm are all carried out in the tee environment. The REE side only gets the result of the tee side</li>
+    </ol>
+  </li>
+</ul>
+
+<p>In the next article, I will make a detailed introduction for the process by referring to the android source code.</p>
+
+<p>To be continued…</p>
+:ET

@@ -1,0 +1,8 @@
+I"ö<p>We have talked in <a href="">last article</a> the android fingerprint work flow</p>
+<ol>
+  <li>Init.rc, start fingerprintd and register the remote service fingerprintdaemon with servicemanager</li>
+  <li>The system loads systemserver and starts fingerprint service.</li>
+  <li>Fingerservice gets the object of the remote service fingerprintdaemon, and calls the related methods to access the HAL.
+fingerprintDaemoProxy::openHal() will call the native library xx.so to access native code.</li>
+</ol>
+:ET

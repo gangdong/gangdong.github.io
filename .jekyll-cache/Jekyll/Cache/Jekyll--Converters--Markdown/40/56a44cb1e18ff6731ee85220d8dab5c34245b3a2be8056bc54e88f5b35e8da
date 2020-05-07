@@ -1,0 +1,328 @@
+I"<|<p>Since version 8.0, Android has fully introduced HIDL to separate vendor partition from sysem partition, so that Android is capable to upgrade framework through OTA without recompiling HAL. Correspondingly, the framework of fingerprint has also been changed. 
+This page will give a introduction about the difference of the fingerprint framework between android 7.0 (and early version) and android 8.0 (and later version).</p>
+
+<p>After the study of the previous three articles, <br />
+<a href="https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/10/03/Fingerprint-framework01.html">Android Fingerprint Framework (1)</a><br />
+<a href="https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/10/03/Fingerprint-framework02.html">Android Fingerprint Framework (2)</a><br />
+<a href="https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/10/03/Fingerprint-framework03.html">Android Fingerprint Framework (3)</a><br /></p>
+
+<h3 id="fingerprint-framework-in-android-70">fingerprint framework in Android 7.0</h3>
+<p>we have had a knowledge of the fingerprint framework on the android, here give a short summary for anyone who has not read these articles yet. <br />
+This diagram is the fingerprint framework on the android platform, I have presented in other article and copied here.</p>
+
+<p><img src="https://gangdong.github.io/daviddong.github.io/assets/image/android-fingerprint-framework-framework.png" alt="framework" /></p>
+
+<p>From the top layer, the fingerprint application will start the work flow and this is the fingerprint management entry defined by Android system layer.
+In the framework internal, some tasks will be done to handler the request from application.</p>
+
+<ol>
+  <li>
+    <p>init.rc starts up the Fingerprintd process during the system boot up.Fingerpringd then register IFingerprintDaemon remote service to ServiceManager.</p>
+  </li>
+  <li>System Server will start fingerprint system service FingerprintService.<br />
+<strong>SystemServer.java</strong>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mSystemServiceManager</span><span class="o">.</span><span class="na">startService</span><span class="o">(</span><span class="nc">FingerprintService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Fingerprint Service calls the interface of Fingerprintd to communicate with Fingerprint HAL layer.<br />
+<strong>FingerprintService.java</strong>
+    <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="n">IFingerprintDaemon</span> <span class="nf">getFingerprintDaemon</span><span class="p">()</span> <span class="p">{</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">mDaemon</span> <span class="o">==</span> <span class="n">null</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">mDaemon</span> <span class="o">=</span> <span class="n">IFingerprintDaemon</span><span class="p">.</span><span class="n">Stub</span><span class="p">.</span><span class="n">asInterface</span><span class="p">(</span><span class="n">ServiceManager</span><span class="p">.</span><span class="n">getService</span><span class="p">(</span><span class="n">FINGERPRINTD</span><span class="p">));</span>
+         <span class="k">if</span> <span class="p">(</span><span class="n">mDaemon</span> <span class="o">!=</span> <span class="n">null</span><span class="p">)</span> <span class="p">{</span>
+             <span class="k">try</span> <span class="p">{</span>
+                 <span class="n">mDaemon</span><span class="p">.</span><span class="n">asBinder</span><span class="p">().</span><span class="n">linkToDeath</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+                 <span class="n">mDaemon</span><span class="p">.</span><span class="n">init</span><span class="p">(</span><span class="n">mDaemonCallback</span><span class="p">);</span>
+                 <span class="n">mHalDeviceId</span> <span class="o">=</span> <span class="n">mDaemon</span><span class="p">.</span><span class="n">openHal</span><span class="p">();</span>
+                 <span class="k">if</span> <span class="p">(</span><span class="n">mHalDeviceId</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                     <span class="n">updateActiveGroup</span><span class="p">(</span><span class="n">ActivityManager</span><span class="p">.</span><span class="n">getCurrentUser</span><span class="p">(),</span> <span class="n">null</span><span class="p">);</span>
+                 <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                     <span class="n">Slog</span><span class="p">.</span><span class="n">w</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span> <span class="s">"Failed to open Fingerprint HAL!"</span><span class="p">);</span>
+                     <span class="n">MetricsLogger</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="n">mContext</span><span class="p">,</span> <span class="s">"fingerprintd_openhal_error"</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+                     <span class="n">mDaemon</span> <span class="o">=</span> <span class="n">null</span><span class="p">;</span>
+                 <span class="p">}</span>
+             <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">RemoteException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+                 <span class="n">Slog</span><span class="p">.</span><span class="n">e</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span> <span class="s">"Failed to open fingeprintd HAL"</span><span class="p">,</span> <span class="n">e</span><span class="p">);</span>
+                 <span class="n">mDaemon</span> <span class="o">=</span> <span class="n">null</span><span class="p">;</span> <span class="c1">// try again later!</span>
+             <span class="p">}</span>
+         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+             <span class="n">Slog</span><span class="p">.</span><span class="n">w</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span> <span class="s">"fingerprint service not available"</span><span class="p">);</span>
+         <span class="p">}</span>
+     <span class="p">}</span>
+     <span class="k">return</span> <span class="n">mDaemon</span><span class="p">;</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Fingerprintd calls FingerprintDaemonProxy function to open HAL.
+<strong>FingerprintDaemonProxy.cpp</strong>
+    <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int64_t</span> <span class="n">FingerprintDaemonProxy</span><span class="o">::</span><span class="n">openHal</span><span class="p">()</span> <span class="p">{</span>
+ <span class="n">ALOG</span><span class="p">(</span><span class="n">LOG_VERBOSE</span><span class="p">,</span> <span class="n">LOG_TAG</span><span class="p">,</span> <span class="s">"nativeOpenHal()</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+ <span class="kt">int</span> <span class="n">err</span><span class="p">;</span>
+ <span class="k">const</span> <span class="n">hw_module_t</span> <span class="o">*</span><span class="n">hw_module</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+ <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">!=</span> <span class="p">(</span><span class="n">err</span> <span class="o">=</span> <span class="n">hw_get_module</span><span class="p">(</span><span class="n">FINGERPRINT_HARDWARE_MODULE_ID</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">hw_module</span><span class="p">)))</span> <span class="p">{</span>
+     <span class="n">ALOGE</span><span class="p">(</span><span class="s">"Can't open fingerprint HW Module, error: %d"</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+ <span class="p">}</span>
+ <span class="k">if</span> <span class="p">(</span><span class="nb">NULL</span> <span class="o">==</span> <span class="n">hw_module</span><span class="p">)</span> <span class="p">{</span>
+     <span class="n">ALOGE</span><span class="p">(</span><span class="s">"No valid fingerprint module"</span><span class="p">);</span>
+     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+ <span class="p">}</span>
+
+ <span class="n">mModule</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">fingerprint_module_t</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">hw_module</span><span class="p">);</span>
+
+ <span class="k">if</span> <span class="p">(</span><span class="n">mModule</span><span class="o">-&gt;</span><span class="n">common</span><span class="p">.</span><span class="n">methods</span><span class="o">-&gt;</span><span class="n">open</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+     <span class="n">ALOGE</span><span class="p">(</span><span class="s">"No valid open method"</span><span class="p">);</span>
+     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+ <span class="p">}</span>
+
+ <span class="n">hw_device_t</span> <span class="o">*</span><span class="n">device</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+ <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">!=</span> <span class="p">(</span><span class="n">err</span> <span class="o">=</span> <span class="n">mModule</span><span class="o">-&gt;</span><span class="n">common</span><span class="p">.</span><span class="n">methods</span><span class="o">-&gt;</span><span class="n">open</span><span class="p">(</span><span class="n">hw_module</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">device</span><span class="p">)))</span> <span class="p">{</span>
+     <span class="n">ALOGE</span><span class="p">(</span><span class="s">"Can't open fingerprint methods, error: %d"</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+ <span class="p">}</span>
+
+ <span class="k">if</span> <span class="p">(</span><span class="n">kVersion</span> <span class="o">!=</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">version</span><span class="p">)</span> <span class="p">{</span>
+     <span class="n">ALOGE</span><span class="p">(</span><span class="s">"Wrong fp version. Expected %d, got %d"</span><span class="p">,</span> <span class="n">kVersion</span><span class="p">,</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">version</span><span class="p">);</span>
+     <span class="c1">// return 0; // FIXME</span>
+ <span class="p">}</span>
+
+ <span class="n">mDevice</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">fingerprint_device_t</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">device</span><span class="p">);</span>
+ <span class="n">err</span> <span class="o">=</span> <span class="n">mDevice</span><span class="o">-&gt;</span><span class="n">set_notify</span><span class="p">(</span><span class="n">mDevice</span><span class="p">,</span> <span class="n">hal_notify_callback</span><span class="p">);</span>
+ <span class="k">if</span> <span class="p">(</span><span class="n">err</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+     <span class="n">ALOGE</span><span class="p">(</span><span class="s">"Failed in call to set_notify(), err=%d"</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+ <span class="p">}</span>
+
+ <span class="c1">// Sanity check - remove</span>
+ <span class="k">if</span> <span class="p">(</span><span class="n">mDevice</span><span class="o">-&gt;</span><span class="n">notify</span> <span class="o">!=</span> <span class="n">hal_notify_callback</span><span class="p">)</span> <span class="p">{</span>
+     <span class="n">ALOGE</span><span class="p">(</span><span class="s">"NOTIFY not set properly: %p != %p"</span><span class="p">,</span> <span class="n">mDevice</span><span class="o">-&gt;</span><span class="n">notify</span><span class="p">,</span> <span class="n">hal_notify_callback</span><span class="p">);</span>
+ <span class="p">}</span>
+
+ <span class="n">ALOG</span><span class="p">(</span><span class="n">LOG_VERBOSE</span><span class="p">,</span> <span class="n">LOG_TAG</span><span class="p">,</span> <span class="s">"fingerprint HAL successfully initialized"</span><span class="p">);</span>
+ <span class="k">return</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">int64_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">mDevice</span><span class="p">);</span> <span class="c1">// This is just a handle</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>The HAL code is at below android path normally.<br />
+　　/hardware/libhardware/include/hardware/fingerprint.h
+　　/hardware/libhardware/modules/fingerprint</li>
+</ol>
+
+<p>I drew a flow chart to help understand the whole flow more clearly.</p>
+
+<p><img src="https://gangdong.github.io/daviddong.github.io/assets/image/android-fingerprint-android8-workflow.png" alt="workflow" /></p>
+
+<p>The related source code and android path can be found at below table.<br /></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"><strong>File</strong></th>
+      <th style="text-align: left"><strong>Android Path</strong></th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><a href="http://localhost:4000/daviddong.github.io/assets/docs/init.rc">init.rc</a></td>
+      <td style="text-align: left">root/system/core/rootdir/init.rc</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><a href="http://localhost:4000/daviddong.github.io/assets/docs/fingerprintd.cpp">fingerprintd.cpp</a></td>
+      <td style="text-align: left">root/system/core/fingerprintd/fingerprintd.cpp</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><a href="http://localhost:4000/daviddong.github.io/assets/docs/FingerprintDaemonProxy.h">FingerprintDaemonProxy.h</a></td>
+      <td style="text-align: left">root/system/core/fingerprintd/</td>
+      <td>fingerprintdaemonproxy.h</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><a href="http://localhost:4000/daviddong.github.io/assets/docs/fingerprintdaemonproxy.cpp">fingerprintdaemonproxy.cpp</a></td>
+      <td style="text-align: left">root/system/core/fingerprintd/fingerprintdaemonproxy.cpp</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><a href="http://localhost:4000/daviddong.github.io/assets/docs/SystemServer.java">SystemServer.java</a></td>
+      <td style="text-align: left">root/frameworks/base/services/java/com/android/server/SystemServer.java</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><a href="https://gangdong.github.io/daviddong.github.io/assets/docs/FingerprintService.java">FingerprintService.java</a></td>
+      <td style="text-align: left">root/frameworks/base/services/core/java/com/android/server/fingerprint/FingerprintService.java</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><a href="http://localhost:4000/daviddong.github.io/assets/docs/hardware.h}">hardware.h</a></td>
+      <td style="text-align: left">root/hardware/libhardware/include/hardware/hardware.h</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><a href="http://localhost:4000/daviddong.github.io/assets/docs/hardware.c">hardware.c</a></td>
+      <td style="text-align: left">root/hardware/libhardware/hardware.c</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="fingerprint-framework-in-android-80">fingerprint framework in Android 8.0</h3>
+<p>Above is the fingerprint framework of Android 7.0, however in Android 8.0 and later versions, Android has updated the framework and introduced a set of language called HIDL to define the interface between framework and HAL.</p>
+
+<p>Let’s see the difference.</p>
+
+<p><img src="https://gangdong.github.io/daviddong.github.io/assets/image/android-fingerprint-framework-android8-diff.png" alt="hidl" /></p>
+
+<p>Android 8.0 add a sub-directory /interface in the /hardware directory, which includes all HIDL files for hardware module.</p>
+
+<p>Android 8.0 removed Fingerprintd, instead, FingerprintService accesses HAL by calling HIDL.</p>
+
+<p>We can find the change in getFingerprintDaemon() method.</p>
+
+<p>In Android 7.0</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mDaemon</span> <span class="o">=</span> <span class="nc">IFingerprintDaemon</span><span class="o">.</span><span class="na">Stub</span><span class="o">.</span><span class="na">asInterface</span><span class="o">(</span><span class="nc">ServiceManager</span><span class="o">.</span><span class="na">getService</span><span class="o">(</span><span class="no">FINGERPRINTD</span><span class="o">));</span>
+</code></pre></div></div>
+<p>While in Android 8.0, mDaemon is achieved from the service of IBiometricsFingerprint.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mDaemon</span> <span class="o">=</span> <span class="nc">IBiometricsFingerprint</span><span class="o">.</span><span class="na">getService</span><span class="o">();</span>
+</code></pre></div></div>
+<p>IBiometricsFingerprint is a new fingerprint HIDL interface which was introduced at Android 8.0. <br />
+<a href="http://localhost:4000/daviddong.github.io/assets/docs/IBiometricsFingerprint.hal">IBiometricsFingerprint.hal</a>
+use HIDL language format defined a series standard fingerprint operation interfaces. 
+And <a href="http://localhost:4000/daviddong.github.io/assets/docs/BiometricsFingerprint.cpp">biometricsfingerprint.cpp</a> class realized the ibiometricsfingerprint interface.</p>
+
+<p>We may notice that the IBiometricsFingerprint returns a service for caller, actually there is a  file in the HIDL sub-directory <br />
+<a href="http://localhost:4000/daviddong.github.io/assets/docs/android.hardware.biometrics.fingerprint@2.1-service.rc">android.hardware.biometrics.fingerprint@2.1-service.rc</a>, which will start fps_hal service.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code> service fps_hal /vendor/bin/hw/android.hardware.biometrics.fingerprint@2.1-service
+    <span class="c"># "class hal" causes a race condition on some devices due to files created</span>
+    <span class="c"># in /data. As a workaround, postpone startup until later in boot once</span>
+    <span class="c"># /data is mounted.</span>
+    class late_start
+    user system
+    group system input
+</code></pre></div></div>
+<p>The files of the fingerprint HIDL related.
+<img src="http://localhost:4000/daviddong.github.io/assets/docs/android-fingerprint-android8-hidl.hal" alt="hidl file" /></p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">android</span><span class="o">::</span><span class="n">sp</span><span class="o">&lt;</span><span class="n">IBiometricsFingerprint</span><span class="o">&gt;</span> <span class="n">bio</span> <span class="o">=</span> <span class="n">BiometricsFingerprint</span><span class="o">::</span><span class="n">getInstance</span><span class="p">();</span>
+
+    <span class="n">configureRpcThreadpool</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">true</span> <span class="cm">/*callerWillJoin*/</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">bio</span> <span class="o">!=</span> <span class="nb">nullptr</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">bio</span><span class="o">-&gt;</span><span class="n">registerAsService</span><span class="p">();</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">ALOGE</span><span class="p">(</span><span class="s">"Can't create instance of BiometricsFingerprint, nullptr"</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">joinRpcThreadpool</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// should never get here</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>In the constructor of BiometricsFingerprint class, it calls openHal() to open HAL module.</p>
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">BiometricsFingerprint</span><span class="o">::</span><span class="n">BiometricsFingerprint</span><span class="p">()</span> <span class="o">:</span> <span class="n">mClientCallback</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">),</span> <span class="n">mDevice</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">sInstance</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span> <span class="c1">// keep track of the most recent instance</span>
+    <span class="n">mDevice</span> <span class="o">=</span> <span class="n">openHal</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">mDevice</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ALOGE</span><span class="p">(</span><span class="s">"Can't open HAL module"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+<p>Let’s check the openHal() function.</p>
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fingerprint_device_t</span><span class="o">*</span> <span class="n">BiometricsFingerprint</span><span class="o">::</span><span class="n">openHal</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">err</span><span class="p">;</span>
+    <span class="k">const</span> <span class="n">hw_module_t</span> <span class="o">*</span><span class="n">hw_mdl</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">;</span>
+    <span class="n">ALOGD</span><span class="p">(</span><span class="s">"Opening fingerprint hal library..."</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">!=</span> <span class="p">(</span><span class="n">err</span> <span class="o">=</span> <span class="n">hw_get_module</span><span class="p">(</span><span class="n">FINGERPRINT_HARDWARE_MODULE_ID</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">hw_mdl</span><span class="p">)))</span> <span class="p">{</span>
+        <span class="n">ALOGE</span><span class="p">(</span><span class="s">"Can't open fingerprint HW Module, error: %d"</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nb">nullptr</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">hw_mdl</span> <span class="o">==</span> <span class="nb">nullptr</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ALOGE</span><span class="p">(</span><span class="s">"No valid fingerprint module"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nb">nullptr</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">fingerprint_module_t</span> <span class="k">const</span> <span class="o">*</span><span class="n">module</span> <span class="o">=</span>
+        <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">fingerprint_module_t</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">hw_mdl</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">module</span><span class="o">-&gt;</span><span class="n">common</span><span class="p">.</span><span class="n">methods</span><span class="o">-&gt;</span><span class="n">open</span> <span class="o">==</span> <span class="nb">nullptr</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ALOGE</span><span class="p">(</span><span class="s">"No valid open method"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nb">nullptr</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">hw_device_t</span> <span class="o">*</span><span class="n">device</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">!=</span> <span class="p">(</span><span class="n">err</span> <span class="o">=</span> <span class="n">module</span><span class="o">-&gt;</span><span class="n">common</span><span class="p">.</span><span class="n">methods</span><span class="o">-&gt;</span><span class="n">open</span><span class="p">(</span><span class="n">hw_mdl</span><span class="p">,</span> <span class="nb">nullptr</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">device</span><span class="p">)))</span> <span class="p">{</span>
+        <span class="n">ALOGE</span><span class="p">(</span><span class="s">"Can't open fingerprint methods, error: %d"</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nb">nullptr</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">kVersion</span> <span class="o">!=</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">version</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// enforce version on new devices because of HIDL@2.1 translation layer</span>
+        <span class="n">ALOGE</span><span class="p">(</span><span class="s">"Wrong fp version. Expected %d, got %d"</span><span class="p">,</span> <span class="n">kVersion</span><span class="p">,</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">version</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nb">nullptr</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">fingerprint_device_t</span><span class="o">*</span> <span class="n">fp_device</span> <span class="o">=</span>
+        <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">fingerprint_device_t</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">device</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">!=</span> <span class="p">(</span><span class="n">err</span> <span class="o">=</span>
+            <span class="n">fp_device</span><span class="o">-&gt;</span><span class="n">set_notify</span><span class="p">(</span><span class="n">fp_device</span><span class="p">,</span> <span class="n">BiometricsFingerprint</span><span class="o">::</span><span class="n">notify</span><span class="p">)))</span> <span class="p">{</span>
+        <span class="n">ALOGE</span><span class="p">(</span><span class="s">"Can't register fingerprint module callback, error: %d"</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nb">nullptr</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">fp_device</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+<p>Have you found that the function realization is similiar to the FingerprintDaemonProxy::openHal()? The native method is called and HAL module is opened here. After access to the HAL, others are all same under the HAL layer.</p>
+
+<p>So far, we can change the fingerprint framework of Android 8.0 as below.</p>
+
+<p><img src="http://localhost:4000/daviddong.github.io/assets/image/android-fingerprint-android8-workflow2.png" alt="fingerprint framework android8.0" /></p>
+
+<p>The related source code and android path can be found at below table<br /></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"><strong>File</strong></th>
+      <th style="text-align: left"><strong>Android Path</strong></th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><a href="http://localhost:4000/daviddong.github.io/assets/docs/init.rc">init.rc</a></td>
+      <td style="text-align: left">root/system/core/rootdir/init.rc</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><a href="http://localhost:4000/daviddong.github.io/assets/docs/fingerprintd.cpp">fingerprintd.cpp</a></td>
+      <td style="text-align: left">root/system/core/fingerprintd/fingerprintd.cpp</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><a href="http://localhost:4000/daviddong.github.io/assets/docs/FingerprintDaemonProxy.h">FingerprintDaemonProxy.h</a></td>
+      <td style="text-align: left">root/system/core/fingerprintd/</td>
+      <td>fingerprintdaemonproxy.h</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><a href="http://localhost:4000/daviddong.github.io/assets/docs/fingerprintdaemonproxy.cpp">fingerprintdaemonproxy.cpp</a></td>
+      <td style="text-align: left">root/system/core/fingerprintd/fingerprintdaemonproxy.cpp</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><a href="http://localhost:4000/daviddong.github.io/assets/docs/SystemServer.java">SystemServer.java</a></td>
+      <td style="text-align: left">root/frameworks/base/services/java/com/android/server/SystemServer.java</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Now, I think the main difference of the fingerprint framework on Android 8.0 has been introduced and if you have further questions, you can ask at comment box, I will reply to you as soon as I can.</p>
+:ET

@@ -1,0 +1,276 @@
+I"�r<p>Java的序列化提供了一种保存对象状态的机制，之所以要用到序列化是因为有时我们会在对象的生命期结束后需要把对象状态保存下来，通常是存放到外部的媒介上，比如文件，磁盘或网络上。并且在需要时能够通过一种机制来恢复。序列化能够在不同的JVM之间共享数据。<br /></p>
+
+<p>实现类的序列化在语法上非常简单，只需要实现Serializable接口即可。Serializable接口没有需要实现的方法（这是一个”标记接口-tagging interface”)，只是标明该类的对象需要序列化。</p>
+
+<p>通常我们在构建javabean的时候，定义Bean时要实现这个接口，因为Bean的属性状态一般都是需要保存的。<br />
+关于序列化，需要注意一下几点：<br /></p>
+<ol>
+  <li>序列化保存的是对象的状态。状态包括对象的非静态成员变量（包括声明为private的变量），不能保存任何的<strong>成员方法</strong>和<strong>静态的成员变量</strong>。</li>
+  <li>当一个父类实现序列化时,<strong>子类自动序列化</strong>,不需要显式实现Serializable接口。</li>
+  <li>当一个对象的实例变量引用其他对象,序列化该对象时也把<strong>引用对象序列化</strong>。</li>
+  <li>序列化的对象包括基本数据类型，所有集合类以及其他许多东西，还有对象。但是<strong>并非所有的对象都可以序列化</strong>。</li>
+  <li>对象序列化不仅保存了对象的状态，而且还能<strong>保存对象内包含的所有引用的对象状态</strong>，一直追踪知道所有的引用的对象被保存。</li>
+  <li>使用<strong><em>transient</em></strong>关键字修饰的的变量，在序列化对象的过程中，该属性不会被序列化。常用于当某些变量不想被序列化，同是又不适合使用static关键字声明时。</li>
+</ol>
+
+<p><br />
+关于<strong>serialVersionUID</strong><br />
+序列化运行时使用一个称为serialVersionUID的版本号与每个可序列化类相关联，该序列号在反序列化过程中用于验证序列化对象的发送者和接收者是否为该对象加载了与序列化兼容的类。如果接收者加载的该对象的类的serialVersionUID与对应的发送者的类的版本号不同，则反序列化将会导致InvalidClassException。可序列化类可以通过声明名为 “serialVersionUID”的字段（该字段必须定义为 <strong>static final long</strong>）显式声明其自己的serialVersionUID.建议在一个可序列化类中显示的定义serialVersionUID。因为serialVersionUID的取值是Java运行时环境根据类的内部细节自动生成的。如果对类的源代码作了修改，再重新编译，新生成的类文件的serialVersionUID的取值有可能也会发生变化。而且不同的Java编译器之间会有差异。
+可以用在如下的场合:<br /></p>
+<ol>
+  <li>在某些场合，希望类的不同版本对序列化兼容，因此需要确保类的不同版本具有相同的serialVersionUID；</li>
+  <li>在某些场合，不希望类的不同版本对序列化兼容，因此需要确保类的不同版本具有不同的serialVersionUID<br /></li>
+</ol>
+
+<p>参考代码如下，改代码演示了如何序列化和反序列化一个对象：<br />
+首先定义一个类实现Serializable接口。<br />
+DemoInstance.java<br /></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kn">package</span> <span class="nn">Serializable</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.Serializable</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DemoInstance</span> <span class="kd">implements</span> <span class="nc">Serializable</span><span class="o">{</span>
+
+    <span class="cm">/**
+     * 定义一个明确的 serialVersionUID 而不是由系统自动产生, 声明为 static final long 类型 
+     */</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="mi">1L</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">a</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="n">b</span><span class="o">;</span>
+    <span class="kd">protected</span> <span class="nc">String</span> <span class="n">c</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getA</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">a</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setA</span><span class="o">(</span><span class="nc">String</span> <span class="n">a</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">a</span> <span class="o">=</span> <span class="n">a</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getB</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">b</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setB</span><span class="o">(</span><span class="nc">String</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">b</span> <span class="o">=</span> <span class="n">b</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getC</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">c</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setC</span><span class="o">(</span><span class="nc">String</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">c</span> <span class="o">=</span> <span class="n">c</span><span class="o">;</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+
+</code></pre></div></div>
+<p>在main()中实现该类对象的序列化和反序列化。<br />
+App.java<br /></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kn">package</span> <span class="nn">Serializable</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.FileInputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.FileOutputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.ObjectInputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.ObjectOutputStream</span><span class="o">;</span>
+
+<span class="cm">/**
+ * example of serializable
+ *
+ */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">App</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="c1">// 声明一个对象，该对象实现了serializable接口</span>
+        <span class="nc">DemoInstance</span> <span class="n">demoObj</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DemoInstance</span><span class="o">();</span>
+        <span class="nc">DemoInstance</span> <span class="n">demoReadObj</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DemoInstance</span><span class="o">();</span>
+
+        <span class="n">demoObj</span><span class="o">.</span><span class="na">setA</span><span class="o">(</span><span class="s">"I am private member."</span><span class="o">);</span>
+        <span class="n">demoObj</span><span class="o">.</span><span class="na">setB</span><span class="o">(</span><span class="s">"I am protected member."</span><span class="o">);</span>
+        <span class="n">demoObj</span><span class="o">.</span><span class="na">setC</span><span class="o">(</span><span class="s">"I am public member."</span><span class="o">);</span>
+
+        <span class="n">demoReadObj</span><span class="o">.</span><span class="na">setA</span><span class="o">(</span><span class="s">"I am null!"</span><span class="o">);</span>
+        <span class="n">demoReadObj</span><span class="o">.</span><span class="na">setB</span><span class="o">(</span><span class="s">"I am null!"</span><span class="o">);</span>
+        <span class="n">demoReadObj</span><span class="o">.</span><span class="na">setC</span><span class="o">(</span><span class="s">"I am null!"</span><span class="o">);</span>
+
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="c1">// 首先声明一个FileOutputStream的对象，用于操作要写入的文件</span>
+            <span class="nc">FileOutputStream</span> <span class="n">fos</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileOutputStream</span><span class="o">(</span><span class="s">"example_Serializable.txt"</span><span class="o">);</span>
+            <span class="c1">// 声明一个ObjectOutputStream 对象，将要写入的文件流与要存的对象关联</span>
+            <span class="nc">ObjectOutputStream</span> <span class="n">oos</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectOutputStream</span><span class="o">(</span><span class="n">fos</span><span class="o">);</span>
+            <span class="c1">// 写入要保存的对象</span>
+            <span class="n">oos</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">demoObj</span><span class="o">);</span>
+            <span class="n">oos</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+
+            <span class="c1">// 首先声明一个FileInputStream的对象，用于操作要写入的文件</span>
+            <span class="nc">FileInputStream</span> <span class="n">fis</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileInputStream</span><span class="o">(</span><span class="s">"example_Serializable.txt"</span><span class="o">);</span>
+            <span class="c1">// 声明一个ObjectInputStream 对象，将要读入的文件流与要存的对象关联</span>
+            <span class="nc">ObjectInputStream</span> <span class="n">ois</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectInputStream</span><span class="o">(</span><span class="n">fis</span><span class="o">);</span>
+            <span class="n">demoReadObj</span> <span class="o">=</span> <span class="o">(</span><span class="nc">DemoInstance</span><span class="o">)</span> <span class="n">ois</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+            <span class="n">ois</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>    
+
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"A:"</span><span class="o">+</span><span class="n">demoReadObj</span><span class="o">.</span><span class="na">getA</span><span class="o">()+</span><span class="s">"\nB:"</span><span class="o">+</span><span class="n">demoReadObj</span><span class="o">.</span><span class="na">getB</span><span class="o">()+</span><span class="s">"\nC:"</span><span class="o">+</span><span class="n">demoReadObj</span><span class="o">.</span><span class="na">getC</span><span class="o">());</span>
+
+
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// TODO Auto-generated catch block</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">ClassNotFoundException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// TODO Auto-generated catch block</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+
+
+</code></pre></div></div>
+<p>以上代码实现了对象的序列化，注意此时如果将保存的文件用文本编辑器打开会看到如下乱码。<br />
+这是因为序列化和反序列化都是基于二进制流的，将对象保存的信息转化为二进制存储在了文件中，那么用文本编辑器打开查看的话当然是会出现乱码的。只有通过反序列化才能将存储的二进制读取出来。<br /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err"></span> <span class="err"></span><span class="n">sr</span> <span class="err"></span><span class="nc">Serializable</span><span class="o">.</span><span class="na">DemoInstance</span>       <span class="err"></span> <span class="err"></span><span class="no">L</span> <span class="err"></span><span class="n">at</span> <span class="err"></span><span class="nc">Ljava</span><span class="o">/</span><span class="n">lang</span><span class="o">/</span><span class="nc">String</span><span class="o">;</span><span class="no">L</span> <span class="err"></span><span class="n">bq</span> <span class="o">~</span> <span class="err"></span><span class="no">L</span> <span class="err"></span><span class="n">cq</span> <span class="o">~</span> <span class="err"></span><span class="n">xpt</span> <span class="err"></span><span class="no">I</span> <span class="n">am</span> <span class="kd">private</span> <span class="n">member</span><span class="o">.</span><span class="na">t</span> <span class="err"></span><span class="no">I</span> <span class="n">am</span> <span class="kd">protected</span> <span class="n">member</span><span class="o">.</span><span class="na">t</span> <span class="err"></span><span class="no">I</span> <span class="n">am</span> <span class="kd">public</span> <span class="n">member</span><span class="o">.</span>
+
+</code></pre></div></div>
+<p>反序列化读取的代码如下。<br /></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 首先声明一个FileInputStream的对象，用于操作要写入的文件</span>
+            <span class="nc">FileInputStream</span> <span class="n">fis</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileInputStream</span><span class="o">(</span><span class="s">"example_Serializable.txt"</span><span class="o">);</span>
+            <span class="c1">// 声明一个ObjectInputStream 对象，将要读入的文件流与要存的对象关联</span>
+            <span class="nc">ObjectInputStream</span> <span class="n">ois</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectInputStream</span><span class="o">(</span><span class="n">fis</span><span class="o">);</span>
+            <span class="n">demoReadObj</span> <span class="o">=</span> <span class="o">(</span><span class="nc">DemoInstance</span><span class="o">)</span> <span class="n">ois</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+            <span class="n">ois</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>   
+
+</code></pre></div></div>
+<p>结果如下所示。<br /></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>A:I am private member.
+B:I am protected member.
+C:I am public member.
+</code></pre></div></div>
+<p>以上是序列化的基本步骤，下面我们再定义一个DemoInstance的子类，该类没有直接实现Serializable接口，同时在该类中还引用了另外一个没有实现Serializable接口的实体类。<br />
+SubDemoInstance.java <br /></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">Serializable</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SubDemoInstance</span> <span class="kd">extends</span> <span class="nc">DemoInstance</span> <span class="o">{</span>
+
+    <span class="cm">/**
+     * 定义一个明确的 serialVersionUID 而不是由系统自动产生, 声明为 static final long 类型
+     */</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="mi">2L</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">state</span><span class="o">;</span>
+    <span class="c1">//引用一个没有序列化的对象</span>
+    <span class="kd">private</span> <span class="nc">ClassWithoutSerial</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ClassWithoutSerial</span><span class="o">();</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setPara</span><span class="o">(</span><span class="nc">String</span> <span class="n">state</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="k">this</span><span class="o">.</span><span class="na">obj</span><span class="o">.</span><span class="na">setState</span><span class="o">(</span><span class="n">state</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setPara</span><span class="o">(</span><span class="nc">ClassWithoutSerial</span> <span class="n">obj</span><span class="o">,</span> <span class="nc">String</span> <span class="n">state</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="n">obj</span><span class="o">.</span><span class="na">setState</span><span class="o">(</span><span class="n">state</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getDeclare</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">state</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setDeclare</span><span class="o">(</span><span class="nc">String</span> <span class="n">state</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">state</span> <span class="o">=</span> <span class="n">state</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">ClassWithoutSerial</span> <span class="nf">getObj</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">obj</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setObj</span><span class="o">(</span><span class="nc">ClassWithoutSerial</span> <span class="n">obj</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">obj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+<span class="o">}</span>
+
+</code></pre></div></div>
+<p>ClassWithoutSerial.java <br /></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">Serializable</span><span class="o">;</span>
+
+<span class="c1">//类没有实现Serializale接口</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClassWithoutSerial</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">state</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getState</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">state</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setState</span><span class="o">(</span><span class="nc">String</span> <span class="n">state</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">state</span> <span class="o">=</span> <span class="n">state</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">ClassWithoutSerial</span><span class="o">(</span><span class="nc">String</span> <span class="n">state</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">state</span> <span class="o">=</span> <span class="n">state</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">ClassWithoutSerial</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+
+
+</code></pre></div></div>
+<p>实现序列化和发序列化的代码。 <br /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>            <span class="nc">SubDemoInstance</span> <span class="n">subDemoInstance</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SubDemoInstance</span><span class="o">();</span>
+
+            <span class="n">subDemoInstance</span><span class="o">.</span><span class="na">setA</span><span class="o">(</span><span class="s">"I am private member in subclass."</span><span class="o">);</span>
+            <span class="n">subDemoInstance</span><span class="o">.</span><span class="na">setB</span><span class="o">(</span><span class="s">"I am protected member in subclass."</span><span class="o">);</span>
+            <span class="n">subDemoInstance</span><span class="o">.</span><span class="na">setC</span><span class="o">(</span><span class="s">"I am public member in subclass."</span><span class="o">);</span>
+            <span class="n">subDemoInstance</span><span class="o">.</span><span class="na">setDeclare</span><span class="o">(</span><span class="s">"I am member in subclass"</span><span class="o">);</span>
+            <span class="n">subDemoInstance</span><span class="o">.</span><span class="na">setPara</span><span class="o">(</span><span class="n">cws</span><span class="o">,</span><span class="s">"I am be called by subclass."</span><span class="o">);</span>
+            
+            <span class="c1">//Serialize</span>
+            <span class="c1">// 首先声明一个FileOutputStream的对象，用于操作要写入的文件</span>
+            <span class="nc">FileOutputStream</span> <span class="n">fosi</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileOutputStream</span><span class="o">(</span><span class="s">"example_Serializable.txt"</span><span class="o">);</span>
+            <span class="c1">// 声明一个ObjectOutputStream 对象，将要写入的文件流与要存的对象关联</span>
+            <span class="nc">ObjectOutputStream</span> <span class="n">oosi</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectOutputStream</span><span class="o">(</span><span class="n">fosi</span><span class="o">);</span>
+            <span class="c1">// 写入要保存的对象</span>
+            <span class="n">oosi</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">subDemoInstance</span><span class="o">);</span>
+            <span class="n">oosi</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+
+            <span class="c1">//de-serialize</span>
+             <span class="c1">// 首先声明一个FileInputStream的对象，用于操作要写入的文件</span>
+            <span class="nc">FileInputStream</span> <span class="n">fisi</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileInputStream</span><span class="o">(</span><span class="s">"example_Serializable.txt"</span><span class="o">);</span>
+            <span class="c1">// 声明一个ObjectInputStream 对象，将要读入的文件流与要存的对象关联</span>
+            <span class="nc">ObjectInputStream</span> <span class="n">oisi</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectInputStream</span><span class="o">(</span><span class="n">fisi</span><span class="o">);</span>
+            <span class="nc">SubDemoInstance</span> <span class="n">readSubDemo</span> <span class="o">=</span>  <span class="k">new</span> <span class="nc">SubDemoInstance</span><span class="o">();</span>
+            <span class="n">readSubDemo</span> <span class="o">=</span> <span class="o">(</span><span class="nc">SubDemoInstance</span><span class="o">)</span> <span class="n">oisi</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+            <span class="n">oisi</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"A:"</span> <span class="o">+</span> <span class="n">readSubDemo</span><span class="o">.</span><span class="na">getA</span><span class="o">()</span> <span class="o">+</span> <span class="s">"\nB:"</span> <span class="o">+</span> <span class="n">readSubDemo</span><span class="o">.</span><span class="na">getB</span><span class="o">()</span> <span class="o">+</span> <span class="s">"\nC:"</span> <span class="o">+</span> <span class="n">readSubDemo</span><span class="o">.</span><span class="na">getC</span><span class="o">()+</span><span class="s">"\nSubClass:"</span><span class="o">+</span><span class="n">readSubDemo</span><span class="o">.</span><span class="na">getDeclare</span><span class="o">()+</span><span class="s">"others:"</span><span class="o">+</span><span class="n">readSubDemo</span><span class="o">.</span><span class="na">getObj</span><span class="o">().</span><span class="na">getState</span><span class="o">());</span>
+
+</code></pre></div></div>
+<p>执行后会出现如下错误。<br /></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>A:I am private member.
+B:I am protected member.
+C:I am public member.
+java.io.NotSerializableException: Serializable.ClassWithoutSerial
+        at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+        at java.io.ObjectOutputStream.defaultWriteFields(ObjectOutputStream.java:1548)
+        at java.io.ObjectOutputStream.writeSerialData(ObjectOutputStream.java:1509)
+        at java.io.ObjectOutputStream.writeOrdinaryObject(ObjectOutputStream.java:1432)
+        at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1178)
+        at java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:348)
+        at Serializable.App.main(App.java:61)
+
+</code></pre></div></div>
+<p>可以看到错误为ClassWithoutSerial没有序列化却没执行了序列化的操作。稍作修改使得类ClassWithoutSerial实现Serializable接口，结果如下。<br /></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>A:I am private member in subclass.
+B:I am protected member in subclass.
+C:I am public member in subclass.
+SubClass:I am member in subclass
+others:I am be called by subclass.
+</code></pre></div></div>
+<p>由此可见，序列化类的子类可以不必实现序列化，但是其内部引用的类对象必须实现序列化。</p>
+:ET
