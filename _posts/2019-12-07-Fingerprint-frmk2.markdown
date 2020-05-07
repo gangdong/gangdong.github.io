@@ -5,25 +5,26 @@ date:   2019-12-07 23:52:01 +0800
 categories: Android Fingerprint
 Published: true
 ---
-This blog will follow the last article to introduce the android fingerprint framework from the source code inspecting.
+This page will follow the [last article]((https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/10/03/Fingerprint-frmk1.html)) to keep introducing the android fingerprint framework knowledge. The content is focus on android source code inspecting and analysis.
 
 ### Step one - startup fingerprintd service
-looking at the init.rc file, this task is assigned at init.rc when the android system boots up, start the fingerprint daemon service.
+Looking at the init.rc file, a task is assigned at init.rc when the android system boots up - start the fingerprint daemon service.
 ```
 service fingerprintd /system/bin/fingerprintd
 class late_start
 user root
 group root sdcard_r sdcard_rw
 ``` 
-let's check the fingerprintd program.<br> 
-Here recommend a useful website for your view/investigate the android source code.<br> 
+Let's go on to check the fingerprintd program.<br> 
+Here I would recommend a useful website for you viewing the android source code.<br> 
 [Android Community](https://www.androidos.net.cn/android/10.0.0_r6/xref)
 
-We can see the path is system/core/fingerprintd/ and the directory structure is as below.
+We can see the android path of the [fingerprintd.cpp]({{site.url}}/daviddong.github.io/assets/docs/fingerprintd.cpp) is system/core/fingerprintd/ and the directory structure is as below.
 ![fingerprintd directory structure](https://gangdong.github.io/daviddong.github.io/assets/image/android-fingerprint-framework2-fingerprintd-directory.png)
 read the 
 [Android.mk]({{site.url}}/daviddong.github.io/assets/docs/Android.mk)<br>
 androdi path: root/system/core/fingerprintd/Android.mk <br>
+we can know that this package is built as a executable program.<br>
 ```android
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
@@ -42,11 +43,10 @@ LOCAL_SHARED_LIBRARIES := \
 	libkeystore_binder
 include $(BUILD_EXECUTABLE)
 ```
-This package is built as a executable program.<br>
-open the 
+next open the 
 [fingerprintd.cpp]({{site.url}}/daviddong.github.io/assets/docs/fingerprintd.cpp)<br>
 android path: root/system/core/fingerprintd/fingerprintd.cpp<br>
-the task of the main() is very simple, just create a FingerprintDaemonProxy object and add it into the service queue. 
+The task of the main() function is very simple, just create a FingerprintDaemonProxy object and add it into the service queue. 
 ```c++
 #include "FingerprintDaemonProxy.h"
 
@@ -71,11 +71,11 @@ int main() {
     return 0;
 }
 ```
-from the 
+From the 
 [FingerprintDaemonProxy.h]({{site.url}}/daviddong.github.io/assets/docs/FingerprintDaemonProxy.h)<br>
 android path: root/system/core/fingerprintd/FingerprintDaemonProxy.h<br>
-we find the remote service is fingerprint daemon. Fingerprinted registers the remote service to the servcemanager for the customer to call.
-The protocol interface is IFingerprintdaemon. Fingerprintservice in the framework will eventually call the remote service, that is, the method in 
+We find the remote service is fingerprint daemon. Fingerprinted registers the remote service to the servcemanager for the client to use.
+The protocol interface is IFingerprintdaemon. FingerprintService in the framework will eventually call the remote service, that is, the method in 
 [fingerprintdaemonproxy.cpp]({{site.url}}/daviddong.github.io/assets/docs/fingerprintdaemonproxy.cpp).<br>
 android path: root/system/core/fingerprintd/fingerprintdaemonproxy.cpp<br>
 ```c++
@@ -129,12 +129,12 @@ class FingerprintDaemonProxy : public BnFingerprintDaemon {
 #endif // FINGERPRINT_DAEMON_PROXY_H_
 ```
 ### Step two - Startup FingerprintService
-Next, we will move to framework layer to find how the fingerprint service start up. 
+Next, we will move to framework layer to find how the Fingerprint Service start up. 
 open the 
 [SystemServer.java]({{site.url}}/daviddong.github.io/assets/docs/SystemServer.java)<br>
 android path: root/frameworks/base/services/java/com/android/server/SystemServer.java  <br>
-this class is incharge of the system service operation, include start up the necessary service.
-When Android system loads system server, start fingerprint service.
+This class is in charge of the system service managerment, include start up the necessary service.
+When Android system loads system server, starts Fingerprint Service.
 
 ```java
 import com.android.server.fingerprint.FingerprintService;
@@ -146,7 +146,7 @@ if (mPackageManager.hasSystemFeature(PackageManager.FEATURE_FINGERPRINT)) {
             }
 ```
 
-keep finding the 
+Keep looking into the 
 [FingerprintService.java](https://gangdong.github.io/daviddong.github.io/assets/docs/FingerprintService.java).<br>
 android path: root/frameworks/base/services/core/java/com/android/server/fingerprint/FingerprintService.java <br>
 FingerprintService is a subclass of SystemService class and implements the IHwbinder interface.
@@ -194,8 +194,8 @@ public class FingerprintService extends SystemService implements IHwBinder.Death
 
 }
 ```
-let's see the mehtod getFingerprintDaemon(), this method will acquire the fingerprint remote service object, that is, the object of fingerprint daemon (system/core/fingerprintd), which has been registered in the init.rc. Then initialize the remote service fingerprintdaemon and set the callback mDaemonCallback.
+Let's see the mehtod **getFingerprintDaemon()**, this method will acquire the fingerprint remote service object, that is, the object of fingerprint daemon (system/core/fingerprintd), which has been registered in the init.rc. Then initialize the remote service fingerprintdaemon and set the callback mDaemonCallback.
 
 It can be seen from the above that the fingerprint service in the framework calls the fingerprint remote service of the native layer fingerprint daemon (related to the hardware), which can be regarded as the client of the fingerprint remote service fingerprint daemon.
 
-Ok, we have seen the working process of framework layer and how they register the system service and access the HAL library by calling the remote fingerprint service through Binder. Let's move to native layer in next article.
+Ok, we have already went through the working process of framework layer and how they register the system service and access the HAL code by calling the remote Fingerprint Service through Binder. Let's move to native layer in next article.
