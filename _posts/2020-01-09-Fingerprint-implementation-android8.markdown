@@ -141,7 +141,7 @@ And [biometricsfingerprint.cpp]({{site.url}}/daviddong.github.io/assets/docs/Bio
 We may notice that the IBiometricsFingerprint returns a service for caller, actually there is a  file in the HIDL sub-directory <br>
 [android.hardware.biometrics.fingerprint@2.1-service.rc]({{site.url}}/daviddong.github.io/assets/docs/android.hardware.biometrics.fingerprint@2.1-service.rc), which will start fps_hal service.
 
-```
+```shell
  service fps_hal /vendor/bin/hw/android.hardware.biometrics.fingerprint@2.1-service
     # "class hal" causes a race condition on some devices due to files created
     # in /data. As a workaround, postpone startup until later in boot once
@@ -153,7 +153,7 @@ We may notice that the IBiometricsFingerprint returns a service for caller, actu
 The files of the fingerprint HIDL related.
 ![hidl file]({{site.url}}/daviddong.github.io/assets/docs/android-fingerprint-android8-hidl.hal)
 
-```
+```c++
 int main() {
     android::sp<IBiometricsFingerprint> bio = BiometricsFingerprint::getInstance();
 
@@ -171,7 +171,7 @@ int main() {
 }
 ```
 In the constructor of BiometricsFingerprint class, it calls openHal() to open HAL module. 
-```
+```c++
 BiometricsFingerprint::BiometricsFingerprint() : mClientCallback(nullptr), mDevice(nullptr) {
     sInstance = this; // keep track of the most recent instance
     mDevice = openHal();
@@ -182,7 +182,7 @@ BiometricsFingerprint::BiometricsFingerprint() : mClientCallback(nullptr), mDevi
 
 ```
 Let's check the openHal() function.
-```
+```c++
 fingerprint_device_t* BiometricsFingerprint::openHal() {
     int err;
     const hw_module_t *hw_mdl = nullptr;
@@ -238,9 +238,8 @@ So far, we can change the fingerprint framework of Android 8.0 as below.
 
 The related source code and android path can be found at below table<br>
 
-**file**|**android path**|
+**File**|**Android Path**|
 :--|:--|
-
 [service.cpp]({{site.url}}/daviddong.github.io/assets/docs/service.cpp)|root/hardware/interfaces/biometrics/fingerprint/2.1/default/|
 [BiometricsFingerprint.cpp]({{site.url}}/daviddong.github.io/assets/docs/BiometricsFingerprint.cpp)|root/hardware/interfaces/biometrics/fingerprint/2.1/default/|
 [BiometricsFingerprint.h]({{site.url}}/daviddong.github.io/assets/docs/BiometricsFingerprint.h)|root/hardware/interfaces/biometrics/fingerprint/2.1/default/
