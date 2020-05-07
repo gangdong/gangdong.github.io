@@ -13,10 +13,12 @@ After the study of the previous three articles, <br>
 [Android Fingerprint Framework (2)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/10/03/Fingerprint-framework02.html)
 [Android Fingerprint Framework (3)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/10/03/Fingerprint-framework03.html)<br>
 we have learned the fingerprint framework on the android, here give a short summary for anyone who has not read these articles yet. <br>
+This diagram is the fingerprint framework on the android platform, I have presented in other article and copied here.
 
 ![framework](https://gangdong.github.io/daviddong.github.io/assets/image/android-fingerprint-framework-framework.png)
 
 The fingerprint application will start the work flow and this is the fingerprint management entry defined by Android system layer.
+In the framework internal, some task will be done to handler the request from application.
 
 1. init.rc starts up the Fingerprintd process during the system boot up.Fingerpringd then register Ifingerprintdaemon remote service to servcemanager.
 2. System server will start fingerprint system service fingerprintservice.<br>
@@ -88,9 +90,10 @@ int64_t FingerprintDaemonProxy::openHal() {
 　　/hardware/libhardware/include/hardware/fingerprint.h
 　　/hardware/libhardware/modules/fingerprint
 
-so the whole work flow is following below chart.
+I drew a flow chart to understand the whole flow more clearly.
 ![workflow](https://gangdong.github.io/daviddong.github.io/assets/image/android-fingerprint-android8-workflow.png)
-The related source code and android path can be found at below <br>
+
+The related source code and android path can be found at below table.<br>
 
 file|android path|
 -|:--|
@@ -104,16 +107,18 @@ file|android path|
 [hardware.c]({{site.url}}/daviddong.github.io/assets/docs/hardware.c)|root/hardware/libhardware/hardware.c
 
 Above is the fingerprint framework of android 7.0, but in Android 8.0 and later versions, Android has updated the framework and introduced a set of language called HIDL to define the interface between framework and HAL.
+
 Let's see the difference.
+
 ![hidl](https://gangdong.github.io/daviddong.github.io/assets/image/android-fingerprint-framework-android8-diff.png)
 
-android 8.0 add a interface folder in the hardware directory, which includes all HIDL related files for all hardware module. 
+android 8.0 add a /interface in the hardware directory, which includes all HIDL related files for hardware module. 
 
 Android 8.0 removed fingerprintd, instead, fingerprintService accesses HAL by calling HIDL.
 
-we can see the change from the getFingerprintDaemon() method realization.
+We can find the change of the getFingerprintDaemon() method.
 
-in Android 7.0 
+In Android 7.0
 ```java
 mDaemon = IFingerprintDaemon.Stub.asInterface(ServiceManager.getService(FINGERPRINTD));
 ```
@@ -121,12 +126,12 @@ while in Android 8.0, mDaemon is achieved from the service of IBiometricsFingerp
 ```java
 mDaemon = IBiometricsFingerprint.getService();
 ```
-IBiometricsFingerprint is a new HIDL interface which was added at Android 8.0. <br>
+IBiometricsFingerprint is a new HIDL interface which was introduced at Android 8.0. <br>
 [IBiometricsFingerprint.hal]({{site.url}}/daviddong.github.io/assets/docs/IBiometricsFingerprint.hal)
 use HIDL language format defined a series standard fingerprint operation interface. 
 And [biometricsfingerprint.cpp]({{site.url}}/daviddong.github.io/assets/docs/BiometricsFingerprint.cpp) class realized the ibiometricsfingerprint interface.
 
-we may notice that the IBiometricsFingerprint returns a service for caller, actually there is a  file in the HIDL folder android.hardware.biometrics.fingerprint@2.1-service.rc, which will start
+We may notice that the IBiometricsFingerprint returns a service for caller, actually there is a  file in the HIDL folder android.hardware.biometrics.fingerprint@2.1-service.rc, which will start
 ```
  service fps_hal /vendor/bin/hw/android.hardware.biometrics.fingerprint@2.1-service
     # "class hal" causes a race condition on some devices due to files created
