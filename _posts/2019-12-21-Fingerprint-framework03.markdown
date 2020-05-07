@@ -5,19 +5,25 @@ date:   2019-12-21 22:24:43 +0800
 categories: Android Fingerprint
 Published: true
 ---
-We have talked in [last article]() the android fingerprint work flow   
-1. Init.rc, start fingerprintd and register the remote service fingerprintdaemon with servicemanager
-2. The system loads systemserver and starts fingerprint service.
-3. Fingerservice gets the object of the remote service fingerprintdaemon, and calls the related methods to access the HAL.
-fingerprintDaemoProxy::openHal() will call the native library xx.so to access native code.  
+Follow the last two articles, the article will introduce the remain part of the fingerprint framework on android. This page will get the end of this topic.
 
+In last article,<br>
+[Android Fingerprint Framework (2)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/10/03/Fingerprint-framework02.html)<br>
+We have had a discussion for the android fingerprint work flow as below.
+1. Init.rc, starts Fingerprintd and register the remote service FingerprintDaemon with ServiceManager
+2. The system loads SystemServer and starts fingerprint service.
+3. FingerService gets the object of the remote service FingerprintDaemon, and calls the methods to access the HAL.
+FingerprintDaemoProxy::openHal() will open the native library xx.so to access hardware.  
+
+### About HAL
 The hardware abstract layer (HAL) of Android system runs in user space. It shields the implementation details of hardware driver module downward and provides hardware access service (JNI or binder) upward. Through the hardware abstraction layer, Android system is divided into two layers to support hardware devices, one layer is implemented in user space, the other is implemented in kernel space. In traditional Linux system, the support for hardware is completely implemented in kernel space, that is, the support for hardware is completely implemented in hardware driver module.
 
 The hardware abstraction layer of Android system manages various hardware access interfaces in the form of modules. Each hardware module has a dynamic link library .So file. The compilation of these dynamic link libraries needs to conform to certain specifications. In Android system, each hardware abstraction layer module is described by HW]hw_module_t, and the hardware device is described by hw_device_t.
 
-These definition of these two struct is defined at [hardware.h]({{site.url}}/daviddong.github.io/assets/docs/hardware.h})<br>
+These definition of these two struct is defined at <br>
+[hardware.h]({{site.url}}/daviddong.github.io/assets/docs/hardware.h})<br>
 android path: root/hardware/libhardware/include/hardware/hardware.h
-
+**hardware.h**
 ```c
 typedef struct hw_module_t {
     /** tag must be initialized to HARDWARE_MODULE_TAG */
@@ -130,7 +136,8 @@ typedef struct hw_device_t {
 
 } hw_device_t;
 ```
-except that, this header file also declares the module name and two important functions.
+Besides, this header file also declares the module name and two important functions.
+**hardware.h**
 ```c
 /**
  * Name of the hal_module_info
@@ -159,9 +166,11 @@ int hw_get_module(const char *id, const struct hw_module_t **module);
 int hw_get_module_by_class(const char *class_id, const char *inst,
                            const struct hw_module_t **module);
 ```
-these two functions are realized at [hardware.c]({{site.url}}/daviddong.github.io/assets/docs/hardware.c)<br>
-android path: root/hardware/libhardware/hardware.c 
-from the file, we can find the module search path is as below.
+These two functions are realized at <br>
+[hardware.c]({{site.url}}/daviddong.github.io/assets/docs/hardware.c)<br>
+android path: root/hardware/libhardware/hardware.c<br> 
+From the file, we can find the module search path is as below.
+**hardware.c**
 ```
 /** Base path of the hal modules */
 #if defined(__LP64__)
@@ -333,10 +342,10 @@ int hw_get_module(const char *id, const struct hw_module_t **module)
 }
 
 ```
-hw_get_module() will call the hw_get_module_by_class function. First, it will read the system property "ro. Hardware" through the property_get function. If it is found, use the hw_module_exists function to check whether the .So file exists. If it exists, load it directly else if it does not exist, continue to search for the variant_keys array. Checking system attribute values. If it exists, load it directly. If it does not exist still, load the default.
+hw_get_module() will call the hw_get_module_by_class function. First, it will read the system property "ro. Hardware" through the property_get function. If it is found, use the hw_module_exists function to check whether the xx.so file exists. If it exists, load it directly else if it does not exist, continue to search for the variant_keys array. Checking system attribute values. If it exists, load it directly. If it does not exist still, load the default.
 
 Let's turn back to the FingerprintDaemonProxy::openHal() to see how it call the hw_get_module() function.
-
+**FingerprintDaemonProxy.cpp**
 ```c++
 int64_t FingerprintDaemonProxy::openHal() {
     ALOG(LOG_VERBOSE, LOG_TAG, "nativeOpenHal()\n");
@@ -386,17 +395,17 @@ int64_t FingerprintDaemonProxy::openHal() {
     return reinterpret_cast<int64_t>(mDevice); // This is just a handle
 }
 ```
-openHal() will call the hw_get_module() to get the pointer to hw_module_t module, after then it will call the open() function. For now, the fingerprintd is able to operate fingerprint device through the
+openHal() will call the hw_get_module() to get the pointer to hw_module_t module, after then it will call the open() function. For now, the Fingerprintd is able to operate fingerprint device through the
 hw_device_t.
 
-the funciton of the fingerprint module can be found at 
-[fingerprint.h]() and [fingerprint.c]().
+The funciton of the fingerprint module can be found at 
+[fingerprint.h]({{site.url}}/daviddong.github.io/assets/docs/fingerprint.h) and [fingerprint.c]({{site.url}}/daviddong.github.io/assets/docs/fingerprint.c).
 
-so far, we have seen the whole process of the fingerprint.
+For now, we have seen the whole process of the fingerprint working.
 now we can give the summary for the flow.
 
 ServiceManager->FingerprintService.java->FingerprintDaemonProxy.cpp->fingerprint.c->vendorHal.cpp->vendorCA.cpp--------TEE->TA.c 
 
-However, from android8, android has made some change for the HAL access method, and import the hidl concept. so the contents we introduced is for the android version early android 8.
+However, from Android 8.0, Android has made some change for the HAL access method, and introduced the HIDL concept. Therefore the contents we introduced is for the Android early version before 8.0.
 
-next, I will write a article to introduce the difference of the fingerprint implementation after android 8 version. 
+Next, I will write a article to introduce the difference of the fingerprint framework on Android 8.0 version. 
