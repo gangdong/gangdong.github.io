@@ -59,7 +59,7 @@ public IFingerprintDaemon getFingerprintDaemon() {
         return mDaemon;
     }
 ```
-4. Fingerprintd calls FingerprintDaemonProxy function to open HAL.
+4. Fingerprintd calls FingerprintDaemonProxy function to open HAL.<br>
 **FingerprintDaemonProxy.cpp**
 ```c++
 int64_t FingerprintDaemonProxy::openHal() {
@@ -260,6 +260,8 @@ Have you found that the function realization is similiar to the FingerprintDaemo
 So far, we can change the fingerprint framework of Android 8.0 as below.
 
 ![fingerprint framework android8.0]({{site.url}}/daviddong.github.io/assets/image/android-fingerprint-android8-workflow2.png) 
+
+Compare this flowchart carefully with last flowchart above, we can find the difference clearly.
 
 The related source code and android path can be found at below table<br>
 
