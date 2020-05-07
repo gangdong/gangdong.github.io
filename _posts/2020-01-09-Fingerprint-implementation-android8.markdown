@@ -12,6 +12,8 @@ After the study of the previous three articles, <br>
 [Android Fingerprint Framework (1)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/10/03/Fingerprint-framework01.html)<br>
 [Android Fingerprint Framework (2)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/10/03/Fingerprint-framework02.html)<br>
 [Android Fingerprint Framework (3)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/10/03/Fingerprint-framework03.html)<br>
+
+### fingerprint framework in Android 7.0
 we have had a knowledge of the fingerprint framework on the android, here give a short summary for anyone who has not read these articles yet. <br>
 This diagram is the fingerprint framework on the android platform, I have presented in other article and copied here.
 
@@ -99,7 +101,7 @@ I drew a flow chart to help understand the whole flow more clearly.
 
 The related source code and android path can be found at below table.<br>
 
-file|android path|
+**File**|**Android Path**|
 :--|:--|
 [init.rc]({{site.url}}/daviddong.github.io/assets/docs/init.rc)|root/system/core/rootdir/init.rc|
 [fingerprintd.cpp]({{site.url}}/daviddong.github.io/assets/docs/fingerprintd.cpp)|root/system/core/fingerprintd/fingerprintd.cpp|
@@ -110,32 +112,35 @@ file|android path|
 [hardware.h]({{site.url}}/daviddong.github.io/assets/docs/hardware.h})|root/hardware/libhardware/include/hardware/hardware.h
 [hardware.c]({{site.url}}/daviddong.github.io/assets/docs/hardware.c)|root/hardware/libhardware/hardware.c
 
+### fingerprint framework in Android 8.0
 Above is the fingerprint framework of Android 7.0, however in Android 8.0 and later versions, Android has updated the framework and introduced a set of language called HIDL to define the interface between framework and HAL.
 
 Let's see the difference.
 
 ![hidl](https://gangdong.github.io/daviddong.github.io/assets/image/android-fingerprint-framework-android8-diff.png)
 
-Android 8.0 add a /interface in the hardware directory, which includes all HIDL related files for hardware module. 
+Android 8.0 add a sub-directory /interface in the /hardware directory, which includes all HIDL files for hardware module. 
 
 Android 8.0 removed Fingerprintd, instead, FingerprintService accesses HAL by calling HIDL.
 
-We can find the change of the getFingerprintDaemon() method.
+We can find the change in getFingerprintDaemon() method.
 
 In Android 7.0
 ```java
 mDaemon = IFingerprintDaemon.Stub.asInterface(ServiceManager.getService(FINGERPRINTD));
 ```
-while in Android 8.0, mDaemon is achieved from the service of IBiometricsFingerprint.
+While in Android 8.0, mDaemon is achieved from the service of IBiometricsFingerprint.
 ```java
 mDaemon = IBiometricsFingerprint.getService();
 ```
-IBiometricsFingerprint is a new HIDL interface which was introduced at Android 8.0. <br>
+IBiometricsFingerprint is a new fingerprint HIDL interface which was introduced at Android 8.0. <br>
 [IBiometricsFingerprint.hal]({{site.url}}/daviddong.github.io/assets/docs/IBiometricsFingerprint.hal)
-use HIDL language format defined a series standard fingerprint operation interface. 
+use HIDL language format defined a series standard fingerprint operation interfaces. 
 And [biometricsfingerprint.cpp]({{site.url}}/daviddong.github.io/assets/docs/BiometricsFingerprint.cpp) class realized the ibiometricsfingerprint interface.
 
-We may notice that the IBiometricsFingerprint returns a service for caller, actually there is a  file in the HIDL folder android.hardware.biometrics.fingerprint@2.1-service.rc, which will start
+We may notice that the IBiometricsFingerprint returns a service for caller, actually there is a  file in the HIDL sub-directory <br>
+[android.hardware.biometrics.fingerprint@2.1-service.rc]({{site.url}}/daviddong.github.io/assets/docs/android.hardware.biometrics.fingerprint@2.1-service.rc), which will start fps_hal service.
+
 ```
  service fps_hal /vendor/bin/hw/android.hardware.biometrics.fingerprint@2.1-service
     # "class hal" causes a race condition on some devices due to files created
@@ -146,7 +151,7 @@ We may notice that the IBiometricsFingerprint returns a service for caller, actu
     group system input
 ```
 The files of the fingerprint HIDL related.
-![hidl file]({{site.url}}/daviddong.github.io/assets/docs/android-fingerprint-android8-hidl.png)
+![hidl file]({{site.url}}/daviddong.github.io/assets/docs/android-fingerprint-android8-hidl.hal)
 
 ```
 int main() {
@@ -165,7 +170,7 @@ int main() {
     return 0; // should never get here
 }
 ```
-In the constructor of BiometricsFingerprint, it calls openHal() to open HAL module. 
+In the constructor of BiometricsFingerprint class, it calls openHal() to open HAL module. 
 ```
 BiometricsFingerprint::BiometricsFingerprint() : mClientCallback(nullptr), mDevice(nullptr) {
     sInstance = this; // keep track of the most recent instance
@@ -176,7 +181,7 @@ BiometricsFingerprint::BiometricsFingerprint() : mClientCallback(nullptr), mDevi
 }
 
 ```
-Let's the openHal() realization.
+Let's check the openHal() function.
 ```
 fingerprint_device_t* BiometricsFingerprint::openHal() {
     int err;
@@ -225,14 +230,15 @@ fingerprint_device_t* BiometricsFingerprint::openHal() {
 }
 
 ```
-so far, have you found that the function realization is similiar to the FingerprintDaemonProxy::openHal()? The native method is called and HAL module is opened here. After access to the HAL, others are all same under the HAL layer.
+Have you found that the function realization is similiar to the FingerprintDaemonProxy::openHal()? The native method is called and HAL module is opened here. After access to the HAL, others are all same under the HAL layer.
 
-so we chage the fingerprint framework of Android 8.0 as below.
+So far, we can change the fingerprint framework of Android 8.0 as below.
+
 ![fingerprint framework android8.0]({{site.url}}/daviddong.github.io/assets/image/android-fingerprint-android8-workflow2.png) 
 
-The related source code and android path can be found at below <br>
+The related source code and android path can be found at below table<br>
 
-file|android path|
+**file**|**android path**|
 -|:--|
 [fingerprint@2.1-service.rc]({{site.url}}/daviddong.github.io/assets/docs/android.hardware.biometrics.fingerprint@2.1-service.rc)|root/hardware/interfaces/biometrics/fingerprint/2.1/default/|
 [service.cpp]({{site.url}}/daviddong.github.io/assets/docs/service.cpp)|root/hardware/interfaces/biometrics/fingerprint/2.1/default/|
@@ -241,3 +247,5 @@ file|android path|
 [BiometricsFingerprint.h]({{site.url}}/daviddong.github.io/assets/docs/
 IBiometricsFingerprint.hal)|root/hardware/iIBiometricsFingerprint.halnterfaces/biometrics/fingerprint/2.1
 [BiometricsFingerprint.h]({{site.url}}/daviddong.github.io/assets/docs/IBiometricsFingerprintClientCallback.hal)|root/hardware/iIBiometricsFingerprint.halnterfaces/biometrics/fingerprint/2.1
+
+Now, I think the main difference of the fingerprint framework on Android 8.0 has been introduced and if you have further questions, you can ask at comment box, I will reply to you as soon as I can.  
