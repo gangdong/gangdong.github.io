@@ -5,28 +5,30 @@ date:   2020-01-09 20:59:29 +0800
 categories: Android Fingerprint
 Published: true
 ---
-Since version 8.0, Android has fully introduced HIDL to separate vendor partition from sysem partition, so that Android is able to upgrade framework through OTA without recompiling HAL. Correspondingly, the framework of fingerprint has also been changed. 
+Since version 8.0, Android has fully introduced HIDL to separate vendor partition from sysem partition, so that Android is capable to upgrade framework through OTA without recompiling HAL. Correspondingly, the framework of fingerprint has also been changed. 
 This page will give a introduction about the difference of the fingerprint framework between android 7.0 (and early version) and android 8.0 (and later version).
 
 After the study of the previous three articles, <br>
-[Android Fingerprint Framework (1)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/10/03/Fingerprint-framework01.html)
-[Android Fingerprint Framework (2)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/10/03/Fingerprint-framework02.html)
+[Android Fingerprint Framework (1)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/10/03/Fingerprint-framework01.html)<br>
+[Android Fingerprint Framework (2)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/10/03/Fingerprint-framework02.html)<br>
 [Android Fingerprint Framework (3)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/10/03/Fingerprint-framework03.html)<br>
-we have learned the fingerprint framework on the android, here give a short summary for anyone who has not read these articles yet. <br>
+we have had a knowledge of the fingerprint framework on the android, here give a short summary for anyone who has not read these articles yet. <br>
 This diagram is the fingerprint framework on the android platform, I have presented in other article and copied here.
 
 ![framework](https://gangdong.github.io/daviddong.github.io/assets/image/android-fingerprint-framework-framework.png)
 
-The fingerprint application will start the work flow and this is the fingerprint management entry defined by Android system layer.
-In the framework internal, some task will be done to handler the request from application.
+From the top layer, the fingerprint application will start the work flow and this is the fingerprint management entry defined by Android system layer.
+In the framework internal, some tasks will be done to handler the request from application.
 
-1. init.rc starts up the Fingerprintd process during the system boot up.Fingerpringd then register Ifingerprintdaemon remote service to servcemanager.
-2. System server will start fingerprint system service fingerprintservice.<br>
+1. init.rc starts up the Fingerprintd process during the system boot up.Fingerpringd then register IFingerprintDaemon remote service to ServiceManager.
+2. System Server will start fingerprint system service FingerprintService.<br>
 ```java
 mSystemServiceManager.startService(FingerprintService.class);
 ```
-3. Fingerprint Service calls the interface of fingerprintd to communicate with fingerprint Hal layer. 
+3. Fingerprint Service calls the interface of Fingerprintd to communicate with Fingerprint HAL layer. 
+
 ```java
+
 private static final String FINGERPRINTD = "android.hardware.fingerprint.IFingerprintDaemon";
 
 mDaemon = IFingerprintDaemon.Stub.asInterface(ServiceManager.getService(FINGERPRINTD));
@@ -35,7 +37,8 @@ mDaemon.asBinder().linkToDeath(this, 0);
 mDaemon.init(mDaemonCallback);
 mHalDeviceId = mDaemon.openHal();
 ```
-4. fingerprintd calls FingerprintDaemonProxy function to open HAL.
+
+4. Fingerprintd calls FingerprintDaemonProxy function to open HAL.
 ```
 int64_t FingerprintDaemonProxy::openHal() {
     ALOG(LOG_VERBOSE, LOG_TAG, "nativeOpenHal()\n");
@@ -86,17 +89,18 @@ int64_t FingerprintDaemonProxy::openHal() {
 }
 ```
 
-5. The HAL code is on below path.<br>
+5. The HAL code is at below android path normally.<br>
 　　/hardware/libhardware/include/hardware/fingerprint.h
 　　/hardware/libhardware/modules/fingerprint
 
-I drew a flow chart to understand the whole flow more clearly.
+I drew a flow chart to help understand the whole flow more clearly.
+
 ![workflow](https://gangdong.github.io/daviddong.github.io/assets/image/android-fingerprint-android8-workflow.png)
 
 The related source code and android path can be found at below table.<br>
 
 file|android path|
--|:--|
+:--|:--|
 [init.rc]({{site.url}}/daviddong.github.io/assets/docs/init.rc)|root/system/core/rootdir/init.rc|
 [fingerprintd.cpp]({{site.url}}/daviddong.github.io/assets/docs/fingerprintd.cpp)|root/system/core/fingerprintd/fingerprintd.cpp|
 [FingerprintDaemonProxy.h]({{site.url}}/daviddong.github.io/assets/docs/FingerprintDaemonProxy.h)|root/system/core/fingerprintd/|fingerprintdaemonproxy.h
@@ -106,15 +110,15 @@ file|android path|
 [hardware.h]({{site.url}}/daviddong.github.io/assets/docs/hardware.h})|root/hardware/libhardware/include/hardware/hardware.h
 [hardware.c]({{site.url}}/daviddong.github.io/assets/docs/hardware.c)|root/hardware/libhardware/hardware.c
 
-Above is the fingerprint framework of android 7.0, but in Android 8.0 and later versions, Android has updated the framework and introduced a set of language called HIDL to define the interface between framework and HAL.
+Above is the fingerprint framework of Android 7.0, however in Android 8.0 and later versions, Android has updated the framework and introduced a set of language called HIDL to define the interface between framework and HAL.
 
 Let's see the difference.
 
 ![hidl](https://gangdong.github.io/daviddong.github.io/assets/image/android-fingerprint-framework-android8-diff.png)
 
-android 8.0 add a /interface in the hardware directory, which includes all HIDL related files for hardware module. 
+Android 8.0 add a /interface in the hardware directory, which includes all HIDL related files for hardware module. 
 
-Android 8.0 removed fingerprintd, instead, fingerprintService accesses HAL by calling HIDL.
+Android 8.0 removed Fingerprintd, instead, FingerprintService accesses HAL by calling HIDL.
 
 We can find the change of the getFingerprintDaemon() method.
 
