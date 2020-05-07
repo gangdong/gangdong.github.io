@@ -5,7 +5,7 @@ date:   2020-01-09 20:59:29 +0800
 categories: Android Fingerprint
 Published: true
 ---
-Since version 8.0, Android has fully introduced HIDL mode to separate vendor partition from sysem partition, so that Android can upgrade framework OTA without recompiling HAL. Correspondingly, the implementation of fingerprint has also been changed. 
+Since version 8.0, Android has fully introduced HIDL to separate vendor partition from sysem partition, so that Android can upgrade framework OTA without recompiling HAL. Correspondingly, the implementation of fingerprint has also been changed. 
 This page I will give a introduction about the difference of the fingerprint implementation on android between android 7.0 (or early version) and android 8.0 (later version).
 
 After the study of the previous three articles, we have learned the fingerprint framework on the android, here give a short summary for anyone who has not read these article yet. <br>
@@ -88,7 +88,7 @@ so the whole work flow is following below chart.
 The related source code and android path can be found at below <br>
 
 file|android path|
--|---|
+-|:--|
 [init.rc]({{site.url}}/daviddong.github.io/assets/docs/init.rc)|root/system/core/rootdir/init.rc|
 [fingerprintd.cpp]({{site.url}}/daviddong.github.io/assets/docs/fingerprintd.cpp)|root/system/core/fingerprintd/fingerprintd.cpp|
 [FingerprintDaemonProxy.h]({{site.url}}/daviddong.github.io/assets/docs/FingerprintDaemonProxy.h)|root/system/core/fingerprintd/|fingerprintdaemonproxy.h
@@ -219,7 +219,7 @@ so we chage the fingerprint framework of Android 8.0 as below.
 The related source code and android path can be found at below <br>
 
 file|android path|
--|:-|
+-|:--|
 [fingerprint@2.1-service.rc]({{site.url}}/daviddong.github.io/assets/docs/android.hardware.biometrics.fingerprint@2.1-service.rc)|root/hardware/interfaces/biometrics/fingerprint/2.1/default/|
 [service.cpp]({{site.url}}/daviddong.github.io/assets/docs/service.cpp)|root/hardware/interfaces/biometrics/fingerprint/2.1/default/|
 [BiometricsFingerprint.cpp]({{site.url}}/daviddong.github.io/assets/docs/BiometricsFingerprint.cpp)|root/hardware/interfaces/biometrics/fingerprint/2.1/default/|
