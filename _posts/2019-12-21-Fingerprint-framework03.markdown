@@ -395,7 +395,7 @@ the funciton of the fingerprint module can be found at
 so far, we have seen the whole process of the fingerprint.
 now we can give the summary for the flow.
 
-ServiceServer->FingerprintService.java->FingerprintDaemonProxy.cpp->fingerprint.c->vendorHal.cpp->vendorCA.cpp--------TEE->TA.c 
+ServiceManager->FingerprintService.java->FingerprintDaemonProxy.cpp->fingerprint.c->vendorHal.cpp->vendorCA.cpp--------TEE->TA.c 
 
 However, from android8, android has made some change for the HAL access method, and import the hidl concept. so the contents we introduced is for the android version early android 8.
 
