@@ -98,4 +98,126 @@ file|android path|
 [hardware.h]({{site.url}}/daviddong.github.io/assets/docs/hardware.h})|root/hardware/libhardware/include/hardware/hardware.h
 [hardware.c]({{site.url}}/daviddong.github.io/assets/docs/hardware.c)|root/hardware/libhardware/hardware.c
 
+Above is the fingerprint framework of android 7.0, but in Android 8.0 and later versions, Android has updated the framework and introduced a set of language called HIDL to define the interface between framework and HAL.
+Let's see the difference.
+![hidl](https://gangdong.github.io/daviddong.github.io/assets/image/android-fingerprint-framework-android8-diff.png)
 
+android 8.0 add a interface folder in the hardware directory, which includes all HIDL related files for all hardware module. 
+
+Android 8.0 removed fingerprintd, instead, fingerprintService accesses HAL by calling HIDL.
+
+we can see the change from the getFingerprintDaemon() method realization.
+
+in Android 7.0 
+```java
+mDaemon = IFingerprintDaemon.Stub.asInterface(ServiceManager.getService(FINGERPRINTD));
+```
+while in Android 8.0, mDaemon is achieved from the service of IBiometricsFingerprint.
+```java
+mDaemon = IBiometricsFingerprint.getService();
+```
+IBiometricsFingerprint is a new HIDL interface which was added at Android 8.0. <br>
+[IBiometricsFingerprint.hal]({{site.url}}/daviddong.github.io/assets/docs/IBiometricsFingerprint.hal)
+use HIDL language format defined a series standard fingerprint operation interface. 
+And [biometricsfingerprint.cpp]({{site.url}}/daviddong.github.io/assets/docs/BiometricsFingerprint.cpp) class realized the ibiometricsfingerprint interface.
+
+we may notice that the IBiometricsFingerprint returns a service for caller, actually there is a  file in the HIDL folder android.hardware.biometrics.fingerprint@2.1-service.rc, which will start
+```
+ service fps_hal /vendor/bin/hw/android.hardware.biometrics.fingerprint@2.1-service
+    # "class hal" causes a race condition on some devices due to files created
+    # in /data. As a workaround, postpone startup until later in boot once
+    # /data is mounted.
+    class late_start
+    user system
+    group system input
+```
+The files of the fingerprint HIDL related.
+![hidl file]({{site.url}}/daviddong.github.io/assets/docs/android-fingerprint-android8-hidl.png)
+
+```
+int main() {
+    android::sp<IBiometricsFingerprint> bio = BiometricsFingerprint::getInstance();
+
+    configureRpcThreadpool(1, true /*callerWillJoin*/);
+
+    if (bio != nullptr) {
+        bio->registerAsService();
+    } else {
+        ALOGE("Can't create instance of BiometricsFingerprint, nullptr");
+    }
+
+    joinRpcThreadpool();
+
+    return 0; // should never get here
+}
+```
+In the constructor of BiometricsFingerprint, it calls openHal() to open HAL module. 
+```
+BiometricsFingerprint::BiometricsFingerprint() : mClientCallback(nullptr), mDevice(nullptr) {
+    sInstance = this; // keep track of the most recent instance
+    mDevice = openHal();
+    if (!mDevice) {
+        ALOGE("Can't open HAL module");
+    }
+}
+
+```
+Let's the openHal() realization.
+```
+fingerprint_device_t* BiometricsFingerprint::openHal() {
+    int err;
+    const hw_module_t *hw_mdl = nullptr;
+    ALOGD("Opening fingerprint hal library...");
+    if (0 != (err = hw_get_module(FINGERPRINT_HARDWARE_MODULE_ID, &hw_mdl))) {
+        ALOGE("Can't open fingerprint HW Module, error: %d", err);
+        return nullptr;
+    }
+
+    if (hw_mdl == nullptr) {
+        ALOGE("No valid fingerprint module");
+        return nullptr;
+    }
+
+    fingerprint_module_t const *module =
+        reinterpret_cast<const fingerprint_module_t*>(hw_mdl);
+    if (module->common.methods->open == nullptr) {
+        ALOGE("No valid open method");
+        return nullptr;
+    }
+
+    hw_device_t *device = nullptr;
+
+    if (0 != (err = module->common.methods->open(hw_mdl, nullptr, &device))) {
+        ALOGE("Can't open fingerprint methods, error: %d", err);
+        return nullptr;
+    }
+
+    if (kVersion != device->version) {
+        // enforce version on new devices because of HIDL@2.1 translation layer
+        ALOGE("Wrong fp version. Expected %d, got %d", kVersion, device->version);
+        return nullptr;
+    }
+
+    fingerprint_device_t* fp_device =
+        reinterpret_cast<fingerprint_device_t*>(device);
+
+    if (0 != (err =
+            fp_device->set_notify(fp_device, BiometricsFingerprint::notify))) {
+        ALOGE("Can't register fingerprint module callback, error: %d", err);
+        return nullptr;
+    }
+
+    return fp_device;
+}
+
+```
+so far, have you found that the function realization is similiar to the FingerprintDaemonProxy::openHal()? The native method is called and HAL module is opened here. After access to the HAL, others are all same under the HAL layer.
+
+so we chage the fingerprint framework of Android 8.0 as below.
+![fingerprint framework android8.0]({{site.url}}/daviddong.github.io/assets/image/android-fingerprint-android8-workflow2.png) 
+
+The related source code and android path can be found at below <br>
+
+file|android path|
+---|:--|
+[android.hardware.biometrics.fingerprint@2.1-service.rc]({{site.url}}/daviddong.github.io/assets/docs/android.hardware.biometrics.fingerprint@2.1-service.rc)|root/hardware/interfaces/biometrics/fingerprint/2.1/default/ 
