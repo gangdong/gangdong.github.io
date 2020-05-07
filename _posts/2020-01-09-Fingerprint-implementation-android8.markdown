@@ -82,12 +82,13 @@ int64_t FingerprintDaemonProxy::openHal() {
 5. The HAL code is on below path.<br>
 　　/hardware/libhardware/include/hardware/fingerprint.h
 　　/hardware/libhardware/modules/fingerprint
+
 so the whole work flow is following below chart.
 ![workflow](https://gangdong.github.io/daviddong.github.io/assets/image/android-fingerprint-android8-workflow.png)
 The related source code and android path can be found at below <br>
 
 file|android path|
 ---|:--:|
-Java|是|
-C|否|
-Python|是|
+[init.rc]({{site.url}}/daviddong.github.io/assets/docs/init.rc)|root/system/core/rootdir/init.rc|
+[fingerprintd.cpp]({{site.url}}/daviddong.github.io/assets/docs/fingerprintd.cpp)|root/system/core/fingerprintd/fingerprintd.cpp|
+[FingerprintDaemonProxy.h]({{site.url}}/daviddong.github.io/assets/docs/FingerprintDaemonProxy.h)|root/system/core/fingerprintd/|
