@@ -10,8 +10,8 @@ This page will give a introduction about the difference of the fingerprint frame
 
 After the study of the previous three articles, <br>
 [Android Fingerprint Framework (1)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/10/03/Fingerprint-framework01.html)<br>
-[Android Fingerprint Framework (2)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/10/03/Fingerprint-framework02.html)<br>
-[Android Fingerprint Framework (3)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/10/03/Fingerprint-framework03.html)<br>
+[Android Fingerprint Framework (2)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/12/07/Fingerprint-framework02.html)<br>
+[Android Fingerprint Framework (3)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/12/21/Fingerprint-framework03.html)<br>
 
 ### fingerprint framework in Android 7.0
 we have had a knowledge of the fingerprint framework on the android, here give a short summary for anyone who has not read these articles yet. <br>
