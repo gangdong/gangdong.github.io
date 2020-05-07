@@ -3,15 +3,15 @@ layout: post
 title:  "Android Fingerprint Framework (1)"
 date:   2019-10-03 15:17:47 +0800
 categories: Android Fingerprint
-Published: false
+Published: true
 ---
-This page is trying to present a brief introduction to android fingerprint framework, aimed at helping anyone who want to learn android fingerprint related knowledge, created by referring some materials and android source code. 
+This page is trying to present a brief introduction on android fingerprint framework, aimed at helping anyone who want to learn android fingerprint related knowledge, created by referring some documents and android source code. 
 
-There are many articles throughout the internet to teach the fingerprint technology on android platform. However, from my point of view, some of them are too complicated and some are simple. I wrote this article  by referring android source code and according to my personal working experiences, try to make the contents short, easy to understand. 
+There are some articles throughout the internet to share the android platform fingerprint related knowledge. However, from my point of view, part of them are too complicated to understand and some aren't very distinct. I wrote this article  by referring android source code and according to my personal working experiences, tried to make the contents simple and easy to understand. 
 
-From android6.0(API23),android added fingerprint API interface, that is FingerprintManager to support fingerprint identification. While at androidP(API28), it is deprecated and replaced by BiometricPrompt API interface.
+From android 6.0 (API23),android introduced fingerprint API interface, that is FingerprintManager to support fingerprint identification. While at android 8.0 (API26), it is deprecated and replaced by BiometricPrompt API interface.
 
-Below part is official description about fingerprint from android docs.
+Below description is from android official document about fingerprint framework.
 ### *Architecture*
 *The Fingerprint HAL interacts with the following components.*
 
@@ -34,13 +34,14 @@ Below part is official description about fingerprint from android docs.
 + *Implementations must either use the file-system path provided by the 
 setActiveGroup() function or provide a way to erase all user template data when the user is removed. It's strongly recommended that fingerprint template files be stored as encrypted and stored in the path provided. If this is infeasible due to TEE storage requirements, the implementer must add hooks to ensure removal of the data when the user is removed.*
 ### working process
-below is work process I summarized.
-1. Start the fingerprint daemons in init.rc            
-2. System server will start fingerprint system service fingerprint service
-3. Fingerprint Setvice calls the interface of fingerprint to communicate with the fingerprint Hal layer 
-4. Fingerprint Hal interacts with fingerprint hardware through fingerprint manufacturer's driver 
-5. For the sake of security, the hardware spi of fingerprint is mounted in the tee environment. The data collection of fingerprint image and the related processing of algorithm are all carried out in the tee environment. The REE side only gets the result of the tee side
+refer to official introduce, here I summarized the work flow by my own understanding.
 
-In the next article, I will make a detailed introduction for the process by referring to the android source code.
+1. Android start the fingerprint daemons process during boot up in init.rc.            
+2. System server will start fingerprint system service Fingerprint Service.
+3. Fingerprint Service calls the interface of Fingerprintd to communicate with the fingerprint HAL code. 
+4. Fingerprint HAL interacts with TA program and the latter undertakes the communication with fingerprint hardware through SPI. 
+5. For the sake of security, the hardware SPI is mounted in the TEE environment. The data collection of fingerprint image and the related processing of algorithm are all carried out within the TEE environment. The REE side only obtains the result of the TEE side.
+
+In the next article, I will make a detailed introduction for the work process by referring to the android source code.
 
 To be continued...
