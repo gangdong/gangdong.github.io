@@ -8,7 +8,7 @@ Published: true
 Follow the last two articles, this article will introduce the remain part of the fingerprint framework on android. This page will get the end of this topic.
 
 In last article,<br>
-[Android Fingerprint Framework (2)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/12/07/Fingerprint-framework02.html)<br>
+[Android Fingerprint Framework (2)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/12/07/Fingerprint-frmk2.html)<br>
 We have had a discussion for the android fingerprint work flow as below.
 1. Init.rc, starts Fingerprintd and register the remote service FingerprintDaemon with ServiceManager
 2. The system loads SystemServer and starts fingerprint service.

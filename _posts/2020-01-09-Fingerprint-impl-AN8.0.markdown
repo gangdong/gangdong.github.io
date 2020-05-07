@@ -9,9 +9,9 @@ Since version 8.0, Android has fully introduced HIDL to separate vendor partitio
 This page will give a introduction about the difference of the fingerprint framework between android 7.0 (and early version) and android 8.0 (and later version).
 
 After the study of the previous three articles, <br>
-[Android Fingerprint Framework (1)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/10/03/Fingerprint-framework01.html)<br>
-[Android Fingerprint Framework (2)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/12/07/Fingerprint-framework02.html)<br>
-[Android Fingerprint Framework (3)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/12/21/Fingerprint-framework03.html)<br>
+[Android Fingerprint Framework (1)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/10/03/Fingerprint-frmk1.html)<br>
+[Android Fingerprint Framework (2)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/12/07/Fingerprint-frmk2.html)<br>
+[Android Fingerprint Framework (3)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/12/21/Fingerprint-frmk3.html)<br>
 
 ### fingerprint framework in Android 7.0
 we have had a knowledge of the fingerprint framework on the android, here give a short summary for anyone who has not read these articles yet. <br>
