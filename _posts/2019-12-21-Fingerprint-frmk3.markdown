@@ -5,11 +5,11 @@ date:   2019-12-21 22:24:43 +0800
 categories: Android Fingerprint
 Published: true
 ---
-Follow the last two articles, this article will introduce the remain part of the fingerprint framework on android. This page will get the end of this topic.
+Follow the last two articles, this article will have a discussion on the remain part of the fingerprint framework on android. This page will get the end of this topic.
 
 In last article,<br>
 [Android Fingerprint Framework (2)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/12/07/Fingerprint-frmk2.html)<br>
-We have had a discussion for the android fingerprint work flow as below.
+We have had a overview on the android fingerprint work flow as below.
 1. Init.rc, starts Fingerprintd and register the remote service FingerprintDaemon with ServiceManager
 2. The system loads SystemServer and starts fingerprint service.
 3. FingerService gets the object of the remote service FingerprintDaemon, and calls the methods to access the HAL.
@@ -342,7 +342,7 @@ int hw_get_module(const char *id, const struct hw_module_t **module)
 }
 
 ```
-hw_get_module() will call the hw_get_module_by_class function. First, it will read the system property "ro. Hardware" through the property_get function. If it is found, use the hw_module_exists function to check whether the xx.so file exists. If it exists, load it directly else if it does not exist, continue to search for the variant_keys array. Checking system attribute values. If it exists, load it directly. If it does not exist still, load the default.
+hw_get_module() will call the hw_get_module_by_class() function. Firstly, it will read the system property "ro.hardware" through the property_get() function. If the property is found, it then uses the hw_module_exists() function to check whether the xx.so library exists. If it exists, load it directly else if it does not exist, continue to search for the variant_keys array. Checking system attribute values. If found, load it directly. If it does not exist still, load the default.
 
 Let's turn back to the FingerprintDaemonProxy::openHal() to see how it call the hw_get_module() function.
 **FingerprintDaemonProxy.cpp**
@@ -395,14 +395,12 @@ int64_t FingerprintDaemonProxy::openHal() {
     return reinterpret_cast<int64_t>(mDevice); // This is just a handle
 }
 ```
-openHal() will call the hw_get_module() to get the pointer to hw_module_t module, after then it will call the open() function. For now, the Fingerprintd is able to operate fingerprint device through the
-hw_device_t.
+openHal() will call the hw_get_module() to get the pointer to hw_module_t module, after then it will call the open() function. Once the HAL module is opened, the Fingerprintd is able to operate fingerprint device through the hw_device_t.
 
 The funciton of the fingerprint module can be found at 
 [fingerprint.h]({{site.url}}/daviddong.github.io/assets/docs/fingerprint.h) and [fingerprint.c]({{site.url}}/daviddong.github.io/assets/docs/fingerprint.c).
 
-For now, we have seen the whole process of the fingerprint working.
-now we can give the summary for the flow.
+For now, we have gone over the whole process of the fingerprint working. we can give the summary here.
 
 ServiceManager->FingerprintService.java->FingerprintDaemonProxy.cpp->fingerprint.c->vendorHal.cpp->vendorCA.cpp--------TEE->TA.c 
 
