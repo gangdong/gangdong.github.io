@@ -5,7 +5,7 @@ date:   2020-01-09 20:59:29 +0800
 categories: Android Fingerprint
 Published: true
 ---
-Since version 8.0, Android has fully introduced HIDL to separate vendor partition from sysem partition, so that Android is capable to upgrade framework through OTA without recompiling HAL. Correspondingly, the framework of fingerprint has also been changed. 
+Since Android 8.0, Android has fully introduced HIDL to separate vendor partition from sysem partition, so that Android is capable to upgrade framework through OTA without recompiling HAL. Correspondingly, the framework of fingerprint has also been reorganized. 
 This page will give a introduction about the difference of the fingerprint framework between android 7.0 (and early version) and android 8.0 (and later version).
 
 After the study of the previous three articles, <br>
@@ -13,8 +13,10 @@ After the study of the previous three articles, <br>
 [Android Fingerprint Framework (2)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/12/07/Fingerprint-frmk2.html)<br>
 [Android Fingerprint Framework (3)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/12/21/Fingerprint-frmk3.html)<br>
 
-### fingerprint framework in Android 7.0
+
 we have had a knowledge of the fingerprint framework on the android, here give a short summary for anyone who has not read these articles yet. <br>
+
+### fingerprint framework in Android 7.0
 This diagram is the fingerprint framework on the android platform, I have presented in other article and copied here.
 
 ![framework](https://gangdong.github.io/daviddong.github.io/assets/image/android-fingerprint-framework-framework.png)
