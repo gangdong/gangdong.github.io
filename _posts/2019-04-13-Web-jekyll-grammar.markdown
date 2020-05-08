@@ -12,11 +12,11 @@ Let's start this article from the source code of the theme you downloaded.
 ### Jekyll directory structure
 Unzip the package you downloaded and check the directory structure.The Jekyll directory structure mainly includes the following directories.
 
-![directory](https://gangdong.github.io/daviddong.github.io/assets/image/web-jekyll-2-directory.png)
+![directory]({{site.baseurl}}/assets/image/web-jekyll-2-directory.png)
 
 The description of each folder.
 
-![directory](https://gangdong.github.io/daviddong.github.io/assets/image/web-jekyll-2-directory-description.png)
+![directory]({{site.baseurl}}/assets/image/web-jekyll-2-directory-description.png)
 
 Every file or directory beginning with the following characters: ., _ , # or ~ in the source directory will not be included in the destination folder. Such paths will have to be explicitly specified via the config file in the include directive to make sure they’re copied over.
 
@@ -31,16 +31,16 @@ To learn more about Liquid, check out the [official Liquid Documentation](https:
 Jekyll traverses your site looking for files to process. Any files with front matter are subject to processing. For each of these files, Jekyll makes a variety of data available via Liquid. The following is a reference of the available data.
 
 #### global variables
-![directory](https://gangdong.github.io/daviddong.github.io/assets/image/web-jekyll-2-variables-global.png)
+![directory]({{site.baseurl}}/assets/image/web-jekyll-2-variables-global.png)
 
 #### site variables
-![directory](https://gangdong.github.io/daviddong.github.io/assets/image/web-jekyll-2-variables-site.png)
+![directory]({{site.baseurl}}/assets/image/web-jekyll-2-variables-site.png)
 
 #### page variables
-![directory](https://gangdong.github.io/daviddong.github.io/assets/image/web-jekyll-2-variables-page.png)
+![directory]({{site.baseurl}}/assets/image/web-jekyll-2-variables-page.png)
 
 #### paginator variables
-![directory](https://gangdong.github.io/daviddong.github.io/assets/image/web-jekyll-2-variables-paginator.png)
+![directory]({{site.baseurl}}/assets/image/web-jekyll-2-variables-paginator.png)
 
 above is the description from the official docs. talk is always easy, next I will write some code to demonstrate the usage. 
 below shows the variables value of my blog.

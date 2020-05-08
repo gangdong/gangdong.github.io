@@ -20,7 +20,7 @@ Others are Jekyll gives the developer more freedom to design and build the site.
 
 Generally, Jekyll is a static site generator. It will transform your plain text into static websites and blogs. No more databases, slow loading websites, risk of being hacked…just your content.
 
-Let's turn to how to build the website by Jekyll, I suggests you construct your website on Github pages because Jekyll is well deployed on Github and there are many Jekyll theme templates for you powering your website. More important is all of these are totally free of charge. If you like, you can even bind your domain on it. you can view my previous [blog](https://gangdong.github.io/daviddong.github.io/web/github/2019/03/23/Others-how-to-build-blog-on-github-en.html) to learn how to create blog on Gitgub pages. 
+Let's turn to how to build the website by Jekyll, I suggests you construct your website on Github pages because Jekyll is well deployed on Github and there are many Jekyll theme templates for you powering your website. More important is all of these are totally free of charge. If you like, you can even bind your domain on it. you can view my previous [blog]({{site.baseurl}}/web/github/2019/03/23/Others-github-blog.html) to learn how to create blog on Gitgub pages. 
 ### Installation
 The first step is installing the Jekyll tools on your PC, here I just introduce the installation on windows platform.
 
@@ -58,7 +58,7 @@ So far you can input http://127.0.0.1:4000/ in the browser to browse the blog yo
 Jekyll provides a lot of beautiful theme templates, you can use them to power your website easily.<br> 
 you can view the demo, download the source code and use it on your own website.
 
-![Jekyll theme pic](https://gangdong.github.io/daviddong.github.io/assets/image/web-jekyll-1-template.png)
+![Jekyll theme pic]({{site.baseurl}}/assets/image/web-jekyll-1-template.png)
 
 Now go and choose one you like -> [Jekyll theme](http://jekyllthemes.org/).
 

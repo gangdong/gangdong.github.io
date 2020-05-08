@@ -19,15 +19,15 @@ It is amazing easy to use and no need the database support in background. Moreov
 The installation is simple, just refer to below procedure.
 
 1. register a github application,as a GitHub application you need to get an authorization before use it. The path to open OAuth Apps page is github homepage->Settings->Developer Settings->OAuth Apps.<br> 
-![oAuth Apps](https://gangdong.github.io/daviddong.github.io/assets/image/others-gitalk-oauth-apps.png)
+![oAuth Apps]({{site.baseurl}}/assets/image/others-gitalk-oauth-apps.png)
 You must specify the website domain url in the Authorization callback URL field.
 After registration, you will get a 'Client ID' and 'Client Secret', remember these two numbers, you will need to fill them in the following step.
-![oAuth Apps](https://gangdong.github.io/daviddong.github.io/assets/image/others-gitalk-oauth-apps-clientID.png)
+![oAuth Apps]({{site.baseurl}}/assets/image/others-gitalk-oauth-apps-clientID.png)
 Please note, the user number is zero at this moment when you haven't authenticated the application. You need to do it later.
 Now you have registered github application for Gitalk. <br>
 
 2. Next,copy below code into the page where you want to use Gitalk or add it into the posts page, it depends on your website's structure. <br>
-![code](https://gangdong.github.io/daviddong.github.io/assets/image/others-gitalk-code.png)
+![code]({{site.baseurl}}/assets/image/others-gitalk-code.png)
 Below are the setting options.<br>
 ----------
 + **clientID** String<br>
@@ -88,9 +88,9 @@ Since the Gitalk uses the repository issues to store the comments, so don't forg
 
 For now, the Gitalk comment component has been added into your website successfully.<br>
 The appearance is like this.<br>
-![effect](https://gangdong.github.io/daviddong.github.io/assets/image/others-gitalk-effect.png)
+![effect]({{site.baseurl}}/assets/image/others-gitalk-effect.png)
 When first loading, you will be requested to sign in your github account to active the comment function.<br>
-![firstload](https://gangdong.github.io/daviddong.github.io/assets/image/others-gitalk-first-loading.png)
+![firstload]({{site.baseurl}}/assets/image/others-gitalk-first-loading.png)
 <br>
 Active it then you can use it now!<br>
 If you like this page or you have anything would like to share, comment  at below! :) <br>

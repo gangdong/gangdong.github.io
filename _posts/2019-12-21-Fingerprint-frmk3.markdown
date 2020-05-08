@@ -8,7 +8,7 @@ Published: true
 After the last two articles, this article will have a discussion on the remain part of the fingerprint framework on android. This page will get the end of this topic.
 
 In last article,<br>
-[Android Fingerprint Framework (2)](https://gangdong.github.io/daviddong.github.io/android/fingerprint/2019/12/07/Fingerprint-frmk2.html)<br>
+[Android Fingerprint Framework (2)]({{site.baseurl}}/android/fingerprint/2019/12/07/Fingerprint-frmk2.html)<br>
 We have had a overview on the android fingerprint work flow as below.
 1. Init.rc, starts Fingerprintd and register the remote service FingerprintDaemon with ServiceManager
 2. The system loads SystemServer and starts fingerprint service.
@@ -21,7 +21,7 @@ The hardware abstract layer (HAL) of Android system runs in user space. It shiel
 The hardware abstraction layer of Android system manages various hardware access interfaces in the form of modules. Each hardware module has a dynamic link library .So file. The compilation of these dynamic link libraries needs to conform to certain specifications. In Android system, each hardware abstraction layer module is described by HW]hw_module_t, and the hardware device is described by hw_device_t.
 
 These definition of these two struct is defined at <br>
-[hardware.h]({{site.url}}/daviddong.github.io/assets/docs/hardware.h})<br>
+[hardware.h]({{site.baseurl}}/assets/docs/hardware.h})<br>
 android path: root/hardware/libhardware/include/hardware/hardware.h
 **hardware.h**
 ```c
@@ -167,7 +167,7 @@ int hw_get_module_by_class(const char *class_id, const char *inst,
                            const struct hw_module_t **module);
 ```
 These two functions are realized at <br>
-[hardware.c]({{site.url}}/daviddong.github.io/assets/docs/hardware.c)<br>
+[hardware.c]({{site.baseurl}}/assets/docs/hardware.c)<br>
 android path: root/hardware/libhardware/hardware.c<br> 
 From the file, we can find the module search path is as below.
 **hardware.c**
@@ -398,7 +398,7 @@ int64_t FingerprintDaemonProxy::openHal() {
 openHal() will call the hw_get_module() to get the pointer to hw_module_t module, after then it will call the open() function. Once the HAL module is opened, the Fingerprintd is able to operate fingerprint device through the hw_device_t.
 
 The funciton of the fingerprint module can be found at 
-[fingerprint.h]({{site.url}}/daviddong.github.io/assets/docs/fingerprint.h) and [fingerprint.c]({{site.url}}/daviddong.github.io/assets/docs/fingerprint.c).
+[fingerprint.h]({{site.baseurl}}/assets/docs/fingerprint.h) and [fingerprint.c]({{site.baseurl}}/assets/docs/fingerprint.c).
 
 For now, we have gone over the whole process of the fingerprint working. we can give the summary here.
 

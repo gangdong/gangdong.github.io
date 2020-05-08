@@ -10,7 +10,7 @@ Iterable<>是Java.lang包中定义的一个接口,
 
 [Iterable Java 文档](https://docs.oracle.com/javase/8/docs/api/)<br>
 
-![Iterable](https://gangdong.github.io/daviddong.github.io/assets/image/java-iterable-function.png)
+![Iterable]({{site.baseurl}}/assets/image/java-iterable-function.png)
 <br>
 
 那我们接下来看一看Iterator<>接口主要内容，Iterator<>接口的Java 文档里说明
