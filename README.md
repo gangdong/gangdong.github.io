@@ -8,7 +8,7 @@
 
 [David Dong's Album](https://rainbow-ux.github.io/traveler-blog.github.io/) | [Github homepage](https://github.com/gangdong/) | [LinkedIn](https://www.linkedin.com/in/刚-董-25208ba0/)
 
-![blog]({{site.baseurl}}/assets/screenshot.png)
+![blog](https://gangdong.github.io/daviddong.github.io/assets/screenshot.png)
 
 #### This blog uses implistic jekyll portfolio-style theme.
 
