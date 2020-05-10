@@ -2,7 +2,7 @@ title: DAVID DONG 的博客
 author: David Dong
 email: dqdongg@hotmail.com
 description: > # this means to ignore newlines until "show_exerpts:"
-  This is DavidDong's blog. Welcome!
+  This is DavidDong's blog. This blog recorded the time of my life and learning from it. Welcome to visit! 
   
 show_excerpts: true # set to true to show excerpts on the homepage
 baseurl: '/daviddong.github.io'
