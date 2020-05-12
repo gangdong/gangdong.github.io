@@ -2,6 +2,11 @@
 layout: default
 ---
 {%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
+<header>
+<a class="homeindex" href="{{site.baseurl}}/">            
+  <i class="icon-home">Home</i>
+</a>
+</header>
 <div class="post-container">
   <a class="post-link" href="{{ page.url | relative_url }}">
     <h2 class="post-title">{{ page.title | escape }}</h2>
@@ -62,5 +67,7 @@ layout: default
 <font size="2" color="#aaa">作者：David Dong<br></font>
 <font size="2" color="#aaa">来源：{{site.url}}/daviddong.github.io{{page.url}}</font>
 <font size="2" color="#aaa">转载请注明出处。</font>
+<!-- comment out at present
 <span id="busuanzi_container_page_pv" ></span><font size="2" color="#aaa"><br>
 本文总阅读量</font><font size="2" color="#aaa"><span id="busuanzi_value_page_pv"></font></span><font size="2" color="#aaa">次</font>
+-->

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "How to build your personal blog on github"
-date:   2019-03-23 21:03:36 +0800
+date:   2018-03-23 21:03:36 +0800
 categories: Web Github
 ---
 I have constructed my personal website by jekyll on github pages, I thought I would write a little blog post about how to make your own website by jekyll on GitHub Pages.<br>

@@ -35,6 +35,11 @@ layout: default
             {{ post.excerpt }}
           {%- endif -%}
         </div>
+		<footer>
+          <a class="post-link" href="{{ post.url | relative_url }}">
+          <h5 class="morebox">Read More...</h5>
+        </a>
+        </footer>
       </li>
     {%- endfor -%}
   </ul>

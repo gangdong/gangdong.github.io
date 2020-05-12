@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Linux fork()函数"
+title:  "Linux fork() 函数"
 date:   2015-03-22 20:12:01 +0800
 categories: Linux
 ---

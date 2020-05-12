@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "poll(),pipe()函数使用说明"
+title:  "poll() 函数使用"
 date:   2015-03-02 20:12:01 +0800
 categories: Linux
 ---

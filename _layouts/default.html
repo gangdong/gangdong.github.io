@@ -5,7 +5,7 @@
   </head>
   <body>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span id="busuanzi_container_site_uv" style='display:none'></span><font size="2" color="#aaa">您是本博客第</font><font size="2" color="#aaa"><span id="busuanzi_value_site_uv"></span></font><font size="2" color="#aaa">位访客！</font>
+    <span id="busuanzi_container_site_pv" style='display:none'></span><font size="2" color="#aaa">您是本博客第</font><font size="2" color="#aaa"><span id="busuanzi_value_site_pv"></span></font><font size="2" color="#aaa">位访客！</font>
     <main class="container">
       <section class="about">
         <a href="{{site.baseurl}}/"><img src="{{ "/assets/avatar.png" | relative_url }}" alt="{{ site.minimal.name }}"></a>
@@ -14,10 +14,15 @@
         </h2>
         <p class="tagline">{{ site.minimal.tagline }}</p>
         <ul class="social">
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture-3"></i>
+              </li>
+           </a>
           {%- if site.minimal.social_links.github -%}
             <a href="https://github.com/gangdong">
               <li>
-                <i class="icon-github-circled"></i>
+                <i class="icon-github-circled-1"></i>
               </li>
             </a>
           {%- endif -%}

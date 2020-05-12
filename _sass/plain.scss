@@ -248,3 +248,25 @@ main {
   padding-bottom: 10px;
   font-weight: normal;
 }
+.morebox {
+	font-family: "Merriweather", 'Verdana', 'Microsoft Yahei', '微软雅黑', sans-serif;
+	font-weight: 300;
+	font-size: 14px;
+    color: #888;
+	&:hover {
+      color: $linkColor;
+    }
+}
+.homeindex {
+	list-style-type: none;
+	text-decoration: normal;
+    margin: 45px 30px;
+	padding-left: 30px;
+	font-family: 'Verdana', "Merriweather", 'Microsoft Yahei', '微软雅黑', sans-serif;
+	font-weight: 300;
+	font-size: 18px;
+    color: #888;
+	&:hover {
+      color: $linkColor;
+    }
+}
