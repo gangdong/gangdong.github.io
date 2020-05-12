@@ -261,6 +261,14 @@ main {
 	list-style-type: none;
 	text-decoration: normal;
     margin: 45px 30px;
+	@media screen and (max-width: $smallMobileW) {
+    margin-left: 20px;
+    margin-right: 20px;
+   }
+   @media screen and (max-width: $mobileW) {
+    padding: 0 !important;
+    margin-top: 0;
+   }
 	padding-left: 30px;
 	font-family: 'Verdana', "Merriweather", 'Microsoft Yahei', '微软雅黑', sans-serif;
 	font-weight: 300;
