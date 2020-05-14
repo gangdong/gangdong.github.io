@@ -259,8 +259,8 @@ main {
 }
 .homeindex {
 	list-style-type: none;
-	text-decoration: normal;
-    margin: 45px 30px;
+	text-decoration: none;
+    margin: 45px 26px;
 	@media screen and (max-width: $smallMobileW) {
     margin-left: 20px;
     margin-right: 20px;
@@ -272,7 +272,7 @@ main {
 	padding-left: 30px;
 	font-family: 'Verdana', "Merriweather", 'Microsoft Yahei', '微软雅黑', sans-serif;
 	font-weight: 300;
-	font-size: 18px;
+	font-size: 22px;
     color: #888;
 	&:hover {
       color: $linkColor;
