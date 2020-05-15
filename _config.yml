@@ -10,6 +10,9 @@ baseurl: '/daviddong.github.io'
 # refer to http://shopify.github.io/liquid/filters/date/ if you want to customize this
 sass:
   sass_dir: _sass
+# Pagination 
+paginate: 12
+paginate_path: "/blog/page:num/"
 minimal:
   name: David Dong
   tagline: Java/C/C#/Python

@@ -1,0 +1,58 @@
+---
+layout: default
+title: Home
+---
+
+<body>
+<p style="white-space:pre;font-family:微软雅黑,SimSun,宋体;font-size:170%;color:#666">
+        DAVID DONG的博客
+</p>
+</body>
+
+
+{%- if paginator.posts.size > 0 -%}  
+  <ul class="posts">
+    <li>
+      <h1 id="posts-label">posts</h1>
+    </li>
+
+    {%- for post in paginator.posts -%}
+      <li>
+        {%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
+        <a class="post-link" href="{{ post.url | relative_url }}">
+          <h2 class="post-title">{{ post.title | escape }}</h2>
+        </a>
+        <div class="post-meta">
+          <ul class="post-categories">
+            {%- for tag in post.categories -%}
+              <li>{{ tag }}</li>
+            {%- endfor -%}
+          </ul>
+          <div class="post-date">
+            <i class="icon-calendar"></i>
+            {{ post.date | date: date_format }}</div>
+        </div>
+        <div class="post">
+          {%- if site.show_excerpts -%}
+            {{ post.excerpt }}
+          {%- endif -%}
+        </div>
+		<footer>
+          <a class="post-link" href="{{ post.url | relative_url }}">
+          <h5 class="morebox">Read More...</h5>
+        </a>
+        </footer>
+      </li>
+    {%- endfor -%}
+  </ul>
+
+  <!-- <p class="feed-subscribe"><svg class="svg-icon orange">
+		<use xlink:href="{{ '/assets/minima-social-icons.svg#rss' | relative_url }}"></use>
+	</svg><a href="{{ "/feed.xml" | relative_url }}">Subscribe</a></p> -->
+{%- endif -%}
+
+<div class="post-container">
+<span class="post" role="navigation">
+    {% include pagination.html %}
+</span>
+</div>
