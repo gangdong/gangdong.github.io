@@ -5,7 +5,7 @@ date:   2018-04-13 23:21:15 +0800
 categories: Web
 published: true
 ---
-After read [last article]({{site.baseurl}}/web/2019/03/27/Web-jekyll-installation.html) you should complete the installation of Jekyll and download a Jekyll theme on your computer. This page will continue to give a brief introduction of the Jekyll grammar.
+After read [last article]({{site.baseurl}}/web/2018/03/27/Web-jekyll-installation.html) you should complete the installation of Jekyll and download a Jekyll theme on your computer. This page will continue to give a brief introduction of the Jekyll grammar.
 
 Let's start this article from the source code of the theme you downloaded. 
 
