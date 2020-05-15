@@ -260,7 +260,7 @@ main {
 .homeindex {
 	list-style-type: none;
 	text-decoration: none;
-    margin: 45px 24px;
+    margin: 45px 25px;
 	@media screen and (max-width: $smallMobileW) {
     margin-left: 20px;
     margin-right: 20px;
@@ -270,8 +270,8 @@ main {
     margin-top: 0;
    }
 	padding-left: 30px;
-	font-family: 'Verdana', "Merriweather", 'Microsoft Yahei', '微软雅黑', sans-serif;
-	font-weight: 300;
+	font-family: 'Algerian', 'Bauhaus 93', 'Bernard MT Condensed', 'Verdana', sans-serif;
+	font-weight: 100;
 	font-size: 22px;
     color: #888;
 	&:hover {
