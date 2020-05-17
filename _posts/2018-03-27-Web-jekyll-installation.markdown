@@ -20,7 +20,7 @@ Others are Jekyll gives the developer more freedom to design and build the site.
 
 Generally, Jekyll is a static site generator. It will transform your plain text into static websites and blogs. No more databases, slow loading websites, risk of being hacked…just your content.
 
-Let's turn to how to build the website by Jekyll, I suggests you construct your website on Github pages because Jekyll is well deployed on Github and there are many Jekyll theme templates for you powering your website. More important is all of these are totally free of charge. If you like, you can even bind your domain on it. you can view my previous [blog]({{site.baseurl}}/web/github/2019/03/23/Others-github-blog.html) to learn how to create blog on Gitgub pages. 
+Let's turn to how to build the website by Jekyll, I suggests you construct your website on Github pages because Jekyll is well deployed on Github and there are many Jekyll theme templates for you powering your website. More important is all of these are totally free of charge. If you like, you can even bind your domain on it. you can view my previous [blog]({{site.baseurl}}/web/github/2018/03/23/Others-github-blog.html) to learn how to create blog on Gitgub pages. 
 ### Installation
 The first step is installing the Jekyll tools on your PC, here I just introduce the installation on windows platform.
 
@@ -32,15 +32,15 @@ ruby setup.rb
 ``` 
 4. execute command install Jekyll.
 ```ruby
-gem install jekyll
+gem install Jekyll
 ```
 After the installation, check it by creating a Jekyll template.
 ```shell
 cd d:
 d:
-jekyll new testblog
+Jekyll new testblog
 cd testblog
-jekyll server
+Jekyll server
 ```
 If you see below output message, the Jekyll is working on your PC now.
 ```

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "poll() 函数使用"
-date:   2015-03-02 20:12:01 +0800
+date:   2013-09-02 20:12:01 +0800
 categories: Linux
 ---
 这篇文章对Linux的poll()函数的使用做一个总结。

@@ -61,13 +61,13 @@ This site's url is {{site.url}}
 Jekyll has below commands
 
 **Jekyll new PATH:** Create a new site in the specified directory using the gem based default theme. <br>
-**jekyll new PATH --blank：**Create a new blank site in the specified directory.<br>
-**jekyll build or jekyll b:**Perform a build and output the generated site to the. / site (default) directory.<br>
-**jekyll serve or jekyll s:**Build site and provide local access service when source file changes.<br>
-**jekyll doctor:**Output any deprecated features or configuration issues.<br>
-**jekyll clean:**Delete all generated files: destination folder, metadata file, sass and Jekyll caches.<br>
-**jekyll help:**Display help information, or display help information for specific subcommands, such as Jekyll help build.<br>
-**jekyll new-theme:**Creates a new Jekyll theme scaffold.<br>
+**Jekyll new PATH --blank：**Create a new blank site in the specified directory.<br>
+**Jekyll build or Jekyll b:**Perform a build and output the generated site to the. / site (default) directory.<br>
+**Jekyll serve or Jekyll s:**Build site and provide local access service when source file changes.<br>
+**Jekyll doctor:**Output any deprecated features or configuration issues.<br>
+**Jekyll clean:**Delete all generated files: destination folder, metadata file, sass and Jekyll caches.<br>
+**Jekyll help:**Display help information, or display help information for specific subcommands, such as Jekyll help build.<br>
+**Jekyll new-theme:**Creates a new Jekyll theme scaffold.<br>
 
 above contents are not include all of the Jekyll's grammar, there are some other part, such as 
 + Jekyll configuraiton
