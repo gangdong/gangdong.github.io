@@ -1,0 +1,31 @@
+---
+layout: default
+title: Archive
+permalink: /Archive
+---
+
+<!-- Begin List Posts
+================================================== -->
+
+{% include title.html %}
+
+<div class=""post-container">
+<div class ="archive">
+	
+      <h1 id="posts-label">Archive</h1>
+    
+{% for post in site.posts %}
+    {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
+    {% capture nyear %}{{ post.next.date | date: '%Y' }}{% endcapture %}
+        {% if year != nyear %}
+            {% if forloop.index != 1 %}</ul>{% endif %}
+            <h3 class="archive-title">{{ post.date | date: '%B %Y' }}</h3><ul>
+        {% endif %}
+	 <div class="post-date"><i class="icon-calendar"></i>{{ post.date | date: "%e %B %Y" }}</div>
+     <a class="post-link" href="{{ post.url | relative_url }}">
+     <h2 class="archive-link">{{ post.title | escape }}</h2>
+     </a>
+   
+{% endfor %}
+</div>
+</div>

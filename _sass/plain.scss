@@ -257,6 +257,29 @@ main {
       color: $linkColor;
     }
 }
+.label{
+
+  color:#666;
+  font-size: 110%;
+  font-family: 'Verdana', 'Microsoft Yahei', '微软雅黑', sans-serif;
+  min-width: 100px;
+  display:-webkit-flex;
+  display: flex;
+  @media screen and (max-width: $smallMobileW) {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  @media screen and (max-width: $mobileW) {
+    padding: 0 !important;
+    margin-top: 0;
+  }
+  float: left;
+  margin-top: 28px;
+  text-decoration: none;
+  &:hover {
+      color: $linkColor;
+    }
+}
 .homeindex {
 	list-style-type: none;
 	text-decoration: none;
@@ -286,4 +309,26 @@ font-family: "Verdana", 'Arial', 'Microsoft Yahei', '微软雅黑', sans-serif;
 	align: "center";
 	align-items: center;
 
+}
+.archive{
+  margin: 45px 60px;
+  
+  a {
+    font-size: 10px;
+    font-family: "Arial", 'Verdana', 'Microsoft Yahei', '微软雅黑', sans-serif;
+    color: #444;
+	font-weight: 50;
+    text-decoration: none;
+    transition: border-bottom 0.4s;
+    &:hover {
+      color: $linkColor;
+    }
+  }
+}
+.archive-title {
+  line-height: 1.2em;
+  font-size: 22px;
+}
+.archive-link {
+  margin-left: 5px;
 }

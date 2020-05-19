@@ -22,7 +22,7 @@ This diagram is the fingerprint framework on the android platform, I have presen
 ![framework]({{site.baseurl}}/assets/image/android-fingerprint-framework-framework.png)
 
 From the top layer, the fingerprint application will start the work flow and this is the fingerprint management entry defined by Android system layer.
-In the framework internal, some tasks will be done to handler the request from application.
+In the framework internal, some tasks will be done to handle the request from application.
 
 1. init.rc starts up the Fingerprintd process during the system boot up.Fingerpringd then register IFingerprintDaemon remote service to ServiceManager.
 
@@ -177,7 +177,7 @@ We may notice that the IBiometricsFingerprint returns a service for caller, actu
 The files of the fingerprint HIDL related.
 ![hidl file]({{site.baseurl}}/assets/image/android-fingerprint-android8-hidl.png)
 
-If we look at the **Service.cpp**, we will find the service acturally will create a BiometricsFingerprint instance and register as service.
+If we look at the **Service.cpp**, we will find the service actually will create a BiometricsFingerprint instance and register as service.
 ```c++
 int main() {
     android::sp<IBiometricsFingerprint> bio = BiometricsFingerprint::getInstance();

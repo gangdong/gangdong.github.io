@@ -3,12 +3,7 @@ layout: default
 title: Home
 ---
 
-<body>
-<p style="white-space:pre;font-family:微软雅黑,SimSun,宋体;font-size:170%;color:#666">
-        DAVID DONG的博客
-</p>
-</body>
-
+{% include title.html %}
 
 {%- if paginator.posts.size > 0 -%}  
   <ul class="posts">
@@ -52,7 +47,7 @@ title: Home
 {%- endif -%}
 
 <div class="post-container">
-<span class="post" role="navigation">
+<span class="post">
     {% include pagination.html %}
 </span>
 </div>

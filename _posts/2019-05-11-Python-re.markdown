@@ -1,0 +1,61 @@
+---
+layout: post
+title:  "Python re.split()"
+date:   2019-05-11 20:36:23 +0800
+categories: Python
+Published: true
+---
+Need to import re before use it.<br>
+**Prototype** 
+```python
+re.split(pattern, string, maxsplit=0, flags=0)
+```
+
+**pattern**: Separator, can be character or regular expression.<br>
+**string**: String to split.<br>
+**maxsplit**: Maximum number of split. default is 0, which means no limitation. if minus, means no split.<br>
+**flags**: Used to control how regular expressions are matched.<br>
+
+some examples.
++ split the input string by space and ",", only do one time split.
+```python
+import re
+inputs = re.split(r'[\s,]+', input("Enter: 'ID' ['File name'] >> "), 1)
+Enter: 'ID' ['File name'] >> 01 filename
+inputs
+['01', 'filename']
+inputs = re.split(r'[\s,]+', input("Enter: 'ID' ['File name'] >> "), 1)
+Enter: 'ID' ['File name'] >> 01,filename
+inputs
+['01', 'filename']
+inputs = re.split(r'[\s,]+', input("Enter: 'ID' ['File name'] >> "), 1)
+Enter: 'ID' ['File name'] >> 01,file1,file2 file3
+inputs
+['01', 'file1,file2 file3']
+```
++ split the string by character.
+```python
+import re
+s = 'ab12,% ffa[]-(fceknl)'
+re.split(r'b',s)
+['a', '12,% ffa[]-(fceknl)']
+re.split(r'f',s)
+['ab12,% ', '', 'a[]-(', 'ceknl)']
+```
++ match multiple characters
+```python
+import re
+s = 'ab12,% ffa[]-(fceknl)'
+re.split(r'[1,en]',s)
+['ab', '2', '% ffa[]-(fc', 'k', 'l)']
+re.split(r'[-e(n]',s)
+['ab12,% ffa[]', '', 'fc', 'k', 'l)']
+```
++ keep separator
+```python
+import re
+s = 'ab12,% ffa[]-(fceknl)'
+re.split('([af])',s)
+['', 'a', 'b12,% ', 'f', '', 'f', '', 'a', '[]-(', 'f', 'ceknl)']
+```
+

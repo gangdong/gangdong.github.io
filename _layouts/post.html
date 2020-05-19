@@ -1,12 +1,11 @@
 ---
 layout: default
 ---
+
+{% include title.html %}
+
 {%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
-<header>
-<a class="homeindex" href="{{site.baseurl}}/blog/index.html">            
-  <span class="icon-home">[Home]</span>
-</a>
-</header>
+
 <div class="post-container">
   <a class="post-link" href="{{ page.url | relative_url }}">
     <h2 class="post-title">{{ page.title | escape }}</h2>
