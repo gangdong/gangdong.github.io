@@ -238,6 +238,21 @@ main {
     font-family: Arial, Raleway, sans-serif;
   }
 }
+.about-page{
+  margin: 35px 2px;
+  font-family: "Merriweather", 'Verdana', 'Microsoft Yahei', '微软雅黑', sans-serif;
+  font-weight: 300;
+  color: #222;
+  line-height: 1.9em;
+  a {
+    color: $linkColor;
+    text-decoration: none;
+    &:hover {
+      color:#222;
+    }
+  }
+}
+
 
 #posts-label {
   border-bottom: 1px solid #eee;
@@ -248,6 +263,18 @@ main {
   padding-bottom: 10px;
   font-weight: normal;
 }
+
+#about-label {
+  
+  border-bottom: 1px solid #eee;
+  font-size: 15px;
+  color: #777;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding-bottom: 10px;
+  font-weight: normal;
+}
+
 .morebox {
 	font-family: "Merriweather", 'Verdana', 'Microsoft Yahei', '微软雅黑', sans-serif;
 	font-weight: 300;
@@ -311,7 +338,7 @@ font-family: "Verdana", 'Arial', 'Microsoft Yahei', '微软雅黑', sans-serif;
 
 }
 .archive{
-  margin: 45px 60px;
+  margin: 45px 62px;
   
   a {
     font-size: 10px;
