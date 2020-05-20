@@ -359,3 +359,23 @@ font-family: "Verdana", 'Arial', 'Microsoft Yahei', '微软雅黑', sans-serif;
 .archive-link {
   margin-left: 5px;
 }
+.footer {
+
+	margin: 0px 30px;
+	padding-left: 30px;
+	margin-bottom: 30px;
+	font-family: "Verdana", 'Arial', 'Microsoft Yahei', '微软雅黑', sans-serif;
+	font-weight: 300;
+	font-size: 12px;
+    color: #888;
+	white-space: pre-wrap;
+	
+	a {
+	    color: $linkColor;
+		text-decoration: none;
+		transition: border-bottom 0.4s;
+		&:hover {
+		color: #888;
+		}
+	}
+}
