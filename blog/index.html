@@ -10,7 +10,7 @@ title: Home
     <li>
       <h1 id="posts-label">posts</h1>
     </li>
-
+	<!-- This loops through the paginated posts -->
     {%- for post in paginator.posts -%}
       <li>
         {%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
