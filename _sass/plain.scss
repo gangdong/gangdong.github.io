@@ -290,15 +290,16 @@ main {
   font-size: 110%;
   font-family: 'Verdana', 'Microsoft Yahei', '微软雅黑', sans-serif;
   min-width: 100px;
+  
   display: flex;
   float: left; 
   @media screen and (max-width: $smallMobileW) {
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 0px;
+    margin-right: 0px;
   }
   @media screen and (max-width: $mobileW) {
-    padding: 0 !important;
-    margin-top: 0;
+    padding: 20 !important;
+    margin-top: 10;
   }
   margin-top: 28px;
   text-decoration: none;
