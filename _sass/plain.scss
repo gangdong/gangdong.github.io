@@ -290,8 +290,8 @@ main {
   font-size: 110%;
   font-family: 'Verdana', 'Microsoft Yahei', '微软雅黑', sans-serif;
   min-width: 100px;
-  display:-webkit-flex;
   display: flex;
+  float: left; 
   @media screen and (max-width: $smallMobileW) {
     margin-left: 20px;
     margin-right: 20px;
@@ -300,7 +300,6 @@ main {
     padding: 0 !important;
     margin-top: 0;
   }
-  float: left;
   margin-top: 28px;
   text-decoration: none;
   &:hover {
