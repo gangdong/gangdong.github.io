@@ -107,6 +107,7 @@ main {
   }
 }
 #title {
+  font-family: "Raleway", sans-serif;
   a {
     text-decoration: none;
   }
@@ -301,6 +302,7 @@ main {
 	
   }
   margin-top: 26px;
+  margin-bottom: 36px;
   text-decoration: none;
   &:hover {
       color: $linkColor;
