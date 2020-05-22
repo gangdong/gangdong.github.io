@@ -254,7 +254,6 @@ main {
   }
 }
 
-
 #posts-label {
   margin: 0px 2px;
   border-bottom: 1px solid #eee;
@@ -266,26 +265,6 @@ main {
   font-weight: normal;
 }
 
-#about-label {
-  margin: 0px 2px;
-  border-bottom: 1px solid #eee;
-  font-size: 15px;
-  color: #777;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding-bottom: 10px;
-  font-weight: normal;
-}
-#archive-label {
-  margin: 0px 2px;
-  border-bottom: 1px solid #eee;
-  font-size: 15px;
-  color: #777;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding-bottom: 10px;
-  font-weight: normal;
-}
 .morebox {
 	font-family: "Merriweather", 'Verdana', 'Microsoft Yahei', '微软雅黑', sans-serif;
 	font-weight: 300;
@@ -301,7 +280,7 @@ main {
   font-family: ’Bradley Hand ITC‘， 'Verdana', 'Microsoft Yahei', '微软雅黑', sans-serif;
   min-width: 100px;
   display: flex;
-  float: left; 
+  
   @media screen and (max-width: $smallMobileW) {
     margin-left: 0px;
     margin-right: 0px;
@@ -318,27 +297,7 @@ main {
       color: $linkColor;
     }
 }
-.homeindex {
-	list-style-type: none;
-	text-decoration: none;
-    margin: 45px 25px;
-	@media screen and (max-width: $smallMobileW) {
-    margin-left: 20px;
-    margin-right: 20px;
-   }
-   @media screen and (max-width: $mobileW) {
-    padding: 0 !important;
-    margin-top: 0;
-   }
-	padding-left: 30px;
-	font-family: 'Algerian', 'Bauhaus 93', 'Bernard MT Condensed', 'Verdana', sans-serif;
-	font-weight: 100;
-	font-size: 22px;
-    color: #888;
-	&:hover {
-      color: $linkColor;
-    }
-}
+
 .pagination{
 font-family: "Verdana", 'Arial', 'Microsoft Yahei', '微软雅黑', sans-serif;
 	font-weight: 300;

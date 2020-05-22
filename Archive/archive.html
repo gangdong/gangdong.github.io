@@ -10,7 +10,7 @@ permalink: /archive
 {% include title.html %}
 
 <div class="post-container">
-<h1 id="archive-label">Archive</h1>
+<h1 id="posts-label">Archive</h1>
 <div class ="archive">	
 {% for post in site.posts %}
     {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
