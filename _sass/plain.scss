@@ -240,7 +240,7 @@ main {
   }
 }
 .about-page{
-  margin: 35px 2px;
+  margin: 15px 2px;
   font-family: "Merriweather", 'Verdana', 'Microsoft Yahei', '微软雅黑', sans-serif;
   font-weight: 300;
   color: #222;
@@ -256,6 +256,7 @@ main {
 
 
 #posts-label {
+  margin: 0px 2px;
   border-bottom: 1px solid #eee;
   font-size: 15px;
   color: #777;
@@ -266,7 +267,7 @@ main {
 }
 
 #about-label {
-  
+  margin: 0px 2px;
   border-bottom: 1px solid #eee;
   font-size: 15px;
   color: #777;
@@ -275,7 +276,16 @@ main {
   padding-bottom: 10px;
   font-weight: normal;
 }
-
+#archive-label {
+  margin: 0px 2px;
+  border-bottom: 1px solid #eee;
+  font-size: 15px;
+  color: #777;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding-bottom: 10px;
+  font-weight: normal;
+}
 .morebox {
 	font-family: "Merriweather", 'Verdana', 'Microsoft Yahei', '微软雅黑', sans-serif;
 	font-weight: 300;
@@ -339,7 +349,7 @@ font-family: "Verdana", 'Arial', 'Microsoft Yahei', '微软雅黑', sans-serif;
 
 }
 .archive{
-  margin: 35px 2px;
+  margin: 0px 2px;
   
   a {
     font-size: 10px;
