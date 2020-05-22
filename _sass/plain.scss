@@ -203,7 +203,7 @@ main {
 .posts,
 .post-container {
   list-style-type: none;
-  margin: 45px 30px;
+  margin: 10px 30px;
   @media screen and (max-width: $smallMobileW) {
     margin-left: 20px;
     margin-right: 20px;
@@ -286,7 +286,7 @@ main {
 }
 .label{
   color:#666;
-  font-size: 100%;
+  font-size: 90%;
   font-family: ’Bradley Hand ITC‘， 'Verdana', 'Microsoft Yahei', '微软雅黑', sans-serif;
   min-width: 100px;
   display: flex;
@@ -300,7 +300,7 @@ main {
     margin-top: 10;
 	
   }
-  margin-top: 28px;
+  margin-top: 26px;
   text-decoration: none;
   &:hover {
       color: $linkColor;
@@ -382,4 +382,14 @@ font-family: "Verdana", 'Arial', 'Microsoft Yahei', '微软雅黑', sans-serif;
     font-size: 12px;
     color: #888;
 	white-space: pre-wrap;
+}
+table {
+  th, td {
+    padding: 8px 13px;
+    border: 1px solid #dfe2e5;
+  }
+  th {
+    background-color: #eee;
+    font-family: Raleway;
+  }
 }
