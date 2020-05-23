@@ -5,7 +5,8 @@ date:   2019-05-11 20:36:23 +0800
 categories: Python
 Published: true
 ---
-Need to import re before use it.<br>
+Need to import re module before use it.re module is a unique string matching module of Python. Many functions provided in this module are implemented based on regular expressions.
+
 **Prototype** 
 ```python
 re.split(pattern, string, maxsplit=0, flags=0)

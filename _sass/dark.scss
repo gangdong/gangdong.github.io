@@ -48,7 +48,11 @@
 			color: $dark_link_color;
 		}
 	}
-
+	.morebox {
+		&:hover {
+			color: $dark_link_color;
+		}
+	}
 	.post-title {
 		&:hover {
 			color: $dark_link_color;
