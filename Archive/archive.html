@@ -19,8 +19,8 @@ permalink: /archive
             {% if forloop.index != 1 %}</ul>{% endif %}
             <h3 class="archive-title">{{ post.date | date: '%B %Y' }}</h3><ul>
         {% endif %}
-		<div class="post-meta" style="justify-content : flex-start">
-	 <div class="post-date" style="flex-basis:200px; font-size:90%"><i class="icon-calendar"></i>{{ post.date | date: "%e %B %Y" }}</div>
+	<div class="archive-meta">
+	 <div class="post-date" style="margin-right:30px; font-size:90%"><i class="icon-calendar"></i>{{ post.date | date: "%e %B %Y" }}</div>
      <a class="post-link" href="{{ post.url | relative_url }}">
      <h2 class="archive-link">{{ post.title | escape }}</h2>
      </a>
