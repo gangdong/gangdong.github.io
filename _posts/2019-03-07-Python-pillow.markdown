@@ -94,14 +94,14 @@ im.show()
 print(im.size)
 (150, 100)
 ```
-![image]({{site.baseurl}}/assets/image/python-pillow-03.jpg)
+![image]({{site.baseurl}}/assets/image/python-pillow-03.JPG)
 
 + **transpose**
 ```python
 im_rotate_180 = im.transpose(Image.ROTATE_180)
 im_rotate_180.show()
 ```
-![image]({{site.baseurl}}/assets/image/python-pillow-04.jpg)
+![image]({{site.baseurl}}/assets/image/python-pillow-04.JPG)
 
 The parameters can be <br>
 -**Image.FLIP_LEFT_RIGHT**, which means to flip the image left and right<br>
@@ -114,13 +114,13 @@ The parameters can be <br>
 
 + **crop**
 ```python
-im = Image.open("python-pillow-02.jpg")
+im = Image.open("python-pillow-02.JPG")
 box = (100,100,200,200)
 region = im.crop(box)
 region.show()
 ```
 The above code cuts out a box rectangle area on the im image and displays it. Box is a tuple with four numbers (upper left, upper left, lower right, lower right). Each pixel represents a coordinate unit. Crop () still returns an image object.<br>
-![image]({{site.baseurl}}/assets/image/python-pillow-05.jpg)
+![image]({{site.baseurl}}/assets/image/python-pillow-05.JPG)
 
 + **filter**<br>
 Image can provide below filters.<br>
@@ -130,7 +130,7 @@ Below we demonstrate some of the effect of filters.
 ```python
 from PIL import Image
 from PIL import ImageFilter
-im = Image.open("python-pillow-02.jpg")
+im = Image.open("python-pillow-02.JPG")
 im = im.resize((150,100))
 blur = im.filter(ImageFilter.BLUR)
 conf = im.filter(ImageFilter.CONTOUR)
@@ -146,22 +146,22 @@ sharpen.show()
 emboss.show()
 ``` 
 Blur<br>
-![blur]({{site.baseurl}}/assets/image/python-pillow-06.jpg)<br>
+![blur]({{site.baseurl}}/assets/image/python-pillow-06.JPG)<br>
 contour<br>
-![blur]({{site.baseurl}}/assets/image/python-pillow-07.jpg)<br>
+![blur]({{site.baseurl}}/assets/image/python-pillow-07.JPG)<br>
 edge<br>
-![blur]({{site.baseurl}}/assets/image/python-pillow-08.jpg)<br>
+![blur]({{site.baseurl}}/assets/image/python-pillow-08.JPG)<br>
 smooth<br>
-![blur]({{site.baseurl}}/assets/image/python-pillow-09.jpg)<br>
+![blur]({{site.baseurl}}/assets/image/python-pillow-09.JPG)<br>
 sharpen<br>
-![blur]({{site.baseurl}}/assets/image/python-pillow-10.jpg)<br>
+![blur]({{site.baseurl}}/assets/image/python-pillow-10.JPG)<br>
 emboss<br>
-![emboss]({{site.baseurl}}/assets/image/python-pillow-11.jpg)<br>
+![emboss]({{site.baseurl}}/assets/image/python-pillow-11.JPG)<br>
 
 **rotate**
 ```python
 from PIL import Image
-im = Image.open("python-pillow-02.jpg")
+im = Image.open("python-pillow-02.JPG")
 w,h = im.size
 im = im.resize(((int)(w/2),(int)(h/2)))
 im_45 = im.rotate(45)
@@ -170,9 +170,9 @@ im_45.show()
 im_90.show()
 ```
 rotate 45 degree<br>
-![rotate45]({{site.baseurl}}/assets/image/python-pillow-12.jpg)<br>
+![rotate45]({{site.baseurl}}/assets/image/python-pillow-12.JPG)<br>
 rotate 90 degree<br>
-![rotate45]({{site.baseurl}}/assets/image/python-pillow-13.jpg)<br>
+![rotate45]({{site.baseurl}}/assets/image/python-pillow-13.JPG)<br>
 
 **convert**<br>
 Convert() is a method of image instance object. It accepts a mode parameter to specify a color mode. The value of mode can be as follows:<br>
@@ -188,7 +188,7 @@ Convert() is a method of image instance object. It accepts a mode parameter to s
 
 ```python
 from PIL import Image
-im = Image.open("python-pillow-02.jpg")
+im = Image.open("python-pillow-02.JPG")
 w,h = im.size
 im = im.resize(((int)(w/2),(int)(h/2)))
 im_1 = im.convert("1")
@@ -203,21 +203,21 @@ im_CMYK.show()
 im_F.show()
 ```
 mode "1"<br>
-![mode1]({{site.baseurl}}/assets/image/python-pillow-14.jpg)<br>
+![mode1]({{site.baseurl}}/assets/image/python-pillow-14.JPG)<br>
 mode "L"<br>
-![model]({{site.baseurl}}/assets/image/python-pillow-15.jpg)<br>
+![model]({{site.baseurl}}/assets/image/python-pillow-15.JPG)<br>
 mode "p"<br>
-![modep]({{site.baseurl}}/assets/image/python-pillow-16.jpg)<br>
+![modep]({{site.baseurl}}/assets/image/python-pillow-16.JPG)<br>
 mode "CMYK"<br>
-![modecmyk]({{site.baseurl}}/assets/image/python-pillow-17.jpg)<br>
+![modecmyk]({{site.baseurl}}/assets/image/python-pillow-17.JPG)<br>
 mode "F"<br>
-![modef]({{site.baseurl}}/assets/image/python-pillow-18.jpg)<br>
+![modef]({{site.baseurl}}/assets/image/python-pillow-18.JPG)<br>
 
 **paste**<br>
 Paste one image onto another.
 ```python
 from PIL import Image
-im = Image.open("python-pillow-02.jpg")
+im = Image.open("python-pillow-02.JPG")
 w,h = im.size
 im = im.resize(((int)(w/2),(int)(h/2)))
 print(im.size)
@@ -228,13 +228,13 @@ im.show()
 ```
 in above code, "region" is the object to be pasted. <br>
 paste<br>
-![paste]({{site.baseurl}}/assets/image/python-pillow-19.jpg)<br>
+![paste]({{site.baseurl}}/assets/image/python-pillow-19.JPG)<br>
 
 **split**<br>
 Split () method can separate each channel of the original image. For example, for RGB image, the three color channels R, G and B can be separated.
 ```python
 from PIL import Image
-im = Image.open("python-pillow-02.jpg")
+im = Image.open("python-pillow-02.JPG")
 w,h = im.size
 im = im.resize(((int)(w/2),(int)(h/2)))
 r,g,b = im.split()
@@ -243,11 +243,11 @@ g.show()
 b.show()
 ```
 R<br>
-![R]({{site.baseurl}}/assets/image/python-pillow-20.jpg)<br>
+![R]({{site.baseurl}}/assets/image/python-pillow-20.JPG)<br>
 G<br>
-![G]({{site.baseurl}}/assets/image/python-pillow-21.jpg)<br>
+![G]({{site.baseurl}}/assets/image/python-pillow-21.JPG)<br>
 B<br>
-![B]({{site.baseurl}}/assets/image/python-pillow-22.jpg)<br>
+![B]({{site.baseurl}}/assets/image/python-pillow-22.JPG)<br>
 
 **merge**<br>
 Merge method and split method are relative. it combines multiple single channel sequences to form a multi-channel image. Mode is the mode of the combined image, such as "RGB", and channels is the sequence composed of multiple single channels.
@@ -255,6 +255,6 @@ Merge method and split method are relative. it combines multiple single channel 
 im_merge = Image.merge("RGB",[r,g,b])
 im_merge.show()
 ```
-![merge]({{site.baseurl}}/assets/image/python-pillow-23.jpg)<br>
+![merge]({{site.baseurl}}/assets/image/python-pillow-23.JPG)<br>
 
 
