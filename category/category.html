@@ -1,0 +1,180 @@
+---
+layout: default
+title: Category
+permalink: /category
+---
+
+<!-- Begin List Posts
+================================================== -->
+
+{% include title.html %}
+
+<div class="post-container">
+<h1 id="posts-label">Category</h1>
+<div class ="archive">	
+
+<div>
+<h3 class="archive-title">Android</h3><ul>
+{% for post in site.categories.Android %}
+{%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
+    <div class="post-meta">
+      <a class="post-link" href="{{ post.url | relative_url }}">
+		<h2 class="archive-link" style ="line-height:10px">{{ post.title | escape }}</h2>
+      </a>
+        <div class="post-date">
+          <span class="icon-calendar" style = "font-size:90%">
+            {{ post.date | date: date_format }}</span>
+		</div>
+    </div>
+{% endfor %}
+</div>
+
+<div>
+<h3 class="archive-title">C</h3><ul>
+{% for post in site.categories.C %}
+{%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
+    <div class="post-meta">
+      <a class="post-link" href="{{ post.url | relative_url }}">
+		<h2 class="archive-link" style ="line-height:10px">{{ post.title | escape }}</h2>
+      </a>
+        <div class="post-date">
+          <span class="icon-calendar" style = "font-size:90%">
+            {{ post.date | date: date_format }}</span>
+		</div>
+    </div>
+{% endfor %}
+</div>
+
+<div>
+<h3 class="archive-title">Fingerprint</h3><ul>
+{% for post in site.categories.Fingerprint %}
+{%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
+    <div class="post-meta">
+      <a class="post-link" href="{{ post.url | relative_url }}">
+		<h2 class="archive-link" style ="line-height:10px">{{ post.title | escape }}</h2>
+      </a>
+        <div class="post-date">
+          <span class="icon-calendar" style = "font-size:90%">
+            {{ post.date | date: date_format }}</span>
+		</div>
+    </div>
+{% endfor %}
+</div>
+
+<div>
+<h3 class="archive-title">Github</h3><ul>
+{% for post in site.categories.Github %}
+{%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
+    <div class="post-meta">
+      <a class="post-link" href="{{ post.url | relative_url }}">
+		<h2 class="archive-link" style ="line-height:10px">{{ post.title | escape }}</h2>
+      </a>
+        <div class="post-date">
+          <span class="icon-calendar" style = "font-size:90%">
+            {{ post.date | date: date_format }}</span>
+		</div>
+    </div>
+{% endfor %}
+</div>
+
+<div>
+<h3 class="archive-title">Java</h3><ul>
+{% for post in site.categories.Java %}
+{%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
+    <div class="post-meta">
+      <a class="post-link" href="{{ post.url | relative_url }}">
+		<h2 class="archive-link" style ="line-height:10px">{{ post.title | escape }}</h2>
+      </a>
+        <div class="post-date">
+          <span class="icon-calendar" style = "font-size:90%">
+            {{ post.date | date: date_format }}</span>
+		</div>
+    </div>
+{% endfor %}
+</div>
+
+<div>
+<h3 class="archive-title">Linux</h3><ul>
+{% for post in site.categories.Linux %}
+{%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
+    <div class="post-meta">
+      <a class="post-link" href="{{ post.url | relative_url }}">
+		<h2 class="archive-link" style ="line-height:10px">{{ post.title | escape }}</h2>
+      </a>
+        <div class="post-date">
+          <span class="icon-calendar" style = "font-size:90%">
+            {{ post.date | date: date_format }}</span>
+		</div>
+    </div>
+{% endfor %}
+</div>
+
+<div>
+<h3 class="archive-title">Others</h3><ul>
+{% for post in site.categories.Touch %}
+{%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
+    <div class="post-meta">
+      <a class="post-link" href="{{ post.url | relative_url }}">
+		<h2 class="archive-link" style ="line-height:10px">{{ post.title | escape }}</h2>
+      </a>
+        <div class="post-date">
+          <span class="icon-calendar" style = "font-size:90%">
+            {{ post.date | date: date_format }}</span>
+		</div>
+    </div>
+{% endfor %}
+</div>
+
+<div>
+<h3 class="archive-title">Python</h3><ul>
+{% for post in site.categories.Python %}
+{%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
+    <div class="post-meta">
+      <a class="post-link" href="{{ post.url | relative_url }}">
+		<h2 class="archive-link" style ="line-height:10px">{{ post.title | escape }}</h2>
+      </a>
+        <div class="post-date">
+          <span class="icon-calendar" style = "font-size:90%">
+            {{ post.date | date: date_format }}</span>
+		</div>
+    </div>
+{% endfor %}
+</div>
+
+<div>
+<h3 class="archive-title">Touch</h3><ul>
+{% for post in site.categories.Touch %}
+{%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
+    <div class="post-meta">
+      <a class="post-link" href="{{ post.url | relative_url }}">
+		<h2 class="archive-link" style ="line-height:10px">{{ post.title | escape }}</h2>
+      </a>
+        <div class="post-date">
+          <span class="icon-calendar" style = "font-size:90%">
+            {{ post.date | date: date_format }}</span>
+		</div>
+    </div>
+{% endfor %}
+</div>
+
+<div>
+<h3 class="archive-title">Web</h3><ul>
+{% for post in site.categories.Touch %}
+{%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
+    <div class="post-meta">
+      <a class="post-link" href="{{ post.url | relative_url }}">
+		<h2 class="archive-link" style ="line-height:10px">{{ post.title | escape }}</h2>
+      </a>
+        <div class="post-date">
+          <span class="icon-calendar" style = "font-size:90%">
+            {{ post.date | date: date_format }}</span>
+		</div>
+    </div>
+{% endfor %}
+</div>
+
+</div>
+</div>
+<div class ="footer">
+Copyright © {{ site.time | date: "%Y" }} {{ site.title }}  |  <a href = "https://github.com/gangdong/daviddong.github.io"> Github Project </a> powered by Jekyll
+</div>

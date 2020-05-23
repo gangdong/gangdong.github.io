@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Error: This custom view should extend android.support.v7.widget.AppCompatxxx instead."
+title:  "Error: This custom view should extend android.support.v7.widget..."
 date:   2019-07-26 23:45:19 +0800
 categories: Android
 ---
