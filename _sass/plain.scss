@@ -274,32 +274,43 @@ main {
       color: $linkColor;
     }
 }
-.label{
+.menu{
+ 
   color:#666;
   font-size: 90%;
   font-family: ’Bradley Hand ITC‘， 'Verdana', 'Microsoft Yahei', '微软雅黑', sans-serif;
   min-width: 100px;
   display: flex;
+  flex-direction:row;
+  flex-wrap: wrap;
+  justify-content : space-between;
+  align-items : center;
+  align-content: space-between;
   
   @media screen and (max-width: $smallMobileW) {
     margin-left: 0px;
     margin-right: 0px;
+	margin-top: 0px;
   }
   @media screen and (max-width: $mobileW) {
     padding: 20 !important;
-    margin-top: 10;
+    margin-top: 10px;
 	
   }
-  margin-top: 26px;
+  margin-top: 20px;
   margin-bottom: 36px;
   text-decoration: none;
-  &:hover {
-      color: $linkColor;
+
+a {
+    text-decoration: none;
+    &:hover {
+      color:$linkColor;
     }
+  }
 }
 
 .pagination{
-font-family: "Verdana", 'Arial', 'Microsoft Yahei', '微软雅黑', sans-serif;
+    font-family: "Verdana", 'Arial', 'Microsoft Yahei', '微软雅黑', sans-serif;
 	font-weight: 300;
 	font-size: 14px;
     color: #888;
