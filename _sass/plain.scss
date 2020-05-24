@@ -271,11 +271,12 @@ main {
   font-weight: 300;
   color: #222;
   line-height: 1.9em;
+  transition: border-bottom 0.4s;
   a {
     color: $linkColor;
     text-decoration: none;
     &:hover {
-      color:#888;
+      border-bottom: 0.5px solid $linkColor;
     }
   }
 }
@@ -289,16 +290,6 @@ main {
   letter-spacing: 0.5px;
   padding-bottom: 10px;
   font-weight: normal;
-}
-
-.morebox {
-	font-family: "Merriweather", 'Verdana', 'Microsoft Yahei', '微软雅黑', sans-serif;
-	font-weight: 300;
-	font-size: 14px;
-    color: #888;
-	&:hover {
-      color: $linkColor;
-    }
 }
 .menu{
  
@@ -355,7 +346,7 @@ a {
     text-decoration: none;
     transition: border-bottom 0.4s;
     &:hover {
-      color: $linkColor;
+      color:$linkColor;
     }
   }
 }
@@ -369,6 +360,10 @@ a {
   font-weight: 40;
   color: #000;
   font-family: 'Merriweather',"Arial",'Microsoft Yahei', '微软雅黑', sans-serif;
+  &:hover {
+      color:$linkColor;
+    }
+  
 }
 .footer {
 
@@ -386,9 +381,21 @@ a {
 		text-decoration: none;
 		transition: border-bottom 0.4s;
 		&:hover {
-		color: #888;
+		border-bottom: 0.5px solid $linkColor;
 		}
 	}
+}
+.morebox {
+	font-family: "Merriweather", 'Verdana', 'Microsoft Yahei', '微软雅黑', sans-serif;
+	font-weight: 400;
+	font-size: 14px;
+   
+	white-space: pre;
+	line-height: 1.9em;
+	
+	&:hover {
+     color:$linkColor;
+    }
 }
 .post-footer{
     font-size: 12px;
