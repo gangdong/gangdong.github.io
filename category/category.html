@@ -14,7 +14,11 @@ permalink: /category
 <div class ="archive">	
 
 <div>
-<h3 class="archive-title">Android</h3><ul>
+{% assign count = 0 %}
+{% for post in site.categories.Android %}
+	{% assign count = count | plus: 1 %}
+{% endfor %}
+<h3 class="archive-title">Android (articles: {{count}})</h3><ul>
 {% for post in site.categories.Android %}
 {%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
     <div class="category-meta">
@@ -30,7 +34,11 @@ permalink: /category
 </div>
 
 <div>
-<h3 class="archive-title">C</h3><ul>
+{% assign count = 0 %}
+{% for post in site.categories.C %}
+	{% assign count = count | plus: 1 %}
+{% endfor %}
+<h3 class="archive-title">C (articles: {{count}})</h3><ul>
 {% for post in site.categories.C %}
 {%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
     <div class="category-meta">
@@ -46,7 +54,11 @@ permalink: /category
 </div>
 
 <div>
-<h3 class="archive-title">Fingerprint</h3><ul>
+{% assign count = 0 %}
+{% for post in site.categories.Fingerprint %}
+	{% assign count = count | plus: 1 %}
+{% endfor %}
+<h3 class="archive-title">Fingerprint (articles: {{count}})</h3><ul>
 {% for post in site.categories.Fingerprint %}
 {%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
     <div class="category-meta">
@@ -62,7 +74,11 @@ permalink: /category
 </div>
 
 <div>
-<h3 class="archive-title">Github</h3><ul>
+{% assign count = 0 %}
+{% for post in site.categories.Github %}
+	{% assign count = count | plus: 1 %}
+{% endfor %}
+<h3 class="archive-title">Github (articles: {{count}})</h3><ul>
 {% for post in site.categories.Github %}
 {%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
     <div class="category-meta">
@@ -78,7 +94,11 @@ permalink: /category
 </div>
 
 <div>
-<h3 class="archive-title">Java</h3><ul>
+{% assign count = 0 %}
+{% for post in site.categories.Java %}
+	{% assign count = count | plus: 1 %}
+{% endfor %}
+<h3 class="archive-title">Java (articles: {{count}})</h3><ul>
 {% for post in site.categories.Java %}
 {%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
     <div class="category-meta">
@@ -94,7 +114,11 @@ permalink: /category
 </div>
 
 <div>
-<h3 class="archive-title">Linux</h3><ul>
+{% assign count = 0 %}
+{% for post in site.categories.Linux %}
+	{% assign count = count | plus: 1 %}
+{% endfor %}
+<h3 class="archive-title">Linux (articles: {{count}})</h3><ul>
 {% for post in site.categories.Linux %}
 {%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
     <div class="category-meta">
@@ -110,7 +134,11 @@ permalink: /category
 </div>
 
 <div>
-<h3 class="archive-title">Others</h3><ul>
+{% assign count = 0 %}
+{% for post in site.categories.Others %}
+	{% assign count = count | plus: 1 %}
+{% endfor %}
+<h3 class="archive-title">Others (articles: {{count}})</h3><ul>
 {% for post in site.categories.Others %}
 {%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
     <div class="category-meta">
@@ -126,7 +154,11 @@ permalink: /category
 </div>
 
 <div>
-<h3 class="archive-title">Python</h3><ul>
+{% assign count = 0 %}
+{% for post in site.categories.Python %}
+	{% assign count = count | plus: 1 %}
+{% endfor %}
+<h3 class="archive-title">Python (articles: {{count}})</h3><ul>
 {% for post in site.categories.Python %}
 {%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
     <div class="category-meta">
@@ -142,7 +174,11 @@ permalink: /category
 </div>
 
 <div>
-<h3 class="archive-title">Touch</h3><ul>
+{% assign count = 0 %}
+{% for post in site.categories.Touch %}
+	{% assign count = count | plus: 1 %}
+{% endfor %}
+<h3 class="archive-title">Touch (articles: {{count}})</h3><ul>
 {% for post in site.categories.Touch %}
 {%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
     <div class="category-meta">
@@ -158,7 +194,11 @@ permalink: /category
 </div>
 
 <div>
-<h3 class="archive-title">Web</h3><ul>
+{% assign count = 0 %}
+{% for post in site.categories.Web %}
+	{% assign count = count | plus: 1 %}
+{% endfor %}
+<h3 class="archive-title">Web (articles: {{count}})</h3><ul>
 {% for post in site.categories.Web %}
 {%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
     <div class="category-meta">
