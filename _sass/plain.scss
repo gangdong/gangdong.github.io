@@ -176,6 +176,22 @@ main {
     margin-right: 10px;
     margin-bottom: 10px;
   }
+  
+  a {
+    float: left;
+    background-color: #e3e3e3;
+    padding: 5px 20px;
+    border-radius: 2px;
+    @media screen and (max-width: $mobileW) {
+      margin-top: 5px;
+    }
+    margin-right: 10px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    &:hover {
+      color:$linkColor;
+    }
+  }
 }
 .post-date {
   margin-right: 10px;
@@ -193,6 +209,29 @@ main {
       margin-bottom: 16px;
     }
   }
+}
+.archive-label-meta {
+  display: flex;
+  flex-direction:row;
+  flex-wrap: wrap;
+  justify-content : flex-start;
+  align-items : center;
+  align-content: flex-start;
+  
+  @media screen and (max-width: $smallMobileW) {
+    margin-left: 0px;
+    margin-right: 0px;
+	margin-top: 0px;
+  }
+  @media screen and (max-width: $mobileW) {
+    padding: 0px !important;
+    margin-top: 0px;
+	
+  }
+  margin-top: 15px;
+  margin-bottom: 15px;
+  text-decoration: none;
+
 }
 .archive-meta {
   display: flex;

@@ -29,13 +29,13 @@ permalink: /archive
     {% endif %}
 {% endfor %}
 
-<div class="archive-meta" style ="margin-top:30px">
+<div class="archive-label-meta" style ="margin-top:30px">
 {% assign i = 0 %}
 {% assign counts_year = counts | split: ', ' %}
 {% assign years = years | split: ', ' %}
 {% for year in years %}
 <ul class="post-categories">       
-     <li>{{ year }} ( {{counts_year[i]}} )</li>
+     <a href = "#{{year}}" style = "font-family: Raleway,Arial,sans-serif; font-size:14px">{{ year }} ( {{counts_year[i]}} )</a>
 </ul>
 {% assign i = i | plus: 1 %}
 {% endfor %}
@@ -50,7 +50,7 @@ permalink: /archive
     {% capture nyear %}{{ post.next.date | date: '%Y' }}{% endcapture %}
         {% if year != nyear %}
             {% if forloop.index != 1 %}</ul>{% endif %}
-            <h3 class="archive-title">{{ post.date | date: '%B %Y' }}</h3><ul>
+            <h3 id = "{{year}}" class="archive-title">{{ post.date | date: '%B %Y' }}</h3><ul>
 			{% assign i = i | plus: 1 %}
         {% endif %}
 	<div class="archive-meta">

@@ -31,11 +31,17 @@
 		line-height: 1.4em;
 		tab-size: 4;
 	}
-
 	.post-categories {
 		li {
 			background-color: #333;
 			color: #fff;
+		}
+		a {
+			background-color: #333;
+			color: #fff;
+			&:hover {
+			color: $dark_link_color;
+		}
 		}
 	}
 

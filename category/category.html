@@ -86,30 +86,21 @@ permalink: /category
 {% assign count = count | append: count_web | append: ', ' %}
 {% assign categories = categories | append: 'Web, ' %}
 
-<div class="archive-meta" style ="margin-top:30px">
+<div class="archive-label-meta" style ="margin-top:30px">
 {% assign i = 0 %}
 {% assign count = count | split: ', ' %}
 {% assign categories = categories | split: ', ' %}
-{% for category in categories limit:5 %}
+{% for category in categories %}
 <ul class="post-categories">       
-     <li>{{ category }} ( {{count[i]}} )</li>
+     <a href="#{{category}}" style = "font-family: Raleway,Arial,sans-serif; font-size:14px">{{ category }} ( {{count[i]}} )</a>
 </ul>
 {% assign i = i | plus: 1 %}
 {% endfor %}
 </div>
 
-<div class="archive-meta" style ="margin-top:15px">
-{% assign i = 5 %}
-{% for category in categories limit:5 offset:5 %}
-<ul class="post-categories">       
-     <li>{{ category }} ( {{count[i]}} )</li>
-</ul>
-{% assign i = i | plus: 1 %}
-{% endfor %}
-</div>
 
 <div>
-<h3 class="archive-title">Android</h3><ul>
+<h3 id = "Android" class="archive-title">Android</h3><ul>
 {% for post in site.categories.Android %}
 {%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
     <div class="category-meta">
@@ -125,7 +116,7 @@ permalink: /category
 </div>
 
 <div>
-<h3 class="archive-title">C</h3><ul>
+<h3 id = "C" class="archive-title">C</h3><ul>
 {% for post in site.categories.C %}
 {%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
     <div class="category-meta">
@@ -141,7 +132,7 @@ permalink: /category
 </div>
 
 <div>
-<h3 class="archive-title">Fingerprint</h3><ul>
+<h3 id = "Fingerprint" class="archive-title">Fingerprint</h3><ul>
 {% for post in site.categories.Fingerprint %}
 {%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
     <div class="category-meta">
@@ -157,7 +148,7 @@ permalink: /category
 </div>
 
 <div>
-<h3 class="archive-title">Github</h3><ul>
+<h3 id = "Github" class="archive-title">Github</h3><ul>
 {% for post in site.categories.Github %}
 {%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
     <div class="category-meta">
@@ -173,7 +164,7 @@ permalink: /category
 </div>
 
 <div>
-<h3 class="archive-title">Java</h3><ul>
+<h3 id = "Java" class="archive-title">Java</h3><ul>
 {% for post in site.categories.Java %}
 {%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
     <div class="category-meta">
@@ -189,7 +180,7 @@ permalink: /category
 </div>
 
 <div>
-<h3 class="archive-title">Linux</h3><ul>
+<h3 id = "Linux" class="archive-title">Linux</h3><ul>
 {% for post in site.categories.Linux %}
 {%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
     <div class="category-meta">
@@ -206,7 +197,7 @@ permalink: /category
 
 <div>
 
-<h3 class="archive-title">Others</h3><ul>
+<h3 id = "Others" class="archive-title">Others</h3><ul>
 {% for post in site.categories.Others %}
 {%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
     <div class="category-meta">
@@ -222,7 +213,7 @@ permalink: /category
 </div>
 
 <div>
-<h3 class="archive-title">Python</h3><ul>
+<h3 id = "Python" class="archive-title">Python</h3><ul>
 {% for post in site.categories.Python %}
 {%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
     <div class="category-meta">
@@ -238,7 +229,7 @@ permalink: /category
 </div>
 
 <div>
-<h3 class="archive-title">Touch</h3><ul>
+<h3 id = "Touch" class="archive-title">Touch</h3><ul>
 {% for post in site.categories.Touch %}
 {%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
     <div class="category-meta">
@@ -254,7 +245,7 @@ permalink: /category
 </div>
 
 <div>
-<h3 class="archive-title">Web</h3><ul>
+<h3 id = "Web" class="archive-title">Web</h3><ul>
 {% for post in site.categories.Web %}
 {%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
     <div class="category-meta">
