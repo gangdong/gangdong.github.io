@@ -13,95 +13,34 @@ permalink: /category
 <h1 id="posts-label">Category</h1>
 <div class ="archive">	
 
+{% comment %}calculate the post count for each category{% endcomment %}
 {% assign count = "" %}
-{% assign categories = "" %}
-{% assign count_android = 0 %}
-{% for post in site.categories.Android %}
-	{% assign count_android = count_android | plus: 1 %}
-{% endfor %}
-{% assign count = count | append: count_android | append: ', ' %}
-{% assign categories = categories | append: 'Android, ' %}
-
-{% assign count_c = 0 %}
-{% for post in site.categories.C %}
-	{% assign count_c = count_c | plus: 1 %}
-{% endfor %}
-{% assign count = count | append: count_c | append: ', ' %}
-{% assign categories = categories | append: 'C, ' %}
-
-{% assign count_fingerprint = 0 %}
-{% for post in site.categories.Fingerprint %}
-	{% assign count_fingerprint = count_fingerprint | plus: 1 %}
-{% endfor %}
-{% assign count = count | append: count_fingerprint | append: ', ' %}
-{% assign categories = categories | append: 'Fingerprint, ' %}
-
-{% assign count_github = 0 %}
-{% for post in site.categories.Github %}
-	{% assign count_github = count_github | plus: 1 %}
-{% endfor %}
-{% assign count = count | append: count_github | append: ', ' %}
-{% assign categories = categories | append: 'Github, ' %}
-
-{% assign count_java = 0 %}
-{% for post in site.categories.Java %}
-	{% assign count_java = count_java | plus: 1 %}
-{% endfor %}
-{% assign count = count | append: count_java | append: ', ' %}
-{% assign categories = categories | append: 'Java, ' %}
-
-{% assign count_linux = 0 %}
-{% for post in site.categories.Linux %}
-	{% assign count_linux = count_linux | plus: 1 %}
-{% endfor %}
-{% assign count = count | append: count_linux | append: ', ' %}
-{% assign categories = categories | append: 'Linux, ' %}
-
-{% assign count_others = 0 %}
-{% for post in site.categories.Others %}
-	{% assign count_others = count_others | plus: 1 %}
-{% endfor %}
-{% assign count = count | append: count_others | append: ', ' %}
-{% assign categories = categories | append: 'Others, ' %}
-
-{% assign count_python = 0 %}
-{% for post in site.categories.Python %}
-	{% assign count_python = count_python | plus: 1 %}
-{% endfor %}
-{% assign count = count | append: count_python | append: ', ' %}
-{% assign categories = categories | append: 'Python, ' %}
-
-{% assign count_touch = 0 %}
-{% for post in site.categories.Touch %}
-	{% assign count_touch = count_touch | plus: 1 %}
-{% endfor %}
-{% assign count = count | append: count_touch | append: ', ' %}
-{% assign categories = categories | append: 'Touch, ' %}
-
-{% assign count_web = 0 %}
-{% for post in site.categories.Web %}
-	{% assign count_web = count_web | plus: 1 %}
+{% assign counts = "" %}
+{% for tag in site.categories reversed %}
+  {% for post in tag[1] %}
+	{% assign count = count | plus: 1 %}
+  {% endfor %}
+  {% assign counts = counts | append: count | append: ', ' %}
+  {% assign count = "" %}
 {% endfor %}
 
-{% assign count = count | append: count_web | append: ', ' %}
-{% assign categories = categories | append: 'Web, ' %}
-
+{% comment %}show navigation label here{% endcomment %}
 <div class="archive-label-meta" style ="margin-top:30px">
 {% assign i = 0 %}
-{% assign count = count | split: ', ' %}
-{% assign categories = categories | split: ', ' %}
-{% for category in categories %}
+{% assign counts = counts | split: ', ' %}
+{% for tag in site.categories reversed  %}
 <ul class="post-categories">       
-     <a href="#{{category}}" style = "font-family: Raleway,Arial,sans-serif; font-size:14px">{{ category }} ( {{count[i]}} )</a>
+     <a href="#{{tag[0]}}" style = "font-family: Raleway,Arial,sans-serif; font-size:14px">{{ tag[0] }} ( {{counts[i]}} )</a>
 </ul>
 {% assign i = i | plus: 1 %}
 {% endfor %}
 </div>
 
-
+{% comment %}list post link for each category{% endcomment %}
+{% for tag in site.categories reversed %}
 <div>
-<h3 id = "Android" class="archive-title">Android</h3><ul>
-{% for post in site.categories.Android %}
+<h3 id = "{{tag[0]}}" class="archive-title">{{tag[0]}}</h3><ul>
+{% for post in tag[1] %}
 {%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
     <div class="category-meta">
       <a class="post-link" href="{{ post.url | relative_url }}">
@@ -114,154 +53,11 @@ permalink: /category
     </div>
 {% endfor %}
 </div>
-
-<div>
-<h3 id = "C" class="archive-title">C</h3><ul>
-{% for post in site.categories.C %}
-{%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
-    <div class="category-meta">
-      <a class="post-link" href="{{ post.url | relative_url }}">
-		<h2 class="archive-link" >{{ post.title | escape }}</h2>
-      </a>
-        <div class="post-date">
-          <span class="icon-calendar" style = "font-size:90%">
-            {{ post.date | date: date_format }}</span>
-		</div>
-    </div>
 {% endfor %}
 </div>
-
-<div>
-<h3 id = "Fingerprint" class="archive-title">Fingerprint</h3><ul>
-{% for post in site.categories.Fingerprint %}
-{%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
-    <div class="category-meta">
-      <a class="post-link" href="{{ post.url | relative_url }}">
-		<h2 class="archive-link" >{{ post.title | escape }}</h2>
-      </a>
-        <div class="post-date">
-          <span class="icon-calendar" style = "font-size:90%">
-            {{ post.date | date: date_format }}</span>
-		</div>
-    </div>
-{% endfor %}
 </div>
 
-<div>
-<h3 id = "Github" class="archive-title">Github</h3><ul>
-{% for post in site.categories.Github %}
-{%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
-    <div class="category-meta">
-      <a class="post-link" href="{{ post.url | relative_url }}">
-		<h2 class="archive-link" >{{ post.title | escape }}</h2>
-      </a>
-        <div class="post-date">
-          <span class="icon-calendar" style = "font-size:90%">
-            {{ post.date | date: date_format }}</span>
-		</div>
-    </div>
-{% endfor %}
-</div>
-
-<div>
-<h3 id = "Java" class="archive-title">Java</h3><ul>
-{% for post in site.categories.Java %}
-{%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
-    <div class="category-meta">
-      <a class="post-link" href="{{ post.url | relative_url }}">
-		<h2 class="archive-link" >{{ post.title | escape }}</h2>
-      </a>
-        <div class="post-date">
-          <span class="icon-calendar" style = "font-size:90%">
-            {{ post.date | date: date_format }}</span>
-		</div>
-    </div>
-{% endfor %}
-</div>
-
-<div>
-<h3 id = "Linux" class="archive-title">Linux</h3><ul>
-{% for post in site.categories.Linux %}
-{%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
-    <div class="category-meta">
-      <a class="post-link" href="{{ post.url | relative_url }}">
-		<h2 class="archive-link" >{{ post.title | escape }}</h2>
-      </a>
-        <div class="post-date">
-          <span class="icon-calendar" style = "font-size:90%">
-            {{ post.date | date: date_format }}</span>
-		</div>
-    </div>
-{% endfor %}
-</div>
-
-<div>
-
-<h3 id = "Others" class="archive-title">Others</h3><ul>
-{% for post in site.categories.Others %}
-{%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
-    <div class="category-meta">
-      <a class="post-link" href="{{ post.url | relative_url }}">
-		<h2 class="archive-link" >{{ post.title | escape }}</h2>
-      </a>
-        <div class="post-date">
-          <span class="icon-calendar" style = "font-size:90%">
-            {{ post.date | date: date_format }}</span>
-		</div>
-    </div>
-{% endfor %}
-</div>
-
-<div>
-<h3 id = "Python" class="archive-title">Python</h3><ul>
-{% for post in site.categories.Python %}
-{%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
-    <div class="category-meta">
-      <a class="post-link" href="{{ post.url | relative_url }}">
-		<h2 class="archive-link" >{{ post.title | escape }}</h2>
-      </a>
-        <div class="post-date">
-          <span class="icon-calendar" style = "font-size:90%">
-            {{ post.date | date: date_format }}</span>
-		</div>
-    </div>
-{% endfor %}
-</div>
-
-<div>
-<h3 id = "Touch" class="archive-title">Touch</h3><ul>
-{% for post in site.categories.Touch %}
-{%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
-    <div class="category-meta">
-      <a class="post-link" href="{{ post.url | relative_url }}">
-		<h2 class="archive-link" >{{ post.title | escape }}</h2>
-      </a>
-        <div class="post-date">
-          <span class="icon-calendar" style = "font-size:90%">
-            {{ post.date | date: date_format }}</span>
-		</div>
-    </div>
-{% endfor %}
-</div>
-
-<div>
-<h3 id = "Web" class="archive-title">Web</h3><ul>
-{% for post in site.categories.Web %}
-{%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
-    <div class="category-meta">
-      <a class="post-link" href="{{ post.url | relative_url }}">
-		<h2 class="archive-link" >{{ post.title | escape }}</h2>
-      </a>
-        <div class="post-date">
-          <span class="icon-calendar" style = "font-size:90%">
-            {{ post.date | date: date_format }}</span>
-		</div>
-    </div>
-{% endfor %}
-</div>
-
-</div>
-</div>
+{% comment %}footer{% endcomment %}
 <div class ="footer">
 Copyright © {{ site.time | date: "%Y" }} {{ site.title }}  |  <a href = "https://github.com/gangdong/daviddong.github.io"> Github Project </a> powered by Jekyll
 </div>
