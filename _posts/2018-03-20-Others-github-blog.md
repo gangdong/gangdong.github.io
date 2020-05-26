@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "How to build your personal blog on Github"
+title:  "How to build your personal blog on Github pages"
 date:   2018-03-23 21:03:36 +0800
 categories: Web Github
 ---

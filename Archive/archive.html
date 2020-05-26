@@ -35,9 +35,9 @@ permalink: /archive
 <div class="archive-label-meta" style ="margin-top:30px">
 {% assign i = 0 %}
 {% comment %} remove the separator. {% endcomment %}
-{% assign counts_year = counts | split: ', ' %}
+{% assign counts_year = counts | split: ', ' | reverse %}
 {% assign years = years | split: ', ' %}
-{% for year in years %}
+{% for year in years reversed %}
 <ul class="post-categories">       
      <a href = "#{{year}}" style = "font-family: Raleway,Arial,sans-serif; font-size:14px">{{ year }} ( {{counts_year[i]}} )</a>
 </ul>
