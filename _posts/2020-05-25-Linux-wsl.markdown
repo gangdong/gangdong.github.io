@@ -23,7 +23,7 @@ Tools: vim, emacs, tmux *Languages: NodeJS, Javascript, Python, Ruby, C/C++, C# 
 + Invoke GNU/Linux applications on Windows.
 
 ### Installation
-You can refer to [installation guidance](https://docs.microsoft.com/en-us/windows/wsl/install-win10), the introduction is detailed. You can complete the WSL1 or WSL2 if you want to install easily just by following the guidance step by step. 
+You can refer to [installation guidance](https://docs.microsoft.com/en-us/windows/wsl/install-win10), the introduction is detailed. You can complete the installation of WSL1 and WSL2 if you need easily just by following the guidance step by step. 
 
 ### Usage
 On above procedure, you will be requested to choose one Linux OS to install, the choice has 

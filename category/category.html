@@ -44,7 +44,7 @@ permalink: /category
 {%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
     <div class="category-meta">
       <a class="post-link" href="{{ post.url | relative_url }}">
-		<h2 class="archive-link" >{{ post.title | escape }}</h2>
+		<h2 class="archive-link" >&bull; {{ post.title | escape }}</h2>
       </a>
         <div class="post-date">
           <span class="icon-calendar" style = "font-size:90%">
