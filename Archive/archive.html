@@ -52,12 +52,12 @@ permalink: /archive
     {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
     {% capture nyear %}{{ post.next.date | date: '%Y' }}{% endcapture %}
         {% if year != nyear %}
-            {% if forloop.index != 1 %}</ul>{% endif %}
-            <h3 id = "{{year}}" class="archive-title">{{ post.date | date: '%B %Y' }}</h3><ul>
+            {% if forloop.index != 1 %}{% endif %}
+            <h3 id = "{{year}}" class="archive-title">{{ post.date | date: '%B %Y' }}</h3>
 			{% assign i = i | plus: 1 %}
         {% endif %}
 	<div class="archive-meta">
-	 <div class="post-date" style="margin-right:30px; font-size:16px; width:180px"><i class="icon-calendar"></i>{{ post.date | date: "%e %B %Y" }}</div>
+	 <div class="post-date" style="margin-left:15px; margin-right:30px; font-size:16px; width:180px"><i class="icon-calendar"></i>{{ post.date | date: "%e %B %Y" }}</div>
      <a class="post-link" href="{{ post.url | relative_url }}">
      <h2 class="archive-link">{{ post.title | escape }}</h2>
      </a>
