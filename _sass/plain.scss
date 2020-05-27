@@ -382,7 +382,7 @@ a {
   a {
     font-size: 10px;
     font-family: "Arial", 'Verdana', 'Microsoft Yahei', '微软雅黑', sans-serif;
-    color: #444;
+    color: #222;
 	font-weight: 50;
     text-decoration: none;
     transition: border-bottom 0.4s;
@@ -397,10 +397,10 @@ a {
 }
 .archive-link {
   margin-left: 5px;
-  line-height:1.0em;
+ 
   font-size:16px;
   font-weight: 40;
-  color: #000;
+  color: #222;
   font-family: 'Merriweather',"Arial",'Microsoft Yahei', '微软雅黑', sans-serif;
   &:hover {
       color:$linkColor;
