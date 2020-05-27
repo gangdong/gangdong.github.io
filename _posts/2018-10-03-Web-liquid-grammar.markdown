@@ -96,6 +96,6 @@ There are five types of Liquid objects.
 + Nil
 + Array
 
-Actually, except Nil, others you can find at other language, the usage is quite similar. Nil type represents a null object.
+Actually, except Nil (Nil type represents a null object.), others you can find the same type at other language (for example C), the usage is quite similar. 
 
-The above constitutes the main Liquid grammar, in order to avoid excessive long article, I decide to quit here. For more details, can find at [liquid website](https://liquid.bootcss.com/).
+The above elements constitutes the main Liquid grammar, in order to avoid excessive long article, I decide to quit here. For more details, can find at [liquid website](https://liquid.bootcss.com/).
