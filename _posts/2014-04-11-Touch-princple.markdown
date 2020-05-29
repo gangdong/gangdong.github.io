@@ -48,6 +48,8 @@ Q = C × ΔV （Qtotal = Csystem × ΔV）
 
 可以计算出系统中的总电荷量为 
 
+Csystem = 1/(1/Cx-y + 1/Cs)  = 1/(1/2pF + 1/18pF) = 1.8pF
+
 Qtotal = 1.8pF × 6.6V  = 11.88pC
 
 其中在Cs两侧的建立的电压为 
@@ -75,6 +77,12 @@ Qtotal = 1.8pF × 6.6V  = 11.88pC
 
 我们依旧继续刚才的计算，假设Cy-human = 2pF,  Cx-human = 2pF, Cx-y = 2pF and Cs = 18pF.
 则流程系统的总电荷为 
+
+Ca = Cy-human + Cs = 2pF + 18pF = 20pF	
+
+Cb = 1 / (1/Cx-y + 1/Ca) = 1 / (1/2pF + 1/20pF) = 1.81pF
+
+Csystem = Cx-human + Cb = 2pF + 1.81pF = 3.81pF
 
 Qtotal = Csystem × ΔV = 3.81pF × 6.6V = 25.2pC
 
