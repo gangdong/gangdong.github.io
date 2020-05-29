@@ -19,7 +19,7 @@ Besides, I had met
 ```android
 "I/hwservicemanager: getTransport: Cannot find entry" 
 ```
-when running application. That's because the application used HIDL interface which should register at the vintf/manifest.xml but hasn't done. This feature is introduced at Android Q. Obviously, the solution is registering all of the HIDL interfaces that will be used at manifest.xml.
+when running application. That's because the application used HIDL interface which should register at the vintf/manifest.xml but hasn't done. This feature is introduced at Android O. Obviously, the solution is registering all of the HIDL interfaces that will be used at manifest.xml.
 
 Another issue is 
 ```android

@@ -47,12 +47,13 @@ next open the
 [fingerprintd.cpp]({{site.baseurl}}/assets/docs/fingerprintd.cpp)<br>
 android path: root/system/core/fingerprintd/fingerprintd.cpp<br>
 The task of the main() function is very simple, just create a FingerprintDaemonProxy object and add it into the service queue. 
-```c++
+```cpp
 #include "FingerprintDaemonProxy.h"
 
 int main() {
     ALOGI("Starting " LOG_TAG);
-    android::sp<android::IServiceManager> serviceManager = android::defaultServiceManager();
+    android::sp<android::IServiceManager> serviceManager 
+    = android::defaultServiceManager();
     android::sp<android::FingerprintDaemonProxy> proxy =
             android::FingerprintDaemonProxy::getInstance();
     android::status_t ret = serviceManager->addService(
@@ -98,16 +99,19 @@ class FingerprintDaemonProxy : public BnFingerprintDaemon {
 
         // These reflect binder methods.
         virtual void init(const sp<IFingerprintDaemonCallback>& callback);
-        virtual int32_t enroll(const uint8_t* token, ssize_t tokenLength, int32_t groupId, int32_t timeout);
+        virtual int32_t enroll(const uint8_t* token, ssize_t 
+        tokenLength, int32_t groupId, int32_t timeout);
         virtual uint64_t preEnroll();
         virtual int32_t postEnroll();
         virtual int32_t stopEnrollment();
-        virtual int32_t authenticate(uint64_t sessionId, uint32_t groupId);
+        virtual int32_t authenticate(uint64_t sessionId, uint32_t 
+        groupId);
         virtual int32_t stopAuthentication();
         virtual int32_t remove(int32_t fingerId, int32_t groupId);
         virtual int32_t enumerate();
         virtual uint64_t getAuthenticatorId();
-        virtual int32_t setActiveGroup(int32_t groupId, const uint8_t* path, ssize_t pathLen);
+        virtual int32_t setActiveGroup(int32_t groupId, 
+        const uint8_t* path, ssize_t pathLen);
         virtual int64_t openHal();
         virtual int32_t closeHal();
 
@@ -115,7 +119,8 @@ class FingerprintDaemonProxy : public BnFingerprintDaemon {
         FingerprintDaemonProxy();
         virtual ~FingerprintDaemonProxy();
         void binderDied(const wp<IBinder>& who);
-        void notifyKeystore(const uint8_t *auth_token, const size_t auth_token_length);
+        void notifyKeystore(const uint8_t *auth_token, const size_t
+        auth_token_length);
         static void hal_notify_callback(const fingerprint_msg_t *msg);
 
         static FingerprintDaemonProxy* sInstance;
@@ -152,7 +157,8 @@ android path: root/frameworks/base/services/core/java/com/android/server/fingerp
 FingerprintService is a subclass of SystemService class and implements the IHwbinder interface.
 
 ```java
-public class FingerprintService extends SystemService implements IHwBinder.DeathRecipient {
+public class FingerprintService extends SystemService implements
+IHwBinder.DeathRecipient {
 
     public synchronized IBiometricsFingerprint getFingerprintDaemon() {
         if (mDaemon == null) {

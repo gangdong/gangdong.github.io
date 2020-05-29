@@ -9,9 +9,12 @@ categories: Java
 
 以下的介绍转载自[百度百科](https://baike.baidu.com/item/JDOM/2229885?fr=aladdin), JDOM工具包的[下载地址](http://www.jdom.org/downloads/index.html)
 ```
-JDOM是一个开源项目，它基于树型结构，利用纯JAVA的技术对XML文档实现解析、生成、序列化以及多种操作。
-JDOM 直接为JAVA编程服务。它利用更为强有力的JAVA语言的诸多特性（方法重载、集合概念以及映射），把SAX和DOM的功能有效地结合起来。
-Jdom是用Java语言读、写、操作XML的新API函数。Jason Hunter 和 Brett McLaughlin公开发布了它的1.0版本。在直觉、简单和高效的前提下，这些API函数被最大限度的优化。
+JDOM是一个开源项目，它基于树型结构，利用纯JAVA的技术对XML文档实现解析、生成、序列化以及多种
+操作。
+JDOM 直接为JAVA编程服务。它利用更为强有力的JAVA语言的诸多特性（方法重载、集合概念以及映射），
+把SAX和DOM的功能有效地结合起来。
+Jdom是用Java语言读、写、操作XML的新API函数。Jason Hunter 和 Brett McLaughlin
+公开发布了它的1.0版本。在直觉、简单和高效的前提下，这些API函数被最大限度的优化。
 ```
 XML 类型文档是一个树状结构，因此在创建或者访问是要首先定位到根节点。然后依照分支去搜寻要定位的节点。<br>
 
@@ -95,6 +98,7 @@ public class ServiceXml implements ServiceXmlInterface {
 
                         Element ruleChk = rootElement.getChild("check-warning");
                         String chkWarningInfo = ruleChk.getAttributeValue("value");
+                          
                         ConstantFactory.globalConfStore.setExeWarningChk(chkWarningInfo);
 
                         Element formatElement = rootElement.getChild("format");

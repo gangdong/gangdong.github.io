@@ -27,52 +27,49 @@ import jxl.write.WritableWorkbook;
 打开读取Excel表格的方法。<br>
 
 ```java
-                  try{
+try{
 
-                    //声明一个workbook的对象，workbook代表选取Excel文件的工作薄
-                    Workbook book = Workbook.getWorkbook(fileChooser.getSelectedFile());
-                    //Sheet对象表示当前工作中的一页，getSheet 参数代表页码的索引
-                    Sheet sheet = book.getSheet(0);
-                    //Cell 对象代表一个单元格。getCell 参数为该单元格的行和列索引
-                    Cell cell = sheet.getCell(0, 1);
-                    //分别读取单元格（0，1）（1，1）（2，1）的内容
-                    String strIndex = cell.getContents();
-                    cell = sheet.getCell(1, 1);
-                    String strTime = cell.getContents();
-                    cell = sheet.getCell(2, 1);
-                    String strRefSpeed = cell.getContents();
+  //声明一个workbook的对象，workbook代表选取Excel文件的工作薄
+  Workbook book = Workbook.getWorkbook(fileChooser.getSelectedFile());
+  //Sheet对象表示当前工作中的一页，getSheet 参数代表页码的索引
+  Sheet sheet = book.getSheet(0);
+  //Cell 对象代表一个单元格。getCell 参数为该单元格的行和列索引
+  Cell cell = sheet.getCell(0, 1);
+  //分别读取单元格（0，1）（1，1）（2，1）的内容
+  String strIndex = cell.getContents();
+  cell = sheet.getCell(1, 1);
+  String strTime = cell.getContents();
+  cell = sheet.getCell(2, 1);
+  String strRefSpeed = cell.getContents();
 
-                    ...
-                    }
-                  catch(Exception e){
-                    e.printStackTrace();
-                  }
+  ...
+}
+catch(Exception e){
+  e.printStackTrace();
+}
 ```
 创建一个Excel workbook的方法。<br>
 ```java
-              try {
-                    // 建立文件
-                    WritableWorkbook book = Workbook.createWorkbook(file);
-                    WritableSheet sheet = book.createSheet("第一页", 0);
+try {
+  // 建立文件
+  WritableWorkbook book = Workbook.createWorkbook(file);
+  WritableSheet sheet = book.createSheet("第一页", 0);
 
-                    Date currentTime = new Date();
-                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    String dateString = formatter.format(currentTime);
-                    Label date = new Label(0, 0, "数据保存时间：" + dateString);
-                    ...
-                    try{
-
-                        sheet.addCell(date);
-                        book.write();
-                        book.close();
-                    }
-                    catch(jxl.write.WriteException e){
-    
-                    }
-                   }
-                   catch(IOException e){
-
-                   }
+  Date currentTime = new Date();
+  SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+  String dateString = formatter.format(currentTime);
+  Label date = new Label(0, 0, "数据保存时间：" + dateString);
+  ...
+  try{
+    sheet.addCell(date);
+    book.write();
+    book.close();
+    }
+    catch(jxl.write.WriteException e){
+    }
+  }
+  catch(IOException e){
+  }
 ```
 具体的使用案例可以参考我的Github下的项目。 
 [Github project](https://github.com/gangdong/BLDC)

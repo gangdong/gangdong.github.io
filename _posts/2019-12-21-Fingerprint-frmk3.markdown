@@ -171,7 +171,7 @@ These two functions are realized at <br>
 android path: root/hardware/libhardware/hardware.c<br> 
 From the file, we can find the module search path is as below.
 **hardware.c**
-```
+```c
 /** Base path of the hal modules */
 #if defined(__LP64__)
 #define HAL_LIBRARY_PATH1 "/system/lib64/hw"
@@ -346,7 +346,7 @@ hw_get_module() will call the hw_get_module_by_class() function. Firstly, it wil
 
 Let's turn back to the FingerprintDaemonProxy::openHal() to see how it call the hw_get_module() function.
 **FingerprintDaemonProxy.cpp**
-```c++
+```cpp
 int64_t FingerprintDaemonProxy::openHal() {
     ALOG(LOG_VERBOSE, LOG_TAG, "nativeOpenHal()\n");
     int err;
@@ -388,7 +388,8 @@ int64_t FingerprintDaemonProxy::openHal() {
 
     // Sanity check - remove
     if (mDevice->notify != hal_notify_callback) {
-        ALOGE("NOTIFY not set properly: %p != %p", mDevice->notify, hal_notify_callback);
+        ALOGE("NOTIFY not set properly: %p != %p", mDevice->notify, 
+        hal_notify_callback);
     }
 
     ALOG(LOG_VERBOSE, LOG_TAG, "fingerprint HAL successfully initialized");

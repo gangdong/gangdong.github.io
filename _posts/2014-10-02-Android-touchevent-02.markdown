@@ -68,7 +68,6 @@ Let's see what the result is when the button is clicked.
 _onTouch()_down_count:1
 _onTouch()_down_onTouch()_up_count:2
 _onTouch()_down_onTouch()_up_onClick()_count:3
-
 ```
 We can see when the button is clicked, the OnTouchListener() is triggered twice (for dwon and up) firstly and then the onClickListener() is called. <br>
 If we change the return value to "true" and re-run this pieces of code. 
@@ -105,7 +104,7 @@ Above code proves that the OnTouchListener() has high priority than onClickListe
 
 Next let track into the Android source code to find the root cause. 
 
-![framework]({{site.baseurl}}/assets/image/android-touchevent-despatch01.PNG)
+![framework]({{site.baseurl}}/assets/image/android-touchevent-despatch01.PNG){: .center-image }
 
 As above pictures shows, in android internal, there are two routes
 + one is from outside to inside, that is from activity - > ViewGroup - > view, call the dispatchTouchEvent() method from the outside to the inside, and Android will pass the motionevent parameter to the method in turn. The function of dispatchTouchEvent() is to deliver touch events. The dispatchTouchEvent() is the entrance to deliver touch events every time.
@@ -203,13 +202,15 @@ public boolean dispatchTouchEvent()(MotionEvent event) {
         if (li != null && li.monTouchListener != null
                 && (mViewFlags & ENABLED_MASK) == ENABLED
                 && li.monTouchListener.onTouch(this, event)) {
-            //如果onTouchListener的onTouch方法返回true，就表示触摸事件被处理了，result就会设置为true
+            //如果onTouchListener的onTouch方法返回true，
+            //就表示触摸事件被处理了，result就会设置为true
             result = true;
         }
 
         //如果触摸事件没有被onTouchListener处理，那么就会执行View的onTouchEvent()方法
         if (!result && onTouchEvent()(event)) {
-            //如果onTouchEvent()返回了true，就表示触摸事件被View处理了，result就被设置为了true
+            //如果onTouchEvent()返回了true，
+            //就表示触摸事件被View处理了，result就被设置为了true
             result = true;
         }
     }

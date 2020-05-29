@@ -13,10 +13,14 @@ categories: Java
 以下是Jacob的介绍，来源于官方文档。
 
 ```
-JACOB is a JAVA-COM Bridge that allows you to call COM Automation components from Java. 
+JACOB is a JAVA-COM Bridge that allows you to call COM Automation components from 
+Java. 
 It uses JNI to make native calls into the COM and Win32 libraries. 
-The JACOB project started in 1999 and is being actively used by thousands of developers worldwide.
-As an open-source project, it has benefitted from the combined experience of these users, many of whom have made modifications to the code and submitted them back for inclsion in the project.
+The JACOB project started in 1999 and is being actively used by thousands of 
+developers worldwide.
+As an open-source project, it has benefitted from the combined experience of these 
+users, many of whom have made modifications to the code and submitted them back for 
+inclsion in the project.
 ```
 Jacob通过Jni来实现对COM组件和WIN32库的调用。Jacob提供了一系列的编程接口，编程者编程时只需要面对Jacob的接口来编程即可，无需关注底层的实现细节。Jacob的下载地址 [官方下载](https://sourceforge.net/projects/jacob-project/files/latest/download)<br>
 
@@ -124,7 +128,8 @@ public class ServiceCom implements ServiceComInterface {
         try {
             axc = new ActiveXComponent(dllname);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "load com error!", "Error!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "load com error!",
+            "Error!", JOptionPane.ERROR_MESSAGE);
             ComThread.Release();
         } finally {
         }
@@ -157,7 +162,8 @@ public class ServiceCom implements ServiceComInterface {
             // ComThread.Release();
             return msg;
         } catch (ComException e) {
-            JOptionPane.showMessageDialog(null, "com execute error!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "com execute error!",
+            "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
         return null;

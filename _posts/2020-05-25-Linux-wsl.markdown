@@ -5,7 +5,7 @@ date:   2020-05-25 22:53:27 +0800
 categories: Linux
 Published: true
 ---
-I recently used WSL(Window Subsystem for Linux) for development. This article makes some notes for the WSL installation and usage. 
+I recently used WSL(Window Subsystem for Linux) for development. This article makes some short notes for the WSL installation and usage. 
 
 Below is the official introduction of WSL, I copied it here as a startup.
 

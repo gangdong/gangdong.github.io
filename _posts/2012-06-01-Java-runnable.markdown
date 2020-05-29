@@ -24,7 +24,8 @@ public class MyThreadClass extends Thread {
     public void run() {
         // TODO Auto-generated method stub
         cnt++;
-        System.out.println("线程" + Thread.currentThread().getName() + " 被调用 " + cnt + "次");
+        System.out.println("线程" + Thread.currentThread().getName() + 
+        " 被调用 " + cnt + "次");
     }
 }
 ```
@@ -79,7 +80,8 @@ public class MyRunnable implements Runnable{
     public void run() {
         // TODO Auto-generated method stub
         cnt++;
-        System.out.println("线程" + Thread.currentThread().getName() + " 被调用 " + cnt + "次");
+        System.out.println("线程" + Thread.currentThread().getName() + 
+        " 被调用 " + cnt + "次");
     }
 }
 ```
@@ -137,7 +139,8 @@ public class MyRunnable implements Runnable{
     public synchronized void run() {
         // TODO Auto-generated method stub
         cnt++;
-        System.out.println("线程" + Thread.currentThread().getName() + " 被调用 " + cnt + "次");
+        System.out.println("线程" + Thread.currentThread().getName() + 
+        " 被调用 " + cnt + "次");
     }
 }
 ```

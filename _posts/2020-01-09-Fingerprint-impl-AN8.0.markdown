@@ -19,7 +19,7 @@ we have had a knowledge of the fingerprint framework on the android, here give a
 ### fingerprint framework in Android 7.0
 This diagram is the fingerprint framework on the android platform, I have presented in other article and copied here.
 
-![framework]({{site.baseurl}}/assets/image/android-fingerprint-framework-framework.png)
+![framework]({{site.baseurl}}/assets/image/android-fingerprint-framework-framework.png){: .center-image }
 
 From the top layer, the fingerprint application will start the work flow and this is the fingerprint management entry defined by Android system layer.
 In the framework internal, some tasks will be done to handle the request from application.
@@ -34,10 +34,11 @@ mSystemServiceManager.startService(FingerprintService.class);
 
 3. Fingerprint Service calls the interface of Fingerprintd to communicate with Fingerprint HAL layer.<br>
 **FingerprintService.java**
-```c++
+```cpp
 public IFingerprintDaemon getFingerprintDaemon() {
         if (mDaemon == null) {
-            mDaemon = IFingerprintDaemon.Stub.asInterface(ServiceManager.getService(FINGERPRINTD));
+            mDaemon = IFingerprintDaemon.Stub.
+            asInterface(ServiceManager.getService(FINGERPRINTD));
             if (mDaemon != null) {
                 try {
                     mDaemon.asBinder().linkToDeath(this, 0);
@@ -47,7 +48,8 @@ public IFingerprintDaemon getFingerprintDaemon() {
                         updateActiveGroup(ActivityManager.getCurrentUser(), null);
                     } else {
                         Slog.w(TAG, "Failed to open Fingerprint HAL!");
-                        MetricsLogger.count(mContext, "fingerprintd_openhal_error", 1);
+                        MetricsLogger.count(mContext,
+                        "fingerprintd_openhal_error", 1);
                         mDaemon = null;
                     }
                 } catch (RemoteException e) {
@@ -63,7 +65,7 @@ public IFingerprintDaemon getFingerprintDaemon() {
 ```
 4. Fingerprintd calls FingerprintDaemonProxy function to open HAL.<br>
 **FingerprintDaemonProxy.cpp**
-```c++
+```cpp
 int64_t FingerprintDaemonProxy::openHal() {
     ALOG(LOG_VERBOSE, LOG_TAG, "nativeOpenHal()\n");
     int err;
@@ -105,7 +107,8 @@ int64_t FingerprintDaemonProxy::openHal() {
 
     // Sanity check - remove
     if (mDevice->notify != hal_notify_callback) {
-        ALOGE("NOTIFY not set properly: %p != %p", mDevice->notify, hal_notify_callback);
+        ALOGE("NOTIFY not set properly: %p != %p", mDevice->notify, 
+        hal_notify_callback);
     }
 
     ALOG(LOG_VERBOSE, LOG_TAG, "fingerprint HAL successfully initialized");
@@ -127,10 +130,10 @@ The related source code and android path can be found at below table. Android 7.
 :--|:--|
 [init.rc]({{site.baseurl}}/assets/docs/init.rc)|root/system/core/rootdir/init.rc|
 [fingerprintd.cpp]({{site.baseurl}}/assets/docs/fingerprintd.cpp)|root/system/core/fingerprintd/fingerprintd.cpp|
-[FingerprintDaemonProxy.h]({{site.baseurl}}/assets/docs/FingerprintDaemonProxy.h)|root/system/core/fingerprintd/|fingerprintdaemonproxy.h
+[FingerprintDaemonProxy.h]({{site.baseurl}}/assets/docs/FingerprintDaemonProxy.h)|root/system/core/fingerprintd/
 [fingerprintdaemonproxy.cpp]({{site.baseurl}}/assets/docs/fingerprintdaemonproxy.cpp)|root/system/core/fingerprintd/fingerprintdaemonproxy.cpp
 [SystemServer.java]({{site.baseurl}}/assets/docs/SystemServer.java)|root/frameworks/base/services/java/com/android/server/SystemServer.java
-[FingerprintService.java]({{site.baseurl}}/assets/docs/FingerprintService.java)|root/frameworks/base/services/core/java/com/android/server/fingerprint/FingerprintService.java
+[FingerprintService.java]({{site.baseurl}}/assets/docs/FingerprintService.java)|root/frameworks/base/services/core/<BR>java/com/android/server/fingerprint/FingerprintService.java
 [hardware.h]({{site.baseurl}}/assets/docs/hardware.h})|root/hardware/libhardware/include/hardware/hardware.h
 [hardware.c]({{site.baseurl}}/assets/docs/hardware.c)|root/hardware/libhardware/hardware.c
 
@@ -139,7 +142,7 @@ Above is the fingerprint framework of Android 7.0, however in Android 8.0 and la
 
 Let's see the difference.
 
-![hidl]({{site.baseurl}}/assets/image/android-fingerprint-framework-android8-diff.png)
+![hidl]({{site.baseurl}}/assets/image/android-fingerprint-framework-android8-diff.png){: .center-image }
 
 Android 8.0 add a sub-directory /interface in the /hardware directory, which includes all HIDL files for hardware module. 
 
@@ -150,7 +153,8 @@ We can find the change in getFingerprintDaemon() method.
 In Android 7.0<br>
 **FingerprintService.java**
 ```java
-mDaemon = IFingerprintDaemon.Stub.asInterface(ServiceManager.getService(FINGERPRINTD));
+mDaemon = IFingerprintDaemon.Stub.asInterface(ServiceManager.
+getService(FINGERPRINTD));
 ```
 While in Android 8.0, mDaemon is achieved from the service of IBiometricsFingerprint.<br>
 **FingerprintService.java**
@@ -178,7 +182,7 @@ The files of the fingerprint HIDL related.
 ![hidl file]({{site.baseurl}}/assets/image/android-fingerprint-android8-hidl.png)
 
 If we look at the **Service.cpp**, we will find the service actually will create a BiometricsFingerprint instance and register as service.
-```c++
+```cpp
 int main() {
     android::sp<IBiometricsFingerprint> bio = BiometricsFingerprint::getInstance();
 
@@ -198,7 +202,8 @@ int main() {
 In the constructor of BiometricsFingerprint class, it calls openHal() to open HAL module. <br>
 **BiometricsFingerprint.cpp**
 ```c++
-BiometricsFingerprint::BiometricsFingerprint() : mClientCallback(nullptr), mDevice(nullptr) {
+BiometricsFingerprint::BiometricsFingerprint() : mClientCallback(nullptr), 
+mDevice(nullptr) {
     sInstance = this; // keep track of the most recent instance
     mDevice = openHal();
     if (!mDevice) {
@@ -261,7 +266,7 @@ Have you found that the function realization is similiar to the FingerprintDaemo
 
 So far, we can change the fingerprint framework of Android 8.0 as below.
 
-![fingerprint framework android8.0]({{site.baseurl}}/assets/image/android-fingerprint-android8-workflow2.png) 
+![fingerprint framework android8.0]({{site.baseurl}}/assets/image/android-fingerprint-android8-workflow2.png){: .center-image }
 
 Compare this flowchart carefully with last flowchart above, we can find the difference clearly.
 

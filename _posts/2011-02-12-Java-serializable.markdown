@@ -33,9 +33,9 @@ package Serializable;
 import java.io.Serializable;
 public class DemoInstance implements Serializable{
 
-    /**
-     * 定义一个明确的 serialVersionUID 而不是由系统自动产生, 声明为 static final long 类型 
-     */
+   /**
+    * 定义一个明确的 serialVersionUID 而不是由系统自动产生, 声明为 static final long 类型 
+   */
     private static final long serialVersionUID = 1L;
 
     private String a;
@@ -116,7 +116,8 @@ public class App {
             demoReadObj = (DemoInstance) ois.readObject();
             ois.close();    
 
-            System.out.println("A:"+demoReadObj.getA()+"\nB:"+demoReadObj.getB()+"\nC:"+demoReadObj.getC());
+            System.out.println("A:"+demoReadObj.getA()
+            +"\nB:"+demoReadObj.getB()+"\nC:"+demoReadObj.getC());
 
 
         } catch (IOException e) {
@@ -136,7 +137,9 @@ public class App {
 这是因为序列化和反序列化都是基于二进制流的，将对象保存的信息转化为二进制存储在了文件中，那么用文本编辑器打开查看的话当然是会出现乱码的。只有通过反序列化才能将存储的二进制读取出来。<br>
 
 ```java
- sr Serializable.DemoInstance        L at Ljava/lang/String;L bq ~ L cq ~ xpt I am private member.t I am protected member.t I am public member.
+ sr Serializable.DemoInstance        L at Ljava/
+lang/String;L bq ~ L cq ~ xpt I am private member.t 
+I am protected member.t I am public member.
 
 ```
 反序列化读取的代码如下。<br>
@@ -257,7 +260,10 @@ public class ClassWithoutSerial {
             readSubDemo = (SubDemoInstance) oisi.readObject();
             oisi.close();
 
-            System.out.println("A:" + readSubDemo.getA() + "\nB:" + readSubDemo.getB() + "\nC:" + readSubDemo.getC()+"\nSubClass:"+readSubDemo.getDeclare()+"others:"+readSubDemo.getObj().getState());
+            System.out.println("A:" + readSubDemo.getA() + "\nB:" + 
+            readSubDemo.getB() + "\nC:" + readSubDemo.getC()
+            +"\nSubClass:"+readSubDemo.getDeclare()
+            +"others:"+readSubDemo.getObj().getState());
 
 ```
 执行后会出现如下错误。<br>
@@ -267,13 +273,13 @@ A:I am private member.
 B:I am protected member.
 C:I am public member.
 java.io.NotSerializableException: Serializable.ClassWithoutSerial
-        at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-        at java.io.ObjectOutputStream.defaultWriteFields(ObjectOutputStream.java:1548)
-        at java.io.ObjectOutputStream.writeSerialData(ObjectOutputStream.java:1509)
-        at java.io.ObjectOutputStream.writeOrdinaryObject(ObjectOutputStream.java:1432)
-        at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1178)
-        at java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:348)
-        at Serializable.App.main(App.java:61)
+    at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+    at java.io.ObjectOutputStream.defaultWriteFields(ObjectOutputStream.java:1548)
+    at java.io.ObjectOutputStream.writeSerialData(ObjectOutputStream.java:1509)
+    at java.io.ObjectOutputStream.writeOrdinaryObject(ObjectOutputStream.java:1432)
+    at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1178)
+    at java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:348)
+    at Serializable.App.main(App.java:61)
 
 ```
 可以看到错误为ClassWithoutSerial没有序列化却没执行了序列化的操作。稍作修改使得类ClassWithoutSerial实现Serializable接口，结果如下。<br>

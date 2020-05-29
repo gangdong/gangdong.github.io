@@ -25,5 +25,4 @@ long|Long|
 short|Short|
 boolean|Boolean|
 
-
 这些基本类型的封装类提供了一些方法，例如toString(),和包括与其他类型之间的相互转换等。<br>
