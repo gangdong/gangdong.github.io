@@ -366,7 +366,28 @@ a {
     }
   }
 }
+.menu_tag_a{
 
+	margin-right: 15px;
+	
+	@media screen and (max-width: $smallMobileW) {
+		margin-right: 8px;
+  }
+  @media screen and (max-width: $mobileW) {
+		margin-right: 8px;
+  }
+}
+.menu_tag_b{
+
+	margin-right: 15px;
+	
+	@media screen and (max-width: $smallMobileW) {
+		margin-right: 0px;
+  }
+  @media screen and (max-width: $mobileW) {
+		margin-right: 0px;
+  }
+}
 .pagination{
     font-family: "Verdana", 'Arial', 'Microsoft Yahei', '微软雅黑', sans-serif;
 	font-weight: 300;
