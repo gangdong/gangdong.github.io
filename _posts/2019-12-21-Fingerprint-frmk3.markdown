@@ -18,11 +18,12 @@ FingerprintDaemoProxy::openHal() will open the native library xx.so to access ha
 ### About HAL
 The hardware abstract layer (HAL) of Android system runs in user space. It shields the implementation details of hardware driver module downward and provides hardware access service (JNI or binder) upward. Through the hardware abstraction layer, Android system is divided into two layers to support hardware devices, one layer is implemented in user space, the other is implemented in kernel space. In traditional Linux system, the support for hardware is completely implemented in kernel space, that is, the support for hardware is completely implemented in hardware driver module.
 
-The hardware abstraction layer of Android system manages various hardware access interfaces in the form of modules. Each hardware module has a dynamic link library .So file. The compilation of these dynamic link libraries needs to conform to certain specifications. In Android system, each hardware abstraction layer module is described by HW]hw_module_t, and the hardware device is described by hw_device_t.
+The hardware abstraction layer of Android system manages various hardware access interfaces in the form of modules. Each hardware module has a dynamic link library xx.So file. The compilation of these dynamic link libraries needs to conform to certain specifications. In Android system, each hardware abstraction layer module is described by hw_module_t, and the hardware device is described by hw_device_t.
 
 These definition of these two struct is defined at <br>
-[hardware.h]({{site.baseurl}}/assets/docs/hardware.h})<br>
+[hardware.h](https://www.androidos.net.cn/android/7.0.0_r31/xref/hardware/libhardware/include/hardware/hardware.h)<br>
 android path: root/hardware/libhardware/include/hardware/hardware.h
+
 **hardware.h**
 ```c
 typedef struct hw_module_t {
@@ -167,7 +168,7 @@ int hw_get_module_by_class(const char *class_id, const char *inst,
                            const struct hw_module_t **module);
 ```
 These two functions are realized at <br>
-[hardware.c]({{site.baseurl}}/assets/docs/hardware.c)<br>
+[hardware.c](https://www.androidos.net.cn/android/7.0.0_r31/xref/hardware/libhardware/hardware.c)<br>
 android path: root/hardware/libhardware/hardware.c<br> 
 From the file, we can find the module search path is as below.
 **hardware.c**
@@ -399,7 +400,7 @@ int64_t FingerprintDaemonProxy::openHal() {
 openHal() will call the hw_get_module() to get the pointer to hw_module_t module, after then it will call the open() function. Once the HAL module is opened, the Fingerprintd is able to operate fingerprint device through the hw_device_t.
 
 The funciton of the fingerprint module can be found at 
-[fingerprint.h]({{site.baseurl}}/assets/docs/fingerprint.h) and [fingerprint.c]({{site.baseurl}}/assets/docs/fingerprint.c).
+[fingerprint.h](https://www.androidos.net.cn/android/7.1.1_r28/xref/hardware/libhardware/include/hardware/fingerprint.h) and [fingerprint.c](https://www.androidos.net.cn/android/7.1.1_r28/xref/hardware/libhardware/modules/fingerprint/fingerprint.c).
 
 For now, we have gone over the whole process of the fingerprint working. we can give the summary here.
 

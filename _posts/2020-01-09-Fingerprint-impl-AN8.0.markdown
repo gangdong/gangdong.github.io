@@ -128,14 +128,14 @@ The related source code and android path can be found at below table. Android 7.
 
 **File**|**Android Path**|
 :--|:--|
-[init.rc]({{site.baseurl}}/assets/docs/init.rc)|root/system/core/rootdir/init.rc|
-[fingerprintd.cpp]({{site.baseurl}}/assets/docs/fingerprintd.cpp)|root/system/core/fingerprintd/fingerprintd.cpp|
-[FingerprintDaemonProxy.h]({{site.baseurl}}/assets/docs/FingerprintDaemonProxy.h)|root/system/core/fingerprintd/
-[fingerprintdaemonproxy.cpp]({{site.baseurl}}/assets/docs/fingerprintdaemonproxy.cpp)|root/system/core/fingerprintd/fingerprintdaemonproxy.cpp
-[SystemServer.java]({{site.baseurl}}/assets/docs/SystemServer.java)|root/frameworks/base/services/java/com/android/server/SystemServer.java
-[FingerprintService.java]({{site.baseurl}}/assets/docs/FingerprintService.java)|root/frameworks/base/services/core/<BR>java/com/android/server/fingerprint/FingerprintService.java
-[hardware.h]({{site.baseurl}}/assets/docs/hardware.h})|root/hardware/libhardware/include/hardware/hardware.h
-[hardware.c]({{site.baseurl}}/assets/docs/hardware.c)|root/hardware/libhardware/hardware.c
+[init.rc](https://www.androidos.net.cn/android/7.0.0_r31/xref/system/core/rootdir/init.rc)|root/system/core/rootdir/init.rc|
+[fingerprintd.cpp](https://www.androidos.net.cn/android/7.0.0_r31/xref/system/core/fingerprintd/fingerprintd.cpp)|root/system/core/fingerprintd/fingerprintd.cpp|
+[FingerprintDaemonProxy.h](https://www.androidos.net.cn/android/7.0.0_r31/xref/system/core/fingerprintd/FingerprintDaemonProxy.h)|root/system/core/fingerprintd/
+[fingerprintdaemonproxy.cpp](https://www.androidos.net.cn/android/7.0.0_r31/xref/system/core/fingerprintd/FingerprintDaemonProxy.cpp)|root/system/core/fingerprintd/fingerprintdaemonproxy.cpp
+[SystemServer.java](https://www.androidos.net.cn/android/7.0.0_r31/xref/frameworks/base/services/java/com/android/server/SystemServer.java)|root/frameworks/base/services/java/com/android/server/SystemServer.java
+[FingerprintService.java](https://www.androidos.net.cn/android/7.0.0_r31/xref/frameworks/base/services/core/java/com/android/server/fingerprint/FingerprintService.java)|root/frameworks/base/services/core/<BR>java/com/android/server/fingerprint/FingerprintService.java
+[hardware.h](https://www.androidos.net.cn/android/7.0.0_r31/xref/hardware/libhardware/include/hardware/hardware.h)|root/hardware/libhardware/include/hardware/hardware.h
+[hardware.c](https://www.androidos.net.cn/android/7.0.0_r31/xref/hardware/libhardware/hardware.c)|root/hardware/libhardware/hardware.c
 
 ### fingerprint framework in Android 8.0
 Above is the fingerprint framework of Android 7.0, however in Android 8.0 and later versions, Android has updated the framework and introduced a set of language called HIDL to define the interface between framework and HAL.
@@ -162,12 +162,12 @@ While in Android 8.0, mDaemon is achieved from the service of IBiometricsFingerp
 mDaemon = IBiometricsFingerprint.getService();
 ```
 IBiometricsFingerprint is a new fingerprint HIDL interface which was introduced at Android 8.0. <br>
-[IBiometricsFingerprint.hal]({{site.baseurl}}/assets/docs/IBiometricsFingerprint.hal)
+[IBiometricsFingerprint.hal](https://www.androidos.net.cn/android/8.0.0_r4/xref/hardware/interfaces/biometrics/fingerprint/2.1/IBiometricsFingerprint.hal)
 use HIDL language format defined a series standard fingerprint operation interfaces. 
-And [biometricsfingerprint.cpp]({{site.baseurl}}/assets/docs/BiometricsFingerprint.cpp) class realized the ibiometricsfingerprint interface.
+And [biometricsfingerprint.cpp](https://www.androidos.net.cn/android/8.0.0_r4/xref/hardware/interfaces/biometrics/fingerprint/2.1/default/BiometricsFingerprint.cpp) class realized the ibiometricsfingerprint interface.
 
 We may notice that the IBiometricsFingerprint returns a service for caller, actually there is a  file in the HIDL sub-directory: <br>
-[android.hardware.biometrics.fingerprint@2.1-service.rc]({{site.baseurl}}/assets/docs/android.hardware.biometrics.fingerprint@2.1-service.rc), which will start fps_hal service.<br>
+[android.hardware.biometrics.fingerprint@2.1-service.rc](https://www.androidos.net.cn/android/8.0.0_r4/xref/hardware/interfaces/biometrics/fingerprint/2.1/default/android.hardware.biometrics.fingerprint@2.1-service.rc), which will start fps_hal service.<br>
 **fingerprint@2.1-service.rc**
 ```shell
  service fps_hal /vendor/bin/hw/android.hardware.biometrics.fingerprint@2.1-service
@@ -274,11 +274,11 @@ The related source code and android path can be found at below table<br>
 
 **File**|**Android Path**|
 :--|:--|
-[fingerprint@2.1-service]({{site.baseurl}}/assets/docs/android.hardware.biometrics.fingerprint@2.1-service.rc)|root/hardware/interfaces/biometrics/fingerprint/2.1/default|
-[service.cpp]({{site.baseurl}}/assets/docs/service.cpp)|root/hardware/interfaces/biometrics/fingerprint/2.1/default|
-[BiometricsFingerprint.h]({{site.baseurl}}/assets/docs/BiometricsFingerprint.h)|root/hardware/interfaces/biometrics/fingerprint/2.1/default|
-[BiometricsFingerprint.cpp]({{site.baseurl}}/assets/docs/BiometricsFingerprint.cpp)|root/hardware/interfaces/biometrics/fingerprint/2.1/default|
-[IBiometricsFingerprint.hal]({{site.baseurl}}/assets/docs/IBiometricsFingerprint.hal)|root/hardware/interfaces/biometrics/fingerprint/2.1|
-[IBiometricsFingerprintClientCallback.hal]({{site.baseurl}}/assets/docs/IBiometricsFingerprintClientCallback.hal)|root/hardware/interfaces/biometrics/fingerprint/2.1|
+[fingerprint@2.1-service](https://www.androidos.net.cn/android/8.0.0_r4/xref/hardware/interfaces/biometrics/fingerprint/2.1/default/android.hardware.biometrics.fingerprint@2.1-service.rc)|root/hardware/interfaces/biometrics/fingerprint/2.1/default|
+[service.cpp](https://www.androidos.net.cn/android/8.0.0_r4/xref/hardware/interfaces/biometrics/fingerprint/2.1/default/service.cpp)|root/hardware/interfaces/biometrics/fingerprint/2.1/default|
+[BiometricsFingerprint.h](https://www.androidos.net.cn/android/8.0.0_r4/xref/hardware/interfaces/biometrics/fingerprint/2.1/default/BiometricsFingerprint.h)|root/hardware/interfaces/biometrics/fingerprint/2.1/default|
+[BiometricsFingerprint.cpp](https://www.androidos.net.cn/android/8.0.0_r4/xref/hardware/interfaces/biometrics/fingerprint/2.1/default/BiometricsFingerprint.cpp)|root/hardware/interfaces/biometrics/fingerprint/2.1/default|
+[IBiometricsFingerprint.hal](https://www.androidos.net.cn/android/8.0.0_r4/xref/hardware/interfaces/biometrics/fingerprint/2.1/IBiometricsFingerprint.hal)|root/hardware/interfaces/biometrics/fingerprint/2.1|
+[IBiometricsFingerprintClientCallback.hal](https://www.androidos.net.cn/android/8.0.0_r4/xref/hardware/interfaces/biometrics/fingerprint/2.1/IBiometricsFingerprintClientCallback.hal)|root/hardware/interfaces/biometrics/fingerprint/2.1|
 
 Now, I think the main difference of the fingerprint framework on Android 8.0 has been introduced and if you have further questions, you can ask at comment box, I will reply to you as soon as I can.  

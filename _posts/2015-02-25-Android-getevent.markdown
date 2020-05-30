@@ -158,3 +158,5 @@ C:\WINDOWS\System32>adb shell getevent -ltr  /dev/input/event2
 [    2311.461360] EV_KEY       BTN_TOUCH            DOWN
 [    2311.461360] EV_SYN       SYN_REPORT           00000000
 ```
+
+The source code is at [getevent.c](https://www.androidos.net.cn/android/9.0.0_r8/xref/system/core/toolbox/getevent.c).
