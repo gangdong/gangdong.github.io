@@ -5,7 +5,7 @@ date:   2019-12-21 22:24:43 +0800
 categories: Android Fingerprint
 Published: true
 ---
-After the last two articles, this article will have a discussion on the remain part of the fingerprint framework on android. This page will get the end of this topic.
+Following the last two articles, this article will have a discussion on the remain part of the fingerprint framework on android. This article will get the end of this topic.
 
 In last article,<br>
 [Android Fingerprint Framework (2)]({{site.baseurl}}/android/fingerprint/2019/12/07/Fingerprint-frmk2.html)<br>

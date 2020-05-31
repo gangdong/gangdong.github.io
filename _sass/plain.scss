@@ -334,7 +334,7 @@ main {
 }
 .menu{
  
-  color:#666;
+  color:#777;
   font-size: 90%;
   font-family: ’Bradley Hand ITC‘， 'Verdana', 'Microsoft Yahei', '微软雅黑', sans-serif;
   min-width: 100px;
@@ -369,7 +369,7 @@ a {
 .menu_tag_a{
 
 	margin-right: 15px;
-	
+	color:#aaa;
 	@media screen and (max-width: $smallMobileW) {
 		margin-right: 8px;
   }
@@ -380,7 +380,7 @@ a {
 .menu_tag_b{
 
 	margin-right: 15px;
-	
+	color:#aaa;
 	@media screen and (max-width: $smallMobileW) {
 		margin-right: 0px;
   }

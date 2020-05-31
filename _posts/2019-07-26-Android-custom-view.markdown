@@ -4,12 +4,12 @@ title:  "Some tips for android development errors"
 date:   2019-07-26 23:45:19 +0800
 categories: Android
 ---
-Today I met one error when trying to customize the android.widget.Button Class. <br>The error information is 
+Today I met a error when I was trying to customize the android.widget.Button Class. <br>The error information is 
 ```android
 "This custom view should extend android.support.v7.widget.AppCompatButton instead."
 ```
 
-The temporary solution is as below.
+The temporary solution that I used is as below.
 
 ```java
 import android.annotation.SuppressLint;

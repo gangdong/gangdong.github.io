@@ -5,7 +5,7 @@ date:   2019-05-11 20:36:23 +0800
 categories: Python
 Published: true
 ---
-re module is a unique string matching module of Python. Many functions provided in this module are implemented based on regular expressions. To use it match string, need to import re module at first.
+re module is a unique string matching module of Python. Many functions provided in this module are implemented based on regular expressions. The module is handy and to use it, need to import re module at first.
 
 **Prototype** 
 ```python

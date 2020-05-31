@@ -5,7 +5,7 @@ date:   2020-05-25 22:53:27 +0800
 categories: Linux
 Published: true
 ---
-I recently used WSL(Window Subsystem for Linux) for development. This article makes some short notes for the WSL installation and usage. 
+I recently used WSL(Window Subsystem for Linux) for program development. This article gives some short notes for the WSL installation and usage. 
 
 Below is the official introduction of WSL, I copied it here as a startup.
 
@@ -25,7 +25,7 @@ Tools: vim, emacs, tmux *Languages: NodeJS, Javascript, Python, Ruby, C/C++, C# 
 ### How to install WSL?
 You can refer to [installation guidance](https://docs.microsoft.com/en-us/windows/wsl/install-win10), the introduction is detailed. You can complete the installation of WSL1 and WSL2 if you need easily just by following the guidance step by step. 
 
-### About usage
+### How to use?
 On above procedure, you will be requested to choose one Linux OS to install, the choice has 
 + Ubuntu 16.04 LTS
 + Ubuntu 18.04 LTS

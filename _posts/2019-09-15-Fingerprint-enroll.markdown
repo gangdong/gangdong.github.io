@@ -5,7 +5,7 @@ date:   2019-09-15 22:14:47 +0800
 categories: Android Fingerprint
 Published: true
 ---
-When we do fingerprint enrollment in android device, it will generate a fingerprint template finally contains the user's fingerprint information in a specified directory (for example, /data/vendor_de/0/fpdata/user.db), which depends on the system configuration.
+When we do fingerprint enrollment in android device, it will generate a fingerprint template that contains the user's fingerprint information in a specified directory (for example, /data/vendor_de/0/fpdata/user.db), which depends on the system configuration.
 
 During the template is being generated, there is a series of APIs calling in android system internally. Let's have a look about this process. 
 

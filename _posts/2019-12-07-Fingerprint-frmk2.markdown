@@ -5,7 +5,7 @@ date:   2019-12-07 23:52:01 +0800
 categories: Android Fingerprint
 Published: true
 ---
-This page will follow the [last article]({{site.baseurl}}/android/fingerprint/2019/10/03/Fingerprint-frmk1.html) to keep introducing the android fingerprint framework knowledge. The content is focus on android source code inspecting and analysis.
+This page will follow the [last article]({{site.baseurl}}/android/fingerprint/2019/10/03/Fingerprint-frmk1.html) to continue introducing the android fingerprint framework knowledge. The content is focus on android source code inspecting and analysis.
 
 ### Step one - startup fingerprintd service
 Looking at the init.rc file, a task is assigned at init.rc when the android system boots up - start the fingerprint daemon service.
