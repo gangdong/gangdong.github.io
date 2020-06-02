@@ -391,11 +391,15 @@ a {
 .icon_font {
 }
 .pagination{
+	margin-top: 50px;
+	padding: 10px 0px;
+	width:100%;
+	text-align:center;
+	border-top: 1px solid #eee;
     font-family: "Verdana", 'Arial', 'Microsoft Yahei', '微软雅黑', sans-serif;
 	font-weight: 300;
 	font-size: 14px;
     color: #888;
-	align: "center";
 	align-items: center;
 
 }
@@ -420,7 +424,6 @@ a {
 }
 .archive-link {
   margin-left: 5px;
- 
   font-size:16px;
   font-weight: 40;
   color: #222;
@@ -432,10 +435,9 @@ a {
 }
 .footer {
 
-	margin: 0px 30px;
-	padding-left: 30px;
 	margin-bottom: 30px;
-	font-family: "Verdana", 'Arial', 'Microsoft Yahei', '微软雅黑', sans-serif;
+	text-align:center;
+	font-family: "Verdana", 'Arial', sans-serif;
 	font-weight: 300;
 	font-size: 12px;
     color: #888;
@@ -461,11 +463,6 @@ a {
 	&:hover {
      color:$linkColor;
     }
-}
-.post-footer{
-    font-size: 12px;
-    color: #888;
-	white-space: pre-wrap;
 }
 table {
   th, td {
