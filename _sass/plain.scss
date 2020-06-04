@@ -284,7 +284,7 @@ main {
   padding-left: 30px;
 }
 .post {
-  font-family: "Merriweather", 'Verdana', 'Microsoft Yahei', '微软雅黑', sans-serif;
+  font-family: "Merriweather", 'Arial', 'Microsoft Yahei', '微软雅黑', sans-serif;
   font-weight: 300;
   color: #222;
   line-height: 1.9em;
@@ -362,7 +362,7 @@ main {
 a {
     text-decoration: none;
     &:hover {
-      color:$linkColor;
+      color:#436EEE;
     }
   }
 }
