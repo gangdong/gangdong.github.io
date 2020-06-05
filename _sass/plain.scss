@@ -307,7 +307,7 @@ main {
 }
 .about-page{
   margin: 15px 2px;
-  font-family: "Merriweather", 'Verdana', 'Microsoft Yahei', '微软雅黑', sans-serif;
+  font-family: "Merriweather", 'Arial', 'Microsoft Yahei', '微软雅黑', sans-serif;
   font-weight: 300;
   color: #222;
   line-height: 1.9em;
@@ -444,7 +444,7 @@ a {
 	white-space: pre-wrap;
 	
 	a {
-	    color: $linkColor;
+	    color: #436EEE;
 		text-decoration: none;
 		transition: border-bottom 0.4s;
 		&:hover {
