@@ -15,7 +15,7 @@ Java 语言的安全性高 一方面是所有的引用都是对象引用,没有�
 Java的基本数据类型及其封装类如下。
 
 数据类型|封装类|
----|:---|
+---|---|
 byte|Byte|
 char|Character|
 double|Double|

@@ -6,10 +6,10 @@ categories: Others
 Published: true
 ---
 ### What is TraceView?
-For the windows driver development as what I was doing these days, Microsoft provides a log printing and log viewing mechanism, which can view the logs of specified driver files, filter the logs according to 'Level' and 'Flag', or save them as files. This mechanism is WPP and ' TraceView.exe'.
+For the windows driver development as what I am doing these days, Microsoft provides a log printing and log viewing mechanism, which can view the logs of specified driver files, filter the logs according to 'Level' and 'Flag', or save them as files. This mechanism is WPP and ' TraceView.exe'.
 
 The usage is simple, WDF framework has built in the function and enclosed the WPP into the 'trace.h'.
-The driver program imports the header file and add 'TraceEvents()' method to the place where needs to print log. Use the 'TraceView.exe' application to capture and view the logs when the driver program running.  
+The driver program imports the header file and add `TraceEvents()` method to the place where needs to print log. Use the 'TraceView.exe' application to capture and view the logs when the driver program running.  
 ```c
 TraceEvents(TRACE_LEVEL_INFORMATION, DBG_INIT, "log_name");
 ```
@@ -33,6 +33,6 @@ Click 'OK' button to complete the configuration.
 ![traceview]({{site.baseurl}}/assets/image/others-traceview-04.PNG){: .center-image }
 
 Recommend some articles for the WPP/TraceView introduction.
-[https://blog.csdn.net/xiangbaohui/article/details/106424665](https://blog.csdn.net/xiangbaohui/article/details/106424665)
-[https://blog.csdn.net/u012308586/article/details/94429941](https://blog.csdn.net/u012308586/article/details/94429941)
+[https://blog.csdn.net/xiangbaohui/article/details/106424665](https://blog.csdn.net/xiangbaohui/article/details/106424665)  
+[https://blog.csdn.net/u012308586/article/details/94429941](https://blog.csdn.net/u012308586/article/details/94429941)  
 [https://docs.microsoft.com/zh-cn/windows-hardware/drivers/devtest/enabling-wpp-tracing-through-windows-event-log](https://docs.microsoft.com/zh-cn/windows-hardware/drivers/devtest/enabling-wpp-tracing-through-windows-event-log)

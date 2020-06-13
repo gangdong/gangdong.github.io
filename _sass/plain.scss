@@ -334,7 +334,6 @@ main {
 }
 .menu{
  
- 
   font-size: 90%;
   font-family: ’Bradley Hand ITC‘， 'Verdana', 'Microsoft Yahei', '微软雅黑', sans-serif;
   min-width: 100px;
@@ -387,8 +386,6 @@ a {
   @media screen and (max-width: $mobileW) {
 		margin-right: 0px;
   }
-}
-.icon_font {
 }
 .pagination{
 	margin-top: 50px;
@@ -465,6 +462,7 @@ a {
     }
 }
 table {
+  margin: auto;
   th, td {
     padding: 8px 13px;
     border: 1px solid #dfe2e5;

@@ -8,14 +8,14 @@ Published: true
 A simple sample code to get start with the SGX application development.
 
 1. New create VC++ "Win32 Console Application".
-![project]({{site.baseurl}}/assets/image/others-sgx-start-01.PNG){: .center-image }<br>
+![project]({{site.baseurl}}/assets/image/others-sgx-start-01.PNG){: .center-image }
 The project name is "HelloWorld".
 2. Create new VC++ "Intel SGX Enclave project".
-![psw]({{site.baseurl}}/assets/image/others-sgx-11.PNG){: .center-image }<br>
-Use default project name "Enclave1".<br>
+![psw]({{site.baseurl}}/assets/image/others-sgx-11.PNG){: .center-image }
+Use default project name "Enclave1".  
 3. Edit "Enclave1.edl" file with below code.
-![project]({{site.baseurl}}/assets/image/others-sgx-start-02.PNG){: .center-image }<br>
-This piece of code declares the foo() method as a trusted method and executes at trusted zone.
+![project]({{site.baseurl}}/assets/image/others-sgx-start-02.PNG){: .center-image }
+This piece of code declares the `foo()` method as a trusted method and executes at trusted zone.  
 ```cpp
 enclave {
     from "sgx_tstdc.edl" import *;
@@ -31,7 +31,7 @@ enclave {
     };
 };
 ```
-Edit "Enclave1.cpp". Realize the foo() method.
+Edit "Enclave1.cpp". Realize the `foo()` method.
 ```cpp
 #include "sgx_trts.h"
 #include "Enclave1_t.h"
@@ -47,11 +47,11 @@ void foo(char *buf, size_t len)
 }
 ```
 4. Set the "Enclave1" project configuration as below.
-![project]({{site.baseurl}}/assets/image/others-sgx-start-03.PNG){: .center-image }<br>
+![project]({{site.baseurl}}/assets/image/others-sgx-start-03.PNG){: .center-image }
 5. Build the "Enclave1" project.
-![project]({{site.baseurl}}/assets/image/others-sgx-start-04.PNG){: .center-image }<br>
-Above result shows the "Enclave1" project has been build successfully. Next I need to add it into the "HelloWorld" project and call the foo() methods.
-6. Edit the main() method of "HelloWorld.cpp" file. 
+![project]({{site.baseurl}}/assets/image/others-sgx-start-04.PNG){: .center-image }
+Above result shows the "Enclave1" project has been build successfully. Next I need to add it into the "HelloWorld" project and call the `foo()` methods.
+6. Edit the `main()` method of "HelloWorld.cpp" file. 
 ```cpp
 #include "stdafx.h"
 #include <stdio.h>
@@ -89,25 +89,26 @@ int main()
 }
 ```
 7. Set the "HelloWorld" project configuration.
-![project]({{site.baseurl}}/assets/image/others-sgx-start-06.PNG){: .center-image }<br>
+![project]({{site.baseurl}}/assets/image/others-sgx-start-06.PNG){: .center-image }
 8. Add "Enclave1" project into the "HelloWorld" project.
 Right click "Solution HelloWorld" -> add -> existing project and select "Enclave1" project. Now there are two projects under the "Solution HelloWorld".
-![project]({{site.baseurl}}/assets/image/others-sgx-start-15.PNG){: .center-image }<br>
+![project]({{site.baseurl}}/assets/image/others-sgx-start-15.PNG){: .center-image }
 right click "HelloWorld" project -> Intel SGX Configuration -> Import Enclave
-![project]({{site.baseurl}}/assets/image/others-sgx-start-07.PNG){: .center-image }<br>
+![project]({{site.baseurl}}/assets/image/others-sgx-start-07.PNG){: .center-image }
 Select "Enclave1.edl".
 ![project]({{site.baseurl}}/assets/image/others-sgx-start-08.PNG){: .center-image }<br>{: .center-image }
 The "Enclave1.edl" file will be envoloved into the source of "HelloWorld" project.
-![project]({{site.baseurl}}/assets/image/others-sgx-start-09.PNG){: .center-image }<br>
+![project]({{site.baseurl}}/assets/image/others-sgx-start-09.PNG){: .center-image }
 9. Since the "HelloWorld" project is the main project, I need to add the dependency of "Enclave1" project.
 Set the main project.
-![project]({{site.baseurl}}/assets/image/others-sgx-start-10.PNG){: .center-image }<br>
+![project]({{site.baseurl}}/assets/image/others-sgx-start-10.PNG){: .center-image }
 Set the dependency.
-![project]({{site.baseurl}}/assets/image/others-sgx-start-11.PNG){: .center-image }<br>
-10. The configuration is done! <br>Build the main project and start to run. 
+![project]({{site.baseurl}}/assets/image/others-sgx-start-11.PNG){: .center-image }
+10. The configuration is done!    
+Build the main project and start to run. 
 11. Unfortunately, the trying is failed with the below error.
-![project]({{site.baseurl}}/assets/image/others-sgx-start-12.PNG){: .center-image }<br>
+![project]({{site.baseurl}}/assets/image/others-sgx-start-12.PNG){: .center-image }
 That is because my CPU cannot support SGX at present. I have to change the running mode to Simulation.
-![project]({{site.baseurl}}/assets/image/others-sgx-start-13.PNG){: .center-image }<br>
+![project]({{site.baseurl}}/assets/image/others-sgx-start-13.PNG){: .center-image }
 I got below result, which means my first app was runing well.
-![project]({{site.baseurl}}/assets/image/others-sgx-start-14.PNG){: .center-image }<br>
+![project]({{site.baseurl}}/assets/image/others-sgx-start-14.PNG){: .center-image }

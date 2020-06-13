@@ -212,15 +212,18 @@ Element rootElement = doc.getRootElement();
 ```java
 List<Element> rootList = rootElement.getChildren();
 ```
-下面对Element对象的一些常用方法作一下简单说明：<br>
-***getChild("childname")*** 返回指定名字的子节点,如果同一级有多个同名子节点，则只返回第一个；如果没有返回null值。<br>
-***getChildren("childname")*** 返回指定名字的子节点List集合。这样你就可以遍历所有的同一级同名子节点。<br>
-***getAttributeValue("name")*** 返回指定属性名字的值。如果没有该属性则返回null,有该属性但是值为空，则返回空字符串。<br>
-***getChildText("childname")*** 返回指定子节点的内容文本值。<br>
-***getText()*** 返回该元素的内容文本值。<br>
-***setText("content")*** 修改该元素的内容文本值。<br>
-***remove(“index”)*** 删除第index+1个子元素<br>
-***removeAll(“Children”)*** 删除Children的子元素<br>
-***removeChildren("childname")*** 删除名字为childname的子元素<br>
-***add("Element")*** 添加Element<br>
-***add("index","Element")*** 添加Element<br>
+
+下面对Element对象的一些常用方法作一下简单说明：<br/>
+  
+|方法|说明|
+|---|---|
+|**getChild**|返回指定名字的子节点,如果同一级有多个同名子节点，则只返回第一个,如果没有返回null值。<br/>|
+|**getChildren**|返回指定名字的子节点List集合。这样你就可以遍历所有的同一级同名子节点。<br/>|
+|**getAttributeValue**|返回指定属性名字的值。如果没有该属性则返回null,有该属性但是值为空，则返回空字符串。<br/>|
+|**getChildText**|返回指定子节点的内容文本值。<br/>|
+|**getText**|返回该元素的内容文本值。<br/>|
+|**setText**|修改该元素的内容文本值。<br/>|
+|**remove**|删除第index+1个子元素<br/>|
+|**removeAll**|删除Children的子元素<br/>|
+|**removeChildren**|删除名字为childname的子元素<br/>|
+|**add**|添加Element<br/>|
