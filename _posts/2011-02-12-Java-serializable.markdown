@@ -133,15 +133,9 @@ public class App {
 
 
 ```
-以上代码实现了对象的序列化，注意此时如果将保存的文件用文本编辑器打开会看到如下乱码。<br>
+以上代码实现了对象的序列化，注意此时如果将保存的文件用文本编辑器打开会看到乱码。<br>
 这是因为序列化和反序列化都是基于二进制流的，将对象保存的信息转化为二进制存储在了文件中，那么用文本编辑器打开查看的话当然是会出现乱码的。只有通过反序列化才能将存储的二进制读取出来。<br>
 
-```java
- sr Serializable.DemoInstance        L at Ljava/
-lang/String;L bq ~ L cq ~ xpt I am private member.t 
-I am protected member.t I am public member.
-
-```
 反序列化读取的代码如下。<br>
 ``` java
 // 首先声明一个FileInputStream的对象，用于操作要写入的文件

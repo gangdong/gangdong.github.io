@@ -26,6 +26,8 @@ minimal:
   #  disqus_shortname: games
   gittalk: true  # set to true to add gittalk 
   show_statistics: true  #set to true to show statistics of site visitors number
+  rss: true  #set to true to add rss 
+  source_code: true  #set to true to add link to source code
   # generate social links in footer
   social_links:
     wechat: 

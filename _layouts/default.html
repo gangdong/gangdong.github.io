@@ -61,6 +61,20 @@
       </div>
       <script type="text/javascript" src="{{site.baseurl}}/assets/js/darkmode.js"></script>
       {%- endif -%}
+	  <div>
+        <ul class="social" style="padding-top: 3vh">
+			{%- if site.minimal.rss -%}
+		   <a style ="margin-right:10px;text-decoration: none;font-family: Raleway, sans-serif;" href="{{site.baseurl}}/rss.xml">
+              <span class="icon-rss-1">rss</span>
+           </a>
+			{%- endif -%}
+			{%- if site.minimal.source_code -%}
+            <a style="text-decoration: none;font-family: Raleway, sans-serif;" href="https://github.com/gangdong/daviddong.github.io">
+              <span class="icon-file-code">code</span>
+            </a>
+			{%- endif -%}
+        </ul>
+      </div>
       </section>
       <section class="content">
         {{ content }}
