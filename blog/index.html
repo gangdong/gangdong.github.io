@@ -32,21 +32,27 @@ title: Home
             {{ post.excerpt }}
           {%- endif -%}
         </div>
-		{% include reading_time.html %}
+		{%- if site.minimal.reading_time -%}
+		  {% include reading_time.html %}
+		{%- endif -%}
       </li>
     {%- endfor -%}
   </ul>
-
   <!-- <p class="feed-subscribe"><svg class="svg-icon orange">
 		<use xlink:href="{{ '/assets/minima-social-icons.svg#rss' | relative_url }}"></use>
 	</svg><a href="{{ "/feed.xml" | relative_url }}">Subscribe</a></p> -->
 {%- endif -%}
 
 <div class="post-container">
-<span class="post">
+  <span class="post">
     {% include pagination.html %}
-</span>
-<div class ="footer">
-Copyright © {{ site.time | date: "%Y" }} {{ site.title }}  |  <a href = "https://github.com/gangdong/daviddong.github.io"> Github Project </a> powered by Jekyll
-</div>
+  </span>
+  <div class ="footer">
+    Copyright © {{ site.time | date: "%Y" }} {{ site.title }}  |  <a href = "https://github.com/gangdong/daviddong.github.io"> Github Project </a> powered by Jekyll
+   {%- if site.minimal.show_statistics -%}
+   <div>
+     <span class="icon-user-1"> <span id="busuanzi_value_site_uv"></span> </span>
+   </div>
+   {%- endif -%}
+  </div>
 </div>

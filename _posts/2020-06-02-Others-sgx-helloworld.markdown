@@ -110,5 +110,5 @@ Build the main project and start to run.
 ![project]({{site.baseurl}}/assets/image/others-sgx-start-12.PNG){: .center-image }
 That is because my CPU cannot support SGX at present. I have to change the running mode to Simulation.
 ![project]({{site.baseurl}}/assets/image/others-sgx-start-13.PNG){: .center-image }
-I got below result, which means my first app was runing well.
+I got below result, which means my first app was runing well.:v:  
 ![project]({{site.baseurl}}/assets/image/others-sgx-start-14.PNG){: .center-image }

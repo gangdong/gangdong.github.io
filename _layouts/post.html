@@ -40,17 +40,17 @@ layout: default
       powered by Disqus.</a></noscript>
   {%- endif -%}
   
-<!-- Gitalk 评论 start  -->
-<!-- Link Gitalk 的支持文件  -->
-<section class="gitalk">
-<div id="gitalk_thread"></div>
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-<div id="gitalk-container"></div>
-<script type="text/javascript">
+  {%- if site.minimal.gittalk -%}
+  <!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
    var gitalk = new Gitalk({
-
-   // gitalk的主要参数
+   // gitalk parameters
    clientID: '5e24fc307693a6df3bc5',
    clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
    repo: 'daviddong.github.io',
@@ -60,13 +60,14 @@ layout: default
    title: 'comments'
     });
    gitalk.render('gitalk-container');
-</script>
-</section>
-<!-- Gitalk end -->
-<br><br><br>
-<div class = "footer">© 2012-2020 David Dong. All rights reserved.</div>
-<!-- comment out at present
-<span id="busuanzi_container_page_pv" ></span><font size="2" color="#aaa"><br>
-本文总阅读量</font><font size="2" color="#aaa"><span id="busuanzi_value_page_pv"></font></span><font size="2" color="#aaa">次</font>
--->
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/>
+  {%- endif -%}
+  {%- if site.minimal.gittalk -%}
+  <div class = "footer">© 2012-2020 David Dong. All rights reserved.</div>
+  {% else %}
+  <div class = "footer" style="margin-top:50px">© 2012-2020 David Dong. All rights reserved.</div>
+  {% endif %}
 </div>

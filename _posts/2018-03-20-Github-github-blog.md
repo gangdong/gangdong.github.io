@@ -5,7 +5,7 @@ date:   2018-03-23 21:03:36 +0800
 categories: Web Github
 ---
 I have constructed my personal blog by Jekyll on Github pages, I thought I would write a little blog post about how to make your own blog website by Jekyll on Github Pages.<br>
-I would separate the contents into short blogs, reading long articles are always easy to make people feel weary.<br>
+I would separate the contents into short blogs, reading long articles are always easy to make people feel weary.:sleeping:<br>
 This page will introduce how to create your personal blog based on Github pages. Next pages I will introduce Jekyll and how to use it to enrich your blog.<br>
 
 As an open source code platform and worldwide developer community, Github has more than millions of users now. As one of them, I have much work on the Github and Github also provides the personal homepage service. It is possible to build your personal blogs on it. To me, it is a good idea to move my personal blog to Github in the benefit of saving lots of time on the maintenance of the blogs on different websites. That's why I'd like to do this thing. The way of hosting your website on Github is static access, but it can fully meet my needs. So here comes the question, how do we build blogs on Github? The procedure is simple, just need to create a new repository and upload your website code onto it. After then you can access it at any time and anywhere.
