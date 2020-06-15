@@ -4,7 +4,7 @@ layout: default
 
 {% include title.html %}
 
-{%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
+{%- assign date_format = site.rawposts.date_format | default: "%b %-d, %Y" -%}
 
 <div class="post-container">
   <h1 id="posts-label">POST</h1> 
@@ -22,7 +22,7 @@ layout: default
   <div class="post">
     {{ content }}
   </div>
-  {%- if site.minimal.disqus_shortname -%}
+  {%- if site.rawposts.disqus_shortname -%}
   <div id="disqus_thread" style="margin-top:25px"></div>
   <script>
     var disqus_config = function () {
@@ -31,7 +31,7 @@ layout: default
     };
     (function () {
       var d = document, s = d.createElement('script');
-      s.src = 'https://{{ site.minimal.disqus_shortname }}.disqus.com/embed.js';
+      s.src = 'https://{{ site.rawposts.disqus_shortname }}.disqus.com/embed.js';
       s.setAttribute('data-timestamp', +new Date());
       (d.head || d.body).appendChild(s);
     })();
@@ -40,7 +40,7 @@ layout: default
       powered by Disqus.</a></noscript>
   {%- endif -%}
   
-  {%- if site.minimal.gittalk -%}
+  {%- if site.rawposts.gittalk -%}
   <!-- Gitalk start  -->
   <!-- Link Gitalk support file  -->
   <section class="gitalk">
@@ -65,7 +65,7 @@ layout: default
   <!-- Gitalk end -->
   <br/><br/><br/>
   {%- endif -%}
-  {%- if site.minimal.gittalk -%}
+  {%- if site.rawposts.gittalk -%}
   <div class = "footer">© 2012-2020 David Dong. All rights reserved.</div>
   {% else %}
   <div class = "footer" style="margin-top:50px">© 2012-2020 David Dong. All rights reserved.</div>

@@ -8,25 +8,25 @@
    
     <main class="container">
       <section class="about">
-        <a href="{{site.baseurl}}/blog/index.html"><img src="{{ "/assets/avatar.png" | relative_url }}" alt="{{ site.minimal.name }}"></a>
+        <a href="{{site.baseurl}}/blog/index.html"><img src="{{ "/assets/avatar.png" | relative_url }}" alt="{{ site.rawposts.name }}"></a>
         <h2 id="title">
-          <a href="{{site.baseurl}}/blog/index.html">{{ site.minimal.name }}</a>
+          <a href="{{site.baseurl}}/blog/index.html">{{ site.rawposts.name }}</a>
         </h2>
-        <p class="tagline">{{ site.minimal.tagline }}</p>
+        <p class="tagline">{{ site.rawposts.tagline }}</p>
         <ul class="social">
 		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
               <li>
                 <i class="icon-picture-3"></i>
               </li>
            </a>
-          {%- if site.minimal.social_links.github -%}
+          {%- if site.rawposts.social_links.github -%}
             <a href="https://github.com/gangdong">
               <li>
                 <i class="icon-github-circled-1"></i>
               </li>
             </a>
           {%- endif -%}
-          {%- if site.minimal.social_links.linkedIn -%}
+          {%- if site.rawposts.social_links.linkedIn -%}
             <a href="https://www.linkedin.com/in/刚-董-25208ba0/">
               <li>
                 <i class="icon-linkedin-squared"></i>
@@ -35,10 +35,10 @@
           {%- endif -%}
         </ul>
 
-        {%- if site.minimal.navigation -%}
+        {%- if site.rawposts.navigation -%}
           <nav class="navigation">
             <ul>
-              {% for link in site.minimal.navigation %}
+              {% for link in site.rawposts.navigation %}
                 <li>
                   <a href="{{ link.url }}">{{ link.title }}</a>
                 </li>
@@ -49,7 +49,7 @@
 
         <p>&copy;
           {{ "now" | date: "%Y" }}</p>
-		{%- if site.minimal.dark_mode -%}
+		{%- if site.rawposts.dark_mode -%}
 		<div>
         <p style = "font-family: Raleway, sans-serif;font-size: 100%">Dark Theme
           <i class="icon-moon"></i>
@@ -63,12 +63,12 @@
       {%- endif -%}
 	  <div>
         <ul class="social" style="padding-top: 3vh">
-			{%- if site.minimal.rss -%}
+			{%- if site.rawposts.rss -%}
 		   <a style ="margin-right:10px;text-decoration: none;font-family: Raleway, sans-serif;" href="{{site.baseurl}}/rss.xml">
               <span class="icon-rss-1">rss</span>
            </a>
 			{%- endif -%}
-			{%- if site.minimal.source_code -%}
+			{%- if site.rawposts.source_code -%}
             <a style="text-decoration: none;font-family: Raleway, sans-serif;" href="https://github.com/gangdong/daviddong.github.io">
               <span class="icon-file-code">code</span>
             </a>
@@ -80,14 +80,14 @@
         {{ content }}
       </section>
     </main>
-    {%- if site.minimal.analytics_id -%}
-      <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.minimal.analytics_id }}"></script>
+    {%- if site.rawposts.analytics_id -%}
+      <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.rawposts.analytics_id }}"></script>
       <script>
 		window.dataLayer = window.dataLayer || [];
 		function gtag() { dataLayer.push(arguments); }
 		gtag('js', new Date());
 
-		gtag('config', '{{ site.minimal.analytics_id }}');
+		gtag('config', '{{ site.rawposts.analytics_id }}');
 	</script>
     {%- endif -%} 
   </body>

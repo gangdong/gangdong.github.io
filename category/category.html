@@ -41,7 +41,7 @@ permalink: /category
 <div>
 <h3 id = "{{tag[0]}}" class="archive-title">{{tag[0]}}</h3>
 {% for post in tag[1] %}
-{%- assign date_format = site.minimal.date_format | default: "%b %-d, %Y" -%}
+{%- assign date_format = site.rawposts.date_format | default: "%b %-d, %Y" -%}
     <div class="category-meta" style="margin-left:15px; line-height: 16px">
       <a class="post-link" href="{{ post.url | relative_url }}">
 		<h2 class="archive-link" >&bull; {{ post.title | escape }}</h2>

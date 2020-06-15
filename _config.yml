@@ -14,7 +14,7 @@ sass:
 # Pagination 
 paginate: 12
 paginate_path: "/blog/page:num/"
-minimal:
+rawposts:
   name: David Dong
   tagline: Java/C/C#/Python
   date_format: "%b %-d, %Y"
@@ -60,9 +60,9 @@ minimal:
 # - about.md
 
 # Build settings
-theme: minimal
+theme: rawposts
 
-#minimal:
+#rawposts:
 #  navigation:
 #    - title: My Work
 #      url: "/my-work"

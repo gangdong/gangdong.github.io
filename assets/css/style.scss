@@ -3,11 +3,11 @@
 
 @import "plain";
 
-{% if site.minimal.search %}
+{% if site.rawposts.search %}
   @import "search";
 {% endif %}
 
-{%- if site.minimal.dark_mode -%}
+{%- if site.rawposts.dark_mode -%}
   @import "toggle";
   @import "dark";
 {%- endif -%}
