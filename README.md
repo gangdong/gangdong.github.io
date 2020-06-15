@@ -1,7 +1,5 @@
 # Welcome to my blog!
 
-### *“Life is like a box of chocolates that you will never know what you gonna get.”* 
-
 #### This blog recorded the time of my life and learning from it. I love travel, reading, new technology and love make friends.
 
 #### If you want to learn more about me, please visit my another blog or homepage.
