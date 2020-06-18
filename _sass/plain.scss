@@ -15,7 +15,7 @@ $leftWidth: 220px;
 }
 
 body {
-  font-family: "Arial", 'Microsoft Yahei', '微软雅黑', sans-serif;
+  font-family: 'Arial', 'Microsoft Yahei', sans-serif;
   font-size: 16px;
   line-height: 1.2em;
   margin: 0;
@@ -95,7 +95,7 @@ main {
       font-weight: normal;
     }
     .tagline {
-	  font-family: "Raleway", sans-serif;
+	  font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;
       font-size: 18px;
       margin-top: 17px;
       color: #888;
@@ -108,7 +108,7 @@ main {
   }
 }
 #title {
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;
   a {
     text-decoration: none;
   }
@@ -141,7 +141,7 @@ main {
 
     a {
       display: block;
-      font-family: 'Verdana', 'Microsoft Yahei', '微软雅黑', sans-serif;
+      font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;
       text-align: center;
       padding: 1rem 0;
       text-decoration: none;
@@ -161,7 +161,7 @@ main {
 }
 
 .post-categories {
-  font-family: "Raleway",'Arial', 'Microsoft Yahei', '微软雅黑', sans-serif;
+  font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -285,7 +285,7 @@ main {
   padding-left: 30px;
 }
 .post {
-  font-family: "Merriweather", 'Arial', 'Microsoft Yahei', '微软雅黑', sans-serif;
+  font-family: 'Merriweather', 'Tahoma', 'Arial', 'Microsoft Yahei', sans-serif;
   font-weight: 300;
   color: #222;
   line-height: 1.9em;
@@ -303,12 +303,12 @@ main {
   h4,
   h5,
   h6 {
-    font-family: Arial, Raleway, sans-serif;
+    font-family: Merriweather, Arial, Raleway, Microsoft Yahei, sans-serif;
   }
 }
 .about-page{
   margin: 15px 2px;
-  font-family: "Merriweather", 'Arial', 'Microsoft Yahei', '微软雅黑', sans-serif;
+  font-family: 'Merriweather', 'Tahoma', 'Arial', 'Microsoft Yahei', sans-serif;
   font-weight: 300;
   color: #222;
   line-height: 1.9em;
@@ -323,7 +323,7 @@ main {
 }
 
 #posts-label {
-  font-family: 'Raleway', 'Arial', 'Microsoft Yahei', '微软雅黑', sans-serif;
+  font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;
   margin: 0px 2px;
   border-bottom: 1px solid #eee;
   font-size: 15px;
@@ -334,9 +334,8 @@ main {
   font-weight: normal;
 }
 .menu{
- 
   font-size: 90%;
-  font-family: 'Arial', 'Raleway', 'Microsoft Yahei', '微软雅黑', sans-serif;
+  font-family: 'Arial', 'Raleway', 'Microsoft Yahei', sans-serif;
   min-width: 100px;
   display: flex;
   flex-direction:row;
@@ -367,7 +366,6 @@ a {
   }
 }
 .menu_tag_a{
-
 	margin-right: 10px;
 	color:#444;
 	@media screen and (max-width: $smallMobileW) {
@@ -378,7 +376,6 @@ a {
   }
 }
 .menu_tag_b{
-
 	margin-right: 0px;
 	color:#444;
 	@media screen and (max-width: $smallMobileW) {
@@ -394,19 +391,18 @@ a {
 	width:100%;
 	text-align:center;
 	border-top: 1px solid #eee;
-    font-family: "Verdana", 'Arial', 'Microsoft Yahei', '微软雅黑', sans-serif;
+    font-family: 'Verdana', 'Arial', 'Microsoft Yahei', sans-serif;
 	font-weight: 300;
 	font-size: 14px;
     color: #888;
 	align-items: center;
-
 }
 .archive{
   margin: 0px 2px;
   
   a {
     font-size: 10px;
-    font-family: "Arial", 'Verdana', 'Microsoft Yahei', '微软雅黑', sans-serif;
+    font-family: 'Arial', 'Microsoft Yahei', sans-serif;
     color: #222;
 	font-weight: 50;
     text-decoration: none;
@@ -425,17 +421,16 @@ a {
   font-size:16px;
   font-weight: 40;
   color: #222;
-  font-family: 'Merriweather',"Arial",'Microsoft Yahei', '微软雅黑', sans-serif;
+  font-family: 'Merriweather', 'Arial', 'Microsoft Yahei', sans-serif;
   &:hover {
       color:$linkColor;
     }
   
 }
 .footer {
-
 	margin-bottom: 30px;
 	text-align:center;
-	font-family: "Verdana", 'Arial', sans-serif;
+	font-family: 'Raleway', 'Arial', sans-serif;
 	font-weight: 300;
 	font-size: 12px;
     color: #888;
@@ -451,7 +446,7 @@ a {
 	}
 }
 .morebox {
-	font-family: "Raleway", 'Verdana', 'Microsoft Yahei', '微软雅黑', sans-serif;
+	font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;
 	font-weight: 400;
 	font-size: 14px;
    
@@ -472,6 +467,41 @@ table {
     background-color: #eee;
     font-family: Raleway;
   }
+}
+blockquote {
+  border-left: 6px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+  margin: 0 5px;
+  position: relative;
+}
+pre, code, tt {
+  font-size: 14px;
+  font-family: 'Tahoma', Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 4px 4px;
+  white-space: nowrap;
+  background-color: #f8f8f8;
+  border-radius: 5px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  font-size: 16px;
+  line-height: 1.4em;
+  overflow: auto;
+  padding: 6px 10px;
 }
 .center-image
 {

@@ -18,7 +18,7 @@ david@david-VirtualBox:/$ ls /usr/local/lib/
 python2.7  python3.5  
 david@david-VirtualBox:/$ 
 ```
-then input "python --version" to check which version python is your default python application. 
+then input `python --version` to check which version python is your default python application. 
 ```python
 python --version
 ```
@@ -30,7 +30,7 @@ source ~/.bashrc
 python --version
 ```
 Here I switched my default python version to python3.5.
-But python3.5 is still not the right one, what I need is python3.6. To install python3.6, there are usually two methods. one is using apt-get install. The command is as below.
+But python3.5 is still not the right one, what I need is python3.6. To install python3.6, there are usually two methods. one is using `apt-get install`. The command is as below.
 ```shell
 sudo add-apt-repository ppa:jonathonf/python-3.6
 sudo apt-get update
@@ -52,7 +52,7 @@ Waiting for the installation complete. Then check the python version, if you see
 david@david-VirtualBox:~$ python --version
 Python 3.6.0
 ```
-If you don't see the Python3.6.x, instead, you see Python3.5.x or else, which means your system's default python version isn't python3.6. You need to use "update-alternatives --config python" command to switch it to python3.6.<br> 
+If you don't see the Python3.6.x, instead, you see Python3.5.x or else, which means your system's default python version isn't python3.6. You need to use `update-alternatives --config python` command to switch it to python3.6.<br> 
 Like this.
 ```shell
 sudo update-alternatives --list python
@@ -68,7 +68,7 @@ sudo update-alternatives --install /usr/bin/python python /home/david/Python-3.6
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.5 2
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1 
 ```
-The last character of above each command sets the priority of your pythons on the system. The bigger the higer priority. 
+The last character of above each command sets the priority of your pythons on the system. The bigger the higher priority. 
 After installment, check again. you will see all your pythons are in the alternatives.
 ```shell
 david@david-VirtualBox:~$ sudo update-alternatives --list python

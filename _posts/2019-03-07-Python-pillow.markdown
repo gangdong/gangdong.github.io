@@ -18,26 +18,16 @@ Pillow provides fairly powerful image processing capabilities for Python. It can
 
 Below is official description of Pillow.
 
----
-
-**Image Archives**
-The Python Imaging Library is ideal for image archival and batch processing applications. You can use the library to create thumbnails, convert between file formats, print images, etc.
-
-The current version identifies and reads a large number of formats. Write support is intentionally restricted to the most commonly used interchange and presentation formats.
-
+> **Image Archives**
+The Python Imaging Library is ideal for image archival and batch processing applications. You can use the library to create thumbnails, convert between file formats, print images, etc.   
+The current version identifies and reads a large number of formats. Write support is intentionally restricted to the most commonly used interchange and presentation formats.   
 **Image Display**
-The current release includes Tk PhotoImage and BitmapImage interfaces, as well as a Windows DIB interface that can be used with PythonWin and other Windows-based toolkits. Many other GUI toolkits come with some kind of PIL support.
-
-For debugging, there’s also a show() method which saves an image to disk, and calls an external display utility.
-
+The current release includes Tk PhotoImage and BitmapImage interfaces, as well as a Windows DIB interface that can be used with PythonWin and other Windows-based toolkits. Many other GUI toolkits come with some kind of PIL support.   
+For debugging, there’s also a show() method which saves an image to disk, and calls an external display utility.    
 **Image Processing**
-The library contains basic image processing functionality, including point operations, filtering with a set of built-in convolution kernels, and colour space conversions.
-
-The library also supports image resizing, rotation and arbitrary affine transforms.
-
-There’s a histogram method allowing you to pull some statistics out of an image. This can be used for automatic contrast enhancement, and for global statistical analysis.
-
----
+The library contains basic image processing functionality, including point operations, filtering with a set of built-in convolution kernels, and colour space conversions.   
+The library also supports image resizing, rotation and arbitrary affine transforms.   
+There’s a histogram method allowing you to pull some statistics out of an image. This can be used for automatic contrast enhancement, and for global statistical analysis.   
 
 ### Usage
 
@@ -73,7 +63,7 @@ from PIL import Image
 Here we take a example of python3.
 
 + **Open/Show**<br>
-To load an image from a file, use the open() function in the Image module. If successful, this function returns an Image object. You can now use instance attributes to examine the file contents:
+To load an image from a file, use the `open()` function in the Image module. If successful, this function returns an Image object. You can now use instance attributes to examine the file contents:
 ```python
 from PIL import Image
 im = Image.open("python-pillow-02.jpg")
@@ -176,7 +166,7 @@ im_90.show()
 ![rotate45]({{site.baseurl}}/assets/image/python-pillow-13.JPG){: .center-image }<br>
 
 **convert**<br>
-Convert() is a method of image instance object. It accepts a mode parameter to specify a color mode. The value of mode can be as follows:<br>
+`Convert()` is a method of image instance object. It accepts a mode parameter to specify a color mode. The value of mode can be as follows:<br>
 · 1 (1-bit pixels, black and white, stored with one pixel per byte)<br>
 · L (8-bit pixels, black and white)<br>
 · P (8-bit pixels, mapped to any other mode using a color palette)<br>
@@ -232,7 +222,7 @@ in above code, "region" is the object to be pasted. <br>
 ![paste]({{site.baseurl}}/assets/image/python-pillow-19.JPG){: .center-image }<br>
 
 **split**<br>
-Split () method can separate each channel of the original image. For example, for RGB image, the three color channels R, G and B can be separated.
+`Split()` method can separate each channel of the original image. For example, for RGB image, the three color channels R, G and B can be separated.
 ```python
 from PIL import Image
 im = Image.open("python-pillow-02.JPG")

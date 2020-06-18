@@ -17,7 +17,7 @@ I execute `make clean`, everything is ok. The target folder is removed as expect
 ```shell
 make: 'clean' is up to date.
 ```
-To avoid this issue happen, use .PHONY command. The main function of .PHONY configuration item is to avoid the conflict between the specified command and the file with the same name under the project, and to optimize the performance. .PHONY [command name] explicitly specifies a command name instead of the actual file name, so that the make [command name] command can be parsed and executed correctly. You don't have to worry about if the same name file existing or not. 
+To avoid this issue happen, use `.PHONY` command. The main function of `.PHONY` configuration item is to avoid the conflict between the specified command and the file with the same name under the project, and to optimize the performance. `.PHONY [command name]` explicitly specifies a command name instead of the actual file name, so that the `make [command name]` command can be parsed and executed correctly. You don't have to worry about if the same name file existing or not. 
 
 I change the code as this.
 ```shell

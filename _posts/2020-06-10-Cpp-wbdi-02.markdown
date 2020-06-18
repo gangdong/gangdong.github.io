@@ -16,7 +16,7 @@ Above diagram shows how data flows through a biometric unit. Essentially, the da
 
 ### Biometric Unit Life Cycle
 #### Creation
-When the Windows Biometric Service starts or when it receives a hardware notification from the Plug and Play manager, it scans for any hardware that supports the well-known interface GUID_DEVINTERFACE_BIOMETRIC_READER (E2B5183A-99EA-4cc3-AD6B-80CA8D715B80). For each biometric device discovered it then:
+When the Windows Biometric Service starts or when it receives a hardware notification from the Plug and Play manager, it scans for any hardware that supports the well-known interface `GUID_DEVINTERFACE_BIOMETRIC_READER (E2B5183A-99EA-4cc3-AD6B-80CA8D715B80)`. For each biometric device discovered it then:
 
 + Opens a handle to the device.
 + Queries the device capabilities by using a Windows Biometric Driver control interface.
@@ -27,7 +27,7 @@ When the Windows Biometric Service starts or when it receives a hardware notific
 #### Configuration  
 After a biometric service provider (BSP) accepts a biometric unit, it configures the unit and assigns it to a sensor pool. The unit is configured by loading the appropriate adapters, connecting to a template store, and possibly changing the operating mode. A biometric unit can be configured to operate in one of two modes:
 
-+ In the basic mode, the unit acts as a simple capture device. It does not use onboard processing or storage but relies entirely on software adapters for additional support. It should be able to generate samples in a standard format. For example, fingerprint readers should generate samples that comply with ANSI INCITS 381-2004. The purpose of the basic mode is to support interoperability among components from different vendors.
++ In the basic mode, the unit acts as a simple capture device. It does not use onboard processing or storage but relies entirely on software adapters for additional support. It should be able to generate samples in a standard format. For example, fingerprint readers should generate samples that comply with `ANSI INCITS 381-2004`. The purpose of the basic mode is to support interoperability among components from different vendors.
 + In the advanced mode, the biometric unit uses onboard processing and storage functions. It must expose the standard interfaces but can generate and process samples in any format desired.
 
 #### Shut Down
@@ -41,7 +41,7 @@ Plug-in software components called adapters connect a biometric unit to its unde
 + A storage adapter manages template databases.
 Adapters can be loaded and unloaded at runtime. This enables the Windows Biometric Service to dynamically reconfigure a biometric unit by connecting it to a different set of adapters.
 
-Finally, each of the sensor, engine, and storage adapter interfaces expose two methods, **ControlUnit** and **ControlUnitPrivileged**, that enable client applications to access custom adapter capabilities defined by the vendor. This allows the vendor to define an almost unlimited set of control operations for a device. Further, by choosing which function to implement, a vendor can choose to make some control operations available to non-privileged users while restricting other operations to privileged users.
+Finally, each of the sensor, engine, and storage adapter interfaces expose two methods, `ControlUnit` and `ControlUnitPrivileged`, that enable client applications to access custom adapter capabilities defined by the vendor. This allows the vendor to define an almost unlimited set of control operations for a device. Further, by choosing which function to implement, a vendor can choose to make some control operations available to non-privileged users while restricting other operations to privileged users.
 
 #### Sensor Adapter Function
 A sensor adapter wraps a biometric device and provides a standard interface that enables the Windows Biometric service to **configure the sensor, capture samples, and control the flow of biometric data to the processing engine.** The following functions must be implemented by the developer of the adapter. They are called by the Windows Biometric service.

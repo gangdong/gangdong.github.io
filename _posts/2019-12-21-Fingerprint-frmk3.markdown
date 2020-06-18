@@ -10,19 +10,19 @@ Following the last two articles, this article will have a discussion on the rema
 In last article,<br>
 [Android Fingerprint Framework (2)]({{site.baseurl}}/android/fingerprint/2019/12/07/Fingerprint-frmk2.html)<br>
 We have had a overview on the android fingerprint work flow as below.
-1. Init.rc, starts Fingerprintd and register the remote service FingerprintDaemon with ServiceManager
-2. The system loads SystemServer and starts fingerprint service.
-3. FingerService gets the object of the remote service FingerprintDaemon, and calls the methods to access the HAL.
-FingerprintDaemoProxy::openHal() will open the native library xx.so to access hardware.  
+1. `Init.rc`, starts `Fingerprintd` and register the remote service `FingerprintDaemon` with `ServiceManager`.
+2. The system loads `SystemServer` and starts `fingerservice`.
+3. `FingerService` gets the object of the remote service `FingerprintDaemon`, and calls the methods to access the HAL.
+`FingerprintDaemoProxy::openHal()` will open the native library `xx.So` to access hardware.  
 
 ### About HAL
 The hardware abstract layer (HAL) of Android system runs in user space. It shields the implementation details of hardware driver module downward and provides hardware access service (JNI or binder) upward. Through the hardware abstraction layer, Android system is divided into two layers to support hardware devices, one layer is implemented in user space, the other is implemented in kernel space. In traditional Linux system, the support for hardware is completely implemented in kernel space, that is, the support for hardware is completely implemented in hardware driver module.
 
-The hardware abstraction layer of Android system manages various hardware access interfaces in the form of modules. Each hardware module has a dynamic link library xx.So file. The compilation of these dynamic link libraries needs to conform to certain specifications. In Android system, each hardware abstraction layer module is described by hw_module_t, and the hardware device is described by hw_device_t.
+The hardware abstraction layer of Android system manages various hardware access interfaces in the form of modules. Each hardware module has a dynamic link library `xx.So` file. The compilation of these dynamic link libraries needs to conform to certain specifications. In Android system, each hardware abstraction layer module is described by `hw_module_t`, and the hardware device is described by `hw_device_t`.
 
 These definition of these two struct is defined at <br>
 [hardware.h](https://www.androidos.net.cn/android/7.0.0_r31/xref/hardware/libhardware/include/hardware/hardware.h)<br>
-android path: root/hardware/libhardware/include/hardware/hardware.h
+`android path: root/hardware/libhardware/include/hardware/hardware.h`
 
 **hardware.h**
 ```c
@@ -169,7 +169,7 @@ int hw_get_module_by_class(const char *class_id, const char *inst,
 ```
 These two functions are realized at <br>
 [hardware.c](https://www.androidos.net.cn/android/7.0.0_r31/xref/hardware/libhardware/hardware.c)<br>
-android path: root/hardware/libhardware/hardware.c<br> 
+`android path: root/hardware/libhardware/hardware.c`<br> 
 From the file, we can find the module search path is as below.
 **hardware.c**
 ```c
@@ -343,9 +343,9 @@ int hw_get_module(const char *id, const struct hw_module_t **module)
 }
 
 ```
-hw_get_module() will call the hw_get_module_by_class() function. Firstly, it will read the system property "ro.hardware" through the property_get() function. If the property is found, it then uses the hw_module_exists() function to check whether the xx.so library exists. If it exists, load it directly else if it does not exist, continue to search for the variant_keys array. Checking system attribute values. If found, load it directly. If it does not exist still, load the default.
+`hw_get_module()` will call the `hw_get_module_by_class()` function. Firstly, it will read the system property `ro.hardware` through the `property_get()` function. If the property is found, it then uses the `hw_module_exists()` function to check whether the `xx.So` library exists. If it exists, load it directly else if it does not exist, continue to search for the variant_keys array. Checking system attribute values. If found, load it directly. If it does not exist still, load the default.
 
-Let's turn back to the FingerprintDaemonProxy::openHal() to see how it call the hw_get_module() function.
+Let's turn back to the `FingerprintDaemonProxy::openHal()` to see how it call the `hw_get_module()` function.
 **FingerprintDaemonProxy.cpp**
 ```cpp
 int64_t FingerprintDaemonProxy::openHal() {
@@ -397,7 +397,7 @@ int64_t FingerprintDaemonProxy::openHal() {
     return reinterpret_cast<int64_t>(mDevice); // This is just a handle
 }
 ```
-openHal() will call the hw_get_module() to get the pointer to hw_module_t module, after then it will call the open() function. Once the HAL module is opened, the Fingerprintd is able to operate fingerprint device through the hw_device_t.
+`openHal()` will call the `hw_get_module()` to get the pointer to `hw_module_t` module, after then it will call the `open()` function. Once the HAL module is opened, the Fingerprintd is able to operate fingerprint device through the `hw_device_t`.
 
 The funciton of the fingerprint module can be found at 
 [fingerprint.h](https://www.androidos.net.cn/android/7.1.1_r28/xref/hardware/libhardware/include/hardware/fingerprint.h) and [fingerprint.c](https://www.androidos.net.cn/android/7.1.1_r28/xref/hardware/libhardware/modules/fingerprint/fingerprint.c).

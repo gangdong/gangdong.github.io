@@ -12,16 +12,11 @@ categories: Java
 
 以下是Jacob的介绍，来源于官方文档。
 
-```
-JACOB is a JAVA-COM Bridge that allows you to call COM Automation components from 
-Java. 
-It uses JNI to make native calls into the COM and Win32 libraries. 
-The JACOB project started in 1999 and is being actively used by thousands of 
-developers worldwide.
-As an open-source project, it has benefitted from the combined experience of these 
-users, many of whom have made modifications to the code and submitted them back for 
-inclsion in the project.
-```
+> JACOB is a JAVA-COM Bridge that allows you to call COM Automation components from Java.    
+It uses JNI to make native calls into the COM and Win32 libraries.    
+The JACOB project started in 1999 and is being actively used by thousands of developers worldwide.   
+As an open-source project, it has benefited from the combined experience of these users, many of whom have made modifications to the code and submitted them back for inclusion in the project.
+
 Jacob通过Jni来实现对COM组件和WIN32库的调用。Jacob提供了一系列的编程接口，编程者编程时只需要面对Jacob的接口来编程即可，无需关注底层的实现细节。Jacob的下载地址 [官方下载](https://sourceforge.net/projects/jacob-project/files/latest/download)<br>
 
 下载下来的package里包含一个Jacob.jar的jar包和jacob-1.15-M4-x64.dll (64 bits)以及jacob-1.15-M4-x86.dll (32 bits)的两个DLL文件。分别定义了Java的接口和32位以及64位的native接口。
@@ -35,14 +30,12 @@ jacob-1.15-M4-x86.dll
 使用Jacob的步骤如下。<br>
 1. 拷贝 jacob-1.15-M4-x64.dll (64 bits) and jacob-1.15-M4-x86.dll (32 bits) 到 windows/system32/ 目录下。 
 或者拷贝到Java 的类路径下 Program Files/Java/jdk1.6.0_14/jre/bin/  （推荐使用）
-2. 把 jacob.jar 导入项目的classpath Program Files/Java/jdk1.6.0_14/jre/lib/ext/  
-
+2. 把 jacob.jar 导入项目的classpath Program Files/Java/jdk1.6.0_14/jre/lib/ext/     
 (* 注： 导入外部 jar 都用类似方法，例如调用 串口支持包 Comm.jar win32com.dll)
 
 3. 把要使用的Dll 进行注册，<br>
 C:\Windows\Microsoft.NET\Framework\v4.0.30319\regsvcs.exe [需要调用的dll文件路径]<br>
-C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\RegAsm.exe [需要调用的dll文件路径]
-	
+C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\RegAsm.exe [需要调用的dll文件路径]   
 注意这里要先regasm xxx.dll，再regasm xxx.dll /tlb:xxx.tlb /codebase，要注册两个。
 具体可以参考如下的网页。<br>
 [http://msdn.microsoft.com/zh-cn/library/h627s4zy.aspx](http://msdn.microsoft.com/zh-cn/library/h627s4zy.aspx)

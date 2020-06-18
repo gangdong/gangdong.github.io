@@ -20,7 +20,7 @@ Now let us go through above one by one.
 2. Find the corresponding model on the [Intel official website](https://ark.intel.com/content/www/us/en/ark/products/88185/intel-core-i5-6400-processor-6m-cache-up-to-3-30-ghz.html), which will indicate whether it supports SGX.  
 ![CPU]({{site.baseurl}}/assets/image/others-sgx-02.PNG){: .center_image}
 Oh! My laptop's CPU supports but need install IME software.  
-Ok, remember this requirement and do it later. :)
+Ok, remember this requirement and do it later. :smirk:
 
 ### BIOS Query
 
@@ -52,24 +52,24 @@ The Visual Studio install package is at [here](https://visualstudio.microsoft.co
 
 4. Install SGX SDK<br><br>
 ![packages]({{site.baseurl}}/assets/image/others-sgx-10.PNG){: .center-image }
-Run "Intel(R)_SGX_Windows_SDK_2.7.101.2.exe".   
+Run `Intel(R)_SGX_Windows_SDK_2.7.101.2.exe`.   
  
 5. Install PSW<br>
-Run "Intel SGX PSW for Windows v2.7.101.2.exe" and unzip.<br>
+Run `Intel SGX PSW for Windows v2.7.101.2.exe` and unzip.<br>
 You will get a folder
 ![psw]({{site.baseurl}}/assets/image/others-sgx-05.PNG){: .center-image }
-Check the build number of operating system by "winver" command.<br>
+Check the build number of operating system by `winver` command.<br>
 ![psw]({{site.baseurl}}/assets/image/others-sgx-08.PNG){: .center-image }
-+ If the system is **windows 10 fall creators update (version 1709)** or later, enter PSW_INF_RS3_and_above folder, run windows PowerShell as administrator to open command line window, and then enter PSW_INF_RS3_and_above device directory, keep going down until find sgx_base.inf file, input the following command:<br>
++ If the system is **windows 10 fall creators update (version 1709)** or later, enter `PSW_INF_RS3_and_above` folder, run windows PowerShell as administrator to open command line window, and then enter `PSW_INF_RS3_and_above device` directory, keep going down until find `sgx_base.inf` file, input the following command:<br>
 ```
 pnputil /add-driver sgx_base.inf  /install
 ```
-Go back to PSW_INF_RS3_and_above component directory, go down until find sgx_psw.inf file, input the following command:<br>
+Go back to `PSW_INF_RS3_and_above component` directory, go down until `find sgx_psw.inf` file, input the following command:<br>
 ```
 pnputil /add-driver sgx_psw.inf  /install
 ```
-+ If it is the previous version, choose PSW_EXE_RS2_and_before folder and run<br>
-"Intel(R)_SGX_Windows_x64_PSW_2.7.101.2.exe" to install.   
-Open the Visual Studio 2015 and create a new VC++ project, if the "Intel SGX Enclave project" can be found in the template window, it means the SDK and Visual Studio plug-in has been installed successfully.
++ If it is the previous version, choose `PSW_EXE_RS2_and_before` folder and run<br>
+`Intel(R)_SGX_Windows_x64_PSW_2.7.101.2.exe` to install.   
+Open the Visual Studio 2015 and create a new VC++ project, if the `Intel SGX Enclave project` can be found in the template window, it means the SDK and Visual Studio plug-in has been installed successfully.
 ![psw]({{site.baseurl}}/assets/image/others-sgx-11.PNG){: .center-image }
 

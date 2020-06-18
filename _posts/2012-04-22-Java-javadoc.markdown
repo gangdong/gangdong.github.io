@@ -8,6 +8,7 @@ published: true
 相信很多有经验的程序员都知道写注释的重要性，程序注释不仅仅是对代码进行说明，它其实也是代码本身组成的一部分。对于Java程序的开发者来说，更是如此。注释已经变成了代码API接口文档的一部分。这是因为Java提供了一个工具Javadoc，能够从注释中抽取信息，直接生成API的帮助文档。文档的格式就同Java SDK官方API文档保持一致。这对于善于写代码却头疼写API文档的人来说简直是一款神器。
 
 下面就简单的对Javadoc的使用做一个说明。使用Javadoc工具生成API文档时需要按照Java SDK的规定使用一系列的标签来完成，需要使用标签的地方有，<br>
+
 + 类（接口）的注释
 + 构造函数的注释
 + 方法的注释
@@ -16,6 +17,7 @@ published: true
 + 对外提供的接口注释
 + 在循环和逻辑分支组成的代码中的注释
 + 需要特殊说明的地方的注释
+
 
 ### 标签
 Java SDK规定按照如下的顺序添加标签。
@@ -67,7 +69,7 @@ data-description数据描述以序列化形式记录数据的类型和顺序。�
 
 更多详情可以参考[How to Write Doc Comments for the Javadoc Tool](https://www.oracle.com/technical-resources/articles/java/javadoc-tool.html)和[The Java API Documentation Generator](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javadoc.html#author).
 
-#### 命令
+### 命令
 Javadoc的命令行语法如下：
 ```java
     javadoc [ options ] [ packagenames ] [ sourcefiles ] [ @files ]

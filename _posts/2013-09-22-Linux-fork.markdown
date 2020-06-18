@@ -82,8 +82,10 @@ int main ()
 关于fork()函数的执行原理，用到了“写时复制”的技术，参考以下的博文，讲的比较清楚。<br>
 [https://www.cnblogs.com/zhangchaoyang/articles/2317420.html](https://www.cnblogs.com/zhangchaoyang/articles/2317420.html)
 
-```
-fork（）会产生一个和父进程完全相同的子进程，但子进程在此后多会exec系统调用，出于效率考虑，
+
+
+
+> fork（）会产生一个和父进程完全相同的子进程，但子进程在此后多会exec系统调用，出于效率考虑，
 linux中引入了“写时复制“技术，也就是只有进程空间的各段的内容要发生变化时，才会将父进程的内容
 复制一份给子进程。在fork之后exec之前两个进程用的是相同的物理空间（内存区），子进程的代码段、
 数据段、堆栈都是指向父进程的物理空间，也就是说，两者的虚拟空间不同，但其对应的物理空间是同一个。
@@ -93,11 +95,8 @@ linux中引入了“写时复制“技术，也就是只有进程空间的各段
 段也会分配单独的物理空间。
 fork之后内核会通过将子进程放在队列的前面，以让子进程先执行，以免父进程执行导致写时复制，而后子进程执
 行exec系统调用，因无意义的复制而造成效率的下降。
-
 fork时子进程获得父进程数据空间、堆和栈的复制，所以变量的地址（当然是虚拟地址）也是一样的。
-```
 
-<br>
 <br>
 参考：<br>
 [https://www.cnblogs.com/zhangchaoyang/articles/2317420.html](https://www.cnblogs.com/zhangchaoyang/articles/2317420.html)

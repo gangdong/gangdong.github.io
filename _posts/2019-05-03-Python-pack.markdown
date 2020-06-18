@@ -5,7 +5,7 @@ date:   2019-05-03 14:07:05 +0800
 categories: Python
 Published: true
 ---
-Python uses struct.pack() to pack python data type into binary data (byte stream), which means convert a value to a string based on the format. Because there is no byte type in Python, here the string is actually equivalent to byte stream, or byte array.
+Python uses `struct.pack()` to pack python data type into binary data (byte stream), which means convert a value to a string based on the format. Because there is no byte type in Python, here the string is actually equivalent to byte stream, or byte array.
 
 **struct.pack()**
 
@@ -68,7 +68,7 @@ b'\x0b\x00\x00\x00\x0c\x00\x00\x00'
 
 **struct.unpack()**
 
-struct.unpack() unpacks the byte stream into Python data type.<br>
+`struct.unpack()` unpacks the byte stream into Python data type.<br>
 The function prototype:
 ```python
 struct.unpack(fmt, string)
@@ -87,7 +87,7 @@ print((c,d))
 
 **struct.calcsize()**
 
-Struct.calcsize is used to calculate the length of the result corresponding to the format string.
+`Struct.calcsize()` is used to calculate the length of the result corresponding to the format string.
 
 For example.<br>
 ```python

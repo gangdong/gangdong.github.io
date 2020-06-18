@@ -29,11 +29,7 @@
 	div.highlight-dark {
 		padding: 5px 20px;
 	}
-	pre.highlight-dark, code {
-		font-family: 'Consolas', Menlo, monospace;
-		line-height: 1.4em;
-		tab-size: 4;
-	}
+
 	.post-categories {
 		li {
 			background-color: #333;
@@ -133,4 +129,13 @@
 	th {
 		background-color: #0d0d0d;
 	}
+}
+
+.dark blockquote {
+  border-left: 6px solid #888;
+  color: #777;
+}
+
+.dark code, tt {
+  background-color: #444;
 }

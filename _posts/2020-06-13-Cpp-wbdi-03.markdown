@@ -11,27 +11,27 @@ WBDI drivers should create at least one queue to handle multiple concurrent requ
 
 In WudfBioUsbSample, the CBiometricIoQueue class implements the I/O queue interface.
 
-In the method CBiometricIoQueue::Initialize, specifically, the driver queries the owning CBiometricIoQueue object for a pointer to the IQueueCallbackDeviceIoControl interface that the framework uses to determine the event callback functions that the driver subscribes to on the queue:
+In the method `CBiometricIoQueue::Initialize`, specifically, the driver queries the owning `CBiometricIoQueue` object for a pointer to the `IQueueCallbackDeviceIoControl` interface that the framework uses to determine the event callback functions that the driver subscribes to on the queue:
 ```cpp
 if (SUCCEEDED(hr)) 
 {
     hr = this->QueryInterface(__uuidof(IUnknown), (void **)&unknown);
 }
 ```
-Then the driver calls IWDFDevice::CreateIoQueue to configure the default I/O queue:
+Then the driver calls `IWDFDevice::CreateIoQueue` to configure the default I/O queue:
 ```cpp
 hr = FxDevice->CreateIoQueue(unknown,FALSE,WdfIoQueueDispatchParallel,FALSE,FALSE,&fxQueue);
 BiometricSafeRelease(unknown);
 ```
-The call specifies WdfIoQueueDispatchParallel so that the framework will present requests to the driver's I/O queue callback functions as soon as the requests are available.
+The call specifies `WdfIoQueueDispatchParallel` so that the framework will present requests to the driver's I/O queue callback functions as soon as the requests are available.
 
-Next, the driver calls IWDFDevice::ConfigureRequestDispatching to configure the queue to filter all Device I/O requests:
+Next, the driver calls `IWDFDevice::ConfigureRequestDispatching` to configure the queue to filter all Device I/O requests:
 ```cpp
 hr = FxDevice->ConfigureRequestDispatching(fxQueue,WdfRequestDeviceIoControl,TRUE);
 ```
-Because the driver specifies WdfRequestDeviceIoControl in this call, it provides an OnDeviceIoControl handler to process I/O notifications from the framework. It does this in the IQueueCallbackDeviceIoControl::OnDeviceIoControl method that is part of the "unknown" parameter in the call to CreateIoQueue previously.
+Because the driver specifies `WdfRequestDeviceIoControl` in this call, it provides an OnDeviceIoControl handler to process I/O notifications from the framework. It does this in the `IQueueCallbackDeviceIoControl::OnDeviceIoControl` method that is part of the "unknown" parameter in the call to `CreateIoQueue` previously.
 
-There can only be one outstanding IOCTL_BIOMETRIC_CAPTURE_DATA request at a time. The driver should track IOCTL_BIOMETRIC_CAPTURE_DATA requests, either by internally keeping a pointer to the pending requests or by using another framework queue to handle those requests.
+There can only be one outstanding `IOCTL_BIOMETRIC_CAPTURE_DATA` request at a time. The driver should track `IOCTL_BIOMETRIC_CAPTURE_DATA` requests, either by internally keeping a pointer to the pending requests or by using another framework queue to handle those requests.
 
 In the sample, if there is a pending I/O request, the sample maintains a pointer to the request in a member of the CBiometricDevice class, as defined in Device.h:
 ```cpp
@@ -48,9 +48,9 @@ IWDFIoRequest *FxRequest = (IWDFIoRequest *)InterlockedExchangePointer((PVOID *)
 ### Installing a Biometric Driver
 Vendors can provide an INF file to install a WBDI driver.
 
-The following is a list of guidelines for biometric device installation. The code examples in this topic are taken from the WudfBioUsbSample.inx file of the [WudfBioUsbSample](https://github.com/Microsoft/Windows-driver-samples/tree/master/biometrics/driver):
+The following is a list of guidelines for biometric device installation. The code examples in this topic are taken from the `WudfBioUsbSample.inx` file of the [WudfBioUsbSample](https://github.com/Microsoft/Windows-driver-samples/tree/master/biometrics/driver):
 
-+ WBDI drivers should specify a class of "Biometric." Set ClassGuid equal to the value that corresponds to GUID_DEVCLASS_BIOMETRIC in Devguid.h:
++ WBDI drivers should specify a class of "Biometric." Set ClassGuid equal to the value that corresponds to `GUID_DEVCLASS_BIOMETRIC` in Devguid.h:
 ```cpp
 [Version]
 Signature="$Windows NT$"
@@ -65,7 +65,7 @@ AddReg=Biometric_Device_AddReg
 AddReg=DriverPlugInAddReg, DatabaseAddReg
 ```
 
-+ Provide the named sections referred to in the .HW section. The [Biometric_Device_AddReg] section sets values for the biometric device, including the exclusive flag and system wake/device idle. To be recognized by Windows Biometric Framework, UMDF-based WBDI drivers must set the "Exclusive" value to 1. The first two lines of the [Biometric_Device_AddReg] section specify access control list (ACL) rights so that the device can only be opened by an administrator or the local system account. When you specify these ACL rights, third-party applications cannot open the device and capture fingerprint data when the WinBio service is not running. For example:
++ Provide the named sections referred to in the .HW section. The `[Biometric_Device_AddReg]` section sets values for the biometric device, including the exclusive flag and system wake/device idle. To be recognized by Windows Biometric Framework, UMDF-based WBDI drivers must set the "Exclusive" value to 1. The first two lines of the `[Biometric_Device_AddReg]` section specify access control list (ACL) rights so that the device can only be opened by an administrator or the local system account. When you specify these ACL rights, third-party applications cannot open the device and capture fingerprint data when the WinBio service is not running. For example:
 ```cpp
 [Biometric_Device_AddReg]
 HKR,,"DeviceCharacteristics",0x10001,0x0100     ; Use same security checks on relative opens
@@ -94,7 +94,7 @@ HKR,WinBio\Configurations\0,StorageAdapterBinary,,"WinBioStorageAdapter.DLL"    
 HKR,WinBio\Configurations\0,DatabaseId,,"6E9D4C5A-55B4-4c52-90B7-DDDC75CA4D50"  ; Unique database GUID
 ```
 
-+ Finally, the third section sets the following registry values for the database service. The identifying GUID must be unique for each vendor database of a certain format. For instance, in this code example from the sample, change 6E9D4C5A-55B4-4c52-90B7-DDDC75CA4D50 to your own unique GUID in your INF file.
++ Finally, the third section sets the following registry values for the database service. The identifying GUID must be unique for each vendor database of a certain format. For instance, in this code example from the sample, change `6E9D4C5A-55B4-4c52-90B7-DDDC75CA4D50` to your own unique GUID in your INF file.
 ```cpp
 [DatabaseAddReg]
 HKLM,System\CurrentControlSet\Services\WbioSrvc\Databases\{6E9D4C5A-55B4-4c52-90B7-DDDC75CA4D50},BiometricType,0x00010001,0x00000008
@@ -111,16 +111,16 @@ For information about INX files and how they differ from INF files, see Using IN
 ### Creating a Device Interface for a WBDI Driver
 After the device callback object has been initialized and returned to the driver, at the time of queue setup, the driver should create a device interface instance for the biometric device.
 
-Specifically, WBDI drivers must expose the GUID_DEVINTERFACE_BIOMETRIC_READER device interface by calling IWDFDevice::CreateDeviceInterface:
+Specifically, WBDI drivers must expose the `GUID_DEVINTERFACE_BIOMETRIC_READER` device interface by calling `IWDFDevice::CreateDeviceInterface`:
 ```cpp
 hr = m_FxDevice->CreateDeviceInterface(&GUID_DEVINTERFACE_BIOMETRIC_READER, NULL);
 ```
-This call is followed by a call to IWDFDevice::AssignDeviceInterfaceState:
+This call is followed by a call to `IWDFDevice::AssignDeviceInterfaceState`:
 ```cpp
 hr = m_FxDevice->AssignDeviceInterfaceState(&GUID_DEVINTERFACE_BIOMETRIC_READER,NULL,TRUE);
 ```
 A WBDI driver that wants to expose functionality to a legacy (non-WBDI) biometric stack should expose another device interface for legacy applications and make sure that the Exclusive value is set to zero in the INX file that installs the legacy stack.
 
-Exposing the GUID_DEVINTERFACE_BIOMETRIC_READER device interface causes the WBF service to enumerate the driver only. If Exclusive mode is not set, WBF does not attempt to open and control the device.
+Exposing the `GUID_DEVINTERFACE_BIOMETRIC_READER` device interface causes the WBF service to enumerate the driver only. If Exclusive mode is not set, WBF does not attempt to open and control the device.
 
-Alternatively, the driver could detect internally that it is in legacy mode and then not expose the GUID_DEVINTERFACE_BIOMETRIC_READER device interface.
+Alternatively, the driver could detect internally that it is in legacy mode and then not expose the `GUID_DEVINTERFACE_BIOMETRIC_READER` device interface.

@@ -6,7 +6,7 @@ categories: Web
 ---
 I believe it is a good idea to estimate the reading time of every post and display it to readers following the post excerpts. 
 
-There are plenty of Jekyll plugins that support realizing this feature, but I don't suggest to use them if you want to deploy your blog on Github pages. (GitHub may block the working of these plugins by running with the --safe flag).
+There are plenty of Jekyll plugins that support realizing this feature, but I don't suggest to use them if you want to deploy your blog on Github pages. (GitHub may block the working of these plugins by running with the `--safe` flag).
 
 So I tried to write below trick code to realize this feature. 
 
@@ -35,7 +35,7 @@ The method is straightforward,
 {% assign words = content | number_of_words %}
 {% endraw %}
 ```
-But Jekyll built in filter 'number_of_words' cannot accurately count the number of Chinese words. If you have Chinese words to calculate, you can use Liquid's size filter to avoid this problem. In order to make statistics more accurate, it is better to ignore all HTML tags and blank lines before calculation.
+But Jekyll built in filter `number_of_words` cannot accurately count the number of Chinese words. If you have Chinese words to calculate, you can use Liquid's size filter to avoid this problem. In order to make statistics more accurate, it is better to ignore all HTML tags and blank lines before calculation.
 + Get a number of WPM (word per minute), by google the WPM value, an person can read 300-500 words per minute in a computer monitor. I read fast and I think it can be a bigger value, but I set an median 400 here for my blog. 
 + The rest work is easy, we only need calculating the reading time by dividing words count with WPM.
 

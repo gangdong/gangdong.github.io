@@ -21,4 +21,4 @@ fill the name of repository，please note the name must be your website's url an
 4. open the settings page of your new repository, find your website url and record it. Input your website url into the web browser and then you will see your website's homepage. It is an empty page at the beginning. To add content, you need to create a index.html file in your repository directory. Write what you want into it and submit the modification, you we will see the contents you added.<br>
 ![create3]({{site.baseurl}}/assets/image/others-blog-create-repository4.png)
 For now, all work are done! you've got your personal website with some simple elements. If you want to enrich your website, You need to do some extra work. A fast way is to use Github template. Github provides many beautiful theme templates. You can use them directly to create your own. The theme templates on Github are mostly built based on Jekyll, so it is necessary to understand Jekyll. However the introduction of Jekyll is not discussed in this paper. I'll write a separate article for Jekyll.<br>
-See you soon.<br>
+See you soon. :smile: <br>

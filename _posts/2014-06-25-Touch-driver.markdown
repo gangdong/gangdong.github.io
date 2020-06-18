@@ -55,7 +55,7 @@ static void __exit mxt_exit(void)
 module_init(mxt_init);
 module_exit(mxt_exit);
 ```
-内核在加载到该设备的驱动后会执行Probe()函数对设备进行初始化。在probe()函数中驱动主要完成的内容有
+内核在加载到该设备的驱动后会执行`Probe()`函数对设备进行初始化。在probe()函数中驱动主要完成的内容有
 ```c
 static int __devinit mxt_probe(struct i2c_client *client,
 		const struct i2c_device_id *id)
@@ -76,12 +76,12 @@ static int __devinit mxt_probe(struct i2c_client *client,
 		goto err_free_mem;
 	}
 ```
-这里面结构体input_dev用于描述一个输入子系统设备，何驱动设备如果想标明自己是输入设备，都应该通过初始化这样的结构体。input_allocate_device()这个函数会为input_dev这个结构体申请内存并完成这个结构体在内核中的注册。关于这个函数的说明请参考我的另一篇文章 [另一篇文章]()
+这里面结构体input_dev用于描述一个输入子系统设备，何驱动设备如果想标明自己是输入设备，都应该通过初始化这样的结构体。`input_allocate_device()`这个函数会为input_dev这个结构体申请内存并完成这个结构体在内核中的注册。关于这个函数的说明请参考我的另一篇文章 [另一篇文章]()
 ```c
 /* Initialize i2c device */
 	error = mxt_initialize(data);
 ```
-接下来要执行mxt_initialize()这个函数来做设备的硬件初始化。我们来看看硬件初始化里面都做了哪些事情。
+接下来要执行`mxt_initialize()`这个函数来做设备的硬件初始化。我们来看看硬件初始化里面都做了哪些事情。
 ```c
 static int mxt_initialize(struct mxt_data *data)
 {
@@ -151,7 +151,7 @@ static int mxt_initialize(struct mxt_data *data)
 	return 0;
 }
 ```
-我们看到首先要从芯片内部读取相关的设备信息(芯片型号，版本信息等)，这些信息是存储在芯片内部memeory的固定的地址。调用的函数mxt_get_info()，该函数的返回值表示读取的结果，如果不为零说明读取失败，芯片状态异常，这时要通过发送命令让芯片进入bootloader模式(mxt_probe_bootloader()函数)，重新复位。
+我们看到首先要从芯片内部读取相关的设备信息(芯片型号，版本信息等)，这些信息是存储在芯片内部memeory的固定的地址。调用的函数`mxt_get_info()`，该函数的返回值表示读取的结果，如果不为零说明读取失败，芯片状态异常，这时要通过发送命令让芯片进入bootloader模式(`mxt_probe_bootloader()`函数)，重新复位。
 ```c
 error = mxt_get_info(data);
 ```
@@ -228,9 +228,9 @@ error = mxt_read_resolution(data);
 		goto err_free_irq;
 	}
 ```
-以上为注册Input device的代码，这里涉及到Linux input 设备的初始化，需要调用__set_bit(), input_set_abs_params()函数来完成输入设备的一些必要的配置，比如多少个手指，分辨率是多少等，具体可以参考相关的文档。<br>
-最后调用input_register_device()函数来将刚才配置好的Input device注册到kernel中去。
-关于申请中断就比较简单，需要调用request_threaded_irq()函数，该函数的参数中需要传入 
+以上为注册Input device的代码，这里涉及到Linux input 设备的初始化，需要调用`__set_bit()`, `input_set_abs_params()`函数来完成输入设备的一些必要的配置，比如多少个手指，分辨率是多少等，具体可以参考相关的文档。<br>
+最后调用`input_register_device()`函数来将刚才配置好的Input device注册到kernel中去。
+关于申请中断就比较简单，需要调用`request_threaded_irq()`函数，该函数的参数中需要传入 
 1. 该设备申请的中断号，这个在DTS中定义。 
 2. 中断处理函数名 
 3. 中断的类型 
@@ -253,7 +253,7 @@ error = sysfs_create_group(&client->dev.kobj, &mxt_attr_group);
 		goto err_unregister_device;
 	}
 ```
-sysfs_create_group()这个函数需要传入一个 attribute_group 结构体的地址。这个地址实际上指向了一个文件属性 attribute 类型的指针数组，通过该数组可以引用到文件节点操作的函数。
+`sysfs_create_group()`这个函数需要传入一个 attribute_group 结构体的地址。这个地址实际上指向了一个文件属性 attribute 类型的指针数组，通过该数组可以引用到文件节点操作的函数。
 
 ```c
 static struct attribute *mxt_attrs[] = {
@@ -263,7 +263,7 @@ static struct attribute *mxt_attrs[] = {
 	NULL
 };
 ```
-至此，驱动的加载已经完成，该驱动支持的设备已经可以正常使用。当然驱动代码还有其他的一些任务，比如定义系统休眠，唤醒时的操作。实际上就是设备上下电相关的一些操作。如果需要更改设备上下电时的策略，则要对mxt_start()和mxt_stop()两个函数内容进行修改。
+至此，驱动的加载已经完成，该驱动支持的设备已经可以正常使用。当然驱动代码还有其他的一些任务，比如定义系统休眠，唤醒时的操作。实际上就是设备上下电相关的一些操作。如果需要更改设备上下电时的策略，则要对`mxt_start()`和`mxt_stop()`两个函数内容进行修改。
 ```c
 static int mxt_suspend(struct device *dev)
 {
@@ -343,8 +343,8 @@ end:
 	return IRQ_HANDLED;
 }
 ```
-可以看到，在中断处理函数中使用了轮询的方法，通过mxt_read_message()函数来读取IC准备好的数据，直到所有数据都被读取，然后调用mxt_input_touchevent()函数将读取的数据打包发送。
-mxt_input_touchevent()函数的实现如下。
+可以看到，在中断处理函数中使用了轮询的方法，通过`mxt_read_message()`函数来读取IC准备好的数据，直到所有数据都被读取，然后调用`mxt_input_touchevent()`函数将读取的数据打包发送。
+`mxt_input_touchevent()`函数的实现如下。
 ```c
 static void mxt_input_touchevent(struct mxt_data *data,
 				      struct mxt_message *message, int id)
@@ -409,8 +409,8 @@ static void mxt_input_touchevent(struct mxt_data *data,
 	mxt_input_report(data, id);
 }
 ```
-mxt_input_touchevent()是十分重要的函数，在这个函数里会根据读取到的数据判断当前touch的状态，比如手指是抬起，抑制还是按压，移动。针对不同的状态会发送不同的消息类型给上层。具体的传送通过mxt_input_report()函数执行。
-mxt_input_report()的函数体如下。
+`mxt_input_touchevent()`是十分重要的函数，在这个函数里会根据读取到的数据判断当前touch的状态，比如手指是抬起，抑制还是按压，移动。针对不同的状态会发送不同的消息类型给上层。具体的传送通过`mxt_input_report()`函数执行。
+`mxt_input_report()`的函数体如下。
 ```c
 static void mxt_input_report(struct mxt_data *data, int single_id)
 {
@@ -455,17 +455,17 @@ static void mxt_input_report(struct mxt_data *data, int single_id)
 	input_sync(input_dev);
 }
 ```
-mxt_input_report()主要调用了如下的Linux kernel函数来上报消息。<br>
+`mxt_input_report()`主要调用了如下的Linux kernel函数来上报消息。<br>
 + input_mt_slot()
 + input_mt_report_slot_state()
 + input_report_abs()
 + input_report_key()
 + input_sync()
 
-其中 input_mt_slot() 是指明当前上报的slot号，目前的代码使用的是protocol B协议来处理touch事件，protocol B 会为每个手指分配一个slot，不同手指的数据会被封装到不同的slot中，这样可以保证不同的手指消息被区分开来传送。可以更好的支持多指触控(不同于协议A，触控IC 的firmware可以计算划分不同的手指信息，无需上层的算法参与，可以提高响应速度)，详细的内容可以参考。
-input_mt_report_slot_state()是设定当前slot的状态，比如按下，抬起等。
-如果是按下状态，还要调用input_report_abs()函数来上报当前的坐标信息。
-如果是按键事件，调用input_report_key()来上报当前的按键信息。
-最后input_sync()来将所有的信息打包成一个数据帧来发送，注意如果不执行这个函数，之前的信息无效，不会被发送给上层。
+其中 `input_mt_slot()` 是指明当前上报的slot号，目前的代码使用的是protocol B协议来处理touch事件，protocol B 会为每个手指分配一个slot，不同手指的数据会被封装到不同的slot中，这样可以保证不同的手指消息被区分开来传送。可以更好的支持多指触控(不同于协议A，触控IC 的firmware可以计算划分不同的手指信息，无需上层的算法参与，可以提高响应速度)，详细的内容可以参考。
+`input_mt_report_slot_state()`是设定当前slot的状态，比如按下，抬起等。
+如果是按下状态，还要调用`input_report_abs()`函数来上报当前的坐标信息。
+如果是按键事件，调用`input_report_key()`来上报当前的按键信息。
+最后`input_sync()`来将所有的信息打包成一个数据帧来发送，注意如果不执行这个函数，之前的信息无效，不会被发送给上层。
 
 好了，到这里整个驱动代码所要完成的主要任务都已经完成了。从整个流程来看虽然比较简单，但是触控IC的驱动程序作为硬件设备和Linux kernel的接口，还是起到了非常重要的作用。对于设备的驱动代码，还是要十分重视。<br>

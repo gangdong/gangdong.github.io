@@ -27,7 +27,7 @@ Return<RequestStatus> authenticate(uint64_t operationId, uint32_t gid) override;
 
 ### preEnroll()
 
-When user starts to enroll the fingerprint, the method preEnroll() will be called firstly, the fingerprint IC vendor needs to override this method to complete below task. 
+When user starts to enroll the fingerprint, the method `preEnroll()` will be called firstly, the fingerprint IC vendor needs to override this method to complete below task. 
 
 + generates and saves a 64 bit random number (challenge) in the fingerprint TA. 
 This random number has two uses:
@@ -35,8 +35,8 @@ This random number has two uses:
 2. TA will use it to preliminarily verify the next enroll to ensure that the enroll has not been tampered by a third party.
 
 ### enroll()
-If the preEnroll() is proper returned, enroll() will be following called.<br> 
-Let's see the definition of enroll().
+If the `preEnroll()` is proper returned, `enroll()` will be following called.<br> 
+Let's see the definition of `enroll()`.
 ```cpp
 int (*enroll)(struct fingerprint_device *dev, const hw_auth_token_t *hat,
           uint32_t gid, uint32_t timeout_sec);
@@ -70,7 +70,7 @@ typedef struct __attribute__((__packed__))
 + gid: Indicate which user enroll fingerprint (Anroid supports multiple users)
 + timeout_sec: timeout /second.
 
-The upper layer calls enroll() method and pass the parameters to fingerprint TA, fingerprint TA receives the token and authorize the token. There will be some works.
+The upper layer calls `enroll()` method and pass the parameters to fingerprint TA, fingerprint TA receives the token and authorize the token. There will be some works.
 
 1. check if the received token->challenge same with the previous preEnroll phase challenge.
 2. check if the token version is same.
@@ -79,12 +79,12 @@ The upper layer calls enroll() method and pass the parameters to fingerprint TA,
 
 Once the token is authorized then switch the fingerprint sensor status to ready for enrollment and the fingerprint sensor will wait for the finger down event.
 
-If the fingerprint sensor detects the finger down occurs, it will trigger the interrupt to inform the fingerprint TA capture the image. Fingerprint TA will capture the image and do a verification to check if the image is qualified. Uses on_acquired() callback method to notify the upper layer the result. If the image is not good, it will repeat the image capture for a pre-setted times. If the image is qualified, then fingerprint TA will start the enrollment in ALGO and call on_enroll_result() to notify the upper layer the remained sample times. Waiting for the finger up and do the next round image capture. This loop will be repeated until the required count of images are all achieved. 
+If the fingerprint sensor detects the finger down occurs, it will trigger the interrupt to inform the fingerprint TA capture the image. Fingerprint TA will capture the image and do a verification to check if the image is qualified. Uses `on_acquired()` callback method to notify the upper layer the result. If the image is not good, it will repeat the image capture for a pre-setted times. If the image is qualified, then fingerprint TA will start the enrollment in ALGO and call `on_enroll_result()` to notify the upper layer the remained sample times. Waiting for the finger up and do the next round image capture. This loop will be repeated until the required count of images are all achieved. 
 
 ### postEnroll()
 
-Once the enroll() is returned, postEnroll() will be called to finish one time enroll process.
-the work of postEnroll() is to update the challenge of TA.
+Once the enroll() is returned, `postEnroll()` will be called to finish one time enroll process.
+the work of `postEnroll()` is to update the challenge of TA.
 
 A simplest diagram of the whole enrollment process is 
 

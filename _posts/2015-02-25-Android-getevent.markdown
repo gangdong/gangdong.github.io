@@ -5,7 +5,7 @@ date:   2015-02-25 20:33:04 +0800
 categories: Android  
 published: true
 ---
-Android provides an ADB command 'getevent' to obtain input events, such as obtaining key reporting event, obtaining touch screen reporting event, etc.
+Android provides an ADB command `getevent` to obtain input events, such as obtaining key reporting event, obtaining touch screen reporting event, etc.
 
 User can use this command under adb console. 
 
@@ -14,7 +14,7 @@ The usage of this command is
 ```shell
 adb shell getevent [options] [device]
 ```
-We input 'adb shell getevent -h' on the CMD command line and will get the help information about this command.
+We input `adb shell getevent -h` on the CMD command line and will get the help information about this command.
 
 ```shell
 Usage: getevent [-t] [-n] [-s switchmask] [-S] [-v [mask]] [-d] [-p] [-i] [-l] [-q]
@@ -65,7 +65,7 @@ C:\WINDOWS\System32>adb shell getevent /dev/input/event2
 0003 003a 0000000f
 0003 0035 00000154
 ```
-Here the first column represents the EVENT_TYPE, the second column displays the EVENT_CODE and the third column is EVENT_VALUE.
+Here the first column represents the `EVENT_TYPE`, the second column displays the `EVENT_CODE` and the third column is `EVENT_VALUE`.
 
 + -t: display timestamp
 ```
@@ -130,7 +130,7 @@ EV_ABS       ABS_MT_TOUCH_MAJOR   0000000f
 EV_ABS       ABS_MT_WIDTH_MAJOR   0000000f
 EV_ABS       ABS_MT_PRESSURE      0000000f
 ```
-Compare with the default output, the '-l' output use the plain text replace the raw code of EVENT_TYPE/EVENT_CODE/EVENT_VALUE which is more intuitive.
+Compare with the default output, the `-l` output use the plain text replace the raw code of `EVENT_TYPE/EVENT_CODE/EVENT_VALUE` which is more intuitive.
 + -c: print given number of events then exit
 ```
 C:\WINDOWS\System32>adb shell getevent -c 10  /dev/input/event2

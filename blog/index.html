@@ -12,7 +12,7 @@ title: Home
     </li>
 	<!-- This loops through the paginated posts -->
     {%- for post in paginator.posts -%}
-      <li>
+      <li style="margin-bottom:40px">
         {%- assign date_format = site.rawposts.date_format | default: "%b %-d, %Y" -%}
         <a class="post-link" href="{{ post.url | relative_url }}">
           <h2 class="post-title">{{ post.title | escape }}</h2>
