@@ -266,7 +266,7 @@ main {
 
 .post-title {
   line-height: 1.2em;
-  font-size: 28px;
+  font-size: 30px;
 }
 .posts,
 .post-container {
@@ -442,7 +442,7 @@ a {
 	white-space: pre-wrap;
 	
 	a {
-	    color: #436EEE;
+	    color: $linkColor;
 		text-decoration: none;
 		transition: border-bottom 0.4s;
 		&:hover {
