@@ -6,7 +6,7 @@ categories: Others
 Published: true
 ---
 ### What is TraceView?
-For the windows driver development as what I am doing these days, Microsoft provides a log printing and log viewing mechanism, which can view the logs of specified driver files, filter the logs according to `LEVEL` and `FLAG`, or save them as files. This mechanism is WPP and ` TraceView.exe`.
+For the windows driver development as what I am doing these days, Microsoft provides a log printing and log viewing mechanism, which can view the logs of specified driver files, filter the logs according to `LEVEL` and `FLAG`, or save them as files. This mechanism is WPP and  `TraceView.exe`.
 
 The usage is simple, WDF framework has built in the function and enclosed the WPP into the `trace.h`.
 The driver program imports the header file and add `TraceEvents()` method to the place where needs to print log. Use the `TraceView.exe` application to capture and view the logs when the driver program running.  
