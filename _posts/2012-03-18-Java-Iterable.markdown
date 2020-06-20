@@ -5,21 +5,21 @@ date:   2012-03-18 13:27:23 +0800
 categories: Java
 published: true
 ---
-Iterable<>是Java.lang包中定义的一个接口, 
-根据Java文档的介绍该接口主要声明了一个Iterator()方法，该方法返回一个Iterator<>接口。
+`Iterable<>` 是 `Java.lang` 包中定义的一个接口, 
+根据Java文档的介绍该接口主要声明了一个`Iterator()`方法，该方法返回一个`Iterator<>`接口。   
 
 [Iterable Java 文档](https://docs.oracle.com/javase/8/docs/api/)<br>
 
 ![Iterable]({{site.baseurl}}/assets/image/java-iterable-function.png){: .center-image }
 <br>
 
-那我们接下来看一看Iterator<>接口主要内容，Iterator<>接口的Java 文档里说明
-Iterator<>接口主要声明了三个方法。[Iterator Java 文档](https://docs.oracle.com/javase/8/docs/api/)
-+ boolean hasNext()
-+ E next()
-+ default void remove()
+那我们接下来看一看`Iterator<>`接口主要内容，`Iterator<>`接口的Java 文档里说明
+`Iterator<>`接口主要声明了三个方法。   [Iterator Java 文档](https://docs.oracle.com/javase/8/docs/api/)
++ `boolean hasNext()`
++ `E next()`
++ `default void remove()`
 
-看到这里就很清楚了，实现了Iterator<>接口的类可以进行迭代遍历，Iterator<>接口通过对以上3个方法的封装实现了对遍历访问的支持。Java里的集合类都实现了Iterator<>接口。
+看到这里就很清楚了，实现了`Iterator<>`接口的类可以进行迭代遍历，`Iterator<>`接口通过对以上3个方法的封装实现了对遍历访问的支持。Java里的集合类都实现了`Iterator<>`接口。
 
 一个简单的应用例子。
 Student.java - 基本的数据类
@@ -154,7 +154,7 @@ public class App {
 学生—8 年龄:12 性别:男
 学生—9 年龄:14 性别:女
 ```
-有人可能会问，为什么不直接将hasNext()，next()方法放在Iterable接口中，其他类直接实现就可以了？
+有人可能会问，为什么不直接将`hasNext()`，`next()`方法放在Iterable接口中，其他类直接实现就可以了？
 
 原因是有些集合类可能不止一种遍历方式，实现了Iterable的类可以再实现多个Iterator内部类，通过返回不同的Iterator实现不同的遍历方式，这样更加灵活。如果把两个接口合并，就没法返回不同的Iterator实现类了。
 <br>

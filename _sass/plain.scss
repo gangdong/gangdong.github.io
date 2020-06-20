@@ -175,7 +175,6 @@ main {
       margin-top: 5px;
     }
     margin-right: 10px;
-    margin-bottom: 10px;
   }
   
   a {
@@ -457,17 +456,6 @@ a {
      color:$linkColor;
     }
 }
-table {
-  margin: auto;
-  th, td {
-    padding: 8px 13px;
-    border: 1px solid #dfe2e5;
-  }
-  th {
-    background-color: #eee;
-    font-family: Raleway;
-  }
-}
 blockquote {
   border-left: 6px solid #DDD;
   padding: 0 15px;
@@ -502,6 +490,19 @@ pre {
   line-height: 1.4em;
   overflow: auto;
   padding: 6px 10px;
+}
+table {
+  margin: auto;
+  th, td {
+    padding: 8px 13px;
+    border: 1px solid #dfe2e5;
+  }
+  th {
+    color: #222;
+	font-weight: 400;
+    background-color: #eee;
+    font-family: 'Raleway', 'Microsoft Yahei';
+  }
 }
 .center-image
 {
