@@ -39,9 +39,9 @@ paginate_path: "/blog/page:num/"
 ```
 Jekyll will search the /blog/ directory and read in `blog/index.html`, send it each pagination page and write the output to `blog/page:num/`, where `:num` is the pagination page number, starting with 2. For example, if you output 3 pages, if you look at the _site directory, you will find a /blog folder with two subfolders /page2 and /page3 in it. Each folder has a `index.html` file, which contains the contents that need to be displayed.
 
-**Note:** because the pages starts with 2, which means no page1 exists. That will require a special handling for the first page when rendering the pages. Actually the page1 contents is displayed on the index.html of /blog directory. 
+**Note:** because the pages starts with 2, which means no page1 exists. That will require a special handling for the first page when rendering the pages. Actually the page1 contents is displayed on the `index.html` of /blog directory. 
 
-For me, I tried to set the path as below, but failed to load the index.html. After I change to `/blog/page:num`, it started to work. Who can tell what the reason is here?
+For me, I tried to set the path as below, but failed to load the `index.html`. After I change to `/blog/page:num`, it started to work. Who can tell what the reason is here?
 ```ruby
 paginate_path: "/page:num/" 
 ```
@@ -82,8 +82,8 @@ Below code is an example from my blog's `pagination.html` file. This pieces of c
 {% endif %}
 {% endraw %}
 ```
-Besides, you still need to change your page.html or home.html where displays the every pages. <br>
-I removed these code to `/blog/index.html` from page.html and chage the loop from site.posts to paginator.posts.<br>
+Besides, you still need to change your `page.html` or `home.html` where displays the every pages. <br>
+I removed these code to `/blog/index.html` from `page.html` and chage the loop from site.posts to paginator.posts.<br>
 Below code loops through the paginated posts.
 ```html
 {% raw %}
@@ -117,6 +117,6 @@ Below code loops through the paginated posts.
     {%- endfor -%}
 {% endraw %}
 ```
-#### More
+#### About others
 Currently jekyll-paginate plugin doesn't allow paging over groups of posts linked by a common tag or category. 
 The more recent [jekyll-paginate-v2](https://github.com/sverrirs/jekyll-paginate-v2) plugin can support the pagination for categories, tags and collections. See the pagination examples in the repository.<br> **This plugin is not supported by GitHub Pages. I haven't tried it!** :worried:
