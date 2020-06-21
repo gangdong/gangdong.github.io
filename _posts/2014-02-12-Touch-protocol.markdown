@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Linux系统下的多点触摸协议"
+title:  "Linux 系统下的多点触摸协议"
 date:   2014-02-12 21:33:10 +0800
 categories: Touch Linux
 published: true
