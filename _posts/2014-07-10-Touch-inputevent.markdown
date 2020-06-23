@@ -5,7 +5,7 @@ date:   2014-07-10 23:44:07 +0800
 categories: C Touch Linux Android
 published: true
 ---
-上一篇博文 [ATMEL maXTouch IC驱动代码分析]({{site.baseurl}}/c/touch/linux/2014/06/25/Touch-driver.html) 我们讲到了 Touch 驱动代码如何读取IC内部获取到的触摸事件信息并通过`input_report_abs（）`和`input_sync()`函数上报给 Linux 的 Input 子系统的过程。今天这篇文章我们就走进 Input 子系统内部来看一下事件是如何被传递到 Android 的用户空间的。
+上一篇博文 [ATMEL maXTouch IC驱动代码分析]({{site.baseurl}}/c/touch/linux/2014/06/25/Touch-driver.html) 我们讲到了 Touch 驱动代码如何读取IC内部获取到的触摸事件信息并通过`input_report_abs()`和`input_sync()`函数上报给 Linux 的 Input 子系统的过程。今天这篇文章我们就走进 Input 子系统内部来看一下事件是如何被传递到 Android 的用户空间的。
 
 ### Input 子系统框架
 首先我们从 Input 子系统介绍开始。Input 子系统由驱动层、输入子系统核心层（Input Core）和事件处理层（Event Handler）3部分组成。一个输入事件，如鼠标移动，触摸事件等通过驱动层->系统核心层->事件处理层->用户空间的顺序到达用户空间并传给应用程序使用。其中Input Core即输入子系统核心层由 `driver/input/input.c` 及相关头文件实现。其对下提供了设备驱动的接口，对上提供了事件处理层的编程接口。输入子系统主要设计`input_dev`、`input_handler`、`input_handle`等数据结构，它们的用途和功能如下图所示。   

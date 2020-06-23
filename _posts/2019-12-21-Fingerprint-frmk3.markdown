@@ -22,7 +22,7 @@ The hardware abstraction layer of Android system manages various hardware access
 
 These definition of these two struct is defined at <br>
 [hardware.h](https://www.androidos.net.cn/android/7.0.0_r31/xref/hardware/libhardware/include/hardware/hardware.h)<br>
-`android path: root/hardware/libhardware/include/hardware/hardware.h`
+`android path: root/hardware/libhardware/include/hardware/hardware.h`   
 
 **hardware.h**
 ```c
@@ -137,7 +137,7 @@ typedef struct hw_device_t {
 
 } hw_device_t;
 ```
-Besides, this header file also declares the module name and two important functions.
+Besides, this header file also declares the module name and two important functions.   
 **hardware.h**
 ```c
 /**
@@ -170,7 +170,7 @@ int hw_get_module_by_class(const char *class_id, const char *inst,
 These two functions are realized at <br>
 [hardware.c](https://www.androidos.net.cn/android/7.0.0_r31/xref/hardware/libhardware/hardware.c)<br>
 `android path: root/hardware/libhardware/hardware.c`<br> 
-From the file, we can find the module search path is as below.
+From the file, we can find the module search path is as below.   
 **hardware.c**
 ```c
 /** Base path of the hal modules */
@@ -345,7 +345,7 @@ int hw_get_module(const char *id, const struct hw_module_t **module)
 ```
 `hw_get_module()` will call the `hw_get_module_by_class()` function. Firstly, it will read the system property `ro.hardware` through the `property_get()` function. If the property is found, it then uses the `hw_module_exists()` function to check whether the `xx.So` library exists. If it exists, load it directly else if it does not exist, continue to search for the variant_keys array. Checking system attribute values. If found, load it directly. If it does not exist still, load the default.
 
-Let's turn back to the `FingerprintDaemonProxy::openHal()` to see how it call the `hw_get_module()` function.
+Let's turn back to the `FingerprintDaemonProxy::openHal()` to see how it call the `hw_get_module()` function.   
 **FingerprintDaemonProxy.cpp**
 ```cpp
 int64_t FingerprintDaemonProxy::openHal() {

@@ -55,7 +55,7 @@ static void __exit mxt_exit(void)
 module_init(mxt_init);
 module_exit(mxt_exit);
 ```
-内核在加载到该设备的驱动后会执行`Probe()`函数对设备进行初始化。在probe()函数中驱动主要完成的内容有
+内核在加载到该设备的驱动后会执行`Probe()`函数对设备进行初始化。在`probe()`函数中驱动主要完成的内容有
 ```c
 static int __devinit mxt_probe(struct i2c_client *client,
 		const struct i2c_device_id *id)

@@ -142,4 +142,4 @@ int void main(){
 <br>
 到这里**markdown**一些基本的命令就讲完了，用**markdown**写文档还是很方便的。
 最后再介绍几款好用的**markdown**的编辑器，方便网友使用。<br>
-目前比较主流的支持**markdown**语言的编辑有markdownpad,typora,sublime,Mou,atom,Cmd Markdown 等，这些软件大部分都能支持windows/liunx和ios(Mou只支持ios)的平台。而且大部分是免费使用。功能上大同小异，都支持实时预览和HTML/PDF输出，有些还能够自定义语法的高亮显示等。我目前使用的是markdownpad,编辑起来还是很方便的。
+目前比较主流的支持**markdown**语言的编辑有`markdownpad`,`typora`,`sublime`,`Mou`,`atom`,`Cmd Markdown` 等，这些软件大部分都能支持windows/liunx和ios(Mou只支持ios)的平台。而且大部分是免费使用。功能上大同小异，都支持实时预览和HTML/PDF输出，有些还能够自定义语法的高亮显示等。我目前使用的是`markdownpad2`,编辑起来还是很方便的。
