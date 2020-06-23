@@ -66,7 +66,7 @@ public class App
 由以上结果可以看出，线程的运行结果与执行顺序无关，并且10个线程分别被执行一次，线程内资源无法共享。
 
 Runnable接口的Java文档的介绍。[Runnable]()
-Runnable接口内只声明一个方法Run()的方法，同Thread内的Run()方法一样，该方法内定义了线程的执行体。<br>
+Runnable接口内只声明一个方法`Run()`的方法，同Thread内的`Run()`方法一样，该方法内定义了线程的执行体。<br>
 Runnable接口的用法如下。<br>
 MyRunnable.java
 ```java
@@ -125,7 +125,7 @@ public class App
 + 使用Runnable接口适合于资源的共享。
 
 上面的程序还有一个问题，我们看到使用Runable接口时，虽然资源是被共享的，但是顺序不对，而且有重复出现的情况，正常应该是每个线程被调用时，调用次数加一，且应该顺序增加。造成这个问题的原因是因为不同的线程在执行都会访问共享的资源，而这些线程没有实现同步，共享资源会在一个线程调用的过程中被另外的线程改变。
-解决这个问题的话就要用到synchronized，使线程之间同步运行。
+解决这个问题的话就要用到`synchronized`，使线程之间同步运行。
 我们修改一下代码。<br>
 MyRunnale.java
 ```java
@@ -143,7 +143,7 @@ public class MyRunnable implements Runnable{
     }
 }
 ```
-使用synchronized修饰run()方法，使得其在执行时与其他的线程同步。经过synchronized修饰后线程在执行run()方法时会确认是否有其他线程正在执行，如果有的话就加入队列等待，知道可以获得执行权。
+使用`synchronized`修饰`run()`方法，使得其在执行时与其他的线程同步。经过synchronized修饰后线程在执行run()方法时会确认是否有其他线程正在执行，如果有的话就加入队列等待，知道可以获得执行权。
 执行结果如下。
 ```
 线程Thread-1 被调用 1次

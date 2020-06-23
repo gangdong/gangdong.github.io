@@ -6,7 +6,7 @@ categories: Java
 ---
 前些天工作中用到了串口编程。Java上位机UI需要通过串行端口访问外部的设备，Java对串口设备的访问有提供库支持，使用起来比较容易，这里简单总结一下。
 
-首先先下载javacomm20-win32的package。<br>
+首先先下载`javacomm20-win32`的package。<br>
 [下载链接](http://code.google.com/p/smslib/downloads/detail?name=javacomm20-win32.zip&can=2&q=)<br>
 从解压包中有三个重要的文件,
 
@@ -17,9 +17,9 @@ win32com.dll|提供了供comm.jar调用的本地驱动接口
 javax.comm.properties|是这个驱动的类配置文件
 
 然后把这三个文件放到如下目录中：<br>
-1. comm.jar可以放在JDK中的jre\lib\ext目录下,比如JAVA SDK装在C:\jdk1.6中，COMM.JAR放到C:\jdk1.6\jre\lib\ext;
-2. win32com.dll可以直接放在JDK中的bin目录下，C:\jdk1.6\bin;
-3. javax.comm.properties放在JDK中的jre\lib目录下，C:\jdk1.6\jre\lib;
+1. `comm.jar`可以放在JDK中的`jre\lib\ext`目录下,比如JAVA SDK装在C:\jdk1.6中，COMM.JAR放到C:\jdk1.6\jre\lib\ext;
+2. `win32com.dll`可以直接放在JDK中的bin目录下，C:\jdk1.6\bin;
+3. `javax.comm.properties`放在JDK中的`jre\lib`目录下，C:\jdk1.6\jre\lib;
 
 使用上可以参考我写的如下代码。<br>
 CommBean.java 实现了一个针对串口的通用操作类，封装了串口设备的打开,配置,关闭，读写操作。

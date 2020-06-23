@@ -4,17 +4,17 @@ title:  "poll() 函数使用"
 date:   2013-09-02 20:12:01 +0800
 categories: Linux
 ---
-这篇文章对Linux的poll()函数的使用做一个总结。
+这篇文章对Linux的`poll()`函数的使用做一个总结。
 
 #### poll()函数
-Linux 中 poll() 函数用来监听并等待多个文件描述符的属性变化。<br>
+Linux 中 `poll()` 函数用来监听并等待多个文件描述符的属性变化。<br>
 原型
 ```c
 int poll(struct pollfd *fds, nfds_t nfds, int timeout);
 ```
 其中fds：指向一个结构体数组的第0个元素的指针，每个数组元素都是一个struct pollfd结构，用于指定测试某个给定的fd的条件。
 
-```
+```c
 struct pollfd{
 	int fd;			//文件描述符
 	short events;	//等待的事件
@@ -23,7 +23,7 @@ struct pollfd{
 ```
 fds结构体参数说明：
 
-fd：每一个 pollfd 结构体指定了一个被监视的文件描述符，可以传递多个结构体，指示 poll() 监视多个文件描述符。
+fd：每一个 pollfd 结构体指定了一个被监视的文件描述符，可以传递多个结构体，指示 `poll()` 监视多个文件描述符。
 
 events：指定监测fd的事件（输入、输出、错误），每一个事件有多个取值，如下
 
@@ -33,7 +33,7 @@ revents：revents 域是文件描述符的操作结果事件，内核在调用�
 
 nfds：用来指定第一个参数数组元素个数
 
-timeout：指定等待的毫秒数，无论 I/O 是否准备好，poll() 都会返回.
+timeout：指定等待的毫秒数，无论 I/O 是否准备好，`poll()` 都会返回.
 
 返回值：
 
