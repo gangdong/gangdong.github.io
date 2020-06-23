@@ -302,7 +302,10 @@ main {
   h4,
   h5,
   h6 {
-    font-family: Merriweather, Arial, Raleway, Microsoft Yahei, sans-serif;
+    font-family: Tahoma, Merriweather, Raleway, Microsoft Yahei, sans-serif;
+  }
+  h3, h4 {
+	font-weight:normal;
   }
 }
 .about-page{
@@ -464,8 +467,8 @@ blockquote {
   position: relative;
 }
 pre, code, tt {
-  font-size: 14px;
-  font-family: 'Tahoma', Consolas, "Liberation Mono", Courier, monospace;
+  font-size: 16px;
+  font-family:  Consolas, "Liberation Mono", Courier, monospace,'Microsoft Yahei',sans-serif;
 }
 
 code, tt {
