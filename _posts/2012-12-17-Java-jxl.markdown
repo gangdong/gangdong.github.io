@@ -14,7 +14,7 @@ JXL的官方下载地址 [官方地址](http://maven.ibiblio.org/maven2/net/sour
 
 直接讲用法不如看代码，以下是一些使用JXL库的简单操作。
 
-导入jxl的类库。
+#### 导入jxl的类库
 ```java
 import jxl.Cell;
 import jxl.Sheet;
@@ -24,7 +24,7 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 
 ```
-打开读取Excel表格的方法。<br>
+#### 打开读取Excel表格的方法
 
 ```java
 try{
@@ -48,7 +48,7 @@ catch(Exception e){
   e.printStackTrace();
 }
 ```
-创建一个Excel workbook的方法。<br>
+#### 创建一个Excel workbook的方法
 ```java
 try {
   // 建立文件

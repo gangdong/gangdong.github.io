@@ -7,7 +7,7 @@ Published: true
 ---
 Python uses `struct.pack()` to pack python data type into binary data (byte stream), which means convert a value to a string based on the format. Because there is no byte type in Python, here the string is actually equivalent to byte stream, or byte array.
 
-**struct.pack()**
+### struct.pack()
 
 The function prototype:
 ```python
@@ -66,7 +66,7 @@ print(struct.pack("ii",a,b))
 b'\x0b\x00\x00\x00\x0c\x00\x00\x00'
 ```
 
-**struct.unpack()**
+### struct.unpack()
 
 `struct.unpack()` unpacks the byte stream into Python data type.<br>
 The function prototype:
@@ -85,7 +85,7 @@ print((c,d))
 (11,12)
 ```
 
-**struct.calcsize()**
+### struct.calcsize()
 
 `Struct.calcsize()` is used to calculate the length of the result corresponding to the format string.
 

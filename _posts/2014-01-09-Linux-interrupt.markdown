@@ -9,10 +9,10 @@ Linux 中断子系统的内部实现机制比较复杂，如果想讲清楚需�
 
 下面以我自己的代码为例，说明一下如何添加中断的处理。
 
-### 中断
+## 中断
 中断是指在CPU正常运行期间，由于内外部事件或由程序预先安排的事件引起的CPU暂时停止正在运行的程序，转而为该内部或外部事件或预先安排的事件服务的程序中去，服务完毕后再返回去继续运行被暂时中断的程序。
 
-### 中断初始化
+## 中断初始化
 以下代码实现了注册一个中断处理到Linux系统中，省略了无关部分。
 
 ```java
@@ -80,11 +80,11 @@ static int dev_request_named_gpio(struct dev-ctl_data *dev-ctl,
 }
 ```
 主要分为这么几个部分。
-#### 申请GPIO做为中断源   
+### 申请GPIO做为中断源   
 首先需要为中断申请一个GPIO，用来接收外部中断触发。代码中使用了`dev_request_named_gpio()`函数来申请这个GPIO。该函数为自定义函数，函数中调用了系统服务`of_get_named_gpio()`和`devm_gpio_request()`。其中参数 `const char *label` 为该GPIO的名字，需要和DTS中注册的名字一致，`int *gpio` 为返回的GPIO的索引号。
 `of_get_named_gpio()`: 由名称索引到DTS中的GPIO，并返回GPIO号。   
 `devm_gpio_request()`: 在系统中分配GPIO给到指定的GPIO号。
-#### 设定中断属性   
+### 设定中断属性   
 申请到GPIO后需要配置中断的`FLAG`,程序中该`FLAG`由`dev_ctl->irqf`指定。   
 常见的 `FLAG` 属性值有以下几个
  
@@ -99,14 +99,14 @@ static int dev_request_named_gpio(struct dev-ctl_data *dev-ctl,
 |IRQF_SHARED|允许在多个设备中共享中断|  
 
 以上代码中设定`FLAG`为 `IRQF_TRIGGER_RISING` 和 `IRQF_ONESHOT`, 如果指定可以唤醒系统的话 （如代码，需要在sysfs节点中写入`wakeup_enabled` 为 1), 则该中断需要添加属性 `IRQF_NO_SUSPEND`。
-#### 接下来注册中断，并绑定到中断服务程序   
+### 接下来注册中断，并绑定到中断服务程序   
 调用系统服务`devm_request_threaded_irq()`来实现该步骤。这个函数将GPIO注册到系统中断中并指定了中断服务程序`dev_irq_handler()`。若接收到该GPIO上的中断触发信号，系统会保存现场并跳转到`dev_irq_handler()`函数中执行相应的处理。
-#### 最后还需要使能中断
+### 最后还需要使能中断
 代码中通过调用系统服务`enable_irq_wake()`来使能中断，`enable_irq_wake()`函数标记此中断可用于唤醒系统，与`disable_irq_wake()`配对，对于需要唤醒系统的中断，只需要在注册的时候调用此接口即可。
 
 至此，中断在系统中的注册已经完成了，如果GPIO上有中断信号产生，那么系统会跳转到中断处理程序执行。我们来看一下中断处理程序。
 
-### 中断处理程序
+## 中断处理程序
 
 ```c
 static irqreturn_t dev_irq_handler(int irq, void *handle)

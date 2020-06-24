@@ -7,17 +7,17 @@ Published: true
 ---
 re module is a unique string matching module of Python. Many functions provided in this module are implemented based on regular expressions. The module is handy and to use it, need to import re module at first.
 
-### Prototype 
+## prototype 
 ```python
 re.split(pattern, string, maxsplit=0, flags=0)
 ```
-### parameters
+## parameters
 + `pattern`: Separator, can be character or regular expression.<br>
 + `string`: String to split.<br>
 + `maxsplit`: Maximum number of split. default is 0, which means no limitation. if minus, means no split.<br>
 + `flags`: Used to control how regular expressions are matched.<br>
 
-### some examples
+## examples
 + split the input string by space and `,`, only do one time split.
 ```python
 import re

@@ -7,7 +7,7 @@ categories: Java
 想要理解Java的异常处理机制，只要掌握好这五个keywords 就可以了。   
 **try**, **catch**, **finally**, **throw** 和 **throws** <br>
 
-#### 异常捕获
+## 异常捕获
 一个常用的异常捕获流程如下图所示，
 ```java
 try{
@@ -27,7 +27,7 @@ try{
 `throws` 用在方法的声明当中，如果该方法声明throws一个异常，则表明该方法里可以不处理该异常，有JVM将异常传递里上层调用者处理。
 throw通常和throws联合使用，抛出的是程序中已经产生的异常类实例。
 
-#### **JAVA 异常分类**<br>
+## 异常分类
 看完了异常处理的流程，我们再来看看Java异常的分类。
 Java的异常都来源于一个接口`throwable`，`throwable`是java.lang包里的一个接口。继承`java.lang.Object`.其中有两个直接子类`ERROR`和`EXCEPTION`，有兴趣可以参考 [Java 官方文档](https://docs.oracle.com/javase/8/docs/api/)<br>
 `Throwable` 主要提供了如下的一些方法。<br>
@@ -44,7 +44,7 @@ ERROR和子类的关系如下图所示。<br>
 EXCEPTION类和子类的关系如下。<br>
 
 ![Exception/subclass]({{site.baseurl}}/assets/image/java-throwable-exception.png){: .center-image }<br>
-#### **Exception** 和 **RuntimeException**<br>
+## Exception 和 RuntimeException
 可以看到`RuntimeException`是`Exception`的子类，实际上`RuntimeException`对应的是非检查性异常，用户可以处理也可以不处理，而如何继承的是`exception`,则为检查性异常，用户必须用`try-catch`来处理异常。<br>
 一个简单的例子。
 ```java

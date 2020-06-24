@@ -15,7 +15,7 @@ After the study of the previous three articles, <br>
 
 we have had a discussion of the fingerprint framework on the android 7.0 in previous blogs, here give a short summary for anyone who has not read these articles yet. <br>
 
-### fingerprint framework in Android 7.0
+## fingerprint framework in Android 7.0
 This diagram is the fingerprint framework on the android platform, I have presented in other article and copied here.
 
 ![framework]({{site.baseurl}}/assets/image/android-fingerprint-framework-framework.png){: .center-image }
@@ -136,7 +136,7 @@ File|Android Path|
 [hardware.h](https://www.androidos.net.cn/android/7.0.0_r31/xref/hardware/libhardware/include/hardware/hardware.h)|root/hardware/libhardware/include/hardware/hardware.h
 [hardware.c](https://www.androidos.net.cn/android/7.0.0_r31/xref/hardware/libhardware/hardware.c)|root/hardware/libhardware/hardware.c
 
-### fingerprint framework in Android 8.0
+## fingerprint framework in Android 8.0
 Above is the fingerprint framework of Android 7.0, however in Android 8.0 and later versions, Android has updated the framework and introduced a set of language called HIDL to define the interface between framework and HAL.
 
 Let's see the difference.

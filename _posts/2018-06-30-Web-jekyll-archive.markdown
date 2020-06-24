@@ -6,7 +6,7 @@ categories: Web
 ---
 After setting up the pagination, the next thing I wanted to add to my blog was a 'proper' archive by both date and category rather than just the reverse chronological list of posts. Although this wasn't as straightforward as setting up pagination, a bit of searching turned up some sites that helped me get everything running.
 
-### Archive by date
+## Archive by date
 Because a list of posts in reverse chronological order can be readily accessed in Jekyll through site.posts, all that's needed is to use some clever Liquid markup to process it. 
 I used below code to group my archives by year.
 {% raw %}
@@ -70,7 +70,7 @@ So the first loop will calculate the post count of every year and return two arr
 
 The second loop uses the{% raw %} `{% capture %}` {% endraw %}tag to get the year of each post and the one that follows it before comparing them. If they're different, the year is inserted before a link to the post while if they're the same, the post is simply added to the list for that year. 
 
-### Archive by category
+## Archive by category
 Jekyll provides variable on the front matter for user grouping the posts by category or tags.
 
 The variable `site.categories.CATEGORY` and `site.tags.TAG` return the list of all posts in category CATEGORY or tag TAG. What we do is reading the categories field of each article in the post directory and listing the articles under each category.

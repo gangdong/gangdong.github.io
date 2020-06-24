@@ -7,11 +7,11 @@ published: true
 ---
 上一篇博文 [ATMEL maXTouch IC驱动代码分析]({{site.baseurl}}/c/touch/linux/2014/06/25/Touch-driver.html) 我们讲到了 Touch 驱动代码如何读取IC内部获取到的触摸事件信息并通过`input_report_abs()`和`input_sync()`函数上报给 Linux 的 Input 子系统的过程。今天这篇文章我们就走进 Input 子系统内部来看一下事件是如何被传递到 Android 的用户空间的。
 
-### Input 子系统框架
+## Input 子系统框架
 首先我们从 Input 子系统介绍开始。Input 子系统由驱动层、输入子系统核心层（Input Core）和事件处理层（Event Handler）3部分组成。一个输入事件，如鼠标移动，触摸事件等通过驱动层->系统核心层->事件处理层->用户空间的顺序到达用户空间并传给应用程序使用。其中Input Core即输入子系统核心层由 `driver/input/input.c` 及相关头文件实现。其对下提供了设备驱动的接口，对上提供了事件处理层的编程接口。输入子系统主要设计`input_dev`、`input_handler`、`input_handle`等数据结构，它们的用途和功能如下图所示。   
 ![touchevent framework]({{site.baseurl}}/assets/image/touch-touchevent-01.png)
 
-### 注册 Input 设备
+## 注册 Input 设备
 我们在之前介绍驱动代码的时候讲到过，输入设备在初始化的时候都需要调用`input_allocate_device()`和`input_register_device()`进行注册。其中`input_allocate_device()`函数在内存中为输入设备结构体分配一个空间，并对其主要的成员进行了初始化。它的代码如下。   
 ```c
 struct input_dev *input_allocate_device(void)
@@ -164,7 +164,7 @@ continue;
 ```
 从`MATCH_BIT`宏的定义可以看出。只有当`iput device`和`input handler`的ID成员在evbit、keybit、… swbit项相同才会匹配成功。
 
-### 数据上报过程
+## 数据上报过程
 Input 子系统各层之间通信的基本单位就是事件，任何一个输入设备的动作都可以抽像成一种事件，如键盘的按下，触摸屏的按下，鼠标的移动等。事件有三种属性：类型（type），编码(code)，值(value)，Input子系统支持的所有事件都定义在`input.h`中，包括所有支持的类型，所属类型支持的编码等。事件传送的方向是硬件驱动层-->子系统核心-->事件处理层-->用户空间。
 
 在驱动代码的介绍中，我们讲到驱动最终调用到`input_report_abs()`将touchevent打包发送给Input子系统。
@@ -288,7 +288,7 @@ static unsigned int input_to_handler(struct input_handle *handle,
 + `struct input_handler`： 事件处理结构体，定义怎么处理事件的逻辑。
 + `struct input_handle`： 用来创建input_dev和input_handler之间关系的结构体。
  
-#### input_handler  
+### input_handler  
 `input_handler`结构体的定义如下：
 ```c
 struct input_handler {
@@ -322,7 +322,7 @@ struct input_handler {
 + 定义了一个链表h_list，表示与这个`input_handler`相联系的下一个handler。
 + 定义了一个链表node，将其连接到全局的`input_handler_list`链表中，所有的`input_handler`都连接在其上。
 
-#### 注册`input_handler`   
+### 注册 input_handler   
 `input_register_handler()`函数注册一个新的`input handler`处理器。这个handler将为输入设备使用，一个handler可以添加到多个支持它的设备中，也就是一个handler可以处理多个输入设备的事件。函数的参数传入简要注册的`input_handler`指针，该函数的代码如下：
 ```c
 int input_register_handler(struct input_handler *handler)
@@ -341,7 +341,7 @@ int input_register_handler(struct input_handler *handler)
 + 调用`list_add_tail()`函数，将handler加入全局的`input_handler_list`链表中，该链表包含了系统中所有的`input_handler`。
 + 调用了`input_attach_handler()`函数。`input_attach_handler()`函数的作用是匹配 `input_dev_list`链表中的`input_dev`与handler。如果成功会将`input_dev`与handler联系起来。
 
-#### input_handle
+### input_handle
 `Input_Handle` 结构体   
 `input_register_handle()`函数用来注册一个新的handle到输入子系统中。`input_handle`的主要功能是用来连接`input_dev`和`input_handler`。
 ```c
@@ -355,7 +355,7 @@ struct input_handle {
 	struct list_head h_node;
 };
 ```
-#### 注册`input_handle`
+### 注册 input_handle
 `input_handle`是用来连接`input_dev`和`input_handler`的一个中间结构体。事件通过`input_handle`从 `input_dev` 发送到`input_handler`，或者从`input_handler`发送到`input_dev`进行处理。在使用`input_handle`之前，需要对其进行注册，注册函数是`input_register_handle()`。
 `input_register_handle()`函数用来注册一个新的handle到输入子系统中。该函数接收一个`input_handle`类型的指针，该变量要在注册前对其成员初始化。<br/>
 `input_register_handle()`函数的代码如下：
@@ -390,7 +390,7 @@ input_dev、input_handler和handle三者之间的关系如下：
 
 ![touchevent framework]({{site.baseurl}}/assets/image/touch-touchevent-03.png)
 
-### 输入子系统核心层（inputcore）把事件传递给（eventhandler）事件处理层
+## 由核心层 (inputcore) 到事件处理层 (eventhandler)
 我们看到上面的代码调用到
 ```c
 handler->events(handle, v->type, v->code, v->value);
@@ -444,7 +444,7 @@ static void evdev_pass_values(struct evdev_client *client,
 ......
 }
 ```
-### 由 Eventhandler -> userspace
+## 由事件处理层 (eventhandler) 到用户空间（user space）
 
 `__pass_event()`将event放到client->buffer[]里,由buffer 传入用户空间。   
 `__pass_event()` 函数最终将事件传递给了用户端的client 结构中的`input_event` 数组中，只需将这个`input_event`数组复制给用户空间，进程就能收到触摸屏按下的信息了。
@@ -491,7 +491,7 @@ struct input_event
 }
 ```
 
-### 用户空间读取事件
+## 用户空间读取事件
 我们从上面分析,看到数据已经放到了client->buffer[], 那读取也肯定也是从这里读。实际上，在文件evdev.c 中`Evdev_read()`函数将这个`input_event`数组复制给用户空间。
 ```c
 static ssize_t evdev_read(struct file *file, char __user *buffer,
@@ -525,7 +525,7 @@ int input_event_to_user(char __user *buffer, const struct input_event * event){
 read时候 evdev_read--> 从client->buffer[]循环获取事件 evdev_fetch_next_event() --> input_event_to_user() --> copy_to_user()
 ```
 
-### 总结
+## 总结
 
 最后总结一下整个数据的走向和传送的流程。
 

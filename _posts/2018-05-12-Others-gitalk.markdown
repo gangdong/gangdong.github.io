@@ -10,9 +10,9 @@ I has been trying to add comment function under my personal blogs during the pas
 
 Of course, disqus is the first choice that you can think out however it is not a good option for china users as some known reasons. After reviewed some popular third-party tools, I decided to use `Gitalk` to construct my comment function.
 
-Remember "Github is all-powerful, you can find everything on it". I found Gitalk on the Github. Gitalk is a comment component based on Github issue and preact. Actually it is a Github project, designed for Github users and easy to be applied on the Github pages. Gitalk stores the comments into your repository issues and doesn't need any extra database.<br>
+Remember 'Github is all-powerful, you can find everything on it'. I found Gitalk on the Github. Gitalk is a comment component based on Github issue and preact. Actually it is a Github project, designed for Github users and easy to be applied on the Github pages. Gitalk stores the comments into your repository issues and doesn't need any extra database.<br>
 
-The official Github page link of Gitalk is [Here](https://Github.com/gitalk/gitalk#install) <br>
+The official Github page link of Gitalk is [Here](https://Github.com/gitalk/gitalk#install). <br>
 
 It is amazing easy to use and no need the database support in background. Moreover it can support multiple languages includes Chinese among them.
 

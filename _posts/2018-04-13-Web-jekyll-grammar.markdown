@@ -9,7 +9,7 @@ This page will continue to give a brief introduction of the Jekyll grammar. Afte
 
 Let's start this article from the source code of the theme you downloaded. 
 
-### Jekyll directory structure
+## Jekyll directory structure
 Unzip the package you downloaded and check the directory structure.The Jekyll directory structure mainly includes the following directories.
 
 ![directory]({{site.baseurl}}/assets/image/web-jekyll-2-directory.png)
@@ -20,26 +20,26 @@ The description of each folder.
 
 Every file or directory beginning with the following characters: ., _ , # or ~ in the source directory will not be included in the destination folder. Such paths will have to be explicitly specified via the config file in the include directive to make sure they’re copied over.
 
-### Liquid
+## Liquid
 Jekyll uses the Liquid templating language to process templates.
 Generally in Liquid you output content using two curly braces and perform logic statements by surrounding them in a curly brace percentage sign. 
 
 To learn more about Liquid, check out the [official Liquid Documentation](https://shopify.github.io/liquid/).
 
-### Variables
+## Variables
 
 Jekyll traverses your site looking for files to process. Any files with front matter are subject to processing. For each of these files, Jekyll makes a variety of data available via Liquid. The following is a reference of the available data.
 
-#### global variables
+### global variables
 ![directory]({{site.baseurl}}/assets/image/web-jekyll-2-variables-global.png)
 
-#### site variables
+### site variables
 ![directory]({{site.baseurl}}/assets/image/web-jekyll-2-variables-site.png)
 
-#### page variables
+### page variables
 ![directory]({{site.baseurl}}/assets/image/web-jekyll-2-variables-page.png)
 
-#### paginator variables
+### paginator variables
 ![directory]({{site.baseurl}}/assets/image/web-jekyll-2-variables-paginator.png)
 
 above is the description from the official docs. talk is always easy, next I will write some code to demonstrate the usage. 
@@ -57,7 +57,7 @@ This page's dir is {{page.dir}}
 This page's path is {{page.path}}
 This site's url is {{site.url}}
 ````
-#### Jekyll command
+### Jekyll command
 Jekyll has below commands
 
 `Jekyll new PATH:` Create a new site in the specified directory using the gem based default theme. <br>

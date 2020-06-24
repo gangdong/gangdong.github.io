@@ -11,8 +11,7 @@ My personal blog is constructed by Jekyll, so I will only write down how to pagi
 When you have a long post list, to break them into smaller lists and display them over multiple pages will become a common requirements. 
 Fortunately, Jekyll offers a pagination plugin, which can automatically generate the appropriate files and folders you need for paginated listings.
 
-### STEPS
-#### Installation plugin
+## Install plugin
 Add the **jekyll-paginate** into your website's Gemfile and declare it at your configuration file `_config.yml` under plugins.
 like below Gemfile.
 
@@ -24,8 +23,7 @@ group :jekyll_plugins do
     gem 'jekyll-paginate'
 end
 ```
-
-#### Enable pagination
+## Enable pagination
 Add a line to the `_config.yml` file that specifies how many items should be displayed per page:
 ```ruby
 paginate: 12
@@ -45,11 +43,11 @@ For me, I tried to set the path as below, but failed to load the `index.html`. A
 ```ruby
 paginate_path: "/page:num/" 
 ```
-#### Attributes
+## Attributes
 The pagination plugin exposes the paginator liquid object. <br>
 You can find the attributes in my another blog [Getting started with Jekyll (2)]({{site.baseurl}}/web/2018/04/13/Web-jekyll-grammar.html)
 
-#### Render the pages
+## Render the pages
 You have enabled the pagination so far, next thing is to display your posts in a list using the paginator variable that will now be available to you.
 Below code is an example from my blog's `pagination.html` file. This pieces of code render a list of each page with links to all but the current page.
 ```markdown
@@ -117,6 +115,6 @@ Below code loops through the paginated posts.
     {%- endfor -%}
 {% endraw %}
 ```
-#### About others
+## Others
 Currently jekyll-paginate plugin doesn't allow paging over groups of posts linked by a common tag or category. 
 The more recent [jekyll-paginate-v2](https://github.com/sverrirs/jekyll-paginate-v2) plugin can support the pagination for categories, tags and collections. See the pagination examples in the repository.<br> **This plugin is not supported by GitHub Pages. I haven't tried it!** :worried:

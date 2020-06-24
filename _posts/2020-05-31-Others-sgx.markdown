@@ -13,7 +13,7 @@ Which include:
 
 Now let us go through above one by one.
 
-### CPU Query 
+## CPU Query 
 1. Get the CPU model of your hardware.
    By device manager -> processors 
 ![CPU]({{site.baseurl}}/assets/image/others-sgx-01.PNG){: .center_image}
@@ -22,7 +22,7 @@ Now let us go through above one by one.
 Oh! My laptop's CPU supports but need install IME software.  
 Ok, remember this requirement and do it later. :smirk:
 
-### BIOS Query
+## BIOS Query
 
 There are 3 kind of settings on the system BIOS for SGX.
 
@@ -35,7 +35,7 @@ sgx_cap_enable_device()
 Set softwar control mode is helpful to reduce consumption of system resources otherwise the SGX is always on and occupies a larger amount of RAMs which affects other programs and processes.
 + **Disable** 
 
-### Support software package
+## Support software package
 
 1. Intel SGX software package list 
 ![packages]({{site.baseurl}}/assets/image/others-sgx-03.PNG){: .center_image}

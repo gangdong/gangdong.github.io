@@ -9,7 +9,7 @@ I recently used WSL(Window Subsystem for Linux) for program development. This ar
 
 Below is the official introduction of WSL, I copied it here as a startup.
 
-> ### What is WSL?   
+> ## What is WSL?   
 The Windows Subsystem for Linux lets developers run a GNU/Linux environment -- including most command-line tools, utilities, and applications -- directly on Windows, unmodified, without the overhead of a virtual machine.   
 You can:   
 + Choose your favorite GNU/Linux distributions from the Microsoft Store.
@@ -22,10 +22,10 @@ You can:
 + Invoke Windows applications using a Unix-like command-line shell.
 + Invoke GNU/Linux applications on Windows.
 
-### How to install WSL?
+## How to install WSL?
 You can refer to [installation guidance](https://docs.microsoft.com/en-us/windows/wsl/install-win10), the introduction is detailed. You can complete the installation of WSL1 and WSL2 if you need easily just by following the guidance step by step. 
 
-### How to use?
+## How to use?
 On above procedure, you will be requested to choose one Linux OS to install, the choice has 
 + Ubuntu 16.04 LTS
 + Ubuntu 18.04 LTS
@@ -45,7 +45,7 @@ After installation, just open CMD console and input ubuntu, you will run ubuntu 
 
 Here are some tips for the usage.
 
-#### use wslconfig command
+### use wslconfig command
 In the CMD console, input below command to set the default Linux system if you have multiple.
 ```
 wslconfig /setdefault <DistributionName>
@@ -65,14 +65,14 @@ Windows Subsystem for Linux Distributions:
 Ubuntu-16.04 (Default)
 ```
 
-#### set the default user
+### set the default user
 If you want to change the user, you can use below command 
 For example you want to set the default user as root on the Ubuntu.
 ```
 ubuntu config --default-user root
 ```
 
-#### WSL file system and local file system access
+### WSL file system and local file system access
 + Access local file in the WSL system. 
 It is easy to access local file in WSL system, the local file system is mounted at /mnt folder. There are `c`, `d`, `e` and other folders in the `/mnt` directory, which respectively represent the local C disk, D disk and E disk. You can directly cd them to the corresponding path.
 

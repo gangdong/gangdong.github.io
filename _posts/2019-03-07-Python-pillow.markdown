@@ -7,13 +7,13 @@ Published: true
 ---
 I recently completed some image processing works with Pillow Library. Pillow provides a powerful function and has friendly APIs to the developer. I thought it is necessary to make some notes here for the usage. 
 
-### What is Pillow?
+## What is Pillow?
 We cannot say Pillow is PIL, even total from PIL. Actually Pillow is open source project of Github, it is more like a derived branch of PIL. We all know PIL (Python Image Library) is the previous third-party image processing library of python and almost regarded as the official image processing library of Python because of the powerful function. However the last PIL release is at build 1.1.7 in 2009 which can only support Python 2. PIL’s release schedule is too infrequent so that some volunteers created a open source project on Github for providing a compatible version on the basis of PIL. It's called `Pillow`. Pillow added in some features based on PIL and provided support to Python 3. With the update of version and many bug fixes from many contributors, Pillow has developed into a more dynamic image processing library than PIL itself. Pillow can be said to have replaced PIL.
 
 The source code of Pillow is at [Github repository](https://github.com/python-pillow/Pillow). <br>
 The official website is [here](https://python-pillow.org/).<br>
 
-### What Can Pillow do? 
+## What Can Pillow do? 
 Pillow provides fairly powerful image processing capabilities for Python. It can do many things related to image processing and support extensive file format.
 
 Below is official description of Pillow.
@@ -29,8 +29,8 @@ The library contains basic image processing functionality, including point opera
 The library also supports image resizing, rotation and arbitrary affine transforms.   
 There’s a histogram method allowing you to pull some statistics out of an image. This can be used for automatic contrast enhancement, and for global statistical analysis.   
 
-### Usage
-#### Installation
+## Usage
+### Installation
 
 Below is the python version information that Pillow can support.
 ![support version]({{site.baseurl}}/assets/image/python-pillow-01.png){: .center-image }
@@ -45,7 +45,7 @@ python3 -m pip install --upgrade pip
 python3 -m pip install --upgrade Pillow
 ```
 
-#### Image Class
+### Image Class
 The most important class in the Python Imaging Library is the Image class. <br>
 Before use the library, need to import it firstly.<br>
 ```python
@@ -56,7 +56,7 @@ import Image
 from PIL import Image
 ```
 
-#### Some useful method
+### Some useful methods
 
 Here we take a example of python3.
 

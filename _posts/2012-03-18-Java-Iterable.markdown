@@ -15,13 +15,13 @@ published: true
 
 那我们接下来看一看`Iterator<>`接口主要内容，`Iterator<>`接口的Java 文档里说明
 `Iterator<>`接口主要声明了三个方法。   [Iterator Java 文档](https://docs.oracle.com/javase/8/docs/api/)
-+ `boolean hasNext()`
-+ `E next()`
-+ `default void remove()`
++ `hasNext()`
++ `next()`
++ `remove()`
 
 看到这里就很清楚了，实现了`Iterator<>`接口的类可以进行迭代遍历，`Iterator<>`接口通过对以上3个方法的封装实现了对遍历访问的支持。Java里的集合类都实现了`Iterator<>`接口。
 
-一个简单的应用例子。
+一个简单的应用例子。   
 Student.java - 基本的数据类
 ```java
 package com.daviddong.example.Iterator

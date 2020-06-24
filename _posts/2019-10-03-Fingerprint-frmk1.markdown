@@ -13,8 +13,8 @@ From android 6.0 (API23),android introduced fingerprint API interface, that is F
 
 Below description is from android official document about fingerprint framework.
 
-> ### Architecture
-The Fingerprint HAL interacts with the following components.
+## Architecture
+> The Fingerprint HAL interacts with the following components.
 + **BiometricManager** interacts directly with an app in an app process. Each app has an instance of IBiometricsFingerprint.hal
 + **FingerprintService** operates in the system process, which handles communication with fingerprint HAL.
 + **Fingerprint HAL** is a C/C++ implementation of the IBiometricsFingerprint HIDL interface. This contains the vendor-specific library that communicates with the device-specific hardware.
@@ -22,10 +22,10 @@ The Fingerprint HAL interacts with the following components.
 ![framework]({{site.baseurl}}/assets/image/android-fingerprint-framework-framework.png)
 A vendor-specific HAL implementation must use the communication protocol required by a TEE. Raw images and processed fingerprint features must not be passed in untrusted memory. All such biometric data needs to be stored in the secure hardware such as the TEE. Rooting must not be able to compromise biometric data.   
 FingerprintService and fingerprintd make calls through the Fingerprint HAL to the vendor-specific library to enroll fingerprints and perform other operations.
-![tee]({{site.baseurl}}/assets/image/android-fingerprint-framework-tee.png)
+![tee]({{site.baseurl}}/assets/image/android-fingerprint-framework-tee.png)   
 
 
-### Implementation guidelines
+## Implementation guidelines
 The following Fingerprint HAL guidelines are designed to ensure that fingerprint data is not leaked and is removed when a user is removed from a device:   
 + Raw fingerprint data or derivatives (for example, templates) must never be accessible from outside the sensor driver or TEE. If the hardware supports a TEE, hardware access must be limited to the TEE and protected by an SELinux policy. The Serial Peripheral Interface (SPI) channel must be accessible only to the TEE and there must be an explicit SELinux policy on all device files.
 + Fingerprint acquisition, enrollment, and recognition must occur inside the TEE.
@@ -34,7 +34,7 @@ The following Fingerprint HAL guidelines are designed to ensure that fingerprint
 + Implementations must either use the file-system path provided by the 
 setActiveGroup() function or provide a way to erase all user template data when the user is removed. It's strongly recommended that fingerprint template files be stored as encrypted and stored in the path provided. If this is infeasible due to TEE storage requirements, the implementer must add hooks to ensure removal of the data when the user is removed.
 
-### working process
+## Working process
 By referring to official introduce, here I summarized the work flow according to my own understanding.
 
 1. Android starts the fingerprint daemons process-`Fingerprintd` during boot up in `init.rc`.            

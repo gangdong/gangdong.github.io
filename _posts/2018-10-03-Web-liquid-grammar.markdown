@@ -10,14 +10,14 @@ Liquid is an open source template language written in Ruby. I have no knowledge 
 
 The liquid code consists of **objects**, **tags**, and **filters**.
 
-### objects
+## objects
 Object tells liquid where to display content on the page. Object and variable names are identified by double curly braces: {% raw %}{{ }}{%  endraw %}
 {% raw %}
 ```Liquid
 {{post.name}}
 ```
 {% endraw %}
-### tag
+## tags
 Tags create the logic and control flow of templates. They are identified by a single bracket with a percent sign: {% raw %}{% and%}{% endraw %}.
 Tags do not produce any visible text output. This means that you can use them to assign values to variables, create conditions and loop logic, and do not display any liquid logic code on the page.
 
@@ -26,7 +26,7 @@ Tags are divided into three categories:
 + [iteration](https://liquid.bootcss.com/tags/iteration/)
 + [Variable assignment](https://liquid.bootcss.com/tags/variable/)
 
-### Filters 
+## filters 
 The filter changes the output of the liquid object. They are used for output, separated by a | symbol.
 
 The keywords includes:<br>
@@ -80,7 +80,7 @@ url_decode
 url_encode
 ```
 
-### Operator
+## Operator
 Except the 3 basic elements, Liquid contains the logical and comparison operators. <br>
 They are 
 ```
@@ -88,7 +88,7 @@ They are
 ```
 The syntax is similar to other language, like C. 
 
-### Object Type
+## Object Type
 There are five types of Liquid objects.
 + String
 + Number
@@ -98,21 +98,20 @@ There are five types of Liquid objects.
 
 Actually, except Nil (Nil type represents a null object.), others you can find the same type at other language (for example C), the usage is quite similar. 
 
-### Liquid in Jekyll
+## Liquid in Jekyll
 
 In Jekyll, Jekyll adds a few handy filters and tags of its own.
 
 Below are some of useful tags and filters, which I have used on my blog website.
 
-**filters**
+### filters
 + relative_url
 + date_to_string 
 + group_by
 + where
 + number_of_words
  
-**tags**
-
+### tags
 {% raw %}
 + {% highlight ruby linenos  %}<br>
 {% endhighlight %}<br>
@@ -120,8 +119,7 @@ This tag support for syntax highlighting of over 100 languages, in addition, it 
 {% endraw %}
 {% raw %} 
 + {% link url.md %}<br>
-The link tag will generate the correct permalink URL for the path you specify, you must include the file’s original extension when using the link tag. This tag can also be used to create a link in Markdown.
-
+The link tag will generate the correct permalink URL for the path you specify, you must include the file’s original extension when using the link tag. This tag can also be used to create a link in Markdown.   
 + {% post_url post_name %} <br>
 The post_url tag will generate the correct permalink URL for the post you specify. Unlike {% link %} tag, there is no need to include the file extension when using the post_url tag. This tag can also be used on Markdown.
 {% endraw %}

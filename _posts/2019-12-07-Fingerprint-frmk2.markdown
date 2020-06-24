@@ -7,7 +7,7 @@ Published: true
 ---
 This page will follow the [last article]({{site.baseurl}}/android/fingerprint/2019/10/03/Fingerprint-frmk1.html) to continue introducing the android fingerprint framework knowledge. The content is focus on android source code inspecting and analysis.
 
-### Step one - startup fingerprintd service
+## Step one - startup fingerprintd service
 Looking at the `init.rc` file, a task is assigned at `init.rc` when the android system boots up - start the fingerprint daemon service.
 ```
 service fingerprintd /system/bin/fingerprintd
@@ -133,7 +133,7 @@ class FingerprintDaemonProxy : public BnFingerprintDaemon {
 
 #endif // FINGERPRINT_DAEMON_PROXY_H_
 ```
-### Step two - Startup FingerprintService
+## Step two - Startup FingerprintService
 Next, we will move to framework layer to find how the Fingerprint Service start up. 
 open the 
 [SystemServer.java](https://www.androidos.net.cn/android/7.1.1_r28/xref/frameworks/base/services/java/com/android/server/SystemServer.java)<br>

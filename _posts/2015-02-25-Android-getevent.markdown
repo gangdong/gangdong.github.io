@@ -9,7 +9,7 @@ Android provides an ADB command `getevent` to obtain input events, such as obtai
 
 User can use this command under adb console. 
 
-### Usage
+## Usage
 The usage of this command is 
 ```shell
 adb shell getevent [options] [device]

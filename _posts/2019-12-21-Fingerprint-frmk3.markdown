@@ -15,7 +15,7 @@ We have had a overview on the android fingerprint work flow as below.
 3. `FingerService` gets the object of the remote service `FingerprintDaemon`, and calls the methods to access the HAL.
 `FingerprintDaemoProxy::openHal()` will open the native library `xx.So` to access hardware.  
 
-### About HAL
+## About HAL
 The hardware abstract layer (HAL) of Android system runs in user space. It shields the implementation details of hardware driver module downward and provides hardware access service (JNI or binder) upward. Through the hardware abstraction layer, Android system is divided into two layers to support hardware devices, one layer is implemented in user space, the other is implemented in kernel space. In traditional Linux system, the support for hardware is completely implemented in kernel space, that is, the support for hardware is completely implemented in hardware driver module.
 
 The hardware abstraction layer of Android system manages various hardware access interfaces in the form of modules. Each hardware module has a dynamic link library `xx.So` file. The compilation of these dynamic link libraries needs to conform to certain specifications. In Android system, each hardware abstraction layer module is described by `hw_module_t`, and the hardware device is described by `hw_device_t`.

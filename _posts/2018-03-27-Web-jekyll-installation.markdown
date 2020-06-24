@@ -8,7 +8,7 @@ published: true
 In my last article, I have introduced how to create a blog based on Github pages, if you haven't read it and you want to read, find the blog at [here]({{site.baseurl}}/web/github/2018/03/23/Github-github-blog.html).<br>
 Following that article, this page will give a brief introduction about Jekyll and its installation.
 
-### Jekyll
+## Jekyll
 What's Jekyll?
 Jekyll is a simple and free blog generation tool, similar to WordPress. But it's very different from WordPress because Jekyll is just a tool for generating static web pages and does not need database support. It can work with third-party services, such as Disqus. The key is that Jekyll can be deployed on GitHub free of charge and can bind its own domain name.
 
@@ -21,7 +21,7 @@ Others are Jekyll gives the developer more freedom to design and build the site.
 Generally, Jekyll is a static site generator. It will transform your plain text into static websites and blogs. No more databases, slow loading websites, risk of being hacked…just your content.
 
 Let's turn to how to build the website by Jekyll, I suggests you construct your website on Github pages because Jekyll is well deployed on Github and there are many Jekyll theme templates for you powering your website. More important is all of these are totally free of charge. If you like, you can even bind your domain on it. you can view my previous [blog]({{site.baseurl}}/web/github/2018/03/23/Others-github-blog.html) to learn how to create blog on Gitgub pages. 
-### Installation
+## Installation
 The first step is installing the Jekyll tools on your PC, here I just introduce the installation on windows platform.
 
 1. download Ruby at [here](https://rubyinstaller.org/) and install. You can skip it if you have already had.
@@ -54,7 +54,7 @@ Server running... press ctrl-c to stop.
 ```
 So far you can input http://127.0.0.1:4000/ in the browser to browse the blog you just created.
 
-### Jekyll theme
+## Jekyll theme
 Jekyll provides a lot of beautiful theme templates, you can use them to power your website easily.<br> 
 you can view the demo, download the source code and use it on your own website.
 

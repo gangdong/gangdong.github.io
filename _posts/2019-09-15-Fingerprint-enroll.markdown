@@ -25,7 +25,7 @@ Return<RequestStatus> setActiveGroup(uint32_t gid, const hidl_string& storePath)
 Return<RequestStatus> authenticate(uint64_t operationId, uint32_t gid) override;
 ```
 
-### preEnroll()
+## preEnroll()
 
 When user starts to enroll the fingerprint, the method `preEnroll()` will be called firstly, the fingerprint IC vendor needs to override this method to complete below task. 
 
@@ -34,7 +34,7 @@ This random number has two uses:
 1. Return to the upper layer to fill in the authenticated token challenge in the enroll.
 2. TA will use it to preliminarily verify the next enroll to ensure that the enroll has not been tampered by a third party.
 
-### enroll()
+## enroll()
 If the `preEnroll()` is proper returned, `enroll()` will be following called.<br> 
 Let's see the definition of `enroll()`.
 ```cpp
@@ -81,7 +81,7 @@ Once the token is authorized then switch the fingerprint sensor status to ready 
 
 If the fingerprint sensor detects the finger down occurs, it will trigger the interrupt to inform the fingerprint TA capture the image. Fingerprint TA will capture the image and do a verification to check if the image is qualified. Uses `on_acquired()` callback method to notify the upper layer the result. If the image is not good, it will repeat the image capture for a pre-setted times. If the image is qualified, then fingerprint TA will start the enrollment in ALGO and call `on_enroll_result()` to notify the upper layer the remained sample times. Waiting for the finger up and do the next round image capture. This loop will be repeated until the required count of images are all achieved. 
 
-### postEnroll()
+## postEnroll()
 
 Once the enroll() is returned, `postEnroll()` will be called to finish one time enroll process.
 the work of `postEnroll()` is to update the challenge of TA.

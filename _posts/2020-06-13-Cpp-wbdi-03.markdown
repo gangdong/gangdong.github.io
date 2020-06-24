@@ -6,7 +6,8 @@ categories: C++ Fingerprint
 Published: true
 ---
 Following the last two articles...
-### Managing Queues in a WBDI Driver
+
+## Managing Queues in a WBDI Driver
 WBDI drivers should create at least one queue to handle multiple concurrent requests from the service. If you are using UMDF, you can take advantage of its queue management support.
 
 In WudfBioUsbSample, the CBiometricIoQueue class implements the I/O queue interface.
@@ -45,7 +46,7 @@ When a capture request is completed or canceled, this value is set to NULL:
 ```cpp
 IWDFIoRequest *FxRequest = (IWDFIoRequest *)InterlockedExchangePointer((PVOID *)&m_PendingRequest, NULL);
 ```
-### Installing a Biometric Driver
+## Installing a Biometric Driver
 Vendors can provide an INF file to install a WBDI driver.
 
 The following is a list of guidelines for biometric device installation. The code examples in this topic are taken from the `WudfBioUsbSample.inx` file of the [WudfBioUsbSample](https://github.com/Microsoft/Windows-driver-samples/tree/master/biometrics/driver):
@@ -108,7 +109,7 @@ HKLM,System\CurrentControlSet\Services\WbioSrvc\Databases\{6E9D4C5A-55B4-4c52-90
 ```
 For information about INX files and how they differ from INF files, see Using INX Files to Create INF Files.
 
-### Creating a Device Interface for a WBDI Driver
+## Creating a Device Interface for a WBDI Driver
 After the device callback object has been initialized and returned to the driver, at the time of queue setup, the driver should create a device interface instance for the biometric device.
 
 Specifically, WBDI drivers must expose the `GUID_DEVINTERFACE_BIOMETRIC_READER` device interface by calling `IWDFDevice::CreateDeviceInterface`:
