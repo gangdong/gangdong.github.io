@@ -2,7 +2,7 @@
 {% assign words = post.content | strip_html | strip_newlines | remove: " " | size %}
 {% assign time = post.content | strip_html | strip_newlines | remove: " " | size | divided_by: 400 | plus: 1 %}
 <footer>
-<div style="margin-top:20px">
+<div style="margin-top:20px;margin-bottom:30px">
           <a class="post-link" href="{{ post.url | relative_url }}">
           <span class="icon-clock morebox" >{{ time }} {%if time > 1 %}mins{% else %}min{% endif %} to read, {{words}} words.<br>     continue reading...</span>
         </a>

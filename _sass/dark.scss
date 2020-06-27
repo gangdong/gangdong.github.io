@@ -68,8 +68,8 @@
 			color: $dark_link_color;
 		}
 	}
-	.pagination{
-		border-top:1px solid #474747;
+	.post-wrapper{
+		border-bottom:1px solid #474747;
 	}
 	.archive-link {
 		&:hover {
@@ -137,6 +137,6 @@
 }
 
 .dark code, tt {
-  color: #D2691E;
+  color: #DC143C;
   background-color: #444;
 }
