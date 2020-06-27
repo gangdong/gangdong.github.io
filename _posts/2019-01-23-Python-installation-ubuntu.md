@@ -13,7 +13,7 @@ The first thing before you start to install the python3.6 is that you need to kn
 ls /usr/local/lib/
 ```
 For example, before the installation, I have python2.7 and python3.5 on my ubuntu system. They are actually default installed by ubuntu16.04 build.
-```shell
+```c
 david@david-VirtualBox:/$ ls /usr/local/lib/
 python2.7  python3.5  
 david@david-VirtualBox:/$ 
@@ -70,7 +70,7 @@ sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
 ```
 The last character of above each command sets the priority of your pythons on the system. The bigger the higher priority. 
 After installment, check again. you will see all your pythons are in the alternatives.
-```shell
+```c
 david@david-VirtualBox:~$ sudo update-alternatives --list python
 /home/david/Python-3.6.0
 /usr/bin/python2.7
@@ -82,7 +82,7 @@ sudo su
 update-alternatives --config python
 ```
 If you see below menu, congratulations, just select the one you want.
-```
+```c
 有 3 个候选项可用于替换 python (提供 /usr/bin/python)。
 
   选择       路径                    优先级  状态

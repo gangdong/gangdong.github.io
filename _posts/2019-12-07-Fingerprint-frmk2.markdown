@@ -9,7 +9,7 @@ This page will follow the [last article]({{site.baseurl}}/android/fingerprint/20
 
 ## Step one - startup fingerprintd service
 Looking at the `init.rc` file, a task is assigned at `init.rc` when the android system boots up - start the fingerprint daemon service.
-```
+```c
 service fingerprintd /system/bin/fingerprintd
 class late_start
 user root
@@ -25,7 +25,7 @@ read the
 [Android.mk](https://www.androidos.net.cn/android/7.1.1_r28/xref/system/core/fingerprintd/Android.mk)<br>
 `androdi path: root/system/core/fingerprintd/Android.mk` <br>
 we can know that this package is built as a executable program.<br>
-```android
+```c
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 LOCAL_CFLAGS := -Wall -Wextra -Werror -Wunused

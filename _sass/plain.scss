@@ -285,7 +285,7 @@ main {
 }
 .post {
   font-family: 'Merriweather', 'Tahoma', 'Arial', 'Microsoft Yahei', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   color: #222;
   line-height: 1.9em;
   a {
@@ -472,7 +472,7 @@ code, tt {
   margin: 0 0px;
   padding: 4px 4px;
   white-space: nowrap;
-  color: #B22222;
+  color: #DC143C;
   background-color: #f8f8f8;
   border-radius: 2px;
 }
@@ -503,6 +503,9 @@ table {
 	font-weight: 400;
     background-color: #eee;
     font-family: 'Raleway', 'Microsoft Yahei';
+  }
+  td {
+	font-family: 'Arial', 'Microsoft Yahei';
   }
 }
 .center-image
