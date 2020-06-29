@@ -10,7 +10,7 @@ You may have run into situations where `.gitignore` doesn't work.:confused:  Dur
 That is because the `.gitignore` can only ignore those files that were not originally tracked. If some files have been submitted before and have been included in version management, modifying `.gitignore` is invalid. The solution is to delete the local cache (change it to untrack) and resubmit `.gitignore` file.
 
 The git command is like this.
-```shell
+```c
 git rm -r --cached .
 git add .
 git commit -m "refresh .gitnore"

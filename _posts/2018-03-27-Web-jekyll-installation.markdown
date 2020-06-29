@@ -35,7 +35,7 @@ ruby setup.rb
 gem install Jekyll
 ```
 After the installation, check it by creating a Jekyll template.
-```shell
+```c
 cd d:
 d:
 Jekyll new testblog
@@ -43,7 +43,7 @@ cd testblog
 Jekyll server
 ```
 If you see below output message, the Jekyll is working on your PC now.
-```
+```c
 Generating...
     done in 1.684 seconds.
 Please add the following to your Gemfile to avoid polling for changes:
