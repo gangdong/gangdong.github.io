@@ -17,7 +17,7 @@ XML 类型文档是一个树状结构，因此在创建或者访问是要首先�
 以下是我实现的用JDOM 操作XML文档的示列代码。
 
 ServiceXmlInterface.java 
-```
+```c
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.

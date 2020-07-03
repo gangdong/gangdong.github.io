@@ -22,7 +22,7 @@ published: true
 ## 标签
 Java SDK规定按照如下的顺序添加标签。
 
-```Java
+```c
 @author (classes and interfaces only, required)
 @version (classes and interfaces only, required. See footnote 1)
 @param (methods and constructors only)

@@ -16,13 +16,13 @@ import android.annotation.SuppressLint;
 @SuppressLint("AppCompatCustomView")
 ``` 
 Besides, I had met 
-```android
+```c
 "I/hwservicemanager: getTransport: Cannot find entry" 
 ```
 when running application. That's because the application used HIDL interface which should register at the vintf/manifest.xml but hasn't done. This feature is introduced at Android O. Obviously, the solution is registering all of the HIDL interfaces that will be used at manifest.xml.
 
 Another issue is 
-```android
+```c
 "avc: denied { read } for name="u:object_r:vendor_default_prop:s0" dev="tmpfs" ino=27157 
 scontext=u:r:platform_app:s0:c512,c768 tcontext=u:object_r:vendor_default_prop:s0 
 tclass=file permissive=1"

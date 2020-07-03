@@ -28,7 +28,6 @@ Java的序列化提供了一种保存对象状态的机制，之所以要用到�
 首先定义一个类实现Serializable接口。<br>
 DemoInstance.java<br>
 ```java
-
 package Serializable;
 import java.io.Serializable;
 public class DemoInstance implements Serializable{
@@ -67,12 +66,10 @@ public class DemoInstance implements Serializable{
     }
 
 }
-
 ```
 在main()中实现该类对象的序列化和反序列化。<br>
 App.java<br>
 ``` java
-
 package Serializable;
 
 import java.io.FileInputStream;
@@ -130,8 +127,6 @@ public class App {
 
     }
 }
-
-
 ```
 以上代码实现了对象的序列化，注意此时如果将保存的文件用文本编辑器打开会看到乱码。<br>
 这是因为序列化和反序列化都是基于二进制流的，将对象保存的信息转化为二进制存储在了文件中，那么用文本编辑器打开查看的话当然是会出现乱码的。只有通过反序列化才能将存储的二进制读取出来。<br>
@@ -147,7 +142,7 @@ public class App {
 
 ```
 结果如下所示。<br>
-```
+```c
 A:I am private member.
 B:I am protected member.
 C:I am public member.
@@ -195,7 +190,6 @@ public class SubDemoInstance extends DemoInstance {
     }
     
 }
-
 ```
 ClassWithoutSerial.java <br>
 ```java
@@ -222,8 +216,6 @@ public class ClassWithoutSerial {
     }
 
 }
-
-
 ```
 实现序列化和发序列化的代码。 <br>
 
@@ -258,11 +250,10 @@ public class ClassWithoutSerial {
             readSubDemo.getB() + "\nC:" + readSubDemo.getC()
             +"\nSubClass:"+readSubDemo.getDeclare()
             +"others:"+readSubDemo.getObj().getState());
-
 ```
 执行后会出现如下错误。<br>
 
-```
+```c
 A:I am private member.
 B:I am protected member.
 C:I am public member.
@@ -274,10 +265,9 @@ java.io.NotSerializableException: Serializable.ClassWithoutSerial
     at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1178)
     at java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:348)
     at Serializable.App.main(App.java:61)
-
 ```
 可以看到错误为ClassWithoutSerial没有序列化却没执行了序列化的操作。稍作修改使得类ClassWithoutSerial实现Serializable接口，结果如下。<br>
-```
+```c
 A:I am private member in subclass.
 B:I am protected member in subclass.
 C:I am public member in subclass.

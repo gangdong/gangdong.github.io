@@ -81,7 +81,7 @@ Below are the setting options.<br>
 + `flipMoveOptions` - Comment list animation. [Reference](https://github.com/joshwcomeau/react-flip-move/blob/master/documentation/enter_leave_animations.md)<br/>
   **type:** Object<br/>
   **Default:**
-```
+```c
 {
       staggerDelayBy: 150,
       appearAnimation: 'accordionVertical',

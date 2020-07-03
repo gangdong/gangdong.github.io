@@ -61,11 +61,11 @@ You will get a folder
 Check the build number of operating system by `winver` command.<br>
 ![psw]({{site.baseurl}}/assets/image/others-sgx-08.PNG){: .center-image }
 + If the system is **windows 10 fall creators update (version 1709)** or later, enter `PSW_INF_RS3_and_above` folder, run windows PowerShell as administrator to open command line window, and then enter `PSW_INF_RS3_and_above device` directory, keep going down until find `sgx_base.inf` file, input the following command:<br>
-```
+```c
 pnputil /add-driver sgx_base.inf  /install
 ```
 Go back to `PSW_INF_RS3_and_above component` directory, go down until `find sgx_psw.inf` file, input the following command:<br>
-```
+```c
 pnputil /add-driver sgx_psw.inf  /install
 ```
 + If it is the previous version, choose `PSW_EXE_RS2_and_before` folder and run<br>

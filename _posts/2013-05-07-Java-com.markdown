@@ -21,7 +21,7 @@ Jacob通过Jni来实现对COM组件和WIN32库的调用。Jacob提供了一系�
 
 下载下来的package里包含一个`Jacob.jar`的jar包和`jacob-1.15-M4-x64.dll(64 bits)`以及`jacob-1.15-M4-x86.dll(32 bits)`的两个DLL文件。分别定义了Java的接口和32位以及64位的native接口。
 
-```
+```c
 Jacob.jar
 jacob-1.15-M4-x64.dll
 jacob-1.15-M4-x86.dll

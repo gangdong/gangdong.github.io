@@ -67,7 +67,7 @@ public class App
 }
 ```
 运行结果
-```
+```c
 Exception in thread "main" java.lang.RuntimeException: new runtime exception!
         at daviddong.example.exception.App.runTimeExFun(App.java:16)
         at daviddong.example.exception.App.main(App.java:11)

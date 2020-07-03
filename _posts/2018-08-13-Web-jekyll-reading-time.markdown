@@ -43,7 +43,7 @@ Next, I create a **read_time.html** in my _includes folder and put all this code
 
 I just include the **read_time.html** in my post layout.
 
-```html
+```c
 {% raw %}
 {% include reading_time.html %}
 {% endraw %}

@@ -30,7 +30,7 @@ Tags are divided into three categories:
 The filter changes the output of the liquid object. They are used for output, separated by a | symbol.
 
 The keywords includes:<br>
-```
+```c
 abs
 append
 at_least 
