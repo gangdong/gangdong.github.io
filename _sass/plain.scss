@@ -441,10 +441,9 @@ a {
 	}
 }
 .morebox {
-	font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;
+	font-family: 'Arial', 'Raleway','Microsoft Yahei', sans-serif;
 	font-weight: 400;
 	font-size: 14px;
-   
 	white-space: pre;
 	line-height: 1.9em;
 	
@@ -466,7 +465,7 @@ pre, code, tt {
 
 code, tt {
   margin: 0 0px;
-  padding: 4px 4px;
+  padding: 2px 4px;
   white-space: nowrap;
   color: #DC143C;
   background-color: #f8f8f8;
@@ -476,6 +475,8 @@ code, tt {
 pre>code {
   margin: 0;
   padding: 0;
+  font-size: 14px;
+  font-family:  Consolas, "Liberation Mono", Courier, monospace,'Microsoft Yahei',sans-serif;
   white-space: pre;
   border: none;
   background: transparent;

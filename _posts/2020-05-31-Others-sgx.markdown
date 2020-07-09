@@ -7,9 +7,9 @@ Published: true
 ---
 The first step we should know if the hardware support SGX.<br>
 Which include:
-- BIOS support?
-- CPU support?
-- Software packages installed?
++ BIOS support?
++ CPU support?
++ Software packages installed?
 
 Now let us go through above one by one.
 

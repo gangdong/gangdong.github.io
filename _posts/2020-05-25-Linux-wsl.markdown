@@ -47,19 +47,19 @@ Here are some tips for the usage.
 
 ### use wslconfig command
 In the CMD console, input below command to set the default Linux system if you have multiple.
-```
+```c
 wslconfig /setdefault <DistributionName>
 ```
 use below command to uninstall the specified Linux system.
-```
+```c
 wslconfig /unregister <DistributionName>
 ```
 use below command to check the available system on you computer.
-```
+```c
 wslconfig /list
 ```
 The output of my computer is  
-```
+```c
 C:\WINDOWS\System32>wslconfig /list
 Windows Subsystem for Linux Distributions:
 Ubuntu-16.04 (Default)
@@ -68,7 +68,7 @@ Ubuntu-16.04 (Default)
 ### set the default user
 If you want to change the user, you can use below command 
 For example you want to set the default user as root on the Ubuntu.
-```
+```c
 ubuntu config --default-user root
 ```
 
@@ -80,7 +80,7 @@ It is easy to access local file in WSL system, the local file system is mounted 
 It is not recommend to do so, at least do not try to modify any file externally. Otherwise it might cause some problems.
 
 Actually, the root directory of WSL can be found at local system path.
-```
+```c
 C:\Users\XXXX\AppData\Local\Packages
 \CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs
 ```
