@@ -20,7 +20,7 @@ Published: true
 ## 不同的开源许可协议
 刚才讲过，目前流行的开源许可协议对于授权和责任上的界定是有所不同的。下面我们就分析一下它们之间都有哪些差异。
 
-对比这些协议的差异其实是一件很耗费时间和精力的事情，幸运的是我从网上挖来了一张图片，可以很清楚简明的把这件事讲清楚，也能节省我不少的时间。:satisfied:   
+对比这些协议的差异其实是一件很耗费时间和精力的事情，幸运的是我从网上找来了一张图片，可以很清楚简明的把这件事讲清楚，也能节省我不少的时间，好让我有时间喝杯 :coffee:。   
 图片来源：[http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html](http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html)
 
 ![licenses]({{site.baseurl}}/assets/image/others-license-01.png)
@@ -34,7 +34,7 @@ Published: true
 下面以我自己的一个项目的`MIT`协议为例。这份协议基于Github的`MIT`协议模板生成，内容为一份标准的官方协议，只是权利人和时间是填写的我的。   
 原文如下：   
 > MIT License<br/><br/>
-Copyright (c) 2020 David Dong<br/><br/>
+Copyright (c) 2016 David Dong<br/><br/>
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -54,7 +54,7 @@ SOFTWARE.
 简单来讲，就是这份协议明确的划定了我作为软件的权利所有人授予了软件的使用者哪些授权和我应该承担的责任。下面我们就来划一下重点。
 
 + 权利人
-> Copyright (c) 2020 David Dong<br/>
+> Copyright (c) 2016 David Dong<br/>
 
 这一行声明了该软件的权利人和发布时间。这也是`MIT`协议中唯一需要填写的地方。如果只包含一个年份，说明这是首次发布的年份。如果包含时间段，则第一个年份为第一次发布的年份，第二个是当前版本发布的年份。
 + 授予的软件使用者权利

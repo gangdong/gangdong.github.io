@@ -168,7 +168,7 @@ And [biometricsfingerprint.cpp](https://www.androidos.net.cn/android/8.0.0_r4/xr
 We may notice that the `IBiometricsFingerprint` returns a service for caller, actually there is a  file in the HIDL sub-directory: <br>
 [android.hardware.biometrics.fingerprint@2.1-service.rc](https://www.androidos.net.cn/android/8.0.0_r4/xref/hardware/interfaces/biometrics/fingerprint/2.1/default/android.hardware.biometrics.fingerprint@2.1-service.rc), which will start fps_hal service.<br>
 **fingerprint@2.1-service.rc**
-```shell
+```c
  service fps_hal /vendor/bin/hw/android.hardware.biometrics.fingerprint@2.1-service
     # "class hal" causes a race condition on some devices due to files created
     # in /data. As a workaround, postpone startup until later in boot once

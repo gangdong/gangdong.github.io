@@ -24,21 +24,21 @@ python --version
 ```
 If you want to switch to another python version, input below command
 
-```shell
+```c
 echo alias python=python3 >> ~/.bashrc
 source ~/.bashrc
 python --version
 ```
 Here I switched my default python version to python3.5.
 But python3.5 is still not the right one, what I need is python3.6. To install python3.6, there are usually two methods. one is using `apt-get install`. The command is as below.
-```shell
+```java
 sudo add-apt-repository ppa:jonathonf/python-3.6
 sudo apt-get update
 sudo apt-get install python3.6
 ```
 Unfortunately it doesn't work on my installation for the PPA has been removed. Therefore I turned to the second way to download the source code and compile, install.
 The command as below.
-```shell
+```java
 wget https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tar.xz
 xz -d Python-3.6.0.tar.xz
 tar -xvf  Python-3.6.0.tar
@@ -54,16 +54,16 @@ Python 3.6.0
 ```
 If you don't see the Python3.6.x, instead, you see Python3.5.x or else, which means your system's default python version isn't python3.6. You need to use `update-alternatives --config python` command to switch it to python3.6.<br> 
 Like this.
-```shell
+```java
 sudo update-alternatives --list python
 sudo update-alternatives --config python
 ```
 If you find below message, represents the alternatives failed to recognize python and you must install python into your alternatives list firstly.
-```shell
+```java
 update-alternatives：error：no alternatives for python
 ```
 install your python by below command.
-```shell
+```java
 sudo update-alternatives --install /usr/bin/python python /home/david/Python-3.6.0 3
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.5 2
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1 
@@ -77,7 +77,7 @@ david@david-VirtualBox:~$ sudo update-alternatives --list python
 /usr/bin/python3.5
 ```
 Then switch to root user and execute the last command to choose which python you are going to set as default.
-```shell
+```java
 sudo su
 update-alternatives --config python
 ```

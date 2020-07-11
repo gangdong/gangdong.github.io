@@ -10,7 +10,7 @@ After setting up the pagination, the next thing I wanted to add to my blog was a
 Because a list of posts in reverse chronological order can be readily accessed in Jekyll through site.posts, all that's needed is to use some clever Liquid markup to process it. 
 I used below code to group my archives by year.
 {% raw %}
-```liquid
+```c
 {% comment %}Calucate the post count for each year{% endcomment %}
 {% assign count = 1 %}
 {% assign year_cnt = "" %}
@@ -83,7 +83,7 @@ So the method is simple, we can loop the index[1] of every CATEGORY to get every
 
 Use below code, I grouped the posts by the CATEGORY of theirs. Similar to archive by date, I added the tags for every CATEGORY to statistic the count of them and navigation.
 {% raw %} 
-```liquid
+```c
 {% comment %}calculate the post count for each category{% endcomment %}
 {% assign count = "" %}
 {% assign counts = "" %}

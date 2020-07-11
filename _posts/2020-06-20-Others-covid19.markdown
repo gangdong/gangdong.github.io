@@ -13,7 +13,7 @@ When will we end this pandemic? Do we have to co-exist with this virus in a long
 
 Who knows? But I believe we will win the battle, the human beings will keep living on this planet, just like what they have done for hundreds of thousands of years. 
 
-God bless! I am lucky. In china, the situation is under control quickly after a short chaos at the beginning. People around me, my family and friends are all healthy, no one was infected. 
+God bless! I am lucky. In china :cn:, the situation is under control quickly after a short chaos at the beginning. People around me, my family and friends are all healthy, no one was infected. 
 
 I hope the epidemic will eventually pass and we will return to the normal life soon! :fist: 
 

@@ -10,7 +10,7 @@ There are plenty of Jekyll plugins that support realizing this feature, but I do
 
 So I tried to write below trick code to realize this feature. 
 
-```html
+```java
 {% raw %}
 {% assign words = post.content | strip_html | strip_newlines | remove: " " | size %}
 {% assign time = post.content | strip_html | strip_newlines | remove: " " | size 
@@ -30,7 +30,7 @@ So I tried to write below trick code to realize this feature.
 The method is straightforward, 
 + Statistics the words count of every post. Actually a more simple and pure Liquid code is like this.
 
-```html
+```java
 {% raw %}
 {% assign words = content | number_of_words %}
 {% endraw %}

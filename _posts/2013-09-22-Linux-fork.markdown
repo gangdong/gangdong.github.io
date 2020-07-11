@@ -58,7 +58,7 @@ int main ()
 ```
 执行结果如下。
 
-```
+```c
 子进程：id is    0, pid is 2621, ppid is 1158,执行了: 1 次
 父进程：id is 2621, pid is 2620, ppid is 2019,执行了: 1 次
 
