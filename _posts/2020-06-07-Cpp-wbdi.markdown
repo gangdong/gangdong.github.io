@@ -11,9 +11,34 @@ WBF includes an IOCTL-based driver interface known as the Windows Biometric Driv
 
 WBDI drivers respond to requests from the WBS(WinBio) service. WBF also includes Windows log-in support.
 
+---
+## Table of Contents
+1. [Basic Concepts](#1)
+2. [UMDF](#2)
+    + [2.1 UMDF advantages](#2.1)
+    + [2.2 When to use UMDF?](#2.2)
+    + [2.3 UDMF architecture](#2.3)
+3. [Biometric Unit]({{site.baseurl}}/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#3)
+4. [Biometric Unit Life Cycle]({{site.baseurl}}/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#4)
+    + [4.1 Creation]({{site.baseurl}}/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#4.1)
+    + [4.2 Configuration]({{site.baseurl}}/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#4.2)
+    + [4.3 Shut Down]({{site.baseurl}}/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#4.3)
+5. [Adapters]({{site.baseurl}}/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#5)
+    + [5.1 Sensor Adapter Function]({{site.baseurl}}/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#5.1)
+    + [5.2 Engine Adapter Function]({{site.baseurl}}/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#5.2)
+    + [5.3 Storage Adapter Function]({{site.baseurl}}/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#5.3)
+6. [IOCTLs Interface of Biometric]({{site.baseurl}}/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#6)
+    + [6.1 IOCTLs]({{site.baseurl}}/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#6.1)
+    + [6.2 Biometric IOCTLs Calling Sequence]({{site.baseurl}}/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#6.2)
+7. [Managing Queues in a WBDI Driver]({{site.baseurl}}/c++/fingerprint/2020/06/13/Cpp-wbdi-03.html#7)
+8. [Installing a Biometric Driver]({{site.baseurl}}/c++/fingerprint/2020/06/13/Cpp-wbdi-03.html#8)
+9. [Creating a Device Interface for a WBDI Driver]({{site.baseurl}}/c++/fingerprint/2020/06/13/Cpp-wbdi-03.html#9)
+
+---
+
 Starting with some concepts.
 
-## Basic Concepts
+## <span id = "1">1. Basic Concepts</span>
 ### WBF:
 Windows Biometric Framework. WBF is a generic biometric architecture in Windows 7 and later versions of Windows. WBF includes an IOCTL-based driver interface known as the Windows Biometric Driver Interface (WBDI) as well as a Windows service called the Windows Biometric Service (WBS). 
 ### WBDI:  
@@ -49,8 +74,7 @@ A WBDI biometric driver must also support the WBDI driver interface GUID and all
 The following figure shows how the UMDF based windows biometric driver interface (WBDI) driver can be used for windows biometric framework (WBF) biometric support in Windows 7. All biometric operations rely on client applications to windows biometric services (WBS). The WBS sends the request to the biometric device driver that exposes the WBDI interface.
 ![framework]({{site.baseurl}}/assets/image/others-wbdi-01.PNG){: .center_image}
 
-
-## UMDF
+## <span id = "2">2. UMDF</span>
 UMDF is a Framework for creating user mode drivers. Like the kernel mode driver framework (KMDF), UMDF provides an abstraction layer from WDM that handles a large number of plug and play (PNP) and power management functions, and allows the driver to choose to enable specific functions and event handling. UMDF driver abstracts hardware functions, runs in user mode environment, and can access various services.
 
 The UMDF driver interacts with the following components provided by the system.
@@ -59,14 +83,14 @@ The UMDF driver interacts with the following components provided by the system.
 + Reflector
 ![framework]({{site.baseurl}}/assets/image/others-wbdi-02.PNG){: .center_image}
 
-### UMDF advantages 
+### <span id = "2.1">2.1 UMDF advantages</span>   
 + Because UMDF driver running on the user space, which result in the stability of operating systems because they only have access to the address space in which they run the process.
 + Because the localservice account runs under the UMDF driver, it has limited access to user data or system files.
 + User-mode drivers run in a simpler environment than KMDF.
 + UMDF-V2 provides most of the function of KMDF.
 + UMDF version 2 facilitates conversion between KMDF and UMDF.
 
-### When to use UMDF?
+### <span id = "2.2">2.2 When to use UMDF?</span>   
 In most of occasions, Microsoft recommends to write UMDF driver instead of KMDF, since the two frameworks share multiple interfaces, you can  also later convert the driver to KMDF if necessary.  
 However, the following features are only available for KMDF drivers. If the driver requires one of these features, you must write a KMDF driver.  
 + DMA
@@ -77,7 +101,7 @@ However, the following features are only available for KMDF drivers. If the driv
 + WMI
 + IOCTLs
 
-### UDMF architecture
+### <span id = "2.3">2.3 UDMF architecture</span>   
 ![framework]({{site.baseurl}}/assets/image/others-wbdi-03.PNG){: .center_image}  
 Above diagram shows how the driver manager builds a user-mode device stack, and how the host process, reflector, and driver manager process an I/O request that an application sends to a User-Mode Driver Framework (UMDF) driver.  
 

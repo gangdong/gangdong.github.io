@@ -1,16 +1,18 @@
 ---
 layout: post
 title:  "利用Microsoft WDK工具生成数字签名"
-date:   2020-07-10 18:24:12 +0800
+date:   2020-07-23 18:24:12 +0800
 categories: Others
 Published: true
 ---
-看过我这一篇文章 [「浅谈数字签名」]({{site.baseurl}}/others/2020/07/06/Others-signature.html) 的读者应该记得，在这篇文章的末尾遗留了一个问题 --- `在windows平台下如何利用Microsoft提供的工具来生成数字签名`。我在这篇文章中会对这个问题做一个说明，并引用一个例子来介绍签名的流程。
+看过我这一篇文章 [「浅谈数字签名」]({{site.baseurl}}/others/2020/07/06/Others-signature.html) 的读者应该记得，在这篇文章的末尾遗留了一个问题 --- `在windows平台下如何利用Microsoft提供的工具来生成数字签名`。我在这篇文章中会对这个问题做一个说明，并引用一个例子来介绍签名的过程。
+
+---
 
 ## 目录
----
+
 1. [相关工具](#5)
-2. [制作流程](#6)
+2. [签名流程](#6)
 3. [举例](#7)
     + [3.1 生成目录文件](#8)
     + [3.2 生成数字证书](#9)
@@ -21,9 +23,23 @@ Published: true
 4. [常见问题](#13)
 5. [附录](#14)
     + [5.1 makecert.exe 命令格式](#1)
+        + [5.1.1 基本选项](#5.1.1)
+        + [5.1.2 扩展选项](#5.1.2)
     + [5.2 cert2spc.exe 命令格式](#2)
+        + [5.2.1 语法格式](#5.2.1)
+        + [5.2.2 参数](#5.2.2)
+        + [5.2.3 选项](#5.2.3)
     + [5.3 pvk2pfx.exe 命令格式](#3)
+        + [5.3.1 参数](#5.3.1)
     + [5.4 signtool.exe 命令格式](#4)
+        + [5.4.1 语法格式](#5.4.1)
+        + [5.4.2 参数](#5.4.2)
+        + [5.4.3 catdb 命令选项](#5.4.3)
+        + [5.4.4 sign 命令选项](#5.4.4)
+        + [5.4.5 TimeStamp 命令选项](#5.4.5)
+        + [5.4.6 Verify 命令选项](#5.4.6)
+        + [5.4.7 返回值](#5.4.7)
+        + [5.4.8 示例](#5.4.8)
 
 ---
 ## <span id ="5">1. 相关工具</span>
@@ -32,26 +48,26 @@ Published: true
 |工具|说明|
 |---|---|
 |makecert.exe|使用这个工具来生成测试用的证书|
-|cert2spc.exe|使用cert2spc.exe将公钥证书转换为软件发布者证书，即spc文件|
-|pvk2pfx.exe|使用pvk2pfx.exe将公钥证书和私钥证书合并成一个PFX格式的证书文件|
-|inf2cat.exe|驱动开发会用到，该工具确定驱动程序包的 INF 文件是否可以针对指定的 Windows 版本列表进行数字签名。如果可以，那么 Inf2Cat 会生成适用于指定 Windows 版本的未签名的目录文件|
+|cert2spc.exe|使用 cert2spc.exe 将公钥证书转换为软件发布者证书，即spc文件|
+|pvk2pfx.exe|使用 pvk2pfx.exe 将公钥证书和私钥证书合并成一个PFX格式的证书文件|
+|inf2cat.exe|驱动开发会用到，该工具确定驱动程序包的 INF 文件是否可以针对指定的 Windows 版本列表进行数字签名。如果可以，那么 Inf2Cat.exe 会生成适用于指定 Windows 版本的未签名的目录文件|
 |signtool.exe|数字签名制作工具,制作数字签名和验证|
 
 ## <span id ="6">2. 制作流程</span>
 
-1. 使用Inf2Cat 将INF转成CAT 目录文件（针对驱动开发，非驱动程序可跳过这步）
-2. 用makecert制作自己的根证书
-3. 用cert2spc将公钥证书转换为软件发布者证书，即spc文件
-4. 用pvk2pfx将公钥证书和私钥证书合并成一个PFX格式的证书文件
-5. 使用signtool签名
-6. 使用signtool验证签名
+1. 使用 Inf2Cat.exe 将INF转成CAT 目录文件（针对驱动开发，非驱动程序可跳过这步）
+2. 使用 makecert.exe 制作自己的根证书
+3. 使用 cert2spc.exe 将公钥证书转换为软件发布者证书，即spc文件
+4. 使用 pvk2pfx.exe 将公钥证书和私钥证书合并成一个PFX格式的证书文件
+5. 使用 signtool.exe 签名
+6. 使用 signtool.exe 验证签名
 
 ## <span id ="7">3. 举例</span>
 
 下面我就以一个例子来演示一下整个过程。
 
 ### <span id ="8">3.1 生成目录文件（*.cat）</span>
-利用Inf2Cat 将INF 转换为 CAT 目录文件这部分内容，我在这一篇文章 [Inf2Cat 工具使用]({{site.baseurl}}/others/2020/07/09/Others-inf2cat.html) 中已经做过介绍。这里不在进行说明。
+利用 Inf2Cat.exe 将INF 转换为 CAT 目录文件这部分内容，我在这一篇文章 [Inf2Cat 工具使用]({{site.baseurl}}/others/2020/07/09/Others-inf2cat.html) 中已经做过介绍。这里不在进行说明。
 
 ### <span id ="9">3.2 生成数字证书</span>
 makecert.exe 是一种证书创建工具，生成仅用于测试目的的 [X.509]({{site.baseurl}}/others/2020/07/06/Others-signature.html#11) 证书。此工具将密钥对与指定发行者的名称相关联，并创建一个 X.509 证书，该证书将用户指定的名称绑定到密钥对的公共部分。
@@ -256,7 +272,6 @@ signtool sign /v /f testpfx.pfx /tr http://timestamp.wosign.com/rfc3161 my file 
 
 4. 执行 `signtool verify` 时提示
 ![makecert01]({{site.baseurl}}/assets/image/others-make-sign-26.png){: .center-image }
-
 原因：这是因为公钥文件xx.cer没有被添加到受信任的根证书颁发机构。解决方法 [如上](#15)。
 
 
@@ -267,7 +282,7 @@ makecert.exe 命令格式
 MakeCert [/b DateStart] [/e DateEnd] [/len KeyLength] [/m nMonths] [/n "Name"] [/pe] [/r] [/sc SubjectCertFile] [/sk SubjectKey] [/sr SubjectCertStoreLocation] [/ss SubjectCertStoreName] [/sv SubjectKeyFile]OutputFile
 ```
 
-**基本选项**   
+<span id="5.1.1">**5.1.1 基本选项**</span>     
 
 |选项|说明|
 |---|---|
@@ -279,7 +294,7 @@ MakeCert [/b DateStart] [/e DateEnd] [/len KeyLength] [/m nMonths] [/n "Name"] [
 |`-#` number|指定一个介于 1 和 2,147,483,647 之间的序列号。默认值是由 Makecert.exe 生成的唯一值。|
 |`-$` authority|指定证书的签名权限，必须设置为 commercial（对于商业软件发行者使用的证书）或 individual（对于个人软件发行者使用的证书）。|
 
-扩展选项   
+<span id="5.1.1">**5.1.2 扩展选项**</span>      
 
 |选项|说明|
 |---|---|
@@ -311,11 +326,11 @@ MakeCert [/b DateStart] [/e DateEnd] [/len KeyLength] [/m nMonths] [/n "Name"] [
 ### <span id = "2">5.2 cert2spc.exe 命令格式</span>
 软件发行者证书测试工具 cert2spc.exe 从一个或多个X.509证书创建软件发行者证书（SPC）。cert2spc.exe 仅用于测试目的。商业目的的SPC可以从证书颁发机构（如VeriSign或Thawte）获取。
 
-**语法格式**  
+<span id = "5.2.1">**5.2.1 语法格式**</span>  
 ```console
 cert2spc cert1.cer | crl1.crl [... certN.cer | crlN.crl] outputSPCfile.spc
 ```
-**参数**
+<span id = "5.2.2">**5.2.2 参数**</span>
 
 |参数|说明|
 |---|---|
@@ -323,7 +338,7 @@ cert2spc cert1.cer | crl1.crl [... certN.cer | crlN.crl] outputSPCfile.spc
 |`crlN.crl`|要包含在 SPC 文件中的证书吊销列表的名称。 可以指定用空格分隔的多个名称。|
 |`outputSPCfile.spc`|将包含 X.509 证书的 PKCS #7 对象的名称。|
 
-**选项**
+<span id = "5.2.3">**5.2.3 选项**</span>
 
 |选项|说明|
 |---|---|
@@ -335,7 +350,7 @@ Pvk2Pfx.exe 是一个命令行工具，它将.spc、.cer和.pvk文件中包含�
 ```console
 pvk2pfx /pvk pvkfilename.pvk [/pi pvkpassword] /spc spcfilename.ext [/pfx pfxfilename.pfx [/po pfxpassword] [/f]]
 ```
-**参数**
+<span id = "5.3.1">**5.3.1 参数**</span>
 
 |参数|说明|
 |---|---|
@@ -351,14 +366,14 @@ pvk2pfx /pvk pvkfilename.pvk [/pi pvkpassword] /spc spcfilename.ext [/pfx pfxfil
 ### <span id = "4">5.4 signtool.exe 命令格式</span>
 签名工具是一个命令行工具，用于对文件进行数字签名，以及验证文件和时间戳文件中的签名。 
 
-**语法格式**   
+<span id = "5.4.1">**5.4.1 语法格式**</span>   
 在命令提示符处，键入以下内容：
 
 ```console  
 signtool [command] [options] [file_name | ...]  
 ```  
 
-**参数**  
+<span id = "5.4.2">**5.4.2 参数**</span>  
   
 |参数|描述|  
 |--------------|-----------------|  
@@ -384,7 +399,7 @@ signtool [command] [options] [file_name | ...]
 |**/debug**|显示调试信息。|  
   
 <a name="catdb"></a>
-**catdb 命令选项**  
+<span id="5.4.3">**5.4.3 catdb 命令选项**</span>  
  下表列出了可与 `catdb` 命令一起使用的选项。  
   
 |Catdb 选项|描述|  
@@ -395,7 +410,7 @@ signtool [command] [options] [file_name | ...]
 |`/u`|指定自动为添加的目录文件生成唯一名称。 如有必要，重命名目录文件以阻止与现有目录文件发生名称冲突。 如果未指定该选项，签名工具将覆盖与所添加的目录同名的任何现有目录。|  
   
 <a name="sign"></a>
-**sign 命令选项**  
+<span id = "5.4.4">**5.4.4 sign 命令选项**</span>  
  下表列出了可与 `sign` 命令一起使用的选项。  
   
 |Sign 命令选项|描述|  
@@ -431,7 +446,7 @@ signtool [command] [options] [file_name | ...]
  有关用法示例，请参阅 [「Microsoft Docs - Using SignTool to Sign a File」](https://docs.microsoft.com/zh-cn/windows/win32/seccrypto/using-signtool-to-sign-a-file)（使用 SignTool 为文件签名）。  
   
 <a name="TimeStamp"></a>
-**TimeStamp 命令选项** 
+<span id = "5.4.5">**5.4.5 TimeStamp 命令选项**</span> 
  下表列出了可与 `TimeStamp` 命令一起使用的选项。  
   
 |TimeStamp 选项|描述|  
@@ -445,7 +460,7 @@ signtool [command] [options] [file_name | ...]
  有关使用示例，请参阅 [「Microsoft Docs - Adding Time Stamps to Previously Signed Files」](https://docs.microsoft.com/zh-cn/windows/win32/seccrypto/adding-time-stamps-to-previously-signed-files)（向之前已签名的文件添加时间戳）。  
   
 <a name="Verify"></a>
-**Verify 命令选项** 
+<span id = "5.4.6">**5.4.6 Verify 命令选项**</span> 
   
 |Verify 选项|描述|  
 |-------------------|-----------------|  
@@ -468,7 +483,7 @@ signtool [command] [options] [file_name | ...]
 |`/r` RootSubjectName|指定签名证书必须链接到的根证书的主题名称。 该值可以是根证书的整个主题名称的子字符串。|  
 |`/tw`|指定在未对签名进行时间戳操作时应生成警告。|  
 
-## <a name="return-value"></a>返回值  
+<span id = "5.4.7">**5.4.7 返回值**</span>    
  当其终止时，签名工具将返回下列退出代码之一。  
   
 |退出代码|描述|  
@@ -477,7 +492,7 @@ signtool [command] [options] [file_name | ...]
 |1|执行失败。|  
 |2|执行完成，但出现警告。|  
   
-## <a name="examples"></a>示例  
+<span id = "5.4.8">**5.4.8 示例**</span>     
  以下命令将目录文件 MyCatalogFileName.cat 添加到系统组件和驱动程序数据库中。 如有必要阻止替换名为 `/u` 的现有目录文件，`MyCatalogFileName.cat` 选项会生成唯一名称。  
   
 ```console  
