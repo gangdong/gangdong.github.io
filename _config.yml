@@ -2,6 +2,7 @@ title: David Dong's Blog
 logo: BLOG # this name will be displayed on the title name of homepage
 author: David Dong
 email: dqdongg@hotmail.com
+logo: 'assets/logo.png'
 description: > # this means to ignore newlines until "show_exerpts:"
   This is DavidDong's blog. This blog recorded the time of my life and learning from it. Welcome to visit! 
   
