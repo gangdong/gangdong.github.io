@@ -319,7 +319,17 @@ main {
     }
   }
 }
-
+#posts-label-chinese {
+  font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;
+  margin: 0px 2px;
+  border-bottom: 1px solid #eee;
+  font-size: 20px;
+  color: #111;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding-bottom: 10px;
+  font-weight: bold;
+}
 #posts-label {
   font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;
   margin: 0px 2px;
