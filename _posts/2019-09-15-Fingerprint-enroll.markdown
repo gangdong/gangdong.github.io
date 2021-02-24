@@ -7,7 +7,7 @@ Published: true
 ---
 When we do fingerprint enrollment in android device, it will generate a fingerprint template that contains the user's fingerprint information in a specified directory (for example, /data/vendor_de/0/fpdata/user.db), which depends on the system configuration.
 
-During the template is being generated, there is a series of APIs calling in android system internally. Let's have a look about this process. 
+During the template is being generated, there is a series of APIs calling in android system internally. Let's have a look at this process. 
 
 Android sets some standard APIs in HAL layer for fingerprint event handling. Refer to Android P source code at [BiometricsFingerprint.h](https://www.androidos.net.cn/android/10.0.0_r6/xref/hardware/interfaces/biometrics/fingerprint/2.1/default/BiometricsFingerprint.h) and [BiometricsFingerprint.cpp](https://www.androidos.net.cn/android/10.0.0_r6/xref/hardware/interfaces/biometrics/fingerprint/2.1/default/BiometricsFingerprint.cpp).
 
@@ -31,7 +31,7 @@ When user starts to enroll the fingerprint, the method `preEnroll()` will be cal
 
 + generates and saves a 64 bit random number (challenge) in the fingerprint TA. 
 This random number has two uses:
-1. Return to the upper layer to fill in the authenticated token challenge in the enroll.
+1. Return to the REE upper layer to fill in the authenticated token challenge in the enroll.
 2. TA will use it to preliminarily verify the next enroll to ensure that the enroll has not been tampered by a third party.
 
 ## enroll()
@@ -62,12 +62,12 @@ typedef struct __attribute__((__packed__))
 **version**: version number of this token.<br>
 **challenge**: it is the 64 bit random number to which preenroll was previously called to prevent the enroll from being counterfeited by a third party this time.<br>
 **user_id**: Security ID, not Android user ID.<br>
-**authenticator_id**: used to indicate different authentication permissions.<br>
+**authenticator_id**: used to indicate different authentication permissions.Normally it indicates the fingerprint database ID.<br>
 **authenticator_type**: 0x00 for gatekeeper, 0x01 for fingerprint.<br>
 **timestamp**: last boot time stamp.<br>
 **hmac**: a special key and SHA-256 algorithm are used to calculate the previous batch of parameters, and a HMAC value is obtained to ensure the legitimacy and security of the previous parameters.<br>
 
-+ gid: Indicate which user enroll fingerprint (Anroid supports multiple users)
++ gid: Indicate which user enroll fingerprint (Anroid supports multiple users). The gid is used to set the store path of the fingerprint template in REE side.
 + timeout_sec: timeout /second.
 
 The upper layer calls `enroll()` method and pass the parameters to fingerprint TA, fingerprint TA receives the token and authorize the token. There will be some works.
@@ -75,11 +75,11 @@ The upper layer calls `enroll()` method and pass the parameters to fingerprint T
 1. check if the received token->challenge same with the previous preEnroll phase challenge.
 2. check if the token version is same.
 3. check if authenticator_type is same.
-4. retrieve the data of hw_auth_token_t struct and calucate the hmac, check if the calculated value is same with original.
+4. retrieve the data of hw_auth_token_t struct and calucate the HMAC, check if the calculated value is same with original.
 
-Once the token is authorized then switch the fingerprint sensor status to ready for enrollment and the fingerprint sensor will wait for the finger down event.
+Once the token is authorized then the fingerprint TA switches the fingerprint sensor status to ready for enrollment and the fingerprint sensor will wait for the finger down event.
 
-If the fingerprint sensor detects the finger down occurs, it will trigger the interrupt to inform the fingerprint TA capture the image. Fingerprint TA will capture the image and do a verification to check if the image is qualified. Uses `on_acquired()` callback method to notify the upper layer the result. If the image is not good, it will repeat the image capture for a pre-setted times. If the image is qualified, then fingerprint TA will start the enrollment in ALGO and call `on_enroll_result()` to notify the upper layer the remained sample times. Waiting for the finger up and do the next round image capture. This loop will be repeated until the required count of images are all achieved. 
+If the fingerprint sensor detects the finger down occurs, it will trigger the interrupt to inform the fingerprint TA capture the image. Fingerprint TA will capture the image and do a verification to check if the image is qualified. Uses `on_acquired()` callback method to notify the REE upper layer the result. If the image is not good, it will repeat the image capture for a pre-setted times. If the image is qualified, then fingerprint TA will start the enrollment in ALGO and call `on_enroll_result()` to notify the upper layer the remained sample times. Waiting for the finger up and do the next round image capture. This loop will be repeated until the required count of images are all achieved. 
 
 ## postEnroll()
 
