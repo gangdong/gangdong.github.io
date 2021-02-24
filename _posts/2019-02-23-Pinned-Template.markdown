@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "关于本博客主题使用的一些问题 [Q&A]"
+title:  "关于本博客模板使用上的一些问题 [Q&A]"
 date:   2019-02-23 12:21:47 +0800
 categories: Pinned
 Published: true
@@ -9,7 +9,7 @@ Published: true
 
 ---
 
-## Index
+## 索引
 
 1. [关于该主题](#1)
 2. [功能](#2)
