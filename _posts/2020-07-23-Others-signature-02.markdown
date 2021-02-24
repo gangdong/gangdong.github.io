@@ -256,7 +256,7 @@ cd C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86
 ```
 或者直接使用Visual Studio 的 [开发人员命令提示](https://docs.microsoft.com/zh-cn/dotnet/framework/tools/developer-command-prompt-for-vs) `Developer Command Prompt` 运行命令。
 
-2. 我在执行执行 makecert.exe 时失败，返回如下提示
+2. 我在执行 makecert.exe 时失败，返回如下提示
 ```console
 Error: File already exists for the subject ('testsk.pvk')
 Error: Can't create the key of the subject ('testsk.pvk')
