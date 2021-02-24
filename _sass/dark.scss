@@ -34,6 +34,20 @@
 		padding: 5px 20px;
 	}
 
+	.post-categories-pin {
+		li {
+			background-color: #333;
+			color: #DC143C;
+		}
+		a {
+			background-color: #333;
+			color: #fff;
+			&:hover {
+			color: $dark_link_color;
+		}
+		}
+	}
+
 	.post-categories {
 		li {
 			background-color: #333;

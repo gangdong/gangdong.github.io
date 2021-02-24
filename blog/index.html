@@ -4,12 +4,50 @@ title: Home
 ---
 
 {% include title.html %}
-
 {%- if paginator.posts.size > 0 -%}  
   <ul class= "post-container">
     <li>
       <h1 id="posts-label">posts</h1>
     </li>
+	<!-- Try to look for the pinned article and locked at the first page -->
+	{% if 1 == paginator.page %}
+	   <!-- Should look for site.posts instead of paginator.posts -->
+       {%- for post in site.posts -%}
+	    {%- for tag in post.categories -%}
+		  {% assign is_pinned = tag %}
+		  <!-- Found tag == 'Pinned' -->
+		  {%- if 'Pinned' == is_pinned -%}
+		    <li class="post-wrapper">
+              {%- assign date_format = site.rawposts.date_format | default: "%b %-d, %Y" -%}
+              <a class="post-link" href="{{ post.url | relative_url }}">
+                <h2 class="post-title">{{ post.title | escape }}</h2>
+              </a>
+              <div class="post-meta">
+                <ul class="post-categories-pin">
+				
+                  {%- for tag in post.categories -%}
+                    <li>{{ tag }}</li>
+                  {%- endfor -%}
+                </ul>
+                <div class="post-date">
+                  <i class="icon-calendar"></i>
+                  {{ post.date | date: date_format }}
+				</div>
+              </div>
+              <div class="post">
+                {%- if site.show_excerpts -%}
+                  {{ post.excerpt }}
+                {%- endif -%}
+              </div>
+		      {%- if site.rawposts.reading_time -%}
+		        {% include reading_time.html %}
+		      {%- endif -%}
+            </li>
+		  {%- endif -%}
+        {%- endfor -%}
+	  {%- endfor -%}
+    {% endif %}
+
 	<!-- This loops through the paginated posts -->
     {%- for post in paginator.posts -%}
       <li class="post-wrapper">
@@ -36,7 +74,7 @@ title: Home
 		  {% include reading_time.html %}
 		{%- endif -%}
       </li>
-    {%- endfor -%}
+    {%- endfor -%}	
   </ul>
   <!-- <p class="feed-subscribe"><svg class="svg-icon orange">
 		<use xlink:href="{{ '/assets/minima-social-icons.svg#rss' | relative_url }}"></use>
