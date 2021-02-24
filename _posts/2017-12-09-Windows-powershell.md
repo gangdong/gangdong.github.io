@@ -2,7 +2,7 @@
 layout: post
 title:  "Powershell and CMD"
 date:   2017-12-09 20:44:05 +0800
-categories: Others
+categories: Windows
 ---
 Although both of them are command line console of Windows system, and they have the similar outlook and Powershell can be treated as a update version of CMD, the intrinsic design model of them is totally different. 
 

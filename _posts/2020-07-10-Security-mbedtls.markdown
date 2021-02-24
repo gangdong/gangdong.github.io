@@ -2,7 +2,7 @@
 layout: post
 title:  "mbedtls 使用说明"
 date:   2020-07-10 10:24:12 +0800
-categories: Others
+categories: Security
 Published: true
 ---
 最近的工作中使用到了mbedtls，这里做一个简单的总结。

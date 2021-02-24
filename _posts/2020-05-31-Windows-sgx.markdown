@@ -2,7 +2,7 @@
 layout: post
 title:  "Configure Intel SGX on Win10"
 date:   2020-05-31 22:42:44 +0800
-categories: Others
+categories: Windows
 Published: true
 ---
 The first step we should know if the hardware support SGX.<br>

@@ -2,7 +2,7 @@
 layout: post
 title:  "Fingerprint driver development in Windows(3)"
 date:   2020-06-13 10:37:55 +0800
-categories: C++ Fingerprint
+categories: C++ Fingerprint Windows
 Published: true
 ---
 Following the last two articles...

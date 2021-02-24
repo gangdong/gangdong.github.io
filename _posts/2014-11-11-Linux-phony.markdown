@@ -2,7 +2,7 @@
 layout: post
 title:  "Use of .PHONY in makefile"
 date:   2014-11-11 23:55:17 +0800
-categories: Others 
+categories: Linux 
 published: true
 ---
 You may have run into the situation where the name of makefile command conflicts with the file name under the same directory.  

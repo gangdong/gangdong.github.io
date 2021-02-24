@@ -2,7 +2,7 @@
 layout: post
 title:  "HelloWorld: my first SGX application"
 date:   2020-06-01 22:04:51 +0800
-categories: Others
+categories: Windows
 Published: true
 ---
 A simple sample code to get start with the SGX application development.
