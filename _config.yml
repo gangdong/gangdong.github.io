@@ -25,6 +25,7 @@ rawposts:
   categories: true  # set to true to generate categories page
   #  disqus_shortname: games
   gittalk: true  # set to true to add gittalk 
+  navigation: true    # set to to add page navigation bar
   show_statistics: true  #set to true to show statistics of site visitors number
   rss: true  #set to true to add rss 
   source_code: true  #set to true to add link to source code

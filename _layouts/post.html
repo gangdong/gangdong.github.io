@@ -22,6 +22,23 @@ layout: default
   <div class="post">
     {{ content }}
   </div>
+  <!-- Navigation bar start here! -->
+  {%- if site.rawposts.navigation -%}
+  <h1 id="posts-label" style = "margin-top:60px"></h1>
+  <div class="navigation-meta">
+    {%- if page.previous -%}
+    <ul class="navigation-bar" style = "margin-top:40px">   
+	 <a href="{{ page.previous.url | relative_url }}" style = "font-family: Raleway,Arial,sans-serif; font-size:14px">Previous Post:<br>{{page.previous.title | escape}}</a>
+    </ul>
+    {%- endif -%}
+    {%- if page.next -%}
+    <ul class="navigation-bar" style = "margin-top:40px">   
+     <a href="{{ page.next.url | relative_url }}" style = "font-family: Raleway,Arial,sans-serif; font-size:14px">Next Post:<br>{{page.next.title | escape}}</a>
+    </ul>
+    {%- endif -%}
+  </div>
+  {%- endif -%}
+  
   {%- if site.rawposts.disqus_shortname -%}
   <div id="disqus_thread" style="margin-top:25px"></div>
   <script>

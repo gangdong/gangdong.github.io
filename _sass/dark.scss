@@ -47,7 +47,15 @@
 		}
 		}
 	}
-
+    .navigation-bar {
+	    a {
+			color: #fff;
+			&:hover {
+			    color: $dark_link_color;
+				background-color: #333;
+			}
+		}
+    }
 	.post-categories {
 		li {
 			background-color: #333;
