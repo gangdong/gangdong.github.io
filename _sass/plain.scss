@@ -160,6 +160,7 @@ main {
 }
 .post-categories-pin {
   font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;
+  font-weight: bold;
   list-style-type: none;
   color: #DC143C;
   margin: 0;
@@ -168,7 +169,7 @@ main {
     font-size: 14px;
     float: left;
     background-color: #e3e3e3;
-    padding: 5px 20px;
+    padding: 5px 20px 5px 10px;
     border-radius: 2px;
     @media screen and (max-width: $mobileW) {
       margin-top: 5px;
@@ -244,7 +245,7 @@ main {
   align-items: flex-end;
   flex-wrap:wrap;
   @media screen and (max-width: $mobileW) {
-    flex-direction: column-reverse;
+    flex-direction: column;
     align-items: baseline;
 	align-content:stretch;
   }
