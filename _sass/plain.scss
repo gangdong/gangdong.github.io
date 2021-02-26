@@ -207,6 +207,7 @@ main {
 .navigation-bar {
   font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;
   font-weight:bold;
+  font-size:16px;
   list-style-type: none;
   margin: 10px 0px;
   padding: 0;
@@ -227,6 +228,7 @@ main {
     float: left;
     padding: 20px 20px;
     border-radius: 0px;
+	line-height: 1.6em;
     @media screen and (max-width: $mobileW) {
       margin-top: 0px;
     }
