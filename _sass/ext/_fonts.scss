@@ -80,7 +80,7 @@
   margin-left: .2em;
  
   /* you can be more comfortable with increased icons size */
-  /* font-size: 120%; */
+  /* font-size: 80%; */
  
   /* Font smoothing. That was taken from TWBS */
   -webkit-font-smoothing: antialiased;
@@ -155,4 +155,10 @@
 .icon-file-code:before { content: '\f1c9'; } /* '' */
 .icon-box-1:before { content: '\e81c'; } /* '' */
 .icon-left-outline:before { content: '\e860'; } /* '' */
-.icon-right-outline:before { content: '\e861'; } /* '' */
+.icon-sort-alphabet-outline:before { content: '\e86b'; } /* '' */
+.icon-sort-name-up:before { content: '\f15d'; } /* '' */
+.icon-book-open:before { content: '\e868'; } /* '' */
+.icon-right-circle:after { content: '\e863'; } /* '' */
+.icon-right:after { content: '\e85f'; } /* '' */
+.icon-right-1:after { content: '\e867'; } /* '' */
+.icon-right-outline:after { content: '\e861'; } /* '' */

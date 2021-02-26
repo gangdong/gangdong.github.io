@@ -69,7 +69,23 @@
 		}
 		}
 	}
-
+ 	.readingtime-categories {
+		li {
+			background-color: #333;
+			color: #fff;
+			&:hover {
+			color: $dark_link_color;
+			background-color: #e3e3e3;
+		}
+		}
+		a {
+			background-color: #333;
+			color: #fff;
+			&:hover {
+			color: $dark_link_color;
+		}
+		}
+	}   
 	a {
 		color: $dark_link_color;
 	}
