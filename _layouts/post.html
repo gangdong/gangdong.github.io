@@ -27,12 +27,12 @@ layout: default
   <h1 id="posts-label" style = "margin-top:60px">Further Reading</h1>
   <div class="navigation-meta" style = "margin-bottom:40px">
     {%- if page.previous -%}
-    <ul class="navigation-bar" style = "margin-top:40px; width:40%">   
+    <ul class="navigation-bar" style = "margin-top:40px; min-width:40%">   
 	 <a href="{{ page.previous.url | relative_url }}"; style="width:100%"><font size="1px" color="#777">Previous Post</font><br>{{page.previous.title | escape}}</a>
     </ul>
     {%- endif -%}
     {%- if page.next -%}
-    <ul class="navigation-bar" style = "margin-top:40px; width:40%">   
+    <ul class="navigation-bar" style = "margin-top:40px; min-width:40%">   
      <a href="{{ page.next.url | relative_url }}"; style="width:100%"><font size="1px" color="#777">Next Post</font><br>{{page.next.title | escape}}</a>
     </ul>
     {%- endif -%}
