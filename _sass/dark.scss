@@ -43,8 +43,18 @@
 			background-color: #333;
 			color: #fff;
 			&:hover {
-			color: $dark_link_color;
+				color: $dark_link_color;
+			}
 		}
+	}
+	.pagination-box{
+		border:2px solid #333;
+	}
+	.pagination{
+		a {
+			&:hover {
+				background-color: #333;
+			}
 		}
 	}
     .navigation-bar {

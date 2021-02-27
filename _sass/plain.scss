@@ -536,14 +536,33 @@ a {
 		margin-right: 0px;
   }
 }
-.pagination{
-	width:100%;
+.pagination-box{
+	border:2px solid #eee;
+	padding: 3px 6px;
+	border-radius: 2px;
 	text-align:center;
     font-family: 'Verdana', 'Arial', 'Microsoft Yahei', sans-serif;
 	font-weight: 300;
 	font-size: 14px;
     color: #888;
 	align-items: center;
+}
+.pagination{
+	width:100%;
+	text-align:center;
+    font-family: 'Verdana', 'Arial', 'Microsoft Yahei', sans-serif;
+	font-weight: 200;
+	font-size: 14px;
+    color: #888;
+	align-items: center;
+	a {
+		text-decoration: none;
+		transition: border-bottom 0.4s;
+		&:hover {
+			color:#ffffff;
+			background-color: #e3e3e3;
+		}
+	}
 }
 .archive{
   margin: 0px 2px;
