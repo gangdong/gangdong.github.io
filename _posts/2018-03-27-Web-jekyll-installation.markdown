@@ -5,6 +5,7 @@ date:   2018-03-27 20:56:30 +0800
 categories: Web
 published: true
 ---
+![Jekyll theme pic]({{site.baseurl}}/assets/image/web-jekyll-1-cover.png)    
 In my last article, I have introduced how to create a blog based on Github pages, if you haven't read it and you want to read, find the blog at [here]({{site.baseurl}}/web/github/2018/03/23/Github-github-blog.html).<br>
 Following that article, this page will give a brief introduction about Jekyll and its installation.
 
