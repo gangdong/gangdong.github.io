@@ -258,7 +258,7 @@ main {
    margin: auto;
   @media screen and (max-width: $mobileW) {
     flex-direction: column-reverse;
-    align-items: center;
+    align-items: stretch;
 	align-content:stretch;
   }
 }
