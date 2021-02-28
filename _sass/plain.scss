@@ -162,13 +162,13 @@ main {
   font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;
   font-weight: bold;
   list-style-type: none;
-  color: #DC143C;
+  color: white;
   margin: 0;
   padding: 0;
   li {
     font-size: 14px;
     float: left;
-    background-color: #e3e3e3;
+    background-color: #04B4AE;
     padding: 6px 20px 5px 10px;
     border-radius: 2px;
     @media screen and (max-width: $mobileW) {
@@ -214,8 +214,8 @@ main {
     padding: 5px 5px;
     border-radius: 2px;
 	&:hover {
-      color:$linkColor;
-	  background-color: #e3e3e3;
+      color:white;
+	  background-color: #04B4AE;
     }
     @media screen and (max-width: $mobileW) {
       margin-top: 5px;

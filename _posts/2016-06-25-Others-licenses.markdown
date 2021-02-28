@@ -5,6 +5,7 @@ date:   2016-06-25 15:34:40 +0800
 categories: Others
 Published: true
 ---
+![cover]({{site.baseurl}}/assets/image/others-license-cover.jpeg)     
 说到开源代码，有些人认为既然都已经开源了，那自然不需要声明任何软件的许可协议。有意思的是，事实正好相反，如果你想把代码分享出来，最好还是选择一个合适的开源协议，这样别人才可以放心的使用。让我们先看一看什么是开源协议。
 
 ## 什么是开源协议
