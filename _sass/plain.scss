@@ -169,7 +169,7 @@ main {
     font-size: 14px;
     float: left;
     background-color: #e3e3e3;
-    padding: 5px 20px 5px 10px;
+    padding: 6px 20px 5px 10px;
     border-radius: 2px;
     @media screen and (max-width: $mobileW) {
       margin-top: 5px;
@@ -335,7 +335,8 @@ main {
   }
 }
 .post-date {
-  margin-right: 10px;
+  margin-right: 0px;
+  padding-left: 5px;
   color: #555;
   min-width: 150px;
   font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;
