@@ -4,8 +4,9 @@
     {%- include head.html -%}
   </head>
   <body>
+  {%- if site.rawposts.show_statistics -%}
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-   
+  {%- endif -%}
     <main class="container">
       <section class="about">
         <a href="{{site.baseurl}}/blog/index.html"><img src="{{ "/assets/avatar.png" | relative_url }}" alt="{{ site.rawposts.name }}"></a>
