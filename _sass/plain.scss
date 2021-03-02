@@ -168,7 +168,7 @@ main {
   li {
     font-size: 14px;
     float: left;
-    background-color: #04B4AE;
+    background-color: #9D9D9D;
     padding: 6px 20px 5px 10px;
     border-radius: 2px;
     @media screen and (max-width: $mobileW) {
@@ -215,7 +215,7 @@ main {
     border-radius: 2px;
 	&:hover {
       color:white;
-	  background-color: #04B4AE;
+	  background-color: #9D9D9D;
     }
     @media screen and (max-width: $mobileW) {
       margin-top: 5px;
