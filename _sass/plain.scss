@@ -511,25 +511,29 @@ main {
   text-decoration: none;
 
 a {
+    border-radius: 2px;
     text-decoration: none;
     &:hover {
-      color:#436EEE;
+      color:white;
+	  background-color: #A9A9A9;
     }
   }
 }
 .menu_tag_a{
-	margin-right: 10px;
+	margin-right: 0px;
+	padding: 5px 5px;
 	color:#444;
 	@media screen and (max-width: $smallMobileW) {
 		margin-right: 8px;
-  }
-  @media screen and (max-width: $mobileW) {
+    }
+    @media screen and (max-width: $mobileW) {
 		margin-right: 8px;
-  }
+    }
 }
 .menu_tag_b{
 	margin-right: 0px;
 	color:#444;
+	padding: 5px 5px;
 	@media screen and (max-width: $smallMobileW) {
 		margin-right: 0px;
   }
@@ -682,4 +686,11 @@ table {
 {
     margin: 0 auto;
     display: block;
+}
+.web-statistics
+{
+	padding: 5px 5px;
+	font-family: 'Arial', 'Microsoft Yahei';
+	color: #999;
+	font-weight: 200;
 }
