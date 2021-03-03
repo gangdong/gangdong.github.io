@@ -524,14 +524,18 @@ a {
 	@media screen and (max-width: $smallMobileW) {
 		margin-right: 8px;
 		padding: 0px 0px;
-		color:#436EEE;
-		background-color: white;
+		&:hover {
+          color:#436EEE;
+		  background-color: white;
+       }
     }
     @media screen and (max-width: $mobileW) {
 		margin-right: 8px;
 		padding: 0px 0px;
-		color:#436EEE;
-		background-color: white;
+		&:hover {
+          color:#436EEE;
+		  background-color: white;
+       }
     }
 }
 .menu_tag_b{
@@ -540,12 +544,18 @@ a {
 	@media screen and (max-width: $smallMobileW) {
 		margin-right: 0px;
 		padding: 0px 0px;
-		color:#436EEE;
+		&:hover {
+          color:#436EEE;
+		  background-color: white;
+       }
   }
   @media screen and (max-width: $mobileW) {
 		margin-right: 0px;
 		padding: 0px 0px;
-		color:#436EEE;
+		&:hover {
+          color:#436EEE;
+		  background-color: white;
+       }
   }
 }
 .pagination-box{
