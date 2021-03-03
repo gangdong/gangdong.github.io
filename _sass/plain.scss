@@ -524,10 +524,10 @@ a {
 	padding: 5px 5px;
 	color:#444;
 	@media screen and (max-width: $smallMobileW) {
-		margin-right: 8px;
+		margin-right: 0px;
     }
     @media screen and (max-width: $mobileW) {
-		margin-right: 8px;
+		margin-right: 0px;
     }
 }
 .menu_tag_b{
