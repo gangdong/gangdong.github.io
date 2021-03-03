@@ -488,6 +488,7 @@ main {
 .menu{
   font-size: 90%;
   font-family: 'Arial', 'Raleway', 'Microsoft Yahei', sans-serif;
+  font-weight:100;
   min-width: 100px;
   display: flex;
   flex-direction:row;
@@ -496,6 +497,8 @@ main {
   align-items : center;
   align-content: space-between;
   border-radius: 2px;
+  color:#444;
+  
   @media screen and (max-width: $smallMobileW) {
     margin-left: 0px;
     margin-right: 0px;
@@ -511,6 +514,7 @@ main {
   text-decoration: none;
 
 a {
+    padding: 5px 5px;
     text-decoration: none;
     &:hover {
       color:white;
@@ -519,8 +523,7 @@ a {
   }
 }
 .menu_tag_a{
-	padding: 5px 5px;
-	color:#444;
+	
 	@media screen and (max-width: $smallMobileW) {
 		margin-right: 8px;
 		padding: 0px 0px;
@@ -539,8 +542,7 @@ a {
     }
 }
 .menu_tag_b{
-	color:#444;
-	padding: 5px 5px;
+	
 	@media screen and (max-width: $smallMobileW) {
 		margin-right: 0px;
 		padding: 0px 0px;
