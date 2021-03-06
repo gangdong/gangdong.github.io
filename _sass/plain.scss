@@ -202,14 +202,13 @@ main {
 	
 }
 .readingtime-categories {
-  font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;
+  font-family: 'Arial', 'Raleway', 'Microsoft Yahei', sans-serif;
+  font-size: 14px;
   list-style-type: none;
-  margin: 0;
-  padding: 0;
   color: #666;
   li {
-    font-size: 14px;
     float: left;
+	color:$linkColor;
     background-color: #ffffff;
     padding: 5px 5px;
     border-radius: 4px;
@@ -527,7 +526,7 @@ a {
 .menu_tag_a{
 	
 	@media screen and (max-width: $smallMobileW) {
-		margin-right: 8px;
+		margin-right: 0px;
 		padding: 0px 0px;
 		&:hover {
           color:#436EEE;
@@ -535,7 +534,7 @@ a {
        }
     }
     @media screen and (max-width: $mobileW) {
-		margin-right: 8px;
+		margin-right: 0px;
 		padding: 0px 0px;
 		&:hover {
           color:#436EEE;
