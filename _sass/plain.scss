@@ -488,7 +488,7 @@ main {
 .menu{
   font-size: 90%;
   font-family: 'Arial', 'Raleway', 'Microsoft Yahei', sans-serif;
-  font-weight:300;
+  font-weight:400;
   color:#222;
   min-width: 100px;
   display: flex;
@@ -498,8 +498,6 @@ main {
   align-items : center;
   align-content: space-between;
   border-radius: 2px;
-  
-  
   @media screen and (max-width: $smallMobileW) {
     margin-left: 0px;
     margin-right: 0px;
@@ -513,8 +511,7 @@ main {
   margin-top: 20px;
   margin-bottom: 36px;
   text-decoration: none;
-
-a {
+  a {
     border-radius: 4px;
     padding: 5px 2px;
     text-decoration: none;
@@ -529,7 +526,6 @@ a {
 	@media screen and (max-width: $smallMobileW) {
 		margin-right: 0px;
 		padding: 0px 0px;
-		color: red;
 		&:hover {
           color:#436EEE;
 		  background-color: white;
@@ -538,7 +534,6 @@ a {
     @media screen and (max-width: $mobileW) {
 		margin-right: 0px;
 		padding: 0px 0px;
-		color: blue;
 		&:hover {
           color:#436EEE;
 		  background-color: white;
