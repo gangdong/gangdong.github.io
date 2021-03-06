@@ -29,13 +29,24 @@ permalink: /category
 {% assign i = 0 %}
 {% assign counts = counts | split: ', ' %}
 {% for tag in site.categories reversed  %}
-<ul class="post-categories">       
+{% comment %}convert a string to number{% endcomment %}
+{% assign number = counts[i] | plus:0 %}
+{% if number > 10 %}
+<ul class="tag-categories-emphasis">       
      <a href="#{{tag[0]}}" style = "font-family: Raleway,Arial,sans-serif; font-size:14px">{{ tag[0] }} ( {{counts[i]}} )</a>
 </ul>
+{% elsif number < 5 %}
+<ul class="tag-categories">       
+     <a href="#{{tag[0]}}" style = "font-family: Raleway,Arial,sans-serif; font-size:14px">{{ tag[0] }} ( {{counts[i]}} )</a>
+</ul>
+{% else %}
+<ul class="tag-categories-least">       
+     <a href="#{{tag[0]}}" style = "font-family: Raleway,Arial,sans-serif; font-size:14px">{{ tag[0] }} ( {{counts[i]}} )</a>
+</ul>
+{% endif %}
 {% assign i = i | plus: 1 %}
 {% endfor %}
 </div>
-
 {% comment %}list post link for each category{% endcomment %}
 {% for tag in site.categories reversed %}
 <div>

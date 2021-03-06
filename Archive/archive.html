@@ -38,9 +38,20 @@ permalink: /archive
 {% assign counts_year = counts | split: ', ' | reverse %}
 {% assign years = years | split: ', ' %}
 {% for year in years reversed %}
-<ul class="post-categories">       
-     <a href = "#{{year}}" style = "font-family: Raleway,Arial,sans-serif; font-size:14px">{{ year }} ( {{counts_year[i]}} )</a>
+{% assign number = counts_year[i] | plus:0 %}
+{% if number > 10 %}
+<ul class="archive-categories-emphasis">       
+     <a href = "#{{year}}" style = "font-family: Raleway, Arial, sans-serif; font-size:14px">{{ year }} ( {{counts_year[i]}} )</a>
 </ul>
+{% elsif number < 5 %}
+<ul class="archive-categories-least">       
+     <a href = "#{{year}}" style = "font-family: Raleway, Arial, sans-serif; font-size:14px">{{ year }} ( {{counts_year[i]}} )</a>
+</ul>
+{% else %}
+<ul class="archive-categories">       
+     <a href = "#{{year}}" style = "font-family: Raleway, Arial, sans-serif; font-size:14px">{{ year }} ( {{counts_year[i]}} )</a>
+</ul>
+{% endif %}
 {% assign i = i | plus: 1 %}
 {% endfor %}
 </div>
