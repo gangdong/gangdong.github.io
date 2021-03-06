@@ -54,8 +54,13 @@
           }
         }
 	}
+	.pagination-box-select{
+		border:2px solid #333;
+		background-color: #333;
+    }
 	.pagination-box{
 		border:2px solid #333;
+		color: #E67E22;
 	}
 	.pagination{
 		a {
@@ -90,7 +95,7 @@
  	.readingtime-categories {
 		li {
 			background-color: #171717;
-			color: #fff;
+			color: #E67E22;
 			&:hover {
 			color: $dark_link_color;
 			background-color: #333;

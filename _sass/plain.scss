@@ -205,10 +205,11 @@ main {
   font-family: 'Arial', 'Raleway', 'Microsoft Yahei', sans-serif;
   font-size: 14px;
   list-style-type: none;
+  
   color: #666;
   li {
     float: left;
-	color:$linkColor;
+	color: $linkColor;
     background-color: #ffffff;
     padding: 5px 5px;
     border-radius: 4px;
@@ -560,6 +561,18 @@ a {
 		  background-color: white;
        }
   }
+}
+.pagination-box-select{
+    border:2px solid #9D9D9D;;
+	padding: 4px 8px;
+	border-radius: 2px;
+	text-align:center;
+    font-family: 'Verdana', 'Arial', 'Microsoft Yahei', sans-serif;
+	font-weight: 300;
+	font-size: 14px;
+    color: #ffffff;
+	align-items: center;
+	background-color: #9D9D9D;
 }
 .pagination-box{
 	border:2px solid #eee;
