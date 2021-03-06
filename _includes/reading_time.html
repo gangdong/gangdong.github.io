@@ -3,7 +3,7 @@
 {% assign time = post.content | strip_html | strip_newlines | remove: " " | size | divided_by: 400 | plus: 1 %}
 
 <!-- 同时兼容http与https -->
-<script async src="//cdn1.lncld.net/static/js/2.5.0/av-min.js"></script>
+<script async src="{{site.baseurl}}/assets/js/page-statistics.js"></script>
 <script>
     // 第一个参数是appid，第二个参数是appkey，此处的只是示例
     AV.initialize("z58p6xIjDnpLCXrfM5JGfb4q-gzGzoHsz", "tdsfOx1TOMYJXOkAJVJ04a1c");
