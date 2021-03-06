@@ -205,10 +205,11 @@ main {
   font-family: 'Arial', 'Raleway', 'Microsoft Yahei', sans-serif;
   font-size: 14px;
   list-style-type: none;
+  
   color: #666;
   li {
     float: left;
-	color:$linkColor;
+	color: $linkColor;
     background-color: #ffffff;
     padding: 5px 5px;
     border-radius: 4px;
