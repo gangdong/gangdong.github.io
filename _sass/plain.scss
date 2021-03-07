@@ -615,6 +615,49 @@ main {
     }
   }
 }
+.about-page-meta{
+  display: flex;
+  flex-direction:row;
+  flex-wrap: wrap;
+  justify-content : center;
+  align-items : center;
+  align-content: flex-start;
+  
+  @media screen and (max-width: $smallMobileW) {
+    margin-left: 0px;
+    margin-right: 0px;
+	margin-top: 0px;
+  }
+  @media screen and (max-width: $mobileW) {
+    padding: 0px !important;
+    margin-top: 0px;
+  }
+  }
+ .about-page-box {
+  padding: 0px 40px;
+  margin-top: 15px;
+  margin-bottom: 15px; 
+  background-color: #5499C7;
+  text-decoration: none;
+  margin: 15px 2px;
+  font-family: 'Raleway','Tahoma', 'Merriweather', 'Arial', 'Microsoft Yahei', sans-serif;
+  font-size: 18px;
+  border-radius: 4px;
+  font-weight: 400;
+  line-height: 1.9em;
+  
+  a {
+    color: white;
+	text-decoration: none;
+	&:hover {
+	  background-color: #ececec;
+      color: $linkColor;
+    }
+  }
+  &:hover {
+	  background-color: #ececec;
+    }
+}
 #posts-label-chinese {
   font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;
   margin: 0px 2px;

@@ -25,7 +25,7 @@ permalink: /category
 {% endfor %}
 
 {% comment %}show navigation label here{% endcomment %}
-<div class="archive-label-meta" style ="margin-top:25px">
+<div class="archive-label-meta" style ="margin-top:30px; margin-bottom:40px">
 {% assign i = 0 %}
 {% assign counts = counts | split: ', ' %}
 {% for tag in site.categories reversed  %}
@@ -67,7 +67,7 @@ permalink: /category
 {% endfor %}
 </div>
 {% comment %}footer{% endcomment %}
-<div class ="footer" style="margin-top:30px">
+<div class ="footer" style="margin-top:80px">
 Copyright © {{ site.time | date: "%Y" }} {{ site.title }}  |  <a href = "https://github.com/gangdong/daviddong.github.io"> Github Project </a> powered by Jekyll
 </div>
 </div>
