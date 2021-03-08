@@ -33,6 +33,8 @@ permalink: /about
   本博客的源码托管在 Github 上，欢迎 <a href = "https://github.com/gangdong/daviddong.github.io">fork</a> 并提出改进意见。
   </div><br><br><br><br>
 
+  {% include comments.html %}
+
   <div class = "footer" style="margin-top:80px">Copyright © {{ site.time | date: "%Y" }} {{ site.title }}  |  <a href = "https://github.com/gangdong/daviddong.github.io"> Github Project </a> powered by Jekyll</div>
   
 
