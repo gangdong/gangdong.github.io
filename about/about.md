@@ -31,7 +31,7 @@ permalink: /about
   这个博客通过 <a href = "https://jekyllrb.com/">Jekyll</a> 生成，部署在 <a href = "https://pages.github.com/">Github</a>，基于 <a href = "https://github.com/gangdong/jekyll-theme-rawposts">rawposts</a> 主题。<br><br>
   
   本博客的源码托管在 Github 上，欢迎 <a href = "https://github.com/gangdong/daviddong.github.io">fork</a> 并提出改进意见。
-  </div><br><br><br><br>
+  </div><br><br>
 
   {% include comments.html %}
 
