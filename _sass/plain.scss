@@ -586,7 +586,7 @@ main {
   }
 }
 .posts-labelgroup {
-  margin: 0 0 0.67em 0;
+  margin: 0 0 0 0;
   display: flex;
   align-items: baseline;
   border-bottom: 1px solid #eee;
@@ -907,4 +907,20 @@ table {
 	font-family: 'Arial', 'Microsoft Yahei';
 	color: #999;
 	font-weight: 200;
+}
+.image-container
+{
+    position: relative;
+}
+.about-text-align
+{
+    position: absolute;
+	top: 80px;
+	left: 100px;
+}
+.about-languagebox-align
+{
+    position: absolute;
+	top: 200px;
+	left: 280px;
 }

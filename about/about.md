@@ -11,8 +11,13 @@ permalink: /about
 	<h1 id="posts-label">{{page.title}}</h1>
   </li> 
 
+  <div class = "image-container">
+  <img src="{{site.baseurl}}/assets/image/home-bg-o.jpg" />
+  <h1 class = "about-text-align" style = "color:white">每一个不曾起舞的日子，都是对生命的辜负</h1>
   {% include language-box.html %}
-  
+  </div>
+  <br>
+ 
   <div class = "about-page">
   我是董刚，一名软件行业从业者。长居于帝都，混迹于半导体圈，致力于为中国伟大的半导体事业添砖加瓦。:smile: <br><br>
   <font color="#FF0000">我喜欢学习新事物，热爱编程，也热爱旅游。</font> <br><br>
