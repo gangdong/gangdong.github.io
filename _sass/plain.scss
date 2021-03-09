@@ -632,7 +632,6 @@ main {
   text-decoration: none;
   margin: 15px 2px;
   font-family: 'Raleway','Tahoma', 'Merriweather', 'Arial', 'Microsoft Yahei', sans-serif;
-  font-size: 18px;
   border-radius: 4px;
   font-weight: 400;
   line-height: 1.9em;
@@ -919,12 +918,12 @@ table {
 	top: 80px;
 	left: 100px;
 	@media screen and (max-width: $smallMobileW) {
-	    font-size: 16px;
+	    font-size: 12px;
 		top: 24px;
 		left: 30px;
   }
   @media screen and (max-width: $mobileW) {
-        font-size: 16px;
+        font-size: 12px;
 		top: 38px;
 		left: 48px;
   }
@@ -932,15 +931,16 @@ table {
 .about-languagebox-align
 {
     position: absolute;
+	font-size: 18px;
 	top: 200px;
 	left: 280px;
 	@media screen and (max-width: $smallMobileW) {
-	    font-size: 16px;
+	    font-size: 12px;
 		top: 24px;
 		left: 30px;
   }
   @media screen and (max-width: $mobileW) {
-        font-size: 16px;
+        font-size: 12px;
 		top: 96px;
 		left: 134px;
   }
