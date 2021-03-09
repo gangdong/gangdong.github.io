@@ -57,19 +57,21 @@ It is at
 
 ### <span id ="2.3">2.3 Build command </span>
 We executes the build command to make the TA code and generate the TA image.
-```shell
+{% highlight ruby %}
  cd /home/david/devtools/tz_qsee5/build/ms/
  python build_all.py -b TZ.XF.5.0.1 CHIPSET=sdm845 --cbt="$(FPC_CONFIG_TZ_IMAGE_NAME)" $(build_flags)
+{% endhighlight %}
 
-``` 
 Build process
 ![fingerprint-tee]({{site.baseurl}}/assets/image/fingerprint-build-ta-02.png){: .center-image }
+
 ### <span id ="2.4">2.4 TA image </span>
 TA images are generated at 
 `/home/david/devtools/tz_qsee5/build/ms/bin/PIL_IMAGES/SPLITBINS_WAXAANAA/` 
 
+
 The TA images are
-```
+{% highlight ruby %}
 fpctzappfingerprint.b00
 fpctzappfingerprint.b01
 fpctzappfingerprint.b02
@@ -79,7 +81,7 @@ fpctzappfingerprint.b05
 fpctzappfingerprint.b06
 fpctzappfingerprint.b07
 fpctzappfingerprint.mdt
-```
+{% endhighlight %}
 
 ## <span id ="3">3. ISEE </span>
 There is no property TEE OS under MTK platform. It adopts the way of integrating the TEE environment of a third party. The common TEE manufacturers ISEE.
@@ -94,19 +96,19 @@ Put the TA source code to below path
 `/home/david/devtools/platforms/mt6797/vendor/fingerprints/` 
 ### <span id ="3.3">3.3 Build command </span>
 Run command
-```c
+{% highlight ruby %}
  cd /home/david/devtools/isee_sdk_270
  source setenv.sh 
  cd /home/david/devtools/platforms/mt6797/vendor/fingerprints/fingerprint_ta/secure/platform/isee
  make
-```
+{% endhighlight %}
 Build process
 ![fingerprint-tee]({{site.baseurl}}/assets/image/fingerprint-build-ta-03.png){: .center-image }
 ### <span id ="3.4">3.4 TA image </span>
 TA image is generated at path
-```
+{% highlight ruby %}
  /home/david/devtools/platforms/mt6797/vendor/fingerprints/fingerprint_ta/secure/platform/isee/obj/7778c03fc30c4dd0a319ea29643d4d4b.ta
-```
+{% endhighlight %}
 It uses the UUID of the TA as the TA name, which is UUID.ta
 
 ## <span id ="4">4. Trusty </span>
@@ -122,18 +124,18 @@ Copy the TA source code to the SDK folder.
 `/home/david/devtools/trusty_sdk/app/demo/`
 ### <span id ="4.3">4.3 Build command </span>
 Run command
-```c
+{% highlight ruby %}
  cd /home/david/devtools/trusty_sdk
  make M="app/demo/fpctzapp:TA"
-```
+{% endhighlight %}
 Build process
 ![fingerprint-tee]({{site.baseurl}}/assets/image/fingerprint-build-ta-04.png){: .center-image }
 ### <span id ="4.4">4.4 TA image </span>
 The TA image is generated at below location after compiling completed.
-```
+{% highlight ruby %}
 /home/david/devtools/trusty_sdk/build/user_tasks/app/demo/fpctzapp/fpctzapp.elf
 /home/david/devtools/trusty_sdk/build/user_tasks/app/demo/fpctzapp/fpctzapp.elf/fpctzapp.syms.elf (带符号表，用于debug)
-```
+{% endhighlight %}
 It uses the TA name that defined at the configuration as the image name, which is TA_Name.elf. 
 Such as fpctzapp.elf. The TA_Name.syms.elf is the image file that containing the symbols table which can be used for debugging purpose.
 

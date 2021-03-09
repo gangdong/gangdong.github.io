@@ -44,11 +44,11 @@ Google official documents provides more information about
 The total memory that Trusty TEE can provide is 32M, suggests allocate 10M memory (heap + stack + ta image self) for fingerprint to use. For example, using 6M heap and 3M stack.
 ### <span id ="2.2">2.2 Max buffer size for communication between CA and TA</span>
 + a. The communication between CA and TA is limited in size, and the overall size is limited to 128KB, including message header. Therefore, the buffer size `TAC_SHARED_BUFFER_SIZE` should be less than 128K.
-```c
+{% highlight ruby %}
 #define TAC_SHARED_BUFFER_SIZE 1024 * 120 //should not be greater than 128k
-```
+{% endhighlight %}
 + b. Accordingly, the actual data size that can be used for effective transmission between CA and TA is limited to `1024*128-sizeof(union ta_target_commands)-sizeof(int32_t)`.
-```c
+{% highlight ruby %}
 /* ISEE may need extra room for their own header */
 #if defined(ISEE)
 #define MAX_CHUNK ((SECURE_BUFFER_MAX_SIZE) - (MAX_COMMAND_SIZE) - 64)
@@ -57,10 +57,10 @@ The total memory that Trusty TEE can provide is 32M, suggests allocate 10M memor
 #else
 #define MAX_CHUNK ((SECURE_BUFFER_MAX_SIZE) - (MAX_COMMAND_SIZE))
 #endif
-```
+{% endhighlight %}
 + c. When the data to be transferred is greater than the maximum limit, consider transferring in batches.
 + d. Change the size of heap and stack in the manifest file.
-```c
+{% highlight ruby %}
 trusty_app_manifest_t TRUSTY_APP_MANIFEST_ATTRS trusty_app_manifest =
    {
  
@@ -77,7 +77,7 @@ trusty_app_manifest_t TRUSTY_APP_MANIFEST_ATTRS trusty_app_manifest =
        TRUSTY_APP_CONFIG_MIN_STACK_SIZE(3 * 1024 * 1024),
       },
     };
-```
+{% endhighlight %}
 
 ## <span id ="3">3. TEE Communication</span>
 + a. Adopt the dynamic TA mechanism which will load TA and run TA's main function when CA calls function `connect()`. When CA calls `disconnect()` the TA process exits. Therefore, in a life cycle, there is no  need to connect or disconnect each IPC communication.<br>
@@ -90,7 +90,7 @@ trusty_app_manifest_t TRUSTY_APP_MANIFEST_ATTRS trusty_app_manifest =
 + e. Should use unique uuid to differentiate with other fingerprint vendor.<br>
 + f. About IPC: the Trusty APIs use `send_msg()`/`get_msg()`/`read_msg()`/`put_msg()` to send/retrieve message between CA and TA, the calling sequence should be correct. One lesson learn in my software bring up is that the communication was failed after executed one time successful communication. The communication was hang up after then and TA wasn't able to get the message from CA. The failure was due to missing the `put_msg()` calling after executed `read_msg()`.
 
-```c
+{% highlight ruby %}
 static long handle_msg(tzapp_chan_ctx_t* ctx)
 {
 handle_t chan = ctx->chan;
@@ -156,7 +156,7 @@ free(msg_buf);
 }
 return rc;
 }
-```
+{% endhighlight %}
 
 ## <span id ="4">4. About SPI usage</span>
 It is related to hardware platform, on Spreadtrum SC9863, it doesn't need to configure SPI and will only use `ioctl()` for transmission.
@@ -166,16 +166,16 @@ It is related to hardware platform, on Spreadtrum SC9863, it doesn't need to con
 ### <span id ="5.1">5.1 How to build Trusty TEE image</span>
 <span id = "5.1.1">**5.1.1 Toolchain**</span> <br>
 It is recommended to use the arm-eabi-4.8 tool chain of Android code package:<br>
-```c
+{% highlight ruby %}
 export PATH=$PATH:<AOSP>/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/bin
-```
+{% endhighlight %}
 
 <span id = "5.1.2">**5.1.2 Build**</span>    
 put the TA code fpctzapp into SDK app/demo/ folder.<br>
 run command <br>
-```c
+{% highlight ruby %}
 make M="app/demo/fpctzapp:TA"
-```
+{% endhighlight %}
 
 <span id = "5.1.3">**5.1.3 Output Image**</span><br>
 output two image files fpctzapp.elf and fpctzapp.syms.elf (which contains symbol table for debug purpose)
@@ -187,30 +187,30 @@ Output two image files `fpctzapp.elf` and `fpctzapp.syms.elf` (which contains sy
 To find the line number of error occurrence from symbol table. In the bsp/toolchain/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/bin/ folder<br>
 <span id = "5.2.3">**5.2.3 signta.py**</span>  
 Signature tool for signing the TA image. In the "vendor/sprd/proprietories-source/packimage_scripts/signimage/dynamicTA/" direction.<br>
-```python
+{% highlight ruby %}
 python signta.py --uuid {UUID} --key “privatekey.pem” --in “TA image name without signed” --out “signed TA image name”.
-```
+{% endhighlight %}
 
 command for signature.
-```c
+{% highlight ruby %}
 python signta.py --uuid {UUID} --key “privatekey.pem” --in “TA image name without signed” --out “signed TA image name”
-```
+{% endhighlight %}
 ### <span id = "5.3">5.3 Logs Indication</span>
 <span id="5.3.1">**5.3.1 TA load successfully**</span>  
-```c
+{% highlight ruby %}
  [ 68.183207] c4 246 trusty: ta_manager_wait_load:382: ta_manager_wait_load com.android.trusty.fpctzapp 
  [ 68.185949] c4 246 trusty: ta_manager_write_ta:485: ta_manager_write_ta: new ta! 
  [ 68.188528] c0 181 trusty: ta_manager_write_ta:573: ta_manager_write_ta, load com.android.trusty.fpctzapp accomplished!
-```
+{% endhighlight %}
 
 <span id = "5.3.2">**5.3.2 Failure with TA wasn't signed or signatue wasn't match**</span>  
-```c
+{% highlight ruby %}
  [ 30.866766] c1 trusty: ta_manager_write_ta:538: ta_manager_write_ta: new ta! 
  [ 30.999062] c0 trusty: ta_manager_handle_msg:760: ta_manager_handle_request failed -17!
-```
+{% endhighlight %}
 
 <span id = "5.3.3">**5.3.3 TA APP wasn't running properly, CA lost communication**</span> 
-```c
+{% highlight ruby %}
  libtrusty: tipc_connect: can't connect to tipc service "com.android.trusty.fpctzapp" (err=107)
-```
+{% endhighlight %}
   

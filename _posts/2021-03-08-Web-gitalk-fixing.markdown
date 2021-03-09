@@ -14,9 +14,10 @@ By searching google [gitalk issue #102](https://github.com/gitalk/gitalk/issues/
 However the problem here is that label length is restricted to maximum 50 characters ( Not sure if it is a BUG here :confused: ).
 
 In my Gitalk configuration, the issue id is set to 
-```c
+{% highlight ruby %}
 id: { {page.url} },
-```
+{% endhighlight %}
+
 So if the `page.url` is too long and is beyond the restriction, the issue's label cannot be created and the `Validation Failed` error will be threw out.
 
 Since limitation is clear now, let's fix it.    <br> 
@@ -28,9 +29,10 @@ It is good!
 There is workable [JavaScript-MD5](https://github.com/blueimp/JavaScript-MD5) lib on the Github, I folk it and the rest thing is quite simple.
 
 I added the **MD5 JS** calling in my `comments.html` and reset the Gitalk id to 
-```c
+{% highlight ruby %}
 id: md5(location.pathname),
-```
+{% endhighlight %}
+
 Commit the change. 
 
 I reopen the page and the error is gone, by checking the Gitalk issue label, it has been converted to MD5 code. 
