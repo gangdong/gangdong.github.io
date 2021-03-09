@@ -639,6 +639,13 @@ main {
   a {
     color: white;
 	text-decoration: none;
+	@media screen and (max-width: $smallMobileW) {
+    padding: 0px !important;
+  }
+  @media screen and (max-width: $mobileW) {
+    padding: 0px !important;
+    margin-top: 0px;
+  }
 	&:hover {
 	  background-color: #ececec;
       color: $linkColor;
