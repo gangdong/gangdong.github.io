@@ -914,13 +914,34 @@ table {
 }
 .about-text-align
 {
+    font-size: 32px;
     position: absolute;
 	top: 80px;
 	left: 100px;
+	@media screen and (max-width: $smallMobileW) {
+	    font-size: 16px;
+		top: 24px;
+		left: 30px;
+  }
+  @media screen and (max-width: $mobileW) {
+        font-size: 16px;
+		top: 38px;
+		left: 48px;
+  }
 }
 .about-languagebox-align
 {
     position: absolute;
 	top: 200px;
 	left: 280px;
+	@media screen and (max-width: $smallMobileW) {
+	    font-size: 16px;
+		top: 24px;
+		left: 30px;
+  }
+  @media screen and (max-width: $mobileW) {
+        font-size: 16px;
+		top: 96px;
+		left: 134px;
+  }
 }
