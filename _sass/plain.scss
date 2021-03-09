@@ -854,11 +854,12 @@ pre, code, tt {
 
 code, tt {
   margin: 0 0px;
+  font-size: 14px;
   padding: 2px 4px;
   white-space: nowrap;
   color: #DC143C;
-  background-color: #f8f8f8;
-  border-radius: 2px;
+  background-color: #FDEDEC;
+  border-radius: 4px;
 }
 
 pre>code {
@@ -877,6 +878,7 @@ pre {
   line-height: 1.4em;
   overflow: auto;
   padding: 6px 10px;
+  border-radius: 4px;
 }
 table {
   margin: auto;

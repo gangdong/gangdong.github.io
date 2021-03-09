@@ -19,6 +19,7 @@ rawposts:
   tagline: Java/C/C#/Python
   date_format: "%b %-d, %Y"
   sitemap: true # set to true to generate sitemap.xml content
+  highlighter: rouge
   search: true # set to true to enable searchbar
   dark_mode: true # set to true to add dark mode toggle
   reading_time: true  # set to true to add reading time statistics
