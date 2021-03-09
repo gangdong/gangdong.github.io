@@ -586,7 +586,7 @@ main {
   }
 }
 .posts-labelgroup {
-  margin: 0 0 0.67em 0;
+  margin: 0 0 0 0;
   display: flex;
   align-items: baseline;
   border-bottom: 1px solid #eee;
@@ -626,20 +626,31 @@ main {
   }
  .about-page-box {
   padding: 0px 40px;
-  margin-top: 15px;
-  margin-bottom: 15px; 
+ 
   background-color: #5499C7;
   text-decoration: none;
-  margin: 15px 2px;
+  margin: 0px 2px;
   font-family: 'Raleway','Tahoma', 'Merriweather', 'Arial', 'Microsoft Yahei', sans-serif;
-  font-size: 18px;
   border-radius: 4px;
   font-weight: 400;
   line-height: 1.9em;
-  
+  	@media screen and (max-width: $smallMobileW) {
+        padding: 0px 15px;
+    }
+    @media screen and (max-width: $mobileW) {
+        padding: 0px 15px;
+        margin-top: 0px;
+    }
   a {
     color: white;
 	text-decoration: none;
+	@media screen and (max-width: $smallMobileW) {
+        padding: 0px !important;
+    }
+    @media screen and (max-width: $mobileW) {
+        padding: 0px !important;
+        margin-top: 0px;
+    }
 	&:hover {
 	  background-color: #ececec;
       color: $linkColor;
@@ -907,4 +918,42 @@ table {
 	font-family: 'Arial', 'Microsoft Yahei';
 	color: #999;
 	font-weight: 200;
+}
+.image-container
+{
+    position: relative;
+}
+.about-text-align
+{
+    font-size: 32px;
+    position: absolute;
+	top: 80px;
+	left: 100px;
+	@media screen and (max-width: $smallMobileW) {
+	    font-size: 14px;
+		top: 24px;
+		left: 30px;
+  }
+  @media screen and (max-width: $mobileW) {
+        font-size: 14px;
+		top: 28px;
+		left: 48px;
+  }
+}
+.about-languagebox-align
+{
+    position: absolute;
+	font-size: 18px;
+	top: 200px;
+	left: 280px;
+	@media screen and (max-width: $smallMobileW) {
+	    font-size: 16px;
+		top: 24px;
+		left: 30px;
+  }
+  @media screen and (max-width: $mobileW) {
+        font-size: 12px;
+		top: 86px;
+		left: 100px;
+  }
 }
