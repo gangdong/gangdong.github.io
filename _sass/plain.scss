@@ -635,10 +635,10 @@ main {
   font-weight: 400;
   line-height: 1.9em;
   	@media screen and (max-width: $smallMobileW) {
-        padding: 0px !important;
+        padding: 0px 15px;!important;
     }
     @media screen and (max-width: $mobileW) {
-        padding: 0px !important;
+        padding: 0px 15px;!important;
         margin-top: 0px;
     }
   a {
@@ -930,12 +930,12 @@ table {
 	top: 80px;
 	left: 100px;
 	@media screen and (max-width: $smallMobileW) {
-	    font-size: 12px;
+	    font-size: 14px;
 		top: 24px;
 		left: 30px;
   }
   @media screen and (max-width: $mobileW) {
-        font-size: 12px;
+        font-size: 14px;
 		top: 38px;
 		left: 48px;
   }
@@ -948,7 +948,7 @@ table {
 	top: 200px;
 	left: 280px;
 	@media screen and (max-width: $smallMobileW) {
-	    font-size: 12px;
+	    font-size: 16px;
 		top: 24px;
 		left: 30px;
   }
