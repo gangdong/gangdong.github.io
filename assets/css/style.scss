@@ -4,7 +4,7 @@
 @import "plain";
 
 {% if site.rawposts.highlighter %}
-  @import "vim";
+  @import "vim.css";
 {% endif %}
 
 {% if site.rawposts.search %}
