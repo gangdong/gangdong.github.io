@@ -626,11 +626,10 @@ main {
   }
  .about-page-box {
   padding: 0px 40px;
-  margin-top: 15px;
-  margin-bottom: 15px; 
+ 
   background-color: #5499C7;
   text-decoration: none;
-  margin: 15px 2px;
+  margin: 0px 2px;
   font-family: 'Raleway','Tahoma', 'Merriweather', 'Arial', 'Microsoft Yahei', sans-serif;
   border-radius: 4px;
   font-weight: 400;
@@ -944,6 +943,7 @@ table {
 .about-languagebox-align
 {
     position: absolute;
+	border:1px solid red;
 	font-size: 18px;
 	top: 200px;
 	left: 280px;
