@@ -943,7 +943,7 @@ table {
 .about-languagebox-align
 {
     position: absolute;
-	border:1px solid red;
+	border:1px solid blue;
 	font-size: 18px;
 	top: 200px;
 	left: 280px;
@@ -955,6 +955,6 @@ table {
   @media screen and (max-width: $mobileW) {
         font-size: 12px;
 		top: 86px;
-		left: 34px;
+		left: 134px;
   }
 }
