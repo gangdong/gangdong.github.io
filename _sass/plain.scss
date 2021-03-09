@@ -586,7 +586,7 @@ main {
   }
 }
 .posts-labelgroup {
-  margin: 0 0 0.67em 0;
+  margin: 0 0 0 0;
   display: flex;
   align-items: baseline;
   border-bottom: 1px solid #eee;
@@ -626,11 +626,9 @@ main {
   }
  .about-page-box {
   padding: 0px 40px;
-  margin-top: 15px;
-  margin-bottom: 15px; 
   background-color: #5499C7;
   text-decoration: none;
-  margin: 15px 2px;
+  margin: 40px 2px;
   font-family: 'Raleway','Tahoma', 'Merriweather', 'Arial', 'Microsoft Yahei', sans-serif;
   font-size: 18px;
   border-radius: 4px;

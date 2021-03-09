@@ -22,9 +22,12 @@ layout: default
   <div class="post">
     {{ content }}
   </div>
+  <br><br><br>
   <!-- Page navigation start here! -->
   {%- if site.rawposts.navigation -%}
-  <h1 id="posts-label" style = "margin-top:60px">Further Reading</h1>
+  <li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">further reading</h1>
+  </li> 
   <div class="navigation-meta" style = "margin-bottom:40px">
     {%- if page.previous -%}
     <ul class="navigation-bar" style = "margin-top:40px; min-width:40%">   
