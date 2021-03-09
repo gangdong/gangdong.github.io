@@ -10,9 +10,18 @@ permalink: /archive
 {% include title.html %}
 
 <div class="post-container">
-<h1 id="posts-label">{{page.title}}</h1>
+<li class="posts-labelgroup" id="posts-labelgroup">
+    <h1 id="posts-label">{{page.title}}</h1>
+    <!-- Put search box here -->
+    <div class="search-container">
+        <div class="search-section">
+          <i class="icon-search-5"></i>
+          <input type="text" name="search" id="searchbar" autocomplete="off" aria-label="search in posts">
+        </div>
+    <div class="search-results" id="search-results" data-placeholder="No Results" style="display: none;"></div>
+    </div>
+</li>
 <div class ="archive">
-	
 {% comment %}Calucate the post count for each year{% endcomment %}
 {% assign count = 1 %}
 {% assign year_cnt = "" %}

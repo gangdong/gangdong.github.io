@@ -91,5 +91,9 @@
 		gtag('config', '{{ site.rawposts.analytics_id }}');
 	</script>
     {%- endif -%} 
+{% if site.rawposts.search %}
+<script src="{{site.baseurl}}/assets/js/simple-jekyll-search.min.js"></script>
+<script src="{{site.baseurl}}/assets/js/search.js"></script>
+{% endif %}
   </body>
 </html>
