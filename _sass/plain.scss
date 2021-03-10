@@ -564,7 +564,7 @@ main {
   padding-left: 30px;
 }
 .post {
-  font-family: 'Raleway','Tahoma', 'Merriweather', 'Arial', 'Microsoft Yahei', sans-serif;
+  font-family: 'Arial', 'Tahoma', 'Raleway', 'Merriweather', 'Microsoft Yahei', sans-serif;
   font-weight: 400;
   color: #000;
   line-height: 1.9em;
@@ -869,11 +869,12 @@ pre, code, tt {
 
 code, tt {
   margin: 0 0px;
+  font-family: 'Microsoft Yahei', Consolas, "Liberation Mono", Courier, monospace, sans-serif;
   font-size: 14px;
   padding: 2px 4px;
   white-space: nowrap;
   color: #DC143C;
-  background-color: #FDEDEC;
+  background-color: #FDFDED;
   border-radius: 4px;
 }
 
