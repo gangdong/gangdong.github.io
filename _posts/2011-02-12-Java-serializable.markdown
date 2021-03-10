@@ -252,7 +252,7 @@ public class ClassWithoutSerial {
 {% endhighlight %}
 执行后会出现如下错误。<br>
 
-{% highlight java %}
+{% highlight console %}
 A:I am private member.
 B:I am protected member.
 C:I am public member.
@@ -266,7 +266,7 @@ java.io.NotSerializableException: Serializable.ClassWithoutSerial
     at Serializable.App.main(App.java:61)
 {% endhighlight %}
 可以看到错误为ClassWithoutSerial没有序列化却没执行了序列化的操作。稍作修改使得类ClassWithoutSerial实现Serializable接口，结果如下。<br>
-{% highlight java %}
+{% highlight console %}
 A:I am private member in subclass.
 B:I am protected member in subclass.
 C:I am public member in subclass.
