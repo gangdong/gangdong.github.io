@@ -9,18 +9,18 @@ categories: Linux
 ### poll() 函数
 Linux 中 `poll()` 函数用来监听并等待多个文件描述符的属性变化。<br>
 原型
-```c
+{% highlight c %}
 int poll(struct pollfd *fds, nfds_t nfds, int timeout);
-```
+{% endhighlight %}
 其中fds：指向一个结构体数组的第0个元素的指针，每个数组元素都是一个struct pollfd结构，用于指定测试某个给定的fd的条件。
 
-```c
+{% highlight c %}
 struct pollfd{
-	int fd;			//文件描述符
-	short events;	//等待的事件
-	short revents;	//实际发生的事件
+	int fd;			/*文件描述符*/
+	short events;	/*等待的事件*/
+	short revents;	/*实际发生的事件*/
 };
-```
+{% endhighlight %}
 #### fds 结构体参数说明   
 + **fd**：每一个 pollfd 结构体指定了一个被监视的文件描述符，可以传递多个结构体，指示 `poll()` 监视多个文件描述符。
 + **events**：指定监测fd的事件（输入、输出、错误），每一个事件有多个取值，如下

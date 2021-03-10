@@ -17,7 +17,7 @@ XML 类型文档是一个树状结构，因此在创建或者访问是要首先�
 以下是我实现的用JDOM 操作XML文档的示列代码。
 
 ServiceXmlInterface.java 
-```c
+{% highlight java %}
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -31,9 +31,9 @@ package org.dong.service.xml;
 public interface ServiceXmlInterface {
     public void generateXml(String path,String content);
 }
-```
+{% endhighlight %}
 ServiceXml.java 封装XML文档的操作，实现了ServiceXmlInterface 接口。<br>
-```java
+{% highlight java %}
 package org.dong.service.xml;
 import org.jdom.Attribute;
 import org.jdom.Comment;
@@ -188,26 +188,26 @@ public Document generateConfigurationFile(GlobalConfigurationStore gcs) {
         }
     }
 
-```
+{% endhighlight %}
 如以上代码，使用JDOM解析一个XML文档的步骤如下。<br>
 
 1. 实例化一个合适的解析器对象,本例中我们使用SAXBuilder<br>
-```java
+{% highlight java %}
 SAXBuilder builder = new SAXBuilder(false);
-```
+{% endhighlight %}
 2. 以包含XML数据的文件为参数，构建一个文档对象myDocument<br>
-```java
+{% highlight java %}
 InputStreamReader isr = new InputStreamReader(new FileInputStream(path), "gbk");
 Document doc = builder.build(isr);
-```
+{% endhighlight %}
 3. 找到根元素
-```java
+{% highlight java %}
 Element rootElement = doc.getRootElement();
-```
+{% endhighlight %}
 一旦你获取了根元素，你就可以很方便地对它下面的子元素进行操作了，<br>
-```java
+{% highlight java %}
 List<Element> rootList = rootElement.getChildren();
-```
+{% endhighlight %}
 
 下面对Element对象的一些常用方法作一下简单说明：<br/>
   

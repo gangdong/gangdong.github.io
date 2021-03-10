@@ -12,11 +12,11 @@ The liquid code consists of **objects**, **tags**, and **filters**.
 
 ## objects
 Object tells liquid where to display content on the page. Object and variable names are identified by double curly braces: {% raw %}{{ }}{%  endraw %}
+{% highlight liquid %}
 {% raw %}
-```Liquid
 {{post.name}}
-```
 {% endraw %}
+{% endhighlight %}
 ## tags
 Tags create the logic and control flow of templates. They are identified by a single bracket with a percent sign: {% raw %}{% and%}{% endraw %}.
 Tags do not produce any visible text output. This means that you can use them to assign values to variables, create conditions and loop logic, and do not display any liquid logic code on the page.
@@ -30,7 +30,7 @@ Tags are divided into three categories:
 The filter changes the output of the liquid object. They are used for output, separated by a | symbol.
 
 The keywords includes:<br>
-```c
+{% highlight ruby %}
 abs
 append
 at_least 
@@ -78,14 +78,14 @@ uniq
 upcase
 url_decode
 url_encode
-```
+{% endhighlight %}
 
 ## Operator
 Except the 3 basic elements, Liquid contains the logical and comparison operators. <br>
 They are 
-```
+{% highlight liquid %}
 "=",">","<",">=","<=","!=","or","and".
-```
+{% endhighlight %}
 The syntax is similar to other language, like C. 
 
 ## Object Type

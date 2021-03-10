@@ -9,12 +9,12 @@ This page will follow the [last article]({{site.baseurl}}/android/fingerprint/20
 
 ## Step one - startup fingerprintd service
 Looking at the `init.rc` file, a task is assigned at `init.rc` when the android system boots up - start the fingerprint daemon service.
-```c
+{% highlight console %}
 service fingerprintd /system/bin/fingerprintd
 class late_start
 user root
 group root sdcard_r sdcard_rw
-``` 
+{% endhighlight %} 
 Let's go on to check the `fingerprintd` program.<br> 
 Here I would recommend a useful website for you viewing the android source code.<br> 
 [Android Community](https://www.androidos.net.cn/android/10.0.0_r6/xref)
@@ -25,7 +25,7 @@ read the
 [Android.mk](https://www.androidos.net.cn/android/7.1.1_r28/xref/system/core/fingerprintd/Android.mk)<br>
 `androdi path: root/system/core/fingerprintd/Android.mk` <br>
 we can know that this package is built as a executable program.<br>
-```c
+{% highlight make %}
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 LOCAL_CFLAGS := -Wall -Wextra -Werror -Wunused
@@ -42,12 +42,12 @@ LOCAL_SHARED_LIBRARIES := \
 	libutils \
 	libkeystore_binder
 include $(BUILD_EXECUTABLE)
-```
+{% endhighlight %}
 next open the 
 [fingerprintd.cpp](https://www.androidos.net.cn/android/7.1.1_r28/xref/system/core/fingerprintd/fingerprintd.cpp)<br>
 `android path: root/system/core/fingerprintd/fingerprintd.cpp`<br>
 The task of the `main()` function is very simple, just create a `FingerprintDaemonProxy` object and add it into the service queue. 
-```cpp
+{% highlight cpp %}
 #include "FingerprintDaemonProxy.h"
 
 int main() {
@@ -71,7 +71,7 @@ int main() {
     ALOGI("Done");
     return 0;
 }
-```
+{% endhighlight %}
 From the 
 [FingerprintDaemonProxy.h](https://www.androidos.net.cn/android/7.1.1_r28/xref/system/core/fingerprintd/FingerprintDaemonProxy.h)<br>
 `android path: root/system/core/fingerprintd/`   FingerprintDaemonProxy.h<br>
@@ -79,7 +79,7 @@ We find the remote service is fingerprint daemon. `Fingerprinted` registers the 
 The protocol interface is `IFingerprintdaemon`. `FingerprintService` in the framework will eventually call the remote service, that is, the method in 
 [fingerprintdaemonproxy.cpp](https://www.androidos.net.cn/android/7.1.1_r28/xref/system/core/fingerprintd/FingerprintDaemonProxy.cpp).<br>
 `android path: root/system/core/fingerprintd/`   fingerprintdaemonproxy.cpp<br>
-```c++
+{% highlight cpp %}++
 #ifndef FINGERPRINT_DAEMON_PROXY_H_
 #define FINGERPRINT_DAEMON_PROXY_H_
 
@@ -132,7 +132,7 @@ class FingerprintDaemonProxy : public BnFingerprintDaemon {
 } // namespace android
 
 #endif // FINGERPRINT_DAEMON_PROXY_H_
-```
+{% endhighlight %}
 ## Step two - Startup FingerprintService
 Next, we will move to framework layer to find how the Fingerprint Service start up. 
 open the 
@@ -141,7 +141,7 @@ open the
 This class is in charge of the system service managerment, include start up the necessary service.
 When Android system loads system server, starts Fingerprint Service.
 
-```java
+{% highlight cpp %}
 import com.android.server.fingerprint.FingerprintService;
 
 if (mPackageManager.hasSystemFeature(PackageManager.FEATURE_FINGERPRINT)) {
@@ -149,14 +149,14 @@ if (mPackageManager.hasSystemFeature(PackageManager.FEATURE_FINGERPRINT)) {
                 mSystemServiceManager.startService(FingerprintService.class);
                 traceEnd();
             }
-```
+{% endhighlight %}
 
 Keep looking into the 
 [FingerprintService.java](https://www.androidos.net.cn/android/7.1.1_r28/xref/frameworks/base/services/core/java/com/android/server/fingerprint/FingerprintService.java).<br>
 `android path: root/frameworks/base/services/core/java/com/android/server/fingerprint/FingerprintService.java` <br>
 `FingerprintService` is a subclass of `SystemService` class and implements the `IHwbinder` interface.
 
-```java
+{% highlight cpp %}
 public class FingerprintService extends SystemService implements
 IHwBinder.DeathRecipient {
 
@@ -199,7 +199,7 @@ IHwBinder.DeathRecipient {
     }
 
 }
-```
+{% endhighlight %}
 Let's see the mehtod `getFingerprintDaemon()`, this method will acquire the fingerprint remote service object, that is, the object of fingerprint daemon `(system/core/fingerprintd)`, which has been registered in the init.rc. Then initialize the remote service `fingerprintdaemon` and set the callback `mDaemonCallback`.
 
 It can be seen from the above that the fingerprint service in the framework calls the fingerprint remote service of the native layer fingerprint daemon (related to the hardware), which can be regarded as the client of the fingerprint remote service fingerprint daemon.

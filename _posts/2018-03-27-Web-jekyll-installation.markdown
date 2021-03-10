@@ -28,23 +28,23 @@ The first step is installing the Jekyll tools on your PC, here I just introduce 
 1. download Ruby at [here](https://rubyinstaller.org/) and install. You can skip it if you have already had.
 2. download RubyGems at [here](https://rubygems.org/pages/download). Again, skip this step if you have done.
 3. unzip the RubyGems folder and enter the directory. Execute below command.
-```ruby
+{% highlight ruby %}
 ruby setup.rb
-``` 
+{% endhighlight %} 
 4. execute command install Jekyll.
-```ruby
+{% highlight ruby %}
 gem install Jekyll
-```
+{% endhighlight %}
 After the installation, check it by creating a Jekyll template.
-```c
+{% highlight ruby %}
 cd d:
 d:
 Jekyll new testblog
 cd testblog
 Jekyll server
-```
+{% endhighlight %}
 If you see below output message, the Jekyll is working on your PC now.
-```c
+{% highlight ruby %}
 Generating...
     done in 1.684 seconds.
 Please add the following to your Gemfile to avoid polling for changes:
@@ -52,7 +52,7 @@ Please add the following to your Gemfile to avoid polling for changes:
 Auto-regeneration: enabled for 'D:/Study/backup/daviddong.github.io'
     Server address: http://127.0.0.1:4000
 Server running... press ctrl-c to stop.
-```
+{% endhighlight %}
 So far you can input http://127.0.0.1:4000/ in the browser to browse the blog you just created.
 
 ## Jekyll theme

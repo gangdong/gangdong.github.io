@@ -15,7 +15,7 @@ JXL的官方下载地址 [官方地址](http://maven.ibiblio.org/maven2/net/sour
 直接讲用法不如看代码，以下是一些使用JXL库的简单操作。
 
 #### 导入jxl的类库
-```java
+{% highlight java %}
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
@@ -23,10 +23,10 @@ import jxl.write.Label;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 
-```
+{% endhighlight %}
 #### 打开读取Excel表格的方法
 
-```java
+{% highlight java %}
 try{
 
   //声明一个workbook的对象，workbook代表选取Excel文件的工作薄
@@ -47,9 +47,9 @@ try{
 catch(Exception e){
   e.printStackTrace();
 }
-```
+{% endhighlight %}
 #### 创建一个Excel workbook的方法
-```java
+{% highlight java %}
 try {
   // 建立文件
   WritableWorkbook book = Workbook.createWorkbook(file);
@@ -70,6 +70,6 @@ try {
   }
   catch(IOException e){
   }
-```
+{% endhighlight %}
 具体的使用案例可以参考我的Github下的项目。 
 [Github project](https://github.com/gangdong/BLDC)

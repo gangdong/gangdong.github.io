@@ -28,10 +28,10 @@ There are 3 kind of settings on the system BIOS for SGX.
 
 + **Enable**
 + **Software controlled** - enabled through software applications. If Intel SGX is set to software controlled, Intel SGX is initially disabled. You need to make the following calls in the SDK through software application to set it to enabled state:
-```c
+{% highlight ruby %}
 sgx_enable_device()
 sgx_cap_enable_device()
-```
+{% endhighlight %}
 Set softwar control mode is helpful to reduce consumption of system resources otherwise the SGX is always on and occupies a larger amount of RAMs which affects other programs and processes.
 + **Disable** 
 
@@ -61,13 +61,13 @@ You will get a folder
 Check the build number of operating system by `winver` command.<br>
 ![psw]({{site.baseurl}}/assets/image/others-sgx-08.PNG){: .center-image }
 + If the system is **windows 10 fall creators update (version 1709)** or later, enter `PSW_INF_RS3_and_above` folder, run windows PowerShell as administrator to open command line window, and then enter `PSW_INF_RS3_and_above device` directory, keep going down until find `sgx_base.inf` file, input the following command:<br>
-```c
+{% highlight ruby %}
 pnputil /add-driver sgx_base.inf  /install
-```
+{% endhighlight %}
 Go back to `PSW_INF_RS3_and_above component` directory, go down until `find sgx_psw.inf` file, input the following command:<br>
-```c
+{% highlight ruby %}
 pnputil /add-driver sgx_psw.inf  /install
-```
+{% endhighlight %}
 + If it is the previous version, choose `PSW_EXE_RS2_and_before` folder and run<br>
 `Intel(R)_SGX_Windows_x64_PSW_2.7.101.2.exe` to install.   
 Open the Visual Studio 2015 and create a new VC++ project, if the `Intel SGX Enclave project` can be found in the template window, it means the SDK and Visual Studio plug-in has been installed successfully.

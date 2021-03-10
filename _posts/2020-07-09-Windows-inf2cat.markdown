@@ -15,9 +15,9 @@ Inf2Cat 工具检查驱动程序包的 INF 文件，了解是否存在结构错�
 
 **工具路径：**c:\Program Files (x86)\Windows Kits\10\bin\x86    
 **使用方法：**
-```c
+{% highlight ruby %}
 Inf2Cat /driver:PackagePath /os:WindowsVersionList [/nocat] [/verbose] [/?] [other switches]
-```
+{% endhighlight %}
 **参数说明**   
 
 |参数|说明|
@@ -88,27 +88,27 @@ Inf2Cat 忽略版本标识符字符串的字母字符的大小写。例如，vis
 
 ## 应用示例
 在以下示例中，c:\MyDriver 包含一个驱动程序包，该程序包的 INF 文件为 MyInfFile.inf 并且 INF 文件中的 INF 版本部分仅包含以下 CatalogFile 指令：
-```c
+{% highlight ruby %}
 [Version]
 ...
 CatalogFile=MyCatalogFile.cat
 ...
-```
+{% endhighlight %}
 对于该示例，以下 Inf2Cat 命令将验证是否可以针对 Windows 2000 和 x86 版本的 Windows Vista、Windows Server 2003 和 Windows XP 对驱动程序包进行签名。如果可以针对这些版本对程序包进行签名，那么 Inf2Cat 将创建未签名的目录文件 MyCatalogFile.cat。
-```c
+{% highlight ruby %}
 Inf2Cat /driver:C:\MyDriver /os:2000,XP_X86,Server2003_X86,Vista_X86
-```
+{% endhighlight %}
 
 在以下示例中，c:\MyDriver 包含一个驱动程序包，该程序包的 INF 文件为 MyInfFile.inf，并且 INF 文件中的 INF Version 部分仅包含以下两个具有平台扩展的CatalogFile 指令：
-```c
+{% highlight ruby %}
 [Version]
 ...
 CatalogFile.ntx86=MyCatalogFileX86.cat
 CatalogFile.ntamd64=MyCatalogFileX64.cat
 ...
-```
+{% endhighlight %}
 对于该示例，以下 Inf2Cat 命令将验证是否可以针对 Windows 2000 和 x86 版本的 Windows Vista、Windows Server 2003 和 Windows XP 对驱动程序包进行签名。此外，该命令还将验证是否可以针对 x64 版本的 Windows Vista、Windows Server 2003 和 Windows XP 对驱动程序包进行签名。如果可以针对所有这些版本对程序包进行签名，那么 Inf2Cat 将创建未签名的目录文件 MyCatalogFileX86.cat 和 MyCatalogFileX64.cat。
 
-```c
+{% highlight ruby %}
 Inf2Cat /driver:C:\MyDriver /os:2000,XP_X86,XP_X64,Server2003_X86,Server2003_X64,Vista_X86,Vista_X64
-```
+{% endhighlight %}

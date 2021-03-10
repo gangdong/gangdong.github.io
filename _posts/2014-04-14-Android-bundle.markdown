@@ -10,7 +10,7 @@ Bundle经常使用在Activity之间或者线程间传递数据，传递的数据
 当Bundle传递的是对象或对象数组时，必须实现`Serializable` 或`Parcelable`接口。
 Bundle提供了各种常用类型的`putXxx()/getXxx()`方法，用于读写基本类型的数据。（各种方法可以查看API）<br>
 参考代码如下：<br>
-```java
+{% highlight java %}
                 //Student 类应该实现Serializable接口
                 Student student = new student();
 
@@ -29,4 +29,4 @@ Bundle提供了各种常用类型的`putXxx()/getXxx()`方法，用于读写基�
                 
                 startActivityForResult(intent,2);
 
-```
+{% endhighlight %}

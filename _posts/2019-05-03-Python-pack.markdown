@@ -10,9 +10,9 @@ Python uses `struct.pack()` to pack python data type into binary data (byte stre
 ### struct.pack()
 
 The function prototype:
-```python
+{% highlight python %}
 struck.pack(format, data1, data2,...)
-```
+{% endhighlight %}
 
 format: define the convert format.
 data1,data2,...: the data needs to be packed.
@@ -54,7 +54,7 @@ In order to exchange data with the structure in C, it is also necessary to consi
 Use it in the first place of format.
 
 for example.
-```python
+{% highlight python %}
 import struct
 
 a = 11
@@ -64,33 +64,33 @@ print(len(struct.pack("ii",a,b)))
 8
 print(struct.pack("ii",a,b))
 b'\x0b\x00\x00\x00\x0c\x00\x00\x00'
-```
+{% endhighlight %}
 
 ### struct.unpack()
 
 `struct.unpack()` unpacks the byte stream into Python data type.<br>
 The function prototype:
-```python
+{% highlight python %}
 struct.unpack(fmt, string)
-```
+{% endhighlight %}
 This function return a tuple.
 
 For example.
-```python
+{% highlight python %}
 a = 11
 b = 12
 packdata = struct.pack("ii",a,b)
 c,d = struct.unpack("1i1i",packdata)
 print((c,d))
 (11,12)
-```
+{% endhighlight %}
 
 ### struct.calcsize()
 
 `Struct.calcsize()` is used to calculate the length of the result corresponding to the format string.
 
 For example.<br>
-```python
+{% highlight python %}
 print(struct.calcsize("c"))
 1
 print(struct.calcsize("H"))
@@ -99,4 +99,4 @@ print(struct.calcsize("L"))
 4
 print(struct.calcsize("Q"))
 8
-```
+{% endhighlight %}

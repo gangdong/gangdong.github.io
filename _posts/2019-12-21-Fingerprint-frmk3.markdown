@@ -25,7 +25,7 @@ These definition of these two struct is defined at <br>
 `android path: root/hardware/libhardware/include/hardware/hardware.h`   
 
 **hardware.h**
-```c
+{% highlight c %}
 typedef struct hw_module_t {
     /** tag must be initialized to HARDWARE_MODULE_TAG */
     uint32_t tag;
@@ -136,10 +136,10 @@ typedef struct hw_device_t {
     int (*close)(struct hw_device_t* device);
 
 } hw_device_t;
-```
+{% endhighlight %}
 Besides, this header file also declares the module name and two important functions.   
 **hardware.h**
-```c
+{% highlight c %}
 /**
  * Name of the hal_module_info
  */
@@ -166,13 +166,13 @@ int hw_get_module(const char *id, const struct hw_module_t **module);
  */
 int hw_get_module_by_class(const char *class_id, const char *inst,
                            const struct hw_module_t **module);
-```
+{% endhighlight %}
 These two functions are realized at <br>
 [hardware.c](https://www.androidos.net.cn/android/7.0.0_r31/xref/hardware/libhardware/hardware.c)<br>
 `android path: root/hardware/libhardware/hardware.c`<br> 
 From the file, we can find the module search path is as below.   
 **hardware.c**
-```c
+{% highlight c %}
 /** Base path of the hal modules */
 #if defined(__LP64__)
 #define HAL_LIBRARY_PATH1 "/system/lib64/hw"
@@ -342,12 +342,12 @@ int hw_get_module(const char *id, const struct hw_module_t **module)
     return hw_get_module_by_class(id, NULL, module);
 }
 
-```
+{% endhighlight %}
 `hw_get_module()` will call the `hw_get_module_by_class()` function. Firstly, it will read the system property `ro.hardware` through the `property_get()` function. If the property is found, it then uses the `hw_module_exists()` function to check whether the `xx.So` library exists. If it exists, load it directly else if it does not exist, continue to search for the variant_keys array. Checking system attribute values. If found, load it directly. If it does not exist still, load the default.
 
 Let's turn back to the `FingerprintDaemonProxy::openHal()` to see how it call the `hw_get_module()` function.   
 **FingerprintDaemonProxy.cpp**
-```cpp
+{% highlight cpp %}
 int64_t FingerprintDaemonProxy::openHal() {
     ALOG(LOG_VERBOSE, LOG_TAG, "nativeOpenHal()\n");
     int err;
@@ -396,7 +396,7 @@ int64_t FingerprintDaemonProxy::openHal() {
     ALOG(LOG_VERBOSE, LOG_TAG, "fingerprint HAL successfully initialized");
     return reinterpret_cast<int64_t>(mDevice); // This is just a handle
 }
-```
+{% endhighlight %}
 `openHal()` will call the `hw_get_module()` to get the pointer to `hw_module_t` module, after then it will call the `open()` function. Once the HAL module is opened, the Fingerprintd is able to operate fingerprint device through the `hw_device_t`.
 
 The funciton of the fingerprint module can be found at 

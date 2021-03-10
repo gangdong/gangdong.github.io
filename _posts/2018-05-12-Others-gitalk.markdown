@@ -81,14 +81,14 @@ Below are the setting options.<br>
 + `flipMoveOptions` - Comment list animation. [Reference](https://github.com/joshwcomeau/react-flip-move/blob/master/documentation/enter_leave_animations.md)<br/>
   **type:** Object<br/>
   **Default:**
-```c
+{% highlight ruby %}
 {
       staggerDelayBy: 150,
       appearAnimation: 'accordionVertical',
       enterAnimation: 'accordionVertical',
       leaveAnimation: 'accordionVertical',
 }
-```
+{% endhighlight %}
 + `enableHotKey` - Enable hot key (cmd|ctrl + enter) submit comment. <br/>
   **type:** Boolean <br/>
   **Default:** true.<br/>

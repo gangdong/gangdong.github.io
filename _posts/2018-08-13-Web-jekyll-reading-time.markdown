@@ -10,7 +10,7 @@ There are plenty of Jekyll plugins that support realizing this feature, but I do
 
 So I tried to write below trick code to realize this feature. 
 
-```java
+{% highlight liquid %}
 {% raw %}
 {% assign words = post.content | strip_html | strip_newlines | remove: " " | size %}
 {% assign time = post.content | strip_html | strip_newlines | remove: " " | size 
@@ -26,15 +26,15 @@ So I tried to write below trick code to realize this feature.
 </div>
 </footer> 
 {% endraw %}
-```
+{% endhighlight %}
 The method is straightforward, 
 + Statistics the words count of every post. Actually a more simple and pure Liquid code is like this.
 
-```java
+{% highlight liquid %}
 {% raw %}
 {% assign words = content | number_of_words %}
 {% endraw %}
-```
+{% endhighlight %}
 But Jekyll built in filter `number_of_words` cannot accurately count the number of Chinese words. If you have Chinese words to calculate, you can use Liquid's size filter to avoid this problem. In order to make statistics more accurate, it is better to ignore all HTML tags and blank lines before calculation.
 + Get a number of WPM (word per minute), by google the WPM value, an person can read 300-500 words per minute in a computer monitor. I read fast and I think it can be a bigger value, but I set an median 400 here for my blog. 
 + The rest work is easy, we only need calculating the reading time by dividing words count with WPM.
@@ -43,9 +43,9 @@ Next, I create a **read_time.html** in my _includes folder and put all this code
 
 I just include the **read_time.html** in my post layout.
 
-```c
+{% highlight liquid %}
 {% raw %}
 {% include reading_time.html %}
 {% endraw %}
-```
+{% endhighlight %}
 That's all. If you want to get all code, fork it [here](https://github.com/gangdong/daviddong.github.io).

@@ -13,7 +13,7 @@ Java 通过Thread类来实现多线程，关于Thread类的介绍，可以查阅
 Thread类继承自java.lang.Object，实现了Runnable接口。<br>
 Thread类的用法如下。<br>
 MyThreadClass.java 
-```java
+{% highlight java %}
 package com.daviddong;
 
 public class MyThreadClass extends Thread {
@@ -28,9 +28,9 @@ public class MyThreadClass extends Thread {
         " 被调用 " + cnt + "次");
     }
 }
-```
+{% endhighlight %}
 App.java
-```java
+{% highlight java %}
 package com.daviddong;
 import java.util.ArrayList;
 
@@ -50,9 +50,9 @@ public class App
     }
 }
 
-```
+{% endhighlight %}
 运行结果
-```c
+{% highlight console %}
 线程Thread-0 被调用 1次
 线程Thread-9 被调用 1次
 线程Thread-8 被调用 1次
@@ -63,7 +63,7 @@ public class App
 线程Thread-4 被调用 1次
 线程Thread-2 被调用 1次
 线程Thread-1 被调用 1次
-```
+{% endhighlight %}
 由以上结果可以看出，线程的运行结果与执行顺序无关，并且10个线程分别被执行一次，线程内资源无法共享。
 
 ## Runnable 接口
@@ -71,7 +71,7 @@ Runnable接口的Java文档的介绍。[Runnable]()
 Runnable接口内只声明一个方法`Run()`的方法，同Thread内的`Run()`方法一样，该方法内定义了线程的执行体。<br>
 Runnable接口的用法如下。<br>
 MyRunnable.java
-```java
+{% highlight java %}
 package com.daviddong;
 
 public class MyRunnable implements Runnable{
@@ -85,9 +85,9 @@ public class MyRunnable implements Runnable{
         " 被调用 " + cnt + "次");
     }
 }
-```
+{% endhighlight %}
 App.java
-```java
+{% highlight java %}
 package com.daviddong;
 import java.util.ArrayList;
 
@@ -107,9 +107,9 @@ public class App
         }   
     }
 }
-```
+{% endhighlight %}
 运行结果
-```c
+{% highlight console %}
 线程Thread-1 被调用 2次
 线程Thread-2 被调用 3次
 线程Thread-0 被调用 2次
@@ -120,7 +120,7 @@ public class App
 线程Thread-8 被调用 9次
 线程Thread-9 被调用 9次
 线程Thread-3 被调用 10次
-```
+{% endhighlight %}
 同Thread的例子一样，看的出线程的执行顺序与调用顺序无关。但是因为不同的线程中传入的是同一个实现了Runnable接口的对象，因此内部的变量被共享。
 由以上两个例子，可以看出使用Thread类和Runnable接口创建线程的不同主要是有2点。
 + 因为Java只能实现单继承，但可以实现多个接口，所以使用继承Thread类的方法就会导致无法继承其他的类，而Runnable接口就可以避免继承的局限。
@@ -130,7 +130,7 @@ public class App
 解决这个问题的话就要用到`synchronized`，使线程之间同步运行。
 我们修改一下代码。<br>
 MyRunnale.java
-```java
+{% highlight java %}
 package com.daviddong;
 
 public class MyRunnable implements Runnable{
@@ -144,10 +144,10 @@ public class MyRunnable implements Runnable{
         " 被调用 " + cnt + "次");
     }
 }
-```
+{% endhighlight %}
 使用`synchronized`修饰`run()`方法，使得其在执行时与其他的线程同步。经过synchronized修饰后线程在执行run()方法时会确认是否有其他线程正在执行，如果有的话就加入队列等待，知道可以获得执行权。
 执行结果如下。
-```c
+{% highlight console %}
 线程Thread-1 被调用 1次
 线程Thread-3 被调用 2次
 线程Thread-2 被调用 3次
@@ -158,7 +158,7 @@ public class MyRunnable implements Runnable{
 线程Thread-6 被调用 8次
 线程Thread-5 被调用 9次
 线程Thread-4 被调用 10次
-```
+{% endhighlight %}
 现在我们看到共享资源是按顺序被调用且没有重复。<br>
 最后在介绍一些Thread类的常用方法。<br>
 

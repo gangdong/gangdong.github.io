@@ -44,7 +44,7 @@ Jekyll traverses your site looking for files to process. Any files with front ma
 
 above is the description from the official docs. talk is always easy, next I will write some code to demonstrate the usage. 
 below shows the variables value of my blog.
-```c
+{% highlight console %}
 This page's title is {{page.title}}
 This page's name is {{page.name}}
 This page's url is {{page.url}}
@@ -56,7 +56,8 @@ This page's tags is {{page.tags}}
 This page's dir is {{page.dir}}
 This page's path is {{page.path}}
 This site's url is {{site.url}}
-````
+{% endhighlight %}
+
 ### Jekyll command
 Jekyll has below commands
 

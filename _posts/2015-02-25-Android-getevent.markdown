@@ -11,12 +11,12 @@ User can use this command under adb console.
 
 ## Usage
 The usage of this command is 
-```c
+{% highlight shell %}
 adb shell getevent [options] [device]
-```
+{% endhighlight %}
 We input `adb shell getevent -h` on the CMD command line and will get the help information about this command.
 
-```c
+{% highlight shell %}
 Usage: getevent [-t] [-n] [-s switchmask] [-S] [-v [mask]] [-d] [-p] [-i] [-l] [-q]
 [-c count] [-r] [device]
   -t: show time stamps
@@ -32,14 +32,14 @@ Usage: getevent [-t] [-n] [-s switchmask] [-S] [-v [mask]] [-d] [-p] [-i] [-l] [
   -q: quiet (clear verbosity mask)
   -c: print given number of events then exit
   -r: print rate events are received
-```
+{% endhighlight %}
 
 To display which input devices are on the system, use 
-```c
+{% highlight shell %}
 adb shell getevent 
-```
+{% endhighlight %}
 the command will return all of the input devices that the system used. For below my example, there are 7 input devices that registered at dev/input. 
-```c
+{% highlight shell %}
 add device 1: /dev/input/event6
   name:     "sdm670-mtp-snd-card Button Jack"
 add device 2: /dev/input/event5
@@ -54,35 +54,35 @@ add device 6: /dev/input/event0
   name:     "qpnp_pon"
 add device 7: /dev/input/event1
   name:     "gpio-keys"
-```
+{% endhighlight %}
 Below are some examples, we can find the touchscreen input event is registered at /dev/input/event2, so we use touchscreen as a input device for the interpretion.
 
 + non-parameter: 
-```c
+{% highlight shell %}
 C:\WINDOWS\System32>adb shell getevent /dev/input/event2
 0003 0030 0000000f
 0003 0032 0000000f
 0003 003a 0000000f
 0003 0035 00000154
-```
+{% endhighlight %}
 Here the first column represents the `EVENT_TYPE`, the second column displays the `EVENT_CODE` and the third column is `EVENT_VALUE`.
 
 + -t: display timestamp
-```c
+{% highlight shell %}
 C:\WINDOWS\System32>adb shell getevent -t /dev/input/event2
 [    1564.568377] 0003 0030 0000000f
 [    1564.568377] 0003 0032 0000000f
 [    1564.568377] 0003 003a 0000000f
-```
+{% endhighlight %}
 + -r: print report rate
-```c
+{% highlight shell %}
 C:\WINDOWS\System32>adb shell getevent -r /dev/input/event2
 0003 0032 00000027
 0003 003a 00000027
 0000 0000 00000000 rate 135
-```
+{% endhighlight %}
 + -p: print the event informaiton supported by the device.
-```c
+{% highlight shell %}
 C:\WINDOWS\System32>adb shell getevent -p /dev/input/event2
 add device 1: /dev/input/event2
   name:     "himax-touchscreen"
@@ -97,9 +97,9 @@ add device 1: /dev/input/event2
                 003a  : value 0, min 0, max 200, fuzz 0, flat 0, resolution 0
   input props:
     INPUT_PROP_DIRECT
-```
+{% endhighlight %}
 + -i: similar to -p, but will contain more information.
-```c
+{% highlight shell %}
 C:\WINDOWS\System32>adb shell getevent -i /dev/input/event2
 add device 1: /dev/input/event2
   bus:      0000
@@ -121,18 +121,18 @@ add device 1: /dev/input/event2
                 003a  : value 0, min 0, max 200, fuzz 0, flat 0, resolution 0
   input props:
     INPUT_PROP_DIRECT
-```
+{% endhighlight %}
 
 + -l: print the event type/event code by plain text.
-```c
+{% highlight shell %}
 C:\WINDOWS\System32>adb shell getevent -l /dev/input/event2
 EV_ABS       ABS_MT_TOUCH_MAJOR   0000000f
 EV_ABS       ABS_MT_WIDTH_MAJOR   0000000f
 EV_ABS       ABS_MT_PRESSURE      0000000f
-```
+{% endhighlight %}
 Compare with the default output, the `-l` output use the plain text replace the raw code of `EVENT_TYPE/EVENT_CODE/EVENT_VALUE` which is more intuitive.
 + -c: print given number of events then exit
-```c
+{% highlight shell %}
 C:\WINDOWS\System32>adb shell getevent -c 10  /dev/input/event2
 0003 0030 0000000f
 0003 0032 0000000f
@@ -144,10 +144,10 @@ C:\WINDOWS\System32>adb shell getevent -c 10  /dev/input/event2
 0000 0000 00000000
 0003 0030 00000031
 0003 0032 00000031
-```
+{% endhighlight %}
 
 normal when we debug the touchscreen, we usually use below command to obtain the input event. This command will give all information with plain text output, which is useful for obtain the image of which input event is occurring.
-```c
+{% highlight shell %}
 C:\WINDOWS\System32>adb shell getevent -ltr  /dev/input/event2
 [    2311.461360] EV_ABS       ABS_MT_TOUCH_MAJOR   0000000f
 [    2311.461360] EV_ABS       ABS_MT_WIDTH_MAJOR   0000000f
@@ -157,6 +157,6 @@ C:\WINDOWS\System32>adb shell getevent -ltr  /dev/input/event2
 [    2311.461360] EV_ABS       ABS_MT_TRACKING_ID   00000026
 [    2311.461360] EV_KEY       BTN_TOUCH            DOWN
 [    2311.461360] EV_SYN       SYN_REPORT           00000000
-```
+{% endhighlight %}
 
 The source code is at [getevent.c](https://www.androidos.net.cn/android/9.0.0_r8/xref/system/core/toolbox/getevent.c).

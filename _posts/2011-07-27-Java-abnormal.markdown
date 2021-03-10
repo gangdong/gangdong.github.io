@@ -9,7 +9,7 @@ categories: Java
 
 ## 异常捕获
 一个常用的异常捕获流程如下图所示，
-```java
+{% highlight java %}
 try{
     需要监听异常的代码;
 }catch(Exception e){
@@ -17,7 +17,7 @@ try{
 }finally{
     资源释放代码; //此段代码无论有无异常发生都会执行。
 }
-```
+{% endhighlight %}
 此外还有`try-catch`,`try-finally`的用法，是`try-catch-finally`的不同功能的组合。
 我们也可以在`tr`y的后面跟若干个`catch`，用于捕获多个异常。
 值得注意的是，无论有无执行到`catch`语句 (捕获异常) **finally里面的代码一定会被执行**, 执行的时间点是在`try`或者`catch`的`return`或者`throw`语句之前。也就是说在程序退出前会执行到`finally`包括的语句，然后回来执行`try`或者`catch`块中的`return`或者`throw`语句。如果`finally`中使用了`return`或者`throw`等终止方法的语句，则就不会跳回执行，直接停止。
@@ -47,7 +47,7 @@ EXCEPTION类和子类的关系如下。<br>
 ## Exception 和 RuntimeException
 可以看到`RuntimeException`是`Exception`的子类，实际上`RuntimeException`对应的是非检查性异常，用户可以处理也可以不处理，而如何继承的是`exception`,则为检查性异常，用户必须用`try-catch`来处理异常。<br>
 一个简单的例子。
-```java
+{% highlight java %}
 /**
  * example of java exception
  *
@@ -65,15 +65,15 @@ public class App
         
     }
 }
-```
+{% endhighlight %}
 运行结果
-```c
+{% highlight java %}
 Exception in thread "main" java.lang.RuntimeException: new runtime exception!
         at daviddong.example.exception.App.runTimeExFun(App.java:16)
         at daviddong.example.exception.App.main(App.java:11)
-```
+{% endhighlight %}
 可以看出如果函数声明的是抛出一个`RuntimeException`异常，则主调函数可以选择不用`try-catch`来处理。我们将`throws`的异常改为`Exception`,
-```java
+{% highlight java %}
 /**
  * example of java exception
  *
@@ -89,10 +89,10 @@ public class App
         throw new RuntimeException("new runtime exception!");
     }
 }
-```
+{% endhighlight %}
 则会报语法错误`“Unhandled exception type ExceptionJava(16777384)”`，需要用`try-catch`来处理异常。<br>
 正确代码如下。
-```java
+{% highlight java %}
 /**
  * example of java exception
  *
@@ -111,4 +111,4 @@ public class App {
         throw new RuntimeException("new runtime exception!");
     }
 }
-```
+{% endhighlight %}

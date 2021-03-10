@@ -16,7 +16,7 @@ Use default project name 'Enclave1'.
 3. Edit `Enclave1.edl` file with below code.
 ![project]({{site.baseurl}}/assets/image/others-sgx-start-02.PNG){: .center-image }
 This piece of code declares the `foo()` method as a trusted method and executes at trusted zone.  
-```cpp
+{% highlight ruby %}
 enclave {
     from "sgx_tstdc.edl" import *;
 
@@ -30,9 +30,9 @@ enclave {
 
     };
 };
-```
+{% endhighlight %}
 Edit `Enclave1.cpp`. Realize the `foo()` method.
-```cpp
+{% highlight ruby %}
 #include "sgx_trts.h"
 #include "Enclave1_t.h"
 #include "sgx_trts.h"
@@ -45,14 +45,14 @@ void foo(char *buf, size_t len)
 		memcpy(buf, secret, strlen(secret) + 1);
 	}
 }
-```
+{% endhighlight %}
 4. Set the 'Enclave1' project configuration as below.
 ![project]({{site.baseurl}}/assets/image/others-sgx-start-03.PNG){: .center-image }
 5. Build the 'Enclave1' project.
 ![project]({{site.baseurl}}/assets/image/others-sgx-start-04.PNG){: .center-image }
 Above result shows the 'Enclave1' project has been build successfully. Next I need to add it into the 'HelloWorld' project and call the `foo()` methods.
 6. Edit the `main()` method of `HelloWorld.cpp` file. 
-```cpp
+{% highlight ruby %}
 #include "stdafx.h"
 #include <stdio.h>
 #include <tchar.h>
@@ -87,7 +87,7 @@ int main()
 	getchar();
 	return 0;
 }
-```
+{% endhighlight %}
 7. Set the 'HelloWorld' project configuration.
 ![project]({{site.baseurl}}/assets/image/others-sgx-start-06.PNG){: .center-image }
 8. Add 'Enclave1' project into the 'HelloWorld' project.

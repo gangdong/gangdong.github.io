@@ -54,19 +54,19 @@ Published: true
 折叠长行的首选方法是使用Pyhon支持的圆括号，方括号和花括号内的行延续。如果需要，你可以在表达式周围增加一对额外的圆括号，但是有时使用反斜杠看起来更好，确认恰当得缩进了延续的行。
 Emacs的Python-mode正确得完成了这些。一些例子：
 
-```python
+{% highlight python %}
 #!Python
-class Rectangle(Blob)：
-def __init__(self，width，height，color='black'，emphasis=None，highlight=0)：
+class Rectangle(Blob):
+def __init__(self,width,height,color='black',emphasis=None,highlight=0):
 if width == 0 and height == 0 and \
 color == 'red' and emphasis == 'strong' or \
-highlight > 100：
-raise ValueError， "sorry， you lose"
+highlight > 100:
+raise ValueError, "sorry， you lose"
 if width == 0 and height == 0 and (color == 'red' or
-emphasis is None)：
-raise ValueError，"I don't think so"
-Blob.__init__(self，width，height，color，emphasis，highlight)
-```
+emphasis is None):
+raise ValueError,"I don't think so"
+Blob.__init__(self,width,height,color,emphasis,highlight)
+{% endhighlight %}
 ### <span id = "1.4">1.4 空行</span>
 用两行空行分割顶层函数和类的定义，类内方法的定义用单个空行分割，额外的空行可被用于(保守的)分割相关函数组成的群，在一组相关的单句中间可以省略空行。(例如：一组哑元素)。
 当空行用于分割方法的定义时，在`class`行和第一个方法定义之间也要有一个空行。在函数中使用空行时，请谨慎的用于表示一个逻辑段落。Python接受`contol-L`(即^L)换页符作为空格：Emacs(和一些打印工具)，视这个字符为页面分割符，因此在你的文件中，可以用他们来为相关片段分页。
@@ -111,25 +111,25 @@ Guido不喜欢在以下地方出现空格：
 `dict ['key'] = list [index]`。要始终将它写成`dict['key'] = list[index]`。
 + 在赋值(或其它)运算符周围的用于和其它并排的一个以上的空格；   
 如：
-```python
+{% highlight python %}
 #!Python
 x= 1
 y= 2
 long_variable = 3
-```
+{% endhighlight %}
 要始终将它写成   
-```python
+{% highlight python %}
 #!Python
 x = 1
 y = 2
 long_variable = 3
-```
+{% endhighlight %}
 
 ### <span id = "2.3">2.3 其他建议</span>
 始终在这些二元运算符两边放置一个空格：赋值`(=)`， 比较`(==，<，>，!=，<>，<=， >=，in，not in，is，is not)`，布尔运算 `(and，or，not)`。
 按你的看法在算术运算符周围插入空格。 始终保持二元运算符两边空格的一致。   
 一些例子：   
-```python
+{% highlight python %}
 #!Python
 i = i+1
 submitted = submitted + 1
@@ -137,23 +137,23 @@ x = x*2 - 1
 hypot2 = x*x + y*y
 c = (a+b) * (a-b)
 c = (a + b) * (a - b)
-```
+{% endhighlight %}
 不要在用于指定关键字参数或默认参数值的`=`号周围使用空格，例如：   
-```python
+{% highlight python %}
 #!Python
-def complex(real， imag=0。0)：
-return magic(r=real， i=imag)
-```
+def complex(real, imag=0.0):
+return magic(r=real, i=imag)
+{% endhighlight %}
 不要将多条语句写在同一行上：   
-```python
-No： if foo == 'blah'：do_blah_thing()
-Yes：if foo == 'blah'：
+{% highlight python %}
+No: if foo == 'blah':do_blah_thing()
+Yes:if foo == 'blah':
 do_blah_thing()
-No：do_one()：do_two()：do_three()
-Yes： do_one()
+No:do_one():do_two():do_three()
+Yes: do_one()
 do_two()
 do_three()
-```
+{% endhighlight %}
 
 ## <span id = "3">3. 注释</span>
 同代码不一致的注释比没注释更差。当代码修改时，始终优先更新注释 **!注释应该是完整的句子**，如果注释是一个短语或句子，首字母应该大写，除非他是一个以小写字母开头的标识符(永远不要修改标识符的大小写)。
@@ -163,34 +163,34 @@ do_three()
 注释块通常应用于跟随着一些(或者全部)代码并和这些代码有着相同的缩进层次。注释块中每行以`#`和一个空格开始(除非他是注释内的缩进文本)。注释块内的段落以仅含单个`#`的行分割。注释块上下方最好有一空行包围(或上方两行下方一行，对一个新函数定义段的注释)。
 行内注释
 一个行内注释是和语句在同一行的注释，行内注释应该谨慎适用，行内注释应该至少用两个空格和语句分开，它们应该以`#`和单个空格开始。
-```python
+{% highlight python %}
 x = x+1 # Increment x
-```
+{% endhighlight %}
 如果语意是很明了的，那么行内注释是不必要的，事实上是应该被移除的。不要这样写：
-```python
+{% highlight python %}
 x = x+1 # Increment x
 x = x+1 # Compensate for border
-```
+{% endhighlight %}
 但是有时，这样是有益的：
-```python
+{% highlight python %}
 x = x+1 # Compensate for border
-```
+{% endhighlight %}
 ### <span id = "3.1">3.1 文档字符串</span>
 应该一直遵守编写好的文档字符串的约定`PEP 257 [3]`。为所有公共模块，函数，类和方法编写文档字符串。文档字符串对非公开的方法不是必要的，但你应该有一个描述这个方法做什么的注释。这个注释应该在`def`这行后。
 `PEP 257` 描述了好的文档字符串的约定。一定注意，多行文档字符串结尾的`"""`应该单独成行，例如：
-```python
+{% highlight python %}
 """Return a foobang
 Optional plotz says to frobnicate the bizbaz first。
 """
-```
+{% endhighlight %}
 对单行的文档字符串，结尾的`"""`在同一行也可以。
 版本注记
 如果你要将RCS或CVS的杂项(crud)包含在你的源文件中，按如下做。
-```python
+{% highlight python %}
 #!Python
 __version__ = "$Revision： 1。4 $"
 # $Source： E：/cvsroot/Python_doc/pep8。txt，v $
-```
+{% endhighlight %}
 这个行应该包含在模块的文档字符串之后，所有代码之前，上下用一个空行分割。   
 ## <span id = "4">4. 命名约定</span>
 Python库的命名约定有点混乱，所以我们将永远不能使之变得完全一致，不过还是有公认的命名规范的。新的模块和包(包括第三方的框架)必须符合这些标准，但对已有的库存在不同风格的，保持内部的一致性是首选的。   
@@ -242,42 +242,42 @@ X11库的所有公开函数以X开头。(在Python中，这个风格通常认为
 ### <span id = "5.1">5.1 设计建议</span>
 单个元素(singletons)的比较，如None 应该永远用：`is`或`is not`来做。当你本意是`if x is not None`时，对写成`if x`要小心。例如当你测试一个默认为None的变量或参数是否被设置为其它值时，这个值也许在布尔上下文(Boolean context)中是false！
 基于类的异常总是好过基于字符串的异常。模块和包应该定义它们自己的域内特定的基异常类，基类应该是内建的Exception类的子类。还始终包含一个类的文档字符串。例如：
-```python
+{% highlight python %}
 #!Python
-class MessageError(Exception)：
+class MessageError(Exception):
 """Base class for errors in the email package。"""
-```
+{% endhighlight %}
 使用字符串方法(methods)代替字符串模块，除非必须向后兼容Python 2.0以前的版本。字符串方法总是非常快，而且和unicode字符串共用同样的API(应用程序接口)在检查前缀或后缀时避免对字符串进行切片。用`startswith()`和`endswith()`代替，因为它们是明确的并且错误更少。例如：
-```python
-No： if foo[：3] == 'bar'：
-Yes： if foo.startswith('bar')：
-```
+{% highlight python %}
+No:if foo[:3] == 'bar':
+Yes:if foo.startswith('bar'):
+{% endhighlight %}
 例外是如果你的代码必须工作在Python 1.5.2 (但是我们希望它不会发生！)，对象类型的比较应该始终用`isinstance()`代替直接比较类型，例如：
-```python
-No： if type(obj) is type(1)：
-Yes： if isinstance(obj， int)：
-```
+{% highlight python %}
+No:if type(obj) is type(1):
+Yes:if isinstance(obj, int):
+{% endhighlight %}
 检查一个对象是否是字符串时，紧记它也可能是unicode字符串！在Python 2.3，str和unicode有公共的基类，basestring，所以你可以这样做：
-```python
-if isinstance(obj， basestring)：
-```
+{% highlight python %}
+if isinstance(obj,basestring):
+{% endhighlight %}
 在Python 2.2类型模块为此定义了`StringTypes`类型，例如：
-```python
+{% highlight python %}
 #!Python
 from types import StringTypes
-if isinstance(obj， StringTypes)：
-```
+if isinstance(obj, StringTypes):
+{% endhighlight %}
 在Python 2.0和2.1，你应该这样做：
-```python
+{% highlight python %}
 #!Python
-from types import StringType， UnicodeType
-if isinstance(obj， StringType) or \
-isinstance(obj， UnicodeType) ：
-```
+from types import StringType, UnicodeType
+if isinstance(obj, StringType) or \
+isinstance(obj,UnicodeType):
+{% endhighlight %}
 对序列，(字符串，列表，元组)，使用空列表是false这个事实，因此`if not seq`或`if seq`比`if len(seq)`或`if not len(seq)`好。书写字符串文字时不要依赖于有意义的后置空格。这种后置空格在视觉上是不可辨别的，并且有些编辑器(特别是近来，reindent.py)会将它们修整掉。不要用==来比较布尔型的值以确定是True或False(布尔型是Pythn 2.3中新增的)
-```python
-No： if greeting == True：
-Yes： if greeting：
-No： if greeting == True：
-Yes： if greeting：
-```
+{% highlight python %}
+No: if greeting == True:
+Yes: if greeting:
+No: if greeting == True:
+Yes: if greeting:
+{% endhighlight %}

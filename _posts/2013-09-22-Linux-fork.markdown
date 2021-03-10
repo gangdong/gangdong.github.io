@@ -15,20 +15,20 @@ categories: Linux
 
 `fork()`函数的作用是新建立一个进程。这个进程是从父进程COPY过来，因此和父进程几乎完全相同。
 `fork()`函数的原型如下,需要注意的是函数的返回值。
-```c
+{% highlight c %}
 pid_t fork(void);
-```
+{% endhighlight %}
 函数返回值:
-```c
+{% highlight console %}
 0:子进程返回0
 -1:出错返回
 其它：父进程返回子进程ID
-```
+{% endhighlight %}
 **注意，fork被调用后，是要返回两次，也就是有两个返回值，**
 **分别代表了父进程和子进程，这点和一般的函数调用不同。**
 
 看代码。
-```c
+{% highlight c %}
 #include <unistd.h>  
 #include <stdio.h>   
 int main ()   
@@ -55,17 +55,16 @@ int main ()
     printf("执行了: %d/n 次",mCnt);  
     return 0;     
 } 
-```
+{% endhighlight %}
 执行结果如下。
 
-```c
+{% highlight console %}
 子进程：id is    0, pid is 2621, ppid is 1158,执行了: 1 次
 父进程：id is 2621, pid is 2620, ppid is 2019,执行了: 1 次
-
-```
+{% endhighlight %}
 我们可以看到相同的代码段被执行了两次。这是因为调用`fork()`函数后，就变成两个进程在执行了，这两个进程的执行逻辑完全相同，在子进程中，fork函数返回0，在父进程中，fork返回新创建子进程的进程ID。我们可以通过fork返回的值来判断当前进程是子进程还是父进程。如果把代码稍作修改。
-```c
-    else if (fpid ！= 0) {  
+{% highlight c %}
+    else if (fpid != 0) {  
         printf("父进程：id is %4d, pid is %4d, ppid is %4d,/n",fpid,getpid(),getppid());   
         mCnt++;  
     }  
@@ -73,12 +72,12 @@ int main ()
         printf("子进程：id is %4d, pid is %4d, ppid is %4d,/n",fpid,getpid(),getppid());   
         mCnt++;  
     } 
-```
+{% endhighlight %}
 结果如下，可以看出到是子进程先执行，父进程后执行，与程序的执行顺序无关。
-```c
+{% highlight console %}
 子进程：id is    0, pid is 2621, ppid is 1158,执行了: 1 次
 父进程：id is 2621, pid is 2620, ppid is 2019,执行了: 1 次
-```
+{% endhighlight %}
 关于`fork()`函数的执行原理，用到了“写时复制”的技术，参考以下的博文，讲的比较清楚。<br>
 [https://www.cnblogs.com/zhangchaoyang/articles/2317420.html](https://www.cnblogs.com/zhangchaoyang/articles/2317420.html)
 

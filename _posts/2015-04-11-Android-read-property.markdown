@@ -14,7 +14,7 @@ So I applied a trick way to access the `Systemproperties` method with the help o
 I studied the source code of [SystemProperties.java](https://www.androidos.net.cn/android/9.0.0_r8/xref/frameworks/base/core/java/android/os/SystemProperties.java) and found the methods it implemented.
 
 SystemProperties.java
-```java
+{% highlight java %}
 private static native String native_get(String key);
 private static native String native_get(String key, String def);
 private static native int native_get_int(String key, int def);
@@ -23,12 +23,12 @@ private static native boolean native_get_boolean(String key, boolean def);
 private static native void native_set(String key, String def);
 private static native void native_add_change_callback();
 private static native void native_report_sysprop_change();
-```
+{% endhighlight %}
 This class defined the set/get methods for different data type. What I need is the get() method of return a String type.
 
 The rest work is straightforward, I wrote below codes and inserted into my class.
 
-```java
+{% highlight java %}
 ...
 import java.lang.reflect.Method;
 import android.support.annotation.NonNull;
@@ -101,4 +101,4 @@ public class MainActivity extends DisabledNavigationActivity {
 	
 		...
 
-```
+{% endhighlight %}

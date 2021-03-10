@@ -27,7 +27,7 @@ Java的序列化提供了一种保存对象状态的机制，之所以要用到�
 参考代码如下，改代码演示了如何序列化和反序列化一个对象：<br>
 首先定义一个类实现Serializable接口。<br>
 DemoInstance.java<br>
-```java
+{% highlight java %}
 package Serializable;
 import java.io.Serializable;
 public class DemoInstance implements Serializable{
@@ -66,10 +66,10 @@ public class DemoInstance implements Serializable{
     }
 
 }
-```
+{% endhighlight %}
 在main()中实现该类对象的序列化和反序列化。<br>
 App.java<br>
-``` java
+{% highlight java %}
 package Serializable;
 
 import java.io.FileInputStream;
@@ -85,7 +85,7 @@ import java.io.ObjectOutputStream;
 public class App {
     public static void main(String[] args) {
 
-        // 声明一个对象，该对象实现了serializable接口
+        /* 声明一个对象，该对象实现了serializable接口 */
         DemoInstance demoObj = new DemoInstance();
         DemoInstance demoReadObj = new DemoInstance();
 
@@ -98,17 +98,17 @@ public class App {
         demoReadObj.setC("I am null!");
 
         try {
-            // 首先声明一个FileOutputStream的对象，用于操作要写入的文件
+            /*首先声明一个FileOutputStream的对象，用于操作要写入的文件*/
             FileOutputStream fos = new FileOutputStream("example_Serializable.txt");
-            // 声明一个ObjectOutputStream 对象，将要写入的文件流与要存的对象关联
+            /* 声明一个ObjectOutputStream 对象，将要写入的文件流与要存的对象关联 */
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            // 写入要保存的对象
+            /* 写入要保存的对象 */
             oos.writeObject(demoObj);
             oos.close();
 
-            // 首先声明一个FileInputStream的对象，用于操作要写入的文件
+            /* 首先声明一个FileInputStream的对象，用于操作要写入的文件 */
             FileInputStream fis = new FileInputStream("example_Serializable.txt");
-            // 声明一个ObjectInputStream 对象，将要读入的文件流与要存的对象关联
+            /* 声明一个ObjectInputStream 对象，将要读入的文件流与要存的对象关联 */
             ObjectInputStream ois = new ObjectInputStream(fis);
             demoReadObj = (DemoInstance) ois.readObject();
             ois.close();    
@@ -127,29 +127,28 @@ public class App {
 
     }
 }
-```
+{% endhighlight %}
 以上代码实现了对象的序列化，注意此时如果将保存的文件用文本编辑器打开会看到乱码。<br>
 这是因为序列化和反序列化都是基于二进制流的，将对象保存的信息转化为二进制存储在了文件中，那么用文本编辑器打开查看的话当然是会出现乱码的。只有通过反序列化才能将存储的二进制读取出来。<br>
 
 反序列化读取的代码如下。<br>
-``` java
-// 首先声明一个FileInputStream的对象，用于操作要写入的文件
+{% highlight java %}
+            /* 首先声明一个FileInputStream的对象，用于操作要写入的文件 */
             FileInputStream fis = new FileInputStream("example_Serializable.txt");
-            // 声明一个ObjectInputStream 对象，将要读入的文件流与要存的对象关联
+            /* 声明一个ObjectInputStream 对象，将要读入的文件流与要存的对象关联 */
             ObjectInputStream ois = new ObjectInputStream(fis);
             demoReadObj = (DemoInstance) ois.readObject();
             ois.close();   
-
-```
+{% endhighlight %}
 结果如下所示。<br>
-```c
+{% highlight java %}
 A:I am private member.
 B:I am protected member.
 C:I am public member.
-```
+{% endhighlight %}
 以上是序列化的基本步骤，下面我们再定义一个DemoInstance的子类，该类没有直接实现Serializable接口，同时在该类中还引用了另外一个没有实现Serializable接口的实体类。<br>
 SubDemoInstance.java <br>
-```java
+{% highlight java %}
 package Serializable;
 
 public class SubDemoInstance extends DemoInstance {
@@ -160,7 +159,7 @@ public class SubDemoInstance extends DemoInstance {
     private static final long serialVersionUID = 2L;
 
     private String state;
-    //引用一个没有序列化的对象
+    /* 引用一个没有序列化的对象 */
     private ClassWithoutSerial obj = new ClassWithoutSerial();
 
     public void setPara(String state) {
@@ -190,12 +189,12 @@ public class SubDemoInstance extends DemoInstance {
     }
     
 }
-```
+{% endhighlight %}
 ClassWithoutSerial.java <br>
-```java
+{% highlight java %}
 package Serializable;
 
-//类没有实现Serializale接口
+/* 类没有实现Serializale接口 */
 public class ClassWithoutSerial {
 
     private String state;
@@ -216,10 +215,10 @@ public class ClassWithoutSerial {
     }
 
 }
-```
+{% endhighlight %}
 实现序列化和发序列化的代码。 <br>
 
-```java
+{% highlight java %}
             SubDemoInstance subDemoInstance = new SubDemoInstance();
 
             subDemoInstance.setA("I am private member in subclass.");
@@ -228,19 +227,19 @@ public class ClassWithoutSerial {
             subDemoInstance.setDeclare("I am member in subclass");
             subDemoInstance.setPara(cws,"I am be called by subclass.");
             
-            //Serialize
-            // 首先声明一个FileOutputStream的对象，用于操作要写入的文件
+            /*Serialize
+             首先声明一个FileOutputStream的对象，用于操作要写入的文件 */
             FileOutputStream fosi = new FileOutputStream("example_Serializable.txt");
-            // 声明一个ObjectOutputStream 对象，将要写入的文件流与要存的对象关联
+            /* 声明一个ObjectOutputStream 对象，将要写入的文件流与要存的对象关联 */
             ObjectOutputStream oosi = new ObjectOutputStream(fosi);
-            // 写入要保存的对象
+            /* 写入要保存的对象 */
             oosi.writeObject(subDemoInstance);
             oosi.close();
 
-            //de-serialize
-             // 首先声明一个FileInputStream的对象，用于操作要写入的文件
+            /*de-serialize
+              首先声明一个FileInputStream的对象，用于操作要写入的文件 */
             FileInputStream fisi = new FileInputStream("example_Serializable.txt");
-            // 声明一个ObjectInputStream 对象，将要读入的文件流与要存的对象关联
+            /* 声明一个ObjectInputStream 对象，将要读入的文件流与要存的对象关联 */
             ObjectInputStream oisi = new ObjectInputStream(fisi);
             SubDemoInstance readSubDemo =  new SubDemoInstance();
             readSubDemo = (SubDemoInstance) oisi.readObject();
@@ -250,10 +249,10 @@ public class ClassWithoutSerial {
             readSubDemo.getB() + "\nC:" + readSubDemo.getC()
             +"\nSubClass:"+readSubDemo.getDeclare()
             +"others:"+readSubDemo.getObj().getState());
-```
+{% endhighlight %}
 执行后会出现如下错误。<br>
 
-```c
+{% highlight java %}
 A:I am private member.
 B:I am protected member.
 C:I am public member.
@@ -265,13 +264,13 @@ java.io.NotSerializableException: Serializable.ClassWithoutSerial
     at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1178)
     at java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:348)
     at Serializable.App.main(App.java:61)
-```
+{% endhighlight %}
 可以看到错误为ClassWithoutSerial没有序列化却没执行了序列化的操作。稍作修改使得类ClassWithoutSerial实现Serializable接口，结果如下。<br>
-```c
+{% highlight java %}
 A:I am private member in subclass.
 B:I am protected member in subclass.
 C:I am public member in subclass.
 SubClass:I am member in subclass
 others:I am be called by subclass.
-```
+{% endhighlight %}
 由此可见，序列化类的子类可以不必实现序列化，但是其内部引用的类对象必须实现序列化。

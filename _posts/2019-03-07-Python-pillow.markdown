@@ -40,21 +40,21 @@ Pillow has been packaged into a standard Python library so the installation is q
 Here is a reminder that Pillow and PIL cannot co-exist in the same environment. Before installing Pillow, need to uninstall PIL firstly.
 
 Install Pillow with pip:
-```python
+{% highlight python %}
 python3 -m pip install --upgrade pip
 python3 -m pip install --upgrade Pillow
-```
+{% endhighlight %}
 
 ### Image Class
 The most important class in the Python Imaging Library is the Image class. <br>
 Before use the library, need to import it firstly.<br>
-```python
+{% highlight python %}
 #python2 
 import Image 
 
 #python3 
 from PIL import Image
-```
+{% endhighlight %}
 
 ### Some useful methods
 
@@ -62,33 +62,33 @@ Here we take a example of python3.
 
 + **Open()/Show()**<br>
 To load an image from a file, use the `open()` function in the Image module. If successful, this function returns an Image object. You can now use instance attributes to examine the file contents:
-```python
+{% highlight python %}
 from PIL import Image
 im = Image.open("python-pillow-02.jpg")
 print(im.size,im.mode,im.format)
 (750, 500) RGB JPEG
 im.show()
-```
+{% endhighlight %}
 The format attribute identifies the source of an image. If the image was not read from a file, it is set to None. The size attribute is a 2-tuple containing width and height (in pixels). The mode attribute defines the number and names of the bands in the image, and also the pixel type and depth. Common modes are `L` (luminance) for greyscale images, `RGB` for true color images, and `CMYK` for pre-press images.<br>
 Above four row codes will open and display a image on the screen. it will use the default image viewer of your computer to show the image.
 ![image]({{site.baseurl}}/assets/image/python-pillow-02.jpg){: .center-image }
 
 + **resize()** 
-```python
+{% highlight python %}
 print(im.size)
 (750, 500)
 im = im.resize((150,100))
 im.show()
 print(im.size)
 (150, 100)
-```
+{% endhighlight %}
 ![image]({{site.baseurl}}/assets/image/python-pillow-03.JPG){: .center-image }
 
 + **transpose()**
-```python
+{% highlight python %}
 im_rotate_180 = im.transpose(Image.ROTATE_180)
 im_rotate_180.show()
-```
+{% endhighlight %}
 ![image]({{site.baseurl}}/assets/image/python-pillow-04.JPG){: .center-image }   
 The parameters can be <br>
 -`Image.FLIP_LEFT_RIGHT`, which means to flip the image left and right<br>
@@ -100,12 +100,12 @@ The parameters can be <br>
 -`Image.TRANSVERSE`, which means to transpose the image and then turn it horizontally<br>
 
 + **crop()**
-```python
+{% highlight python %}
 im = Image.open("python-pillow-02.JPG")
 box = (100,100,200,200)
 region = im.crop(box)
 region.show()
-```
+{% endhighlight %}
 The above code cuts out a box rectangle area on the `im` and displays it. Box is a tuple with four numbers (upper left, upper left, lower right, lower right). Each pixel represents a coordinate `unit. Crop()` still returns an image object.<br>
 
 ![image]({{site.baseurl}}/assets/image/python-pillow-05.JPG){: .center-image }
@@ -114,7 +114,7 @@ The above code cuts out a box rectangle area on the `im` and displays it. Box is
 Image can provide below filters.<br>
 `BLUR`、`CONTOUR`、`DETAIL`、`EDGE_ENHANCE`、`EDGE_ENHANCE_MORE`、<br/>`EMBOSS`、`FIND_EDGES`、`SMOOTH`、`SMOOTH_MORE`、`SHARPEN`.<br>
 Below we demonstrate some of the effect of filters.   
-```python
+{% highlight python %}
 from PIL import Image
 from PIL import ImageFilter
 im = Image.open("python-pillow-02.JPG")
@@ -131,7 +131,7 @@ edge.show()
 smooth.show()
 sharpen.show()
 emboss.show()
-``` 
+{% endhighlight %} 
 `BLUR`<br>
 ![blur]({{site.baseurl}}/assets/image/python-pillow-06.JPG){: .center-image }<br>
 `CONTOUR`<br>
@@ -146,7 +146,7 @@ emboss.show()
 ![emboss]({{site.baseurl}}/assets/image/python-pillow-11.JPG){: .center-image }<br>
 
 + **rotate()**
-```python
+{% highlight python %}
 from PIL import Image
 im = Image.open("python-pillow-02.JPG")
 w,h = im.size
@@ -155,7 +155,7 @@ im_45 = im.rotate(45)
 im_90 = im.rotate(90)
 im_45.show()
 im_90.show()
-```
+{% endhighlight %}
 `rotate 45 degree`<br>
 ![rotate45]({{site.baseurl}}/assets/image/python-pillow-12.JPG){: .center-image }<br>
 `rotate 90 degree`<br>
@@ -172,7 +172,7 @@ im_90.show()
 · `YCbCr` (3x8-bit pixels, color video format)<br>
 · `I` (32-bit signed integer pixels)<br>
 · `F` (32-bit floating point pixels)<br>   
-```python
+{% highlight python %}
 from PIL import Image
 im = Image.open("python-pillow-02.JPG")
 w,h = im.size
@@ -187,7 +187,7 @@ im_L.show()
 im_P.show()
 im_CMYK.show()
 im_F.show()
-```
+{% endhighlight %}
 `mode 1`<br>
 ![mode1]({{site.baseurl}}/assets/image/python-pillow-14.JPG){: .center-image }<br>
 `mode L`<br>
@@ -201,7 +201,7 @@ im_F.show()
 
 + **paste()**<br>
 Paste one image onto another.
-```python
+{% highlight python %}
 from PIL import Image
 im = Image.open("python-pillow-02.JPG")
 w,h = im.size
@@ -211,13 +211,13 @@ box = (0,0,100,100)
 region = im.crop(box)
 im.paste(region,(100,100))
 im.show()
-```
+{% endhighlight %}
 in above code, `region` is the object to be pasted. <br>
 ![paste]({{site.baseurl}}/assets/image/python-pillow-19.JPG){: .center-image }<br>
 
 + **split()**<br>
 `Split()` method can separate each channel of the original image. For example, for `RGB` image, the three color channels `R`, `G` and `B` can be separated.
-```python
+{% highlight python %}
 from PIL import Image
 im = Image.open("python-pillow-02.JPG")
 w,h = im.size
@@ -226,7 +226,7 @@ r,g,b = im.split()
 r.show()
 g.show()
 b.show()
-```
+{% endhighlight %}
 `R`<br>
 ![R]({{site.baseurl}}/assets/image/python-pillow-20.JPG){: .center-image }<br>
 `G`<br>
@@ -236,10 +236,10 @@ b.show()
 
 + **merge()**<br>
 Merge method and split method are relative. it combines multiple single channel sequences to form a multi-channel image. Mode is the mode of the combined image, such as `RGB`, and channels is the sequence composed of multiple single channels.
-```python
+{% highlight python %}
 im_merge = Image.merge("RGB",[r,g,b])
 im_merge.show()
-```
+{% endhighlight %}
 ![merge]({{site.baseurl}}/assets/image/python-pillow-23.JPG){: .center-image }<br>
 
 

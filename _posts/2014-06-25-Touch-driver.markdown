@@ -32,7 +32,7 @@ Touch Screen 作为一个input device, 驱动代码当然要符合 android 对�
 
 ## <span id = "1">1. 设备初始化</span>
 首先Touch IC 是一个I2C的设备，因此需要在内核里注册I2C的设备并和驱动代码匹配。有关内核搜索设备驱动并和注册设备匹配的内容可以去参考相关的文档，这里需要注意的是 `i2c_device_id` 里的 `ID` 名称一定要和设备树里面注册的 ID 名称一致。才能保证内核会加载到正确的驱动代码。
-```c
+{% highlight c %}
 static const struct i2c_device_id mxt_id[] = {
 	{ "qt602240_ts", 0 },
 	{ "atmel_mxt_ts", 0 },
@@ -66,9 +66,9 @@ static void __exit mxt_exit(void)
 
 module_init(mxt_init);
 module_exit(mxt_exit);
-``` 
+{% endhighlight %} 
 内核在加载到该设备的驱动后会执行 `Probe()` 函数对设备进行初始化。在 `probe()` 函数中驱动主要完成的内容有
-```c
+{% highlight c %}
 static int __devinit mxt_probe(struct i2c_client *client,
 		const struct i2c_device_id *id)
 {
@@ -87,14 +87,14 @@ static int __devinit mxt_probe(struct i2c_client *client,
 		error = -ENOMEM;
 		goto err_free_mem;
 	}
-```
+{% endhighlight %}
 这里面结构体 `input_dev` 用于描述一个输入子系统设备，任何驱动设备如果想标明自己是输入设备，都应该通过初始化这样的结构体。`input_allocate_device()`这个函数会为 input_dev 这个结构体申请内存并完成这个结构体在内核中的注册。关于这个函数的说明请参考我的另一篇文章 [「Android 如何上报 Touchevent 给应用层」]({{site.baseurl}}/c/touch/linux/android/2014/07/10/Touch-inputevent.html#2)。
-```c
+{% highlight c %}
 /* Initialize i2c device */
 	error = mxt_initialize(data);
-```
+{% endhighlight %}
 接下来要执行 `mxt_initialize()` 这个函数来做设备的硬件初始化。我们来看看硬件初始化里面都做了哪些事情。
-```c
+{% highlight c %}
 static int mxt_initialize(struct mxt_data *data)
 {
 	struct i2c_client *client = data->client;
@@ -162,17 +162,17 @@ static int mxt_initialize(struct mxt_data *data)
 
 	return 0;
 }
-```
+{% endhighlight %}
 我们看到首先要从芯片内部读取相关的设备信息(芯片型号，版本信息等)，这些信息是存储在芯片内部 memeory 的固定的地址。调用的函数 `mxt_get_info()`，该函数的返回值表示读取的结果，如果不为零说明读取失败，芯片状态异常，这时要通过发送命令让芯片进入 bootloader 模式(`mxt_probe_bootloader()`函数)，重新复位。
-```c
+{% highlight c %}
 error = mxt_get_info(data);
-```
+{% endhighlight %}
 如果读取正确，设置芯片状态为 APP_MODE，这时会读取 object_table，ATMEL 的 Touch IC 内部维护了一个寄存器的地址列表，不同型号的IC，该地址列表内容有所不同。通过读取该列表来初始化寄存器的地址。从而可以正确读写内部寄存器。具体的内容需要参考芯片的技术手册。
-```c
+{% highlight c %}
 error = mxt_get_object_table(data);
-```
+{% endhighlight %}
 拿到寄存器的地址后，要读取一些寄存器的值来获取相关的状态（寄存器在芯片出厂厂测时会被写入初始的值）。
-```c
+{% highlight c %}
 error = mxt_check_message_length(data);
 	if (error)
 		return error;
@@ -189,11 +189,11 @@ error = mxt_check_message_length(data);
 		dev_err(&client->dev, "Failed to initialize config\n");
 		return error;
 	}
-```
+{% endhighlight %}
 最后一步是读取寄存器内部配置的显示屏的分辨率信息，为以后上报 touch event 的坐标数据做准备。
-```c
+{% highlight c %}
 error = mxt_read_resolution(data);
-```
+{% endhighlight %}
 到这里，刚才提到的第一步针对芯片硬件的初始化就完成了。
 接下来要完成
 + 完成Input device在 andorid 的注册
@@ -201,7 +201,7 @@ error = mxt_read_resolution(data);
 + 初始化相关的文件节点
 
 ## <span id = "2">2. 注册 Input Device</span>
-```c
+{% highlight c %}
 /* Initialize input device */
 	input_dev->name = "Atmel maXTouch Touchscreen";
 	input_dev->id.bustype = BUS_I2C;
@@ -240,7 +240,7 @@ error = mxt_read_resolution(data);
 			error);
 		goto err_free_irq;
 	}
-```
+{% endhighlight %}
 以上为注册 Input device 的代码，这里涉及到 Linux input 设备的初始化，需要调用 `__set_bit()`, `input_set_abs_params()` 函数来完成输入设备的一些必要的配置，比如 Input 事件类型，多少个手指，分辨率是多少等，具体可以参考[「Android 如何上报 Touchevent 给应用层」]({{site.baseurl}}/c/touch/linux/android/2014/07/10/Touch-inputevent.html#2)。<br>
 最后调用`input_register_device()`函数来将刚才配置好的 Input device 注册到 kernel 中去。
 
@@ -251,39 +251,39 @@ error = mxt_read_resolution(data);
 3. 中断的类型 
 4. 驱动的名字
 
-```c
+{% highlight c %}
 error = request_threaded_irq(client->irq, NULL, mxt_interrupt,
 			pdata->irqflags, client->dev.driver->name, data);
 	if (error) {
 		dev_err(&client->dev, "Error %d registering irq\n", error);
 		goto err_free_object;
 	}
-```
+{% endhighlight %}
 
 ## <span id = "4">4. 注册 Sys 文件节点</span>
 最后的步骤是注册sys文件节点，后期通过读写这些文件节点可以完成对芯片的特定操作，比如升级固件，配置文件等。
-```c
+{% highlight c %}
 error = sysfs_create_group(&client->dev.kobj, &mxt_attr_group);
 	if (error) {
 		dev_err(&client->dev, "Failure %d creating sysfs group\n",
 			error);
 		goto err_unregister_device;
 	}
-```
+{% endhighlight %}
 `sysfs_create_group()`这个函数需要传入一个 attribute_group 结构体的地址。这个地址实际上指向了一个文件属性 attribute 类型的指针数组，通过该数组可以引用到文件节点操作的函数。
 
-```c
+{% highlight c %}
 static struct attribute *mxt_attrs[] = {
 	&dev_attr_update_fw.attr,
 	&dev_attr_debug_enable.attr,
 	&dev_attr_pause_driver.attr,
 	NULL
 };
-```
+{% endhighlight %}
 至此，驱动的加载已经完成，该驱动支持的设备已经可以正常使用。当然驱动代码还有其他的一些任务，比如定义系统休眠，唤醒时的操作。实际上就是设备上下电相关的一些操作。如果需要更改设备上下电时的策略，则要对 `mxt_start()` 和 `mxt_stop()` 两个函数内容进行修改。
 
 ## <span id = "5">5. 设备上下电</span>
-```c
+{% highlight c %}
 static int mxt_suspend(struct device *dev)
 {
 	struct i2c_client *client = to_i2c_client(dev);
@@ -319,11 +319,11 @@ static int mxt_resume(struct device *dev)
 	return 0;
 }
 
-```
+{% endhighlight %}
 
 ## <span id = "6">6. 中断处理程序</span>
 最后也是最重要的就是中断处理程序了，驱动代码要在中断处理程序中将触摸事件转成 `input_event_message` 类型的数据帧，发给内核的 EVENT_HUB 来处理。
-```c
+{% highlight c %}
 static irqreturn_t mxt_interrupt(int irq, void *dev_id)
 {
 	struct mxt_data *data = dev_id;
@@ -363,10 +363,10 @@ static irqreturn_t mxt_interrupt(int irq, void *dev_id)
 end:
 	return IRQ_HANDLED;
 }
-```
+{% endhighlight %}
 可以看到，在中断处理函数中使用了轮询的方法，通过 `mxt_read_message()` 函数来读取IC准备好的数据，直到所有数据都被读取，然后调用 `mxt_input_touchevent()` 函数将读取的数据打包发送。
 `mxt_input_touchevent()` 函数的实现如下。
-```c
+{% highlight c %}
 static void mxt_input_touchevent(struct mxt_data *data,
 				      struct mxt_message *message, int id)
 {
@@ -429,10 +429,10 @@ static void mxt_input_touchevent(struct mxt_data *data,
 
 	mxt_input_report(data, id);
 }
-```
+{% endhighlight %}
 `mxt_input_touchevent()` 是十分重要的函数，在这个函数里会根据读取到的数据判断当前 touch 的状态，比如手指是抬起，抑制还是按压，移动。针对不同的状态会发送不同的消息类型给上层。具体的传送通过 `mxt_input_report()` 函数执行。
 `mxt_input_report()`的函数体如下。
-```c
+{% highlight c %}
 static void mxt_input_report(struct mxt_data *data, int single_id)
 {
 	struct mxt_finger *finger = data->finger;
@@ -475,7 +475,7 @@ static void mxt_input_report(struct mxt_data *data, int single_id)
 
 	input_sync(input_dev);
 }
-```
+{% endhighlight %}
 `mxt_input_report()` 主要调用了如下的 Linux kernel 系统服务来上报消息。<br>
 + input_mt_slot()
 + input_mt_report_slot_state()

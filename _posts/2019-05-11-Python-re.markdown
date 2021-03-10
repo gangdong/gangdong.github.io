@@ -8,9 +8,9 @@ Published: true
 re module is a unique string matching module of Python. Many functions provided in this module are implemented based on regular expressions. The module is handy and to use it, need to import re module at first.
 
 ## prototype 
-```python
+{% highlight python %}
 re.split(pattern, string, maxsplit=0, flags=0)
-```
+{% endhighlight %}
 ## parameters
 + `pattern`: Separator, can be character or regular expression.<br>
 + `string`: String to split.<br>
@@ -19,7 +19,7 @@ re.split(pattern, string, maxsplit=0, flags=0)
 
 ## examples
 + split the input string by space and `,`, only do one time split.
-```python
+{% highlight python %}
 import re
 inputs = re.split(r'[\s,]+', input("Enter: 'ID' ['File name'] >> "), 1)
 Enter: 'ID' ['File name'] >> 01 filename
@@ -33,30 +33,30 @@ inputs = re.split(r'[\s,]+', input("Enter: 'ID' ['File name'] >> "), 1)
 Enter: 'ID' ['File name'] >> 01,file1,file2 file3
 inputs
 ['01', 'file1,file2 file3']
-```
+{% endhighlight %}
 + split the string by character.
-```python
+{% highlight python %}
 import re
 s = 'ab12,% ffa[]-(fceknl)'
 re.split(r'b',s)
 ['a', '12,% ffa[]-(fceknl)']
 re.split(r'f',s)
 ['ab12,% ', '', 'a[]-(', 'ceknl)']
-```
+{% endhighlight %}
 + match multiple characters
-```python
+{% highlight python %}
 import re
 s = 'ab12,% ffa[]-(fceknl)'
 re.split(r'[1,en]',s)
 ['ab', '2', '% ffa[]-(fc', 'k', 'l)']
 re.split(r'[-e(n]',s)
 ['ab12,% ffa[]', '', 'fc', 'k', 'l)']
-```
+{% endhighlight %}
 + keep separator
-```python
+{% highlight python %}
 import re
 s = 'ab12,% ffa[]-(fceknl)'
 re.split('([af])',s)
 ['', 'a', 'b12,% ', 'f', '', 'f', '', 'a', '[]-(', 'f', 'ceknl)']
-```
+{% endhighlight %}
 

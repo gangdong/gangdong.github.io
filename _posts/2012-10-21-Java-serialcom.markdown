@@ -23,7 +23,7 @@ javax.comm.properties|是这个驱动的类配置文件
 
 使用上可以参考我写的如下代码。<br>
 CommBean.java 实现了一个针对串口的通用操作类，封装了串口设备的打开,配置,关闭，读写操作。
-```java
+{% highlight java %}
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -439,9 +439,9 @@ public class ComBean implements SerialPortEventListener {
         this.isComTestOk = isComTestOk;
     }
 }
-```
+{% endhighlight %}
 ReadSerial.java 读取类，使用CommBean的对象进行串口的数据读取。<br>
-```java
+{% highlight java %}
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -480,7 +480,7 @@ public class ReadSerial extends Thread {
         }
     }
 }
-```
+{% endhighlight %}
 
 我的Github上的项目链接如下
 [Github 项目](https://github.com/gangdong/BLDC)

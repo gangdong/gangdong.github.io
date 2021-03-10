@@ -7,7 +7,9 @@ layout: default
 {%- assign date_format = site.rawposts.date_format | default: "%b %-d, %Y" -%}
 
 <div class="post-container">
-  <h1 id="posts-label">POST</h1> 
+  <li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">POST</h1>
+  </li>  
   <a class="post-link" href="{{ page.url | relative_url }}">
     <h2 class="post-title">{{ page.title | escape }}</h2>
   </a>

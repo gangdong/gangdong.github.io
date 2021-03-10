@@ -9,8 +9,8 @@ After setting up the pagination, the next thing I wanted to add to my blog was a
 ## Archive by date
 Because a list of posts in reverse chronological order can be readily accessed in Jekyll through site.posts, all that's needed is to use some clever Liquid markup to process it. 
 I used below code to group my archives by year.
+{% highlight liquid %}
 {% raw %}
-```c
 {% comment %}Calucate the post count for each year{% endcomment %}
 {% assign count = 1 %}
 {% assign year_cnt = "" %}
@@ -63,8 +63,8 @@ I used below code to group my archives by year.
      </a>
    </div>
 {% endfor %}
-```
 {% endraw %}
+{% endhighlight %}
 I add a group of tags for statistics the posts count of every year and afford the navigation to the the posts group.
 So the first loop will calculate the post count of every year and return two arrays. One is for recording the year index and the other gets the count of the year. With these two arrays, I can add the tags in front of the lists grouped by years. 
 
@@ -82,8 +82,8 @@ I used category attribute to group my posts so I took `site.categories.CATEGORY`
 So the method is simple, we can loop the index[1] of every CATEGORY to get every post and group them by index[0], that is the name of CATEGORY.
 
 Use below code, I grouped the posts by the CATEGORY of theirs. Similar to archive by date, I added the tags for every CATEGORY to statistic the count of them and navigation.
+{% highlight liquid %}
 {% raw %} 
-```c
 {% comment %}calculate the post count for each category{% endcomment %}
 {% assign count = "" %}
 {% assign counts = "" %}
@@ -126,8 +126,8 @@ Use below code, I grouped the posts by the CATEGORY of theirs. Similar to archiv
 {% endfor %}
 </div>
 {% endfor %}
-```
 {% endraw %}
+{% endhighlight %}
 
 The last work is to create archive.html and category.html files to well orginaze the codes and display with desired layout, add a hyperlink to the html files on the website homepage.
 

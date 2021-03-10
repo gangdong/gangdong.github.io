@@ -23,7 +23,7 @@ published: true
 
 一个简单的应用例子。   
 Student.java - 基本的数据类
-```java
+{% highlight java %}
 package com.daviddong.example.Iterator
 
 public class Student {
@@ -73,9 +73,9 @@ public class Student {
     }
 
 }
-```
+{% endhighlight %}
 MyIterableClass.java - 实现了Iterator接口
-```java
+{% highlight java %}
 package com.daviddong.example.Iterator;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -108,9 +108,9 @@ public class MyIterableClass implements Iterator {
     }
 
 }
-```
+{% endhighlight %}
 APP.java
-```java
+{% highlight java %}
 package com.daviddong.example.Iterator
 
 import java.util.ArrayList;
@@ -140,9 +140,9 @@ public class App {
         }
     }
 }
-```
+{% endhighlight %}
 运行结果如下。
-```c
+{% highlight console %}
 学生—0 年龄:19 性别:女
 学生—1 年龄:11 性别:男
 学生—2 年龄:19 性别:女
@@ -153,7 +153,7 @@ public class App {
 学生—7 年龄:19 性别:女
 学生—8 年龄:12 性别:男
 学生—9 年龄:14 性别:女
-```
+{% endhighlight %}
 有人可能会问，为什么不直接将`hasNext()`，`next()`方法放在Iterable接口中，其他类直接实现就可以了？
 
 原因是有些集合类可能不止一种遍历方式，实现了Iterable的类可以再实现多个Iterator内部类，通过返回不同的Iterator实现不同的遍历方式，这样更加灵活。如果把两个接口合并，就没法返回不同的Iterator实现类了。

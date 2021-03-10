@@ -28,7 +28,7 @@ Linux 中断子系统的内部实现机制比较复杂，如果想讲清楚需�
 ## <span id="2">2. 中断初始化</span>
 以下代码实现了注册一个中断处理到Linux系统中，省略了无关部分。
 
-```java
+{% highlight c %}
 static int dev_probe(struct platform_device *pdev)
 {
 	struct device *dev = &pdev->dev;
@@ -91,7 +91,7 @@ static int dev_request_named_gpio(struct dev-ctl_data *dev-ctl,
 	dev_dbg(dev, "%s %d\n", label, *gpio);
 	return 0;
 }
-```
+{% endhighlight %}
 主要分为这么几个部分。
 ### <span id="2.1">2.1 申请GPIO做为中断源</span>   
 首先需要为中断申请一个GPIO，用来接收外部中断触发。代码中使用了`dev_request_named_gpio()`函数来申请这个GPIO。该函数为自定义函数，函数中调用了系统服务`of_get_named_gpio()`和`devm_gpio_request()`。其中参数 `const char *label` 为该GPIO的名字，需要和DTS中注册的名字一致，`int *gpio` 为返回的GPIO的索引号。
@@ -121,7 +121,7 @@ static int dev_request_named_gpio(struct dev-ctl_data *dev-ctl,
 
 ## <span id="3">3. 中断处理程序</span>
 
-```c
+{% highlight c %}
 static irqreturn_t dev_irq_handler(int irq, void *handle)
 {
 	struct dev-ctl_data *dev-ctl = handle;
@@ -140,6 +140,6 @@ static irqreturn_t dev_irq_handler(int irq, void *handle)
 
 	return IRQ_HANDLED;
 }
-```
+{% endhighlight %}
 同单片机的中断处理程序不同，Linux的中断处理程序会有一个`int`类型的返回值。中断服务程序中一般放置需要即时处理的事情。这里的处理非常简单，调用了`__pm_wakeup_event ( &dev-ctl->ttw_wl, TTW_HOLD_TIME )`来唤醒系统，唤醒源为在初始化函数中`wakeup_source_init(&dev-ctl->ttw_wl, "fpc_ttw_wl")`定义的`ttw_wl`。并且发送一个系统的通知`sysfs_notify()`,用来唤醒在读写属性文件(sysfs节点)时因调用`select()`或`poll()`而阻塞的用户进程。
 

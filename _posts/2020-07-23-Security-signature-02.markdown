@@ -73,17 +73,17 @@ Published: true
 makecert.exe 是一种证书创建工具，生成仅用于测试目的的 [X.509]({{site.baseurl}}/others/2020/07/06/Others-signature.html#11) 证书。此工具将密钥对与指定发行者的名称相关联，并创建一个 X.509 证书，该证书将用户指定的名称绑定到密钥对的公共部分。
 
 **makecert.exe 的存放路径** 
-```c
+{% highlight ruby %}
 C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86
-```
+{% endhighlight %}
 如果没有设置该路径的环境变量的话，使用时要先切换到该路径下。或者直接使用Visual Studio 的 [开发人员命令提示](https://docs.microsoft.com/zh-cn/dotnet/framework/tools/developer-command-prompt-for-vs) `Developer Command Prompt` 执行命令。
 
 关于 makecert.exe 的命令格式和参数，请见附录 [「makecert.exe 命令格式」](#1)。
 
 执行下列命令创建一个创建自签署证书 `RootDavid`。
-```console
+{% highlight ruby %}
 makecert -n "CN=RootDavid" -r -sv testsk.pvk testpk.cer
-```
+{% endhighlight %}
 运行这个命令后，会弹出提示框，首先给 `testsk.pvk` 文件设置私钥保护口令。
 
 ![makecert01]({{site.baseurl}}/assets/image/others-make-sign-01.png){: .center-image }
@@ -105,16 +105,16 @@ makecert -n "CN=RootDavid" -r -sv testsk.pvk testpk.cer
 2. 公钥证书 - `testpk.cer`
 
 如果你需要用这个根证书签发其他子证书的话，可以运行如下命令签发。
-```console
+{% highlight ruby %}
 makecert -n "CN=SubCertDavid" -iv testsk.pvk -ic testpk.cer -sv subsk.pvk subpk.cer
-```
+{% endhighlight %}
 ### <span id ="10">3.3 将公钥证书格式转换成SPC（软件发布者证书）</span>
  
 使用 cert2spc.exe 这个工具将刚才生成的公钥证书（testpk.cer）转换为 SPC 文件。    
 **cert2spc.exe 的存放路径** 
-```c
+{% highlight ruby %}
 C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86
-```
+{% endhighlight %}
 关于 cert2spc.exe 的用法，请见附录 [「cert2spc.exe 命令格式」](#2)。  
  
 运行如下命令   
@@ -128,9 +128,9 @@ C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86
 ### <span id ="11">3.4 将公钥证书和私钥合并成一个PFX格式的证书文件</span>
 使用 pvk2pfx .exe 这个工具将公钥证书（testpk.spc）和私钥证书(testsk.pvk)合并成一个`PFX`格式的证书文件。      
 **pvk2pfx.exe 的存放路径** 
-```console
+{% highlight ruby %}
 C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86
-```
+{% endhighlight %}
 关于 pvk2pfx.exe 的用法，请见附录 [「pvk2pfx.exe 命令格式」](#3)。
 
 执行如下命令
@@ -146,15 +146,15 @@ C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86
 使用signtool命令签名。
 
 **signtool.exe 的存放路径** 
-```c
+{% highlight ruby %}
 C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86
-```
+{% endhighlight %}
 关于signtool的用法，请见附录 [「signtool.exe 命令格式」](#4)。
 
 执行下列命令。
-```c
+{% highlight ruby %}
 signtool sign /v /f testpfx.pfx /tr http://timestamp.digicert.com MXT_ENC2Array_Converter.exe
-```
+{% endhighlight %}
 如果成功，会返回
 
 ![makecert01]({{site.baseurl}}/assets/image/others-make-sign-10.png){: .center-image }
@@ -223,9 +223,9 @@ Windows 预设了以下存储区：
 接下来就是要验证exe的签名。
 
 执行下列命令
-```c
+{% highlight ruby %}
 signtool verify /pa MXT_ENC2Array_Converter.exe
-```
+{% endhighlight %}
 此时返回了如下的结果，显示
 
 ![makecert01]({{site.baseurl}}/assets/image/others-make-sign-22.png){: .center-image }
@@ -246,28 +246,28 @@ signtool verify /pa MXT_ENC2Array_Converter.exe
 ## <span id ="13">4. 常见问题</span>
 
 1. 执行 makecert.exe 时出现如下错误
-```console
+{% highlight ruby %}
 'makecert' is not recognized as an internal or external command,
 operable program or batch file.
-```
+{% endhighlight %}
 原因：这是因为没有在 makecert.exe 的路径下执行该命令，解决方法时切换到工具所在的目录下执行。
-```console
+{% highlight ruby %}
 cd C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86
-```
+{% endhighlight %}
 或者直接使用Visual Studio 的 [开发人员命令提示](https://docs.microsoft.com/zh-cn/dotnet/framework/tools/developer-command-prompt-for-vs) `Developer Command Prompt` 运行命令。
 
 2. 我在执行 makecert.exe 时失败，返回如下提示
-```console
+{% highlight ruby %}
 Error: File already exists for the subject ('testsk.pvk')
 Error: Can't create the key of the subject ('testsk.pvk')
 Failed
-```
+{% endhighlight %}
 原因：这是因为没有在管理员权限下执行 makecert.exe 命令，解决方法是用管理员权限打开 CMD，运行命令。
 
 3. 我的需要签名的文件名里有空格，执行签名的操作后失败。
-```console
+{% highlight ruby %}
 signtool sign /v /f testpfx.pfx /tr http://timestamp.wosign.com/rfc3161 my file name.exe
-```
+{% endhighlight %}
 原因：文件名不能包含空格，重命名后再次签名可以成功。
 
 4. 执行 `signtool verify` 时提示
@@ -278,9 +278,9 @@ signtool sign /v /f testpfx.pfx /tr http://timestamp.wosign.com/rfc3161 my file 
 ## <span id ="14">5. 附录</span>
 ### <span id = "1">5.1 makecert.exe 命令格式</span>
 makecert.exe 命令格式
-```console
+{% highlight ruby %}
 MakeCert [/b DateStart] [/e DateEnd] [/len KeyLength] [/m nMonths] [/n "Name"] [/pe] [/r] [/sc SubjectCertFile] [/sk SubjectKey] [/sr SubjectCertStoreLocation] [/ss SubjectCertStoreName] [/sv SubjectKeyFile]OutputFile
-```
+{% endhighlight %}
 
 <span id="5.1.1">**5.1.1 基本选项**</span>     
 
@@ -327,9 +327,9 @@ MakeCert [/b DateStart] [/e DateEnd] [/len KeyLength] [/m nMonths] [/n "Name"] [
 软件发行者证书测试工具 cert2spc.exe 从一个或多个X.509证书创建软件发行者证书（SPC）。cert2spc.exe 仅用于测试目的。商业目的的SPC可以从证书颁发机构（如VeriSign或Thawte）获取。
 
 <span id = "5.2.1">**5.2.1 语法格式**</span>  
-```console
+{% highlight ruby %}
 cert2spc cert1.cer | crl1.crl [... certN.cer | crlN.crl] outputSPCfile.spc
-```
+{% endhighlight %}
 <span id = "5.2.2">**5.2.2 参数**</span>
 
 |参数|说明|
@@ -347,9 +347,9 @@ cert2spc cert1.cer | crl1.crl [... certN.cer | crlN.crl] outputSPCfile.spc
 ### <span id = "3">5.3 pvk2pfx.exe 命令格式</span>
 Pvk2Pfx.exe 是一个命令行工具，它将.spc、.cer和.pvk文件中包含的公钥和私钥信息复制到个人信息交换（.pfx）文件中。
 命令格式
-```console
+{% highlight ruby %}
 pvk2pfx /pvk pvkfilename.pvk [/pi pvkpassword] /spc spcfilename.ext [/pfx pfxfilename.pfx [/po pfxpassword] [/f]]
-```
+{% endhighlight %}
 <span id = "5.3.1">**5.3.1 参数**</span>
 
 |参数|说明|
@@ -369,9 +369,9 @@ pvk2pfx /pvk pvkfilename.pvk [/pi pvkpassword] /spc spcfilename.ext [/pfx pfxfil
 <span id = "5.4.1">**5.4.1 语法格式**</span>   
 在命令提示符处，键入以下内容：
 
-```console  
+{% highlight ruby %}  
 signtool [command] [options] [file_name | ...]  
-```  
+{% endhighlight %}  
 
 <span id = "5.4.2">**5.4.2 参数**</span>  
   
@@ -495,60 +495,60 @@ signtool [command] [options] [file_name | ...]
 <span id = "5.4.8">**5.4.8 示例**</span>     
  以下命令将目录文件 MyCatalogFileName.cat 添加到系统组件和驱动程序数据库中。 如有必要阻止替换名为 `/u` 的现有目录文件，`MyCatalogFileName.cat` 选项会生成唯一名称。  
   
-```console  
+{% highlight ruby %}  
 signtool catdb /v /u MyCatalogFileName.cat  
-```  
+{% endhighlight %}  
   
  以下命令通过使用最佳证书对文件进行自动签名。  
   
-```console  
+{% highlight ruby %}  
 signtool sign /a MyFile.exe  
-```  
+{% endhighlight %}  
   
  以下命令使用存储在受密码保护的 PFX 文件中的证书对文件进行数字签名。  
   
-```console  
+{% highlight ruby %}  
 signtool sign /f MyCert.pfx /p MyPassword MyFile.exe  
-```  
+{% endhighlight %}  
   
  以下命令对文件进行数字签名并加盖时间戳。 用于对文件进行签名的证书存储在 PFX 文件中。  
   
-```console  
+{% highlight ruby %}  
 signtool sign /f MyCert.pfx /t http://timestamp.digicert.com MyFile.exe  
-```  
+{% endhighlight %}  
   
  以下命令通过使用位于 `My` 存储中的证书对文件进行签名，该证书的主题名为 `My Company Certificate`。  
   
-```console  
+{% highlight ruby %}  
 signtool sign /n "My Company Certificate" MyFile.exe  
-```  
+{% endhighlight %}  
   
  以下命令对 ActiveX 控件进行签名，并提供在系统提示用户安装此控件时由 Internet Explorer 显示的信息。  
   
-```console  
+{% highlight ruby %}  
 Signtool sign /f MyCert.pfx /d: "MyControl" /du http://www.example.com/MyControl/info.html MyControl.exe  
-```  
+{% endhighlight %}  
   
  以下命令对已进行数字签名的文件加盖时间戳。  
   
-```console  
+{% highlight ruby %}  
 signtool timestamp /t http://timestamp.digicert.com MyFile.exe  
-```  
+{% endhighlight %}  
   
  以下命令确认文件已签名。  
   
-```console  
+{% highlight ruby %}  
 signtool verify MyFile.exe  
-```  
+{% endhighlight %}  
   
  以下命令验证可能已在目录中签名的系统文件。  
   
-```console  
+{% highlight ruby %}  
 signtool verify /a SystemFile.dll  
-```  
+{% endhighlight %}  
   
  以下命令验证已在名为 `MyCatalog.cat` 目录中签名的系统文件。  
   
-```console  
+{% highlight ruby %}  
 signtool verify /c MyCatalog.cat SystemFile.dll  
-```  
+{% endhighlight %}  

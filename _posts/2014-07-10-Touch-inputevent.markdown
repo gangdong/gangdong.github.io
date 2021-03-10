@@ -31,7 +31,7 @@ published: true
 
 ## <span id = "2">2. 注册 Input 设备</span>
 我们在之前介绍驱动代码的时候讲到过，输入设备在初始化的时候都需要调用`input_allocate_device()`和`input_register_device()`进行注册。其中`input_allocate_device()`函数在内存中为输入设备结构体分配一个空间，并对其主要的成员进行了初始化。它的代码如下。   
-```c
+{% highlight c %}
 struct input_dev *input_allocate_device(void)
 {
  struct input_dev *dev;
@@ -49,11 +49,11 @@ struct input_dev *input_allocate_device(void)
  }
  return dev;
 }
-```
+{% endhighlight %}
 该函数返回一个指向`input_dev`类型的指针，该结构体是一个输入设备结构体，包含了输入设备的一些相关信息，如设备支持的按键码、设备的名称、设备支持的事件等。
 
 接下来调用的`input_register_device()`函数很重要，我们看一下它的具体实现。
-```c
+{% highlight c %}
 int input_register_device(struct input_dev *dev)
 {
 	static atomic_t input_no = ATOMIC_INIT(0);
@@ -91,11 +91,11 @@ int input_register_device(struct input_dev *dev)
 	mutex_unlock(&input_mutex);
 	return 0;
 }
-```
+{% endhighlight %}
 `input_register_device()`函数是输入子系统核心（input core）提供的函数。该函数将`input_dev`结构体注册到输入子系统核心中，`input_dev`结构体必须由前面讲的 `input_allocate_device()`函数来分配。`input_register_device()`函数如果注册失败，必须调用 `input_free_device()` 函数释放分配的空间。如果该函数注册成功，在卸载函数中应该调用 `input_unregister_device()` 函数来注销输入设备结构体。   
 `input_register_device()`函数主要完成了如下的工作：
 + 函数中调用`__set_bit()`函数设置`input_dev`所支持的事件类型。事件类型由`input_dev`的`evbit`成员来表示，在这里将其`EV_SYN`置位，表示设备支持所有的事件。注意，一个设备可以支持一种或者多种事件类型。常用的事件类型如下：
-```c
+{% highlight console %}
 #define EV_SYN 0x00 /*表示设备支持所有的事件*/
 #define EV_KEY 0x01 /*键盘或者按键，表示一个键码*/
 #define EV_REL 0x02 /*鼠标设备，表示一个相对的光标位置结果*/
@@ -105,13 +105,13 @@ int input_register_device(struct input_dev *dev)
 #define EV_SND 0x12 /*蜂鸣器，输入声音*/
 #define EV_REP 0x14 /*允许重复按键类型*/
 #define EV_PWR 0x16 /*电源管理事件*/
-```
+{% endhighlight %}
 + 调用`dev_set_name()`设置`input_dev`中的device的名字，名字以`input0`、`input1`、`input2`、`input3`、`input4`等的形式出现在sysfs文件系统中。
 + 使用`device_add()`函数将`input_dev`包含的device结构注册到Linux设备模型中，并可以在sysfs文件系统中表现出来。
 + 调用`list_add_tail()`函数将`input_dev`加入`input_dev_list`链表中，`input_dev_list`链表中包含了系统中所有的`input_dev`设备。
 + 调用了`input_attach_handler()`函数，
 `input_attach_handler()`函数用来匹配`input_dev`和`input_handler`，只有匹配成功，才能进行下一步的关联操作。<br/>      `input_attach_handler()`函数的代码如下：
-```c
+{% highlight c %}
 static int input_attach_handler(struct input_dev *dev, struct input_handler *handler)
 {
 	const struct input_device_id *id; /*输入设备的指针*/
@@ -127,7 +127,7 @@ static int input_attach_handler(struct input_dev *dev, struct input_handler *han
 			handler->name, kobject_name(&dev->dev.kobj), error);
 	return error;
 }
-```
+{% endhighlight %}
 `input_attach_handler()`主要完成的工作有：
 + 首先判断`handle`的`blacklist`是否被赋值，如果被赋值，则匹配`blacklist`中的数据跟`dev->id`的数据是否匹配。`blacklist`是一个`input_device_id*`的类型，其指向`input_device_ids`的一个表，这个表中存放了驱动程序应该忽略的设备。即使在`id_table`中找到支持的项，也应该忽略这种设备。
 + 调用`input_match_device()`函数匹配`handle->id_table`和`dev->id`中的数据。如果不成功则返回。`handle->id_table`也是一个`input_device_id`类型的指针，其表示驱动支持的设备列表。
@@ -135,7 +135,7 @@ static int input_attach_handler(struct input_dev *dev, struct input_handler *han
 `input_match_device()`函数   
 `input_match_device()`函数用来与`input_dev`和`handler`进行匹配。`handler`的`id_table`表中定义了其支持的`input_dev`设备。<br/>
 该函数的代码如下：   
-```c
+{% highlight c %}
 static const struct input_device_id *input_match_device(const struct
 input_device_id *id,
 struct input_dev *dev)
@@ -167,19 +167,19 @@ struct input_dev *dev)
 	}
 	return NULL;
 }
-```
+{% endhighlight %}
 `input_match_device()`主要完成的工作有：
 + 匹配设备的产品总线类型/vendor/版本信息。
 + 如果`id->flags`定义的类型匹配成功，或者`id->flags`没有定义，才会进入到`MATCH_BIT`的匹配项。
 `MATCH_BIT`宏的定义如下：   
-```c
+{% highlight console %}
 #define MATCH_BIT(bit, max) \
 for (i = 0; i < BITS_TO_LONGS(max); i++) \
 if ((id->bit[i] & dev->bit[i]) != id->bit[i]) \
 break; \
 if (i != BITS_TO_LONGS(max)) \
 continue;
-```
+{% endhighlight %}
 从`MATCH_BIT`宏的定义可以看出。只有当`iput device`和`input handler`的ID成员在evbit、keybit、… swbit项相同才会匹配成功。
 
 ## <span id = "3">3. 数据上报过程</span>
@@ -187,18 +187,18 @@ Input 子系统各层之间通信的基本单位就是事件，任何一个输�
 
 在驱动代码的介绍中，我们讲到驱动最终调用到`input_report_abs()`将touchevent打包发送给Input子系统。
 `input_report_abs()`函数代码如下：   
-```c
+{% highlight c %}
 static inline void input_report_abs(struct input_dev *dev, unsigned int code, int value)
 {
     input_event(dev, EV_ABS, code, value);
 }
-```
+{% endhighlight %}
 可以看到其为内联函数, 为`input_event(,EV_ABS, ...)`的二次封装。
 
 ![touchevent framework]({{site.baseurl}}/assets/image/touch-touchevent-02.png)
 
 `input_event()`的代码如下,略过无关的部分：
-```c
+{% highlight c %}
 void input_event(struct input_dev *dev,unsigned int type, unsigned int code, int value)
 {
 	....//event是否支持, 这个和驱动里probe()时填充能力,设置参数有关,略过
@@ -207,9 +207,9 @@ void input_event(struct input_dev *dev,unsigned int type, unsigned int code, int
         input_handle_event(dev, type, code, value);
 	...
 }
-```
+{% endhighlight %}
 `input_event()` 调用了`input_handle_event()`函数。   
-```c
+{% highlight c %}
 static void input_handle_event(struct input_dev *dev, unsigned int type, unsigned int code, int value)
 {
     int disposition = input_get_disposition(dev, type, code, &value); //得到disposition
@@ -225,9 +225,9 @@ static void input_handle_event(struct input_dev *dev, unsigned int type, unsigne
     }
 
 }
-```
+{% endhighlight %}
 所以我们可以简单看下`input_handle_event()` --> `input_get_disposition()` EV_SYN事件和EV_ABS的返回值。
-```c
+{% highlight c %}
 static int input_get_disposition(struct input_dev *dev, unsigned int type, unsigned int code, int *pval)
 {
     int disposition = INPUT_IGNORE_EVENT;
@@ -257,9 +257,9 @@ static int input_get_disposition(struct input_dev *dev, unsigned int type, unsig
 	......
     return disposition;
 }
-```
+{% endhighlight %}
 让我们回到`input_handle_event()` --> `input_pass_values()`
-```c
+{% highlight c %}
 static void input_pass_values(struct input_dev *dev, struct input_value *vals, unsigned int count)
 {
 	......
@@ -275,10 +275,10 @@ static void input_pass_values(struct input_dev *dev, struct input_value *vals, u
     }
 	......
 }
-```
+{% endhighlight %}
 其重点函数为`input_to_handler()`
 
-```c
+{% highlight c %}
 static unsigned int input_to_handler(struct input_handle *handle,
             struct input_value *vals, unsigned int count)
 {
@@ -299,7 +299,7 @@ static unsigned int input_to_handler(struct input_handle *handle,
 
     return count;
 }
-```
+{% endhighlight %}
 这里面`input_handle`结构体代表一个成功配对的`input_dev`和`input_handler`。<br/>   
 关于`input_handle`，`input_dev`和`input_handler`结构体的含义如下：   
 + `struct input_dev`： 物理输入设备的基本数据结构，包含设备相关的一些信息。
@@ -308,7 +308,7 @@ static unsigned int input_to_handler(struct input_handle *handle,
  
 ### <span id = "3.1">3.1 input_handler</span>  
 `input_handler`结构体的定义如下：
-```c
+{% highlight c %}
 struct input_handler {
 
     void *private;
@@ -329,7 +329,7 @@ struct input_handler {
     struct list_head    h_list;
     struct list_head    node;
 };
-```
+{% endhighlight %}
 该结构体主要是   
 + 定义了一个`event()`处理函数，这个函数将被输入子系统调用去处理发送给设备的事件。例如将发送一个事件命令LED灯点亮，实际控制硬件的点亮操作就可以放在`event()`函数中实现。
 + 定义了一个`connect()`函数，该函数用来连接`handler`和`input_dev`。
@@ -342,7 +342,7 @@ struct input_handler {
 
 ### <span id = "3.2">3.2 注册 input_handler</span>   
 `input_register_handler()`函数注册一个新的`input handler`处理器。这个handler将为输入设备使用，一个handler可以添加到多个支持它的设备中，也就是一个handler可以处理多个输入设备的事件。函数的参数传入简要注册的`input_handler`指针，该函数的代码如下：
-```c
+{% highlight c %}
 int input_register_handler(struct input_handler *handler)
 {
 ......//初始化h_list
@@ -354,7 +354,7 @@ int input_register_handler(struct input_handler *handler)
         input_attach_handler(dev, handler);
 ......
 }
-```
+{% endhighlight %}
 完成的主要工作：
 + 调用`list_add_tail()`函数，将handler加入全局的`input_handler_list`链表中，该链表包含了系统中所有的`input_handler`。
 + 调用了`input_attach_handler()`函数。`input_attach_handler()`函数的作用是匹配 `input_dev_list`链表中的`input_dev`与handler。如果成功会将`input_dev`与handler联系起来。
@@ -362,7 +362,7 @@ int input_register_handler(struct input_handler *handler)
 ### <span id = "3.3">3.3 input_handle</span>
 `Input_Handle` 结构体   
 `input_register_handle()`函数用来注册一个新的handle到输入子系统中。`input_handle`的主要功能是用来连接`input_dev`和`input_handler`。
-```c
+{% highlight c %}
 struct input_handle {
 	void *private;
 	int open;
@@ -372,12 +372,12 @@ struct input_handle {
 	struct list_head d_node;
 	struct list_head h_node;
 };
-```
+{% endhighlight %}
 ### <span id = "3.4">3.4 注册 input_handle</span>
 `input_handle`是用来连接`input_dev`和`input_handler`的一个中间结构体。事件通过`input_handle`从 `input_dev` 发送到`input_handler`，或者从`input_handler`发送到`input_dev`进行处理。在使用`input_handle`之前，需要对其进行注册，注册函数是`input_register_handle()`。
 `input_register_handle()`函数用来注册一个新的handle到输入子系统中。该函数接收一个`input_handle`类型的指针，该变量要在注册前对其成员初始化。<br/>
 `input_register_handle()`函数的代码如下：
-```c
+{% highlight c %}
 int input_register_handle(struct input_handle *handle)
 {
 	struct input_handler *handlehandler = handle->handler;
@@ -394,7 +394,7 @@ int input_register_handle(struct input_handle *handle)
 		handler->start(handle);
 	return 0;
 }
-```
+{% endhighlight %}
 + 调用`list_add_tail_rcu()`函数将handle加入输入设备的`dev->h_list`链表中。
 + 调用`list_add_tail()`函数将handle加入input_handler的`handler->h_list`链表中。   
 
@@ -410,22 +410,22 @@ input_dev、input_handler和handle三者之间的关系如下：
 
 ### <span id = "3.5">3.5 由核心层 (inputcore) 到事件处理层 (eventhandler)</span>
 我们看到上面的代码调用到
-```c
+{% highlight c %}
 handler->events(handle, v->type, v->code, v->value);
-```
+{% endhighlight %}
 这里handler->events则是`Evdev.c(drivers\input)`里定义的。
 events 函数是当事件处理器接收到了来自input设备传来的事件时调用的处理函数，负责处理事件。
 
-```c
+{% highlight c %}
 static struct input_handler evdev_handler = {
 
 	.event = evdev_event,
 	.events = evdev_events,
 	...
 }
-```
+{% endhighlight %}
 我们看一下函数原型。   
-```c
+{% highlight c %}
 static void evdev_events(struct input_handle *handle,
              const struct input_value *vals, unsigned int count)
 {
@@ -437,9 +437,9 @@ static void evdev_events(struct input_handle *handle,
             evdev_pass_values(client, vals, count, ev_time);
 ......
 }
-```
+{% endhighlight %}
 事件处理层（eventhandler）负责将事件上报，将键值、坐标等数据上报的对应的设备节点.
-```c
+{% highlight c %}
 static void evdev_pass_values(struct evdev_client *client,
             const struct input_value *vals, unsigned int count,
             ktime_t *ev_time)
@@ -461,12 +461,12 @@ static void evdev_pass_values(struct evdev_client *client,
     }
 ......
 }
-```
+{% endhighlight %}
 ### <span id = "3.6">3.6 由事件处理层 (eventhandler) 到用户空间（user space）</span>
 
 `__pass_event()`将event放到client->buffer[]里,由buffer 传入用户空间。   
 `__pass_event()` 函数最终将事件传递给了用户端的client 结构中的`input_event` 数组中，只需将这个`input_event`数组复制给用户空间，进程就能收到触摸屏按下的信息了。
-```c
+{% highlight c %}
 static void __pass_event(struct evdev_client *client,
              const struct input_event *event)
 {
@@ -496,10 +496,10 @@ static void __pass_event(struct evdev_client *client,
         kill_fasync(&client->fasync, SIGIO, POLL_IN);
     }
 }
-```
+{% endhighlight %}
 `input_event` 结构体：
 
-```c
+{% highlight c %}
 struct input_event
 {
 	struct timeval time;
@@ -507,11 +507,11 @@ struct input_event
 	__u16 code;
 	__s32 value;
 }
-```
+{% endhighlight %}
 
 ### <span id = "3.7">3.7 用户空间读取事件</span>
 我们从上面分析,看到数据已经放到了client->buffer[], 那读取也肯定也是从这里读。实际上，在文件evdev.c 中`Evdev_read()`函数将这个`input_event`数组复制给用户空间。
-```c
+{% highlight c %}
 static ssize_t evdev_read(struct file *file, char __user *buffer,
               size_t count, loff_t *ppos)
 {
@@ -527,9 +527,9 @@ static ssize_t evdev_read(struct file *file, char __user *buffer,
 ......
     return read;
 }
-```
+{% endhighlight %}
 调用了`input_event_to_user()`函数
-```c
+{% highlight c %}
 int input_event_to_user(char __user *buffer, const struct input_event * event){
 	
 	if(copy_to_user(buffer,event,sizeof(struct input_event)))
@@ -537,11 +537,11 @@ int input_event_to_user(char __user *buffer, const struct input_event * event){
 
 	return 0;
 }
-```
+{% endhighlight %}
 事件读取函数调用流程   
-```c
+{% highlight console %}
 read时候 evdev_read--> 从client->buffer[]循环获取事件 evdev_fetch_next_event() --> input_event_to_user() --> copy_to_user()
-```
+{% endhighlight %}
 
 ## <span id = "4">4. 总结</span>
 
@@ -551,21 +551,21 @@ read时候 evdev_read--> 从client->buffer[]循环获取事件 evdev_fetch_next_
 
 1. 按照linux设备架构,驱动模型实现touchscreen driver。
 2. 模块初始化函数中将触摸屏注册到了输入子系统中，于此同时，注册函数在事件处理层链表中寻找事件处理器，这里找到的是evdev，并且将驱动与事件处理器挂载。并且在`/dev/input`中生成设备文件event0，以后我们访问这个文件就会访问到设备数据。
-```c
+{% highlight console %}
 当各个handler init时 --> input_register_handler() --> input_attach_handler() -->  handler->connect()
 或者驱动 --> probe() --> input_register_device() --> input_attach_handler -->  handler->connect()
 
                                              +--> input_register_handle() dev和handler关联
 handler->connect()-->  eg:evdev.c events() --+
                                              +-->cdev_device_add() 注册字符设备
-```
+{% endhighlight %}
 3. 当点击触屏后, 进到中断处理,然后读取数据,再report,并存到client的buffer[]里。
-```c
+{% highlight console %}
 input_report_abs() --> input_event(, EV_ABS, , ) --> input_handle_event() --> input_pass_values() --> input_to_handler() -->
 handler->events()/event() --> eg:evdev.c events() --> evdev_pass_values() --> 数据填充 --> __pass_event() --> client->buffer[]
-```
+{% endhighlight %}
 4. 上层用户空调read时, 只要有数据,不断从client->buffer[]读取并通过`copy_to_user()`拷到用户空间, 所以上层就拿到数据了。
-```c
+{% highlight console %}
 read时候...--> evdev_read--> 从client->buffer[]循环获取事件 evdev_fetch_next_event() --> 
 input_event_to_user() --> copy_to_user()
-```
+{% endhighlight %}

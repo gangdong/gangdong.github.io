@@ -22,7 +22,7 @@ published: true
 ## 标签
 Java SDK规定按照如下的顺序添加标签。
 
-```c
+{% highlight ruby %}
 @author (classes and interfaces only, required)
 @version (classes and interfaces only, required. See footnote 1)
 @param (methods and constructors only)
@@ -32,7 +32,7 @@ Java SDK规定按照如下的顺序添加标签。
 @since
 @serial (or @serialField or @serialData)
 @deprecated (see How and When To Deprecate APIs)
-```
+{% endhighlight %}
 其中，
 
 #### @author name-text
@@ -71,9 +71,9 @@ data-description数据描述以序列化形式记录数据的类型和顺序。�
 
 ## 命令
 Javadoc的命令行语法如下：
-```java
+{% highlight ruby %}
     javadoc [ options ] [ packagenames ] [ sourcefiles ] [ @files ]
-```
+{% endhighlight %}
 参数可以按照任意顺序排列。下面分别就这些参数和相关的一些内容进行说明：
 + Packagenames 包列表。这个选项可以是一系列的包名（用空格隔开），例如`java.lang java.lang.reflect java.awt`。不过，因为javadoc不递归作用于子包，不允许对包名使用通配符；所以你必须显示地列出希望建立文档的每一个包。
 + Sourcefiles 源文件列表。这个选项可以是一系列的源文件名（用空格隔开），可以使用通配符。javadoc允许四种源文件：类源代码文件、包描述文件、总体概述文件、其他杂文件。

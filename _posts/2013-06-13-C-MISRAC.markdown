@@ -9,7 +9,6 @@ MISRA C编程规范（MISRA C Coding Standard），是针对C 语言编程的软
 
 *以下内容为转贴。*<br>
 
-```c
 Rule 1. 严格遵循ANSI C89标准，不允许任何扩展。
 
 Rule 3. 如果要嵌入汇编语言，则必须将所有汇编语句包装在C函数里，而且这些函数中只有汇编语句，
@@ -23,6 +22,7 @@ Rule 11. 所有标识符不超过31字符。
 
 Rule 12. 不同名空间中的变量名不得相同。
          例如：
+		 {% highlight c %}
              typedef struct MyStruct {... } MyStruct;  (违规）
 
              struct Person {
@@ -30,7 +30,7 @@ Rule 12. 不同名空间中的变量名不得相同。
                ...
              };
              char name[32];  （违规）
-
+		  {% endhighlight %}
 Rule 13. 不得使用char, int, float, double, long等基本类型，
          应该用自己定义的类型显示表示类型的大小，
          如CHAR8, UCHAR8, INT16, INT32, FLOAT32, LONG64, ULONG64等。
@@ -101,6 +101,7 @@ Rule 58. 除了switch语句，不得使用break.
 Rule 59. if, else if, else, while, do..while, for语句块必须使用{}括起。
 
 Rule 60. 任何if..else if 语句，最后必须有一个收尾的else。例如：
+        {% highlight c %}
          if (ans == 'Y') {
            ...
          }
@@ -110,7 +111,7 @@ Rule 60. 任何if..else if 语句，最后必须有一个收尾的else。例如�
          else {
            ;
          }
-
+        {% endhighlight %}
 Rule 67. 循环计数器的值不得在循环体内修改。
 
 Rule 70. 禁止任何直接和间接的递归函数调用。
@@ -155,4 +156,4 @@ Rule 125. 禁止使用atoi, atof, atol。（这个我很赞成，建议使用str
 Rule 126. 禁止使用abort, exit, getenv。
 
 Rule 127. 禁止使用<time.h>
-```
+

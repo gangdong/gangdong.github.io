@@ -10,11 +10,11 @@ You may have run into situations where `.gitignore` doesn't work.:confused:  Dur
 That is because the `.gitignore` can only ignore those files that were not originally tracked. If some files have been submitted before and have been included in version management, modifying `.gitignore` is invalid. The solution is to delete the local cache (change it to untrack) and resubmit `.gitignore` file.
 
 The git command is like this.
-```c
+{% highlight ruby %}
 git rm -r --cached .
 git add .
 git commit -m "refresh .gitnore"
 git push -u origin master
-```
+{% endhighlight %}
 In short, `.gitignore` just ignores files that are not staged (cached).
 For the files that have been staged, when adding `.gitignore`, they must be removed from the staged before they can be ignored.

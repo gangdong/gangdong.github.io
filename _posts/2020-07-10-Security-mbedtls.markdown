@@ -86,36 +86,36 @@ mbedtls支持3种 build 方式，
 
 ### <span id="2.2">2.2 GNU Make</span>
 run build    
-```c
+{% highlight ruby %}
 make
-```
+{% endhighlight %}
 build with test   
-```c
+{% highlight ruby %}
 make check
-```
+{% endhighlight %}
 build without test    
-```c
+{% highlight ruby %}
 make no_test
-```
+{% endhighlight %}
 ### <span id="2.3">2.3 CMake</span>
 run build   
-```c
+{% highlight ruby %}
 mkdir /path/to/build_dir && cd /path/to/build_dir
 cmake /path/to/mbedtls_source
 cmake --build .
-```
+{% endhighlight %}
 run test   
-```c
+{% highlight ruby %}
 ctest
-```
+{% endhighlight %}
 build without test
-```c
+{% highlight ruby %}
 cmake -DENABLE_TESTING=Off /path/to/mbedtls_source
-```
+{% endhighlight %}
 make shared library   
-```c
+{% highlight ruby %}
 cmake -DUSE_SHARED_MBEDTLS_LIBRARY=On /path/to/mbedtls_source
-```
+{% endhighlight %}
 ### <span id="2.4">2.4 Microsoft Visual Studio</span>
 工程文件`mbedTLS.sln` 包含了所有必需的项目和程序. 编译该工程文件可以生成库文件。
 
@@ -187,35 +187,35 @@ mbed tls的ssl/tls部分提供了使用ssl/tls通过安全通信通道建立和�
 mbed 通过创建一个SSL/TLS服务器和客户端,通过提供一个框架来建立和通过SSL/TLS通信通道进行通信.SSL/TLS部分直接依赖于库的证书解析,对称和非对称和哈希模块.
 
 ### <span id="3.3">3.3 数据结构</span>
-```c
+{% highlight console %}
 mbedtls_net_context：目前只有文件描述符，可以用于适配异步I/O库
 mbedtls_ssl_context：保存SSL基本数据
 mbedtls_ssl_config: SSL 配置数据
 mbedtls_ctr_drbg_context
 mbedtls_entropy_context：保存熵配置
 mbedtls_x509_crt：保存认证信息
-```
+{% endhighlight %}
 ### <span id="3.4">3.4 Init 阶段</span>
 下面时init阶段需要调用的函数与传统 socket 的对比。传统的socket-based的程序，依照顺序，作为client要做以下的函数调用：   
-```c
+{% highlight ruby %}
 gethostbyname()
 socket()
 connect()
 write()
 read()
-```
+{% endhighlight %}
 改成SSL之后，mbedTLS对应上述函数，分别对应为：   
-```c
+{% highlight ruby %}
 gethostbyname()   \ 
 socket()          -+--> mbedtls_net_connect() + mbedtls_ssl_handshake()
 connect()         /
 write()           ----> mbedtls_ssl_write()
 read()            ----> mbedtls_ssl_read()
-```
+{% endhighlight %}
 当然，实际情况下，会使用更多的其他函数。
 
 下面是init阶段需要调用的各函数。函数的参数，在调用的时候按照上面的函数类型一个一个传入就行了。
-```c
+{% highlight ruby %}
 mbedtls_net_init()
 mbedtld_ssl_init()
 mbedtld_ssl_config_init()
@@ -223,7 +223,7 @@ mbedtls_ctr_drbg_init()
 mbedtld_x509_crt_init()
 mbedtls_entropy_init()
 mebdtls_ctr_drbg_seed()
-```
+{% endhighlight %}
 其中[mebdtls_ctr_drbg_seed()](https://tls.mbed.org/api/ctr__drbg_8h.html#af6e4dd295ae790a33128562dd01c79ab)可以指定熵函数。如果回调使用默认的mbedtls_entropy_func的话，可以传入一个初始的熵seed，也可以NULL。
 
 ### <span id="3.5">3.5 Connect 阶段</span>

@@ -21,11 +21,11 @@ Jacob通过Jni来实现对COM组件和WIN32库的调用。Jacob提供了一系�
 
 下载下来的package里包含一个`Jacob.jar`的jar包和`jacob-1.15-M4-x64.dll(64 bits)`以及`jacob-1.15-M4-x86.dll(32 bits)`的两个DLL文件。分别定义了Java的接口和32位以及64位的native接口。
 
-```c
+{% highlight java %}
 Jacob.jar
 jacob-1.15-M4-x64.dll
 jacob-1.15-M4-x86.dll
-```
+{% endhighlight %}
 
 使用Jacob的步骤如下。<br>
 1. 拷贝 `jacob-1.15-M4-x64.dll (64 bits)` and `jacob-1.15-M4-x86.dll (32 bits)` 到 `windows/system32/` 目录下。 
@@ -46,7 +46,7 @@ C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\RegAsm.exe [需要调用的dll文�
 调用的代码如下，我自己实现的操作类，有兴趣的可以自己下载使用。<br>
 
 ServiceComInterface.java (定义接口)
-```java
+{% highlight java %}
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -64,9 +64,9 @@ public interface ServiceComInterface {
     public String executeMethod(String methodname, String param);
     
 }
-```
+{% endhighlight %}
 ServiceCom.java (具体的实现类)
-```java
+{% highlight java %}
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -188,4 +188,4 @@ public class ServiceCom implements ServiceComInterface {
         return null;
     }
 }
-```
+{% endhighlight %}

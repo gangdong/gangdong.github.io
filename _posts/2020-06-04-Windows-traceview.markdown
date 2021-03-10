@@ -10,9 +10,9 @@ For the windows driver development as what I am doing these days, Microsoft prov
 ## How to use?
 The usage is simple, WDF framework has built in the function and enclosed the WPP into the `trace.h`.
 The driver program imports the header file and add `TraceEvents()` method to the place where needs to print log. Use the `TraceView.exe` application to capture and view the logs when the driver program running.  
-```c
+{% highlight ruby %}
 TraceEvents(TRACE_LEVEL_INFORMATION, DBG_INIT, "log_name");
-```
+{% endhighlight %}
 The first two parameters of this method represents the `LEVEL` and `FLAG` which will be used to control the logs output level and type.
 
 + In Windows10, the `TraceView.exe` is putted into the folder at `WDK install path`, normally the default installation path is `C:\Program Files (x86)\Windows Kits\10\Tools\x64`. 
