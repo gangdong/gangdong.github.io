@@ -15,6 +15,12 @@ After the study of the previous three articles, <br>
 
 we have had a discussion of the fingerprint framework on the android 7.0 in previous blogs, here give a short summary for anyone who has not read these articles yet. <br>
 
+<div class = "separator"></div>
+## Index 
+* TOC
+{:toc}
+<div class = "separator"></div>
+
 ## fingerprint framework in Android 7.0
 This diagram is the fingerprint framework on the android platform, I have presented in other article and copied here.
 

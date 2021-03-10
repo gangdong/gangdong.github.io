@@ -7,7 +7,7 @@ Published: true
 ---
 看过我这一篇文章 [「浅谈数字签名」]({{site.baseurl}}/others/2020/07/06/Others-signature.html) 的读者应该记得，在这篇文章的末尾遗留了一个问题 --- **在windows平台下如何利用Microsoft提供的工具来生成数字签名**。我在这篇文章中会对这个问题做一个说明，并引用一个例子来介绍签名的过程。
 
----
+<div class = "separator"></div>
 
 ## 目录
 
@@ -41,7 +41,7 @@ Published: true
         + [5.4.7 返回值](#5.4.7)
         + [5.4.8 示例](#5.4.8)
 
----
+<div class = "separator"></div>
 ## <span id ="5">1. 相关工具</span>
 这里我先把和签名相关的工具罗列出来。
 

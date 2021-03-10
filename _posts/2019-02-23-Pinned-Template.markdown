@@ -7,7 +7,7 @@ Published: true
 ---
 本博客使用了 [rawposts](https://github.com/gangdong/jekyll-theme-rawposts) 主题模板，不时有网友在 fork 使用该主题的时候提出了一些问题，这里我将该主题的使用方法汇总成一篇帖子，方便大家参考。
 
----
+<div class = "separator"></div>
 
 ## 索引
 
@@ -27,7 +27,7 @@ Published: true
     + [7.3 协议](#7.3)
 8. [问题和回答 (Q&A)](#8)
 
----
+<div class = "separator"></div>
 
 ## <span id ="1">1.关于该主题</span>
 `rawposts` 是一款轻量级,风格简洁清新的Jekyll主题。 该主题配置简单并支持丰富的特性,你可以将它用于Jekeyll网站或者个人博客的构建。该主题可以被用于部署在`Github page`上。

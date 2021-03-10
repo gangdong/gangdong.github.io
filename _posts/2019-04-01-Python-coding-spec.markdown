@@ -16,7 +16,7 @@ Published: true
 
 好了，闲话少说，正文如下。
 
----
+<div class = "separator"></div>
 ## 目录
 1. [代码的布局](#1)
     + [1.1 缩进](#1.1)
@@ -41,7 +41,7 @@ Published: true
 5. [继承的设计](#5)
     + [5.1 设计建议](#5.1)
 
----
+<div class = "separator"></div>
 
 ## <span id = "1">1. 代码的布局</span>
 ### <span id = "1.1">1.1 缩进</span>

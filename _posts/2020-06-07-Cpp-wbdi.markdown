@@ -11,7 +11,7 @@ WBF includes an IOCTL-based driver interface known as the Windows Biometric Driv
 
 WBDI drivers respond to requests from the WBS(WinBio) service. WBF also includes Windows log-in support.
 
----
+<div class = "separator"></div>
 ## Table of Contents
 1. [Basic Concepts](#1)
 2. [UMDF](#2)
@@ -34,7 +34,7 @@ WBDI drivers respond to requests from the WBS(WinBio) service. WBF also includes
 8. [Installing a Biometric Driver]({{site.baseurl}}/c++/fingerprint/2020/06/13/Cpp-wbdi-03.html#8)
 9. [Creating a Device Interface for a WBDI Driver]({{site.baseurl}}/c++/fingerprint/2020/06/13/Cpp-wbdi-03.html#9)
 
----
+<div class = "separator"></div>
 
 Starting with some concepts.
 

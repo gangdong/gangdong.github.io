@@ -12,7 +12,12 @@ Which include:
 + Software packages installed?
 
 Now let us go through above one by one.
+<div class = "separator"></div>
+## Index
+* TOC
+{:toc}
 
+<div class = "separator"></div>
 ## CPU Query 
 1. Get the CPU model of your hardware.
    By device manager -> processors 

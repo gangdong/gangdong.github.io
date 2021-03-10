@@ -924,3 +924,8 @@ table {
 	color: #999;
 	font-weight: 200;
 }
+.separator {
+  display: flex;
+  align-items: baseline;
+  border-bottom: 1px solid #eee;
+}
