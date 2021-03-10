@@ -13,6 +13,11 @@
 		}
 	}
 
+    #posts-labelgroup {
+  
+       border-bottom: 1px solid #D1D1D1;
+    }
+
 	#posts-label {
 		color: $dark_text_color;
 		
@@ -46,6 +51,16 @@
 	        background-color: #171717;;
           }
         }
+	}
+	 .about-page-box-link-none {
+ 
+		background-color: #d1d1d1;
+  
+		a {
+			color: white;
+			background-color: #d1d1d1;
+			text-decoration: none;
+		}
 	}
 	.about-page-box {
 		background-color: #E74C3C;

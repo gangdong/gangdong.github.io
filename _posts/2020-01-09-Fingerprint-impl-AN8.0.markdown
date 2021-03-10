@@ -27,13 +27,13 @@ In the framework internal, some tasks will be done to handle the request from ap
 
 2. System Server will start fingerprint system service `FingerprintService`.<br>
 **SystemServer.java**
-{% highlight ruby %}
+{% highlight cpp %}
 mSystemServiceManager.startService(FingerprintService.class);
 {% endhighlight %}
 
 3. `FingerprintService` calls the interface of `Fingerprintd` to communicate with Fingerprint HAL layer.<br>
 **FingerprintService.java**
-{% highlight ruby %}
+{% highlight cpp %}
 public IFingerprintDaemon getFingerprintDaemon() {
         if (mDaemon == null) {
             mDaemon = IFingerprintDaemon.Stub.
@@ -64,7 +64,7 @@ public IFingerprintDaemon getFingerprintDaemon() {
 {% endhighlight %}
 4. `Fingerprintd` calls `FingerprintDaemonProxy` function to open HAL.<br>
 **FingerprintDaemonProxy.cpp**
-{% highlight ruby %}
+{% highlight cpp %}
 int64_t FingerprintDaemonProxy::openHal() {
     ALOG(LOG_VERBOSE, LOG_TAG, "nativeOpenHal()\n");
     int err;
@@ -151,13 +151,13 @@ We can find the change in `getFingerprintDaemon()` method.
 
 In Android 7.0<br>
 **FingerprintService.java**
-{% highlight ruby %}
+{% highlight cpp %}
 mDaemon = IFingerprintDaemon.Stub.asInterface(ServiceManager.
 getService(FINGERPRINTD));
 {% endhighlight %}
 While in Android 8.0, mDaemon is achieved from the service of `IBiometricsFingerprint`.<br>
 **FingerprintService.java**
-{% highlight ruby %}
+{% highlight cpp %}
 mDaemon = IBiometricsFingerprint.getService();
 {% endhighlight %}
 
@@ -169,7 +169,7 @@ And [biometricsfingerprint.cpp](https://www.androidos.net.cn/android/8.0.0_r4/xr
 We may notice that the `IBiometricsFingerprint` returns a service for caller, actually there is a  file in the HIDL sub-directory: <br>
 [android.hardware.biometrics.fingerprint@2.1-service.rc](https://www.androidos.net.cn/android/8.0.0_r4/xref/hardware/interfaces/biometrics/fingerprint/2.1/default/android.hardware.biometrics.fingerprint@2.1-service.rc), which will start fps_hal service.<br>
 **fingerprint@2.1-service.rc**
-{% highlight ruby %}
+{% highlight cpp %}
  service fps_hal /vendor/bin/hw/android.hardware.biometrics.fingerprint@2.1-service
     # "class hal" causes a race condition on some devices due to files created
     # in /data. As a workaround, postpone startup until later in boot once
@@ -182,7 +182,7 @@ The files of the fingerprint HIDL related.
 ![hidl file]({{site.baseurl}}/assets/image/android-fingerprint-android8-hidl.png)
 
 If we look at the **Service.cpp**, we will find the service actually will create a `BiometricsFingerprint` instance and register as service.
-{% highlight ruby %}
+{% highlight cpp %}
 int main() {
     android::sp<IBiometricsFingerprint> bio = BiometricsFingerprint::getInstance();
 
@@ -201,7 +201,7 @@ int main() {
 {% endhighlight %}
 In the constructor of `BiometricsFingerprint` class, it calls `openHal()` to open HAL module. <br>
 **BiometricsFingerprint.cpp**
-{% highlight ruby %}
+{% highlight cpp %}
 BiometricsFingerprint::BiometricsFingerprint() : mClientCallback(nullptr), 
 mDevice(nullptr) {
     sInstance = this; // keep track of the most recent instance
@@ -213,7 +213,7 @@ mDevice(nullptr) {
 {% endhighlight %}
 Let's check the `openHal()` function.<br>
 **BiometricsFingerprint.cpp**
-{% highlight ruby %}
+{% highlight cpp %}
 fingerprint_device_t* BiometricsFingerprint::openHal() {
     int err;
     const hw_module_t *hw_mdl = nullptr;

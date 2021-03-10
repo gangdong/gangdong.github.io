@@ -624,6 +624,21 @@ main {
     margin-top: 0px;
   }
   }
+ .about-page-box-link-none {
+  padding: 0px 40px;
+  background-color: #ececec;
+  text-decoration: none;
+  margin: 40px 2px;
+  font-family: 'Raleway','Tahoma', 'Merriweather', 'Arial', 'Microsoft Yahei', sans-serif;
+  font-size: 18px;
+  border-radius: 4px;
+  font-weight: 400;
+  line-height: 1.9em;
+  a {
+    color: white;
+	text-decoration: none;
+  }
+}
  .about-page-box {
   padding: 0px 40px;
   background-color: #5499C7;
