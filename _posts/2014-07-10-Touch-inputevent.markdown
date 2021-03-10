@@ -9,7 +9,7 @@ published: true
 
 内容如下。   
 
----
+<div class = "separator"></div>
 ## 目录
 1. [Input 子系统框架](#1)
 2. [注册 Input 设备](#2)
@@ -22,8 +22,7 @@ published: true
     + [3.6 由事件处理层 (`eventhandler`) 到用户空间（`user space`)](#3.6)
     + [3.7 用户空间读取事件](#3.7)
 4. [总结](#4)
-
----
+<div class = "separator"></div>
 
 ## <span id = "1">1. Input 子系统框架</span>
 首先我们从 Input 子系统介绍开始。Input 子系统由驱动层、输入子系统核心层（Input Core）和事件处理层（Event Handler）3部分组成。一个输入事件，如鼠标移动，触摸事件等通过驱动层->系统核心层->事件处理层->用户空间的顺序到达用户空间并传给应用程序使用。其中Input Core即输入子系统核心层由 `driver/input/input.c` 及相关头文件实现。其对下提供了设备驱动的接口，对上提供了事件处理层的编程接口。输入子系统主要设计`input_dev`、`input_handler`、`input_handle`等数据结构，它们的用途和功能如下图所示。   

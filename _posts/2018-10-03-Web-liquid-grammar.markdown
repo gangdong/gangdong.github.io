@@ -10,6 +10,12 @@ Liquid is an open source template language written in Ruby. I have no knowledge 
 
 The liquid code consists of **objects**, **tags**, and **filters**.
 
+<div class = "separator"></div>
+## Index 
+* TOC
+{:toc}
+<div class = "separator"></div>
+
 ## objects
 Object tells liquid where to display content on the page. Object and variable names are identified by double curly braces: {% raw %}{{ }}{%  endraw %}
 {% highlight liquid %}

@@ -19,7 +19,7 @@ Touch Screen 作为一个input device, 驱动代码当然要符合 android 对�
 下面就以 ATMEL maXTouch IC 的驱动代码为例，分析相关的实现过程。 源码请参考 github 的项目主页<br> 
 [「github 源码」](https://github.com/atmel-maxtouch/maXTouch_linux)
 
----
+<div class = "separator"></div>
 ## 目录
 1. [设备初始化](#1)
 2. [注册 Input Device](#2)
@@ -27,8 +27,7 @@ Touch Screen 作为一个input device, 驱动代码当然要符合 android 对�
 4. [注册 Sys 文件节点](#4)
 5. [设备上下电](#5)
 6. [中断处理程序](#6)
-
----
+<div class = "separator"></div>
 
 ## <span id = "1">1. 设备初始化</span>
 首先Touch IC 是一个I2C的设备，因此需要在内核里注册I2C的设备并和驱动代码匹配。有关内核搜索设备驱动并和注册设备匹配的内容可以去参考相关的文档，这里需要注意的是 `i2c_device_id` 里的 `ID` 名称一定要和设备树里面注册的 ID 名称一致。才能保证内核会加载到正确的驱动代码。
