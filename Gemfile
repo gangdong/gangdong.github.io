@@ -13,4 +13,5 @@ group :jekyll_plugins do
     gem 'kramdown'
 	gem 'jemoji'
     gem 'rouge'
+	gem 'jekyll-toc'
 end

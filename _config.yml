@@ -84,4 +84,5 @@ theme: rawposts
 plugins:
   - jekyll-seo-tag
   - jemoji
+  - jekyll-toc
 #  - jekyll-feed
