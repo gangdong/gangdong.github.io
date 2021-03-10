@@ -269,5 +269,8 @@
 
 .dark code, tt {
   color: #DC143C;
-  background-color: #444;
+  background-color: #272727;
+}
+.dark pre>code {
+  background: transparent;
 }
