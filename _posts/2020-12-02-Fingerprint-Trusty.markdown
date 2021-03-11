@@ -4,6 +4,8 @@ title:  "Some useful knowledge for Fingerprint Application on Trusty TEE"
 date:   2020-12-02 22:24:12 +0800
 categories: Android Fingerprint
 Published: true
+toc: true
+sidebar: true
 ---
 I have completed a Android platform fingerprint implementation on Trusty TEE recently for working requirement. This page will try to give some useful information, which is a summary of my work and might be helpful for somebody who want to bring up fingerprint application on Trusty TEE.
 

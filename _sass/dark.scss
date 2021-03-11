@@ -39,6 +39,22 @@
 		padding: 5px 20px;
 	}
 
+    .post-index {
+	  background-color: #E74C3C;
+	  color: white;
+	}
+	.post-index-container {
+		a {
+			color: white;
+			&:hover {
+			background-color: #E74C3C;
+			font-weight: bold;
+			}
+		}
+	}
+
+
+
 	.post-categories-pin {
 		li {
 			background-color: #E74C3C;
