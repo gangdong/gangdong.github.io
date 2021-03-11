@@ -4,8 +4,18 @@ title:  "Inf2Cat 工具"
 date:   2020-07-09 18:24:12 +0800
 categories: Windows
 Published: true
+toc: true
+sidebar: false
 ---
 Windows 驱动开发中经常会用到 Windows WDK 自带的 Inf2Cat.exe 工具将驱动程序的 INF 文件转成待签名的 CAT 格式的目录文件。Windows 7 64位系统以上的版本，如果没有对cat或者sys文件进行数字签名，驱动安装会出现问题，或者驱动使用过程也会出现异常。因此，对驱动程序的签名已经是一项必须的操作，这里就介绍一下 Inf2Cat.exe 这个工具。这个工具本身并不能生成签名，但是却是驱动程序签名的必要的一步。
+
+{% if page.sidebar == false %}
+<div class = "separator"></div>
+## Index
+* TOC
+{: toc }
+<div class = "separator"></div>
+{% endif %}
 
 ## Inf2Cat
 MSDN里对这个工具的说明如下。
@@ -13,12 +23,15 @@ MSDN里对这个工具的说明如下。
 
 Inf2Cat 工具检查驱动程序包的 INF 文件，了解是否存在结构错误，并且是否可以对验证驱动程序包进行数字签名。仅当 INF 文件中引用的所有文件都存在且源文件位于正确的位置时，才能对驱动程序包进行签名。
 
-**工具路径：**c:\Program Files (x86)\Windows Kits\10\bin\x86    
-**使用方法：**
+### 工具路径
+{% highlight ruby %}
+c:\Program Files (x86)\Windows Kits\10\bin\x86 
+{% endhighlight %}   
+### 使用方法
 {% highlight ruby %}
 Inf2Cat /driver:PackagePath /os:WindowsVersionList [/nocat] [/verbose] [/?] [other switches]
 {% endhighlight %}
-**参数说明**   
+### 参数说明   
 
 |参数|说明|
 |---|---|
@@ -29,10 +42,7 @@ Inf2Cat /driver:PackagePath /os:WindowsVersionList [/nocat] [/verbose] [/?] [oth
 |/?|将 Inf2Cat 配置为在命令窗口中显示帮助信息|
 |/uselocaltime|运行驱动程序时间戳验证测试时使用本地时区|
 
-
-
-
-<span id="windows version">**Windows 版本标识符**</span>
+### Windows 版本标识符
 
 |Windows 版本|版本标识符|
 |--- |--- |

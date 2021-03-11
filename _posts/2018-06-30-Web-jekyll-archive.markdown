@@ -3,8 +3,12 @@ layout: post
 title:  "Archive in Jekyll"
 date:   2018-06-30 15:44:56 +0800
 categories: Web
+toc: true
+sidebar: true
 ---
 After setting up the pagination, the next thing I wanted to add to my blog was a 'proper' archive by both date and category rather than just the reverse chronological list of posts. Although this wasn't as straightforward as setting up pagination, a bit of searching turned up some sites that helped me get everything running.
+
+{% include toc.html %}
 
 ## Archive by date
 Because a list of posts in reverse chronological order can be readily accessed in Jekyll through site.posts, all that's needed is to use some clever Liquid markup to process it. 

@@ -22,19 +22,18 @@ layout: default
     <div class="post-date"><i class="icon-calendar"></i>{{ page.date | date: date_format }}</div>
   </div>
   <!-- post content here! -->
-  <div class="post-viewer-container">
   <!-- if sidebar! -->
   {% if page.sidebar and page.toc %}
   <!-- set fix width box to put content! -->
-  <div class="post-fix-width">
-    {{ content }}
-  </div>
-  <!-- put sidebar! -->
-  <div class="post-index-container">
-  <li class = "post-index">On this page</li>
-  <li>
-    {% toc %}
-  </li>
+  <div class="post-viewer-container">
+	<div class="post-fix-width">
+		{{ content }}
+	</div>
+	<!-- put sidebar! -->
+	<div class="post-index-container">
+		<li class = "post-index">On this page</li>
+		<li>{% toc %}</li>
+	</div>
   </div>
   <!-- no sidebar, use flex width box! -->
   {% else %}
@@ -42,7 +41,7 @@ layout: default
     {{ content }}
   </div>
   {% endif %}
-  </div>
+
   <br><br><br>
   <!-- Page navigation start here! -->
   {%- if site.rawposts.navigation -%}

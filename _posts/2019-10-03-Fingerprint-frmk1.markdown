@@ -4,16 +4,14 @@ title:  "Android Fingerprint Framework (1)"
 date:   2019-10-03 15:17:47 +0800
 categories: Android Fingerprint
 Published: true
+toc: true
+sidebar: true
 ---
 This page is trying to present a brief introduction on android fingerprint framework, aimed at helping anyone who want to learn android fingerprint related knowledge, created by referring some documents and android source code. 
 
 There are some articles throughout the internet to share the android fingerprint related knowledge. However, from my point of view, part of them are too complicated to understand and some aren't very distinct. I wrote this article  by referring android source code and according to my personal working experiences, tried to make the contents simple and easy to understand. 
 
-<div class = "separator"></div>
-## Index 
-* TOC
-{:toc}
-<div class = "separator"></div>
+{% include toc.html %}
 
 From android 6.0 (API23),android introduced fingerprint API interface, that is FingerprintManager to support fingerprint identification. While at android 8.0 (API26), it is deprecated and replaced by `BiometricPrompt` API interface.
 

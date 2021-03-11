@@ -9,6 +9,7 @@ sidebar: true
 ---
 I have completed a Android platform fingerprint implementation on Trusty TEE recently for working requirement. This page will try to give some useful information, which is a summary of my work and might be helpful for somebody who want to bring up fingerprint application on Trusty TEE.
 
+{% if page.sidebar == false %}
 <div class = "separator"></div>
 ## Index
 
@@ -33,6 +34,7 @@ I have completed a Android platform fingerprint implementation on Trusty TEE rec
         + [5.3.3 TA APP wasn't running properly, CA lost communication](#5.3.2)
 
 <div class = "separator"></div>
+{% endif %}
 ## <span id ="1">1. Trusty TEE</span>
 As one of the biometric authentication on Android platform, fingerprint implementation must meet android security specifications. Android uses a separated secure Operating System (OS) to guarantee the security of biometric application - we call it TEE (Trusted Execution Environment), Which runs on the same processor as the Android OS and is isolated from the rest of the system by both hardware and software. They run parallel to each other but secure OS has access to the full power of a device’s main processor and memory but is completely isolated. 
 

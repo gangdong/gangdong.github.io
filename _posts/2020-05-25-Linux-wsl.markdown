@@ -4,14 +4,18 @@ title:  "Some notes for WSL"
 date:   2020-05-25 22:53:27 +0800
 categories: Linux
 Published: true
+toc: true
+sidebar: true
 ---
 Recently I'm using WSL(Window Subsystem for Linux) for program development. This article presents some short notes for the WSL installation and usage.
 
+{% if page.sidebar == false %}
 <div class = "separator"></div>
 ## Index 
 * TOC
 {:toc}
 <div class = "separator"></div>
+{% endif %}
 
 Below is the official introduction of WSL, I copied it here as a startup.
 

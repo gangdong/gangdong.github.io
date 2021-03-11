@@ -3,6 +3,8 @@ layout: post
 title:  "Pagination in Jekyll"
 date:   2018-06-28 19:43:17 +0800
 categories: Web
+toc: true
+sidebar: true
 ---
 If you don't have pagination for your personal blog and you want to do it, this page is probably helpful to you.
 
@@ -10,6 +12,8 @@ My personal blog is constructed by Jekyll, so I will only write down how to pagi
 
 When you have a long post list, to break them into smaller lists and display them over multiple pages will become a common requirements. 
 Fortunately, Jekyll offers a pagination plugin, which can automatically generate the appropriate files and folders you need for paginated listings.
+
+{% include toc.html %}
 
 ## Install plugin
 Add the **jekyll-paginate** into your website's Gemfile and declare it at your configuration file `_config.yml` under plugins.

@@ -4,14 +4,12 @@ title:  "Python Pillow library usage"
 date:   2019-03-07 20:59:29 +0800
 categories: Python
 Published: true
+toc: true
+sidebar: true
 ---
 I recently completed some image processing works with Pillow Library. Pillow provides a powerful function and has friendly APIs to the developer. I thought it is necessary to make some notes here for the usage. 
 
-<div class = "separator"></div>
-## Index 
-* TOC
-{:toc}
-<div class = "separator"></div>
+{% include toc.html %}
 
 ## What is Pillow?
 We cannot say Pillow is PIL, even total from PIL. Actually Pillow is open source project of Github, it is more like a derived branch of PIL. We all know PIL (Python Image Library) is the previous third-party image processing library of python and almost regarded as the official image processing library of Python because of the powerful function. However the last PIL release is at build 1.1.7 in 2009 which can only support Python 2. PIL’s release schedule is too infrequent so that some volunteers created a open source project on Github for providing a compatible version on the basis of PIL. It's called `Pillow`. Pillow added in some features based on PIL and provided support to Python 3. With the update of version and many bug fixes from many contributors, Pillow has developed into a more dynamic image processing library than PIL itself. Pillow can be said to have replaced PIL.
