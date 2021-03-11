@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/daviddong.github.io/assets/css/style.css">
+<link rel="icon" href="/daviddong.github.io/assets/favicon.ico">
+<title>Pagination in Jekyll | David Dong's Blog</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Pagination in Jekyll | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Pagination in Jekyll" />
+<meta name="author" content="David Dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="If you don’t have pagination for your personal blog and you want to do it, this page is probably helpful to you." />
+<meta property="og:description" content="If you don’t have pagination for your personal blog and you want to do it, this page is probably helpful to you." />
+<link rel="canonical" href="http://localhost:4000/daviddong.github.io/web/2018/06/28/Web-jekyll-pagination.html" />
+<meta property="og:url" content="http://localhost:4000/daviddong.github.io/web/2018/06/28/Web-jekyll-pagination.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-06-28T19:43:17+08:00" />
+<script type="application/ld+json">
+{"headline":"Pagination in Jekyll","dateModified":"2018-06-28T19:43:17+08:00","datePublished":"2018-06-28T19:43:17+08:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/daviddong.github.io/web/2018/06/28/Web-jekyll-pagination.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/daviddong.github.io/BLOG"},"name":"David Dong"},"author":{"@type":"Person","name":"David Dong"},"url":"http://localhost:4000/daviddong.github.io/web/2018/06/28/Web-jekyll-pagination.html","description":"If you don’t have pagination for your personal blog and you want to do it, this page is probably helpful to you.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+
+</head>
+  <body><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><main class="container">
+      <section class="about">
+        <a href="/daviddong.github.io/blog/index.html"><img src="/daviddong.github.io/assets/avatar.png" alt="David Dong"></a>
+        <h2 id="title">
+          <a href="/daviddong.github.io/blog/index.html">David Dong</a>
+        </h2>
+        <p class="tagline">Java/C/C#/Python</p>
+        <ul class="social">
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture-3"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled-1"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/%E5%88%9A-%E8%91%A3-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a>
+</ul>
+<nav class="navigation">
+            <ul>
+              
+            </ul>
+          </nav><p>©
+          2021</p>
+<div>
+        <p style="font-family: Raleway, sans-serif;font-size: 100%">Dark Theme
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" id="dark-mode-toggle" onclick="toggleDarkMode()">
+            <span class="slider round"></span>
+          </label>
+        </p>
+      </div>
+      <script type="text/javascript" src="/daviddong.github.io/assets/js/darkmode.js"></script><div>
+        <ul class="social" style="padding-top: 3vh">
+<a style="margin-right:10px;text-decoration: none;font-family: Raleway, sans-serif;" href="/daviddong.github.io/rss.xml">
+              <span class="icon-rss-1">rss</span>
+           </a><a style="text-decoration: none;font-family: Raleway, sans-serif;" href="https://github.com/gangdong/daviddong.github.io">
+              <span class="icon-file-code">code</span>
+            </a>
+</ul>
+      </div>
+      </section>
+      <section class="content">
+        <!-- add menu bar here! -->
+
+
+<div class="post-container">
+<div class="menu">
+<div style="font-size:180%;font-weight:800; margin-top: 20px">BLOG</div>
+<div style="margin-top: 20px">
+<a class="menu_tag_a" href="/daviddong.github.io/blog/index.html">
+    <span class="icon-doc-text icon_font">Posts</span>
+</a><a class="menu_tag_a" href="/daviddong.github.io/archive">
+    <span class="icon-archive-1 icon_font">Archives</span>
+</a><a class="menu_tag_a" href="/daviddong.github.io/category">
+    <span class="icon-tags-1 icon_font">Categories</span>
+</a><a class="menu_tag_b" href="/daviddong.github.io/about">
+    <span class="icon-help-circled-3 icon_font">About</span>
+</a>
+</div>
+</div>
+</div>
+<div class="post-container">
+  <li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">POST</h1>
+  </li>  
+  <a class="post-link" href="/daviddong.github.io/web/2018/06/28/Web-jekyll-pagination.html">
+    <h2 class="post-title">Pagination in Jekyll</h2>
+  </a>
+  <div class="post-meta">
+    <ul class="post-categories"><li>Web</li></ul>
+    <div class="post-date">
+<i class="icon-calendar"></i>Jun 28, 2018</div>
+  </div>
+  <!-- post content here! -->
+  <!-- if sidebar! -->
+  
+  <!-- set fix width box to put content! -->
+  <div class="post-viewer-container">
+	<div class="post-fix-width">
+		<p>If you don’t have pagination for your personal blog and you want to do it, this page is probably helpful to you.</p>
+
+<p>My personal blog is constructed by Jekyll, so I will only write down how to paginate the blog that powered by Jekyll. Actually below part are some experiences when I paginated my blog.</p>
+
+<p>When you have a long post list, to break them into smaller lists and display them over multiple pages will become a common requirements. 
+Fortunately, Jekyll offers a pagination plugin, which can automatically generate the appropriate files and folders you need for paginated listings.</p>
+
+<h2 id="install-plugin">Install plugin</h2>
+<p>Add the <strong>jekyll-paginate</strong> into your website’s Gemfile and declare it at your configuration file <code class="language-plaintext highlighter-rouge">_config.yml</code> under plugins.
+like below Gemfile.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">gemspec</span>
+<span class="n">group</span> <span class="ss">:jekyll_plugins</span> <span class="k">do</span>
+    <span class="n">gem</span> <span class="s1">'jekyll-feed'</span>
+    <span class="n">gem</span> <span class="s1">'jekyll-sitemap'</span>
+    <span class="n">gem</span> <span class="s1">'jekyll-paginate'</span>
+<span class="k">end</span></code></pre></figure>
+
+<h2 id="enable-pagination">Enable pagination</h2>
+<p>Add a line to the <code class="language-plaintext highlighter-rouge">_config.yml</code> file that specifies how many items should be displayed per page:</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">paginate</span><span class="pi">:</span> <span class="s">12</span></code></pre></figure>
+
+<p>The number should be the maximum number of Posts you’d like to be displayed per-page in the generated site.</p>
+
+<p>Because Jekyll can only support pagination for HTML file so far, does not work from within Markdown files from your Jekyll site. Pagination works when called from the HTML file, named <code class="language-plaintext highlighter-rouge">index.html</code>, which optionally may reside in and produce pagination from within a subdirectory, via the paginate_path configuration value. <br>
+You can specify the destination of the pagination pages:</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">paginate_path</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/blog/page:num/"</span></code></pre></figure>
+
+<p>Jekyll will search the /blog/ directory and read in <code class="language-plaintext highlighter-rouge">blog/index.html</code>, send it each pagination page and write the output to <code class="language-plaintext highlighter-rouge">blog/page:num/</code>, where <code class="language-plaintext highlighter-rouge">:num</code> is the pagination page number, starting with 2. For example, if you output 3 pages, if you look at the _site directory, you will find a /blog folder with two subfolders /page2 and /page3 in it. Each folder has a <code class="language-plaintext highlighter-rouge">index.html</code> file, which contains the contents that need to be displayed.</p>
+
+<p><strong>Note:</strong> because the pages starts with 2, which means no page1 exists. That will require a special handling for the first page when rendering the pages. Actually the page1 contents is displayed on the <code class="language-plaintext highlighter-rouge">index.html</code> of /blog directory.</p>
+
+<p>For me, I tried to set the path as below, but failed to load the <code class="language-plaintext highlighter-rouge">index.html</code>. After I change to <code class="language-plaintext highlighter-rouge">/blog/page:num</code>, it started to work. Who can tell what the reason is here?</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">paginate_path</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/page:num/"</span> </code></pre></figure>
+
+<h2 id="attributes">Attributes</h2>
+<p>The pagination plugin exposes the paginator liquid object. <br>
+You can find the attributes in my another blog <a href="/daviddong.github.io/web/2018/04/13/Web-jekyll-grammar.html">Getting started with Jekyll (2)</a></p>
+
+<h2 id="render-the-pages">Render the pages</h2>
+<p>You have enabled the pagination so far, next thing is to display your posts in a list using the paginator variable that will now be available to you.
+Below code is an example from my blog’s <code class="language-plaintext highlighter-rouge">pagination.html</code> file. This pieces of code render a list of each page with links to all but the current page.</p>
+
+<figure class="highlight"><pre><code class="language-liquid" data-lang="liquid">&lt;!-- Pagination links --&gt;
+<span class="p">{%</span><span class="w"> </span><span class="kr">if</span><span class="w"> </span><span class="nv">paginator</span><span class="p">.</span><span class="nv">total_pages</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">%}</span>
+&lt;div class="pagination"&gt;
+  <span class="p">{%</span><span class="w"> </span><span class="kr">if</span><span class="w"> </span><span class="nv">paginator</span><span class="p">.</span><span class="nv">previous_page</span><span class="w"> </span><span class="p">%}</span>
+    &lt;a href="<span class="p">{{</span><span class="w"> </span><span class="nv">paginator</span><span class="p">.</span><span class="nv">previous_page_path</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">prepend</span><span class="p">:</span><span class="w"> </span><span class="nv">site</span><span class="p">.</span><span class="nv">baseurl</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">replace</span><span class="p">:</span><span class="w"> </span><span class="s1">'//'</span><span class="p">,</span><span class="w"> </span><span class="s1">'/'</span><span class="w"> </span><span class="p">}}</span>"&gt;&amp;laquo; Prev&lt;/a&gt;
+  <span class="p">{%</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">%}</span>
+    &lt;span&gt;&amp;laquo; Prev&lt;/span&gt;
+  <span class="p">{%</span><span class="w"> </span><span class="kr">endif</span><span class="w"> </span><span class="p">%}</span>
+
+  <span class="p">{%</span><span class="w"> </span><span class="nt">for</span><span class="w"> </span><span class="nv">page</span><span class="w"> </span><span class="nt">in</span><span class="w"> </span><span class="nv">(1..paginator.total_pages)</span><span class="w"> </span><span class="p">%}</span>
+    <span class="p">{%</span><span class="w"> </span><span class="kr">if</span><span class="w"> </span><span class="nv">page</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">paginator</span><span class="p">.</span><span class="nv">page</span><span class="w"> </span><span class="p">%}</span>
+      &lt;span class="active"&gt;<span class="p">{{</span><span class="w"> </span><span class="nv">page</span><span class="w"> </span><span class="p">}}</span>&lt;/span&gt;
+    <span class="p">{%</span><span class="w"> </span><span class="kr">elsif</span><span class="w"> </span><span class="nv">page</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">%}</span>
+      &lt;a href="<span class="p">{{</span><span class="w"> </span><span class="s1">'/blog/index.html'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">prepend</span><span class="p">:</span><span class="w"> </span><span class="nv">site</span><span class="p">.</span><span class="nv">baseurl</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">replace</span><span class="p">:</span><span class="w"> </span><span class="s1">'//'</span><span class="p">,</span><span class="w"> </span><span class="s1">'/'</span><span class="w"> </span><span class="p">}}</span>"&gt;<span class="p">{{</span><span class="w"> </span><span class="nv">page</span><span class="w"> </span><span class="p">}}</span>&lt;/a&gt;
+    <span class="p">{%</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">%}</span>
+      &lt;a href="<span class="p">{{</span><span class="w"> </span><span class="nv">site</span><span class="p">.</span><span class="nv">paginate_path</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">prepend</span><span class="p">:</span><span class="w"> </span><span class="nv">site</span><span class="p">.</span><span class="nv">baseurl</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">replace</span><span class="p">:</span><span class="w"> </span><span class="s1">'//'</span><span class="p">,</span><span class="w"> </span><span class="s1">'/'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">replace</span><span class="p">:</span><span class="w"> </span><span class="s1">':num'</span><span class="p">,</span><span class="w"> </span><span class="nv">page</span><span class="w"> </span><span class="p">}}</span>"&gt;<span class="p">{{</span><span class="w"> </span><span class="nv">page</span><span class="w"> </span><span class="p">}}</span>&lt;/a&gt;
+    <span class="p">{%</span><span class="w"> </span><span class="kr">endif</span><span class="w"> </span><span class="p">%}</span>
+<span class="p">{%</span><span class="w"> </span><span class="nt">endfor</span><span class="w"> </span><span class="p">%}</span>
+  
+  <span class="p">{%</span><span class="w"> </span><span class="kr">if</span><span class="w"> </span><span class="nv">paginator</span><span class="p">.</span><span class="nv">next_page</span><span class="w"> </span><span class="p">%}</span>
+    &lt;a href="<span class="p">{{</span><span class="w"> </span><span class="nv">paginator</span><span class="p">.</span><span class="nv">next_page_path</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">prepend</span><span class="p">:</span><span class="w"> </span><span class="nv">site</span><span class="p">.</span><span class="nv">baseurl</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">replace</span><span class="p">:</span><span class="w"> </span><span class="s1">'//'</span><span class="p">,</span><span class="w"> </span><span class="s1">'/'</span><span class="w"> </span><span class="p">}}</span>"&gt;Next &amp;raquo;&lt;/a&gt;
+  <span class="p">{%</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">%}</span>
+    &lt;span&gt;Next &amp;raquo;&lt;/span&gt;
+  <span class="p">{%</span><span class="w"> </span><span class="kr">endif</span><span class="w"> </span><span class="p">%}</span>
+&lt;/div&gt;
+<span class="p">{%</span><span class="w"> </span><span class="kr">endif</span><span class="w"> </span><span class="p">%}</span></code></pre></figure>
+
+<p>Besides, you still need to change your <code class="language-plaintext highlighter-rouge">page.html</code> or <code class="language-plaintext highlighter-rouge">home.html</code> where displays the every pages. <br>
+I removed these code to <code class="language-plaintext highlighter-rouge">/blog/index.html</code> from <code class="language-plaintext highlighter-rouge">page.html</code> and chage the loop from site.posts to paginator.posts.<br>
+Below code loops through the paginated posts.</p>
+
+<figure class="highlight"><pre><code class="language-liquid" data-lang="liquid"><span class="p">{%-</span><span class="w"> </span><span class="nt">for</span><span class="w"> </span><span class="nv">post</span><span class="w"> </span><span class="nt">in</span><span class="w"> </span><span class="nv">paginator.posts</span><span class="w"> </span><span class="p">-%}</span>
+      &lt;li&gt;
+        <span class="p">{%-</span><span class="w"> </span><span class="nt">assign</span><span class="w"> </span><span class="nv">date_format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">site</span><span class="p">.</span><span class="nv">minimal</span><span class="p">.</span><span class="nv">date_format</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">default</span><span class="p">:</span><span class="w"> </span><span class="s2">"%b %-d, %Y"</span><span class="w"> </span><span class="p">-%}</span>
+        &lt;a class="post-link" href="<span class="p">{{</span><span class="w"> </span><span class="nv">post</span><span class="p">.</span><span class="nv">url</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">relative_url</span><span class="w"> </span><span class="p">}}</span>"&gt;
+          &lt;h2 class="post-title"&gt;<span class="p">{{</span><span class="w"> </span><span class="nv">post</span><span class="p">.</span><span class="nv">title</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">escape</span><span class="w"> </span><span class="p">}}</span>&lt;/h2&gt;
+        &lt;/a&gt;
+        &lt;div class="post-meta"&gt;
+          &lt;ul class="post-categories"&gt;
+            <span class="p">{%-</span><span class="w"> </span><span class="nt">for</span><span class="w"> </span><span class="nv">tag</span><span class="w"> </span><span class="nt">in</span><span class="w"> </span><span class="nv">post.categories</span><span class="w"> </span><span class="p">-%}</span>
+              &lt;li&gt;<span class="p">{{</span><span class="w"> </span><span class="nv">tag</span><span class="w"> </span><span class="p">}}</span>&lt;/li&gt;
+            <span class="p">{%-</span><span class="w"> </span><span class="nt">endfor</span><span class="w"> </span><span class="p">-%}</span>
+          &lt;/ul&gt;
+          &lt;div class="post-date"&gt;
+            &lt;i class="icon-calendar"&gt;&lt;/i&gt;
+            <span class="p">{{</span><span class="w"> </span><span class="nv">post</span><span class="p">.</span><span class="nv">date</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">date</span><span class="p">:</span><span class="w"> </span><span class="nv">date_format</span><span class="w"> </span><span class="p">}}</span>&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="post"&gt;
+          <span class="p">{%-</span><span class="w"> </span><span class="kr">if</span><span class="w"> </span><span class="nv">site</span><span class="p">.</span><span class="nv">show_excerpts</span><span class="w"> </span><span class="p">-%}</span>
+            <span class="p">{{</span><span class="w"> </span><span class="nv">post</span><span class="p">.</span><span class="nv">excerpt</span><span class="w"> </span><span class="p">}}</span>
+          <span class="p">{%-</span><span class="w"> </span><span class="kr">endif</span><span class="w"> </span><span class="p">-%}</span>
+        &lt;/div&gt;
+		&lt;footer&gt;
+          &lt;a class="post-link" href="<span class="p">{{</span><span class="w"> </span><span class="nv">post</span><span class="p">.</span><span class="nv">url</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">relative_url</span><span class="w"> </span><span class="p">}}</span>"&gt;
+          &lt;h5 class="morebox"&gt;Read More...&lt;/h5&gt;
+        &lt;/a&gt;
+        &lt;/footer&gt;
+      &lt;/li&gt;
+    <span class="p">{%-</span><span class="w"> </span><span class="nt">endfor</span><span class="w"> </span><span class="p">-%}</span></code></pre></figure>
+
+<h2 id="others">Others</h2>
+<p>Currently jekyll-paginate plugin doesn’t allow paging over groups of posts linked by a common tag or category. 
+The more recent <a href="https://github.com/sverrirs/jekyll-paginate-v2">jekyll-paginate-v2</a> plugin can support the pagination for categories, tags and collections. See the pagination examples in the repository.<br> <strong>This plugin is not supported by GitHub Pages. I haven’t tried it!</strong> <img class="emoji" title=":worried:" alt=":worried:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f61f.png" height="20" width="20"></p>
+
+	</div>
+	<!-- put sidebar! -->
+	<div class="post-index-container">
+		<li class="post-index">On this page</li>
+		<li><ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#install-plugin">Install plugin</a></li>
+<li class="toc-entry toc-h2"><a href="#enable-pagination">Enable pagination</a></li>
+<li class="toc-entry toc-h2"><a href="#attributes">Attributes</a></li>
+<li class="toc-entry toc-h2"><a href="#render-the-pages">Render the pages</a></li>
+<li class="toc-entry toc-h2"><a href="#others">Others</a></li>
+</ul></li>
+	</div>
+  </div>
+  <!-- no sidebar, use flex width box! -->
+  
+
+  <br><br><br>
+  <!-- Page navigation start here! --><li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">further reading</h1>
+  </li> 
+  <div class="navigation-meta" style="margin-bottom:40px">
+<ul class="navigation-bar" style="margin-top:40px; min-width:40%">   
+	 <a href="/daviddong.github.io/web/2018/05/12/Others-gitalk.html" style="width:100%"><font size="1px" color="#777">Previous Post</font><br>Gitalk Usage</a>
+    </ul>
+<ul class="navigation-bar" style="margin-top:40px; min-width:40%">   
+     <a href="/daviddong.github.io/web/2018/06/30/Web-jekyll-archive.html" style="width:100%"><font size="1px" color="#777">Next Post</font><br>Archive in Jekyll</a>
+    </ul>
+</div>
+<br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/daviddong.github.io/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'daviddong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br><br><br><div class="footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+      </section>
+    </main>
+<script src="/daviddong.github.io/assets/js/simple-jekyll-search.min.js"></script>
+<script src="/daviddong.github.io/assets/js/search.js"></script>
+<link href="/daviddong.github.io/assets/css/vim.css" rel="stylesheet">
+
+  </body>
+</html>

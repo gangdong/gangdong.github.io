@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/daviddong.github.io/assets/css/style.css">
+<link rel="icon" href="/daviddong.github.io/assets/favicon.ico">
+<title>Some useful knowledge for Fingerprint Application on Trusty TEE | David Dong's Blog</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Some useful knowledge for Fingerprint Application on Trusty TEE | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Some useful knowledge for Fingerprint Application on Trusty TEE" />
+<meta name="author" content="David Dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I have completed a Android platform fingerprint implementation on Trusty TEE recently for working requirement. This page will try to give some useful information, which is a summary of my work and might be helpful for somebody who want to bring up fingerprint application on Trusty TEE." />
+<meta property="og:description" content="I have completed a Android platform fingerprint implementation on Trusty TEE recently for working requirement. This page will try to give some useful information, which is a summary of my work and might be helpful for somebody who want to bring up fingerprint application on Trusty TEE." />
+<link rel="canonical" href="http://localhost:4000/daviddong.github.io/android/fingerprint/2020/12/02/Fingerprint-Trusty.html" />
+<meta property="og:url" content="http://localhost:4000/daviddong.github.io/android/fingerprint/2020/12/02/Fingerprint-Trusty.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-12-02T22:24:12+08:00" />
+<script type="application/ld+json">
+{"headline":"Some useful knowledge for Fingerprint Application on Trusty TEE","dateModified":"2020-12-02T22:24:12+08:00","datePublished":"2020-12-02T22:24:12+08:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/daviddong.github.io/android/fingerprint/2020/12/02/Fingerprint-Trusty.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/daviddong.github.io/BLOG"},"name":"David Dong"},"author":{"@type":"Person","name":"David Dong"},"url":"http://localhost:4000/daviddong.github.io/android/fingerprint/2020/12/02/Fingerprint-Trusty.html","description":"I have completed a Android platform fingerprint implementation on Trusty TEE recently for working requirement. This page will try to give some useful information, which is a summary of my work and might be helpful for somebody who want to bring up fingerprint application on Trusty TEE.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+
+</head>
+  <body><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><main class="container">
+      <section class="about">
+        <a href="/daviddong.github.io/blog/index.html"><img src="/daviddong.github.io/assets/avatar.png" alt="David Dong"></a>
+        <h2 id="title">
+          <a href="/daviddong.github.io/blog/index.html">David Dong</a>
+        </h2>
+        <p class="tagline">Java/C/C#/Python</p>
+        <ul class="social">
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture-3"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled-1"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a></ul><nav class="navigation">
+            <ul>
+              
+            </ul>
+          </nav><p>&copy;
+          2021</p><div>
+        <p style = "font-family: Raleway, sans-serif;font-size: 100%">Dark Theme
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" id="dark-mode-toggle" onclick="toggleDarkMode()">
+            <span class="slider round"></span>
+          </label>
+        </p>
+      </div>
+      <script type="text/javascript" src="/daviddong.github.io/assets/js/darkmode.js"></script><div>
+        <ul class="social" style="padding-top: 3vh"><a style ="margin-right:10px;text-decoration: none;font-family: Raleway, sans-serif;" href="/daviddong.github.io/rss.xml">
+              <span class="icon-rss-1">rss</span>
+           </a><a style="text-decoration: none;font-family: Raleway, sans-serif;" href="https://github.com/gangdong/daviddong.github.io">
+              <span class="icon-file-code">code</span>
+            </a></ul>
+      </div>
+      </section>
+      <section class="content">
+        <!-- add menu bar here! -->
+
+
+<div class="post-container">
+<div  class = "menu">
+<div  style="font-size:180%;font-weight:800; margin-top: 20px">BLOG</div>
+<div  style = "margin-top: 20px">
+<a class = "menu_tag_a" href="/daviddong.github.io/blog/index.html">
+    <span class="icon-doc-text icon_font">Posts</span>
+</a><a  class = "menu_tag_a" href="/daviddong.github.io/archive">
+    <span class="icon-archive-1 icon_font">Archives</span>
+</a><a  class = "menu_tag_a" href="/daviddong.github.io/category">
+    <span class="icon-tags-1 icon_font">Categories</span>
+</a><a  class = "menu_tag_b" href="/daviddong.github.io/about">
+    <span class="icon-help-circled-3 icon_font">About</span>
+</a>
+</div>
+</div>
+</div><div class="post-container">
+  <li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">POST</h1>
+  </li>  
+  <a class="post-link" href="/daviddong.github.io/android/fingerprint/2020/12/02/Fingerprint-Trusty.html">
+    <h2 class="post-title">Some useful knowledge for Fingerprint Application on Trusty TEE</h2>
+  </a>
+  <div class="post-meta">
+    <ul class="post-categories"><li>Android</li><li>Fingerprint</li></ul>
+    <div class="post-date"><i class="icon-calendar"></i>Dec 2, 2020</div>
+  </div>
+  <!-- post content here! -->
+  <!-- if sidebar! -->
+  
+  <!-- set fix width box to put content! -->
+  <div class="post-viewer-container">
+	<div class="post-fix-width">
+		<p>I have completed a Android platform fingerprint implementation on Trusty TEE recently for working requirement. This page will try to give some useful information, which is a summary of my work and might be helpful for somebody who want to bring up fingerprint application on Trusty TEE.</p>
+
+<h2 id="1-trusty-tee"><span id="1">1. Trusty TEE</span></h2>
+<p>As one of the biometric authentication on Android platform, fingerprint implementation must meet android security specifications. Android uses a separated secure Operating System (OS) to guarantee the security of biometric application - we call it TEE (Trusted Execution Environment), Which runs on the same processor as the Android OS and is isolated from the rest of the system by both hardware and software. They run parallel to each other but secure OS has access to the full power of a device’s main processor and memory but is completely isolated.</p>
+
+<p>There are multiple commercial TEE OS on the Android platform supported by the third-part companies, Such as QSEE, ISEE, TBase and so on. Trusty is one of them and unlike them Trusty TEE is supported by Google. Trusty TEE is trying to provide the users a reliable and free open source alternative for their Trusted Execution Environment.</p>
+
+<p>Google official documents provides more information about
+<a href="https://source.android.com/security/trusty">「Trusty TEE」</a>.</p>
+<h2 id="2-memory-restriction-of-trusty-tee"><span id="2">2. Memory Restriction of Trusty TEE</span></h2>
+<h3 id="21-max-available-memory"><span id="2.1">2.1 Max available memory</span></h3>
+<p>The total memory that Trusty TEE can provide is 32M, suggests allocate 10M memory (heap + stack + ta image self) for fingerprint to use. For example, using 6M heap and 3M stack.</p>
+<h3 id="22-max-buffer-size-for-communication-between-ca-and-ta"><span id="2.2">2.2 Max buffer size for communication between CA and TA</span></h3>
+<ul>
+  <li>a. The communication between CA and TA is limited in size, and the overall size is limited to 128KB, including message header. Therefore, the buffer size <code class="language-plaintext highlighter-rouge">TAC_SHARED_BUFFER_SIZE</code> should be less than 128K.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span>define TAC_SHARED_BUFFER_SIZE 1024 <span class="k">*</span> 120 //should not be greater than 128k</code></pre></figure>
+
+<ul>
+  <li>b. Accordingly, the actual data size that can be used for effective transmission between CA and TA is limited to <code class="language-plaintext highlighter-rouge">1024*128-sizeof(union ta_target_commands)-sizeof(int32_t)</code>.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">/* ISEE may need extra room for their own header */
+</span><span class="gp">#</span><span class="k">if </span>defined<span class="o">(</span>ISEE<span class="o">)</span>
+<span class="gp">#</span>define MAX_CHUNK <span class="o">((</span>SECURE_BUFFER_MAX_SIZE<span class="o">)</span> - <span class="o">(</span>MAX_COMMAND_SIZE<span class="o">)</span> - 64<span class="o">)</span>
+<span class="gp">#</span><span class="k">elif </span>defined<span class="o">(</span>TOS<span class="o">)</span>
+<span class="gp">#</span>define MAX_CHUNK <span class="o">((</span>SECURE_BUFFER_MAX_SIZE<span class="o">)</span> - <span class="o">(</span>MAX_COMMAND_SIZE<span class="o">)</span> - 4<span class="o">)</span>
+<span class="gp">#</span><span class="k">else</span>
+<span class="gp">#</span>define MAX_CHUNK <span class="o">((</span>SECURE_BUFFER_MAX_SIZE<span class="o">)</span> - <span class="o">(</span>MAX_COMMAND_SIZE<span class="o">))</span>
+<span class="gp">#</span>endif</code></pre></figure>
+
+<ul>
+  <li>c. When the data to be transferred is greater than the maximum limit, consider transferring in batches.</li>
+  <li>d. Change the size of heap and stack in the manifest file.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">trusty_app_manifest_t</span> <span class="n">TRUSTY_APP_MANIFEST_ATTRS</span> <span class="n">trusty_app_manifest</span> <span class="o">=</span>
+   <span class="p">{</span>
+ 
+        <span class="cm">/* UUID : {4304bef6-36e5-4d90-94b0-1ea4cd51d40b} */</span>
+       <span class="cm">/* { 0x4304bef6, 0x36e5, 0x4d90,
+        { 0x94, 0xb0, 0x1e, 0xa4, 0xcd, 0x51, 0xd4, 0x0b } }, */</span>
+      <span class="p">{</span> <span class="mh">0x4304bef6</span><span class="p">,</span> <span class="mh">0x36e5</span><span class="p">,</span> <span class="mh">0x4d91</span><span class="p">,</span>
+        <span class="p">{</span> <span class="mh">0x94</span><span class="p">,</span> <span class="mh">0xb0</span><span class="p">,</span> <span class="mh">0x1e</span><span class="p">,</span> <span class="mh">0xa4</span><span class="p">,</span> <span class="mh">0xcd</span><span class="p">,</span> <span class="mh">0x51</span><span class="p">,</span> <span class="mh">0xd4</span><span class="p">,</span> <span class="mh">0x0c</span> <span class="p">}</span> <span class="p">},</span>
+ 
+     <span class="cm">/* optional configuration options here */</span>
+    <span class="p">{</span>
+        <span class="cm">/*apply 6M heap and 3M stack*/</span>
+       <span class="n">TRUSTY_APP_CONFIG_MIN_HEAP_SIZE</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">),</span>
+       <span class="n">TRUSTY_APP_CONFIG_MIN_STACK_SIZE</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">),</span>
+      <span class="p">},</span>
+    <span class="p">};</span></code></pre></figure>
+
+<h2 id="3-tee-communication"><span id="3">3. TEE Communication</span></h2>
+<ul>
+  <li>a. Adopt the dynamic TA mechanism which will load TA and run TA’s main function when CA calls function <code class="language-plaintext highlighter-rouge">connect()</code>. When CA calls <code class="language-plaintext highlighter-rouge">disconnect()</code> the TA process exits. Therefore, in a life cycle, there is no  need to connect or disconnect each IPC communication.<br /></li>
+  <li>b. There are many IPC communications between CA and TA. Every time IPC communication, the buffer received and sent by CA needs to be reallocated. The same buffer should not be used by IPC multiple times. In our code this method has already been implemented.<br /></li>
+  <li>c. Trusty TEE provides 2 ports for communication, <code class="language-plaintext highlighter-rouge">secure port</code> and <code class="language-plaintext highlighter-rouge">non-secure port</code>. <br />
+ <strong>Secure port</strong> - for other TA app access.<br />
+ <strong>Non secure port</strong> - for CA access TA app.<br />
+ For fingerprint, it needs to use <code class="language-plaintext highlighter-rouge">non-secure port</code> and if has payment requirement, needs to use <code class="language-plaintext highlighter-rouge">secure port</code>.<br /></li>
+  <li>d. Should define the same port name between CA and TA, An example that we are using “com.android.trusty.fpctzapp”.<br /></li>
+  <li>e. Should use unique uuid to differentiate with other fingerprint vendor.<br /></li>
+  <li>f. About IPC: the Trusty APIs use <code class="language-plaintext highlighter-rouge">send_msg()</code>/<code class="language-plaintext highlighter-rouge">get_msg()</code>/<code class="language-plaintext highlighter-rouge">read_msg()</code>/<code class="language-plaintext highlighter-rouge">put_msg()</code> to send/retrieve message between CA and TA, the calling sequence should be correct. One lesson learn in my software bring up is that the communication was failed after executed one time successful communication. The communication was hang up after then and TA wasn’t able to get the message from CA. The failure was due to missing the <code class="language-plaintext highlighter-rouge">put_msg()</code> calling after executed <code class="language-plaintext highlighter-rouge">read_msg()</code>.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">static</span> <span class="kt">long</span> <span class="nf">handle_msg</span><span class="p">(</span><span class="n">tzapp_chan_ctx_t</span><span class="o">*</span> <span class="n">ctx</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="n">handle_t</span> <span class="n">chan</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">chan</span><span class="p">;</span>
+ 
+<span class="cm">/* get message info */</span>
+<span class="n">ipc_msg_info_t</span> <span class="n">msg_inf</span><span class="p">;</span>
+<span class="kt">uint8_t</span><span class="o">*</span> <span class="n">msg_buf</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="kt">long</span> <span class="n">rc</span> <span class="o">=</span> <span class="n">get_msg</span><span class="p">(</span><span class="n">chan</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">msg_inf</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">rc</span> <span class="o">==</span> <span class="n">ERR_NO_MSG</span><span class="p">)</span>
+<span class="k">return</span> <span class="n">NO_ERROR</span><span class="p">;</span> <span class="cm">/* no new messages */</span>
+ 
+<span class="c1">// fatal error</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">rc</span> <span class="o">!=</span> <span class="n">NO_ERROR</span><span class="p">)</span> <span class="p">{</span>
+<span class="n">LOGE</span><span class="p">(</span><span class="s">"Trusty: failed (%ld) to get_msg for chan (%d), closing connection"</span><span class="p">,</span> <span class="n">rc</span><span class="p">,</span> <span class="n">chan</span><span class="p">);</span>
+<span class="k">return</span> <span class="n">rc</span><span class="p">;</span>
+<span class="p">}</span>
+ 
+<span class="c1">//MessageDeleter md(chan, msg_inf.id);</span>
+ 
+<span class="c1">// allocate msg_buf, with one extra byte for null-terminator</span>
+<span class="n">msg_buf</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint8_t</span><span class="o">*</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="n">msg_inf</span><span class="p">.</span><span class="n">len</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+<span class="n">LOGD</span><span class="p">(</span><span class="s">"Trusty: handle_msg msg_inf.len = %d"</span><span class="p">,</span> <span class="n">msg_inf</span><span class="p">.</span><span class="n">len</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">msg_buf</span><span class="p">)</span> <span class="p">{</span>
+<span class="n">LOGE</span><span class="p">(</span><span class="s">"Trusty: msg_buf failed to malloc"</span><span class="p">);</span>
+<span class="k">return</span> <span class="n">ERR_NO_MEMORY</span><span class="p">;</span>
+<span class="p">}</span>
+ 
+<span class="cm">/* read msg content */</span>
+<span class="k">struct</span> <span class="n">iovec</span> <span class="n">iov</span> <span class="o">=</span> <span class="p">{</span><span class="n">msg_buf</span><span class="p">,</span> <span class="n">msg_inf</span><span class="p">.</span><span class="n">len</span><span class="p">};</span>
+<span class="n">ipc_msg_t</span> <span class="n">msg</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">iov</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">};</span>
+ 
+<span class="n">memset</span><span class="p">(</span><span class="n">msg_buf</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">msg_inf</span><span class="p">.</span><span class="n">len</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+<span class="n">rc</span> <span class="o">=</span> <span class="n">read_msg</span><span class="p">(</span><span class="n">chan</span><span class="p">,</span> <span class="n">msg_inf</span><span class="p">.</span><span class="n">id</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">msg</span><span class="p">);</span>
+ 
+<span class="kt">int</span> <span class="n">rc_</span> <span class="o">=</span> <span class="n">put_msg</span><span class="p">(</span><span class="n">chan</span><span class="p">,</span> <span class="n">msg_inf</span><span class="p">.</span><span class="n">id</span><span class="p">);</span> <span class="c1">// change to put_msg more early</span>
+ 
+<span class="c1">// fatal error</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">rc</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+<span class="n">LOGE</span><span class="p">(</span><span class="s">"Trusty: failed to read msg (%ld)"</span><span class="p">,</span> <span class="n">rc</span><span class="p">);</span>
+<span class="k">goto</span> <span class="n">out</span><span class="p">;</span>
+<span class="p">}</span>
+ 
+<span class="k">if</span> <span class="p">(((</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span><span class="n">rc</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">msg_inf</span><span class="p">.</span><span class="n">len</span><span class="p">)</span> <span class="p">{</span>
+<span class="n">LOGE</span><span class="p">(</span><span class="s">"Trusty: invalid message of size (%ld)"</span><span class="p">,</span> <span class="n">rc</span><span class="p">);</span>
+<span class="n">rc</span> <span class="o">=</span> <span class="n">ERR_NOT_VALID</span><span class="p">;</span>
+<span class="k">goto</span> <span class="n">out</span><span class="p">;</span>
+<span class="p">}</span>
+ 
+<span class="k">if</span> <span class="p">(</span><span class="n">rc_</span> <span class="o">!=</span> <span class="n">NO_ERROR</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="n">LOGE</span><span class="p">(</span><span class="s">"Trusty: failed (%d) to put_msg for chan (%d)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">rc</span><span class="p">,</span> <span class="n">chan</span><span class="p">);</span>
+<span class="k">return</span> <span class="n">rc_</span><span class="p">;</span>
+<span class="p">}</span>
+ 
+<span class="kt">int32_t</span> <span class="n">rsp</span><span class="p">;</span>
+<span class="kt">void</span><span class="o">*</span> <span class="n">addr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">msg_buf</span><span class="p">;</span>
+<span class="n">rsp</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">dispatch</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">addr</span><span class="p">,</span> <span class="n">msg_inf</span><span class="p">.</span><span class="n">len</span><span class="p">);</span>
+ 
+<span class="n">rc</span> <span class="o">=</span> <span class="n">send_response</span><span class="p">(</span><span class="n">chan</span><span class="p">,</span> <span class="n">addr</span><span class="p">,</span> <span class="n">msg_inf</span><span class="p">.</span><span class="n">len</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">rsp</span><span class="p">);</span>
+<span class="nl">out:</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">msg_buf</span><span class="p">)</span> <span class="p">{</span>
+<span class="n">free</span><span class="p">(</span><span class="n">msg_buf</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">return</span> <span class="n">rc</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<h2 id="4-about-spi-usage"><span id="4">4. About SPI usage</span></h2>
+<p>It is related to hardware platform, on Spreadtrum SC9863, it doesn’t need to configure SPI and will only use <code class="language-plaintext highlighter-rouge">ioctl()</code> for transmission.</p>
+
+<h2 id="5-others"><span id="5">5. Others</span></h2>
+
+<h3 id="51-how-to-build-trusty-tee-image"><span id="5.1">5.1 How to build Trusty TEE image</span></h3>
+<p><span id="5.1.1"><strong>5.1.1 Toolchain</strong></span> <br />
+It is recommended to use the arm-eabi-4.8 tool chain of Android code package:<br /></p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">export</span> <span class="n">PATH</span><span class="o">=</span><span class="err">$</span><span class="n">PATH</span><span class="o">:&lt;</span><span class="n">AOSP</span><span class="o">&gt;/</span><span class="n">prebuilts</span><span class="o">/</span><span class="n">gcc</span><span class="o">/</span><span class="n">linux</span><span class="o">-</span><span class="n">x86</span><span class="o">/</span><span class="n">arm</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">eabi</span><span class="o">-</span><span class="mi">4</span><span class="p">.</span><span class="mi">8</span><span class="o">/</span><span class="n">bin</span></code></pre></figure>
+
+<p><span id="5.1.2"><strong>5.1.2 Build</strong></span>  <br />
+put the TA code fpctzapp into SDK app/demo/ folder.<br />
+run command <br /></p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">make</span> <span class="n">M</span><span class="o">=</span><span class="s">"app/demo/fpctzapp:TA"</span></code></pre></figure>
+
+<p><span id="5.1.3"><strong>5.1.3 Output Image</strong></span><br />
+output two image files fpctzapp.elf and fpctzapp.syms.elf (which contains symbol table for debug purpose)</p>
+
+<h3 id="52-useful-tools"><span id="5.2">5.2 Useful Tools</span></h3>
+<p><span id="5.2.1"><strong>5.2.1 uuidgen</strong></span><br />
+Output two image files <code class="language-plaintext highlighter-rouge">fpctzapp.elf</code> and <code class="language-plaintext highlighter-rouge">fpctzapp.syms.elf</code> (which contains symbol table for debug purpose)<br />
+<span id="5.2.2"><strong>5.2.2 addr2line</strong></span> <br />
+To find the line number of error occurrence from symbol table. In the bsp/toolchain/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/bin/ folder<br />
+<span id="5.2.3"><strong>5.2.3 signta.py</strong></span><br />
+Signature tool for signing the TA image. In the “vendor/sprd/proprietories-source/packimage_scripts/signimage/dynamicTA/” direction.<br /></p>
+
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">python signta.py --uuid {UUID} --key “privatekey.pem” --in “TA image name without signed” --out “signed TA image name”.</span></code></pre></figure>
+
+<p>command for signature.</p>
+
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">python signta.py --uuid {UUID} --key “privatekey.pem” --in “TA image name without signed” --out “signed TA image name”</span></code></pre></figure>
+
+<h3 id="53-logs-indication"><span id="5.3">5.3 Logs Indication</span></h3>
+<p><span id="5.3.1"><strong>5.3.1 TA load successfully</strong></span></p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"> <span class="p">[</span> <span class="mi">68</span><span class="p">.</span><span class="mi">183207</span><span class="p">]</span> <span class="n">c4</span> <span class="mi">246</span> <span class="n">trusty</span><span class="o">:</span> <span class="n">ta_manager_wait_load</span><span class="o">:</span><span class="mi">382</span><span class="o">:</span> <span class="n">ta_manager_wait_load</span> <span class="n">com</span><span class="p">.</span><span class="n">android</span><span class="p">.</span><span class="n">trusty</span><span class="p">.</span><span class="n">fpctzapp</span> 
+ <span class="p">[</span> <span class="mi">68</span><span class="p">.</span><span class="mi">185949</span><span class="p">]</span> <span class="n">c4</span> <span class="mi">246</span> <span class="n">trusty</span><span class="o">:</span> <span class="n">ta_manager_write_ta</span><span class="o">:</span><span class="mi">485</span><span class="o">:</span> <span class="n">ta_manager_write_ta</span><span class="o">:</span> <span class="n">new</span> <span class="n">ta</span><span class="o">!</span> 
+ <span class="p">[</span> <span class="mi">68</span><span class="p">.</span><span class="mi">188528</span><span class="p">]</span> <span class="n">c0</span> <span class="mi">181</span> <span class="n">trusty</span><span class="o">:</span> <span class="n">ta_manager_write_ta</span><span class="o">:</span><span class="mi">573</span><span class="o">:</span> <span class="n">ta_manager_write_ta</span><span class="p">,</span> <span class="n">load</span> <span class="n">com</span><span class="p">.</span><span class="n">android</span><span class="p">.</span><span class="n">trusty</span><span class="p">.</span><span class="n">fpctzapp</span> <span class="n">accomplished</span><span class="o">!</span></code></pre></figure>
+
+<p><span id="5.3.2"><strong>5.3.2 Failure with TA wasn’t signed or signatue wasn’t match</strong></span></p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"> <span class="p">[</span> <span class="mi">30</span><span class="p">.</span><span class="mi">866766</span><span class="p">]</span> <span class="n">c1</span> <span class="n">trusty</span><span class="o">:</span> <span class="n">ta_manager_write_ta</span><span class="o">:</span><span class="mi">538</span><span class="o">:</span> <span class="n">ta_manager_write_ta</span><span class="o">:</span> <span class="n">new</span> <span class="n">ta</span><span class="o">!</span> 
+ <span class="p">[</span> <span class="mi">30</span><span class="p">.</span><span class="mi">999062</span><span class="p">]</span> <span class="n">c0</span> <span class="n">trusty</span><span class="o">:</span> <span class="n">ta_manager_handle_msg</span><span class="o">:</span><span class="mi">760</span><span class="o">:</span> <span class="n">ta_manager_handle_request</span> <span class="n">failed</span> <span class="o">-</span><span class="mi">17</span><span class="o">!</span></code></pre></figure>
+
+<p><span id="5.3.3"><strong>5.3.3 TA APP wasn’t running properly, CA lost communication</strong></span></p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"> <span class="nl">libtrusty:</span> <span class="nl">tipc_connect:</span> <span class="n">can</span><span class="err">'</span><span class="n">t</span> <span class="n">connect</span> <span class="n">to</span> <span class="n">tipc</span> <span class="n">service</span> <span class="s">"com.android.trusty.fpctzapp"</span> <span class="p">(</span><span class="n">err</span><span class="o">=</span><span class="mi">107</span><span class="p">)</span></code></pre></figure>
+
+
+	</div>
+	<!-- put sidebar! -->
+	<div class="post-index-container">
+		<li class = "post-index">On this page</li>
+		<li><ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#1-trusty-tee">1. Trusty TEE</a></li>
+<li class="toc-entry toc-h2"><a href="#2-memory-restriction-of-trusty-tee">2. Memory Restriction of Trusty TEE</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#21-max-available-memory">2.1 Max available memory</a></li>
+<li class="toc-entry toc-h3"><a href="#22-max-buffer-size-for-communication-between-ca-and-ta">2.2 Max buffer size for communication between CA and TA</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#3-tee-communication">3. TEE Communication</a></li>
+<li class="toc-entry toc-h2"><a href="#4-about-spi-usage">4. About SPI usage</a></li>
+<li class="toc-entry toc-h2"><a href="#5-others">5. Others</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#51-how-to-build-trusty-tee-image">5.1 How to build Trusty TEE image</a></li>
+<li class="toc-entry toc-h3"><a href="#52-useful-tools">5.2 Useful Tools</a></li>
+<li class="toc-entry toc-h3"><a href="#53-logs-indication">5.3 Logs Indication</a></li>
+</ul>
+</li>
+</ul></li>
+	</div>
+  </div>
+  <!-- no sidebar, use flex width box! -->
+  
+
+  <br><br><br>
+  <!-- Page navigation start here! --><li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">further reading</h1>
+  </li> 
+  <div class="navigation-meta" style = "margin-bottom:40px"><ul class="navigation-bar" style = "margin-top:40px; min-width:40%">   
+	 <a href="/daviddong.github.io/security/windows/2020/07/23/Security-signature-02.html"; style="width:100%"><font size="1px" color="#777">Previous Post</font><br>利用Microsoft WDK工具生成数字签名</a>
+    </ul><ul class="navigation-bar" style = "margin-top:40px; min-width:40%">   
+     <a href="/daviddong.github.io/android/fingerprint/2021/02/04/Fingerprint-build-ta.html"; style="width:100%"><font size="1px" color="#777">Next Post</font><br>Build TA images on different TrustZone</a>
+    </ul></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/daviddong.github.io/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'daviddong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+      </section>
+    </main>
+<script src="/daviddong.github.io/assets/js/simple-jekyll-search.min.js"></script>
+<script src="/daviddong.github.io/assets/js/search.js"></script>
+<link href="/daviddong.github.io/assets/css/vim.css" rel="stylesheet"/>
+
+  </body>
+</html>

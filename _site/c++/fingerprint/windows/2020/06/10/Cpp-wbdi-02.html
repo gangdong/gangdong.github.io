@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/daviddong.github.io/assets/css/style.css">
+<link rel="icon" href="/daviddong.github.io/assets/favicon.ico">
+<title>Fingerprint driver development in Windows(2) | David Dong's Blog</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Fingerprint driver development in Windows(2) | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Fingerprint driver development in Windows(2)" />
+<meta name="author" content="David Dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Continue…" />
+<meta property="og:description" content="Continue…" />
+<link rel="canonical" href="http://localhost:4000/daviddong.github.io/c++/fingerprint/windows/2020/06/10/Cpp-wbdi-02.html" />
+<meta property="og:url" content="http://localhost:4000/daviddong.github.io/c++/fingerprint/windows/2020/06/10/Cpp-wbdi-02.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-06-10T20:57:55+08:00" />
+<script type="application/ld+json">
+{"headline":"Fingerprint driver development in Windows(2)","dateModified":"2020-06-10T20:57:55+08:00","datePublished":"2020-06-10T20:57:55+08:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/daviddong.github.io/c++/fingerprint/windows/2020/06/10/Cpp-wbdi-02.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/daviddong.github.io/BLOG"},"name":"David Dong"},"author":{"@type":"Person","name":"David Dong"},"url":"http://localhost:4000/daviddong.github.io/c++/fingerprint/windows/2020/06/10/Cpp-wbdi-02.html","description":"Continue…","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+
+</head>
+  <body><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><main class="container">
+      <section class="about">
+        <a href="/daviddong.github.io/blog/index.html"><img src="/daviddong.github.io/assets/avatar.png" alt="David Dong"></a>
+        <h2 id="title">
+          <a href="/daviddong.github.io/blog/index.html">David Dong</a>
+        </h2>
+        <p class="tagline">Java/C/C#/Python</p>
+        <ul class="social">
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture-3"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled-1"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a></ul><nav class="navigation">
+            <ul>
+              
+            </ul>
+          </nav><p>&copy;
+          2021</p><div>
+        <p style = "font-family: Raleway, sans-serif;font-size: 100%">Dark Theme
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" id="dark-mode-toggle" onclick="toggleDarkMode()">
+            <span class="slider round"></span>
+          </label>
+        </p>
+      </div>
+      <script type="text/javascript" src="/daviddong.github.io/assets/js/darkmode.js"></script><div>
+        <ul class="social" style="padding-top: 3vh"><a style ="margin-right:10px;text-decoration: none;font-family: Raleway, sans-serif;" href="/daviddong.github.io/rss.xml">
+              <span class="icon-rss-1">rss</span>
+           </a><a style="text-decoration: none;font-family: Raleway, sans-serif;" href="https://github.com/gangdong/daviddong.github.io">
+              <span class="icon-file-code">code</span>
+            </a></ul>
+      </div>
+      </section>
+      <section class="content">
+        <!-- add menu bar here! -->
+
+
+<div class="post-container">
+<div  class = "menu">
+<div  style="font-size:180%;font-weight:800; margin-top: 20px">BLOG</div>
+<div  style = "margin-top: 20px">
+<a class = "menu_tag_a" href="/daviddong.github.io/blog/index.html">
+    <span class="icon-doc-text icon_font">Posts</span>
+</a><a  class = "menu_tag_a" href="/daviddong.github.io/archive">
+    <span class="icon-archive-1 icon_font">Archives</span>
+</a><a  class = "menu_tag_a" href="/daviddong.github.io/category">
+    <span class="icon-tags-1 icon_font">Categories</span>
+</a><a  class = "menu_tag_b" href="/daviddong.github.io/about">
+    <span class="icon-help-circled-3 icon_font">About</span>
+</a>
+</div>
+</div>
+</div><div class="post-container">
+  <li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">POST</h1>
+  </li>  
+  <a class="post-link" href="/daviddong.github.io/c++/fingerprint/windows/2020/06/10/Cpp-wbdi-02.html">
+    <h2 class="post-title">Fingerprint driver development in Windows(2)</h2>
+  </a>
+  <div class="post-meta">
+    <ul class="post-categories"><li>C++</li><li>Fingerprint</li><li>Windows</li></ul>
+    <div class="post-date"><i class="icon-calendar"></i>Jun 10, 2020</div>
+  </div>
+  <!-- post content here! -->
+  <!-- if sidebar! -->
+  
+  <div class="post">
+    <p>Continue…</p>
+
+<h2 id="3-biometric-unit"><span id="3">3. Biometric Unit</span></h2>
+<p>Biometric devices are manufactured in a wide variety of types and configurations. The Windows Biometric Framework (WBF) addresses this variety by providing an extensible architecture that enables third party developers to create custom plug-in components. The primary component is a software object called a <strong>biometric unit</strong>. Biometric units expose the capabilities of a device to the framework through a standard interface that consists of <strong>sensor</strong>, <strong>engine</strong>, and <strong>storage</strong> adapters</p>
+
+<p>A single physical sensor is associated with each biometric unit. The sensor captures biometric data and may also, depending on its hardware capabilities, perform other biometric operations such as template matching and storage. Sensors that do not support onboard matching or storage require additional software modules to perform these functions. 
+<img src="/daviddong.github.io/assets/image/others-wbdi2-01.PNG" alt="framework" class="center_image" /><br />
+Above diagram shows how data flows through a biometric unit. Essentially, the data flow forms a type of pipeline. The initial input to the pipeline is a biometric sample captured by a physical sensor. The engine attempts to match the sample to templates that already exist in the template store or, if no match is found, builds a new template from repeated physical samples and saves the template in the store.</p>
+
+<h2 id="4-biometric-unit-life-cycle"><span id="4">4. Biometric Unit Life Cycle</span></h2>
+<h3 id="41-creation"><span id="4.1">4.1 Creation</span></h3>
+<p>When the Windows Biometric Service starts or when it receives a hardware notification from the Plug and Play manager, it scans for any hardware that supports the well-known interface <code class="language-plaintext highlighter-rouge">GUID_DEVINTERFACE_BIOMETRIC_READER (E2B5183A-99EA-4cc3-AD6B-80CA8D715B80)</code>. For each biometric device discovered it then:</p>
+
+<ul>
+  <li>Opens a handle to the device.</li>
+  <li>Queries the device capabilities by using a Windows Biometric Driver control interface.</li>
+  <li>Opens the device registry key and attempts to locate information about any associated adapter plug-ins.</li>
+  <li>Opens the Windows Biometric Service registry key and searches for information about any global plug-ins that should override the device specific values found in the preceding step.</li>
+  <li>Builds a biometric unit to represent the device and passes the unit to a biometric service provider.</li>
+</ul>
+
+<h3 id="42-configuration"><span id="4.2">4.2 Configuration</span></h3>
+<p>After a biometric service provider (BSP) accepts a biometric unit, it configures the unit and assigns it to a sensor pool. The unit is configured by loading the appropriate adapters, connecting to a template store, and possibly changing the operating mode. A biometric unit can be configured to operate in one of two modes:</p>
+
+<ul>
+  <li>In the basic mode, the unit acts as a simple capture device. It does not use onboard processing or storage but relies entirely on software adapters for additional support. It should be able to generate samples in a standard format. For example, fingerprint readers should generate samples that comply with <code class="language-plaintext highlighter-rouge">ANSI INCITS 381-2004</code>. The purpose of the basic mode is to support interoperability among components from different vendors.</li>
+  <li>In the advanced mode, the biometric unit uses onboard processing and storage functions. It must expose the standard interfaces but can generate and process samples in any format desired.</li>
+</ul>
+
+<h3 id="43-shut-down"><span id="4.3">4.3 Shut Down</span></h3>
+<p>When the Windows Biometric Service shuts down or when the Plug and Play manager notifies it that a unit has been removed, the service deletes all biometric units.</p>
+
+<h2 id="5-adapters"><span id="5">5. Adapters</span></h2>
+<p>Plug-in software components called adapters connect a biometric unit to its underlying hardware and supply any functionality that may be missing from the sensor hardware. There are three types of adapters that you can create:</p>
+
+<ul>
+  <li>A sensor adapter wraps a biometric device and provides a standard interface for configuring the sensor, capturing samples, and controlling the flow of biometric data to the processing engine.</li>
+  <li>An engine adapter generates biometric templates from captured samples, matches samples to existing templates, and indexes templates.</li>
+  <li>A storage adapter manages template databases.
+Adapters can be loaded and unloaded at runtime. This enables the Windows Biometric Service to dynamically reconfigure a biometric unit by connecting it to a different set of adapters.</li>
+</ul>
+
+<p>Finally, each of the sensor, engine, and storage adapter interfaces expose two methods, <code class="language-plaintext highlighter-rouge">ControlUnit</code> and <code class="language-plaintext highlighter-rouge">ControlUnitPrivileged</code>, that enable client applications to access custom adapter capabilities defined by the vendor. This allows the vendor to define an almost unlimited set of control operations for a device. Further, by choosing which function to implement, a vendor can choose to make some control operations available to non-privileged users while restricting other operations to privileged users.</p>
+
+<h3 id="51-sensor-adapter-function"><span id="5.1">5.1 Sensor Adapter Function</span></h3>
+<p>A sensor adapter wraps a biometric device and provides a standard interface that enables the Windows Biometric service to <strong>configure the sensor, capture samples, and control the flow of biometric data to the processing engine.</strong> The following functions must be implemented by the developer of the adapter. They are called by the Windows Biometric service.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Interface</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_accept_calibration_data_fn">SensorAdapterAcceptCalibrationData</a></td>
+      <td>Passes calibration data from the engine adapter to the sensor adapter.</td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_activate_fn">SensorAdapterActivate</a></td>
+      <td>Gives the Sensor Adapter the chance to perform any work needed to bring the sensor component out of an idle state.</td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_attach_fn">SensorAdapterAttach</a></td>
+      <td>Adds a sensor adapter to the processing pipeline of the biometric unit.</td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_cancel_fn">SensorAdapterCancel</a></td>
+      <td>Cancels all pending sensor operations.</td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_clear_context_fn">SensorAdapterClearContext</a></td>
+      <td>Prepares the processing pipeline of the biometric unit for a new operation.</td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_control_unit_fn">SensorAdapterControlUnit</a></td>
+      <td>Performs a vendor-defined control operation that does not require elevated privilege.</td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_control_unit_privileged_fn">SensorAdapterControlUnitPrivileged</a></td>
+      <td>Performs a vendor-defined control operation that requires elevated privilege.</td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_deactivate_fn">SensorAdapterDeactivate</a></td>
+      <td>Gives the Sensor Adapter the chance to perform any work needed to put the sensor component into an idle state.</td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_detach_fn">SensorAdapterDetach</a></td>
+      <td>Releases adapter specific resources attached to the pipeline.</td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_export_sensor_data_fn">SensorAdapterExportSensorData</a></td>
+      <td>Retrieves the most recently captured biometric sample formatted as a standard <a href="https://docs.microsoft.com/zh-cn/windows/win32/secbiomet/winbio-bir">WINBIO_BIR</a> structure.</td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_finish_capture_fn">SensorAdapterFinishCapture</a></td>
+      <td>Called by the Windows Biometric Framework to wait for the completion of a capture operation initiated by the SensorAdapterStartCapture function.</td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_sensor_get_indicator_status_fn">SensorAdapterGetIndicatorStatus</a><br /></td>
+      <td>Retrieves a value that indicates whether the sensor indicator is on or off.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_sensor_notify_power_change_fn">SensorAdapterNotifyPowerChange</a><br /></td>
+      <td>Receives notification about a change in the computer power state and prepares the sensor adapter accordingly.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_sensor_pipeline_cleanup_fn">SensorAdapterPipelineCleanup</a><br /></td>
+      <td>Gives the Sensor Adapter the chance to perform any cleanup in that requires help from the Engine or Storage adapter components.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_sensor_pipeline_init_fn">SensorAdapterPipelineInit</a><br /></td>
+      <td>Gives the Sensor Adapter the chance to perform any initialization that remains incomplete, and which requires help from the Engine or Storage adapter components.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_sensor_push_data_to_engine_fn">SensorAdapterPushDataToEngine</a><br /></td>
+      <td>Makes the current contents of the sample buffer available to the engine adapter.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_sensor_query_calibration_formats_fn">SensorAdapterQueryCalibrationFormats</a><br /></td>
+      <td>Determines the set of calibration formats supported by the Sensor Adapter.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_sensor_query_extended_info_fn">SensorAdapterQueryExtendedInfo</a><br /></td>
+      <td>Determines the capabilities and limitations of the biometric sensor component.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_sensor_query_status_fn">SensorAdapterQueryStatus</a><br /></td>
+      <td>Retrieves information about the current status of the sensor device.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_sensor_reset_fn">SensorAdapterReset</a><br /></td>
+      <td>Reinitializes the sensor.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_sensor_set_calibration_format_fn">SensorAdapterSetCalibrationFormat</a><br /></td>
+      <td>Notifies the sensor adapter that a particular calibration data format has been selected by the engine adapter.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_sensor_set_indicator_status_fn">SensorAdapterSetIndicatorStatus</a><br /></td>
+      <td>Toggles the sensor indicator on or off.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_sensor_set_mode_fn">SensorAdapterSetMode</a><br /></td>
+      <td>Sets the sensor adapter mode.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_sensor_start_capture_fn">SensorAdapterStartCapture</a><br /></td>
+      <td>Begins an asynchronous biometric capture.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nf-winbio_adapter-wbioquerysensorinterface">WbioQuerySensorInterface</a><br /></td>
+      <td>Retrieves a pointer to the <a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/ns-winbio_adapter-winbio_sensor_interface">WINBIO_SENSOR_INTERFACE</a> structure for the sensor adapter.<br /></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="52-engine-adapter-function"><span id="5.2">5.2 Engine Adapter Function</span></h3>
+<p>An engine adapter generates biometric templates from captured samples, matches samples to existing templates, and indexes templates. The following functions must be implemented by the adapter developer. They are called by the Windows Biometric service.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Interface</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_create_key_fn">EngineAdapterCreateKey</a><br /></td>
+      <td>Called by the Windows Biometric Framework to push an HMAC key to the sensor. The returned key identifier will be passed back to the biometric unit when the framework calls <a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_identify_feature_set_secure_fn">EngineAdapterIdentifyFeatureSetSecure</a>. <br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_accept_sample_data_fn">EngineAdapterAcceptSampleData</a><br /></td>
+      <td>Accepts a raw biometric sample and extracts a feature set.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_activate_fn">EngineAdapterActivate</a><br /></td>
+      <td>Gives the Engine Adapter the chance to perform any work needed to bring the sensor component out of an idle state.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_attach_fn">EngineAdapterAttach</a><br /></td>
+      <td>Adds an engine adapter to the processing pipeline of the biometric unit.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_check_for_duplicate_fn">EngineAdapterCheckForDuplicate</a><br /></td>
+      <td>Determines whether a new template in the pipeline duplicates any template already saved in the database regardless of the identity associated with the templates.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_clear_context_fn">EngineAdapterClearContext</a><br /></td>
+      <td>Prepares the processing pipeline of the biometric unit for a new operation.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_commit_enrollment_fn">EngineAdapterCommitEnrollment</a><br /></td>
+      <td>Finalizes the enrollment object, converts it to a template, and saves the template in the database.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_control_unit_fn">EngineAdapterControlUnit</a><br /></td>
+      <td>Performs a vendor-defined control operation that does not require elevated privilege.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_control_unit_privileged_fn">EngineAdapterControlUnitPrivileged</a><br /></td>
+      <td>Performs a vendor-defined control operation that requires elevated privilege.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_create_enrollment_fn">EngineAdapterCreateEnrollment</a><br /></td>
+      <td>Initializes the enrollment object in the biometric unit pipeline.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_deactivate_fn">EngineAdapterDeactivate</a><br /></td>
+      <td>Gives the Engine Adapter the chance to perform any work needed to put the sensor component into an idle state.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_detach_fn">EngineAdapterDetach</a><br /></td>
+      <td>Releases adapter-specific resources attached to the pipeline.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_discard_enrollment_fn">EngineAdapterDiscardEnrollment</a><br /></td>
+      <td>Deletes intermediate enrollment state information from the pipeline.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_export_engine_data_fn">EngineAdapterExportEngineData</a><br /></td>
+      <td>Retrieves a copy of the most recently processed feature set or template from the engine in a standard biometric information record.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_get_enrollment_hash_fn">EngineAdapterGetEnrollmentHash</a><br /></td>
+      <td>Retrieves the hash of the completed enrollment template in the pipeline.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_get_enrollment_status_fn">EngineAdapterGetEnrollmentStatus</a><br /></td>
+      <td>Determines whether the enrollment object is ready to be committed to the pipeline.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_identify_all_fn">EngineAdapterIdentifyAll</a><br /></td>
+      <td>Determines the identities of any people who are currently in camera frame.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_identify_feature_set_fn">EngineAdapterIdentifyFeatureSet</a><br /></td>
+      <td>Builds a template from the current feature set and locates a matching template in the database.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_identify_feature_set_secure_fn">EngineAdapterIdentifyFeatureSetSecure</a><br /></td>
+      <td>Called by the Windows Biometric Framework to build a template from the current feature set and locate a matching template in the database. If a match can be found, the engine adapter must fill the <em>Identity</em>, <em>SubFactor</em>, <em>Authorization</em>, and <em>AuthorizationSize</em> fields.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_notify_power_change_fn">EngineAdapterNotifyPowerChange</a><br /></td>
+      <td>Receives notification about a change in the computer power state and prepares the engine adapter accordingly.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_pipeline_cleanup_fn">EngineAdapterPipelineCleanup</a><br /></td>
+      <td>Gives the Engine Adapter the chance to perform any cleanup that requires help from the Storage Adapter.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_pipeline_init_fn">EngineAdapterPipelineInit</a><br /></td>
+      <td>Gives the Engine Adapter the chance to perform any initialization that remains incomplete.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_query_calibration_data_fn">EngineAdapterQueryCalibrationData</a><br /></td>
+      <td>Gets a set of post-capture calibration data from the engine adapter.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_query_extended_info_fn">EngineAdapterQueryExtendedInfo</a><br /></td>
+      <td>Determines the capabilities and limitations of the biometric engine component.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_query_hash_algorithms_fn">EngineAdapterQueryHashAlgorithms</a><br /></td>
+      <td>Retrieves an array of object identifiers that represent the hash algorithms supported by the engine adapter.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_query_index_vector_size_fn">EngineAdapterQueryIndexVectorSize</a><br /></td>
+      <td>Retrieves the size of the index vector used by the engine adapter.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_query_preferred_format_fn">EngineAdapterQueryPreferredFormat</a><br /></td>
+      <td>Determines the input data format preferred by the engine adapter.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_query_sample_hint_fn">EngineAdapterQuerySampleHint</a><br /></td>
+      <td>Retrieves the number of correct samples required by the engine adapter to construct an enrollment template. <br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_refresh_cache_fn">EngineAdapterRefreshCache</a><br /></td>
+      <td>Notifies the Engine Adapter that it should discard any cached templates that it may be keeping in memory.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_select_calibration_format_fn">EngineAdapterSelectCalibrationFormat</a><br /></td>
+      <td>Called by the Windows Biometric Framework to determine which of the Sensor Adapter s calibration formats the Engine Adapter wants to use.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_set_account_policy_fn">EngineAdapterSetAccountPolicy</a><br /></td>
+      <td>Sets the extended default and per-user antispoofing policies used by the engine adapter.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_set_enrollment_parameters_fn">EngineAdapterSetEnrollmentParameters</a><br /></td>
+      <td>Gives the engine adapter additional information about an enrollment operation.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_set_enrollment_selector_fn">EngineAdapterSetEnrollmentSelector</a><br /></td>
+      <td>Tells the Engine Adapter which person to track for the current enrollment operation.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_set_hash_algorithm_fn">EngineAdapterSetHashAlgorithm</a><br /></td>
+      <td>Selects a hash algorithm for use in subsequent operations.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_update_enrollment_fn">EngineAdapterUpdateEnrollment</a><br /></td>
+      <td>Adds the current feature set to the enrollment object.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_verify_feature_set_fn">EngineAdapterVerifyFeatureSet</a><br /></td>
+      <td>Compares the template in the current feature set with a specific template in the database.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nf-winbio_adapter-wbioqueryengineinterface">WbioQueryEngineInterface</a><br /></td>
+      <td>Retrieves a pointer to the <a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/ns-winbio_adapter-winbio_engine_interface">WINBIO_ENGINE_INTERFACE</a> structure for the engine adapter.<br /></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="53-storage-adapter-functions"><span id="5.3">5.3 Storage Adapter Functions</span></h3>
+<p>A storage adapter manages template databases. The following functions must be implemented by the adapter developer. They are called by the Windows Biometric service.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Interface</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_storage_activate_fn">StorageAdapterActivate</a><br /></td>
+      <td>Gives the Storage Adapter the chance to perform any work needed to bring the storage component out of an idle state.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_storage_add_record_fn">StorageAdapterAddRecord</a><br /></td>
+      <td>Adds a template to the database.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_storage_attach_fn">StorageAdapterAttach</a><br /></td>
+      <td>Adds a storage adapter to the processing pipeline of the biometric unit.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_storage_clear_context_fn">StorageAdapterClearContext</a><br /></td>
+      <td>Prepares the processing pipeline of the biometric unit for a new operation.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_storage_close_database_fn">StorageAdapterCloseDatabase</a><br /></td>
+      <td>Closes the database associated with the pipeline and frees all related resources.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_storage_control_unit_fn">StorageAdapterControlUnit</a><br /></td>
+      <td>Performs a vendor-defined control operation that does not require elevated privilege.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_storage_control_unit_privileged_fn">StorageAdapterControlUnitPrivileged</a><br /></td>
+      <td>Performs a vendor-defined control operation that requires elevated privilege.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_storage_create_database_fn">StorageAdapterCreateDatabase</a><br /></td>
+      <td>Creates and configures a new database.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_storage_deactivate_fn">StorageAdapterDeactivate</a><br /></td>
+      <td>Gives the Storage Adapter the chance to perform any work needed to put the storage component into an idle state.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_storage_delete_record_fn">StorageAdapterDeleteRecord</a><br /></td>
+      <td>Deletes one or more templates from the database.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_storage_detach_fn">StorageAdapterDetach</a><br /></td>
+      <td>Releases adapter-specific resources attached to the pipeline.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_storage_erase_database_fn">StorageAdapterEraseDatabase</a><br /></td>
+      <td>Erases the database and marks it for deletion.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_storage_first_record_fn">StorageAdapterFirstRecord</a><br /></td>
+      <td>Positions the result set cursor on the first record in the set.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_storage_get_current_record_fn">StorageAdapterGetCurrentRecord</a><br /></td>
+      <td>Retrieves the contents of the current record in the pipeline result set.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_storage_get_database_size_fn">StorageAdapterGetDatabaseSize</a><br /></td>
+      <td>Retrieves the database size and available space.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_storage_get_data_format_fn">StorageAdapterGetDataFormat</a><br /></td>
+      <td>Retrieves format and version information used by the current database associated with the pipeline.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_storage_get_record_count_fn">StorageAdapterGetRecordCount</a><br /></td>
+      <td>Retrieves the number of template records in the pipeline result set.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_storage_next_record_fn">StorageAdapterNextRecord</a><br /></td>
+      <td>Advances the result set cursor by one record.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_storage_notify_power_change_fn">StorageAdapterNotifyPowerChange</a><br /></td>
+      <td>Receives notification about a change in the computer power state and prepares the storage adapter accordingly.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_storage_open_database_fn">StorageAdapterOpenDatabase</a><br /></td>
+      <td>Opens a database for use by the storage adapter.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_storage_pipeline_cleanup_fn">StorageAdapterPipelineCleanup</a><br /></td>
+      <td>Gives the Storage Adapter the chance to perform any cleanup in preparation for closing the template database.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_storage_pipeline_init_fn">StorageAdapterPipelineInit</a><br /></td>
+      <td>Gives the Storage Adapter the chance to perform any initialization that remains incomplete.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_storage_query_by_content_fn">StorageAdapterQueryByContent</a><br /></td>
+      <td>Queries the database that is currently open for templates associated with a specified index vector.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_storage_query_by_subject_fn">StorageAdapterQueryBySubject</a><br /></td>
+      <td>Queries the database that is currently open for templates associated with a specified identity and sub-factor.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nc-winbio_adapter-pibio_storage_query_extended_info_fn">StorageAdapterQueryExtendedInfo</a><br /></td>
+      <td>Determines the capabilities and limitations of the biometric storage component.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/nf-winbio_adapter-wbioquerystorageinterface">WbioQueryStorageInterface</a><br /></td>
+      <td>Retrieves a pointer to the <a href="https://docs.microsoft.com/en-us/windows/win32/api/Winbio_adapter/ns-winbio_adapter-winbio_storage_interface">WINBIO_STORAGE_INTERFACE</a> structure for the storage adapter.<br /></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="6-ioctls-interface-of-biometric"><span id="6">6. IOCTLs Interface of Biometric</span></h2>
+<p>WBDI is a Windows standard IOCTL-based interface. When you write a WBDI driver, you must support a set of mandatory IOCTLs. You may additionally choose to support optional IOCTLs.</p>
+<ul>
+  <li>Biometric <a href="">winbio_ioctl.h</a> contains the following programming IOCTLs interfaces:</li>
+</ul>
+
+<h3 id="61-ioctls"><span id="6.1">6.1 IOCTLs</span></h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Interface</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/winbio_ioctl/ni-winbio_ioctl-ioctl_biometric_calibrate">IOCTL_BIOMETRIC_CALIBRATE</a><br /></td>
+      <td>The IOCTL_BIOMETRIC_CALIBRATE IOCTL directs the driver to perform any necessary steps to calibrate the device for use.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/winbio_ioctl/ni-winbio_ioctl-ioctl_biometric_capture_data">IOCTL_BIOMETRIC_CAPTURE_DATA</a><br /></td>
+      <td>The IOCTL_BIOMETRIC_CAPTURE_DATA IOCTL directs the driver to retrieve the next scan of biometric data. This call should put the device into capture mode.Vendor-supplied WBDI drivers must support IOCTL_BIOMETRIC_CAPTURE_DATA.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/winbio_ioctl/ni-winbio_ioctl-ioctl_biometric_get_attributes">IOCTL_BIOMETRIC_GET_ATTRIBUTES</a><br /></td>
+      <td>The IOCTL_BIOMETRIC_GET_ATTRIBUTES IOCTL returns a structure that contains a set of attributes for the sensor. Vendor-supplied WBDI drivers must support this IOCTL.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/winbio_ioctl/ni-winbio_ioctl-ioctl_biometric_get_indicator">IOCTL_BIOMETRIC_GET_INDICATOR</a><br /></td>
+      <td>The IOCTL_BIOMETRIC_GET_INDICATOR IOCTL directs the driver to retrieve the status of the indicator light. This IOCTL is optional.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/winbio_ioctl/ni-winbio_ioctl-ioctl_biometric_get_sensor_status">IOCTL_BIOMETRIC_GET_SENSOR_STATUS</a><br /></td>
+      <td>The IOCTL_BIOMETRIC_GET_SENSOR_STATUS IOCTL tells the driver to perform any necessary steps to collect the current operating status of the device. Vendor-supplied WBDI drivers must support this IOCTL.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/winbio_ioctl/ni-winbio_ioctl-ioctl_biometric_reset">IOCTL_BIOMETRIC_RESET</a><br /></td>
+      <td>The IOCTL_BIOMETRIC_RESET IOCTL resets the device to a known or idle state, according to the current power state. Vendor-supplied WBDI drivers must support this IOCTL.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/winbio_ioctl/ni-winbio_ioctl-ioctl_biometric_set_indicator">IOCTL_BIOMETRIC_SET_INDICATOR</a><br /></td>
+      <td>The IOCTL_BIOMETRIC_SET_INDICATOR IOCTL directs the driver to update the status of the indicator light.<br /></td>
+    </tr>
+    <tr>
+      <td><a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/winbio_ioctl/ni-winbio_ioctl-ioctl_biometric_update_firmware">IOCTL_BIOMETRIC_UPDATE_FIRMWARE</a><br /></td>
+      <td>The IOCTL_BIOMETRIC_UPDATE_FIRMWARE IOCTL tells the driver to update the firmware for the device with the given firmware image. This IOCTL is optional.<br /></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="62-biometric-ioctls-calling-sequence"><span id="6.2">6.2 Biometric IOCTLs Calling Sequence</span></h3>
+<p>A vendor-supplied WBDI driver should be prepared to receive IOCTL requests in the following order from the Windows Biometric Service (WBS). You can review examples of handlers for these IOCTLs in Device.cpp in <a href="https://github.com/Microsoft/Windows-driver-samples/tree/master/biometrics/driver">WudfBioUsbSample</a>.</p>
+
+<ol>
+  <li>
+    <p>The Windows Biometric Service or the sensor adapter initializes the biometric device and verifies that it is ready for use. The service or adapter sends an <a href="https://docs.microsoft.com/zh-cn/windows-hardware/drivers/ddi/winbio_ioctl/ni-winbio_ioctl-ioctl_biometric_get_attributes">IOCTL_BIOMETRIC_GET_ATTRIBUTES</a> request.<br />
+The driver receives a pointer to a <a href="https://docs.microsoft.com/zh-cn/windows-hardware/drivers/ddi/winbio_ioctl/ns-winbio_ioctl-_winbio_sensor_attributes">WINBIO_SENSOR_ATTRIBUTES</a> structure. In the handler for this IOCTL, the driver should fill in the relevant members of this structure and complete the request by calling <a href="https://docs.microsoft.com/zh-cn/windows-hardware/drivers/ddi/wudfddi/nf-wudfddi-iwdfiorequest-complete">IWDFIoRequest::Complete</a>.</p>
+  </li>
+  <li>
+    <p>Next, the driver receives <a href="https://docs.microsoft.com/zh-cn/windows-hardware/drivers/ddi/winbio_ioctl/ni-winbio_ioctl-ioctl_biometric_get_sensor_status">IOCTL_BIOMETRIC_GET_SENSOR_STATUS</a>. The driver should fill in the relevant members of the <a href="https://docs.microsoft.com/zh-cn/windows-hardware/drivers/ddi/winbio_ioctl/ns-winbio_ioctl-_winbio_diagnostics">WINBIO_DIAGNOSTICS</a> structure and complete the request.</p>
+  </li>
+  <li>
+    <p>If the driver indicates that calibration is necessary in the SensorStatus member of the <a href="https://docs.microsoft.com/zh-cn/windows-hardware/drivers/ddi/winbio_ioctl/ns-winbio_ioctl-_winbio_diagnostics">WINBIO_DIAGNOSTICS</a> structure that was returned from the <a href="https://docs.microsoft.com/zh-cn/windows-hardware/drivers/ddi/winbio_ioctl/ni-winbio_ioctl-ioctl_biometric_get_sensor_status">IOCTL_BIOMETRIC_GET_SENSOR_STATUS</a> request, the driver next receives an <a href="https://docs.microsoft.com/zh-cn/windows-hardware/drivers/ddi/winbio_ioctl/ni-winbio_ioctl-ioctl_biometric_calibrate">IOCTL_BIOMETRIC_CALIBRATE</a> request. The driver must provide a handler for this IOCTL. After calibrating the device, the callback should return a <a href="https://docs.microsoft.com/zh-cn/windows-hardware/drivers/ddi/winbio_ioctl/ns-winbio_ioctl-_winbio_calibration_info">WINBIO_CALIBRATION_INFO</a> structure.</p>
+  </li>
+  <li>
+    <p>The driver can now expect to receive <a href="https://docs.microsoft.com/zh-cn/windows-hardware/drivers/ddi/winbio_ioctl/ni-winbio_ioctl-ioctl_biometric_capture_data">IOCTL_BIOMETRIC_CAPTURE_DATA</a> requests. Because only one capture can be pending at any time, the handler for this request should first confirm that no request is pending. If a request is pending, complete the request with WINBIO_E_DATA_COLLECTION_IN_PROGRESS.<br /> 
+The WinBio service or an application can request cancellation of an outstanding capture request at any time by calling Win32 cancellation routines such as <a href="https://docs.microsoft.com/zh-cn/windows/win32/fileio/cancelio">CancelIo</a>, <a href="https://docs.microsoft.com/zh-cn/windows/win32/fileio/cancelioex-func">CancelIoEx</a>, or <a href="https://docs.microsoft.com/zh-cn/windows/win32/fileio/cancelsynchronousio-func">CancelSynchronousIo</a>. As such, WBDI drivers must also support cancellation.<br /> 
+The driver handles cancellation by calling <a href="https://docs.microsoft.com/zh-cn/windows-hardware/drivers/ddi/wudfddi/nf-wudfddi-iwdfiorequest-markcancelable">IWDFIoRequest::MarkCancelable</a> to register an <a href="https://docs.microsoft.com/zh-cn/windows-hardware/drivers/ddi/wudfddi/nn-wudfddi-irequestcallbackcancel">IRequestCallbackCancel</a> interface.<br /> 
+The handler then programs the device for capture mode and returns from the callback. The request should remain pending until canceled or the driver detects that capture is complete. After this I/O request is completed, the device can return to an idle state. A client may make an initial call to IOCTL_BIOMETRIC_CAPTURE_DATA to determine the correct buffer size for an actual capture.<br /></p>
+  </li>
+  <li>
+    <p>The handler for <a href="https://docs.microsoft.com/zh-cn/windows-hardware/drivers/ddi/winbio_ioctl/ni-winbio_ioctl-ioctl_biometric_reset">IOCTL_BIOMETRIC_RESET</a> should physically reset the device to a known or idle state. The handler for this request must also cancel any pending data collection I/O and fill out the <a href="https://docs.microsoft.com/zh-cn/windows-hardware/drivers/ddi/winbio_ioctl/ns-winbio_ioctl-_winbio_blank_payload">WINBIO_BLANK_PAYLOAD</a> structure. The handler then completes the request. Clients do not need to call reset between calls to IOCTL_BIOMETRIC_CAPTURE_DATA.</p>
+  </li>
+</ol>
+
+  </div>
+  
+
+  <br><br><br>
+  <!-- Page navigation start here! --><li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">further reading</h1>
+  </li> 
+  <div class="navigation-meta" style = "margin-bottom:40px"><ul class="navigation-bar" style = "margin-top:40px; min-width:40%">   
+	 <a href="/daviddong.github.io/c++/fingerprint/windows/2020/06/07/Cpp-wbdi.html"; style="width:100%"><font size="1px" color="#777">Previous Post</font><br>Fingerprint driver development in Windows(1)</a>
+    </ul><ul class="navigation-bar" style = "margin-top:40px; min-width:40%">   
+     <a href="/daviddong.github.io/c++/fingerprint/windows/2020/06/13/Cpp-wbdi-03.html"; style="width:100%"><font size="1px" color="#777">Next Post</font><br>Fingerprint driver development in Windows(3)</a>
+    </ul></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/daviddong.github.io/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'daviddong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+      </section>
+    </main>
+<script src="/daviddong.github.io/assets/js/simple-jekyll-search.min.js"></script>
+<script src="/daviddong.github.io/assets/js/search.js"></script>
+<link href="/daviddong.github.io/assets/css/vim.css" rel="stylesheet"/>
+
+  </body>
+</html>
