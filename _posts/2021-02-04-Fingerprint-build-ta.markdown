@@ -51,14 +51,16 @@ QSEE is one TEE OS supported by Qualcomm. In android market, system running with
 
 ### <span id ="2.1">2.1 SDK </span>
 To build the TA image, we need to use QSEE SDK, which can be got from Qualcomm or ODMs. Here I use QSEE5 SDK and put it to below location in my unbuntu.
-
-` /home/david/devtools/tz_qsee5 `
+{% highlight ruby %}
+/home/david/devtools/tz_qsee5
+{% endhighlight %}
 ### <span id ="2.2">2.2 Fingerprint_TA code </span>
 Next we need to put the source code of Fingerprint TA into place that the SDK can find it and make.
 In QSEE, normally there is specific location in the SDK file tree for storing the TA code.    
-It is at 
-`/home/david/devtools/tz_qsee5/ssg/securemsm/trustzone/qsapps/`
-
+It is at path:
+{% highlight ruby %} 
+/home/david/devtools/tz_qsee5/ssg/securemsm/trustzone/qsapps/`
+{% endhighlight %}
 ### <span id ="2.3">2.3 Build command </span>
 We executes the build command to make the TA code and generate the TA image.
 {% highlight ruby %}
@@ -70,9 +72,10 @@ Build process
 ![fingerprint-tee]({{site.baseurl}}/assets/image/fingerprint-build-ta-02.png){: .center-image }
 
 ### <span id ="2.4">2.4 TA image </span>
-TA images are generated at 
-`/home/david/devtools/tz_qsee5/build/ms/bin/PIL_IMAGES/SPLITBINS_WAXAANAA/` 
-
+TA images are generated at path:
+{% highlight ruby %}
+/home/david/devtools/tz_qsee5/build/ms/bin/PIL_IMAGES/SPLITBINS_WAXAANAA/
+{% endhighlight %}
 
 The TA images are
 {% highlight ruby %}
@@ -94,10 +97,14 @@ There is no property TEE OS under MTK platform. It adopts the way of integrating
 
 For ISEE SDK, it can find more details on this link [「ISEE SDK」](https://www.beanpodtech.com/%e4%b8%bb%e8%a6%81%e4%ba%a7%e5%93%81/isee-sdk/)
 I put the SDK into below location.
-`/home/david/devtools/isee_sdk_270`
+{% highlight ruby %}
+/home/david/devtools/isee_sdk_270
+{% endhighlight %}
 ### <span id ="3.2">3.2 Fingerprint_TA code </span>
 Put the TA source code to below path 
-`/home/david/devtools/platforms/mt6797/vendor/fingerprints/` 
+{% highlight ruby %}
+/home/david/devtools/platforms/mt6797/vendor/fingerprints/
+{% endhighlight %}
 ### <span id ="3.3">3.3 Build command </span>
 Run command
 {% highlight ruby %}
@@ -122,10 +129,12 @@ For more details about Trusty, please refer to  [「Trusty TEE」](https://sourc
 ### <span id ="4.1">4.1 SDK </span>
 Find a location in your local device.
 For example, I put the trusty SDK here.
-`/home/david/devtools/trusty_sdk`
+{% highlight ruby %}
+/home/david/devtools/trusty_sdk`
 ### <span id ="4.2">4.2 Fingerprint_TA code </span>
 Copy the TA source code to the SDK folder.
-`/home/david/devtools/trusty_sdk/app/demo/`
+`/home/david/devtools/trusty_sdk/app/demo/
+{% endhighlight %}
 ### <span id ="4.3">4.3 Build command </span>
 Run command
 {% highlight ruby %}
