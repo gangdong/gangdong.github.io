@@ -7,8 +7,8 @@
     <description>This is DavidDong's blog. This blog recorded the time of my life and learning from it. Welcome to visit! 
 </description>
     <language>en-us</language>
-    <pubDate>Thu, 11 Mar 2021 17:11:32 +0800</pubDate>
-    <lastBuildDate>Thu, 11 Mar 2021 17:11:32 +0800</lastBuildDate>
+    <pubDate>Thu, 11 Mar 2021 17:35:30 +0800</pubDate>
+    <lastBuildDate>Thu, 11 Mar 2021 17:35:30 +0800</lastBuildDate>
 
     
     <item>
@@ -2924,45 +2924,6 @@ The handler then programs the device for capture mode and returns from the callb
 &lt;p&gt;WBF includes an IOCTL-based driver interface known as the Windows Biometric Driver Interface (WBDI) as well as a Windows service called the Windows Biometric Framework API (Windows) (WBS).&lt;/p&gt;
 
 &lt;p&gt;WBDI drivers respond to requests from the WBS(WinBio) service. WBF also includes Windows log-in support.&lt;/p&gt;
-
-&lt;div class=&quot;separator&quot;&gt;&lt;/div&gt;
-&lt;h2 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;#1&quot;&gt;Basic Concepts&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#2&quot;&gt;UMDF&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#2.1&quot;&gt;2.1 UMDF advantages&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#2.2&quot;&gt;2.2 When to use UMDF?&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#2.3&quot;&gt;2.3 UDMF architecture&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/daviddong.github.io/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#3&quot;&gt;Biometric Unit&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/daviddong.github.io/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#4&quot;&gt;Biometric Unit Life Cycle&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;/daviddong.github.io/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#4.1&quot;&gt;4.1 Creation&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;/daviddong.github.io/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#4.2&quot;&gt;4.2 Configuration&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;/daviddong.github.io/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#4.3&quot;&gt;4.3 Shut Down&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/daviddong.github.io/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#5&quot;&gt;Adapters&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;/daviddong.github.io/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#5.1&quot;&gt;5.1 Sensor Adapter Function&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;/daviddong.github.io/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#5.2&quot;&gt;5.2 Engine Adapter Function&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;/daviddong.github.io/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#5.3&quot;&gt;5.3 Storage Adapter Function&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/daviddong.github.io/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#6&quot;&gt;IOCTLs Interface of Biometric&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;/daviddong.github.io/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#6.1&quot;&gt;6.1 IOCTLs&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;/daviddong.github.io/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#6.2&quot;&gt;6.2 Biometric IOCTLs Calling Sequence&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/daviddong.github.io/c++/fingerprint/2020/06/13/Cpp-wbdi-03.html#7&quot;&gt;Managing Queues in a WBDI Driver&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/daviddong.github.io/c++/fingerprint/2020/06/13/Cpp-wbdi-03.html#8&quot;&gt;Installing a Biometric Driver&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/daviddong.github.io/c++/fingerprint/2020/06/13/Cpp-wbdi-03.html#9&quot;&gt;Creating a Device Interface for a WBDI Driver&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;separator&quot;&gt;&lt;/div&gt;
 
 &lt;p&gt;Starting with some concepts.&lt;/p&gt;
 

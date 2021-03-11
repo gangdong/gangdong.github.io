@@ -1,0 +1,25 @@
+
+
+<div class="post-container">
+<div  class = "menu">
+<div  style="font-size:180%;font-weight:800; margin-top: 20px">{{site.logo}}</div>
+<div  style = "margin-top: 20px">
+<a class = "menu_tag_a" href="{{ site.baseurl}}/blog/index.html">
+    <span class="icon-doc-text icon_font">Posts</span>
+</a>
+{%- if site.rawposts.archives -%}
+<a  class = "menu_tag_a" href="{{ site.baseurl}}/archive">
+    <span class="icon-archive-1 icon_font">Archives</span>
+</a>
+{%- endif -%}
+{%- if site.rawposts.categories -%}
+<a  class = "menu_tag_a" href="{{ site.baseurl}}/category">
+    <span class="icon-tags-1 icon_font">Categories</span>
+</a>
+{%- endif -%}
+<a  class = "menu_tag_b" href="{{ site.baseurl}}/about">
+    <span class="icon-help-circled-3 icon_font">About</span>
+</a>
+</div>
+</div>
+</div>

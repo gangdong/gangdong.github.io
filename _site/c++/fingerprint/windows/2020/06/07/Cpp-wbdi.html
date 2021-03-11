@@ -103,51 +103,14 @@
   <!-- post content here! -->
   <!-- if sidebar! -->
   
-  <div class="post">
-    <p>Windows 7 and later implement support for Biometric devices. The Windows Biometric Framework (WBF) is a generic biometric architecture in Windows 7 and later versions of Windows.</p>
+  <!-- set fix width box to put content! -->
+  <div class="post-viewer-container">
+	<div class="post-fix-width">
+		<p>Windows 7 and later implement support for Biometric devices. The Windows Biometric Framework (WBF) is a generic biometric architecture in Windows 7 and later versions of Windows.</p>
 
 <p>WBF includes an IOCTL-based driver interface known as the Windows Biometric Driver Interface (WBDI) as well as a Windows service called the Windows Biometric Framework API (Windows) (WBS).</p>
 
 <p>WBDI drivers respond to requests from the WBS(WinBio) service. WBF also includes Windows log-in support.</p>
-
-<div class="separator"></div>
-<h2 id="table-of-contents">Table of Contents</h2>
-<ol>
-  <li><a href="#1">Basic Concepts</a></li>
-  <li><a href="#2">UMDF</a>
-    <ul>
-      <li><a href="#2.1">2.1 UMDF advantages</a></li>
-      <li><a href="#2.2">2.2 When to use UMDF?</a></li>
-      <li><a href="#2.3">2.3 UDMF architecture</a></li>
-    </ul>
-  </li>
-  <li><a href="/daviddong.github.io/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#3">Biometric Unit</a></li>
-  <li><a href="/daviddong.github.io/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#4">Biometric Unit Life Cycle</a>
-    <ul>
-      <li><a href="/daviddong.github.io/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#4.1">4.1 Creation</a></li>
-      <li><a href="/daviddong.github.io/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#4.2">4.2 Configuration</a></li>
-      <li><a href="/daviddong.github.io/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#4.3">4.3 Shut Down</a></li>
-    </ul>
-  </li>
-  <li><a href="/daviddong.github.io/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#5">Adapters</a>
-    <ul>
-      <li><a href="/daviddong.github.io/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#5.1">5.1 Sensor Adapter Function</a></li>
-      <li><a href="/daviddong.github.io/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#5.2">5.2 Engine Adapter Function</a></li>
-      <li><a href="/daviddong.github.io/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#5.3">5.3 Storage Adapter Function</a></li>
-    </ul>
-  </li>
-  <li><a href="/daviddong.github.io/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#6">IOCTLs Interface of Biometric</a>
-    <ul>
-      <li><a href="/daviddong.github.io/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#6.1">6.1 IOCTLs</a></li>
-      <li><a href="/daviddong.github.io/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#6.2">6.2 Biometric IOCTLs Calling Sequence</a></li>
-    </ul>
-  </li>
-  <li><a href="/daviddong.github.io/c++/fingerprint/2020/06/13/Cpp-wbdi-03.html#7">Managing Queues in a WBDI Driver</a></li>
-  <li><a href="/daviddong.github.io/c++/fingerprint/2020/06/13/Cpp-wbdi-03.html#8">Installing a Biometric Driver</a></li>
-  <li><a href="/daviddong.github.io/c++/fingerprint/2020/06/13/Cpp-wbdi-03.html#9">Creating a Device Interface for a WBDI Driver</a></li>
-</ol>
-
-<div class="separator"></div>
 
 <p>Starting with some concepts.</p>
 
@@ -238,7 +201,38 @@ Above diagram shows how the driver manager builds a user-mode device stack, and 
 
 <p>If no special requirements, fingerprint driver normally uses the UMDF model to develop.</p>
 
+	</div>
+	<!-- put sidebar! -->
+	<div class="post-index-container">
+		<li class = "post-index">On this page</li>
+		<li><ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#1-basic-concepts">1. Basic Concepts</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#wbf">WBF:</a></li>
+<li class="toc-entry toc-h3"><a href="#wbdi">WBDI:</a></li>
+<li class="toc-entry toc-h3"><a href="#wbs">WBS:</a></li>
+<li class="toc-entry toc-h3"><a href="#adapters">Adapters:</a></li>
+<li class="toc-entry toc-h3"><a href="#wdf">WDF:</a></li>
+<li class="toc-entry toc-h3"><a href="#wudf">WUDF:</a></li>
+<li class="toc-entry toc-h3"><a href="#umdf">UMDF:</a></li>
+<li class="toc-entry toc-h3"><a href="#kmdf">KMDF:</a></li>
+<li class="toc-entry toc-h3"><a href="#wudfhostexe">Wudfhost(exe):</a></li>
+<li class="toc-entry toc-h3"><a href="#wdm">WDM:</a></li>
+<li class="toc-entry toc-h3"><a href="#biometric-unit">Biometric Unit:</a></li>
+<li class="toc-entry toc-h3"><a href="#overview">Overview</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#2-umdf">2. UMDF</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#21-umdf-advantages">2.1 UMDF advantages</a></li>
+<li class="toc-entry toc-h3"><a href="#22-when-to-use-umdf">2.2 When to use UMDF?</a></li>
+<li class="toc-entry toc-h3"><a href="#23-udmf-architecture">2.3 UDMF architecture</a></li>
+</ul>
+</li>
+</ul></li>
+	</div>
   </div>
+  <!-- no sidebar, use flex width box! -->
   
 
   <br><br><br>
