@@ -4,15 +4,11 @@ title:  "Fingerprint enrollment in Android"
 date:   2019-09-15 22:14:47 +0800
 categories: Android Fingerprint
 Published: true
-toc: true
-sidebar: false
 ---
 ![cover]({{site.baseurl}}/assets/image/fingerprint-enroll-cover.jpeg)    
 When we do fingerprint enrollment in android device, it will generate a fingerprint template that contains the user's fingerprint information in a specified directory (for example, /data/vendor_de/0/fpdata/user.db), which depends on the system configuration.
 
 During the template is being generated, there is a series of APIs calling in android system internally. Let's have a look at this process. 
-
-{% include toc.html %}
 
 Android sets some standard APIs in HAL layer for fingerprint event handling. Refer to Android P source code at [BiometricsFingerprint.h](https://www.androidos.net.cn/android/10.0.0_r6/xref/hardware/interfaces/biometrics/fingerprint/2.1/default/BiometricsFingerprint.h) and [BiometricsFingerprint.cpp](https://www.androidos.net.cn/android/10.0.0_r6/xref/hardware/interfaces/biometrics/fingerprint/2.1/default/BiometricsFingerprint.cpp).
 

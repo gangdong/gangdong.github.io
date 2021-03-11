@@ -4,8 +4,6 @@ title:  "Python 开发编码规范（转）"
 date:   2019-04-01 22:17:33 +0800
 categories: Python
 Published: true
-toc: true
-sidebar: true
 ---
 ![cover]({{site.baseurl}}/assets/image/python-spec-cover.jpeg)     
 这篇文档所给出的编码约定适用于在主要的Python发布版本中组成标准库的Python 代码，请查阅相关的关于在Python的C实现中C代码风格指南的描述。
@@ -18,7 +16,6 @@ sidebar: true
 
 好了，闲话少说，正文如下。
 
-{% if page.sidebar == false %}
 <div class = "separator"></div>
 ## 目录
 1. [代码的布局](#1)
@@ -43,8 +40,8 @@ sidebar: true
     + [4.8 方法名和实例变量](#4.8)
 5. [继承的设计](#5)
     + [5.1 设计建议](#5.1)
+
 <div class = "separator"></div>
-{% endif %}
 
 ## <span id = "1">1. 代码的布局</span>
 ### <span id = "1.1">1.1 缩进</span>

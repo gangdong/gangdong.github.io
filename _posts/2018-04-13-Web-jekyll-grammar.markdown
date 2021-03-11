@@ -4,14 +4,10 @@ title:  Getting started with Jekyll (2)
 date:   2018-04-13 23:21:15 +0800
 categories: Web
 published: true
-toc: true
-sidebar: true
 ---
 This page will continue to give a brief introduction of the Jekyll grammar. After read [last article]({{site.baseurl}}/web/2018/03/27/Web-jekyll-installation.html) you should complete the installation of Jekyll and download a Jekyll theme on your computer. 
 
 Let's start this article from the source code of the theme you downloaded. 
-
-{% include toc.html %}
 
 ## Jekyll directory structure
 Unzip the package you downloaded and check the directory structure.The Jekyll directory structure mainly includes the following directories.

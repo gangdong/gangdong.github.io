@@ -4,8 +4,6 @@ title:  "Configure Intel SGX on Win10"
 date:   2020-05-31 22:42:44 +0800
 categories: Windows
 Published: true
-toc: true
-sidebar: true
 ---
 The first step we should know if the hardware support SGX.<br>
 Which include:
@@ -14,15 +12,12 @@ Which include:
 + Software packages installed?
 
 Now let us go through above one by one.
-
-{% if page.sidebar == false %}
 <div class = "separator"></div>
 ## Index
 * TOC
 {:toc}
-<div class = "separator"></div>
-{% endif %}
 
+<div class = "separator"></div>
 ## CPU Query 
 1. Get the CPU model of your hardware.
    By device manager -> processors 
