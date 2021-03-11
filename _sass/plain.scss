@@ -558,17 +558,19 @@ main {
   @media screen and (max-width: $smallMobileW) {
     margin-left: 20px;
     margin-right: 20px;
+	max-width: $smallMobileW
   }
   @media screen and (max-width: $mobileW) {
     padding: 0 !important;
     margin-top: 0;
+	max-width: $mobileW
   }
 }
 .post-container {
   padding-left: 30px;
 }
 .post-fix-width {
-  border: 1px solid red;
+  border: 1px solid blue;
   font-family: 'Arial', 'Tahoma', 'Raleway', 'Merriweather', 'Microsoft Yahei', sans-serif;
   font-weight: 400;
   color: #000;
@@ -581,10 +583,14 @@ main {
    @media screen and (max-width: $smallMobileW) {
     margin-left: 20px;
     margin-right: 20px;
+	max-width: $smallMobileW;
+	width: 100%;
   }
   @media screen and (max-width: $mobileW) {
     padding: 0 !important;
     margin-top: 0;
+	max-width: $mobileW;
+	width: 100%;
    }
    
   a {
