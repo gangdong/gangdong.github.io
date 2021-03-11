@@ -556,8 +556,8 @@ main {
       width: 100%;
   }
   @media screen and (max-width: $smallMobileW) {
-    margin-left: 0px;
-    margin-right: 0px;
+    margin-left: 20px;
+    margin-right: 20px;
 	max-width: $smallMobileW
   }
   @media screen and (max-width: $mobileW) {
@@ -570,7 +570,6 @@ main {
   padding-left: 30px;
 }
 .post-fix-width {
-  border: 1px solid green;
   font-family: 'Arial', 'Tahoma', 'Raleway', 'Merriweather', 'Microsoft Yahei', sans-serif;
   font-weight: 400;
   color: #000;
