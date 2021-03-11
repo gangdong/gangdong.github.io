@@ -6,6 +6,7 @@ categories: Android Fingerprint
 Published: true
 ---
 I have completed a Android platform fingerprint implementation on Trusty TEE recently for working requirement. This page will try to give some useful information, which is a summary of my work and might be helpful for somebody who want to bring up fingerprint application on Trusty TEE.
+
 <div class = "separator"></div>
 ## Index
 
