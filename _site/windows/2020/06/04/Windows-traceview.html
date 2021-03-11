@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/daviddong.github.io/assets/css/style.css">
+<link rel="icon" href="/daviddong.github.io/assets/favicon.ico">
+<title>Use TraceView to trace windows driver log | David Dong's Blog</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Use TraceView to trace windows driver log | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Use TraceView to trace windows driver log" />
+<meta name="author" content="David Dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="For the windows driver development as what I am doing these days, Microsoft provides a log printing and log viewing mechanism, which can view the logs of specified driver files, filter the logs according to LEVEL and FLAG, or save them as files. This mechanism is WPP and TraceView.exe." />
+<meta property="og:description" content="For the windows driver development as what I am doing these days, Microsoft provides a log printing and log viewing mechanism, which can view the logs of specified driver files, filter the logs according to LEVEL and FLAG, or save them as files. This mechanism is WPP and TraceView.exe." />
+<link rel="canonical" href="http://localhost:4000/daviddong.github.io/windows/2020/06/04/Windows-traceview.html" />
+<meta property="og:url" content="http://localhost:4000/daviddong.github.io/windows/2020/06/04/Windows-traceview.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-06-04T20:14:41+08:00" />
+<script type="application/ld+json">
+{"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/daviddong.github.io/windows/2020/06/04/Windows-traceview.html"},"@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/daviddong.github.io/BLOG"},"name":"David Dong"},"headline":"Use TraceView to trace windows driver log","dateModified":"2020-06-04T20:14:41+08:00","datePublished":"2020-06-04T20:14:41+08:00","author":{"@type":"Person","name":"David Dong"},"url":"http://localhost:4000/daviddong.github.io/windows/2020/06/04/Windows-traceview.html","description":"For the windows driver development as what I am doing these days, Microsoft provides a log printing and log viewing mechanism, which can view the logs of specified driver files, filter the logs according to LEVEL and FLAG, or save them as files. This mechanism is WPP and TraceView.exe.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+
+</head>
+  <body><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><main class="container">
+      <section class="about">
+        <a href="/daviddong.github.io/blog/index.html"><img src="/daviddong.github.io/assets/avatar.png" alt="David Dong"></a>
+        <h2 id="title">
+          <a href="/daviddong.github.io/blog/index.html">David Dong</a>
+        </h2>
+        <p class="tagline">Java/C/C#/Python</p>
+        <ul class="social">
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture-3"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled-1"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a></ul><nav class="navigation">
+            <ul>
+              
+            </ul>
+          </nav><p>&copy;
+          2021</p><div>
+        <p style = "font-family: Raleway, sans-serif;font-size: 100%">Dark Theme
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" id="dark-mode-toggle" onclick="toggleDarkMode()">
+            <span class="slider round"></span>
+          </label>
+        </p>
+      </div>
+      <script type="text/javascript" src="/daviddong.github.io/assets/js/darkmode.js"></script><div>
+        <ul class="social" style="padding-top: 3vh"><a style ="margin-right:10px;text-decoration: none;font-family: Raleway, sans-serif;" href="/daviddong.github.io/rss.xml">
+              <span class="icon-rss-1">rss</span>
+           </a><a style="text-decoration: none;font-family: Raleway, sans-serif;" href="https://github.com/gangdong/daviddong.github.io">
+              <span class="icon-file-code">code</span>
+            </a></ul>
+      </div>
+      </section>
+      <section class="content">
+        <!-- add menu bar here! -->
+
+
+<div class="post-container">
+<div  class = "menu">
+<div  style="font-size:180%;font-weight:800; margin-top: 20px">BLOG</div>
+<div  style = "margin-top: 20px">
+<a class = "menu_tag_a" href="/daviddong.github.io/blog/index.html">
+    <span class="icon-doc-text icon_font">Posts</span>
+</a><a  class = "menu_tag_a" href="/daviddong.github.io/archive">
+    <span class="icon-archive-1 icon_font">Archives</span>
+</a><a  class = "menu_tag_a" href="/daviddong.github.io/category">
+    <span class="icon-tags-1 icon_font">Categories</span>
+</a><a  class = "menu_tag_b" href="/daviddong.github.io/about">
+    <span class="icon-help-circled-3 icon_font">About</span>
+</a>
+</div>
+</div>
+</div><div class="post-container">
+  <li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">POST</h1>
+  </li>  
+  <a class="post-link" href="/daviddong.github.io/windows/2020/06/04/Windows-traceview.html">
+    <h2 class="post-title">Use TraceView to trace windows driver log</h2>
+  </a>
+  <div class="post-meta">
+    <ul class="post-categories"><li>Windows</li></ul>
+    <div class="post-date"><i class="icon-calendar"></i>Jun 4, 2020</div>
+  </div>
+  <!-- post content here! -->
+  <!-- if sidebar! -->
+  
+  <div class="post">
+    <p>For the windows driver development as what I am doing these days, Microsoft provides a log printing and log viewing mechanism, which can view the logs of specified driver files, filter the logs according to <code class="language-plaintext highlighter-rouge">LEVEL</code> and <code class="language-plaintext highlighter-rouge">FLAG</code>, or save them as files. This mechanism is WPP and  <code class="language-plaintext highlighter-rouge">TraceView.exe</code>.</p>
+
+<h2 id="how-to-use">How to use?</h2>
+<p>The usage is simple, WDF framework has built in the function and enclosed the WPP into the <code class="language-plaintext highlighter-rouge">trace.h</code>.
+The driver program imports the header file and add <code class="language-plaintext highlighter-rouge">TraceEvents()</code> method to the place where needs to print log. Use the <code class="language-plaintext highlighter-rouge">TraceView.exe</code> application to capture and view the logs when the driver program running.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">TraceEvents</span><span class="p">(</span><span class="no">TRACE_LEVEL_INFORMATION</span><span class="p">,</span> <span class="no">DBG_INIT</span><span class="p">,</span> <span class="s2">"log_name"</span><span class="p">);</span></code></pre></figure>
+
+<p>The first two parameters of this method represents the <code class="language-plaintext highlighter-rouge">LEVEL</code> and <code class="language-plaintext highlighter-rouge">FLAG</code> which will be used to control the logs output level and type.</p>
+
+<ul>
+  <li>
+    <p>In Windows10, the <code class="language-plaintext highlighter-rouge">TraceView.exe</code> is putted into the folder at <code class="language-plaintext highlighter-rouge">WDK install path</code>, normally the default installation path is <code class="language-plaintext highlighter-rouge">C:\Program Files (x86)\Windows Kits\10\Tools\x64</code>.</p>
+  </li>
+  <li>
+    <p>Run the <code class="language-plaintext highlighter-rouge">TraceView.exe</code> application and create a new log section. 
+<img src="/daviddong.github.io/assets/image/others-traceview-01.PNG" alt="traceview" class="center-image" /></p>
+  </li>
+  <li>
+    <p>Click <code class="language-plaintext highlighter-rouge">Add Provider</code> and select the PDB file of your driver program. 
+<img src="/daviddong.github.io/assets/image/others-traceview-02.PNG" alt="traceview" class="center-image" />
+The trace provider will generate trace event messages.</p>
+  </li>
+  <li>
+    <p>Click <code class="language-plaintext highlighter-rouge">Next</code> button and choose <code class="language-plaintext highlighter-rouge">Set Flag and Level</code>, in the pop window right click <code class="language-plaintext highlighter-rouge">Level</code> and select the <code class="language-plaintext highlighter-rouge">print level</code> of the log. Suggest to select <code class="language-plaintext highlighter-rouge">verbose</code> to print the logs as much as possible in the debug phase.<br />
+<img src="/daviddong.github.io/assets/image/others-traceview-03.PNG" alt="traceview" class="center-image" />
+Click ‘OK’ button to complete the configuration.</p>
+  </li>
+  <li>
+    <p>Start running the driver program and the TraceView will output the logs that printed by TraceEvents() in the code.
+<img src="/daviddong.github.io/assets/image/others-traceview-04.PNG" alt="traceview" class="center-image" /></p>
+  </li>
+</ul>
+
+<p>Recommend some articles for the WPP/TraceView introduction.
+<a href="https://blog.csdn.net/xiangbaohui/article/details/106424665">https://blog.csdn.net/xiangbaohui/article/details/106424665</a><br />
+<a href="https://blog.csdn.net/u012308586/article/details/94429941">https://blog.csdn.net/u012308586/article/details/94429941</a><br />
+<a href="https://docs.microsoft.com/zh-cn/windows-hardware/drivers/devtest/enabling-wpp-tracing-through-windows-event-log">https://docs.microsoft.com/zh-cn/windows-hardware/drivers/devtest/enabling-wpp-tracing-through-windows-event-log</a></p>
+
+  </div>
+  
+
+  <br><br><br>
+  <!-- Page navigation start here! --><li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">further reading</h1>
+  </li> 
+  <div class="navigation-meta" style = "margin-bottom:40px"><ul class="navigation-bar" style = "margin-top:40px; min-width:40%">   
+	 <a href="/daviddong.github.io/windows/2020/06/01/Windows-sgx-helloworld.html"; style="width:100%"><font size="1px" color="#777">Previous Post</font><br>HelloWorld: my first SGX application</a>
+    </ul><ul class="navigation-bar" style = "margin-top:40px; min-width:40%">   
+     <a href="/daviddong.github.io/c++/fingerprint/windows/2020/06/07/Cpp-wbdi.html"; style="width:100%"><font size="1px" color="#777">Next Post</font><br>Fingerprint driver development in Windows(1)</a>
+    </ul></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/daviddong.github.io/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'daviddong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+      </section>
+    </main>
+<script src="/daviddong.github.io/assets/js/simple-jekyll-search.min.js"></script>
+<script src="/daviddong.github.io/assets/js/search.js"></script>
+<link href="/daviddong.github.io/assets/css/vim.css" rel="stylesheet"/>
+
+  </body>
+</html>

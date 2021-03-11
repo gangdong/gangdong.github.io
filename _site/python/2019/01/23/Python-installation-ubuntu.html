@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/daviddong.github.io/assets/css/style.css">
+<link rel="icon" href="/daviddong.github.io/assets/favicon.ico">
+<title>Install python3.6 on ubuntu16.04 | David Dong's Blog</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Install python3.6 on ubuntu16.04 | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Install python3.6 on ubuntu16.04" />
+<meta name="author" content="David Dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Today I spent some time installing the python3.6 on my ubuntu16.04. Here is a short note for the process, which might be useful for anyone who want to do the same thing." />
+<meta property="og:description" content="Today I spent some time installing the python3.6 on my ubuntu16.04. Here is a short note for the process, which might be useful for anyone who want to do the same thing." />
+<link rel="canonical" href="http://localhost:4000/daviddong.github.io/python/2019/01/23/Python-installation-ubuntu.html" />
+<meta property="og:url" content="http://localhost:4000/daviddong.github.io/python/2019/01/23/Python-installation-ubuntu.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-01-23T23:07:49+08:00" />
+<script type="application/ld+json">
+{"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/daviddong.github.io/python/2019/01/23/Python-installation-ubuntu.html"},"@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/daviddong.github.io/BLOG"},"name":"David Dong"},"headline":"Install python3.6 on ubuntu16.04","dateModified":"2019-01-23T23:07:49+08:00","datePublished":"2019-01-23T23:07:49+08:00","author":{"@type":"Person","name":"David Dong"},"url":"http://localhost:4000/daviddong.github.io/python/2019/01/23/Python-installation-ubuntu.html","description":"Today I spent some time installing the python3.6 on my ubuntu16.04. Here is a short note for the process, which might be useful for anyone who want to do the same thing.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+
+</head>
+  <body><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><main class="container">
+      <section class="about">
+        <a href="/daviddong.github.io/blog/index.html"><img src="/daviddong.github.io/assets/avatar.png" alt="David Dong"></a>
+        <h2 id="title">
+          <a href="/daviddong.github.io/blog/index.html">David Dong</a>
+        </h2>
+        <p class="tagline">Java/C/C#/Python</p>
+        <ul class="social">
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture-3"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled-1"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a></ul><nav class="navigation">
+            <ul>
+              
+            </ul>
+          </nav><p>&copy;
+          2021</p><div>
+        <p style = "font-family: Raleway, sans-serif;font-size: 100%">Dark Theme
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" id="dark-mode-toggle" onclick="toggleDarkMode()">
+            <span class="slider round"></span>
+          </label>
+        </p>
+      </div>
+      <script type="text/javascript" src="/daviddong.github.io/assets/js/darkmode.js"></script><div>
+        <ul class="social" style="padding-top: 3vh"><a style ="margin-right:10px;text-decoration: none;font-family: Raleway, sans-serif;" href="/daviddong.github.io/rss.xml">
+              <span class="icon-rss-1">rss</span>
+           </a><a style="text-decoration: none;font-family: Raleway, sans-serif;" href="https://github.com/gangdong/daviddong.github.io">
+              <span class="icon-file-code">code</span>
+            </a></ul>
+      </div>
+      </section>
+      <section class="content">
+        <!-- add menu bar here! -->
+
+
+<div class="post-container">
+<div  class = "menu">
+<div  style="font-size:180%;font-weight:800; margin-top: 20px">BLOG</div>
+<div  style = "margin-top: 20px">
+<a class = "menu_tag_a" href="/daviddong.github.io/blog/index.html">
+    <span class="icon-doc-text icon_font">Posts</span>
+</a><a  class = "menu_tag_a" href="/daviddong.github.io/archive">
+    <span class="icon-archive-1 icon_font">Archives</span>
+</a><a  class = "menu_tag_a" href="/daviddong.github.io/category">
+    <span class="icon-tags-1 icon_font">Categories</span>
+</a><a  class = "menu_tag_b" href="/daviddong.github.io/about">
+    <span class="icon-help-circled-3 icon_font">About</span>
+</a>
+</div>
+</div>
+</div><div class="post-container">
+  <li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">POST</h1>
+  </li>  
+  <a class="post-link" href="/daviddong.github.io/python/2019/01/23/Python-installation-ubuntu.html">
+    <h2 class="post-title">Install python3.6 on ubuntu16.04</h2>
+  </a>
+  <div class="post-meta">
+    <ul class="post-categories"><li>Python</li></ul>
+    <div class="post-date"><i class="icon-calendar"></i>Jan 23, 2019</div>
+  </div>
+  <!-- post content here! -->
+  <!-- if sidebar! -->
+  
+  <div class="post">
+    <p>Today I spent some time installing the python3.6 on my ubuntu16.04.
+Here is a short note for the process, which might be useful for anyone who want to do the same thing.</p>
+
+<p>The first thing before you start to install the python3.6 is that you need to know which version of pythons are on your system. On ubuntu16.04 you can use below command to check your python version.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">ls</span> /usr/local/lib/</code></pre></figure>
+
+<p>For example, before the installation, I have python2.7 and python3.5 on my ubuntu system. They are actually default installed by ubuntu16.04 build.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">david@david-VirtualBox:/<span class="nv">$ </span><span class="nb">ls</span> /usr/local/lib/
+python2.7  python3.5  
+david@david-VirtualBox:/<span class="nv">$ </span></code></pre></figure>
+
+<p>then input <code class="language-plaintext highlighter-rouge">python --version</code> to check which version python is your default python application.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">python <span class="nt">--version</span></code></pre></figure>
+
+<p>If you want to switch to another python version, input below command</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">echo alias </span><span class="nv">python</span><span class="o">=</span>python3 <span class="o">&gt;&gt;</span> ~/.bashrc
+<span class="nb">source</span> ~/.bashrc
+python <span class="nt">--version</span></code></pre></figure>
+
+<p>Here I switched my default python version to python3.5.
+But python3.5 is still not the right one, what I need is python3.6. To install python3.6, there are usually two methods. one is using <code class="language-plaintext highlighter-rouge">apt-get install</code>. The command is as below.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>add-apt-repository ppa:jonathonf/python-3.6
+<span class="nb">sudo </span>apt-get update
+<span class="nb">sudo </span>apt-get <span class="nb">install </span>python3.6</code></pre></figure>
+
+<p>Unfortunately it doesn’t work on my installation for the PPA has been removed. Therefore I turned to the second way to download the source code and compile, install.
+The command as below.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">wget https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tar.xz
+xz <span class="nt">-d</span> Python-3.6.0.tar.xz
+<span class="nb">tar</span> <span class="nt">-xvf</span>  Python-3.6.0.tar
+<span class="nb">cd </span>Python-3.6.0
+./configure
+make
+<span class="nb">sudo </span>make <span class="nb">install</span></code></pre></figure>
+
+<p>Waiting for the installation complete. Then check the python version, if you see the “Python 3.6.x”, python3.6 has been installed successfully on your ubuntu16.04.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">david@david-VirtualBox:~<span class="nv">$ </span>python <span class="nt">--version</span>
+Python 3.6.0</code></pre></figure>
+
+<p>If you don’t see the Python3.6.x, instead, you see Python3.5.x or else, which means your system’s default python version isn’t python3.6. You need to use <code class="language-plaintext highlighter-rouge">update-alternatives --config python</code> command to switch it to python3.6.<br /> 
+Like this.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>update-alternatives <span class="nt">--list</span> python
+<span class="nb">sudo </span>update-alternatives <span class="nt">--config</span> python</code></pre></figure>
+
+<p>If you find below message, represents the alternatives failed to recognize python and you must install python into your alternatives list firstly.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">update-alternatives：error：no alternatives <span class="k">for </span>python</code></pre></figure>
+
+<p>install your python by below command.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>update-alternatives <span class="nt">--install</span> /usr/bin/python python /home/david/Python-3.6.0 3
+<span class="nb">sudo </span>update-alternatives <span class="nt">--install</span> /usr/bin/python python /usr/bin/python3.5 2
+<span class="nb">sudo </span>update-alternatives <span class="nt">--install</span> /usr/bin/python python /usr/bin/python2.7 1 </code></pre></figure>
+
+<p>The last character of above each command sets the priority of your pythons on the system. The bigger the higher priority. 
+After installment, check again. you will see all your pythons are in the alternatives.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">david@david-VirtualBox:~<span class="nv">$ </span><span class="nb">sudo </span>update-alternatives <span class="nt">--list</span> python
+/home/david/Python-3.6.0
+/usr/bin/python2.7
+/usr/bin/python3.5</code></pre></figure>
+
+<p>Then switch to root user and execute the last command to choose which python you are going to set as default.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>su
+update-alternatives <span class="nt">--config</span> python</code></pre></figure>
+
+<p>If you see below menu, congratulations, just select the one you want.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">有 3 个候选项可用于替换 python <span class="o">(</span>提供 /usr/bin/python<span class="o">)</span>。
+
+  选择       路径                    优先级  状态
+<span class="nt">------------------------------------------------------------</span>
+<span class="k">*</span> 0            /home/david/Python-3.6.0   3         自动模式
+  1            /home/david/Python-3.6.0   3         手动模式
+  2            /usr/bin/python2.7         1         手动模式
+  3            /usr/bin/python3.5         2         手动模式
+
+要维持当前值[<span class="k">*</span><span class="o">]</span>请按&lt;回车键&gt;，或者键入选择的编号：</code></pre></figure>
+
+<p>We have done all the job for now. Hope this short article is able to give you help if you have the same requirement as me. 
+If you have any question, please ask at below comment box.
+<br /></p>
+
+  </div>
+  
+
+  <br><br><br>
+  <!-- Page navigation start here! --><li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">further reading</h1>
+  </li> 
+  <div class="navigation-meta" style = "margin-bottom:40px"><ul class="navigation-bar" style = "margin-top:40px; min-width:40%">   
+	 <a href="/daviddong.github.io/web/2018/10/03/Web-liquid-grammar.html"; style="width:100%"><font size="1px" color="#777">Previous Post</font><br>Liquid grammar</a>
+    </ul><ul class="navigation-bar" style = "margin-top:40px; min-width:40%">   
+     <a href="/daviddong.github.io/pinned/2019/02/23/Pinned-Template.html"; style="width:100%"><font size="1px" color="#777">Next Post</font><br>关于本博客模板使用上的一些问题 [Q&amp;A]</a>
+    </ul></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/daviddong.github.io/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'daviddong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+      </section>
+    </main>
+<script src="/daviddong.github.io/assets/js/simple-jekyll-search.min.js"></script>
+<script src="/daviddong.github.io/assets/js/search.js"></script>
+<link href="/daviddong.github.io/assets/css/vim.css" rel="stylesheet"/>
+
+  </body>
+</html>
