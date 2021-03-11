@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/daviddong.github.io/assets/css/style.css">
+<link rel="icon" href="/daviddong.github.io/assets/favicon.ico">
+<title>ATMEL maXTouch IC驱动代码分析 | David Dong's Blog</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>ATMEL maXTouch IC驱动代码分析 | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="ATMEL maXTouch IC驱动代码分析" />
+<meta name="author" content="David Dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="今天来讲一下touch controller IC 在android上的驱动代码。 Touch Screen 作为一个input device, 驱动代码当然要符合 android 对输入设备的一般性要求。 实际上驱动代码完成的工作相对简单，主要有以下这么几个内容。" />
+<meta property="og:description" content="今天来讲一下touch controller IC 在android上的驱动代码。 Touch Screen 作为一个input device, 驱动代码当然要符合 android 对输入设备的一般性要求。 实际上驱动代码完成的工作相对简单，主要有以下这么几个内容。" />
+<link rel="canonical" href="http://localhost:4000/daviddong.github.io/c/touch/linux/2014/06/25/Touch-driver.html" />
+<meta property="og:url" content="http://localhost:4000/daviddong.github.io/c/touch/linux/2014/06/25/Touch-driver.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2014-06-25T17:18:35+08:00" />
+<script type="application/ld+json">
+{"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/daviddong.github.io/c/touch/linux/2014/06/25/Touch-driver.html"},"@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/daviddong.github.io/BLOG"},"name":"David Dong"},"headline":"ATMEL maXTouch IC驱动代码分析","dateModified":"2014-06-25T17:18:35+08:00","datePublished":"2014-06-25T17:18:35+08:00","author":{"@type":"Person","name":"David Dong"},"url":"http://localhost:4000/daviddong.github.io/c/touch/linux/2014/06/25/Touch-driver.html","description":"今天来讲一下touch controller IC 在android上的驱动代码。 Touch Screen 作为一个input device, 驱动代码当然要符合 android 对输入设备的一般性要求。 实际上驱动代码完成的工作相对简单，主要有以下这么几个内容。","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+
+</head>
+  <body><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><main class="container">
+      <section class="about">
+        <a href="/daviddong.github.io/blog/index.html"><img src="/daviddong.github.io/assets/avatar.png" alt="David Dong"></a>
+        <h2 id="title">
+          <a href="/daviddong.github.io/blog/index.html">David Dong</a>
+        </h2>
+        <p class="tagline">Java/C/C#/Python</p>
+        <ul class="social">
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture-3"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled-1"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a></ul><nav class="navigation">
+            <ul>
+              
+            </ul>
+          </nav><p>&copy;
+          2021</p><div>
+        <p style = "font-family: Raleway, sans-serif;font-size: 100%">Dark Theme
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" id="dark-mode-toggle" onclick="toggleDarkMode()">
+            <span class="slider round"></span>
+          </label>
+        </p>
+      </div>
+      <script type="text/javascript" src="/daviddong.github.io/assets/js/darkmode.js"></script><div>
+        <ul class="social" style="padding-top: 3vh"><a style ="margin-right:10px;text-decoration: none;font-family: Raleway, sans-serif;" href="/daviddong.github.io/rss.xml">
+              <span class="icon-rss-1">rss</span>
+           </a><a style="text-decoration: none;font-family: Raleway, sans-serif;" href="https://github.com/gangdong/daviddong.github.io">
+              <span class="icon-file-code">code</span>
+            </a></ul>
+      </div>
+      </section>
+      <section class="content">
+        <!-- add menu bar here! -->
+
+
+<div class="post-container">
+<div  class = "menu">
+<div  style="font-size:180%;font-weight:800; margin-top: 20px">BLOG</div>
+<div  style = "margin-top: 20px">
+<a class = "menu_tag_a" href="/daviddong.github.io/blog/index.html">
+    <span class="icon-doc-text icon_font">Posts</span>
+</a><a  class = "menu_tag_a" href="/daviddong.github.io/archive">
+    <span class="icon-archive-1 icon_font">Archives</span>
+</a><a  class = "menu_tag_a" href="/daviddong.github.io/category">
+    <span class="icon-tags-1 icon_font">Categories</span>
+</a><a  class = "menu_tag_b" href="/daviddong.github.io/about">
+    <span class="icon-help-circled-3 icon_font">About</span>
+</a>
+</div>
+</div>
+</div><div class="post-container">
+  <li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">POST</h1>
+  </li>  
+  <a class="post-link" href="/daviddong.github.io/c/touch/linux/2014/06/25/Touch-driver.html">
+    <h2 class="post-title">ATMEL maXTouch IC驱动代码分析</h2>
+  </a>
+  <div class="post-meta">
+    <ul class="post-categories"><li>C</li><li>Touch</li><li>Linux</li></ul>
+    <div class="post-date"><i class="icon-calendar"></i>Jun 25, 2014</div>
+  </div>
+  <!-- post content here! -->
+  <!-- if sidebar! -->
+  
+  <!-- set fix width box to put content! -->
+  <div class="post-viewer-container">
+	<div class="post-fix-width">
+		<p>今天来讲一下touch controller IC 在android上的驱动代码。<br />
+Touch Screen 作为一个input device, 驱动代码当然要符合 android 对输入设备的一般性要求。<br />
+实际上驱动代码完成的工作相对简单，主要有以下这么几个内容。<br /></p>
+
+<ul>
+  <li>初始化设备</li>
+  <li>完成 Input device 在 andorid 的注册</li>
+  <li>注册中断</li>
+  <li>初始化相关的系统文件节点</li>
+  <li>上报 input event 给上层 EventHub</li>
+  <li>提供一些调试接口</li>
+</ul>
+
+<p>下面就以 ATMEL maXTouch IC 的驱动代码为例，分析相关的实现过程。 源码请参考 github 的项目主页
+<a href="https://github.com/atmel-maxtouch/maXTouch_linux">「github 源码」</a></p>
+
+<h2 id="1-设备初始化"><span id="1">1. 设备初始化</span></h2>
+<p>首先Touch IC 是一个I2C的设备，因此需要在内核里注册I2C的设备并和驱动代码匹配。有关内核搜索设备驱动并和注册设备匹配的内容可以去参考相关的文档，这里需要注意的是 <code class="language-plaintext highlighter-rouge">i2c_device_id</code> 里的 <code class="language-plaintext highlighter-rouge">ID</code> 名称一定要和设备树里面注册的 ID 名称一致。才能保证内核会加载到正确的驱动代码。</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">i2c_device_id</span> <span class="n">mxt_id</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+	<span class="p">{</span> <span class="s">"qt602240_ts"</span><span class="p">,</span> <span class="mi">0</span> <span class="p">},</span>
+	<span class="p">{</span> <span class="s">"atmel_mxt_ts"</span><span class="p">,</span> <span class="mi">0</span> <span class="p">},</span>
+	<span class="p">{</span> <span class="s">"mXT224"</span><span class="p">,</span> <span class="mi">0</span> <span class="p">},</span>
+	<span class="p">{</span> <span class="p">}</span>
+<span class="p">};</span>
+<span class="n">MODULE_DEVICE_TABLE</span><span class="p">(</span><span class="n">i2c</span><span class="p">,</span> <span class="n">mxt_id</span><span class="p">);</span>
+
+<span class="k">static</span> <span class="k">struct</span> <span class="n">i2c_driver</span> <span class="n">mxt_driver</span> <span class="o">=</span> <span class="p">{</span>
+	<span class="p">.</span><span class="n">driver</span> <span class="o">=</span> <span class="p">{</span>
+		<span class="p">.</span><span class="n">name</span>	<span class="o">=</span> <span class="s">"atmel_mxt_ts"</span><span class="p">,</span>
+		<span class="p">.</span><span class="n">owner</span>	<span class="o">=</span> <span class="n">THIS_MODULE</span><span class="p">,</span>
+<span class="cp">#ifdef CONFIG_PM
+</span>		<span class="p">.</span><span class="n">pm</span>	<span class="o">=</span> <span class="o">&amp;</span><span class="n">mxt_pm_ops</span><span class="p">,</span>
+<span class="cp">#endif
+</span>	<span class="p">},</span>
+	<span class="p">.</span><span class="n">probe</span>		<span class="o">=</span> <span class="n">mxt_probe</span><span class="p">,</span>
+	<span class="p">.</span><span class="n">remove</span>		<span class="o">=</span> <span class="n">__devexit_p</span><span class="p">(</span><span class="n">mxt_remove</span><span class="p">),</span>
+	<span class="p">.</span><span class="n">id_table</span>	<span class="o">=</span> <span class="n">mxt_id</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="n">__init</span> <span class="nf">mxt_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="k">return</span> <span class="n">i2c_add_driver</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mxt_driver</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="n">__exit</span> <span class="nf">mxt_exit</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="n">i2c_del_driver</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mxt_driver</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">module_init</span><span class="p">(</span><span class="n">mxt_init</span><span class="p">);</span>
+<span class="n">module_exit</span><span class="p">(</span><span class="n">mxt_exit</span><span class="p">);</span></code></pre></figure>
+
+<p>内核在加载到该设备的驱动后会执行 <code class="language-plaintext highlighter-rouge">Probe()</code> 函数对设备进行初始化。在 <code class="language-plaintext highlighter-rouge">probe()</code> 函数中驱动主要完成的内容有</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">static</span> <span class="kt">int</span> <span class="n">__devinit</span> <span class="nf">mxt_probe</span><span class="p">(</span><span class="k">struct</span> <span class="n">i2c_client</span> <span class="o">*</span><span class="n">client</span><span class="p">,</span>
+		<span class="k">const</span> <span class="k">struct</span> <span class="n">i2c_device_id</span> <span class="o">*</span><span class="n">id</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="k">const</span> <span class="k">struct</span> <span class="n">mxt_platform_data</span> <span class="o">*</span><span class="n">pdata</span> <span class="o">=</span> <span class="n">client</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">.</span><span class="n">platform_data</span><span class="p">;</span>
+	<span class="k">struct</span> <span class="n">mxt_data</span> <span class="o">*</span><span class="n">data</span><span class="p">;</span>
+	<span class="k">struct</span> <span class="n">input_dev</span> <span class="o">*</span><span class="n">input_dev</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">error</span><span class="p">;</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">pdata</span><span class="p">)</span>
+		<span class="k">return</span> <span class="o">-</span><span class="n">EINVAL</span><span class="p">;</span>
+
+	<span class="n">data</span> <span class="o">=</span> <span class="n">kzalloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">mxt_data</span><span class="p">),</span> <span class="n">GFP_KERNEL</span><span class="p">);</span>
+	<span class="n">input_dev</span> <span class="o">=</span> <span class="n">input_allocate_device</span><span class="p">();</span>
+	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">data</span> <span class="o">||</span> <span class="o">!</span><span class="n">input_dev</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">dev_err</span><span class="p">(</span><span class="o">&amp;</span><span class="n">client</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">,</span> <span class="s">"Failed to allocate memory</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="n">error</span> <span class="o">=</span> <span class="o">-</span><span class="n">ENOMEM</span><span class="p">;</span>
+		<span class="k">goto</span> <span class="n">err_free_mem</span><span class="p">;</span>
+	<span class="p">}</span></code></pre></figure>
+
+<p>这里面结构体 <code class="language-plaintext highlighter-rouge">input_dev</code> 用于描述一个输入子系统设备，任何驱动设备如果想标明自己是输入设备，都应该通过初始化这样的结构体。<code class="language-plaintext highlighter-rouge">input_allocate_device()</code>这个函数会为 input_dev 这个结构体申请内存并完成这个结构体在内核中的注册。关于这个函数的说明请参考我的另一篇文章 <a href="/daviddong.github.io/c/touch/linux/android/2014/07/10/Touch-inputevent.html#2">「Android 如何上报 Touchevent 给应用层」</a>。</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="cm">/* Initialize i2c device */</span>
+	<span class="n">error</span> <span class="o">=</span> <span class="n">mxt_initialize</span><span class="p">(</span><span class="n">data</span><span class="p">);</span></code></pre></figure>
+
+<p>接下来要执行 <code class="language-plaintext highlighter-rouge">mxt_initialize()</code> 这个函数来做设备的硬件初始化。我们来看看硬件初始化里面都做了哪些事情。</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">static</span> <span class="kt">int</span> <span class="nf">mxt_initialize</span><span class="p">(</span><span class="k">struct</span> <span class="n">mxt_data</span> <span class="o">*</span><span class="n">data</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="k">struct</span> <span class="n">i2c_client</span> <span class="o">*</span><span class="n">client</span> <span class="o">=</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">client</span><span class="p">;</span>
+	<span class="k">struct</span> <span class="n">mxt_info</span> <span class="o">*</span><span class="n">info</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">data</span><span class="o">-&gt;</span><span class="n">info</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">error</span><span class="p">;</span>
+
+	<span class="n">error</span> <span class="o">=</span> <span class="n">mxt_get_info</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">error</span> <span class="o">=</span> <span class="n">mxt_probe_bootloader</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+
+		<span class="k">if</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="n">error</span><span class="p">;</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+			<span class="n">data</span><span class="o">-&gt;</span><span class="n">state</span> <span class="o">=</span> <span class="n">BOOTLOADER</span><span class="p">;</span>
+			<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="n">dev_info</span><span class="p">(</span><span class="o">&amp;</span><span class="n">client</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">,</span>
+		<span class="s">"Family ID: %d Variant ID: %d Version: %d.%d "</span>
+		<span class="s">"Build: 0x%02X Object Num: %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span>
+		<span class="n">info</span><span class="o">-&gt;</span><span class="n">family_id</span><span class="p">,</span> <span class="n">info</span><span class="o">-&gt;</span><span class="n">variant_id</span><span class="p">,</span>
+		<span class="n">info</span><span class="o">-&gt;</span><span class="n">version</span> <span class="o">&gt;&gt;</span> <span class="mi">4</span><span class="p">,</span> <span class="n">info</span><span class="o">-&gt;</span><span class="n">version</span> <span class="o">&amp;</span> <span class="mh">0xf</span><span class="p">,</span>
+		<span class="n">info</span><span class="o">-&gt;</span><span class="n">build</span><span class="p">,</span> <span class="n">info</span><span class="o">-&gt;</span><span class="n">object_num</span><span class="p">);</span>
+
+	<span class="n">data</span><span class="o">-&gt;</span><span class="n">state</span> <span class="o">=</span> <span class="n">APPMODE</span><span class="p">;</span>
+
+	<span class="n">data</span><span class="o">-&gt;</span><span class="n">object_table</span> <span class="o">=</span> <span class="n">kcalloc</span><span class="p">(</span><span class="n">info</span><span class="o">-&gt;</span><span class="n">object_num</span><span class="p">,</span>
+				     <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">mxt_object</span><span class="p">),</span>
+				     <span class="n">GFP_KERNEL</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">data</span><span class="o">-&gt;</span><span class="n">object_table</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">dev_err</span><span class="p">(</span><span class="o">&amp;</span><span class="n">client</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">,</span> <span class="s">"Failed to allocate memory</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="k">return</span> <span class="o">-</span><span class="n">ENOMEM</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="cm">/* Get object table information */</span>
+	<span class="n">error</span> <span class="o">=</span> <span class="n">mxt_get_object_table</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">dev_err</span><span class="p">(</span><span class="o">&amp;</span><span class="n">client</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">,</span> <span class="s">"Error %d reading object table</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
+		<span class="k">return</span> <span class="n">error</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="n">error</span> <span class="o">=</span> <span class="n">mxt_check_message_length</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">error</span><span class="p">;</span>
+
+	<span class="n">error</span> <span class="o">=</span> <span class="n">mxt_probe_power_cfg</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">dev_err</span><span class="p">(</span><span class="o">&amp;</span><span class="n">client</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">,</span> <span class="s">"Failed to initialize power cfg</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="k">return</span> <span class="n">error</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="cm">/* Check register init values */</span>
+	<span class="n">error</span> <span class="o">=</span> <span class="n">mxt_check_reg_init</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">dev_err</span><span class="p">(</span><span class="o">&amp;</span><span class="n">client</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">,</span> <span class="s">"Failed to initialize config</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="k">return</span> <span class="n">error</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="n">error</span> <span class="o">=</span> <span class="n">mxt_read_resolution</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">dev_err</span><span class="p">(</span><span class="o">&amp;</span><span class="n">client</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">,</span> <span class="s">"Failed to initialize screen size</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="k">return</span> <span class="n">error</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>我们看到首先要从芯片内部读取相关的设备信息(芯片型号，版本信息等)，这些信息是存储在芯片内部 memeory 的固定的地址。调用的函数 <code class="language-plaintext highlighter-rouge">mxt_get_info()</code>，该函数的返回值表示读取的结果，如果不为零说明读取失败，芯片状态异常，这时要通过发送命令让芯片进入 bootloader 模式(<code class="language-plaintext highlighter-rouge">mxt_probe_bootloader()</code>函数)，重新复位。</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">error</span> <span class="o">=</span> <span class="n">mxt_get_info</span><span class="p">(</span><span class="n">data</span><span class="p">);</span></code></pre></figure>
+
+<p>如果读取正确，设置芯片状态为 APP_MODE，这时会读取 object_table，ATMEL 的 Touch IC 内部维护了一个寄存器的地址列表，不同型号的IC，该地址列表内容有所不同。通过读取该列表来初始化寄存器的地址。从而可以正确读写内部寄存器。具体的内容需要参考芯片的技术手册。</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">error</span> <span class="o">=</span> <span class="n">mxt_get_object_table</span><span class="p">(</span><span class="n">data</span><span class="p">);</span></code></pre></figure>
+
+<p>拿到寄存器的地址后，要读取一些寄存器的值来获取相关的状态（寄存器在芯片出厂厂测时会被写入初始的值）。</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">error</span> <span class="o">=</span> <span class="n">mxt_check_message_length</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">error</span><span class="p">;</span>
+
+	<span class="n">error</span> <span class="o">=</span> <span class="n">mxt_probe_power_cfg</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">dev_err</span><span class="p">(</span><span class="o">&amp;</span><span class="n">client</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">,</span> <span class="s">"Failed to initialize power cfg</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="k">return</span> <span class="n">error</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="cm">/* Check register init values */</span>
+	<span class="n">error</span> <span class="o">=</span> <span class="n">mxt_check_reg_init</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">dev_err</span><span class="p">(</span><span class="o">&amp;</span><span class="n">client</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">,</span> <span class="s">"Failed to initialize config</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="k">return</span> <span class="n">error</span><span class="p">;</span>
+	<span class="p">}</span></code></pre></figure>
+
+<p>最后一步是读取寄存器内部配置的显示屏的分辨率信息，为以后上报 touch event 的坐标数据做准备。</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">error</span> <span class="o">=</span> <span class="n">mxt_read_resolution</span><span class="p">(</span><span class="n">data</span><span class="p">);</span></code></pre></figure>
+
+<p>到这里，刚才提到的第一步针对芯片硬件的初始化就完成了。
+接下来要完成</p>
+<ul>
+  <li>完成Input device在 andorid 的注册</li>
+  <li>注册中断</li>
+  <li>初始化相关的文件节点</li>
+</ul>
+
+<h2 id="2-注册-input-device"><span id="2">2. 注册 Input Device</span></h2>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="cm">/* Initialize input device */</span>
+	<span class="n">input_dev</span><span class="o">-&gt;</span><span class="n">name</span> <span class="o">=</span> <span class="s">"Atmel maXTouch Touchscreen"</span><span class="p">;</span>
+	<span class="n">input_dev</span><span class="o">-&gt;</span><span class="n">id</span><span class="p">.</span><span class="n">bustype</span> <span class="o">=</span> <span class="n">BUS_I2C</span><span class="p">;</span>
+	<span class="n">input_dev</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">.</span><span class="n">parent</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">client</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">;</span>
+	<span class="n">input_dev</span><span class="o">-&gt;</span><span class="n">open</span> <span class="o">=</span> <span class="n">mxt_input_open</span><span class="p">;</span>
+	<span class="n">input_dev</span><span class="o">-&gt;</span><span class="n">close</span> <span class="o">=</span> <span class="n">mxt_input_close</span><span class="p">;</span>
+
+	<span class="n">__set_bit</span><span class="p">(</span><span class="n">EV_ABS</span><span class="p">,</span> <span class="n">input_dev</span><span class="o">-&gt;</span><span class="n">evbit</span><span class="p">);</span>
+	<span class="n">__set_bit</span><span class="p">(</span><span class="n">EV_KEY</span><span class="p">,</span> <span class="n">input_dev</span><span class="o">-&gt;</span><span class="n">evbit</span><span class="p">);</span>
+	<span class="n">__set_bit</span><span class="p">(</span><span class="n">BTN_TOUCH</span><span class="p">,</span> <span class="n">input_dev</span><span class="o">-&gt;</span><span class="n">keybit</span><span class="p">);</span>
+
+	<span class="cm">/* For single touch */</span>
+	<span class="n">input_set_abs_params</span><span class="p">(</span><span class="n">input_dev</span><span class="p">,</span> <span class="n">ABS_X</span><span class="p">,</span>
+			     <span class="mi">0</span><span class="p">,</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">max_x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+	<span class="n">input_set_abs_params</span><span class="p">(</span><span class="n">input_dev</span><span class="p">,</span> <span class="n">ABS_Y</span><span class="p">,</span>
+			     <span class="mi">0</span><span class="p">,</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">max_y</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+	<span class="n">input_set_abs_params</span><span class="p">(</span><span class="n">input_dev</span><span class="p">,</span> <span class="n">ABS_PRESSURE</span><span class="p">,</span>
+			     <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+	<span class="cm">/* For multi touch */</span>
+	<span class="n">input_mt_init_slots</span><span class="p">(</span><span class="n">input_dev</span><span class="p">,</span> <span class="n">MXT_MAX_FINGER</span><span class="p">);</span>
+	<span class="n">input_set_abs_params</span><span class="p">(</span><span class="n">input_dev</span><span class="p">,</span> <span class="n">ABS_MT_TOUCH_MAJOR</span><span class="p">,</span>
+			     <span class="mi">0</span><span class="p">,</span> <span class="n">MXT_MAX_AREA</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+	<span class="n">input_set_abs_params</span><span class="p">(</span><span class="n">input_dev</span><span class="p">,</span> <span class="n">ABS_MT_POSITION_X</span><span class="p">,</span>
+			     <span class="mi">0</span><span class="p">,</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">max_x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+	<span class="n">input_set_abs_params</span><span class="p">(</span><span class="n">input_dev</span><span class="p">,</span> <span class="n">ABS_MT_POSITION_Y</span><span class="p">,</span>
+			     <span class="mi">0</span><span class="p">,</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">max_y</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+	<span class="n">input_set_abs_params</span><span class="p">(</span><span class="n">input_dev</span><span class="p">,</span> <span class="n">ABS_MT_PRESSURE</span><span class="p">,</span>
+			     <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+	<span class="n">input_set_drvdata</span><span class="p">(</span><span class="n">input_dev</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
+
+	<span class="n">error</span> <span class="o">=</span> <span class="n">input_register_device</span><span class="p">(</span><span class="n">input_dev</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">dev_err</span><span class="p">(</span><span class="o">&amp;</span><span class="n">client</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">,</span> <span class="s">"Error %d registering input device</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span>
+			<span class="n">error</span><span class="p">);</span>
+		<span class="k">goto</span> <span class="n">err_free_irq</span><span class="p">;</span>
+	<span class="p">}</span></code></pre></figure>
+
+<p>以上为注册 Input device 的代码，这里涉及到 Linux input 设备的初始化，需要调用 <code class="language-plaintext highlighter-rouge">__set_bit()</code>, <code class="language-plaintext highlighter-rouge">input_set_abs_params()</code> 函数来完成输入设备的一些必要的配置，比如 Input 事件类型，多少个手指，分辨率是多少等，具体可以参考<a href="/daviddong.github.io/c/touch/linux/android/2014/07/10/Touch-inputevent.html#2">「Android 如何上报 Touchevent 给应用层」</a>。<br />
+最后调用<code class="language-plaintext highlighter-rouge">input_register_device()</code>函数来将刚才配置好的 Input device 注册到 kernel 中去。</p>
+
+<h2 id="3-初始化中断"><span id="3">3. 初始化中断</span></h2>
+<p>关于申请中断就比较简单，需要调用<code class="language-plaintext highlighter-rouge">request_threaded_irq()</code>函数，该函数的参数中需要传入</p>
+<ol>
+  <li>该设备申请的中断号，这个在DTS中定义。</li>
+  <li>中断处理函数名</li>
+  <li>中断的类型</li>
+  <li>驱动的名字</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">error</span> <span class="o">=</span> <span class="n">request_threaded_irq</span><span class="p">(</span><span class="n">client</span><span class="o">-&gt;</span><span class="n">irq</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">mxt_interrupt</span><span class="p">,</span>
+			<span class="n">pdata</span><span class="o">-&gt;</span><span class="n">irqflags</span><span class="p">,</span> <span class="n">client</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">.</span><span class="n">driver</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">dev_err</span><span class="p">(</span><span class="o">&amp;</span><span class="n">client</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">,</span> <span class="s">"Error %d registering irq</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
+		<span class="k">goto</span> <span class="n">err_free_object</span><span class="p">;</span>
+	<span class="p">}</span></code></pre></figure>
+
+<h2 id="4-注册-sys-文件节点"><span id="4">4. 注册 Sys 文件节点</span></h2>
+<p>最后的步骤是注册sys文件节点，后期通过读写这些文件节点可以完成对芯片的特定操作，比如升级固件，配置文件等。</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">error</span> <span class="o">=</span> <span class="n">sysfs_create_group</span><span class="p">(</span><span class="o">&amp;</span><span class="n">client</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">.</span><span class="n">kobj</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">mxt_attr_group</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">dev_err</span><span class="p">(</span><span class="o">&amp;</span><span class="n">client</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">,</span> <span class="s">"Failure %d creating sysfs group</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span>
+			<span class="n">error</span><span class="p">);</span>
+		<span class="k">goto</span> <span class="n">err_unregister_device</span><span class="p">;</span>
+	<span class="p">}</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">sysfs_create_group()</code>这个函数需要传入一个 attribute_group 结构体的地址。这个地址实际上指向了一个文件属性 attribute 类型的指针数组，通过该数组可以引用到文件节点操作的函数。</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">static</span> <span class="k">struct</span> <span class="n">attribute</span> <span class="o">*</span><span class="n">mxt_attrs</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+	<span class="o">&amp;</span><span class="n">dev_attr_update_fw</span><span class="p">.</span><span class="n">attr</span><span class="p">,</span>
+	<span class="o">&amp;</span><span class="n">dev_attr_debug_enable</span><span class="p">.</span><span class="n">attr</span><span class="p">,</span>
+	<span class="o">&amp;</span><span class="n">dev_attr_pause_driver</span><span class="p">.</span><span class="n">attr</span><span class="p">,</span>
+	<span class="nb">NULL</span>
+<span class="p">};</span></code></pre></figure>
+
+<p>至此，驱动的加载已经完成，该驱动支持的设备已经可以正常使用。当然驱动代码还有其他的一些任务，比如定义系统休眠，唤醒时的操作。实际上就是设备上下电相关的一些操作。如果需要更改设备上下电时的策略，则要对 <code class="language-plaintext highlighter-rouge">mxt_start()</code> 和 <code class="language-plaintext highlighter-rouge">mxt_stop()</code> 两个函数内容进行修改。</p>
+
+<h2 id="5-设备上下电"><span id="5">5. 设备上下电</span></h2>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">static</span> <span class="kt">int</span> <span class="nf">mxt_suspend</span><span class="p">(</span><span class="k">struct</span> <span class="n">device</span> <span class="o">*</span><span class="n">dev</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="k">struct</span> <span class="n">i2c_client</span> <span class="o">*</span><span class="n">client</span> <span class="o">=</span> <span class="n">to_i2c_client</span><span class="p">(</span><span class="n">dev</span><span class="p">);</span>
+	<span class="k">struct</span> <span class="n">mxt_data</span> <span class="o">*</span><span class="n">data</span> <span class="o">=</span> <span class="n">i2c_get_clientdata</span><span class="p">(</span><span class="n">client</span><span class="p">);</span>
+	<span class="k">struct</span> <span class="n">input_dev</span> <span class="o">*</span><span class="n">input_dev</span> <span class="o">=</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">input_dev</span><span class="p">;</span>
+
+	<span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">input_dev</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="n">input_dev</span><span class="o">-&gt;</span><span class="n">users</span><span class="p">)</span>
+		<span class="n">mxt_stop</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+
+	<span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">input_dev</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">mxt_resume</span><span class="p">(</span><span class="k">struct</span> <span class="n">device</span> <span class="o">*</span><span class="n">dev</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="k">struct</span> <span class="n">i2c_client</span> <span class="o">*</span><span class="n">client</span> <span class="o">=</span> <span class="n">to_i2c_client</span><span class="p">(</span><span class="n">dev</span><span class="p">);</span>
+	<span class="k">struct</span> <span class="n">mxt_data</span> <span class="o">*</span><span class="n">data</span> <span class="o">=</span> <span class="n">i2c_get_clientdata</span><span class="p">(</span><span class="n">client</span><span class="p">);</span>
+	<span class="k">struct</span> <span class="n">input_dev</span> <span class="o">*</span><span class="n">input_dev</span> <span class="o">=</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">input_dev</span><span class="p">;</span>
+
+	<span class="cm">/* Soft reset */</span>
+	<span class="n">mxt_soft_reset</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">MXT_RESET_VALUE</span><span class="p">);</span>
+
+	<span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">input_dev</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="n">input_dev</span><span class="o">-&gt;</span><span class="n">users</span><span class="p">)</span>
+		<span class="n">mxt_start</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+
+	<span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">input_dev</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<h2 id="6-中断处理程序"><span id="6">6. 中断处理程序</span></h2>
+<p>最后也是最重要的就是中断处理程序了，驱动代码要在中断处理程序中将触摸事件转成 <code class="language-plaintext highlighter-rouge">input_event_message</code> 类型的数据帧，发给内核的 EVENT_HUB 来处理。</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">static</span> <span class="n">irqreturn_t</span> <span class="nf">mxt_interrupt</span><span class="p">(</span><span class="kt">int</span> <span class="n">irq</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">dev_id</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="k">struct</span> <span class="n">mxt_data</span> <span class="o">*</span><span class="n">data</span> <span class="o">=</span> <span class="n">dev_id</span><span class="p">;</span>
+	<span class="k">struct</span> <span class="n">mxt_message</span> <span class="n">message</span><span class="p">;</span>
+	<span class="k">struct</span> <span class="n">mxt_object</span> <span class="o">*</span><span class="n">object</span><span class="p">;</span>
+	<span class="k">struct</span> <span class="n">device</span> <span class="o">*</span><span class="n">dev</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">data</span><span class="o">-&gt;</span><span class="n">client</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">touchid</span><span class="p">;</span>
+	<span class="n">u8</span> <span class="n">reportid</span><span class="p">;</span>
+
+	<span class="k">do</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">mxt_read_message</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">message</span><span class="p">))</span> <span class="p">{</span>
+			<span class="n">dev_err</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span> <span class="s">"Failed to read message</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+			<span class="k">goto</span> <span class="n">end</span><span class="p">;</span>
+		<span class="p">}</span>
+
+		<span class="n">reportid</span> <span class="o">=</span> <span class="n">message</span><span class="p">.</span><span class="n">reportid</span><span class="p">;</span>
+
+		<span class="n">object</span> <span class="o">=</span> <span class="n">mxt_get_object</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">MXT_TOUCH_MULTI_T9</span><span class="p">);</span>
+		<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">object</span><span class="p">)</span>
+			<span class="k">goto</span> <span class="n">end</span><span class="p">;</span>
+
+		<span class="k">if</span> <span class="p">(</span><span class="n">reportid</span> <span class="o">&gt;=</span> <span class="n">object</span><span class="o">-&gt;</span><span class="n">min_reportid</span>
+			<span class="o">&amp;&amp;</span> <span class="n">reportid</span> <span class="o">&lt;=</span> <span class="n">object</span><span class="o">-&gt;</span><span class="n">max_reportid</span><span class="p">)</span> <span class="p">{</span>
+			<span class="n">touchid</span> <span class="o">=</span> <span class="n">reportid</span> <span class="o">-</span> <span class="n">object</span><span class="o">-&gt;</span><span class="n">min_reportid</span><span class="p">;</span>
+			<span class="n">mxt_input_touchevent</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">message</span><span class="p">,</span> <span class="n">touchid</span><span class="p">);</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+			<span class="n">object</span> <span class="o">=</span> <span class="n">mxt_get_object</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">MXT_GEN_COMMAND_T6</span><span class="p">);</span>
+			<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">object</span><span class="p">)</span>
+				<span class="k">goto</span> <span class="n">end</span><span class="p">;</span>
+
+			<span class="k">if</span> <span class="p">((</span><span class="n">reportid</span> <span class="o">==</span> <span class="n">object</span><span class="o">-&gt;</span><span class="n">max_reportid</span><span class="p">)</span>
+				<span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">message</span><span class="p">.</span><span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">MXT_STATUS_CFGERROR</span><span class="p">))</span>
+				<span class="n">dev_err</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span> <span class="s">"Configuration error</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="p">}</span>
+	<span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">reportid</span> <span class="o">!=</span> <span class="n">MXT_RPTID_NOMSG</span><span class="p">);</span>
+
+<span class="nl">end:</span>
+	<span class="k">return</span> <span class="n">IRQ_HANDLED</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>可以看到，在中断处理函数中使用了轮询的方法，通过 <code class="language-plaintext highlighter-rouge">mxt_read_message()</code> 函数来读取IC准备好的数据，直到所有数据都被读取，然后调用 <code class="language-plaintext highlighter-rouge">mxt_input_touchevent()</code> 函数将读取的数据打包发送。
+<code class="language-plaintext highlighter-rouge">mxt_input_touchevent()</code> 函数的实现如下。</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">static</span> <span class="kt">void</span> <span class="nf">mxt_input_touchevent</span><span class="p">(</span><span class="k">struct</span> <span class="n">mxt_data</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span>
+				      <span class="k">struct</span> <span class="n">mxt_message</span> <span class="o">*</span><span class="n">message</span><span class="p">,</span> <span class="kt">int</span> <span class="n">id</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="k">struct</span> <span class="n">mxt_finger</span> <span class="o">*</span><span class="n">finger</span> <span class="o">=</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">finger</span><span class="p">;</span>
+	<span class="k">struct</span> <span class="n">device</span> <span class="o">*</span><span class="n">dev</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">data</span><span class="o">-&gt;</span><span class="n">client</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">;</span>
+	<span class="n">u8</span> <span class="n">status</span> <span class="o">=</span> <span class="n">message</span><span class="o">-&gt;</span><span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+	<span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">y</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">area</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">pressure</span><span class="p">;</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="n">data</span><span class="o">-&gt;</span><span class="n">driver_paused</span><span class="p">)</span>
+		<span class="k">return</span><span class="p">;</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="n">id</span> <span class="o">&gt;</span> <span class="n">MXT_MAX_FINGER</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">dev_err</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span> <span class="s">"MXT_MAX_FINGER exceeded!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="k">return</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="cm">/* Check the touch is present on the screen */</span>
+	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">status</span> <span class="o">&amp;</span> <span class="n">MXT_DETECT</span><span class="p">))</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">status</span> <span class="o">&amp;</span> <span class="n">MXT_SUPPRESS</span><span class="p">)</span> <span class="p">{</span>
+			<span class="n">dev_dbg</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span> <span class="s">"[%d] suppressed</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">id</span><span class="p">);</span>
+
+			<span class="n">finger</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">status</span> <span class="o">=</span> <span class="n">MXT_RELEASE</span><span class="p">;</span>
+			<span class="n">mxt_input_report</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">id</span><span class="p">);</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">status</span> <span class="o">&amp;</span> <span class="n">MXT_RELEASE</span><span class="p">)</span> <span class="p">{</span>
+			<span class="n">dev_dbg</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span> <span class="s">"[%d] released</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">id</span><span class="p">);</span>
+
+			<span class="n">finger</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">status</span> <span class="o">=</span> <span class="n">MXT_RELEASE</span><span class="p">;</span>
+			<span class="n">mxt_input_report</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">id</span><span class="p">);</span>
+		<span class="p">}</span>
+		<span class="k">return</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="cm">/* Check only AMP detection */</span>
+	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">status</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">MXT_PRESS</span> <span class="o">|</span> <span class="n">MXT_MOVE</span><span class="p">)))</span>
+		<span class="k">return</span><span class="p">;</span>
+
+	<span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">message</span><span class="o">-&gt;</span><span class="n">message</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">|</span> <span class="p">((</span><span class="n">message</span><span class="o">-&gt;</span><span class="n">message</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xf</span><span class="p">);</span>
+	<span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">message</span><span class="o">-&gt;</span><span class="n">message</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">|</span> <span class="p">((</span><span class="n">message</span><span class="o">-&gt;</span><span class="n">message</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mh">0xf</span><span class="p">));</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">data</span><span class="o">-&gt;</span><span class="n">max_x</span> <span class="o">&lt;</span> <span class="mi">1024</span><span class="p">)</span>
+		<span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">2</span><span class="p">;</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">data</span><span class="o">-&gt;</span><span class="n">max_y</span> <span class="o">&lt;</span> <span class="mi">1024</span><span class="p">)</span>
+		<span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">&gt;&gt;</span> <span class="mi">2</span><span class="p">;</span>
+
+	<span class="n">area</span> <span class="o">=</span> <span class="n">message</span><span class="o">-&gt;</span><span class="n">message</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+	<span class="n">pressure</span> <span class="o">=</span> <span class="n">message</span><span class="o">-&gt;</span><span class="n">message</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+
+	<span class="n">dev_dbg</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span> <span class="s">"[%d] %s x: %d, y: %d, area: %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">id</span><span class="p">,</span>
+		<span class="n">status</span> <span class="o">&amp;</span> <span class="n">MXT_MOVE</span> <span class="o">?</span> <span class="s">"moved"</span> <span class="o">:</span> <span class="s">"pressed"</span><span class="p">,</span>
+		<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">area</span><span class="p">);</span>
+
+	<span class="n">finger</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">status</span> <span class="o">=</span> <span class="n">status</span> <span class="o">&amp;</span> <span class="n">MXT_MOVE</span> <span class="o">?</span>
+				<span class="n">MXT_MOVE</span> <span class="o">:</span> <span class="n">MXT_PRESS</span><span class="p">;</span>
+	<span class="n">finger</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+	<span class="n">finger</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>
+	<span class="n">finger</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">area</span> <span class="o">=</span> <span class="n">area</span><span class="p">;</span>
+	<span class="n">finger</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">pressure</span> <span class="o">=</span> <span class="n">pressure</span><span class="p">;</span>
+
+	<span class="n">mxt_input_report</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">id</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">mxt_input_touchevent()</code> 是十分重要的函数，在这个函数里会根据读取到的数据判断当前 touch 的状态，比如手指是抬起，抑制还是按压，移动。针对不同的状态会发送不同的消息类型给上层。具体的传送通过 <code class="language-plaintext highlighter-rouge">mxt_input_report()</code> 函数执行。
+<code class="language-plaintext highlighter-rouge">mxt_input_report()</code>的函数体如下。</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">static</span> <span class="kt">void</span> <span class="nf">mxt_input_report</span><span class="p">(</span><span class="k">struct</span> <span class="n">mxt_data</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="kt">int</span> <span class="n">single_id</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="k">struct</span> <span class="n">mxt_finger</span> <span class="o">*</span><span class="n">finger</span> <span class="o">=</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">finger</span><span class="p">;</span>
+	<span class="k">struct</span> <span class="n">input_dev</span> <span class="o">*</span><span class="n">input_dev</span> <span class="o">=</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">input_dev</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">status</span> <span class="o">=</span> <span class="n">finger</span><span class="p">[</span><span class="n">single_id</span><span class="p">].</span><span class="n">status</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">finger_num</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">id</span><span class="p">;</span>
+
+	<span class="k">for</span> <span class="p">(</span><span class="n">id</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">id</span> <span class="o">&lt;</span> <span class="n">MXT_MAX_FINGER</span><span class="p">;</span> <span class="n">id</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">finger</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">status</span><span class="p">)</span>
+			<span class="k">continue</span><span class="p">;</span>
+
+		<span class="n">input_mt_slot</span><span class="p">(</span><span class="n">input_dev</span><span class="p">,</span> <span class="n">id</span><span class="p">);</span>
+		<span class="n">input_mt_report_slot_state</span><span class="p">(</span><span class="n">input_dev</span><span class="p">,</span> <span class="n">MT_TOOL_FINGER</span><span class="p">,</span>
+				<span class="n">finger</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">status</span> <span class="o">!=</span> <span class="n">MXT_RELEASE</span><span class="p">);</span>
+
+		<span class="k">if</span> <span class="p">(</span><span class="n">finger</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">status</span> <span class="o">!=</span> <span class="n">MXT_RELEASE</span><span class="p">)</span> <span class="p">{</span>
+			<span class="n">finger_num</span><span class="o">++</span><span class="p">;</span>
+			<span class="n">input_report_abs</span><span class="p">(</span><span class="n">input_dev</span><span class="p">,</span> <span class="n">ABS_MT_TOUCH_MAJOR</span><span class="p">,</span>
+					<span class="n">finger</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">area</span><span class="p">);</span>
+			<span class="n">input_report_abs</span><span class="p">(</span><span class="n">input_dev</span><span class="p">,</span> <span class="n">ABS_MT_POSITION_X</span><span class="p">,</span>
+					<span class="n">finger</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">x</span><span class="p">);</span>
+			<span class="n">input_report_abs</span><span class="p">(</span><span class="n">input_dev</span><span class="p">,</span> <span class="n">ABS_MT_POSITION_Y</span><span class="p">,</span>
+					<span class="n">finger</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">y</span><span class="p">);</span>
+			<span class="n">input_report_abs</span><span class="p">(</span><span class="n">input_dev</span><span class="p">,</span> <span class="n">ABS_MT_PRESSURE</span><span class="p">,</span>
+					<span class="n">finger</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">pressure</span><span class="p">);</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+			<span class="n">finger</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">status</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="n">input_report_key</span><span class="p">(</span><span class="n">input_dev</span><span class="p">,</span> <span class="n">BTN_TOUCH</span><span class="p">,</span> <span class="n">finger_num</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">);</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="n">status</span> <span class="o">!=</span> <span class="n">MXT_RELEASE</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">input_report_abs</span><span class="p">(</span><span class="n">input_dev</span><span class="p">,</span> <span class="n">ABS_X</span><span class="p">,</span> <span class="n">finger</span><span class="p">[</span><span class="n">single_id</span><span class="p">].</span><span class="n">x</span><span class="p">);</span>
+		<span class="n">input_report_abs</span><span class="p">(</span><span class="n">input_dev</span><span class="p">,</span> <span class="n">ABS_Y</span><span class="p">,</span> <span class="n">finger</span><span class="p">[</span><span class="n">single_id</span><span class="p">].</span><span class="n">y</span><span class="p">);</span>
+		<span class="n">input_report_abs</span><span class="p">(</span><span class="n">input_dev</span><span class="p">,</span>
+				 <span class="n">ABS_PRESSURE</span><span class="p">,</span> <span class="n">finger</span><span class="p">[</span><span class="n">single_id</span><span class="p">].</span><span class="n">pressure</span><span class="p">);</span>
+	<span class="p">}</span>
+
+	<span class="n">input_sync</span><span class="p">(</span><span class="n">input_dev</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">mxt_input_report()</code> 主要调用了如下的 Linux kernel 系统服务来上报消息。<br /></p>
+<ul>
+  <li>input_mt_slot()</li>
+  <li>input_mt_report_slot_state()</li>
+  <li>input_report_abs()</li>
+  <li>input_report_key()</li>
+  <li>input_sync()</li>
+</ul>
+
+<p>其中 <code class="language-plaintext highlighter-rouge">input_mt_slot()</code> 是指明当前上报的 slot 号，目前的代码使用的是 <a href="/daviddong.github.io/touch/linux/2014/02/12/Touch-protocol.html#2">protocol B</a> 协议来处理    touch 事件，protocol B 会为每个手指分配一个 slot，不同手指的数据会被封装到不同的 slot 中，这样可以保证不同的手指消息被区分开来传送。可以更好的支持多指触控(不同于 <a href="/daviddong.github.io/touch/linux/2014/02/12/Touch-protocol.html#1">协议A</a>，触控 IC 的 firmware 可以计算划分不同的手指信息，无需上层的算法参与，可以提高响应速度)，详细的内容可以参考 <a href="/daviddong.github.io/touch/linux/2014/02/12/Touch-protocol.html">「Linux 下的多点触摸协议」</a>。
+<code class="language-plaintext highlighter-rouge">input_mt_report_slot_state()</code>是设定当前slot的状态，比如按下，抬起等。
+如果是按下状态，还要调用<code class="language-plaintext highlighter-rouge">input_report_abs()</code>函数来上报当前的坐标信息。
+如果是按键事件，调用<code class="language-plaintext highlighter-rouge">input_report_key()</code>来上报当前的按键信息。
+最后<code class="language-plaintext highlighter-rouge">input_sync()</code>来将所有的信息打包成一个数据帧来发送，注意如果不执行这个函数，之前的信息无效，不会被发送给上层。</p>
+
+<p>好了，到这里整个驱动代码所要完成的主要任务都已经完成了。从整个流程来看虽然比较简单，但是触控IC的驱动程序作为硬件设备和 Linux kernel 的接口，还是起到了非常重要的作用。对于设备的驱动代码，还是要十分重视。<br /></p>
+
+	</div>
+	<!-- put sidebar! -->
+	<div class="post-index-container">
+		<li class = "post-index">On this page</li>
+		<li><ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#1-设备初始化">1. 设备初始化</a></li>
+<li class="toc-entry toc-h2"><a href="#2-注册-input-device">2. 注册 Input Device</a></li>
+<li class="toc-entry toc-h2"><a href="#3-初始化中断">3. 初始化中断</a></li>
+<li class="toc-entry toc-h2"><a href="#4-注册-sys-文件节点">4. 注册 Sys 文件节点</a></li>
+<li class="toc-entry toc-h2"><a href="#5-设备上下电">5. 设备上下电</a></li>
+<li class="toc-entry toc-h2"><a href="#6-中断处理程序">6. 中断处理程序</a></li>
+</ul></li>
+	</div>
+  </div>
+  <!-- no sidebar, use flex width box! -->
+  
+
+  <br><br><br>
+  <!-- Page navigation start here! --><li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">further reading</h1>
+  </li> 
+  <div class="navigation-meta" style = "margin-bottom:40px"><ul class="navigation-bar" style = "margin-top:40px; min-width:40%">   
+	 <a href="/daviddong.github.io/android/2014/04/14/Android-bundle.html"; style="width:100%"><font size="1px" color="#777">Previous Post</font><br>Bundle 在android中的应用</a>
+    </ul><ul class="navigation-bar" style = "margin-top:40px; min-width:40%">   
+     <a href="/daviddong.github.io/c/touch/linux/android/2014/07/10/Touch-inputevent.html"; style="width:100%"><font size="1px" color="#777">Next Post</font><br>Android 如何上报 Touchevent 给应用层</a>
+    </ul></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/daviddong.github.io/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'daviddong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+      </section>
+    </main>
+<script src="/daviddong.github.io/assets/js/simple-jekyll-search.min.js"></script>
+<script src="/daviddong.github.io/assets/js/search.js"></script>
+<link href="/daviddong.github.io/assets/css/vim.css" rel="stylesheet"/>
+
+  </body>
+</html>

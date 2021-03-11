@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/daviddong.github.io/assets/css/style.css">
+<link rel="icon" href="/daviddong.github.io/assets/favicon.ico">
+<title>Python 开发编码规范（转） | David Dong's Blog</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Python 开发编码规范（转） | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Python 开发编码规范（转）" />
+<meta name="author" content="David Dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="这篇文档所给出的编码约定适用于在主要的Python发布版本中组成标准库的Python 代码，请查阅相关的关于在Python的C实现中C代码风格指南的描述。 这篇文档改编自Guido最初的《Python风格指南》一文，并从《Barry’s style guide》中添加了部分内容。在有冲突的地方，Guido的风格规则应该是符合本PEP的意图(译注：指当有冲突时，应以Guido风格为准)。这篇PEP仍然尚未完成(实际上，它可能永远都不会完成)。" />
+<meta property="og:description" content="这篇文档所给出的编码约定适用于在主要的Python发布版本中组成标准库的Python 代码，请查阅相关的关于在Python的C实现中C代码风格指南的描述。 这篇文档改编自Guido最初的《Python风格指南》一文，并从《Barry’s style guide》中添加了部分内容。在有冲突的地方，Guido的风格规则应该是符合本PEP的意图(译注：指当有冲突时，应以Guido风格为准)。这篇PEP仍然尚未完成(实际上，它可能永远都不会完成)。" />
+<link rel="canonical" href="http://localhost:4000/daviddong.github.io/python/2019/04/01/Python-coding-spec.html" />
+<meta property="og:url" content="http://localhost:4000/daviddong.github.io/python/2019/04/01/Python-coding-spec.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-04-01T22:17:33+08:00" />
+<script type="application/ld+json">
+{"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/daviddong.github.io/python/2019/04/01/Python-coding-spec.html"},"@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/daviddong.github.io/BLOG"},"name":"David Dong"},"headline":"Python 开发编码规范（转）","dateModified":"2019-04-01T22:17:33+08:00","datePublished":"2019-04-01T22:17:33+08:00","author":{"@type":"Person","name":"David Dong"},"url":"http://localhost:4000/daviddong.github.io/python/2019/04/01/Python-coding-spec.html","description":"这篇文档所给出的编码约定适用于在主要的Python发布版本中组成标准库的Python 代码，请查阅相关的关于在Python的C实现中C代码风格指南的描述。 这篇文档改编自Guido最初的《Python风格指南》一文，并从《Barry’s style guide》中添加了部分内容。在有冲突的地方，Guido的风格规则应该是符合本PEP的意图(译注：指当有冲突时，应以Guido风格为准)。这篇PEP仍然尚未完成(实际上，它可能永远都不会完成)。","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+
+</head>
+  <body><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><main class="container">
+      <section class="about">
+        <a href="/daviddong.github.io/blog/index.html"><img src="/daviddong.github.io/assets/avatar.png" alt="David Dong"></a>
+        <h2 id="title">
+          <a href="/daviddong.github.io/blog/index.html">David Dong</a>
+        </h2>
+        <p class="tagline">Java/C/C#/Python</p>
+        <ul class="social">
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture-3"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled-1"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a></ul><nav class="navigation">
+            <ul>
+              
+            </ul>
+          </nav><p>&copy;
+          2021</p><div>
+        <p style = "font-family: Raleway, sans-serif;font-size: 100%">Dark Theme
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" id="dark-mode-toggle" onclick="toggleDarkMode()">
+            <span class="slider round"></span>
+          </label>
+        </p>
+      </div>
+      <script type="text/javascript" src="/daviddong.github.io/assets/js/darkmode.js"></script><div>
+        <ul class="social" style="padding-top: 3vh"><a style ="margin-right:10px;text-decoration: none;font-family: Raleway, sans-serif;" href="/daviddong.github.io/rss.xml">
+              <span class="icon-rss-1">rss</span>
+           </a><a style="text-decoration: none;font-family: Raleway, sans-serif;" href="https://github.com/gangdong/daviddong.github.io">
+              <span class="icon-file-code">code</span>
+            </a></ul>
+      </div>
+      </section>
+      <section class="content">
+        <!-- add menu bar here! -->
+
+
+<div class="post-container">
+<div  class = "menu">
+<div  style="font-size:180%;font-weight:800; margin-top: 20px">BLOG</div>
+<div  style = "margin-top: 20px">
+<a class = "menu_tag_a" href="/daviddong.github.io/blog/index.html">
+    <span class="icon-doc-text icon_font">Posts</span>
+</a><a  class = "menu_tag_a" href="/daviddong.github.io/archive">
+    <span class="icon-archive-1 icon_font">Archives</span>
+</a><a  class = "menu_tag_a" href="/daviddong.github.io/category">
+    <span class="icon-tags-1 icon_font">Categories</span>
+</a><a  class = "menu_tag_b" href="/daviddong.github.io/about">
+    <span class="icon-help-circled-3 icon_font">About</span>
+</a>
+</div>
+</div>
+</div><div class="post-container">
+  <li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">POST</h1>
+  </li>  
+  <a class="post-link" href="/daviddong.github.io/python/2019/04/01/Python-coding-spec.html">
+    <h2 class="post-title">Python 开发编码规范（转）</h2>
+  </a>
+  <div class="post-meta">
+    <ul class="post-categories"><li>Python</li></ul>
+    <div class="post-date"><i class="icon-calendar"></i>Apr 1, 2019</div>
+  </div>
+  <!-- post content here! -->
+  <!-- if sidebar! -->
+  
+  <!-- set fix width box to put content! -->
+  <div class="post-viewer-container">
+	<div class="post-fix-width">
+		<p><img src="/daviddong.github.io/assets/image/python-spec-cover.jpeg" alt="cover" />   <br />
+这篇文档所给出的编码约定适用于在主要的Python发布版本中组成标准库的Python 代码，请查阅相关的关于在Python的C实现中C代码风格指南的描述。
+这篇文档改编自Guido最初的《Python风格指南》一文，并从《Barry’s style guide》中添加了部分内容。在有冲突的地方，Guido的风格规则应该是符合本PEP的意图(译注：指当有冲突时，应以Guido风格为准)。这篇PEP仍然尚未完成(实际上，它可能永远都不会完成)。</p>
+
+<p>在这篇风格指导中的一致性是重要的。在一个项目内的一致性更重要。在一个模块或函数内的一致性最重要。但最重要的是：知道何时会不一致——有时只是没有实施风格指导。当出现疑惑时，运用你的最佳判断，看看别的例子，然后决定怎样看起来更好。并且要不耻下问！
+打破一条既定规则的两个好理由：</p>
+<ul>
+  <li>当应用这个规则是将导致代码可读性下降，即便对某人来说，他已经习惯于按这条规则来阅读代码了。</li>
+  <li>为了和周围的代码保持一致而打破规则(也许是历史原因)，虽然这也是个清除其它混乱的好机会(真正的XP风格)。</li>
+</ul>
+
+<p>好了，闲话少说，正文如下。</p>
+
+<h2 id="1-代码的布局"><span id="1">1. 代码的布局</span></h2>
+<h3 id="11-缩进"><span id="1.1">1.1 缩进</span></h3>
+<p>使用Emacs的Python-mode的默认值：4个空格一个缩进层次。对于确实古老的代码，你不希望产生混乱，可以继续使用8空格的制表符(8-space tabs)。Emacs Python-mode自动发现文件中主要的缩进层次，依此设定缩进参数。</p>
+<h3 id="12-制表符还是空格"><span id="1.2">1.2 制表符还是空格</span></h3>
+<p>永远不要混用制表符和空格。最流行的Python缩进方式是仅使用空格，其次是仅使用制表符，混合着制表符和空格缩进的代码将被转换成仅使用空格。(在Emacs中，选中整个缓冲区，按ESC-x去除制表符。)调用Python命令行解释器时使用-t选项，可对代码中不合法得混合制表符和空格发出警告，使用-tt时警告将变成错误。这些选项是被高度推荐的。
+对于新的项目，强烈推荐仅使用空格而不是制表符。许多编辑器拥有使之易于实现的功能(在Emacs中，确认<code class="language-plaintext highlighter-rouge">indent-tabs-mode</code>是nil)。</p>
+<h3 id="13-行的最大长度"><span id="1.3">1.3 行的最大长度</span></h3>
+<p>周围仍然有许多设备被限制在每行80字符：而且，窗口限制在80个字符。使将多个窗口并排放置成为可能。在这些设备上使用默认的折叠方式看起来有点丑陋。因此，请将所有行限制在最大79字符(Emacs准确得将行限制为长80字符)，对顺序排放的大块文本(文档字符串或注释)，推荐将长度限制在72字符。
+折叠长行的首选方法是使用Pyhon支持的圆括号，方括号和花括号内的行延续。如果需要，你可以在表达式周围增加一对额外的圆括号，但是有时使用反斜杠看起来更好，确认恰当得缩进了延续的行。
+Emacs的Python-mode正确得完成了这些。一些例子：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!Python
+</span><span class="k">class</span> <span class="nc">Rectangle</span><span class="p">(</span><span class="n">Blob</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">width</span><span class="p">,</span><span class="n">height</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s">'black'</span><span class="p">,</span><span class="n">emphasis</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">highlight</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="k">if</span> <span class="n">width</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">height</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> \
+<span class="n">color</span> <span class="o">==</span> <span class="s">'red'</span> <span class="ow">and</span> <span class="n">emphasis</span> <span class="o">==</span> <span class="s">'strong'</span> <span class="ow">or</span> \
+<span class="n">highlight</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">:</span>
+<span class="k">raise</span> <span class="nb">ValueError</span><span class="p">,</span> <span class="s">"sorry， you lose"</span>
+<span class="k">if</span> <span class="n">width</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">height</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="p">(</span><span class="n">color</span> <span class="o">==</span> <span class="s">'red'</span> <span class="ow">or</span>
+<span class="n">emphasis</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">):</span>
+<span class="k">raise</span> <span class="nb">ValueError</span><span class="p">,</span><span class="s">"I don't think so"</span>
+<span class="n">Blob</span><span class="p">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">width</span><span class="p">,</span><span class="n">height</span><span class="p">,</span><span class="n">color</span><span class="p">,</span><span class="n">emphasis</span><span class="p">,</span><span class="n">highlight</span><span class="p">)</span></code></pre></figure>
+
+<h3 id="14-空行"><span id="1.4">1.4 空行</span></h3>
+<p>用两行空行分割顶层函数和类的定义，类内方法的定义用单个空行分割，额外的空行可被用于(保守的)分割相关函数组成的群，在一组相关的单句中间可以省略空行。(例如：一组哑元素)。
+当空行用于分割方法的定义时，在<code class="language-plaintext highlighter-rouge">class</code>行和第一个方法定义之间也要有一个空行。在函数中使用空行时，请谨慎的用于表示一个逻辑段落。Python接受<code class="language-plaintext highlighter-rouge">contol-L</code>(即^L)换页符作为空格：Emacs(和一些打印工具)，视这个字符为页面分割符，因此在你的文件中，可以用他们来为相关片段分页。</p>
+<h2 id="2-编码"><span id="2">2. 编码</span></h2>
+<p>Python核心发布中的代码必须始终使用<code class="language-plaintext highlighter-rouge">ASCII</code>或<code class="language-plaintext highlighter-rouge">Latin-1</code>编码(又名 <code class="language-plaintext highlighter-rouge">ISO-8859-1</code>)，使用<code class="language-plaintext highlighter-rouge">ASCII</code>的文件不必有编码cookie，Latin-1仅当注释或文档字符串涉及作者名字需要Latin-1时才被使用：
+另外使用<code class="language-plaintext highlighter-rouge">\x</code>转义字符是在字符串中包含非<code class="language-plaintext highlighter-rouge">ASCII(non-ASCII)</code>数据的首选方法。
+作为<code class="language-plaintext highlighter-rouge">PEP 263</code>实现代码的测试套件的部分文件是个例外。</p>
+<h3 id="21-导入"><span id="2.1">2.1 导入</span></h3>
+<p>通常应该在单独的行中导入(Imports)，例如：</p>
+<ul>
+  <li>No： <code class="language-plaintext highlighter-rouge">import sys， os</code></li>
+  <li>Yes：<code class="language-plaintext highlighter-rouge">import sys</code> <br />
+                  <code class="language-plaintext highlighter-rouge">import os</code></li>
+</ul>
+
+<p>但是这样也是可以的： <br />
+<code class="language-plaintext highlighter-rouge">from types import StringType， ListType</code> <br />
+Imports 通常被放置在文件的顶部，仅在模块注释和文档字符串之后，在模块的全局变量和常量之前。 <br />
+Imports应该有顺序地成组安放：</p>
+<ul>
+  <li>标准库的导入(Imports )</li>
+  <li>相关的主包(major package)的导入(即，所有的email包在随后导入)</li>
+  <li>特定应用的导入(imports)
+你应该在每组导入之间放置一个空行，对于内部包的导入是不推荐使用相对导入的，对所有导入都要使用包的绝对路径。 <br />
+从一个包含类的模块中导入类时，通常可以写成这样： <br />
+<code class="language-plaintext highlighter-rouge">from MyClass import MyClass</code> <br />
+<code class="language-plaintext highlighter-rouge">from foo.bar.YourClass import YourClass</code> <br />
+如果这样写导致了本地名字冲突，那么就这样写
+<code class="language-plaintext highlighter-rouge">import MyClass</code> <br />
+<code class="language-plaintext highlighter-rouge">import foo.bar.YourClass</code> <br />
+即使用<code class="language-plaintext highlighter-rouge">MyClass.MyClass</code>和<code class="language-plaintext highlighter-rouge">foo.bar.YourClass.YourClass</code></li>
+</ul>
+
+<h3 id="22-表达式和语句中的空格"><span id="2.2">2.2 表达式和语句中的空格</span></h3>
+<p>Guido不喜欢在以下地方出现空格：</p>
+<ul>
+  <li>紧挨着圆括号，方括号和花括号的； <br />
+如：<code class="language-plaintext highlighter-rouge">spam( ham[ 1 ]，{ eggs：2 } )</code>。要始终将它写成<code class="language-plaintext highlighter-rouge">spam(ham[1]，{eggs： 2})</code>。</li>
+  <li>紧贴在逗号，分号或冒号前的； <br />
+如：
+<code class="language-plaintext highlighter-rouge">if x == 4：print x，y：x，y = y，x</code>。要始终将它写成
+<code class="language-plaintext highlighter-rouge">if x == 4:print x，y:x，y = y，x</code>。</li>
+  <li>紧贴着函数调用的参数列表前开式括号(open parenthesis )的； <br />
+如<code class="language-plaintext highlighter-rouge">spam (1)</code>。要始终将它写成<code class="language-plaintext highlighter-rouge">spam(1)</code>。</li>
+  <li>紧贴在索引或切片，开始的开式括号前的； <br />
+如：
+<code class="language-plaintext highlighter-rouge">dict ['key'] = list [index]</code>。要始终将它写成<code class="language-plaintext highlighter-rouge">dict['key'] = list[index]</code>。</li>
+  <li>在赋值(或其它)运算符周围的用于和其它并排的一个以上的空格； <br />
+如：</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!Python
+</span><span class="n">x</span><span class="o">=</span> <span class="mi">1</span>
+<span class="n">y</span><span class="o">=</span> <span class="mi">2</span>
+<span class="n">long_variable</span> <span class="o">=</span> <span class="mi">3</span></code></pre></figure>
+
+<p>要始终将它写成</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!Python
+</span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">long_variable</span> <span class="o">=</span> <span class="mi">3</span></code></pre></figure>
+
+<h3 id="23-其他建议"><span id="2.3">2.3 其他建议</span></h3>
+<p>始终在这些二元运算符两边放置一个空格：赋值<code class="language-plaintext highlighter-rouge">(=)</code>， 比较<code class="language-plaintext highlighter-rouge">(==，&lt;，&gt;，!=，&lt;&gt;，&lt;=， &gt;=，in，not in，is，is not)</code>，布尔运算 <code class="language-plaintext highlighter-rouge">(and，or，not)</code>。
+按你的看法在算术运算符周围插入空格。 始终保持二元运算符两边空格的一致。 <br />
+一些例子：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!Python
+</span><span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+<span class="n">submitted</span> <span class="o">=</span> <span class="n">submitted</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="n">hypot2</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="o">*</span><span class="n">y</span>
+<span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span></code></pre></figure>
+
+<p>不要在用于指定关键字参数或默认参数值的<code class="language-plaintext highlighter-rouge">=</code>号周围使用空格，例如：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!Python
+</span><span class="k">def</span> <span class="nf">complex</span><span class="p">(</span><span class="n">real</span><span class="p">,</span> <span class="n">imag</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+<span class="k">return</span> <span class="n">magic</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="n">real</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="n">imag</span><span class="p">)</span></code></pre></figure>
+
+<p>不要将多条语句写在同一行上：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">No</span><span class="p">:</span> <span class="k">if</span> <span class="n">foo</span> <span class="o">==</span> <span class="s">'blah'</span><span class="p">:</span><span class="n">do_blah_thing</span><span class="p">()</span>
+<span class="n">Yes</span><span class="p">:</span><span class="k">if</span> <span class="n">foo</span> <span class="o">==</span> <span class="s">'blah'</span><span class="p">:</span>
+<span class="n">do_blah_thing</span><span class="p">()</span>
+<span class="n">No</span><span class="p">:</span><span class="n">do_one</span><span class="p">():</span><span class="n">do_two</span><span class="p">():</span><span class="n">do_three</span><span class="p">()</span>
+<span class="n">Yes</span><span class="p">:</span> <span class="n">do_one</span><span class="p">()</span>
+<span class="n">do_two</span><span class="p">()</span>
+<span class="n">do_three</span><span class="p">()</span></code></pre></figure>
+
+<h2 id="3-注释"><span id="3">3. 注释</span></h2>
+<p>同代码不一致的注释比没注释更差。当代码修改时，始终优先更新注释 <strong>!注释应该是完整的句子</strong>，如果注释是一个短语或句子，首字母应该大写，除非他是一个以小写字母开头的标识符(永远不要修改标识符的大小写)。
+如果注释很短，最好省略末尾的句号。注释块通常由一个或多个由完整句子构成的段落组成，每个句子应该以句号结尾。你应该在句末，句号后使用两个空格，以便使Emacs的断行和填充工作协调一致。
+用英语书写时，断词和空格是可用的。非英语国家的Python程序员：请用英语书写你的注释，除非你120%的确信这些代码不会被不懂你的语言的人阅读。
+注释块
+注释块通常应用于跟随着一些(或者全部)代码并和这些代码有着相同的缩进层次。注释块中每行以<code class="language-plaintext highlighter-rouge">#</code>和一个空格开始(除非他是注释内的缩进文本)。注释块内的段落以仅含单个<code class="language-plaintext highlighter-rouge">#</code>的行分割。注释块上下方最好有一空行包围(或上方两行下方一行，对一个新函数定义段的注释)。
+行内注释
+一个行内注释是和语句在同一行的注释，行内注释应该谨慎适用，行内注释应该至少用两个空格和语句分开，它们应该以<code class="language-plaintext highlighter-rouge">#</code>和单个空格开始。</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span> <span class="c1"># Increment x</span></code></pre></figure>
+
+<p>如果语意是很明了的，那么行内注释是不必要的，事实上是应该被移除的。不要这样写：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span> <span class="c1"># Increment x
+</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span> <span class="c1"># Compensate for border</span></code></pre></figure>
+
+<p>但是有时，这样是有益的：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span> <span class="c1"># Compensate for border</span></code></pre></figure>
+
+<h3 id="31-文档字符串"><span id="3.1">3.1 文档字符串</span></h3>
+<p>应该一直遵守编写好的文档字符串的约定<code class="language-plaintext highlighter-rouge">PEP 257 [3]</code>。为所有公共模块，函数，类和方法编写文档字符串。文档字符串对非公开的方法不是必要的，但你应该有一个描述这个方法做什么的注释。这个注释应该在<code class="language-plaintext highlighter-rouge">def</code>这行后。
+<code class="language-plaintext highlighter-rouge">PEP 257</code> 描述了好的文档字符串的约定。一定注意，多行文档字符串结尾的<code class="language-plaintext highlighter-rouge">"""</code>应该单独成行，例如：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="s">"""Return a foobang
+Optional plotz says to frobnicate the bizbaz first。
+"""</span></code></pre></figure>
+
+<p>对单行的文档字符串，结尾的<code class="language-plaintext highlighter-rouge">"""</code>在同一行也可以。
+版本注记
+如果你要将RCS或CVS的杂项(crud)包含在你的源文件中，按如下做。</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!Python
+</span><span class="n">__version__</span> <span class="o">=</span> <span class="s">"$Revision： 1。4 $"</span>
+<span class="c1"># $Source： E：/cvsroot/Python_doc/pep8。txt，v $</span></code></pre></figure>
+
+<p>这个行应该包含在模块的文档字符串之后，所有代码之前，上下用一个空行分割。</p>
+<h2 id="4-命名约定"><span id="4">4. 命名约定</span></h2>
+<p>Python库的命名约定有点混乱，所以我们将永远不能使之变得完全一致，不过还是有公认的命名规范的。新的模块和包(包括第三方的框架)必须符合这些标准，但对已有的库存在不同风格的，保持内部的一致性是首选的。</p>
+<h3 id="41-描述命名风格"><span id="4.1">4.1 描述：命名风格</span></h3>
+<p>有许多不同的命名风格。以下的有助于辨认正在使用的命名风格，独立于它们的作用。 以下的命名风格是众所周知的：<br /></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">b</code> (单个小写字母)<br /></li>
+  <li><code class="language-plaintext highlighter-rouge">B</code> (单个大写字母)<br /></li>
+  <li><code class="language-plaintext highlighter-rouge">Lowercase</code>（小写）<br /></li>
+  <li><code class="language-plaintext highlighter-rouge">lower_case_with_underscores</code>（有下划线的小写）<br /></li>
+  <li><code class="language-plaintext highlighter-rouge">UPPERCASE</code>（大写）<br /></li>
+  <li><code class="language-plaintext highlighter-rouge">UPPER_CASE_WITH_UNDERSCORES</code>（有下划线的大写）<br /></li>
+  <li><code class="language-plaintext highlighter-rouge">CapitalizedWords</code> (或 CapWords，CamelCase这样命名是因为可从字母的大小写分出单词。这有时也被当作StudlyCaps。</li>
+  <li><code class="language-plaintext highlighter-rouge">mixedCase</code> (与CapitalizedWords的不同在于首字母小写!)</li>
+  <li><code class="language-plaintext highlighter-rouge">Capitalized_Words_With_Underscores</code>（有下划线的首字母大写） (丑陋!)</li>
+  <li>还有用短的特别前缀将相关的名字聚合在一起的风格。这在Python中不常用，但是出于完整性要提一下，例如，<code class="language-plaintext highlighter-rouge">os.stat()</code>函数返回一个元组，他的元素传统上说名如<code class="language-plaintext highlighter-rouge">st_mode</code>， <code class="language-plaintext highlighter-rouge">st_size</code>，<code class="language-plaintext highlighter-rouge">st_mtime</code>等等。
+X11库的所有公开函数以X开头。(在Python中，这个风格通常认为是不必要的，因为属性和方法名以对象作前缀，而函数名以模块名作前缀。)</li>
+</ul>
+
+<p>另外，以下用下划线作前导或结尾的特殊形式是被公认的(这些通常可以和任何习惯组合)：</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">_single_leading_underscore</code>(单个下划线作前导)：弱的“内部使用(internal use)”标志。 (例如，<code class="language-plaintext highlighter-rouge">from M import *</code>不会导入以下划线开头的对象)。</li>
+  <li><code class="language-plaintext highlighter-rouge">single_trailing_underscore_</code>(单个下划线结尾)： 用于避免与Python关键词的冲突，例如：<code class="language-plaintext highlighter-rouge">Tkinter.Toplevel(master，class_='ClassName')</code>。</li>
+  <li><code class="language-plaintext highlighter-rouge">_double_leading_underscore</code>(双下划线)：从Python 1.4起为类私有名。</li>
+  <li><code class="language-plaintext highlighter-rouge">_double_leading_and_trailing_underscore_</code>：<code class="language-plaintext highlighter-rouge">magic</code>对象或属性，存在于用户控制的(user-controlled)名字空间，例如：<code class="language-plaintext highlighter-rouge">_init_</code>， <code class="language-plaintext highlighter-rouge">_import_</code> 或<code class="language-plaintext highlighter-rouge">_file_</code>。有时它们被用户定义用于触发某个魔法行为(例如：运算符重载)：有时被构造器插入，以便自己使用或为了调试。因此，在未来的版本中，构造器(松散得定义为Python解释器和标准库)可能打算建立自己的魔法属性列表，用户代码通常应该限制将这种约定作为己用。</li>
+  <li>欲成为构造器的一部分的用户代码可以在下滑线中结合使用短前缀，例如：
+<code class="language-plaintext highlighter-rouge">_bobo_magic_attr__</code>。</li>
+</ul>
+
+<h3 id="42-说明命名约定"><span id="4.2">4.2 说明：命名约定</span></h3>
+<p>应避免的名字。永远不要用字符<code class="language-plaintext highlighter-rouge">l</code>(小写字母el(就是读音，下同))，<code class="language-plaintext highlighter-rouge">O</code>(大写字母oh)，或<code class="language-plaintext highlighter-rouge">I</code>(大写字母eye)作为单字符的变量名。在某些字体中这些字符不能与数字1和0分辨。试着在使用<code class="language-plaintext highlighter-rouge">l</code>时用<code class="language-plaintext highlighter-rouge">L</code>代替。</p>
+<h3 id="43-模块名"><span id="4.3">4.3 模块名</span></h3>
+<p>模块应该是不含下划线的，简短的，小写的名字。因为模块名被映射到文件名，有些文件系统大小写不敏感并且截短长名字，模块名被选为相当短是重要的，这在Unix上不是问题，但当代码传到Mac或Windows上就可能是个问题了。
+当用C或C++编写的扩展模块有一个伴随Python模块提供高层(例如进一步的面向对象)接口时，C/C++模块有下划线前导(如：<code class="language-plaintext highlighter-rouge">_socket</code>)。Python包应该是不含下划线的，简短的，全小写的名字。</p>
+<h3 id="44-类名"><span id="4.4">4.4 类名</span></h3>
+<p>几乎不出意料，类名使用CapWords约定。内部使用的类外加一个前导下划线。</p>
+<h3 id="45-异常名"><span id="4.5">4.5 异常名</span></h3>
+<p>如果模块对所有情况定义了单个异常，它通常被叫做<code class="language-plaintext highlighter-rouge">error</code>或<code class="language-plaintext highlighter-rouge">Error</code>。似乎内建(扩展)的模块使用<code class="language-plaintext highlighter-rouge">error</code>(例如：<code class="language-plaintext highlighter-rouge">os.error</code>)，而Python模块通常用<code class="language-plaintext highlighter-rouge">Error</code> (例如：xdrlib.Error)。趋势似乎是倾向使用CapWords异常名。</p>
+<h3 id="46-全局变量名"><span id="4.6">4.6 全局变量名</span></h3>
+<p>(让我们祈祷这些变量仅在一个模块的内部有意义)
+这些约定和在函数中的一样。模块是被设计为通过<code class="language-plaintext highlighter-rouge">from M import *</code>来使用的，必须用一个下划线作全局变量(及内部函数和类)的前缀防止其被导出(exporting)。</p>
+<h3 id="47-函数名"><span id="4.7">4.7 函数名</span></h3>
+<p>函数名应该为小写，可能用下划线风格单词以增加可读性。mixedCase仅被允许用于这种风格已经占优势的上下文(如：threading.py)，以便保持向后兼容。</p>
+<h3 id="48-方法名和实例变量"><span id="4.8">4.8 方法名和实例变量</span></h3>
+<p>这段大体上和函数相同：通常使用小写单词，必要时用下划线分隔增加可读性。仅为不打算作为类的公共界面的内部方法和实例使用一个前导下划线，Python不强制要求这样：它取决于程序员是否遵守这个约定。
+使用两个前导下划线以表示类私有的名字，Python将这些名字和类名连接在一起：
+如果类Foo有一个属性名为_a，它不能以<code class="language-plaintext highlighter-rouge">Foo._a</code>访问。(固执的用户还是可以通过<code class="language-plaintext highlighter-rouge">Foo._Foo__a</code>得到访问权。)
+通常双前导下划线仅被用于避免含子类的类中的属性名的名字冲突。</p>
+<h2 id="5-继承的设计"><span id="5">5. 继承的设计</span></h2>
+<p>始终要确定一个类中的方法和实例变量是否要被公开。通常，永远不要将数据变量公开，除非你实现的本质上只是记录，人们几乎总是更喜欢代之给出一个函数作为类的界面(Python 2.2 的一些开发者在这点上做得非常漂亮)。
+同样，确定你的属性是否应为私有的。私有和非私有的区别在于模板将永远不会对原有的类(导出类)有效，而后者可以。你应该在大脑中就用继承设计好了你的类，私有属性必须有两个前导下划线，无后置下划线，非公有属性必须有一个前导下划线，无后置下划线，公共属性没有前导和后置下划线，除非它们与保留字冲突，在此情况下，单个后置下划线比前置或混乱的拼写要好，例如：class_优于klass。
+最后一点有些争议：如果相比class_你更喜欢klass，那么这只是一致性问题。</p>
+<h3 id="51-设计建议"><span id="5.1">5.1 设计建议</span></h3>
+<p>单个元素(singletons)的比较，如None 应该永远用：<code class="language-plaintext highlighter-rouge">is</code>或<code class="language-plaintext highlighter-rouge">is not</code>来做。当你本意是<code class="language-plaintext highlighter-rouge">if x is not None</code>时，对写成<code class="language-plaintext highlighter-rouge">if x</code>要小心。例如当你测试一个默认为None的变量或参数是否被设置为其它值时，这个值也许在布尔上下文(Boolean context)中是false！
+基于类的异常总是好过基于字符串的异常。模块和包应该定义它们自己的域内特定的基异常类，基类应该是内建的Exception类的子类。还始终包含一个类的文档字符串。例如：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!Python
+</span><span class="k">class</span> <span class="nc">MessageError</span><span class="p">(</span><span class="nb">Exception</span><span class="p">):</span>
+<span class="s">"""Base class for errors in the email package。"""</span></code></pre></figure>
+
+<p>使用字符串方法(methods)代替字符串模块，除非必须向后兼容Python 2.0以前的版本。字符串方法总是非常快，而且和unicode字符串共用同样的API(应用程序接口)在检查前缀或后缀时避免对字符串进行切片。用<code class="language-plaintext highlighter-rouge">startswith()</code>和<code class="language-plaintext highlighter-rouge">endswith()</code>代替，因为它们是明确的并且错误更少。例如：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">No</span><span class="p">:</span><span class="k">if</span> <span class="n">foo</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="s">'bar'</span><span class="p">:</span>
+<span class="n">Yes</span><span class="p">:</span><span class="k">if</span> <span class="n">foo</span><span class="p">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">'bar'</span><span class="p">):</span></code></pre></figure>
+
+<p>例外是如果你的代码必须工作在Python 1.5.2 (但是我们希望它不会发生！)，对象类型的比较应该始终用<code class="language-plaintext highlighter-rouge">isinstance()</code>代替直接比较类型，例如：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">No</span><span class="p">:</span><span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">type</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
+<span class="n">Yes</span><span class="p">:</span><span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span></code></pre></figure>
+
+<p>检查一个对象是否是字符串时，紧记它也可能是unicode字符串！在Python 2.3，str和unicode有公共的基类，basestring，所以你可以这样做：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="nb">basestring</span><span class="p">):</span></code></pre></figure>
+
+<p>在Python 2.2类型模块为此定义了<code class="language-plaintext highlighter-rouge">StringTypes</code>类型，例如：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!Python
+</span><span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">StringTypes</span>
+<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">StringTypes</span><span class="p">):</span></code></pre></figure>
+
+<p>在Python 2.0和2.1，你应该这样做：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!Python
+</span><span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">StringType</span><span class="p">,</span> <span class="n">UnicodeType</span>
+<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">StringType</span><span class="p">)</span> <span class="ow">or</span> \
+<span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="n">UnicodeType</span><span class="p">):</span></code></pre></figure>
+
+<p>对序列，(字符串，列表，元组)，使用空列表是false这个事实，因此<code class="language-plaintext highlighter-rouge">if not seq</code>或<code class="language-plaintext highlighter-rouge">if seq</code>比<code class="language-plaintext highlighter-rouge">if len(seq)</code>或<code class="language-plaintext highlighter-rouge">if not len(seq)</code>好。书写字符串文字时不要依赖于有意义的后置空格。这种后置空格在视觉上是不可辨别的，并且有些编辑器(特别是近来，reindent.py)会将它们修整掉。不要用==来比较布尔型的值以确定是True或False(布尔型是Pythn 2.3中新增的)</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">No</span><span class="p">:</span> <span class="k">if</span> <span class="n">greeting</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
+<span class="n">Yes</span><span class="p">:</span> <span class="k">if</span> <span class="n">greeting</span><span class="p">:</span>
+<span class="n">No</span><span class="p">:</span> <span class="k">if</span> <span class="n">greeting</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
+<span class="n">Yes</span><span class="p">:</span> <span class="k">if</span> <span class="n">greeting</span><span class="p">:</span></code></pre></figure>
+
+	</div>
+	<!-- put sidebar! -->
+	<div class="post-index-container">
+		<li class = "post-index">On this page</li>
+		<li><ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#1-代码的布局">1. 代码的布局</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#11-缩进">1.1 缩进</a></li>
+<li class="toc-entry toc-h3"><a href="#12-制表符还是空格">1.2 制表符还是空格</a></li>
+<li class="toc-entry toc-h3"><a href="#13-行的最大长度">1.3 行的最大长度</a></li>
+<li class="toc-entry toc-h3"><a href="#14-空行">1.4 空行</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#2-编码">2. 编码</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#21-导入">2.1 导入</a></li>
+<li class="toc-entry toc-h3"><a href="#22-表达式和语句中的空格">2.2 表达式和语句中的空格</a></li>
+<li class="toc-entry toc-h3"><a href="#23-其他建议">2.3 其他建议</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#3-注释">3. 注释</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#31-文档字符串">3.1 文档字符串</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#4-命名约定">4. 命名约定</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#41-描述命名风格">4.1 描述：命名风格</a></li>
+<li class="toc-entry toc-h3"><a href="#42-说明命名约定">4.2 说明：命名约定</a></li>
+<li class="toc-entry toc-h3"><a href="#43-模块名">4.3 模块名</a></li>
+<li class="toc-entry toc-h3"><a href="#44-类名">4.4 类名</a></li>
+<li class="toc-entry toc-h3"><a href="#45-异常名">4.5 异常名</a></li>
+<li class="toc-entry toc-h3"><a href="#46-全局变量名">4.6 全局变量名</a></li>
+<li class="toc-entry toc-h3"><a href="#47-函数名">4.7 函数名</a></li>
+<li class="toc-entry toc-h3"><a href="#48-方法名和实例变量">4.8 方法名和实例变量</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#5-继承的设计">5. 继承的设计</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#51-设计建议">5.1 设计建议</a></li>
+</ul>
+</li>
+</ul></li>
+	</div>
+  </div>
+  <!-- no sidebar, use flex width box! -->
+  
+
+  <br><br><br>
+  <!-- Page navigation start here! --><li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">further reading</h1>
+  </li> 
+  <div class="navigation-meta" style = "margin-bottom:40px"><ul class="navigation-bar" style = "margin-top:40px; min-width:40%">   
+	 <a href="/daviddong.github.io/python/2019/03/07/Python-pillow.html"; style="width:100%"><font size="1px" color="#777">Previous Post</font><br>Python Pillow library usage</a>
+    </ul><ul class="navigation-bar" style = "margin-top:40px; min-width:40%">   
+     <a href="/daviddong.github.io/python/2019/05/03/Python-pack.html"; style="width:100%"><font size="1px" color="#777">Next Post</font><br>Python struct.pack()</a>
+    </ul></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/daviddong.github.io/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'daviddong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+      </section>
+    </main>
+<script src="/daviddong.github.io/assets/js/simple-jekyll-search.min.js"></script>
+<script src="/daviddong.github.io/assets/js/search.js"></script>
+<link href="/daviddong.github.io/assets/css/vim.css" rel="stylesheet"/>
+
+  </body>
+</html>
