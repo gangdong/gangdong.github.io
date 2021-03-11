@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/daviddong.github.io/assets/css/style.css">
+<link rel="icon" href="/daviddong.github.io/assets/favicon.ico">
+<title>Calculate reading time in Jekyll | David Dong's Blog</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Calculate reading time in Jekyll | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Calculate reading time in Jekyll" />
+<meta name="author" content="David Dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I believe it is a good idea to estimate the reading time of every post and display it to readers following the post excerpts." />
+<meta property="og:description" content="I believe it is a good idea to estimate the reading time of every post and display it to readers following the post excerpts." />
+<link rel="canonical" href="http://localhost:4000/daviddong.github.io/web/2018/08/13/Web-jekyll-reading-time.html" />
+<meta property="og:url" content="http://localhost:4000/daviddong.github.io/web/2018/08/13/Web-jekyll-reading-time.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-08-13T19:12:43+08:00" />
+<script type="application/ld+json">
+{"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/daviddong.github.io/web/2018/08/13/Web-jekyll-reading-time.html"},"@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/daviddong.github.io/BLOG"},"name":"David Dong"},"headline":"Calculate reading time in Jekyll","dateModified":"2018-08-13T19:12:43+08:00","datePublished":"2018-08-13T19:12:43+08:00","author":{"@type":"Person","name":"David Dong"},"url":"http://localhost:4000/daviddong.github.io/web/2018/08/13/Web-jekyll-reading-time.html","description":"I believe it is a good idea to estimate the reading time of every post and display it to readers following the post excerpts.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+
+</head>
+  <body><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><main class="container">
+      <section class="about">
+        <a href="/daviddong.github.io/blog/index.html"><img src="/daviddong.github.io/assets/avatar.png" alt="David Dong"></a>
+        <h2 id="title">
+          <a href="/daviddong.github.io/blog/index.html">David Dong</a>
+        </h2>
+        <p class="tagline">Java/C/C#/Python</p>
+        <ul class="social">
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture-3"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled-1"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a></ul><nav class="navigation">
+            <ul>
+              
+            </ul>
+          </nav><p>&copy;
+          2021</p><div>
+        <p style = "font-family: Raleway, sans-serif;font-size: 100%">Dark Theme
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" id="dark-mode-toggle" onclick="toggleDarkMode()">
+            <span class="slider round"></span>
+          </label>
+        </p>
+      </div>
+      <script type="text/javascript" src="/daviddong.github.io/assets/js/darkmode.js"></script><div>
+        <ul class="social" style="padding-top: 3vh"><a style ="margin-right:10px;text-decoration: none;font-family: Raleway, sans-serif;" href="/daviddong.github.io/rss.xml">
+              <span class="icon-rss-1">rss</span>
+           </a><a style="text-decoration: none;font-family: Raleway, sans-serif;" href="https://github.com/gangdong/daviddong.github.io">
+              <span class="icon-file-code">code</span>
+            </a></ul>
+      </div>
+      </section>
+      <section class="content">
+        <!-- add menu bar here! -->
+
+
+<div class="post-container">
+<div  class = "menu">
+<div  style="font-size:180%;font-weight:800; margin-top: 20px">BLOG</div>
+<div  style = "margin-top: 20px">
+<a class = "menu_tag_a" href="/daviddong.github.io/blog/index.html">
+    <span class="icon-doc-text icon_font">Posts</span>
+</a><a  class = "menu_tag_a" href="/daviddong.github.io/archive">
+    <span class="icon-archive-1 icon_font">Archives</span>
+</a><a  class = "menu_tag_a" href="/daviddong.github.io/category">
+    <span class="icon-tags-1 icon_font">Categories</span>
+</a><a  class = "menu_tag_b" href="/daviddong.github.io/about">
+    <span class="icon-help-circled-3 icon_font">About</span>
+</a>
+</div>
+</div>
+</div><div class="post-container">
+  <li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">POST</h1>
+  </li>  
+  <a class="post-link" href="/daviddong.github.io/web/2018/08/13/Web-jekyll-reading-time.html">
+    <h2 class="post-title">Calculate reading time in Jekyll</h2>
+  </a>
+  <div class="post-meta">
+    <ul class="post-categories"><li>Web</li></ul>
+    <div class="post-date"><i class="icon-calendar"></i>Aug 13, 2018</div>
+  </div>
+  <!-- post content here! -->
+  <!-- if sidebar! -->
+  
+  <div class="post">
+    <p>I believe it is a good idea to estimate the reading time of every post and display it to readers following the post excerpts.</p>
+
+<p>There are plenty of Jekyll plugins that support realizing this feature, but I don’t suggest to use them if you want to deploy your blog on Github pages. (GitHub may block the working of these plugins by running with the <code class="language-plaintext highlighter-rouge">--safe</code> flag).</p>
+
+<p>So I tried to write below trick code to realize this feature.</p>
+
+<figure class="highlight"><pre><code class="language-liquid" data-lang="liquid"><span class="p">{%</span><span class="w"> </span><span class="nt">assign</span><span class="w"> </span><span class="nv">words</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">post</span><span class="p">.</span><span class="nv">content</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">strip_html</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">strip_newlines</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">remove</span><span class="p">:</span><span class="w"> </span><span class="s2">" "</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">size</span><span class="w"> </span><span class="p">%}</span>
+<span class="p">{%</span><span class="w"> </span><span class="nt">assign</span><span class="w"> </span><span class="nv">time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">post</span><span class="p">.</span><span class="nv">content</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">strip_html</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">strip_newlines</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">remove</span><span class="p">:</span><span class="w"> </span><span class="s2">" "</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">size</span><span class="w"> </span><span class="err">
+</span><span class="p">|</span><span class="w"> </span><span class="nf">divided_by</span><span class="p">:</span><span class="w"> </span><span class="mi">400</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">plus</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">%}</span>
+
+&lt;footer&gt;
+&lt;div style="margin-top:25px"&gt;
+          &lt;a class="post-link" href="<span class="p">{{</span><span class="w"> </span><span class="nv">post</span><span class="p">.</span><span class="nv">url</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">relative_url</span><span class="w"> </span><span class="p">}}</span>"&gt;
+          &lt;span class="icon-clock morebox" &gt;Reading time: <span class="p">{{</span><span class="w"> </span><span class="nv">time</span><span class="w"> </span><span class="p">}}</span> 
+          <span class="p">{%</span><span class="kr">if</span><span class="w"> </span><span class="nv">time</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">%}</span> mins
+          <span class="p">{%</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">%}</span>min<span class="p">{%</span><span class="w"> </span><span class="kr">endif</span><span class="w"> </span><span class="p">%}</span>, <span class="p">{{</span><span class="nv">words</span><span class="p">}}</span> words.&lt;br&gt;      Continue read...&lt;/span&gt;
+          &lt;/a&gt;
+&lt;/div&gt;
+&lt;/footer&gt; </code></pre></figure>
+
+<p>The method is straightforward,</p>
+<ul>
+  <li>Statistics the words count of every post. Actually a more simple and pure Liquid code is like this.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-liquid" data-lang="liquid"><span class="p">{%</span><span class="w"> </span><span class="nt">assign</span><span class="w"> </span><span class="nv">words</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">content</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">number_of_words</span><span class="w"> </span><span class="p">%}</span></code></pre></figure>
+
+<p>But Jekyll built in filter <code class="language-plaintext highlighter-rouge">number_of_words</code> cannot accurately count the number of Chinese words. If you have Chinese words to calculate, you can use Liquid’s size filter to avoid this problem. In order to make statistics more accurate, it is better to ignore all HTML tags and blank lines before calculation.</p>
+<ul>
+  <li>Get a number of WPM (word per minute), by google the WPM value, an person can read 300-500 words per minute in a computer monitor. I read fast and I think it can be a bigger value, but I set an median 400 here for my blog.</li>
+  <li>The rest work is easy, we only need calculating the reading time by dividing words count with WPM.</li>
+</ul>
+
+<p>Next, I create a <strong>read_time.html</strong> in my _includes folder and put all this code into it to well orgianze them.</p>
+
+<p>I just include the <strong>read_time.html</strong> in my post layout.</p>
+
+<figure class="highlight"><pre><code class="language-liquid" data-lang="liquid"><span class="p">{%</span><span class="w"> </span><span class="nt">include</span><span class="w"> </span>reading_time.html<span class="w"> </span><span class="p">%}</span></code></pre></figure>
+
+<p>That’s all. If you want to get all code, fork it <a href="https://github.com/gangdong/daviddong.github.io">here</a>.</p>
+
+  </div>
+  
+
+  <br><br><br>
+  <!-- Page navigation start here! --><li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">further reading</h1>
+  </li> 
+  <div class="navigation-meta" style = "margin-bottom:40px"><ul class="navigation-bar" style = "margin-top:40px; min-width:40%">   
+	 <a href="/daviddong.github.io/web/2018/06/30/Web-jekyll-archive.html"; style="width:100%"><font size="1px" color="#777">Previous Post</font><br>Archive in Jekyll</a>
+    </ul><ul class="navigation-bar" style = "margin-top:40px; min-width:40%">   
+     <a href="/daviddong.github.io/web/2018/10/03/Web-liquid-grammar.html"; style="width:100%"><font size="1px" color="#777">Next Post</font><br>Liquid grammar</a>
+    </ul></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/daviddong.github.io/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'daviddong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+      </section>
+    </main>
+<script src="/daviddong.github.io/assets/js/simple-jekyll-search.min.js"></script>
+<script src="/daviddong.github.io/assets/js/search.js"></script>
+<link href="/daviddong.github.io/assets/css/vim.css" rel="stylesheet"/>
+
+  </body>
+</html>

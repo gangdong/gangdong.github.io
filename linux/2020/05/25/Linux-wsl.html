@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/daviddong.github.io/assets/css/style.css">
+<link rel="icon" href="/daviddong.github.io/assets/favicon.ico">
+<title>Some notes for WSL | David Dong's Blog</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Some notes for WSL | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Some notes for WSL" />
+<meta name="author" content="David Dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Recently I’m using WSL(Window Subsystem for Linux) for program development. This article presents some short notes for the WSL installation and usage." />
+<meta property="og:description" content="Recently I’m using WSL(Window Subsystem for Linux) for program development. This article presents some short notes for the WSL installation and usage." />
+<link rel="canonical" href="http://localhost:4000/daviddong.github.io/linux/2020/05/25/Linux-wsl.html" />
+<meta property="og:url" content="http://localhost:4000/daviddong.github.io/linux/2020/05/25/Linux-wsl.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-05-25T22:53:27+08:00" />
+<script type="application/ld+json">
+{"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/daviddong.github.io/linux/2020/05/25/Linux-wsl.html"},"@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/daviddong.github.io/BLOG"},"name":"David Dong"},"headline":"Some notes for WSL","dateModified":"2020-05-25T22:53:27+08:00","datePublished":"2020-05-25T22:53:27+08:00","author":{"@type":"Person","name":"David Dong"},"url":"http://localhost:4000/daviddong.github.io/linux/2020/05/25/Linux-wsl.html","description":"Recently I’m using WSL(Window Subsystem for Linux) for program development. This article presents some short notes for the WSL installation and usage.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+
+</head>
+  <body><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><main class="container">
+      <section class="about">
+        <a href="/daviddong.github.io/blog/index.html"><img src="/daviddong.github.io/assets/avatar.png" alt="David Dong"></a>
+        <h2 id="title">
+          <a href="/daviddong.github.io/blog/index.html">David Dong</a>
+        </h2>
+        <p class="tagline">Java/C/C#/Python</p>
+        <ul class="social">
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture-3"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled-1"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a></ul><nav class="navigation">
+            <ul>
+              
+            </ul>
+          </nav><p>&copy;
+          2021</p><div>
+        <p style = "font-family: Raleway, sans-serif;font-size: 100%">Dark Theme
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" id="dark-mode-toggle" onclick="toggleDarkMode()">
+            <span class="slider round"></span>
+          </label>
+        </p>
+      </div>
+      <script type="text/javascript" src="/daviddong.github.io/assets/js/darkmode.js"></script><div>
+        <ul class="social" style="padding-top: 3vh"><a style ="margin-right:10px;text-decoration: none;font-family: Raleway, sans-serif;" href="/daviddong.github.io/rss.xml">
+              <span class="icon-rss-1">rss</span>
+           </a><a style="text-decoration: none;font-family: Raleway, sans-serif;" href="https://github.com/gangdong/daviddong.github.io">
+              <span class="icon-file-code">code</span>
+            </a></ul>
+      </div>
+      </section>
+      <section class="content">
+        <!-- add menu bar here! -->
+
+
+<div class="post-container">
+<div  class = "menu">
+<div  style="font-size:180%;font-weight:800; margin-top: 20px">BLOG</div>
+<div  style = "margin-top: 20px">
+<a class = "menu_tag_a" href="/daviddong.github.io/blog/index.html">
+    <span class="icon-doc-text icon_font">Posts</span>
+</a><a  class = "menu_tag_a" href="/daviddong.github.io/archive">
+    <span class="icon-archive-1 icon_font">Archives</span>
+</a><a  class = "menu_tag_a" href="/daviddong.github.io/category">
+    <span class="icon-tags-1 icon_font">Categories</span>
+</a><a  class = "menu_tag_b" href="/daviddong.github.io/about">
+    <span class="icon-help-circled-3 icon_font">About</span>
+</a>
+</div>
+</div>
+</div><div class="post-container">
+  <li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">POST</h1>
+  </li>  
+  <a class="post-link" href="/daviddong.github.io/linux/2020/05/25/Linux-wsl.html">
+    <h2 class="post-title">Some notes for WSL</h2>
+  </a>
+  <div class="post-meta">
+    <ul class="post-categories"><li>Linux</li></ul>
+    <div class="post-date"><i class="icon-calendar"></i>May 25, 2020</div>
+  </div>
+  <!-- post content here! -->
+  <!-- if sidebar! -->
+  
+  <!-- set fix width box to put content! -->
+  <div class="post-viewer-container">
+	<div class="post-fix-width">
+		<p>Recently I’m using WSL(Window Subsystem for Linux) for program development. This article presents some short notes for the WSL installation and usage.</p>
+
+<p>Below is the official introduction of WSL, I copied it here as a startup.</p>
+
+<blockquote>
+  <h2 id="what-is-wsl">What is WSL?</h2>
+  <p>The Windows Subsystem for Linux lets developers run a GNU/Linux environment – including most command-line tools, utilities, and applications – directly on Windows, unmodified, without the overhead of a virtual machine. <br />
+You can:</p>
+  <ul>
+    <li>Choose your favorite GNU/Linux distributions from the Microsoft Store.</li>
+    <li>Run common command-line tools such as grep, sed, awk, or other ELF-64 binaries.</li>
+    <li>Run Bash shell scripts and GNU/Linux command-line applications including:
+      <ul>
+        <li>Tools: vim, emacs, tmux.</li>
+        <li>Languages: NodeJS, Javascript, Python, Ruby, C/C++, C# &amp; F#, Rust, Go, etc.</li>
+        <li>Services: SSHD, MySQL, Apache, lighttpd, MongoDB, PostgreSQL.</li>
+      </ul>
+    </li>
+    <li>Install additional software using own GNU/Linux distribution package manager.</li>
+    <li>Invoke Windows applications using a Unix-like command-line shell.</li>
+    <li>Invoke GNU/Linux applications on Windows.</li>
+  </ul>
+</blockquote>
+
+<h2 id="how-to-install-wsl">How to install WSL?</h2>
+<p>You can refer to <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">installation guidance</a>, the introduction is detailed. You can complete the installation of WSL1 and WSL2 if you need easily just by following the guidance step by step.</p>
+
+<h2 id="how-to-use">How to use?</h2>
+<p>On above procedure, you will be requested to choose one Linux OS to install, the choice has</p>
+<ul>
+  <li>Ubuntu 16.04 LTS</li>
+  <li>Ubuntu 18.04 LTS</li>
+  <li>openSUSE Leap 15.1</li>
+  <li>SUSE Linux Enterprise Server 12 SP5</li>
+  <li>SUSE Linux Enterprise Server 15 SP1</li>
+  <li>Kali Linux</li>
+  <li>Debian GNU/Linux</li>
+  <li>Fedora Remix for WSL</li>
+  <li>Pengwin</li>
+  <li>Pengwin Enterprise</li>
+  <li>Alpine WSL</li>
+  <li>After installing the Linux OS at Windows store.</li>
+</ul>
+
+<p>I choose Ubuntu 16.04 LTS as my Linux system and installed. The system installation is quite faster than installing on virtual machine as my  own experience. During the process, no need to input any information. 
+After installation, just open CMD console and input ubuntu, you will run ubuntu on your windows system.</p>
+
+<p>Here are some tips for the usage.</p>
+
+<h3 id="use-wslconfig-command">use wslconfig command</h3>
+<p>In the CMD console, input below command to set the default Linux system if you have multiple.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">wslconfig</span> <span class="sr">/setdefault &lt;DistributionName&gt;</span></code></pre></figure>
+
+<p>use below command to uninstall the specified Linux system.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">wslconfig</span> <span class="sr">/unregister &lt;DistributionName&gt;</span></code></pre></figure>
+
+<p>use below command to check the available system on you computer.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">wslconfig</span> <span class="sr">/list</span></code></pre></figure>
+
+<p>The output of my computer is</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">C</span><span class="p">:\</span><span class="no">WINDOWS</span><span class="p">\</span><span class="no">System32</span><span class="o">&gt;</span><span class="n">wslconfig</span> <span class="sr">/list
+Windows Subsystem for Linux Distributions:
+Ubuntu-16.04 (Default)</span></code></pre></figure>
+
+<h3 id="set-the-default-user">set the default user</h3>
+<p>If you want to change the user, you can use below command 
+For example you want to set the default user as root on the Ubuntu.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">ubuntu</span> <span class="n">config</span> <span class="o">--</span><span class="n">default</span><span class="o">-</span><span class="n">user</span> <span class="n">root</span></code></pre></figure>
+
+<h3 id="wsl-file-system-and-local-file-system-access">WSL file system and local file system access</h3>
+<ul>
+  <li>
+    <p>Access local file in the WSL system. 
+It is easy to access local file in WSL system, the local file system is mounted at /mnt folder. There are <code class="language-plaintext highlighter-rouge">c</code>, <code class="language-plaintext highlighter-rouge">d</code>, <code class="language-plaintext highlighter-rouge">e</code> and other folders in the <code class="language-plaintext highlighter-rouge">/mnt</code> directory, which respectively represent the local C disk, D disk and E disk. You can directly cd them to the corresponding path.</p>
+  </li>
+  <li>
+    <p>Access WSL file in the local system. 
+It is not recommend to do so, at least do not try to modify any file externally. Otherwise it might cause some problems.</p>
+  </li>
+</ul>
+
+<p>Actually, the root directory of WSL can be found at local system path.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">C</span><span class="p">:\</span><span class="no">Users</span><span class="p">\</span><span class="no">XXXX</span><span class="p">\</span><span class="no">AppData</span><span class="p">\</span><span class="no">Local</span><span class="p">\</span><span class="no">Packages</span>
+<span class="p">\</span><span class="no">CanonicalGroupLimited</span><span class="o">.</span><span class="no">UbuntuonWindows_79rhkp1fndgsc</span><span class="p">\</span><span class="no">LocalState</span><span class="p">\</span><span class="n">rootfs</span></code></pre></figure>
+
+
+	</div>
+	<!-- put sidebar! -->
+	<div class="post-index-container">
+		<li class = "post-index">On this page</li>
+		<li><ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#what-is-wsl">What is WSL?</a></li>
+<li class="toc-entry toc-h2"><a href="#how-to-install-wsl">How to install WSL?</a></li>
+<li class="toc-entry toc-h2"><a href="#how-to-use">How to use?</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#use-wslconfig-command">use wslconfig command</a></li>
+<li class="toc-entry toc-h3"><a href="#set-the-default-user">set the default user</a></li>
+<li class="toc-entry toc-h3"><a href="#wsl-file-system-and-local-file-system-access">WSL file system and local file system access</a></li>
+</ul>
+</li>
+</ul></li>
+	</div>
+  </div>
+  <!-- no sidebar, use flex width box! -->
+  
+
+  <br><br><br>
+  <!-- Page navigation start here! --><li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">further reading</h1>
+  </li> 
+  <div class="navigation-meta" style = "margin-bottom:40px"><ul class="navigation-bar" style = "margin-top:40px; min-width:40%">   
+	 <a href="/daviddong.github.io/others/2020/04/23/Others-album.html"; style="width:100%"><font size="1px" color="#777">Previous Post</font><br>My album is online now!</a>
+    </ul><ul class="navigation-bar" style = "margin-top:40px; min-width:40%">   
+     <a href="/daviddong.github.io/windows/2020/05/31/Windows-sgx.html"; style="width:100%"><font size="1px" color="#777">Next Post</font><br>Configure Intel SGX on Win10</a>
+    </ul></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/daviddong.github.io/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'daviddong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+      </section>
+    </main>
+<script src="/daviddong.github.io/assets/js/simple-jekyll-search.min.js"></script>
+<script src="/daviddong.github.io/assets/js/search.js"></script>
+<link href="/daviddong.github.io/assets/css/vim.css" rel="stylesheet"/>
+
+  </body>
+</html>
