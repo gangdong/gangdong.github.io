@@ -4,12 +4,9 @@ title:  "利用Microsoft WDK工具生成数字签名"
 date:   2020-07-23 18:24:12 +0800
 categories: Security Windows
 Published: true
-toc: true
-sidebar: true
 ---
 看过我这一篇文章 [「浅谈数字签名」]({{site.baseurl}}/others/2020/07/06/Others-signature.html) 的读者应该记得，在这篇文章的末尾遗留了一个问题 --- **在windows平台下如何利用Microsoft提供的工具来生成数字签名**。我在这篇文章中会对这个问题做一个说明，并引用一个例子来介绍签名的过程。
 
-{% if page.sidebar == false %}
 <div class = "separator"></div>
 
 ## 目录
@@ -25,16 +22,16 @@ sidebar: true
     + [3.6 验证签名](#15)
 4. [常见问题](#13)
 5. [附录](#14)
-    + [5.1 makecert.exe 命令](#1)
+    + [5.1 makecert.exe 命令格式](#1)
         + [5.1.1 基本选项](#5.1.1)
         + [5.1.2 扩展选项](#5.1.2)
-    + [5.2 cert2spc.exe 命令](#2)
+    + [5.2 cert2spc.exe 命令格式](#2)
         + [5.2.1 语法格式](#5.2.1)
         + [5.2.2 参数](#5.2.2)
         + [5.2.3 选项](#5.2.3)
-    + [5.3 pvk2pfx.exe 命令](#3)
+    + [5.3 pvk2pfx.exe 命令格式](#3)
         + [5.3.1 参数](#5.3.1)
-    + [5.4 signtool.exe 命令](#4)
+    + [5.4 signtool.exe 命令格式](#4)
         + [5.4.1 语法格式](#5.4.1)
         + [5.4.2 参数](#5.4.2)
         + [5.4.3 catdb 命令选项](#5.4.3)
@@ -45,8 +42,6 @@ sidebar: true
         + [5.4.8 示例](#5.4.8)
 
 <div class = "separator"></div>
-{% endif %}
-
 ## <span id ="5">1. 相关工具</span>
 这里我先把和签名相关的工具罗列出来。
 
@@ -281,7 +276,7 @@ signtool sign /v /f testpfx.pfx /tr http://timestamp.wosign.com/rfc3161 my file 
 
 
 ## <span id ="14">5. 附录</span>
-### <span id = "1">5.1 makecert.exe 命令</span>
+### <span id = "1">5.1 makecert.exe 命令格式</span>
 makecert.exe 命令格式
 {% highlight ruby %}
 MakeCert [/b DateStart] [/e DateEnd] [/len KeyLength] [/m nMonths] [/n "Name"] [/pe] [/r] [/sc SubjectCertFile] [/sk SubjectKey] [/sr SubjectCertStoreLocation] [/ss SubjectCertStoreName] [/sv SubjectKeyFile]OutputFile
@@ -328,7 +323,7 @@ MakeCert [/b DateStart] [/e DateEnd] [/len KeyLength] [/m nMonths] [/n "Name"] [
 |`-sv` pvkFile|指定主题的 .pvk 私钥文件。如果该文件不存在，系统将创建一个。|
 |`-sy` type|指定主题的 CryptoAPI 提供程序类型。|
 
-### <span id = "2">5.2 cert2spc.exe 命令</span>
+### <span id = "2">5.2 cert2spc.exe 命令格式</span>
 软件发行者证书测试工具 cert2spc.exe 从一个或多个X.509证书创建软件发行者证书（SPC）。cert2spc.exe 仅用于测试目的。商业目的的SPC可以从证书颁发机构（如VeriSign或Thawte）获取。
 
 <span id = "5.2.1">**5.2.1 语法格式**</span>  
@@ -349,7 +344,7 @@ cert2spc cert1.cer | crl1.crl [... certN.cer | crlN.crl] outputSPCfile.spc
 |---|---|
 |/?|显示该工具的命令语法和选项。|
 
-### <span id = "3">5.3 pvk2pfx.exe 命令</span>
+### <span id = "3">5.3 pvk2pfx.exe 命令格式</span>
 Pvk2Pfx.exe 是一个命令行工具，它将.spc、.cer和.pvk文件中包含的公钥和私钥信息复制到个人信息交换（.pfx）文件中。
 命令格式
 {% highlight ruby %}
@@ -368,7 +363,7 @@ pvk2pfx /pvk pvkfilename.pvk [/pi pvkpassword] /spc spcfilename.ext [/pfx pfxfil
 
 若要使用 SignTool 工具来签署驱动程序符合的方式使用 SPC内核模式代码签署策略，必须将 SPC 信息添加到对进行签名的驱动程序在本地计算机上个人证书存储。有关如何将 SPC 信息添加到个人证书存储区的信息，请参阅[「Microsoft Docs - 软件发布者证书」](https://docs.microsoft.com/zh-cn/windows-hardware/drivers/install/software-publisher-certificate)。
 
-### <span id = "4">5.4 signtool.exe 命令</span>
+### <span id = "4">5.4 signtool.exe 命令格式</span>
 签名工具是一个命令行工具，用于对文件进行数字签名，以及验证文件和时间戳文件中的签名。 
 
 <span id = "5.4.1">**5.4.1 语法格式**</span>   

@@ -4,12 +4,9 @@ title:  "mbedtls 使用说明"
 date:   2020-07-10 10:24:12 +0800
 categories: Security
 Published: true
-toc: true
-sidebar: false
 ---
 最近的工作中使用到了mbedtls，这里做一个简单的总结。
 
-{% if page.sidebar == false %}
 <div class = "separator"></div>
 ## 目录
 
@@ -30,7 +27,6 @@ sidebar: false
     + [3.5 Connect 阶段](#3.5)
     
 <div class = "separator"></div>
-{% endif %}
 
 ## <span id="1">1. 什么是 mbedtls</span>
 mbedtls 一句话来概况的话就是它是一个开源的SSL/TLS库。   

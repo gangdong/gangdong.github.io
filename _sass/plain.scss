@@ -6,7 +6,7 @@ $linkColor: #436EEE;
 $mobileW: 768px;
 $smallMobileW: 480px;
 $bigScreenW: 1600px;
-$leftWidth: 180px;
+$leftWidth: 220px;
 
 *,
 *:before,
@@ -551,10 +551,6 @@ main {
 .post-container {
   list-style-type: none;
   margin: 10px 30px;
-  @media screen and (min-width: $mobileW + 1) {
-      max-width: calc(100% - 40px);
-      width: 100%;
-  }
   @media screen and (max-width: $smallMobileW) {
     margin-left: 20px;
     margin-right: 20px;
@@ -567,39 +563,11 @@ main {
 .post-container {
   padding-left: 30px;
 }
-.post-fix-width {
-  font-family: 'Arial', 'Tahoma', 'Raleway', 'Merriweather', 'Microsoft Yahei', sans-serif;
-  font-weight: 400;
-  color: #000;
-  line-height: 1.9em;
-  
-  @media screen and (min-width: $mobileW + 1) {
-      max-width: 650px;
-   }
-   
-  a {
-    color: $linkColor;
-    text-decoration: none;
-    transition: border-bottom 0.4s;
-    &:hover {
-      border-bottom: 0.5px solid $linkColor;
-    }
-  }
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: 'Arial', 'Tahoma', 'Microsoft Yahei', sans-serif;
-  }
-}
 .post {
   font-family: 'Arial', 'Tahoma', 'Raleway', 'Merriweather', 'Microsoft Yahei', sans-serif;
   font-weight: 400;
   color: #000;
   line-height: 1.9em;
-  
   a {
     color: $linkColor;
     text-decoration: none;
@@ -960,55 +928,4 @@ table {
   display: flex;
   align-items: baseline;
   border-bottom: 1px solid #eee;
-}
-.post-viewer-container {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: space-between;
-	align-content: center;
-	width: inherit;
-}
-.post-index {
-  font-family: 'Arial', 'Tahoma', 'Raleway', 'Merriweather', 'Microsoft Yahei', sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-  color: white;
-  text-align: center;
-  background-color: #5499C7;
-  border-radius: 4px;
-}
-.post-index-container {
-  position: relative;
-  left:0px;
-  top: 80px;
-  margin-left: 10px;
-  font-family: 'Arial', 'Tahoma', 'Raleway', 'Merriweather', 'Microsoft Yahei', sans-serif;
-  font-weight: 400;
-  font-size: 12px;
-  color: #000;
-  line-height: 1.9em;
-  flex-grow: 1;
-  height: auto;
-  li {
-  }
-  a{
-	padding: 0 0px;
-    width: 100%;
-	height: 100%;
-	display: inline-table;
-	border-radius: 4px;
-	text-decoration: none;
-	&:hover {
-      background-color: #ececec;
-	  font-weight: bold;
-    }
-  }
-  
-  @media screen and (max-width: $smallMobileW) {
-		display: none;
-  }
-  @media screen and (max-width: $mobileW) {
-		display: none;
-  }
 }

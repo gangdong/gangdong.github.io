@@ -4,12 +4,9 @@ title:  "Build TA images on different TrustZone"
 date:   2021-02-04 12:21:47 +0800
 categories: Android Fingerprint
 Published: true
-toc: true
-sidebar: true
 ---
 This article will give a introduction on how to build TA images on different TrustZone.
 
-{% if page.sidebar == false %}
 <div class = "separator"></div>
 
 ## Index
@@ -32,7 +29,6 @@ This article will give a introduction on how to build TA images on different Tru
     + [4.4 Generated TA image](#4.4)
     
 <div class = "separator"></div>
-{% endif %}
 
 ## <span id ="1">1. About TEE</span>
 Nowadays, any security related application must run on the TEE. TEE (Trusted Execution Environment) is able to provide a absolute-safe environment for any user security requirement. Fingerprint application as one kind of biometric authentication, it is a trusted application and must run on the TEE. Here I will take Fingerprint application as an example to introduce how to build the trusted application (TA) image.

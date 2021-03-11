@@ -4,8 +4,6 @@ title:  "A quick way to fix the Gitalk Error: Validation Failed"
 date:   2021-03-08 10:27:13 +0800
 categories: Web
 Published: true
-toc: true
-sidebar: false
 ---
 I've met an error `Validation Failed (422)` when using Gitalk in my blog. I added a new post in my blog and found the Gitalk report such issue. My Gitalk works normally for a long time before this issue appears. I've checked that the Gitalk for my other posts works normal and only the new post has issue, which means the issue should be a standalone problem that related to the post self. 
 
