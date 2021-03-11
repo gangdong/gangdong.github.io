@@ -568,6 +568,7 @@ main {
   padding-left: 30px;
 }
 .post-fix-width {
+  border: 1px solid red;
   font-family: 'Arial', 'Tahoma', 'Raleway', 'Merriweather', 'Microsoft Yahei', sans-serif;
   font-weight: 400;
   color: #000;
@@ -575,6 +576,15 @@ main {
   
   @media screen and (min-width: $mobileW + 1) {
       max-width: 650px;
+	  width: 100%;
+   }
+   @media screen and (max-width: $smallMobileW) {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  @media screen and (max-width: $mobileW) {
+    padding: 0 !important;
+    margin-top: 0;
    }
    
   a {
@@ -914,7 +924,7 @@ pre>code {
   margin: 0;
   padding: 0;
   font-size: 14px;
-  font-family:  Consolas, "Liberation Mono", Courier, monospace,'Microsoft Yahei',sans-serif;
+  font-family: Consolas, "Liberation Mono", Courier, monospace,'Microsoft Yahei',sans-serif;
   white-space: pre;
   border: none;
   background: transparent;
