@@ -1,0 +1,17 @@
+
+{% assign words = post.content | strip_html | strip_newlines | remove: " " | size %}
+{% assign time = post.content | strip_html | strip_newlines | remove: " " | size | divided_by: 400 | plus: 1 %}
+
+<footer>
+    <div class="readingtime-meta" style="margin-top:20px;margin-bottom:30px">
+	    <div>
+		<span class="icon-clock readingtime" style="margin-right:20px">{{ time }} {%if time > 1 %}mins{% else %}min{% endif %} to read</span>
+		<span class="icon-book-open readingtime" > {{words}} words</span>
+		</div>
+		<div>
+		<a class="readingtime-categories" href="{{ post.url | relative_url }}">
+            <li class="icon-right-outline">Continue reading&nbsp;</li>
+        </a>
+		</div>
+	</div>
+</footer> 
