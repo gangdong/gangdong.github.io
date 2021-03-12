@@ -50,7 +50,10 @@ The total memory that Trusty TEE can provide is 32M, suggests allocate 10M memor
 {% highlight console %}
 #define TAC_SHARED_BUFFER_SIZE 1024 * 120 //should not be greater than 128k
 {% endhighlight %}
-+ b. Accordingly, the actual data size that can be used for effective transmission between CA and TA is limited to `1024*128-sizeof(union ta_target_commands)-sizeof(int32_t)`.
++ b. Accordingly, the actual data size that can be used for effective transmission between CA and TA is limited to 
+{% highlight ruby %}
+1024 x 128 - sizeof(union ta_target_commands) - sizeof(int32_t)
+{% endhighlight %}
 {% highlight console %}
 /* ISEE may need extra room for their own header */
 #if defined(ISEE)
@@ -176,7 +179,7 @@ It is related to hardware platform, on Spreadtrum SC9863, it doesn't need to con
 ### <span id ="5.1">5.1 How to build Trusty TEE image</span>
 <span id = "5.1.1">**5.1.1 Toolchain**</span> <br>
 It is recommended to use the arm-eabi-4.8 tool chain of Android code package:<br>
-{% highlight c %}
+{% highlight shell %}
 export PATH=$PATH:<AOSP>/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/bin
 {% endhighlight %}
 
@@ -220,7 +223,7 @@ python signta.py --uuid {UUID} --key “privatekey.pem” --in “TA image name 
 {% endhighlight %}
 
 <span id = "5.3.3">**5.3.3 TA APP wasn't running properly, CA lost communication**</span> 
-{% highlight c %}
+{% highlight console %}
  libtrusty: tipc_connect: can't connect to tipc service "com.android.trusty.fpctzapp" (err=107)
 {% endhighlight %}
   
