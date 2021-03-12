@@ -33,7 +33,9 @@ We can see the android path of the [fingerprintd.cpp](https://www.androidos.net.
 
 read the 
 [Android.mk](https://www.androidos.net.cn/android/7.1.1_r28/xref/system/core/fingerprintd/Android.mk)<br>
-`androdi path: root/system/core/fingerprintd/Android.mk` <br>
+{% highlight ruby %}
+androdi path: root/system/core/fingerprintd/Android.mk
+{% endhighlight %}
 we can know that this package is built as a executable program.<br>
 {% highlight make %}
 LOCAL_PATH := $(call my-dir)
@@ -55,7 +57,9 @@ include $(BUILD_EXECUTABLE)
 {% endhighlight %}
 next open the 
 [fingerprintd.cpp](https://www.androidos.net.cn/android/7.1.1_r28/xref/system/core/fingerprintd/fingerprintd.cpp)<br>
-`android path: root/system/core/fingerprintd/fingerprintd.cpp`<br>
+{% highlight ruby %}
+android path: root/system/core/fingerprintd/fingerprintd.cpp
+{% endhighlight %}
 The task of the `main()` function is very simple, just create a `FingerprintDaemonProxy` object and add it into the service queue. 
 {% highlight cpp %}
 #include "FingerprintDaemonProxy.h"
@@ -84,11 +88,17 @@ int main() {
 {% endhighlight %}
 From the 
 [FingerprintDaemonProxy.h](https://www.androidos.net.cn/android/7.1.1_r28/xref/system/core/fingerprintd/FingerprintDaemonProxy.h)<br>
-`android path: root/system/core/fingerprintd/`   FingerprintDaemonProxy.h<br>
+{% highlight ruby %}
+android path: root/system/core/fingerprintd/
+{% endhighlight %}
+FingerprintDaemonProxy.h<br>
 We find the remote service is fingerprint daemon. `Fingerprinted` registers the remote service to the servicemanager for the client to use.
 The protocol interface is `IFingerprintdaemon`. `FingerprintService` in the framework will eventually call the remote service, that is, the method in 
 [fingerprintdaemonproxy.cpp](https://www.androidos.net.cn/android/7.1.1_r28/xref/system/core/fingerprintd/FingerprintDaemonProxy.cpp).<br>
-`android path: root/system/core/fingerprintd/`   fingerprintdaemonproxy.cpp<br>
+{% highlight ruby %}
+android path: root/system/core/fingerprintd/
+{% endhighlight %}
+fingerprintdaemonproxy.cpp<br>
 {% highlight cpp %}++
 #ifndef FINGERPRINT_DAEMON_PROXY_H_
 #define FINGERPRINT_DAEMON_PROXY_H_
@@ -147,7 +157,10 @@ class FingerprintDaemonProxy : public BnFingerprintDaemon {
 Next, we will move to framework layer to find how the Fingerprint Service start up. 
 open the 
 [SystemServer.java](https://www.androidos.net.cn/android/7.1.1_r28/xref/frameworks/base/services/java/com/android/server/SystemServer.java)<br>
-`android path: root/frameworks/base/services/java/com/android/server/`   SystemServer.java  <br>
+{% highlight ruby %}
+android path: root/frameworks/base/services/java/com/android/server/
+{% endhighlight %}  
+SystemServer.java  <br>
 This class is in charge of the system service managerment, include start up the necessary service.
 When Android system loads system server, starts Fingerprint Service.
 
@@ -163,7 +176,9 @@ if (mPackageManager.hasSystemFeature(PackageManager.FEATURE_FINGERPRINT)) {
 
 Keep looking into the 
 [FingerprintService.java](https://www.androidos.net.cn/android/7.1.1_r28/xref/frameworks/base/services/core/java/com/android/server/fingerprint/FingerprintService.java).<br>
-`android path: root/frameworks/base/services/core/java/com/android/server/fingerprint/FingerprintService.java` <br>
+{% highlight cpp %}
+android path: root/frameworks/base/services/core/java/com/android/server/fingerprint/FingerprintService.java
+{% endhighlight %}
 `FingerprintService` is a subclass of `SystemService` class and implements the `IHwbinder` interface.
 
 {% highlight cpp %}

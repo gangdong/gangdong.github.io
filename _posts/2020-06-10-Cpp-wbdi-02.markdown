@@ -19,7 +19,13 @@ Above diagram shows how data flows through a biometric unit. Essentially, the da
 
 ## <span id = "4">4. Biometric Unit Life Cycle</span>    
 ### <span id = "4.1">4.1 Creation</span>   
-When the Windows Biometric Service starts or when it receives a hardware notification from the Plug and Play manager, it scans for any hardware that supports the well-known interface `GUID_DEVINTERFACE_BIOMETRIC_READER (E2B5183A-99EA-4cc3-AD6B-80CA8D715B80)`. For each biometric device discovered it then:
+When the Windows Biometric Service starts or when it receives a hardware notification from the Plug and Play manager, it scans for any hardware that supports the well-known interface 
+
+{% highlight java %}
+GUID_DEVINTERFACE_BIOMETRIC_READER (E2B5183A-99EA-4cc3-AD6B-80CA8D715B80)
+{% endhighlight %}
+
+For each biometric device discovered it then:
 
 + Opens a handle to the device.
 + Queries the device capabilities by using a Windows Biometric Driver control interface.

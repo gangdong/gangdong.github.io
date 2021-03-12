@@ -129,9 +129,10 @@ int64_t FingerprintDaemonProxy::openHal() {
 {% endhighlight %}
 
 5. The HAL code is at below android path normally.<br>
-   `/hardware/libhardware/include/hardware/fingerprint.h`
-　 `/hardware/libhardware/modules/fingerprint.c`
-
+{% highlight ruby %}
+/hardware/libhardware/include/hardware/fingerprint.h
+/hardware/libhardware/modules/fingerprint.c
+{% endhighlight %}
 I drew a flow chart to help understand the whole flow more clearly.
 
 ![workflow]({{site.baseurl}}/assets/image/android-fingerprint-android8-workflow.png)

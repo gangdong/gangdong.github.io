@@ -15,8 +15,10 @@ TraceEvents(TRACE_LEVEL_INFORMATION, DBG_INIT, "log_name");
 {% endhighlight %}
 The first two parameters of this method represents the `LEVEL` and `FLAG` which will be used to control the logs output level and type.
 
-+ In Windows10, the `TraceView.exe` is putted into the folder at `WDK install path`, normally the default installation path is `C:\Program Files (x86)\Windows Kits\10\Tools\x64`. 
-
++ In Windows10, the `TraceView.exe` is putted into the folder at `WDK install path`, normally the default installation path is     
+{% highlight ruby %}
+C:\Program Files (x86)\Windows Kits\10\Tools\x64
+{% endhighlight %}
 + Run the `TraceView.exe` application and create a new log section.    
 
 ![traceview]({{site.baseurl}}/assets/image/others-traceview-01.PNG){: .center-image }

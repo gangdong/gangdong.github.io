@@ -22,8 +22,9 @@ The hardware abstraction layer of Android system manages various hardware access
 
 These definition of these two struct is defined at <br>
 [hardware.h](https://www.androidos.net.cn/android/7.0.0_r31/xref/hardware/libhardware/include/hardware/hardware.h)<br>
-`android path: root/hardware/libhardware/include/hardware/hardware.h`   
-
+{% highlight ruby %}
+android path: root/hardware/libhardware/include/hardware/hardware.h
+{% endhighlight %}
 **hardware.h**
 {% highlight c %}
 typedef struct hw_module_t {
@@ -169,7 +170,9 @@ int hw_get_module_by_class(const char *class_id, const char *inst,
 {% endhighlight %}
 These two functions are realized at <br>
 [hardware.c](https://www.androidos.net.cn/android/7.0.0_r31/xref/hardware/libhardware/hardware.c)<br>
-`android path: root/hardware/libhardware/hardware.c`<br> 
+{% highlight ruby %}
+android path: root/hardware/libhardware/hardware.c
+{% endhighlight %}
 From the file, we can find the module search path is as below.   
 **hardware.c**
 {% highlight c %}

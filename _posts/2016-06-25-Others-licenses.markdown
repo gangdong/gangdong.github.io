@@ -24,7 +24,7 @@ Published: true
 对比这些协议的差异其实是一件很耗费时间和精力的事情，幸运的是我从网上找来了一张图片，可以很清楚简明的把这件事讲清楚，也能节省我不少的时间，好让我有时间喝杯 :coffee:。   
 图片来源：[http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html](http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html)
 
-![licenses]({{site.baseurl}}/assets/image/others-license-01.png)
+![licenses]({{site.baseurl}}/assets/image/others-license-01.png){: .center-image }
 
 以上所有的协议都是免费的，选择时根据自身的需要选择即可。
 

@@ -91,7 +91,14 @@ trusty_app_manifest_t TRUSTY_APP_MANIFEST_ATTRS trusty_app_manifest =
    For fingerprint, it needs to use `non-secure port` and if has payment requirement, needs to use `secure port`.<br>
 + d. Should define the same port name between CA and TA, An example that we are using "com.android.trusty.fpctzapp".<br>
 + e. Should use unique uuid to differentiate with other fingerprint vendor.<br>
-+ f. About IPC: the Trusty APIs use `send_msg()`/`get_msg()`/`read_msg()`/`put_msg()` to send/retrieve message between CA and TA, the calling sequence should be correct. One lesson learn in my software bring up is that the communication was failed after executed one time successful communication. The communication was hang up after then and TA wasn't able to get the message from CA. The failure was due to missing the `put_msg()` calling after executed `read_msg()`.
++ f. About IPC: the Trusty APIs use 
+{% highlight c %}
+send_msg()
+get_msg()
+read_msg()
+put_msg()
+{% endhighlight %}
+to send/retrieve message between CA and TA, the calling sequence should be correct. One lesson learn in my software bring up is that the communication was failed after executed one time successful communication. The communication was hang up after then and TA wasn't able to get the message from CA. The failure was due to missing the `put_msg()` calling after executed `read_msg()`.
 
 {% highlight c %}
 static long handle_msg(tzapp_chan_ctx_t* ctx)
