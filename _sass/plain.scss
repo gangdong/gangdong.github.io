@@ -980,7 +980,7 @@ table {
 	align-content: center;
 	align-items: baseline; /* disable stretch for sidebar */
 	@media screen and (min-width: $mobileW + 1) {
-      		max-width: calc(100% + 40px); /* !important, widen the area to accormadate the sidebar */
+      		max-width: calc(100% + 80px); /* !important, widen the area to accormadate the sidebar */
       		width: 130%;
   	}
 	/* should be useless since display none at small device */

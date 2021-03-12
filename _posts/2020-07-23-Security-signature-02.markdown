@@ -281,7 +281,7 @@ signtool sign /v /f testpfx.pfx /tr http://timestamp.wosign.com/rfc3161 my file 
 
 
 ## <span id ="14">5. 附录</span>
-### <span id = "1">5.1 makecert.exe 命令</span>
+### <span id = "1">5.1 makecert.exe </span>
 makecert.exe 命令格式
 {% highlight ruby %}
 MakeCert [/b DateStart] [/e DateEnd] [/len KeyLength] [/m nMonths] [/n "Name"] [/pe] [/r] [/sc SubjectCertFile] [/sk SubjectKey] [/sr SubjectCertStoreLocation] [/ss SubjectCertStoreName] [/sv SubjectKeyFile]OutputFile
@@ -328,7 +328,7 @@ MakeCert [/b DateStart] [/e DateEnd] [/len KeyLength] [/m nMonths] [/n "Name"] [
 |`-sv` pvkFile|指定主题的 .pvk 私钥文件。如果该文件不存在，系统将创建一个。|
 |`-sy` type|指定主题的 CryptoAPI 提供程序类型。|
 
-### <span id = "2">5.2 cert2spc.exe 命令</span>
+### <span id = "2">5.2 cert2spc.exe </span>
 软件发行者证书测试工具 cert2spc.exe 从一个或多个X.509证书创建软件发行者证书（SPC）。cert2spc.exe 仅用于测试目的。商业目的的SPC可以从证书颁发机构（如VeriSign或Thawte）获取。
 
 <span id = "5.2.1">**5.2.1 语法格式**</span>  
@@ -349,7 +349,7 @@ cert2spc cert1.cer | crl1.crl [... certN.cer | crlN.crl] outputSPCfile.spc
 |---|---|
 |/?|显示该工具的命令语法和选项。|
 
-### <span id = "3">5.3 pvk2pfx.exe 命令</span>
+### <span id = "3">5.3 pvk2pfx.exe </span>
 Pvk2Pfx.exe 是一个命令行工具，它将.spc、.cer和.pvk文件中包含的公钥和私钥信息复制到个人信息交换（.pfx）文件中。
 命令格式
 {% highlight ruby %}
@@ -368,13 +368,13 @@ pvk2pfx /pvk pvkfilename.pvk [/pi pvkpassword] /spc spcfilename.ext [/pfx pfxfil
 
 若要使用 SignTool 工具来签署驱动程序符合的方式使用 SPC内核模式代码签署策略，必须将 SPC 信息添加到对进行签名的驱动程序在本地计算机上个人证书存储。有关如何将 SPC 信息添加到个人证书存储区的信息，请参阅[「Microsoft Docs - 软件发布者证书」](https://docs.microsoft.com/zh-cn/windows-hardware/drivers/install/software-publisher-certificate)。
 
-### <span id = "4">5.4 signtool.exe 命令</span>
+### <span id = "4">5.4 signtool.exe </span>
 签名工具是一个命令行工具，用于对文件进行数字签名，以及验证文件和时间戳文件中的签名。 
 
 <span id = "5.4.1">**5.4.1 语法格式**</span>   
 在命令提示符处，键入以下内容：
 
-{% highlight ruby %}  
+{% highlight ruby %}
 signtool [command] [options] [file_name | ...]  
 {% endhighlight %}  
 
@@ -500,60 +500,60 @@ signtool [command] [options] [file_name | ...]
 <span id = "5.4.8">**5.4.8 示例**</span>     
  以下命令将目录文件 MyCatalogFileName.cat 添加到系统组件和驱动程序数据库中。 如有必要阻止替换名为 `/u` 的现有目录文件，`MyCatalogFileName.cat` 选项会生成唯一名称。  
   
-{% highlight ruby %}  
+{% highlight ruby %}
 signtool catdb /v /u MyCatalogFileName.cat  
 {% endhighlight %}  
   
  以下命令通过使用最佳证书对文件进行自动签名。  
   
-{% highlight ruby %}  
+{% highlight ruby %}
 signtool sign /a MyFile.exe  
 {% endhighlight %}  
   
  以下命令使用存储在受密码保护的 PFX 文件中的证书对文件进行数字签名。  
   
-{% highlight ruby %}  
+{% highlight ruby %}
 signtool sign /f MyCert.pfx /p MyPassword MyFile.exe  
 {% endhighlight %}  
   
  以下命令对文件进行数字签名并加盖时间戳。 用于对文件进行签名的证书存储在 PFX 文件中。  
   
-{% highlight ruby %}  
+{% highlight ruby %}
 signtool sign /f MyCert.pfx /t http://timestamp.digicert.com MyFile.exe  
 {% endhighlight %}  
   
  以下命令通过使用位于 `My` 存储中的证书对文件进行签名，该证书的主题名为 `My Company Certificate`。  
   
-{% highlight ruby %}  
+{% highlight ruby %}
 signtool sign /n "My Company Certificate" MyFile.exe  
 {% endhighlight %}  
   
  以下命令对 ActiveX 控件进行签名，并提供在系统提示用户安装此控件时由 Internet Explorer 显示的信息。  
   
-{% highlight ruby %}  
+{% highlight ruby %}
 Signtool sign /f MyCert.pfx /d: "MyControl" /du http://www.example.com/MyControl/info.html MyControl.exe  
 {% endhighlight %}  
   
  以下命令对已进行数字签名的文件加盖时间戳。  
   
-{% highlight ruby %}  
+{% highlight ruby %}
 signtool timestamp /t http://timestamp.digicert.com MyFile.exe  
 {% endhighlight %}  
   
  以下命令确认文件已签名。  
   
-{% highlight ruby %}  
+{% highlight ruby %}
 signtool verify MyFile.exe  
 {% endhighlight %}  
   
  以下命令验证可能已在目录中签名的系统文件。  
   
-{% highlight ruby %}  
+{% highlight ruby %}
 signtool verify /a SystemFile.dll  
 {% endhighlight %}  
   
  以下命令验证已在名为 `MyCatalog.cat` 目录中签名的系统文件。  
   
-{% highlight ruby %}  
+{% highlight ruby %}
 signtool verify /c MyCatalog.cat SystemFile.dll  
 {% endhighlight %}  

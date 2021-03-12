@@ -42,10 +42,10 @@ There are multiple commercial TEE OS on the Android platform supported by the th
 
 Google official documents provides more information about
 [「Trusty TEE」](https://source.android.com/security/trusty).
-## <span id ="2">2. Memory Restriction of Trusty TEE</span>
-### <span id ="2.1">2.1 Max available memory</span>
-The total memory that Trusty TEE can provide is 32M, suggests allocate 10M memory (heap + stack + ta image self) for fingerprint to use. For example, using 6M heap and 3M stack.
-### <span id ="2.2">2.2 Max buffer size for communication between CA and TA</span>
+## <span id ="2">2. Memory restriction</span>
+### <span id ="2.1">2.1 Memory</span>
+The total memory that Trusty TEE can provide is 32M, suggests allocate 10M memory (heap + stack + ta image) for fingerprint to use. For example, using 6M heap and 3M stack.
+### <span id ="2.2">2.2 Buffer</span>
 + a. The communication between CA and TA is limited in size, and the overall size is limited to 128KB, including message header. Therefore, the buffer size `TAC_SHARED_BUFFER_SIZE` should be less than 128K.
 {% highlight console %}
 #define TAC_SHARED_BUFFER_SIZE 1024 * 120 //should not be greater than 128k
@@ -86,15 +86,15 @@ trusty_app_manifest_t TRUSTY_APP_MANIFEST_ATTRS trusty_app_manifest =
 {% endhighlight %}
 
 ## <span id ="3">3. TEE Communication</span>
-+ a. Adopt the dynamic TA mechanism which will load TA and run TA's main function when CA calls function `connect()`. When CA calls `disconnect()` the TA process exits. Therefore, in a life cycle, there is no  need to connect or disconnect each IPC communication.<br>
-+ b. There are many IPC communications between CA and TA. Every time IPC communication, the buffer received and sent by CA needs to be reallocated. The same buffer should not be used by IPC multiple times. In our code this method has already been implemented.<br>
-+ c. Trusty TEE provides 2 ports for communication, `secure port` and `non-secure port`. <br>
++ Adopt the dynamic TA mechanism which will load TA and run TA's main function when CA calls function `connect()`. When CA calls `disconnect()` the TA process exits. Therefore, in a life cycle, there is no  need to connect or disconnect each IPC communication.<br>
++ There are many IPC communications between CA and TA. Every time IPC communication, the buffer received and sent by CA needs to be reallocated. The same buffer should not be used by IPC multiple times. In our code this method has already been implemented.<br>
++ Trusty TEE provides 2 ports for communication, `secure port` and `non-secure port`. <br>
    **Secure port** - for other TA app access.<br>
    **Non secure port** - for CA access TA app.<br>
    For fingerprint, it needs to use `non-secure port` and if has payment requirement, needs to use `secure port`.<br>
-+ d. Should define the same port name between CA and TA, An example that we are using "com.android.trusty.fpctzapp".<br>
-+ e. Should use unique uuid to differentiate with other fingerprint vendor.<br>
-+ f. About IPC: the Trusty APIs use 
++ Should define the same port name between CA and TA, An example that we are using "com.android.trusty.fpctzapp".<br>
++ Should use unique uuid to differentiate with other fingerprint vendor.<br>
++ About IPC: the Trusty APIs use 
 {% highlight c %}
 send_msg()
 get_msg()
@@ -171,12 +171,12 @@ return rc;
 }
 {% endhighlight %}
 
-## <span id ="4">4. About SPI usage</span>
+## <span id ="4">4. SPI </span>
 It is related to hardware platform, on Spreadtrum SC9863, it doesn't need to configure SPI and will only use `ioctl()` for transmission.
 
 ## <span id ="5">5. Others</span>
 
-### <span id ="5.1">5.1 How to build Trusty TEE image</span>
+### <span id ="5.1">5.1 How to build ?</span>
 <span id = "5.1.1">**5.1.1 Toolchain**</span> <br>
 It is recommended to use the arm-eabi-4.8 tool chain of Android code package:<br>
 {% highlight shell %}
@@ -193,37 +193,44 @@ make M="app/demo/fpctzapp:TA"
 <span id = "5.1.3">**5.1.3 Output Image**</span><br>
 output two image files fpctzapp.elf and fpctzapp.syms.elf (which contains symbol table for debug purpose)
 
-### <span id = "5.2">5.2 Useful Tools</span>
+### <span id = "5.2">5.2 Tools </span>
 <span id = "5.2.1">**5.2.1 uuidgen**</span><br>
 Output two image files `fpctzapp.elf` and `fpctzapp.syms.elf` (which contains symbol table for debug purpose)<br>
 <span id = "5.2.2">**5.2.2 addr2line**</span>   
-To find the line number of error occurrence from symbol table. In the bsp/toolchain/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/bin/ folder<br>
+To find the line number of error occurrence from symbol table. In the
+{% highlight ruby %}
+bsp/toolchain/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/bin/ folder
+{% endhighlight %}
 <span id = "5.2.3">**5.2.3 signta.py**</span>  
-Signature tool for signing the TA image. In the "vendor/sprd/proprietories-source/packimage_scripts/signimage/dynamicTA/" direction.<br>
-{% highlight console %}
+Signature tool for signing the TA image. In the 
+{% highlight shell %}
+vendor/sprd/proprietories-source/packimage_scripts/signimage/dynamicTA/"
+{% endhighlight %}
+
+{% highlight shell %}
 python signta.py --uuid {UUID} --key “privatekey.pem” --in “TA image name without signed” --out “signed TA image name”.
 {% endhighlight %}
 
 command for signature.
-{% highlight console %}
+{% highlight shell %}
 python signta.py --uuid {UUID} --key “privatekey.pem” --in “TA image name without signed” --out “signed TA image name”
 {% endhighlight %}
-### <span id = "5.3">5.3 Logs Indication</span>
+### <span id = "5.3">5.3 Logs </span>
 <span id="5.3.1">**5.3.1 TA load successfully**</span>  
-{% highlight c %}
+{% highlight ruby %}
  [ 68.183207] c4 246 trusty: ta_manager_wait_load:382: ta_manager_wait_load com.android.trusty.fpctzapp 
  [ 68.185949] c4 246 trusty: ta_manager_write_ta:485: ta_manager_write_ta: new ta! 
  [ 68.188528] c0 181 trusty: ta_manager_write_ta:573: ta_manager_write_ta, load com.android.trusty.fpctzapp accomplished!
 {% endhighlight %}
 
 <span id = "5.3.2">**5.3.2 Failure with TA wasn't signed or signatue wasn't match**</span>  
-{% highlight c %}
+{% highlight ruby %}
  [ 30.866766] c1 trusty: ta_manager_write_ta:538: ta_manager_write_ta: new ta! 
  [ 30.999062] c0 trusty: ta_manager_handle_msg:760: ta_manager_handle_request failed -17!
 {% endhighlight %}
 
 <span id = "5.3.3">**5.3.3 TA APP wasn't running properly, CA lost communication**</span> 
-{% highlight console %}
+{% highlight shell %}
  libtrusty: tipc_connect: can't connect to tipc service "com.android.trusty.fpctzapp" (err=107)
 {% endhighlight %}
   

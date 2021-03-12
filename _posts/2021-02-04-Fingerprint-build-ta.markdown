@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Build TA images on different TrustZone"
+title:  "Build TA images on different TEE"
 date:   2021-02-04 12:21:47 +0800
 categories: Android Fingerprint
 Published: true
@@ -17,19 +17,19 @@ This article will give a introduction on how to build TA images on different Tru
 1. [About TEE](#1)
 2. [QSEE5](#2)
     + [2.1 SDK](#2.1)
-    + [2.2 TA code ](#2.2)
-    + [2.3 Build command](#2.3)
-    + [2.4 Generated TA image](#2.4)
+    + [2.2 Code ](#2.2)
+    + [2.3 Build](#2.3)
+    + [2.4 Image](#2.4)
 3. [ISEE](#3)
     + [3.1 SDK](#3.1)
-    + [3.2 TA code ](#3.2)
-    + [3.3 Build command](#3.3)
-    + [3.4 Generated TA image](#3.4)
+    + [3.2 Code ](#3.2)
+    + [3.3 Build](#3.3)
+    + [3.4 Image](#3.4)
 4. [Trusty](#4)
     + [4.1 SDK](#4.1)
-    + [4.2 TA code ](#4.2)
-    + [4.3 Build command](#4.3)
-    + [4.4 Generated TA image](#4.4)
+    + [4.2 Code ](#4.2)
+    + [4.3 Build](#4.3)
+    + [4.4 image](#4.4)
     
 <div class = "separator"></div>
 {% endif %}
@@ -54,24 +54,24 @@ To build the TA image, we need to use QSEE SDK, which can be got from Qualcomm o
 {% highlight ruby %}
 /home/david/devtools/tz_qsee5
 {% endhighlight %}
-### <span id ="2.2">2.2 Fingerprint_TA code </span>
+### <span id ="2.2">2.2 Code </span>
 Next we need to put the source code of Fingerprint TA into place that the SDK can find it and make.
 In QSEE, normally there is specific location in the SDK file tree for storing the TA code.    
 It is at path:
-{% highlight ruby %} 
-/home/david/devtools/tz_qsee5/ssg/securemsm/trustzone/qsapps/`
+{% highlight ruby %}
+/home/david/devtools/tz_qsee5/ssg/securemsm/trustzone/qsapps/
 {% endhighlight %}
-### <span id ="2.3">2.3 Build command </span>
+### <span id ="2.3">2.3 Build </span>
 We executes the build command to make the TA code and generate the TA image.
 {% highlight ruby %}
- cd /home/david/devtools/tz_qsee5/build/ms/
- python build_all.py -b TZ.XF.5.0.1 CHIPSET=sdm845 --cbt="$(FPC_CONFIG_TZ_IMAGE_NAME)" $(build_flags)
+cd /home/david/devtools/tz_qsee5/build/ms/
+python build_all.py -b TZ.XF.5.0.1 CHIPSET=sdm845 --cbt="$(FPC_CONFIG_TZ_IMAGE_NAME)" $(build_flags)
 {% endhighlight %}
 
 Build process
 ![fingerprint-tee]({{site.baseurl}}/assets/image/fingerprint-build-ta-02.png){: .center-image }
 
-### <span id ="2.4">2.4 TA image </span>
+### <span id ="2.4">2.4 Image </span>
 TA images are generated at path:
 {% highlight ruby %}
 /home/david/devtools/tz_qsee5/build/ms/bin/PIL_IMAGES/SPLITBINS_WAXAANAA/
@@ -100,25 +100,25 @@ I put the SDK into below location.
 {% highlight ruby %}
 /home/david/devtools/isee_sdk_270
 {% endhighlight %}
-### <span id ="3.2">3.2 Fingerprint_TA code </span>
+### <span id ="3.2">3.2 Code </span>
 Put the TA source code to below path 
 {% highlight ruby %}
 /home/david/devtools/platforms/mt6797/vendor/fingerprints/
 {% endhighlight %}
-### <span id ="3.3">3.3 Build command </span>
+### <span id ="3.3">3.3 Build </span>
 Run command
 {% highlight ruby %}
- cd /home/david/devtools/isee_sdk_270
- source setenv.sh 
- cd /home/david/devtools/platforms/mt6797/vendor/fingerprints/fingerprint_ta/secure/platform/isee
+cd /home/david/devtools/isee_sdk_270
+source setenv.sh 
+cd /home/david/devtools/platforms/mt6797/vendor/fingerprints/fingerprint_ta/secure/platform/isee
  make
 {% endhighlight %}
 Build process
 ![fingerprint-tee]({{site.baseurl}}/assets/image/fingerprint-build-ta-03.png){: .center-image }
-### <span id ="3.4">3.4 TA image </span>
+### <span id ="3.4">3.4 image </span>
 TA image is generated at path
 {% highlight ruby %}
- /home/david/devtools/platforms/mt6797/vendor/fingerprints/fingerprint_ta/secure/platform/isee/obj/7778c03fc30c4dd0a319ea29643d4d4b.ta
+/home/david/devtools/platforms/mt6797/vendor/fingerprints/fingerprint_ta/secure/platform/isee/obj/7778c03fc30c4dd0a319ea29643d4d4b.ta
 {% endhighlight %}
 It uses the UUID of the TA as the TA name, which is UUID.ta
 
@@ -130,24 +130,26 @@ For more details about Trusty, please refer to  [「Trusty TEE」](https://sourc
 Find a location in your local device.
 For example, I put the trusty SDK here.
 {% highlight ruby %}
-/home/david/devtools/trusty_sdk`
-### <span id ="4.2">4.2 Fingerprint_TA code </span>
-Copy the TA source code to the SDK folder.
-`/home/david/devtools/trusty_sdk/app/demo/
+/home/david/devtools/trusty_sdk
 {% endhighlight %}
-### <span id ="4.3">4.3 Build command </span>
+### <span id ="4.2">4.2 Code </span>
+Copy the TA source code to the SDK folder.
+{% highlight ruby %}
+/home/david/devtools/trusty_sdk/app/demo/
+{% endhighlight %}
+### <span id ="4.3">4.3 Build </span>
 Run command
 {% highlight ruby %}
- cd /home/david/devtools/trusty_sdk
- make M="app/demo/fpctzapp:TA"
+cd /home/david/devtools/trusty_sdk
+make M="app/demo/fpctzapp:TA"
 {% endhighlight %}
 Build process
 ![fingerprint-tee]({{site.baseurl}}/assets/image/fingerprint-build-ta-04.png){: .center-image }
-### <span id ="4.4">4.4 TA image </span>
+### <span id ="4.4">4.4 image </span>
 The TA image is generated at below location after compiling completed.
 {% highlight ruby %}
 /home/david/devtools/trusty_sdk/build/user_tasks/app/demo/fpctzapp/fpctzapp.elf
-/home/david/devtools/trusty_sdk/build/user_tasks/app/demo/fpctzapp/fpctzapp.elf/fpctzapp.syms.elf (带符号表，用于debug)
+/home/david/devtools/trusty_sdk/build/user_tasks/app/demo/fpctzapp/fpctzapp.elf/fpctzapp.syms.elf (for debug use)
 {% endhighlight %}
 It uses the TA name that defined at the configuration as the image name, which is TA_Name.elf. 
 Such as fpctzapp.elf. The TA_Name.syms.elf is the image file that containing the symbols table which can be used for debugging purpose.
