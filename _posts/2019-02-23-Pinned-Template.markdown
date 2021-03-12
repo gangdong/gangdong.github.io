@@ -41,7 +41,7 @@ sidebar: true
 
 
 ### 预览
-![screenshot]({{site.baseurl}}/assets/screenshot1.png)
+![screenshot]({{site.baseurl}}/assets/screenshot.png)
 
 ## <span id ="2">2.功能</span>
 + 响应式设计
