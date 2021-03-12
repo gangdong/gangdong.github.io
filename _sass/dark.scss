@@ -42,8 +42,10 @@
     .post-index {
 	  background-color: #E74C3C;
 	  color: white;
+	  border: 1px solid #E74C3C;
 	}
 	.post-index-container {
+		border: 1px solid #474747;
 		a {
 			color: white;
 			&:hover {

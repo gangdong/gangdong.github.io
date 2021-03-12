@@ -6,7 +6,7 @@ $linkColor: #436EEE;
 $mobileW: 768px;
 $smallMobileW: 480px;
 $bigScreenW: 1600px;
-$leftWidth: 180px;
+$leftWidth: 200px;
 
 *,
 *:before,
@@ -551,19 +551,15 @@ main {
 .post-container {
   list-style-type: none;
   margin: 10px 30px;
-  @media screen and (min-width: $mobileW + 1) {
-      max-width: calc(100% - 40px);
-      width: 100%;
-  }
   @media screen and (max-width: $smallMobileW) {
-    margin-left: 20px;
+    margin-left: 20px; /* !import for small device */
     margin-right: 20px;
-	max-width: $smallMobileW
+    max-width: $smallMobileW
   }
   @media screen and (max-width: $mobileW) {
     padding: 0 !important;
     margin-top: 0;
-	max-width: $mobileW
+    max-width: $mobileW
   }
 }
 .post-container {
@@ -574,22 +570,23 @@ main {
   font-weight: 400;
   color: #000;
   line-height: 1.9em;
+  flex-shrink: 0; /* default 1 !important guarantee the post contents width constant */
   
   @media screen and (min-width: $mobileW + 1) {
-      max-width: 650px;
-	  width: 100%;
+      max-width: 650px; /* fix the width */
+      width: 100%;
    }
    @media screen and (max-width: $smallMobileW) {
-    margin-left: 0px;
+    margin-left: 0px;  /* no margin to parent */
     margin-right:0px;
-	max-width: $smallMobileW;
-	width: 100%;
+    max-width: $smallMobileW;
+    width: 100%;
   }
   @media screen and (max-width: $mobileW) {
     padding: 0 !important;
     margin-top: 0;
-	max-width: $mobileW;
-	width: 100%;
+    max-width: $mobileW;
+    width: 100%;
    }
    
   a {
@@ -614,7 +611,6 @@ main {
   font-weight: 400;
   color: #000;
   line-height: 1.9em;
-  
   a {
     color: $linkColor;
     text-decoration: none;
@@ -636,7 +632,7 @@ main {
   margin: 0 0 0 0;
   display: flex;
   align-items: baseline;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #eeeeee;
 }
 .about-page{
   margin: 15px 2px;
@@ -982,7 +978,22 @@ table {
 	flex-wrap: nowrap;
 	justify-content: space-between;
 	align-content: center;
-	width: inherit;
+	align-items: baseline; /* disable stretch for sidebar */
+	@media screen and (min-width: $mobileW + 1) {
+      		max-width: calc(100% + 40px); /* !important, widen the area to accormadate the sidebar */
+      		width: 130%;
+  	}
+	/* should be useless since display none at small device */
+  	@media screen and (max-width: $smallMobileW) {
+   		margin-left: 0px;
+    		margin-right: 0px;
+		max-width: $smallMobileW
+  	}
+  	@media screen and (max-width: $mobileW) {
+    		padding: 0 !important;
+    		margin-top: 0;
+		max-width: $mobileW
+  	}
 }
 .post-index {
   font-family: 'Arial', 'Tahoma', 'Raleway', 'Merriweather', 'Microsoft Yahei', sans-serif;
@@ -990,10 +1001,13 @@ table {
   font-size: 14px;
   color: white;
   text-align: center;
+  border: 1px solid #5499C7;
   background-color: #5499C7;
   border-radius: 4px;
 }
 .post-index-container {
+  border: 1px solid #ececec;
+  border-radius: 4px;
   position: relative;
   left:0px;
   top: 80px;
@@ -1003,25 +1017,23 @@ table {
   font-size: 12px;
   color: #000;
   line-height: 1.9em;
-  flex-grow: 1;
-  height: auto;
   li {
   }
   a{
-	padding: 0 0px;
+	padding: 0px 10px;
     width: 100%;
 	height: 100%;
 	display: inline-table;
 	border-radius: 4px;
 	text-decoration: none;
 	&:hover {
-      background-color: #ececec;
-	  font-weight: bold;
+      	background-color: #ececec;
+	  	font-weight: bold;
     }
   }
   
   @media screen and (max-width: $smallMobileW) {
-		display: none;
+		display: none; /* no sidebar display */
   }
   @media screen and (max-width: $mobileW) {
 		display: none;
