@@ -55,7 +55,8 @@ Markdown 的语法学习归纳起来可以从下面几个方面来学习。
 ![picname](图片地址''图片title'')
 {% endhighlight %}
 效果如下：<br>
-![示例图片]({{site.baseurl}}/assets/image/others-markdown-example.png "example")
+
+![示例图片]({{site.baseurl}}/assets/image/others-markdown-example.png "example"){: .center-image }
 
 ## <span id = "4">链接</span>
 **语法**   

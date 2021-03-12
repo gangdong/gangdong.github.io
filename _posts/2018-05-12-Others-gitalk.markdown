@@ -18,17 +18,27 @@ It is amazing easy to use and no need the database support in background. Moreov
 
 The installation is simple, just need to refer below procedure.
 
-1. Register a Github application,as a Github application you need to get an authorization before use it. The path to open OAuth Apps page is Github homepage->Settings->Developer Settings->OAuth Apps.<br> 
-![oAuth Apps]({{site.baseurl}}/assets/image/others-gitalk-oauth-apps.png)
+1. Register a Github application,as a Github application you need to get an authorization before use it. The path to open OAuth Apps page is Github homepage->Settings->Developer Settings->OAuth Apps.<br>    
+2.  <br>
+
+![oAuth Apps]({{site.baseurl}}/assets/image/others-gitalk-oauth-apps.png){: .center-image }
+
+
 You must specify the website domain url in the Authorization callback URL field.
-After registration, you will get a 'Client ID' and 'Client Secret', remember these two numbers, you will need to fill them in the following step.
-![oAuth Apps]({{site.baseurl}}/assets/image/others-gitalk-oauth-apps-clientID.png)
+After registration, you will get a 'Client ID' and 'Client Secret', remember these two numbers, you will need to fill them in the following step.    
+
+![oAuth Apps]({{site.baseurl}}/assets/image/others-gitalk-oauth-apps-clientID.png){: .center-image }
+
+
 Please note, the user number is zero at this moment when you haven't authenticated the application. You need to do it later.
 Now you have registered Github application for Gitalk. <br>
+Next,copy below code into the page where you want to use Gitalk or add it into the posts page, it depends on your website's structure. <br>
 
-2. Next,copy below code into the page where you want to use Gitalk or add it into the posts page, it depends on your website's structure. <br>
-![code]({{site.baseurl}}/assets/image/others-gitalk-code.png)
+![code]({{site.baseurl}}/assets/image/others-gitalk-code.png){: .center-image }
+
+<br>
 Below are the setting options.<br>
+
 ----------
 + `clientID` - Github Application Client ID. <br/>
    **type:** String. <br/>

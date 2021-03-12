@@ -97,11 +97,7 @@ makecert -n "CN=RootDavid" -r -sv testsk.pvk testpk.cer
 
 ![makecert01]({{site.baseurl}}/assets/image/others-make-sign-02.png){: .center-image }
 
-输入正确的私钥口令后，控制台会返回 Succeeded.
-
-![makecert01]({{site.baseurl}}/assets/image/others-make-sign-03.png){: .center-image }
-
-并在当前目录下生成两个文件
+输入正确的私钥口令后，控制台会返回 Succeeded. 并在当前目录下生成两个文件
 
 ![makecert01]({{site.baseurl}}/assets/image/others-make-sign-04.png){: .center-image }
 
@@ -124,7 +120,9 @@ C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86
  
 运行如下命令   
 
-![makecert01]({{site.baseurl}}/assets/image/others-make-sign-05.png){: .center-image }
+{% highlight ruby %}
+C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86\cert2spc testpk.cer testpk.spc
+{% endhighlight %}
 
 执行成功后在当前目录下生成
 
@@ -140,7 +138,9 @@ C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86
 
 执行如下命令
 
-![makecert01]({{site.baseurl}}/assets/image/others-make-sign-07.png){: .center-image }
+{% highlight ruby %}
+C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86\pvk2pfx -pvk testsk.pvk -spc testpk.spc -pfx testpfx.pfx
+{% endhighlight %}
 
 合并时会要求输入私钥testsk.pvk的保护口令来合并.pvk和.spc文件。输入之前设定的口令，就可在当前目录下得到生成的pfx文件。
 

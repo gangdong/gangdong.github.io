@@ -75,8 +75,10 @@ A WBDI biometric driver must also support the WBDI driver interface GUID and all
 ### Biometric Unit:  
   The central component of the Windows Biometric Framework plug-in architecture, a software object that exposes the capabilities of a biometric device to the framework through a standard interface.
 ### Overview
-The following figure shows how the UMDF based windows biometric driver interface (WBDI) driver can be used for windows biometric framework (WBF) biometric support in Windows 7. All biometric operations rely on client applications to windows biometric services (WBS). The WBS sends the request to the biometric device driver that exposes the WBDI interface.
-![framework]({{site.baseurl}}/assets/image/others-wbdi-01.PNG){: .center_image}
+The following figure shows how the UMDF based windows biometric driver interface (WBDI) driver can be used for windows biometric framework (WBF) biometric support in Windows 7. All biometric operations rely on client applications to windows biometric services (WBS). The WBS sends the request to the biometric device driver that exposes the WBDI interface.    
+    
+
+![framework]({{site.baseurl}}/assets/image/others-wbdi-01.PNG){: .center-image }
 
 ## <span id = "2">2. UMDF</span>
 UMDF is a Framework for creating user mode drivers. Like the kernel mode driver framework (KMDF), UMDF provides an abstraction layer from WDM that handles a large number of plug and play (PNP) and power management functions, and allows the driver to choose to enable specific functions and event handling. UMDF driver abstracts hardware functions, runs in user mode environment, and can access various services.
@@ -84,8 +86,10 @@ UMDF is a Framework for creating user mode drivers. Like the kernel mode driver 
 The UMDF driver interacts with the following components provided by the system.
 + Wudfhost(exe)
 + WDM
-+ Reflector
-![framework]({{site.baseurl}}/assets/image/others-wbdi-02.PNG){: .center_image}
++ Reflector    
+
+
+![framework]({{site.baseurl}}/assets/image/others-wbdi-02.PNG){: .center-image }
 
 ### <span id = "2.1">2.1 UMDF advantages</span>   
 + Because UMDF driver running on the user space, which result in the stability of operating systems because they only have access to the address space in which they run the process.
@@ -106,7 +110,11 @@ However, the following features are only available for KMDF drivers. If the driv
 + IOCTLs
 
 ### <span id = "2.3">2.3 UDMF architecture</span>   
-![framework]({{site.baseurl}}/assets/image/others-wbdi-03.PNG){: .center_image}  
+
+
+![framework]({{site.baseurl}}/assets/image/others-wbdi-03.PNG){: .center-image }  
+
+
 Above diagram shows how the driver manager builds a user-mode device stack, and how the host process, reflector, and driver manager process an I/O request that an application sends to a User-Mode Driver Framework (UMDF) driver.  
 
 Similar to a kernel-mode stack, the construction and tear down of a user-mode stack is driven by Plug and Play (PnP) events. After the kernel-mode stack has been built, the reflector notifies the driver manager to start construction of the user-mode stack. The driver manager launches the driver host process and provides sufficient information to the launched process to build the user-mode stack. 

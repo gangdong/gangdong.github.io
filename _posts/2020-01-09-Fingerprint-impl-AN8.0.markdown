@@ -26,9 +26,12 @@ we have had a discussion of the fingerprint framework on the android 7.0 in prev
 {% endif %}
 
 ## fingerprint framework in Android 7.0
-This diagram is the fingerprint framework on the android platform, I have presented in other article and copied here.
+This diagram is the fingerprint framework on the android platform, I have presented in other article and copied here.        
+
 
 ![framework]({{site.baseurl}}/assets/image/android-fingerprint-framework-framework.png){: .center-image }
+
+
 
 From the top layer, the fingerprint application will start the work flow and this is the fingerprint management entry defined by Android system layer.
 In the framework internal, some tasks will be done to handle the request from application.
