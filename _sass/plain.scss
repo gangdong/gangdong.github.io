@@ -403,8 +403,13 @@ main {
 	align-content:stretch;
   }
 }
+.navigation-bar-label {
+	font-family: 'Arial','Raleway', 'Microsoft Yahei', sans-serif;
+	font-size:14px;
+	font-weight: normal;
+}
 .navigation-bar {
-  font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;
+  font-family: 'Arial','Raleway', 'Microsoft Yahei', sans-serif;
   font-weight:bold;
   font-size:16px;
   list-style-type: none;
