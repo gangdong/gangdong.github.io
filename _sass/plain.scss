@@ -3,6 +3,7 @@
 @import "syntax";
 
 $linkColor: #436EEE;
+$btnColor: #5499C7;
 $mobileW: 768px;
 $smallMobileW: 480px;
 $bigScreenW: 1600px;
@@ -169,7 +170,7 @@ main {
     font-size: 14px;
     float: left;
 	border-radius: 40px;
-    background-color: #5499C7;
+    background-color: $btnColor;
     padding: 6px 20px 5px 10px;
     @media screen and (max-width: $mobileW) {
       margin-top: 5px;
@@ -247,7 +248,7 @@ main {
   a {
     float: left;
 	border-radius: 40px;
-    background-color: #5499C7;
+    background-color: $btnColor;
 	color: white;
     padding: 5px 20px;
     @media screen and (max-width: $mobileW) {
@@ -348,7 +349,7 @@ main {
   
   li {
     float: left;
-	color: #5499C7;
+	color: $btnColor;
     background-color: #ffffff;
     padding: 5px 10px;
     border-radius: 4px;
@@ -356,7 +357,7 @@ main {
 	text-decoration: none;
 	&:hover {
       color:white;
-	  background-color: #5499C7;
+	  background-color: $btnColor;
     }
     @media screen and (max-width: $mobileW) {
       margin-top: 5px;
@@ -690,7 +691,7 @@ main {
 }
  .about-page-box {
   padding: 0px 40px;
-  background-color: #5499C7;
+  background-color: $btnColor;
   text-decoration: none;
   margin: 40px 2px;
   font-family: 'Raleway','Tahoma', 'Merriweather', 'Arial', 'Microsoft Yahei', sans-serif;
@@ -769,7 +770,7 @@ main {
 	text-align: center;
     &:hover {
       color:white;
-	  background-color: #5499C7;
+	  background-color: $btnColor;
     }
   }
 }
@@ -812,7 +813,7 @@ main {
   }
 }
 .pagination-box-select{
-    border:2px solid #5499C7;
+    border:2px solid $btnColor;
 	padding: 4px 8px;
 	border-radius: 2px;
 	text-align:center;
@@ -821,7 +822,7 @@ main {
 	font-size: 14px;
     color: #ffffff;
 	align-items: center;
-	background-color: #5499C7;
+	background-color: $btnColor;
 }
 .pagination-box{
 	border:2px solid #eee;
@@ -847,8 +848,8 @@ main {
 		
 		&:hover {
 			color:#ffffff;
-			background-color: #5499C7;
-			border: 2px solid #5499C7;
+			background-color: $btnColor;
+			border: 2px solid $btnColor;
 		}
 	}
 }
@@ -922,7 +923,7 @@ code, tt {
   margin: 0 0px;
   font-family: 'Arial', Consolas, "Liberation Mono", Courier, monospace, sans-serif;
   font-size: 14px;
-  padding: 2px 4px;
+  padding: 4px 4px;
   white-space: nowrap;
   color: #DC143C;
   background-color: #FDFDED;
@@ -1009,8 +1010,8 @@ table {
   font-size: 14px;
   color: white;
   text-align: center;
-  border: 1px solid #5499C7;
-  background-color: #5499C7;
+  border: 1px solid $btnColor;
+  background-color: $btnColor;
   border-radius: 4px;
 }
 .post-index-container {
@@ -1036,7 +1037,7 @@ table {
 	text-decoration: none;
 	&:hover {
 		color: white;
-      	background-color: #5499C7;
+      	background-color: $btnColor;
 	  	font-weight: bold;
     }
   }

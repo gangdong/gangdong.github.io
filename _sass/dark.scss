@@ -2,6 +2,7 @@
 .dark * {
 	$dark_text_color: #f6f6f6;
 	$dark_link_color: #4da3ff;
+	$dark_btn_color: #E74C3C;
 	background-color: #171717;
 	color: $dark_text_color;
 	border-color: #e6e6e6;
@@ -40,26 +41,23 @@
 	}
 
     .post-index {
-	  background-color: #E74C3C;
+	  background-color: $dark_btn_color;
 	  color: white;
-	  border: 1px solid #E74C3C;
+	  border: 1px solid $dark_btn_color;
 	}
 	.post-index-container {
 		border: 1px solid #474747;
 		a {
 			color: white;
 			&:hover {
-			background-color: #E74C3C;
+			background-color: $dark_btn_color;
 			font-weight: bold;
 			}
 		}
 	}
-
-
-
 	.post-categories-pin {
 		li {
-			background-color: #E74C3C;
+			background-color: $dark_btn_color;
 			color: white;
 		}
 	}
@@ -68,7 +66,7 @@
 		 color: $dark_text_color;
          &:hover {
 			color: $dark_text_color;
-	        background-color: #E74C3C;;
+	        background-color: $dark_btn_color;;
           }
         }
 	}
@@ -83,9 +81,9 @@
 		}
 	}
 	.about-page-box {
-		background-color: #E74C3C;
+		background-color: $dark_btn_color;
 		a {
-			background-color: #E74C3C;
+			background-color: $dark_btn_color;
 			color: white;
 			&:hover {
 				color: $linkColor;
@@ -96,18 +94,18 @@
 		border-bottom: 1px solid #333;
 	}
 	.pagination-box-select{
-		border:2px solid #E74C3C;
-		background-color: #E74C3C;
+		border:2px solid $dark_btn_color;
+		background-color: $dark_btn_color;
     }
 	.pagination-box{
 		border:2px solid #333;
-		color: #E74C3C
+		color: $dark_btn_color
 	}
 	.pagination{
 		a {
 			&:hover {
-				border:2px solid #E74C3C;
-				background-color: #E74C3C;
+				border:2px solid $dark_btn_color;
+				background-color: $dark_btn_color;
 			}
 		}
 	}
@@ -185,10 +183,10 @@
  	.readingtime-categories {
 		li {
 			background-color: #171717;
-			color: #E74C3C;
+			color: $dark_btn_color;
 			&:hover {
 				color: white;
-				background-color: #E74C3C;
+				background-color: $dark_btn_color;
 			}
 		}
 		a {

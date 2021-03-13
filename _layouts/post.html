@@ -55,12 +55,12 @@ layout: default
   <div class="navigation-meta" style = "margin-bottom:40px">
     {%- if page.previous -%}
     <ul class="navigation-bar" style = "margin-top:40px; min-width:40%">   
-	 <a href="{{ page.previous.url | relative_url }}"; style="width:100%"><font class = "navigation-bar-label">Previous Post</font><br>{{page.previous.title | escape}}</a>
+	 <a href="{{ page.previous.url | relative_url }}"; style="width:100%"><span class = "navigation-bar-label">Previous Post</span><br>{{page.previous.title | escape}}</a>
     </ul>
     {%- endif -%}
     {%- if page.next -%}
     <ul class="navigation-bar" style = "margin-top:40px; min-width:40%">   
-     <a href="{{ page.next.url | relative_url }}"; style="width:100%"><font class = "navigation-bar-label">Next Post</font><br>{{page.next.title | escape}}</a>
+     <a href="{{ page.next.url | relative_url }}"; style="width:100%"><span class = "navigation-bar-label">Next Post</span><br>{{page.next.title | escape}}</a>
     </ul>
     {%- endif -%}
   </div>
