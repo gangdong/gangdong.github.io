@@ -1,25 +1,17 @@
 
 
 <div class="post-container">
-<div  class = "menu">
-<div  style="font-size:180%;font-weight:800; margin-top: 20px">{{site.logo}}</div>
-<div  style = "margin-top: 20px">
-<a class = "menu_tag_a" href="{{ site.baseurl}}/blog/index.html">
-    <span class="icon-doc-text icon_font">Posts</span>
-</a>
-{%- if site.rawposts.archives -%}
-<a  class = "menu_tag_a" href="{{ site.baseurl}}/archive">
-    <span class="icon-archive-1 icon_font">Archives</span>
-</a>
-{%- endif -%}
-{%- if site.rawposts.categories -%}
-<a  class = "menu_tag_a" href="{{ site.baseurl}}/category">
-    <span class="icon-tags-1 icon_font">Categories</span>
-</a>
-{%- endif -%}
-<a  class = "menu_tag_b" href="{{ site.baseurl}}/about">
-    <span class="icon-help-circled-3 icon_font">About</span>
-</a>
-</div>
-</div>
+	<div  class = "menu">
+		<div  style="font-size:180%;font-weight:800; margin-top: 20px">{{site.logo}}</div>
+		<div  style = "margin-top: 20px">
+			<a class = "menu_tag_a icon-doc-text icon_font" href="{{ site.baseurl}}/blog/index.html">Posts</a>
+			{%- if site.rawposts.archives -%}
+			<a  class = "menu_tag_a icon-archive-1 icon_font" href="{{ site.baseurl}}/archive">Archives</a>
+			{%- endif -%}
+			{%- if site.rawposts.categories -%}
+			<a  class = "menu_tag_a icon-tags-1 icon_font" href="{{ site.baseurl}}/category">Categories</a>
+			{%- endif -%}
+			<a  class = "menu_tag_b icon-help-circled-3 icon_font" href="{{ site.baseurl}}/about">About</a>
+		</div>
+	</div>
 </div>

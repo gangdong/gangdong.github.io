@@ -65,12 +65,14 @@
 	}
 	.menu{
 		a {
+		 color: $dark_text_color;
          &:hover {
-	        background-color: #171717;;
+			color: $dark_text_color;
+	        background-color: #E74C3C;;
           }
         }
 	}
-	 .about-page-box-link-none {
+	.about-page-box-link-none {
  
 		background-color: #d1d1d1;
   
@@ -104,7 +106,8 @@
 	.pagination{
 		a {
 			&:hover {
-				background-color: #333;
+				border:2px solid #E74C3C;
+				background-color: #E74C3C;
 			}
 		}
 	}
@@ -184,9 +187,9 @@
 			background-color: #171717;
 			color: #E74C3C;
 			&:hover {
-			color: $dark_link_color;
-			background-color: #333;
-		}
+				color: white;
+				background-color: #E74C3C;
+			}
 		}
 		a {
 			background-color: #333;
