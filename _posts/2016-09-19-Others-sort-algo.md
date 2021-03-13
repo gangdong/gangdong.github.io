@@ -4,7 +4,7 @@ title:  "几种常见的排序算法"
 date:   2016-09-19 19:04:30 +0800
 categories: Others
 toc: true
-sidebar: false
+sidebar: true
 language: chinese
 ---
 ![cover]({{site.baseurl}}/assets/image/others-sort-algo-cover.jpeg)    

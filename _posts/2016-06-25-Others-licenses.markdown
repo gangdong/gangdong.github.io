@@ -4,6 +4,8 @@ title:  "聊一聊开源协议那些事"
 date:   2016-06-25 15:34:40 +0800
 categories: Others
 Published: true
+toc: true
+sidebar: true
 language: chinese
 ---
 ![cover]({{site.baseurl}}/assets/image/others-license-cover.jpeg)     

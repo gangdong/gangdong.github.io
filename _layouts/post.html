@@ -31,7 +31,11 @@ layout: default
 	</div>
 	<!-- put sidebar! -->
 	<div class="post-index-container">
+	    {% if page.language == 'chinese' %}
+		<li class = "post-index">文章目录</li>
+		{% else %}
 		<li class = "post-index">On this page</li>
+		{% endif %}
 		<li>{% toc %}</li>
 	</div>
   </div>
@@ -41,7 +45,7 @@ layout: default
     {{ content }}
   </div>
   {% endif %}
-  <!-- Page veiw statistic start here! -->
+  <!-- Put post veiw statistic here! -->
   <br><br><br>
   <div class = "post-view">
 		<li class = "icon-eye">&nbsp;<span id="busuanzi_value_page_pv"></span></li>

@@ -985,7 +985,7 @@ table {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
-	justify-content: space-between;
+	justify-content: flex-start;
 	align-content: center;
 	align-items: baseline; /* disable stretch for sidebar */
 	@media screen and (min-width: $mobileW + 1) {

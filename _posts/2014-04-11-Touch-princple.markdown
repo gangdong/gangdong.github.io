@@ -3,6 +3,8 @@ layout: post
 title:  "电容式触摸检测技术原理"
 date:   2014-04-11 12:10:27 +0800
 categories: Touch
+toc: true
+sidebar: true
 language: chinese
 ---
 智能手机的兴起不仅仅是由于操作系统上的改变，更多的是由于引入了一种新的人机交互的模式。这种全新的模式导致了用户体验的大幅度改善。电容式触摸检测技术正是其中的关键技术。
@@ -27,7 +29,7 @@ ITO的图形常见的有菱形/三角形/长条形/毛毛虫形等。以及基�
 
 ![model]({{site.baseurl}}/assets/image/touch-princple-01.png){: .center-image }
 
-
+### 电路模型
 这张图片代表了一个人机操作的模型，其中手持设备的信号地通过一个耦合电容Cgnd-earth与大地相连。我们将重点放到手持设备上。细化一下模型，如下图。
 
 ![model2]({{site.baseurl}}/assets/image/touch-princple-02.png){: .center-image }
