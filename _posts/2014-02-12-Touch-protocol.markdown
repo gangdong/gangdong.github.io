@@ -4,6 +4,7 @@ title:  "Linux 系统下的多点触摸协议"
 date:   2014-02-12 21:33:10 +0800
 categories: Touch Linux
 published: true
+language: chinese
 ---
 这篇文章讲一下Linux下的多点触控的协议。<br>
 为了支持多点触控的设备，Linux制定了多点触摸协议（multi-touch，MT）。

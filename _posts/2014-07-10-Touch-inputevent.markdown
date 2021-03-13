@@ -4,6 +4,7 @@ title:  "Android 如何上报 Touchevent 给应用层"
 date:   2014-07-10 23:44:07 +0800
 categories: C Touch Linux Android
 published: true
+language: chinese
 ---
 上一篇博文 [「ATMEL maXTouch IC驱动代码分析」]({{site.baseurl}}/c/touch/linux/2014/06/25/Touch-driver.html) 我们讲到了 Touch 驱动代码如何读取IC内部获取到的触摸事件信息并通过`input_report_abs()`和`input_sync()`函数上报给 Linux 的 Input 子系统的过程。今天这篇文章我们就走进 Input 子系统内部来看一下事件是如何被传递到 Android 的用户空间的。
 

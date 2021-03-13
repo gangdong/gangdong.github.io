@@ -5,12 +5,21 @@
 <footer>
     <div class="readingtime-meta" style="margin-top:20px;margin-bottom:30px">
 	    <div>
-		<span class="icon-clock readingtime" style="margin-right:20px">{{ time }} {%if time > 1 %}mins{% else %}min{% endif %} to read</span>
-		<span class="icon-book-open readingtime" > {{words}} words</span>
+		{% if post.language == 'chinese' %}
+		<span class="icon-clock readingtime" style="margin-right:20px">阅读时间：{{ time }} {%if time > 1 %}mins{% else %}min{% endif %}</span>
+		<span class="icon-book-open readingtime" >字数：{{words}}</span>
+		{% else %}
+		<span class="icon-hourglass readingtime" style="margin-right:20px">{{ time }} {%if time > 1 %}mins{% else %}min{% endif %} to read</span>
+		<span class="icon-book-1 readingtime" > {{words}} words</span>
+		{% endif %}
 		</div>
 		<div>
 		<a class="readingtime-categories" href="{{ post.url | relative_url }}">
-            <li class="icon-right-outline">Continue reading&nbsp;</li>
+			{% if post.language == 'chinese' %}
+            <li class="icon-right-outline">阅读全文&nbsp;</li>
+			{% else %}
+			<li class="icon-right-outline">Continue reading&nbsp;</li>
+			{% endif %}
         </a>
 		</div>
 	</div>

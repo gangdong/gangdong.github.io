@@ -3,6 +3,7 @@ layout: post
 title:  "MISRA C 规则"
 date:   2013-06-13 22:41:23 +0800
 categories: C
+language: chinese
 ---
 最近工作中有接触到MISRA C的规范，为了方便以后查找，这里把规则都记录下来。<br>
 MISRA C编程规范（MISRA C Coding Standard），是针对C 语言编程的软件开发标准。它的目标促进C代码在嵌入式系统中的安全性、可移植性和可靠性。<br>

@@ -6,6 +6,7 @@ categories: Pinned
 Published: true
 toc: true
 sidebar: true
+language: chinese
 ---
 本博客使用了 [rawposts](https://github.com/gangdong/jekyll-theme-rawposts) 主题模板，不时有网友在 fork 使用该主题的时候提出了一些问题，这里我将该主题的使用方法汇总成一篇帖子，方便大家参考。
 

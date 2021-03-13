@@ -6,6 +6,7 @@ categories: Security
 Published: true
 toc: true
 sidebar: true
+language: chinese
 ---
 近日，腾讯公司状告贵州老干妈的新闻在互联网上闹得沸沸扬扬，:boom: 大家也应该有所耳闻。腾讯起诉老干妈合作推广后没有付广告费，但随后老干妈否认了此事，称完全不知道这个合作。:confused: 后来经调查发现，这是三个人冒充老干妈市场部经理，然后刻了个假公章，就为了获得合作后的游戏礼包并从中牟利。
 

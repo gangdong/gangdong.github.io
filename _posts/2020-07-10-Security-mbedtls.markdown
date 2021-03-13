@@ -6,6 +6,7 @@ categories: Security
 Published: true
 toc: true
 sidebar: true
+language: chinese
 ---
 最近的工作中使用到了mbedtls，这里做一个简单的总结。
 

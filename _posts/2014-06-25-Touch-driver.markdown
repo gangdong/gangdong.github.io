@@ -6,6 +6,7 @@ categories: C Touch Linux
 published: true
 toc: true
 sidebar: true
+language: chinese
 ---
 今天来讲一下touch controller IC 在android上的驱动代码。<br>
 Touch Screen 作为一个input device, 驱动代码当然要符合 android 对输入设备的一般性要求。<br>

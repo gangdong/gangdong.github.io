@@ -350,8 +350,9 @@ main {
     float: left;
 	color: #5499C7;
     background-color: #ffffff;
-    padding: 5px 5px;
+    padding: 5px 15px;
     border-radius: 4px;
+	text-align: right;
 	&:hover {
       color:white;
 	  background-color: #5499C7;
@@ -757,8 +758,9 @@ main {
   text-decoration: none;
   a {
     border-radius: 4px;
-    padding: 5px 2px;
+    padding: 5px 10px;
     text-decoration: none;
+	text-align: center;
     &:hover {
       color:white;
 	  background-color: #5499C7;

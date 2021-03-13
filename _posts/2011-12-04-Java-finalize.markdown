@@ -4,6 +4,7 @@ title:  "Java 的finalize()方法总结"
 date:   2011-12-04 23:42:04 +0800
 categories: Java
 published: true
+language: chinese
 ---
 Java提供的`finalize()`方法是定义JObject类中的方法。作用是帮助我们进行资源释放，类似于C++中的析构函数。但是需要注意的是该方法根本上和C++中的析构函数是不同的。
 

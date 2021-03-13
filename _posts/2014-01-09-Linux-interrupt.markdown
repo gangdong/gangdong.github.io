@@ -6,6 +6,7 @@ categories: Linux
 published: true
 toc: true
 sidebar: true
+language: chinese
 ---
 Linux 中断子系统的内部实现机制比较复杂，如果想讲清楚需要较长的篇幅才行，本文只从应用的角度介绍如何注册中断并添加中断处理函数到代码中，不对其内部的实现机制做太多阐述。
 

@@ -3,6 +3,7 @@ layout: post
 title:  "Bundle 在android中的应用"
 date:   2014-04-14 21:03:36 +0800
 categories: Android
+language: chinese
 ---
 Android中Bundle类的作用，根据google [官方文档](http://developer.android.com/reference/android/os/Bundle.html)<br>Bundle类用作携带数据，它类似于Map，用于存放key-value名值对形式的值。<br>
 

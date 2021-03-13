@@ -6,6 +6,7 @@ categories: Python
 Published: true
 toc: true
 sidebar: true
+language: chinese
 ---
 ![cover]({{site.baseurl}}/assets/image/python-spec-cover.jpeg)     
 这篇文档所给出的编码约定适用于在主要的Python发布版本中组成标准库的Python 代码，请查阅相关的关于在Python的C实现中C代码风格指南的描述。
