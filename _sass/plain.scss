@@ -350,9 +350,10 @@ main {
     float: left;
 	color: #5499C7;
     background-color: #ffffff;
-    padding: 5px 15px;
+    padding: 5px 10px;
     border-radius: 4px;
 	text-align: right;
+	text-decoration: none;
 	&:hover {
       color:white;
 	  background-color: #5499C7;
@@ -382,7 +383,7 @@ main {
   display: flex;
   flex-direction:row;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   flex-wrap:wrap;
   @media screen and (max-width: $mobileW) {
     flex-direction: column;
