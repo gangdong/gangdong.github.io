@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "关于本博客模板使用上的一些问题 [Q&A]"
+title:  "关于本博客模板使用上的一些问题"
 date:   2019-02-23 12:21:47 +0800
 categories: Pinned
 Published: true
