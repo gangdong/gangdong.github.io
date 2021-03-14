@@ -6,10 +6,10 @@
     <div class="readingtime-meta" style="margin-top:20px;margin-bottom:30px">
 	    <div>
 		{% if post.language == 'chinese' %}
-		<span class="icon-clock readingtime" style="margin-right:20px">阅读时间：{{ time }} {%if time > 1 %}mins{% else %}min{% endif %}</span>
+		<span class="icon-hourglass readingtime" style="margin-right:20px">阅读时间：{{ time }} {%if time > 1 %}mins{% else %}min{% endif %}</span>
 		<span class="icon-book-open readingtime" >字数：{{words}}</span>
 		{% else %}
-		<span class="icon-hourglass readingtime" style="margin-right:20px">{{ time }} {%if time > 1 %}mins{% else %}min{% endif %} to read</span>
+		<span class="icon-clock-5 readingtime" style="margin-right:20px">{{ time }} {%if time > 1 %}mins{% else %}min{% endif %} to read</span>
 		<span class="icon-book-1 readingtime" > {{words}} words</span>
 		{% endif %}
 		</div>
