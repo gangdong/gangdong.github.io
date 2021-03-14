@@ -739,8 +739,6 @@ main {
 }
 #posts-label {
   font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;
-
-  
   font-size: 15px;
   color: #777;
   text-transform: uppercase;
@@ -784,31 +782,18 @@ main {
   font-weight:400;
   color:#222;
   
-  @media screen and (max-width: $smallMobileW) {
-    padding: 0px;    /* important! */
-    margin-top: 10px;
-	color: blue;
-  }
-  @media screen and (max-width: $mobileW) {
-    padding: 0px;	/* !important */
-    margin-top: 10px;
-	color: blue;
-  }
-  
   a {
 	border-radius: 4px;
 	padding: 5px 12px;
 	text-decoration: none;
 	text-align: center;
 	@media screen and (max-width: $smallMobileW) {
-	    padding: 0px;    /* important! */
+	    padding: 2px;    /* important! */
 		margin-top: 10px;
-		color: red;
 	}
 	@media screen and (max-width: $mobileW) {
-		padding: 0px;    /* important! */
+		padding: 2px;    /* important! */
 		margin-top: 10px;
-		color: red;
 	}
     &:hover {
       color:white;
