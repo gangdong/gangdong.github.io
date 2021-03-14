@@ -699,42 +699,44 @@ main {
   }
   }
  .about-page-box-link-none {
-  padding: 0px 40px;
-  background-color: #ececec;
-  text-decoration: none;
-  margin: 40px 2px;
-  font-family: 'Raleway','Tahoma', 'Merriweather', 'Arial', 'Microsoft Yahei', sans-serif;
-  font-size: 18px;
-  border-radius: 4px;
-  font-weight: 400;
-  line-height: 1.9em;
-  a {
-    color: white;
-	text-decoration: none;
-  }
+	  margin: 40px 2px;
+	  font-family: 'Raleway','Tahoma', 'Merriweather', 'Arial', 'Microsoft Yahei', sans-serif;
+	  font-size: 18px;
+	  font-weight: 400;
+	  border-radius: 4px;
+	  line-height: 1.9em;
+	  
+	  a {
+	    color: white;
+	    background-color: #ececec;
+	    display: inline-block;
+		width: 120px;
+		border-radius: 4px;
+		text-align: center;
+		text-decoration: none;
+	  }
 }
  .about-page-box {
-  padding: 0px 40px;
-  background-color: $btnColor;
-  text-decoration: none;
-  margin: 40px 2px;
-  font-family: 'Raleway','Tahoma', 'Merriweather', 'Arial', 'Microsoft Yahei', sans-serif;
-  font-size: 18px;
-  border-radius: 4px;
-  font-weight: 400;
-  line-height: 1.9em;
-  
-  a {
-    color: white;
-	text-decoration: none;
-	&:hover {
-	  background-color: #ececec;
-      color: $linkColor;
-    }
-  }
-  &:hover {
-	  background-color: #ececec;
-    }
+	  margin: 40px 2px;
+	  font-family: 'Raleway','Tahoma', 'Merriweather', 'Arial', 'Microsoft Yahei', sans-serif;
+	  font-size: 18px;
+	  font-weight: 400;
+	  border-radius: 4px;
+	  line-height: 1.9em;
+	  
+	  a {
+	    color: white;
+	    background-color: $btnColor;
+		display: inline-block;
+		width: 120px;
+		border-radius: 4px;
+		text-align: center;
+		text-decoration: none;
+		&:hover {
+		  background-color: #ececec;
+		  color: $btnColor;
+		}
+	  }
 }
 #posts-label-chinese {
   font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;

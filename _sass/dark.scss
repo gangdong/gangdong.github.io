@@ -78,22 +78,18 @@
         }
 	}
 	.about-page-box-link-none {
- 
-		background-color: #d1d1d1;
-  
 		a {
 			color: white;
 			background-color: #d1d1d1;
-			text-decoration: none;
 		}
 	}
 	.about-page-box {
-		background-color: $dark_btn_color;
 		a {
 			background-color: $dark_btn_color;
 			color: white;
 			&:hover {
-				color: $linkColor;
+				color: $dark_btn_color;
+				background-color: #d1d1d1;
 			}
 		}
 	}
