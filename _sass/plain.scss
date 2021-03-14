@@ -768,12 +768,14 @@ main {
   text-decoration: none;
   
   @media screen and (max-width: $smallMobileW) {
-    padding: 0 !important;
+    padding: 0px;    /* important! */
     margin-top: 10px;
+	color: blue;
   }
   @media screen and (max-width: $mobileW) {
-    padding: 0 !important;
+    padding: 0px;	/* !important */
     margin-top: 10px;
+	color: blue;
   }
   
   a {
@@ -782,12 +784,14 @@ main {
 	text-decoration: none;
 	text-align: center;
 	@media screen and (max-width: $smallMobileW) {
-	    padding: 0 !important;
+	    padding: 0px;    /* important! */
 		margin-top: 10px;
+		color: red;
 	}
 	@media screen and (max-width: $mobileW) {
-		padding: 0 !important;
+		padding: 0px;    /* important! */
 		margin-top: 10px;
+		color: red;
 	}
     &:hover {
       color:white;
