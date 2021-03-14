@@ -751,21 +751,38 @@ main {
   overflow: hidden;
   transition: width 0.1s;
 }
-.menu{
+.menu-meta {
   font-size: 90%;
-  font-family: 'Arial', 'Raleway', 'Microsoft Yahei', sans-serif;
-  font-weight:400;
-  color:#222;
-  min-width: 100px;
   display: flex;
   flex-direction:row;
   flex-wrap: wrap;
   justify-content : space-between;
   align-items : center;
   align-content: space-between;
+  align-items : center;
+  align-content: space-between;
   margin-top: 20px;
   margin-bottom: 36px;
   text-decoration: none;
+  min-width: 100px;
+}
+.menu-logo {
+  font-size: 180%;
+  font-family: 'Arial', 'Raleway', 'Microsoft Yahei', sans-serif;
+  font-weight:800;
+  color:#222;
+}
+.menu{
+  display: flex;
+  flex-direction:row;
+  flex-wrap: wrap;
+  justify-content : space-around;
+  align-items : center;
+  align-content: space-between;
+  text-decoration: none;
+  font-family: 'Arial', 'Raleway', 'Microsoft Yahei', sans-serif;
+  font-weight:400;
+  color:#222;
   
   @media screen and (max-width: $smallMobileW) {
     padding: 0px;    /* important! */
