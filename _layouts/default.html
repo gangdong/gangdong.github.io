@@ -14,7 +14,53 @@
           <a href="{{site.baseurl}}/blog/index.html">{{ site.rawposts.name }}</a>
         </h2>
         <p class="tagline">{{ site.rawposts.tagline }}</p>
-        <ul class="social">
+		<!--add navigation -->
+        {%- if site.rawposts.navigation -%}
+          <nav class="navigation">
+            <ul>
+              {% for link in site.rawposts.navigation %}
+                <li>
+                  <a href="{{ link.url }}">{{ link.title }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          </nav>
+        {%- endif -%}
+		<!--put dark mode button here -->
+		{%- if site.rawposts.dark_mode -%}
+		<div>
+		  <ul class = "social" >
+			<p style = "font-family: Raleway, sans-serif;font-size: 100%">Dark Theme
+			  <i class="icon-moon"></i>
+			  <label class="switch">
+				<input type="checkbox" id="dark-mode-toggle" onclick="toggleDarkMode()">
+				<span class="slider round"></span>
+			  </label>
+			</p>
+		  </ul>
+		<script type="text/javascript" src="{{site.baseurl}}/assets/js/darkmode.js"></script>
+		</div>
+		{%- endif -%}
+		<!--put rss/code link here -->
+	    <div>
+          <ul class="social">
+			{%- if site.rawposts.rss -%}
+		   <a style ="margin-right:10px;text-decoration: none;font-family: Raleway, sans-serif;" href="{{site.baseurl}}/rss.xml">
+              <span class="icon-rss-1">rss</span>
+           </a>
+			{%- endif -%}
+			{%- if site.rawposts.source_code -%}
+            <a style="text-decoration: none;font-family: Raleway, sans-serif;" href="https://github.com/gangdong/daviddong.github.io">
+              <span class="icon-file-code">code</span>
+            </a>
+			{%- endif -%}
+          </ul>
+        </div>
+	    <!--show contact me -->
+	    <div class = "contact"><li>CONTACT ME</li></div>
+		<!-- put social link here -->
+		<div>
+	      <ul class="social" >
 		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
               <li>
                 <i class="icon-picture-3"></i>
@@ -41,48 +87,11 @@
               </li>
             </a>
           {%- endif -%}
-        </ul>
-
-        {%- if site.rawposts.navigation -%}
-          <nav class="navigation">
-            <ul>
-              {% for link in site.rawposts.navigation %}
-                <li>
-                  <a href="{{ link.url }}">{{ link.title }}</a>
-                </li>
-              {% endfor %}
-            </ul>
-          </nav>
-        {%- endif -%}
-
-        <p>&copy;
-          {{ "now" | date: "%Y" }}</p>
-		{%- if site.rawposts.dark_mode -%}
-		<div>
-        <p style = "font-family: Raleway, sans-serif;font-size: 100%">Dark Theme
-          <i class="icon-moon"></i>
-          <label class="switch">
-            <input type="checkbox" id="dark-mode-toggle" onclick="toggleDarkMode()">
-            <span class="slider round"></span>
-          </label>
-        </p>
-      </div>
-      <script type="text/javascript" src="{{site.baseurl}}/assets/js/darkmode.js"></script>
-      {%- endif -%}
-	  <div>
-        <ul class="social" style="padding-top: 3vh">
-			{%- if site.rawposts.rss -%}
-		   <a style ="margin-right:10px;text-decoration: none;font-family: Raleway, sans-serif;" href="{{site.baseurl}}/rss.xml">
-              <span class="icon-rss-1">rss</span>
-           </a>
-			{%- endif -%}
-			{%- if site.rawposts.source_code -%}
-            <a style="text-decoration: none;font-family: Raleway, sans-serif;" href="https://github.com/gangdong/daviddong.github.io">
-              <span class="icon-file-code">code</span>
-            </a>
-			{%- endif -%}
-        </ul>
-      </div>
+          </ul>
+		</div>
+		<!--put timestamp here -->
+		<div class ="timestamp">&copy; {{ "now" | date: "%Y" }}</div>
+	  <!-- about box end here -->
       </section>
       <section class="content">
         {{ content }}

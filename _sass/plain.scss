@@ -76,6 +76,7 @@ main {
   .about {
     display: flex;
     height: 100vh;
+	padding-top: 10vh;
     padding-bottom: 5vh;
     @media screen and (max-width: $mobileW) {
       height: auto;
@@ -113,6 +114,19 @@ main {
   a {
     text-decoration: none;
   }
+}
+.contact {
+  list-style-type: none;
+  font-size: 10px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+.timestamp {
+  font-size: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
 }
 .social {
   list-style-type: none;
