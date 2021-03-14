@@ -61,6 +61,13 @@
 			color: white;
 		}
 	}
+	.tooltip .tooltiptext {
+	    background-color: #fff;
+		color: black;
+	}
+	.tooltip .tooltiptext::after {
+	  border-color: #fff transparent transparent transparent;
+	}
 	.menu{
 		a {
 		 color: $dark_text_color;

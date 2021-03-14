@@ -30,7 +30,7 @@
 		{%- if site.rawposts.dark_mode -%}
 		<div>
 		  <ul class = "social" >
-			<p style = "font-family: Raleway, sans-serif;font-size: 100%">Dark Theme
+			<p style = "font-family: Raleway, sans-serif;font-size: 100%">Dark Mode
 			  <i class="icon-moon"></i>
 			  <label class="switch">
 				<input type="checkbox" id="dark-mode-toggle" onclick="toggleDarkMode()">
@@ -43,15 +43,19 @@
 		{%- endif -%}
 		<!--put rss/code link here -->
 	    <div>
-          <ul class="social">
+          <ul class="tool">
 			{%- if site.rawposts.rss -%}
-		   <a style ="margin-right:10px;text-decoration: none;font-family: Raleway, sans-serif;" href="{{site.baseurl}}/rss.xml">
-              <span class="icon-rss-1">rss</span>
+		   <a style ="margin-right:10px; text-decoration: none" href="{{site.baseurl}}/rss.xml">
+              <span class="icon-rss-1 tooltip">
+				<span class="tooltiptext">Rss</span>
+			  </span>
            </a>
 			{%- endif -%}
 			{%- if site.rawposts.source_code -%}
-            <a style="text-decoration: none;font-family: Raleway, sans-serif;" href="https://github.com/gangdong/daviddong.github.io">
-              <span class="icon-file-code">code</span>
+            <a style="text-decoration: none" href="https://github.com/gangdong/daviddong.github.io">
+              <span class="icon-file-code tooltip">
+				<span class="tooltiptext">Code</span>
+			  </span>
             </a>
 			{%- endif -%}
           </ul>

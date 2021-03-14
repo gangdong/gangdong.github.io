@@ -118,6 +118,7 @@ main {
 .contact {
   list-style-type: none;
   font-size: 10px;
+  color: #222;
   padding-top: 20px;
   padding-bottom: 10px;
   text-align: center;
@@ -126,6 +127,7 @@ main {
   font-size: 10px;
   padding-top: 10px;
   padding-bottom: 10px;
+  color: #222;
   text-align: center;
 }
 .social {
@@ -139,7 +141,15 @@ main {
     }
   }
 }
-
+.tool {		/* set rss & source code style */
+  list-style-type: none;	
+  padding: 0;
+  margin-top: 0;
+  font-size: 20px;
+  float: left;
+  text-decoration: none;
+  font-family: Raleway, Arial, sans-serif;
+}
 .navigation {
   width: 80%;
 
@@ -1048,4 +1058,37 @@ table {
 	li {
 		text-align: right;
 	}
+}
+.tooltip {		/* tooltip style */
+  position: relative;
+  display: inline-block;
+}
+.tooltip .tooltiptext {
+  font-size: 14px;
+  visibility: hidden;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 5px;
+  
+  /* 定位工具提示 */
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -40px;
+}
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -3px;
+  border-width: 3px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }
