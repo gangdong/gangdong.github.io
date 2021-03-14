@@ -8,9 +8,12 @@ toc: true
 sidebar: true
 language: chinese
 ---
-这篇文章讲一下Linux下的多点触控的协议。<br>
+这篇文章讲一下Linux下的多点触控的协议。
+
 为了支持多点触控的设备，Linux制定了多点触摸协议（multi-touch，MT）。
+
 Linux 下的触摸协议分为协议A(protocol A)和协议B(protocol B)。
+
 作为都支持多点触摸的协议，那么协议A和协议B有什么区别？我们以下的篇幅里会做详细的说明。
 
 ## <span id = "1">协议A</span>

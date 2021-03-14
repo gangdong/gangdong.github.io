@@ -8,6 +8,7 @@ toc: true
 sidebar: true
 ---
 Recently, I've been busy with my work and haven't been able to update blog for a long time. This time, I am going to start a discussion and summarize how Android dispatch Touchevent after received them from touch screen device.
+
 You may know there are some ways in android system that can capture Touchevent. 
 
 For example, register a component's `setOnTouchListener()` and implements the `onTouchListener` interface by override the `onTouch()` method. 

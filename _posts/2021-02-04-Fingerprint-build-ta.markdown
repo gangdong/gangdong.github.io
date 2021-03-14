@@ -38,6 +38,7 @@ This article will give a introduction on how to build TA images on different Tru
 Nowadays, any security related application must run on the TEE. TEE (Trusted Execution Environment) is able to provide a absolute-safe environment for any user security requirement. Fingerprint application as one kind of biometric authentication, it is a trusted application and must run on the TEE. Here I will take Fingerprint application as an example to introduce how to build the trusted application (TA) image.
 
 Before start, I want to use below diagram for presenting a short description on how TEE works on fingerprint application. 
+
 ![fingerprint-tee]({{site.baseurl}}/assets/image/fingerprint-build-ta-01.png){: .center-image }
 
 The main control flow, handling the various use cases, is implemented in REE (Fingerprint HAL). Images from the sensor are captured on the TEE side and managed by fingerprint library, which also coordinates data flow towards the submodules implementing various algorithms for image processing and biometric processing. Enrolled fingerprint templates are managed in a RAM database in Fingerprint TA, and encrypted before passed to REE side for persistent storage. when authentication occurred, the matcher algorithm in the TEE side will work and give the matching result to REE. The communication channel - SPI transmission is physical in TEE and normally works by calling TEE API.
@@ -45,7 +46,7 @@ The main control flow, handling the various use cases, is implemented in REE (Fi
 The software module working on TEE side are normally built into a binary file, which runs on the TEE OS as an executable application (Trusted Application). Different TEE OS can support different number of Trusted Application (TA). 
  
 There are multiple commercial TEE OS on the Android platform supported by the third-part companies, some popular ones among them are QSEE, ISEE, Trusty. The following content will introduce how the fingerprint TA image is built out on these TEE OS.  
-
+<br>
 ## <span id ="2">2. QSEE 5</span>
 QSEE is one TEE OS supported by Qualcomm. In android market, system running with Qualcomm platform uses the QSEE Trustzone. QSEE provides a set of SDK that help the developer to develop the TEE application and generate the image file (TA image). 
 
@@ -63,6 +64,7 @@ It is at path:
 {% endhighlight %}
 ### <span id ="2.3">2.3 Build </span>
 We executes the build command to make the TA code and generate the TA image.
+
 {% highlight ruby %}
 cd /home/david/devtools/tz_qsee5/build/ms/
 python build_all.py -b TZ.XF.5.0.1 CHIPSET=sdm845 --cbt="$(FPC_CONFIG_TZ_IMAGE_NAME)" $(build_flags)
@@ -73,10 +75,11 @@ Build process
 
 ### <span id ="2.4">2.4 Image </span>
 TA images are generated at path:
+
 {% highlight ruby %}
 /home/david/devtools/tz_qsee5/build/ms/bin/PIL_IMAGES/SPLITBINS_WAXAANAA/
 {% endhighlight %}
-
+<br>
 The TA images are
 {% highlight ruby %}
 fpctzappfingerprint.b00
@@ -89,7 +92,7 @@ fpctzappfingerprint.b06
 fpctzappfingerprint.b07
 fpctzappfingerprint.mdt
 {% endhighlight %}
-
+<br>
 ## <span id ="3">3. ISEE </span>
 There is no property TEE OS under MTK platform. It adopts the way of integrating the TEE environment of a third party. The common TEE manufacturers ISEE.
 
@@ -122,6 +125,7 @@ TA image is generated at path
 {% endhighlight %}
 It uses the UUID of the TA as the TA name, which is UUID.ta
 
+<br>
 ## <span id ="4">4. Trusty </span>
 
 Trusty TEE is originated and supported by Google, which is integrated into the android as a secure Operating System (OS) that provides a Trusted Execution Environment (TEE).

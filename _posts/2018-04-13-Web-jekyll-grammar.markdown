@@ -7,7 +7,9 @@ published: true
 toc: true
 sidebar: true
 ---
-This page will continue to give a brief introduction of the Jekyll grammar. After read [last article]({{site.baseurl}}/web/2018/03/27/Web-jekyll-installation.html) you should complete the installation of Jekyll and download a Jekyll theme on your computer. 
+This page will continue to give a brief introduction of the Jekyll grammar. 
+
+After read [last article]({{site.baseurl}}/web/2018/03/27/Web-jekyll-installation.html) you should complete the installation of Jekyll and download a Jekyll theme on your computer. 
 
 Let's start this article from the source code of the theme you downloaded. 
 
