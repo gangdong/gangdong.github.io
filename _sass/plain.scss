@@ -969,6 +969,9 @@ table {
 {
     margin: 0 auto;
     display: block;
+	border-radius: 4px;
+	margin-top: 20px;
+	margin-bottom: 20px;
 }
 .web-statistics
 {
@@ -1074,7 +1077,7 @@ table {
   border-radius: 6px;
   padding: 5px 5px;
   
-  /* 定位工具提示 */
+  /* position */
   position: absolute;
   z-index: 1;
   bottom: 100%;

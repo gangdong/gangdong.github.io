@@ -15,10 +15,8 @@ By searching google [gitalk issue #102](https://github.com/gitalk/gitalk/issues/
 
 For every post, the Gitalk will create an issue under your blog project repository in Github to track the comment thread. The issue id is used to form the issue's label and Gitalk uses the label to identify comment thread. 
 
-<br>
 ![example]({{site.baseurl}}/assets/image/web-gitalk-fix-01.PNG "example"){: .center-image }
 
-<br>
 However the problem here is that label length is restricted to maximum 50 characters ( Not sure if it is a hidden rule or a BUG here :confused: ).
 
 In my Gitalk configuration, the issue id is set to 
@@ -47,9 +45,7 @@ Commit the change.
 
 I reopen the page and the error is gone, by checking the Gitalk issue label, it has been converted to MD5 code. 
 
-<br>
 ![example]({{site.baseurl}}/assets/image/web-gitalk-fix-02.PNG "example"){: .center-image }
-<br>
 
 Which means the solution is working now! :smiley:
 
