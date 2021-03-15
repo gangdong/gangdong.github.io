@@ -3,7 +3,8 @@
 	$dark_text_color: #f6f6f6;
 	$dark_link_color: #4da3ff;
 	$dark_btn_color: #E74C3C;
-	background-color: #171717;
+	$dark_background_color:  #171717;
+	background-color: $dark_background_color;
 	color: $dark_text_color;
 	border-color: #e6e6e6;
 	
@@ -113,12 +114,12 @@
 		}
 	}
     .navigation-bar {
-		box-shadow: 0px 0px 0px #171717;
+		box-shadow: 0px 0px 0px $dark_background_color;
 	    a {
 			color: #fff;
 			&:hover {
-			    color: $dark_link_color;
-				background-color: #333;
+			    color: $dark_btn_color;
+				background-color: $dark_background_color;
 			}
 		}
     }
@@ -185,7 +186,7 @@
 	}
  	.readingtime-categories {
 		li {
-			background-color: #171717;
+			background-color: $dark_background_color;
 			color: $dark_btn_color;
 			&:hover {
 				color: white;
@@ -241,7 +242,7 @@
 				color: white;
 
 				&:hover {
-					background-color: #171717;
+					background-color: $dark_background_color;
 				}
 			}
 		}

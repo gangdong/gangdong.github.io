@@ -432,6 +432,7 @@ main {
 	font-family: 'Arial','Raleway', 'Microsoft Yahei', sans-serif;
 	font-size:14px;
 	font-weight: normal;
+	display: inline;
 }
 .navigation-bar {
   font-family: 'Arial','Raleway', 'Microsoft Yahei', sans-serif;
@@ -444,17 +445,7 @@ main {
   border-radius: 2px;
   border-color:#eee;
   box-shadow: 2px 2px 5px #e3e3e3;
-  li {
-    font-size: 14px;
-    float: left;
-    background-color: #e3e3e3;
-    padding: 5px 20px;
-    border-radius: 2px;
-    @media screen and (max-width: $mobileW) {
-      margin-top: 5px;
-    }
-    margin-right: 10px;
-  }
+ 
   a {
     float: left;
 	text-align:center;

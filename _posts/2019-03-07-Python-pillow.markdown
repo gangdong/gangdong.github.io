@@ -7,7 +7,7 @@ Published: true
 toc: true
 sidebar: true
 ---
-I recently completed some image processing works with Pillow Library. Pillow provides a powerful function and has friendly APIs to the developer. I thought it is necessary to make some notes here for the usage. 
+I recently completed some image processing works by Pillow Library. Pillow provides a powerful function and has friendly APIs to the developer. I thought it is necessary to make some notes here for the usage. 
 
 {% include toc.html %}
 
