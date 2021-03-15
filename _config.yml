@@ -32,8 +32,8 @@ rawposts:
   show_statistics: true  #set to true to show statistics of site visitors number
   rss: true  #set to true to add rss 
   source_code: true  #set to true to add link to source code
-  analytics_id: false #do not use Google analytics
-  # generate social links in footer
+  analytics_id: false  #do not use Google analytics
+  share_media: true  # generate social share links in footer
   social_links:
     wechat: 
     github:  gangdong

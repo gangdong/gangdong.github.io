@@ -19,9 +19,9 @@ Today I want to add a auto **TOC** function to my blog. I used to write **TOC** 
 
 ## Start
 
-The installation is simple, I forked and installed it successfully in 5 minutes. 
+The installation is simple, I forked and installed the plugin successfully in 5 minutes. 
 
-After then, I can separate the TOC and post contents. I designed a sidebar to show the TOC independently by placing the `{% raw %}{% toc %}{% endraw %}` tag into the sidebar.
+After then, I was going to separate the TOC and post contents. I designed a sidebar to show the TOC independently by placing the `{% raw %}{% toc %}{% endraw %}` tag into the sidebar.
 
 {% highlight html %}
 {% raw %}
@@ -58,13 +58,13 @@ I realized immediately that this plugin wasn't in the [whitelist](https://pages.
 
 ![notification]({{site.baseurl}}/assets/image/blog-jekyll-toc-01.PNG){: .center-image }
 
-I have to use a trick way to skip the restriction. As above notification showed, I need to build the site locally and push the generated static files to my Github repository ( * Not to use Github Pages generator build).
+I have to use a trick way to skip the restriction. As above bulletin showed, I need to build the site locally and push the generated static files to my Github repository ( * Not to use Github Pages generator build).
 
 ## Use Master branch
 
-Followed this message, I checked the root path in my Github Pages, it was master branch. 
+Followed above information I checked the root path in my Github Pages, it was `master` branch. 
 
-So I added the site file `_site/` to the master branch and push to origin. 
+So I added the site file `_site/` to the master branch and push to origin repository. 
 
 Here are two articles talking about this issue.
 
@@ -82,7 +82,7 @@ git push origin master
 
 ## Use gh-pages branch
 
-There should be something wrong with above process.
+There should be something wrong with above procedure.
 
 I went back to google search for another solution. 
 

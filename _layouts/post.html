@@ -45,12 +45,21 @@ layout: default
     {{ content }}
   </div>
   {% endif %}
-  <!-- Put post veiw statistic here! -->
   <br><br><br>
-  <div class = "post-view">
+  {% if site.rawposts.share_media %}
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	{% if page.language == 'chinese' %}
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">分享:</span></div>
+	{% else %}
+	<div class="addthis_inline_share_toolbox share-box">Share:</div>
+	{% endif %}
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
 		<li class = "icon-eye">&nbsp;<span id="busuanzi_value_page_pv"></span></li>
+	</div>
   </div>
-
+  {% endif %}
   <!-- Page navigation start here! -->
   {%- if site.rawposts.navigation -%}
   <li class="posts-labelgroup" id="posts-labelgroup">

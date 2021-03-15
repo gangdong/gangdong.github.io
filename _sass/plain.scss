@@ -1088,3 +1088,15 @@ table {
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
+.share-box-meta {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: center; /* disable stretch for sidebar */
+	align-content: center;
+	margin-bottom: 40px;
+}
+.share-box {
+	
+}
