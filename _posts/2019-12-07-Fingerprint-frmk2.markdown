@@ -8,7 +8,7 @@ Published: true
 This page will follow the [last article]({{site.baseurl}}/android/fingerprint/2019/10/03/Fingerprint-frmk1.html) to continue introducing the android fingerprint framework knowledge. The content is focus on android source code inspecting and analysis.
 
 <div class = "separator"></div>
-## Index 
+<h2 class="no_toc">Table of content</h2> 
 * TOC
 {:toc}
 <div class = "separator"></div>

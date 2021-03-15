@@ -12,7 +12,7 @@ Windows 驱动开发中经常会用到 Windows WDK 自带的 Inf2Cat.exe 工具�
 
 {% if page.sidebar == false %}
 <div class = "separator"></div>
-## Index
+<h2 class="no_toc">Table of content</h2>
 * TOC
 {: toc }
 <div class = "separator"></div>

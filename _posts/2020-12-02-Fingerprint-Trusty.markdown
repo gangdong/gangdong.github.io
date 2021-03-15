@@ -11,7 +11,7 @@ I have completed a Android platform fingerprint application on Trusty TEE recent
 
 {% if page.sidebar == false %}
 <div class = "separator"></div>
-## Index
+## Table of content
 
 1. [About Trusty TEE](#1)
 2. [Memory Restriction of Trusty TEE](#2)

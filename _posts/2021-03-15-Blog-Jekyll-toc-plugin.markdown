@@ -9,6 +9,14 @@ sidebar: true
 ---
 Today I want to add a auto **TOC** function to my blog. I used to write **TOC** manually and it is really boring. I found a good plugin [jekyll-toc](https://Github.com/toshimaru/jekyll-toc) in the Github, which can fully meet my requirement. 
 
+{% if page.sidebar == false %}
+<div class = "separator"></div>
+<h2 class="no_toc">Table of content</h2>
+* TOC
+{:toc}
+<div class = "separator"></div>
+{% endif %}
+
 ## Start
 
 The installation is simple, I forked and installed it successfully in 5 minutes. 
@@ -30,11 +38,11 @@ After then, I can separate the TOC and post contents. I designed a sidebar to sh
 {% endhighlight %}
 
 
-I build the code locally by Jekyll and reload the page. 
+I built the code locally by Jekyll and reloaded the page. 
 
 Cheers! 
 
-The TOC appeared, this is just what I want!
+The TOC appeared, this was just what I want!
 
 ## I got a trouble
 

@@ -19,7 +19,7 @@ we have had a discussion of the fingerprint framework on the android 7.0 in prev
 
 {% if page.sidebar == false %}
 <div class = "separator"></div>
-## Index 
+<h2 class="no_toc">Table of content</h2> 
 * TOC
 {:toc}
 <div class = "separator"></div>

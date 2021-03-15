@@ -17,7 +17,7 @@ Now let us go through above one by one.
 
 {% if page.sidebar == false %}
 <div class = "separator"></div>
-## Index
+<h2 class="no_toc">Table of content</h2>
 * TOC
 {:toc}
 <div class = "separator"></div>

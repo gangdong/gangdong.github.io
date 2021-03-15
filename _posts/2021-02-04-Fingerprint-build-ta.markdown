@@ -12,7 +12,7 @@ This article will give a introduction on how to build TA images on different Tru
 {% if page.sidebar == false %}
 <div class = "separator"></div>
 
-## Index
+## Table of content
 
 1. [About TEE](#1)
 2. [QSEE5](#2)
