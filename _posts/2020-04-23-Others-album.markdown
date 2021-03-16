@@ -3,6 +3,7 @@ layout: post
 title:  "My album is online now!"
 date:   2020-04-23 21:23:16 +0800
 categories: Others
+tags: Others
 Published: true
 ---
 My album is online now! Welcome to visit [My Album](https://rainbow-ux.github.io/traveler-blog.github.io/).<br>

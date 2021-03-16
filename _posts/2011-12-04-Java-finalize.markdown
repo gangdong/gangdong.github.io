@@ -3,6 +3,7 @@ layout: post
 title:  "Java 的finalize()方法总结"
 date:   2011-12-04 23:42:04 +0800
 categories: Java
+tags: Java
 published: true
 language: chinese
 ---

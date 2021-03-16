@@ -3,6 +3,7 @@ layout: post
 title:  "Linux 系统下的多点触摸协议"
 date:   2014-02-12 21:33:10 +0800
 categories: Touch Linux
+tags: Touch Linux
 published: true
 toc: true
 sidebar: true

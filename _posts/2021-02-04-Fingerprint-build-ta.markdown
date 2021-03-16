@@ -3,6 +3,7 @@ layout: post
 title:  "Build TA images on different TEE"
 date:   2021-02-04 12:21:47 +0800
 categories: Android Fingerprint
+tags: Android Fingerprint
 Published: true
 toc: true
 sidebar: true

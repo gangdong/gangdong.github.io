@@ -3,6 +3,7 @@ layout: post
 title:  "MISRA C 规则"
 date:   2013-06-13 22:41:23 +0800
 categories: C
+tags: C
 language: chinese
 ---
 最近工作中有接触到MISRA C的规范，为了方便以后查找，这里把规则都记录下来。

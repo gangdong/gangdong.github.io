@@ -3,6 +3,7 @@ layout: post
 title:  "Mark一下 Markdown 语言的基本语法"
 date:   2018-04-25 11:03:36 +0800
 categories: Others
+tags: Others
 language: chinese
 ---
 ![示例图片]({{site.baseurl}}/assets/image/others-markdown-01.jpg "example")

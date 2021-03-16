@@ -3,6 +3,7 @@ layout: post
 title:  "Java 的线程和Runnable接口"
 date:   2012-06-01 13:27:23 +0800
 categories: Java
+tags: Java
 published: true
 language: chinese
 ---

@@ -3,6 +3,7 @@ layout: post
 title:  "Python Pillow library usage"
 date:   2019-03-07 20:59:29 +0800
 categories: Python
+tags: Python
 Published: true
 toc: true
 sidebar: true

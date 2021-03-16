@@ -3,6 +3,7 @@ layout: post
 title:  "Android 触摸事件处理机制(1)"
 date:   2014-09-06 20:36:41 +0800
 categories: android
+tags: android
 published: false
 ---
 最近在做touch screen的相关开发工作，对touch event如何在android中进行处理的整个流程有了些了解和体会。在这里把相关的知识点做一个总结归纳。

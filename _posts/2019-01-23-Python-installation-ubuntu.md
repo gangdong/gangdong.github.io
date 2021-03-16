@@ -3,6 +3,7 @@ layout: post
 title:  "Install python3.6 on ubuntu16.04"
 date:   2019-01-23 23:07:49 +0800
 categories: Python
+tags: Python
 published: true
 ---
 Today I spent some time installing the python3.6 on my ubuntu16.04.

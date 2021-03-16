@@ -974,7 +974,7 @@ table {
 .separator {
   display: flex;
   align-items: baseline;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #eeeeee;
 }
 .post-viewer-container {
 	display: flex;
@@ -1101,6 +1101,7 @@ table {
 	border: 1px solid #ececec;
 	border-radius: 10px;
 	padding: 10px;
+	font-size: 14px;
 }
 .related-posts-box {
 	margin-bottom: 40px;

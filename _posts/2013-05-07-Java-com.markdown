@@ -3,6 +3,7 @@ layout: post
 title:  "Java 调用COM组件的方法"
 date:   2013-05-07 19:11:17 +0800
 categories: Java
+tags: Java
 language: chinese
 ---
 最近项目中需要用JavaSE来调用Windows的下的程序代码。如Java编写的GUI需要操作Windows平台下自己开发的代码。这里总结一下相关的技术内容。<br>

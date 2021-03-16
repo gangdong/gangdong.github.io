@@ -3,6 +3,7 @@ layout: post
 title:  "浅谈触摸屏充电器噪声要求及测量方法"
 date:   2013-12-15 23:01:16 +0800
 categories: Touch
+tags: Touch
 published: true
 toc: true
 sidebar: true

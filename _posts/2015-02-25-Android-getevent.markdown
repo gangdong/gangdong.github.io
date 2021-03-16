@@ -2,7 +2,8 @@
 layout: post
 title:  "Getevent command usage"
 date:   2015-02-25 20:33:04 +0800
-categories: Android  
+categories: Android 
+tags: Android
 published: true
 ---
 Android provides an ADB command `getevent` to obtain input events, such as obtaining key reporting event, obtaining touch screen reporting event, etc.

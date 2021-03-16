@@ -3,6 +3,7 @@ layout: post
 title:  "利用Microsoft WDK工具生成数字签名"
 date:   2020-07-23 18:24:12 +0800
 categories: Security Windows
+tags: Security Windows
 Published: true
 toc: true
 sidebar: true

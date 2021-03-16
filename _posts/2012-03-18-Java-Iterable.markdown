@@ -3,6 +3,7 @@ layout: post
 title:  "Java 的Iterable接口使用"
 date:   2012-03-18 13:27:23 +0800
 categories: Java
+tags: Java
 published: true
 language: chinese
 ---

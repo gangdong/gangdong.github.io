@@ -3,6 +3,7 @@ layout: post
 title:  "Linux 添加中断处理"
 date:   2014-01-09 23:54:06 +0800
 categories: Linux
+tags: Linux
 published: true
 toc: true
 sidebar: true

@@ -3,6 +3,7 @@ layout: post
 title:  "ATMEL maXTouch IC驱动代码分析"
 date:   2014-06-25 17:18:35 +0800
 categories: C Touch Linux
+tags: C Touch Linux 
 published: true
 toc: true
 sidebar: true

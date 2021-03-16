@@ -3,6 +3,7 @@ layout: post
 title:  "poll() 函数使用"
 date:   2013-09-02 20:12:01 +0800
 categories: Linux
+tags: Linux
 language: chinese
 ---
 这篇文章对Linux的`poll()`函数的使用做一个总结。

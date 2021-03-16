@@ -3,6 +3,7 @@ layout: post
 title:  "Some useful knowledge for Fingerprint Application on Trusty TEE"
 date:   2020-12-02 22:24:12 +0800
 categories: Android Fingerprint
+tags: Android Fingerprint
 Published: true
 toc: true
 sidebar: true

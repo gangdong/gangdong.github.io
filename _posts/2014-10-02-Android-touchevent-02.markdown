@@ -2,7 +2,8 @@
 layout: post
 title:  "How does Android dispatch Touchevent?"
 date:   2014-10-02 22:17:21 +0800
-categories: Android Touch 
+categories: Android Touch
+tags: Android Touch
 published: true
 toc: true
 sidebar: true

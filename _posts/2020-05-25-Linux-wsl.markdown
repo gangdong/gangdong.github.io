@@ -3,6 +3,7 @@ layout: post
 title:  "Some notes for WSL"
 date:   2020-05-25 22:53:27 +0800
 categories: Linux
+tags: Linux
 Published: true
 toc: true
 sidebar: true

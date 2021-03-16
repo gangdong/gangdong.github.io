@@ -3,6 +3,7 @@ layout: post
 title:  "Use TraceView to trace windows driver log"
 date:   2020-06-04 20:14:41 +0800
 categories: Windows
+tags: Windows
 Published: true
 ---
 For the windows driver development as what I am doing these days, Microsoft provides a log printing and log viewing mechanism, which can view the logs of specified driver files, filter the logs according to `LEVEL` and `FLAG`, or save them as files. This mechanism is WPP and  `TraceView.exe`.

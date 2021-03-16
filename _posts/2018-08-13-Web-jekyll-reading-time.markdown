@@ -3,6 +3,7 @@ layout: post
 title:  "Calculate reading time in Jekyll"
 date:   2018-08-13 19:12:43 +0800
 categories: Web
+tags: Web
 ---
 I believe it is a good idea to estimate the reading time of every post and display it to readers following the post excerpts. 
 

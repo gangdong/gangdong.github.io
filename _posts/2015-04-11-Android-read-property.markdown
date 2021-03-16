@@ -3,6 +3,7 @@ layout: post
 title:  "Read/Write system property in Android APP"
 date:   2015-04-11 23:48:12 +0800
 categories: Android  
+tags: Android
 published: true
 ---
 Recently I need to read system property in my Android apk development. I checked the Android documents and found that Android has a `Systemproperties` class to handle this kind of requirement. However `Systemproperties` class isn't a public class of SDK, which means it is invisible to the apk developer. My understanding is that google wants this class to be used for Android source developer rather than application developer.

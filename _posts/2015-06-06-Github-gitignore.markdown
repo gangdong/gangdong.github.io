@@ -2,7 +2,8 @@
 layout: post
 title:  "A way to fix .gitignore doesn't work"
 date:   2015-06-06 21:41:29 +0800
-categories: Github  
+categories: Github 
+tags: Github
 published: true
 ---
 You may have run into situations where `.gitignore` doesn't work.:confused:  During the project development, you want to add some directors or files into the ignore rule and you specified them at the `.gitignore`. You committed and checked the status, unfortunately you found they were still being tracked. 

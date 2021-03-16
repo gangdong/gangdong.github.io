@@ -4,6 +4,7 @@ title:  "Some tips for android development errors"
 date:   2019-07-26 23:45:19 +0800
 categories: Android
 tags: Android
+tags: Android
 ---
 Today I met a error when I was trying to customize the android.widget.Button Class.:confused: <br>The error information is 
 {% highlight console %}

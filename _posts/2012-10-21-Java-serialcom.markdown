@@ -3,6 +3,7 @@ layout: post
 title:  "Java 串口编程"
 date:   2012-10-21 18:55:59 +0800
 categories: Java
+tags: Java
 language: chinese
 ---
 前些天工作中用到了串口编程。Java上位机UI需要通过串行端口访问外部的设备，Java对串口设备的访问有提供库支持，使用起来比较容易，这里简单总结一下。
