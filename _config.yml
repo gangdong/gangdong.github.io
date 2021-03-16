@@ -26,7 +26,7 @@ rawposts:
   reading_time: true  # set to true to add reading time statistics
   archives: true  # set to true to generate archives page 
   categories: true  # set to true to generate categories page
-  #  disqus_shortname: games
+  related_posts: true #  set to true to enable related posts
   gittalk: true  # set to true to add gittalk 
   navigation: true    # set to to add page navigation bar
   show_statistics: true  #set to true to show statistics of site visitors number
@@ -86,4 +86,6 @@ plugins:
   - jekyll-seo-tag
   - jemoji
   - jekyll-toc
+  - jekyll/tagging
+  - jekyll-tagging-related_posts
 #  - jekyll-feed

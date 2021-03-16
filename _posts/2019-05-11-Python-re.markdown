@@ -3,6 +3,7 @@ layout: post
 title:  "Python re module"
 date:   2019-05-11 20:36:23 +0800
 categories: Python
+tags: Python
 Published: true
 ---
 re module is a unique string matching module of Python. 

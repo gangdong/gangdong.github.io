@@ -38,7 +38,8 @@ language: chinese
 ## <span id ="1">1.关于该主题</span>
 `rawposts` 是一款轻量级,风格简洁清新的Jekyll主题。 该主题配置简单并支持丰富的特性,你可以将它用于Jekeyll网站或者个人博客的构建。该主题可以被用于部署在`Github page`上。
 
-[作者]：[DavidDong](https://github.com/gangdong)   [协议]：MIT 
+[作者]：[DavidDong](https://github.com/gangdong)       
+[协议]：MIT 
 
 
 ### 预览
@@ -49,11 +50,14 @@ language: chinese
 + 针对平板&手机屏幕设计优化
 + portfolio 主题图片设置
 + 个性化社交链接（支持电子邮件，Github，Facebook，Twitter，领英等）
++ 社交媒体分享 （Linkedin, Facebook, Twitter, Weixin...,180+）
++ 中英文双语支持
 + 分页功能
 + 归档
 + 文章分类
 + 摘要
 + 优化Github风格的代码样式
++ Rouge 语法高亮
 + 评论模块：Gittalk / Disqus    
   中国大陆用户推荐使用 Gittalk.
 + 阅读量统计：busuanzi
@@ -72,6 +76,8 @@ language: chinese
 + kramdown
 + jekyll-archives
 + jekyll-paginate
++ jekyll-toc
++ rouge
 
 ## <span id ="4">4.主题安装</span>
 1. fork [主题](https://github.com/gangdong/jekyll-theme-rawposts) 到你的github仓库。

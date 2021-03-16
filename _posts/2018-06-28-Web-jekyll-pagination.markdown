@@ -3,6 +3,7 @@ layout: post
 title:  "Pagination in Jekyll"
 date:   2018-06-28 19:43:17 +0800
 categories: Web
+tags: Web
 toc: true
 sidebar: true
 ---

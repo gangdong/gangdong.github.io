@@ -3,6 +3,7 @@ layout: post
 title:  "Fingerprint enrollment in Android"
 date:   2019-09-15 22:14:47 +0800
 categories: Android Fingerprint
+tags: Android Fingerprint
 Published: true
 toc: true
 sidebar: false

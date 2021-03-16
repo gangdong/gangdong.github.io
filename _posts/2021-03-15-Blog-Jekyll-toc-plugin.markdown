@@ -1,21 +1,16 @@
 ---
 layout: post
-title:  "Use Jekyll-toc plugin on Github Pages"
+title:  "Use jekyll-toc plugin on Github Pages"
 date:   2021-03-14 21:11:16 +0800
 categories: Github
+tags: Github
 Published: true
 toc: true
 sidebar: true
 ---
 Today I want to add a auto **TOC** function to my blog. I used to write **TOC** manually and it is really boring. I found a good plugin [jekyll-toc](https://Github.com/toshimaru/jekyll-toc) in the Github, which can fully meet my requirement. 
 
-{% if page.sidebar == false %}
-<div class = "separator"></div>
-<h2 class="no_toc">Table of content</h2>
-* TOC
-{:toc}
-<div class = "separator"></div>
-{% endif %}
+{% include toc.html %}
 
 ## Start
 
@@ -58,19 +53,17 @@ I realized immediately that this plugin wasn't in the [whitelist](https://pages.
 
 ![notification]({{site.baseurl}}/assets/image/blog-jekyll-toc-01.PNG){: .center-image }
 
-I have to use a trick way to skip the restriction. As above bulletin showed, I need to build the site locally and push the generated static files to my Github repository ( * Not to use Github Pages generator build).
+I have to use a trick way to skip the restriction. As above bulletin showed, I need to build the site locally and push the generated static files to my Github repository ( **Don't use Github Pages generator build**).
 
 ## Use Master branch
 
 Followed above information I checked the root path in my Github Pages, it was `master` branch. 
 
-So I added the site file `_site/` to the master branch and push to origin repository. 
+So I added the site file `_site/` to the master branch and pushed to origin repository. 
 
-Here are two articles talking about this issue.
+I referred two articles[^1] here.
 
-[https://mccxj.Github.io/blog/20130127_jekyll-plugin-with-git-branch.html]() and
-
-[https://www.cnblogs.com/ihardcoder/p/4479356.html]()
+[^1]:[https://mccxj.Github.io/blog/20130127_jekyll-plugin-with-git-branch.html]() [https://www.cnblogs.com/ihardcoder/p/4479356.html]()
 
 {% highlight shell %}
 git add _site/
@@ -78,7 +71,7 @@ git commit -m "add static site file"
 git push origin master
 {% endhighlight %}
 
-**It didn't work!** 
+**However, it didn't work!** 
 
 ## Use gh-pages branch
 
@@ -86,11 +79,11 @@ There should be something wrong with above procedure.
 
 I went back to google search for another solution. 
 
-Thanks to @ [https://www.it1352.com/798173.html](https://www.it1352.com/798173.html) and 
+Thanks to these two articles[^2]. 
 
-@ [https://www.cnblogs.com/pengshuo/p/5368035.html](https://www.it1352.com/798173.html), 
+[^2]:[https://www.it1352.com/798173.html](https://www.it1352.com/798173.html) [https://www.cnblogs.com/pengshuo/p/5368035.html](https://www.it1352.com/798173.html), 
 
-I made it clear when I build the site by Github Pages generator, it actually creates a new branch `gh-pages` under master branch, in where it stores the static site file for external accessing. Therefore I need to create the `gh-pages` branch and place my `_site\` to there.
+I made it clear when I build the site by Github Pages generator, it actually creates a new branch `gh-pages` under master branch, in where it stores the static site files for external accessing. Therefore I need to create the `gh-pages` branch and place my `_site\` to there.
 
 I changed the command as below.
 
@@ -109,6 +102,6 @@ git push origin gh-pages
 
 ## Conclusion
 
-If you want to deploy your personal website on Github Pages with the unsupported plugins, you will need to build you site locally and create `gh-pages` branch and upload your site file to this branch. One important point is that you should use the branch as the root, which means placing the site file into the directory directly instead of a sub-directory. I tried, it didn't work.
+If you want to deploy your personal website on Github Pages with the unsupported plugins, you will need to build you site locally and create `gh-pages` branch and upload your site file to this branch. One important point is that you should use the branch as the root, which means placing the site file into the directory directly instead of a sub-directory.
 
 ![master-root]({{site.baseurl}}/assets/image/blog-jekyll-toc-03.PNG)

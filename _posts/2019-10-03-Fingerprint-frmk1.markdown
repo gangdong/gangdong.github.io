@@ -3,6 +3,7 @@ layout: post
 title:  "Android Fingerprint Framework (1)"
 date:   2019-10-03 15:17:47 +0800
 categories: Android Fingerprint
+tags: Android Fingerprint
 Published: true
 toc: true
 sidebar: true

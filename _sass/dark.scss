@@ -44,6 +44,17 @@
 		border: 1px solid #333333;
 	
 	}
+	.related-posts-box {
+		border: 1px solid #333333;
+		a {
+			color: $dark_btn_color;
+			&:hover {
+				color: white;
+				background-color: $dark_btn_color;
+				font-weight: bold;
+			}
+		}
+	}
     .post-index {
 	  background-color: $dark_btn_color;
 	  color: white;

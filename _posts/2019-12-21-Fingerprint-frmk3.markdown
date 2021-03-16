@@ -3,6 +3,7 @@ layout: post
 title:  "Android Fingerprint Framework (3)"
 date:   2019-12-21 22:24:43 +0800
 categories: Android Fingerprint
+tags: Android Fingerprint
 Published: true
 ---
 Following the last two articles, this article will have a discussion on the remain part of the fingerprint framework on android. This article will end this topic.

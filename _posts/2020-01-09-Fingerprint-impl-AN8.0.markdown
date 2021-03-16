@@ -3,6 +3,7 @@ layout: post
 title:  "Fingerprint implementation in android 8.0 and later"
 date:   2020-01-09 20:59:29 +0800
 categories: Android Fingerprint
+tags: Android Fingerprint
 Published: true
 toc: true
 sidebar: true

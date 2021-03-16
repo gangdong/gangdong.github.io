@@ -14,4 +14,5 @@ group :jekyll_plugins do
 	gem 'jemoji'
     gem 'rouge'
 	gem 'jekyll-toc'
+	gem 'jekyll-tagging-related_posts'
 end

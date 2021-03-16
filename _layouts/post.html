@@ -60,10 +60,31 @@ layout: default
 	</div>
   </div>
   {% endif %}
+  <!-- Related posts start here! -->
+	{%- if site.rawposts.related_posts -%}
+	  {% if site.related_posts.size >= 1 %}
+		{% if page.language == 'chinese' %}
+		<h1 id="posts-label">相关文章</h1>
+		{% else %}
+		<h1 id="posts-label">related posts</h1>
+		{% endif %}
+	  <div class = "related-posts-box">
+		<ul>
+			{% for related_post in site.related_posts limit: 5 %}
+			<li><a href="{{ related_post.url }}">{{ related_post.title }}</a></li>
+			{% endfor %}
+		</ul>
+	  </div>
+	  {% endif %}
+	{% endif %}
   <!-- Page navigation start here! -->
   {%- if site.rawposts.navigation -%}
   <li class="posts-labelgroup" id="posts-labelgroup">
+    {% if page.language == 'chinese' %}
+	<h1 id="posts-label">继续阅读</h1>
+	{% else %}
 	<h1 id="posts-label">further reading</h1>
+	{% endif %}
   </li> 
   <div class="navigation-meta" style = "margin-bottom:40px">
     {%- if page.previous -%}

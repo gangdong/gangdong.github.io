@@ -961,7 +961,7 @@ table {
     margin: 0 auto;
     display: block;
 	border-radius: 4px;
-	margin: 20px;
+	margin: 20px 0px;
 	
 }
 .web-statistics
@@ -1101,4 +1101,21 @@ table {
 	border: 1px solid #ececec;
 	border-radius: 10px;
 	padding: 10px;
+}
+.related-posts-box {
+	margin-bottom: 40px;
+	border: 1px solid #ececec;
+	border-radius: 10px;
+	a {
+		border-radius: 4px;
+	    line-height: 1.9em;
+		padding: 5px 10px;
+		text-decoration: none;
+		color: $btnColor;
+		&:hover {
+			color: white;
+			background-color: $btnColor;
+			font-weight: bold;
+		}
+	}
 }

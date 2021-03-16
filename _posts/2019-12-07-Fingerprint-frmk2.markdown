@@ -3,6 +3,7 @@ layout: post
 title:  "Android Fingerprint Framework (2)"
 date:   2019-12-07 23:52:01 +0800
 categories: Android Fingerprint
+tags: Android Fingerprint
 Published: true
 ---
 This page will follow the [last article]({{site.baseurl}}/android/fingerprint/2019/10/03/Fingerprint-frmk1.html) to continue introducing the android fingerprint framework knowledge. The content is focus on android source code inspecting and analysis.

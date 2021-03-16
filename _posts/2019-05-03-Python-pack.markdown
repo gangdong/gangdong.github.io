@@ -3,6 +3,7 @@ layout: post
 title:  "Python struct.pack()"
 date:   2019-05-03 14:07:05 +0800
 categories: Python
+tags: Python
 Published: true
 toc: true
 sidebar: true
