@@ -1072,6 +1072,10 @@ table {
   bottom: 100%;
   left: 50%;
   margin-left: -15px;
+  
+  /* 淡入工具提示 - 用 1 秒从完全不可见变为可见： */
+  opacity: 0;
+  transition: opacity 1s;
 }
 .tooltip .tooltiptext::after {
   content: "";
@@ -1085,6 +1089,7 @@ table {
 }
 .tooltip:hover .tooltiptext {
   visibility: visible;
+  opacity: 1;
 }
 .share-box-meta {
 	display: flex;
