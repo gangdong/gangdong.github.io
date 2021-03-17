@@ -3,7 +3,7 @@ layout: post
 title:  "COVID-19"
 date:   2020-06-20 18:24:12 +0800
 categories: Others
-tags: Others
+tags: Life
 Published: true
 ---
 ![cover]({{site.baseurl}}/assets/image/others-covid19-cover.jpeg)    
