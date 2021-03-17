@@ -2,8 +2,8 @@
 layout: post
 title:  "Use jekyll-toc plugin on Github Pages"
 date:   2021-03-14 21:11:16 +0800
-categories: Github
-tags: Github
+categories: Blog Github
+tags: Blog Github
 Published: true
 toc: true
 sidebar: true

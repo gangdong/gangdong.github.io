@@ -34,7 +34,7 @@ You can:
 + Invoke GNU/Linux applications on Windows.
 
 ## How to install WSL?
-You can refer to [installation guidance](https://docs.microsoft.com/en-us/windows/wsl/install-win10), the introduction is detailed. You can complete the installation of WSL1 and WSL2 if you need easily just by following the guidance step by step. 
+You can refer to [installation guidance](https://docs.microsoft.com/en-us/windows/wsl/install-win10), the introduction is detailed. You can complete the installation of `WSL1` and `WSL2` easily just by following the guidance step by step. 
 
 ## How to use?
 On above procedure, you will be requested to choose one Linux OS to install, the choice has 
@@ -51,8 +51,8 @@ On above procedure, you will be requested to choose one Linux OS to install, the
 + Alpine WSL
 + After installing the Linux OS at Windows store.
 
-I choose Ubuntu 16.04 LTS as my Linux system and installed. The system installation is quite faster than installing on virtual machine as my  own experience. During the process, no need to input any information. 
-After installation, just open CMD console and input ubuntu, you will run ubuntu on your windows system. 
+I choose Ubuntu 16.04 LTS as my Linux system and installed. The system installation is quite faster than installing on virtual machine from my own experience. During the process, no need to input any information. 
+After installation, just open CMD console and input `ubuntu`, you will run Ubuntu on your windows system. 
 
 Here are some tips for the usage.
 

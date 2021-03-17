@@ -2,8 +2,8 @@
 layout: post
 title:  "Archive in Jekyll"
 date:   2018-06-30 15:44:56 +0800
-categories: Web
-tags: Web
+categories: Blog
+tags: Blog
 toc: true
 sidebar: true
 ---
@@ -12,7 +12,7 @@ After setting up the pagination, the next thing I wanted to add to my blog was a
 {% include toc.html %}
 
 ## Archive by date
-Because a list of posts in reverse chronological order can be readily accessed in Jekyll through site.posts, all that's needed is to use some clever Liquid markup to process it. 
+Because a list of posts in reverse chronological order can be readily accessed in Jekyll through `site.posts`, all that's needed is to use some clever Liquid markup to process it. 
 I used below code to group my archives by year.
 {% highlight liquid %}
 {% raw %}
@@ -70,7 +70,7 @@ I used below code to group my archives by year.
 {% endfor %}
 {% endraw %}
 {% endhighlight %}
-I add a group of tags for statistics the posts count of every year and afford the navigation to the the posts group.
+I added a group of tags for statistics the posts count of every year and afforded the navigation to the the posts group.
 So the first loop will calculate the post count of every year and return two arrays. One is for recording the year index and the other gets the count of the year. With these two arrays, I can add the tags in front of the lists grouped by years. 
 
 The second loop uses the{% raw %} `{% capture %}` {% endraw %}tag to get the year of each post and the one that follows it before comparing them. If they're different, the year is inserted before a link to the post while if they're the same, the post is simply added to the list for that year. 
@@ -134,6 +134,6 @@ Use below code, I grouped the posts by the CATEGORY of theirs. Similar to archiv
 {% endraw %}
 {% endhighlight %}
 
-The last work is to create archive.html and category.html files to well orginaze the codes and display with desired layout, add a hyperlink to the html files on the website homepage.
+The last work is to create archive.html and category.html files to well organize the codes and display with desired layout, add a hyperlink to the HTML files on the website homepage.
 
 That's about it! Hopefully this is a useful reference for anyone that's looking to make their Jekyll archives a bit more accessible. The code is in my [github repository](https://github.com/gangdong/daviddong.github.io), if you are interesting, you can fork it. :grinning:

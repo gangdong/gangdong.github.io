@@ -2,8 +2,8 @@
 layout: post
 title:  Getting started with Jekyll (2)
 date:   2018-04-13 23:21:15 +0800
-categories: Web
-tags: Web
+categories: Blog
+tags: Blog
 published: true
 toc: true
 sidebar: true

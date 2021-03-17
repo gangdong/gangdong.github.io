@@ -2,8 +2,8 @@
 layout: post
 title:  "Calculate reading time in Jekyll"
 date:   2018-08-13 19:12:43 +0800
-categories: Web
-tags: Web
+categories: Blog
+tags: Blog
 ---
 I believe it is a good idea to estimate the reading time of every post and display it to readers following the post excerpts. 
 
@@ -18,13 +18,13 @@ So I tried to write below trick code to realize this feature.
 | divided_by: 400 | plus: 1 %}
 
 <footer>
-<div style="margin-top:25px">
-          <a class="post-link" href="{{ post.url | relative_url }}">
-          <span class="icon-clock morebox" >Reading time: {{ time }} 
-          {%if time > 1 %} mins
-          {% else %}min{% endif %}, {{words}} words.<br>      Continue read...</span>
-          </a>
-</div>
+  <div style="margin-top:25px">
+	<a class="post-link" href="{{ post.url | relative_url }}">
+		<span class="icon-clock morebox" >Reading time: {{ time }} 
+        {%if time > 1 %} mins
+        {% else %}min{% endif %}, {{words}} words.<br>      Continue read...</span>
+    </a>
+  </div>
 </footer> 
 {% endraw %}
 {% endhighlight %}
@@ -36,7 +36,7 @@ The method is straightforward,
 {% assign words = content | number_of_words %}
 {% endraw %}
 {% endhighlight %}
-But Jekyll built in filter `number_of_words` cannot accurately count the number of Chinese words. If you have Chinese words to calculate, you can use Liquid's size filter to avoid this problem. In order to make statistics more accurate, it is better to ignore all HTML tags and blank lines before calculation.
+But Jekyll built-in filter `number_of_words` cannot accurately count the number of Chinese words. If you have Chinese words to calculate, you can use Liquid's size filter to avoid this problem. In order to make statistics more accurate, it is better to ignore all HTML tags and blank lines before calculation.
 + Get a number of WPM (word per minute), by google the WPM value, an person can read 300-500 words per minute in a computer monitor. I read fast and I think it can be a bigger value, but I set an median 400 here for my blog. 
 + The rest work is easy, we only need calculating the reading time by dividing words count with WPM.
 
