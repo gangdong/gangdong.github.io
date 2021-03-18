@@ -95,10 +95,11 @@ git commit -m "add site files"
 git push origin gh-pages
 {% endhighlight %}
 
-**It worked this time!** 
-
 ![master-root]({{site.baseurl}}/assets/image/blog-jekyll-toc-02.PNG)
 
+**It worked this time!** 
+
+![toc@sidebar]({{site.baseurl}}/assets/image/blog-jekyll-toc-04.PNG)
 
 ## Conclusion
 

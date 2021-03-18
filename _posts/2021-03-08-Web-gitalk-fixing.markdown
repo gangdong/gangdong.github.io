@@ -10,7 +10,7 @@ sidebar: false
 ---
 I've met an error `Validation Failed (422)` when using Gitalk in my blog. 
 
-I posted a new article in my blog and found the Gitalk report such issue. My Gitalk works normally for a long time before this issue occurs. I've checked that the Gitalk for my other posts works normal and only the new post has issue, which means the issue should be a standalone problem that related to the post self. 
+I posted a new article in my blog and found the Gitalk report such issue. My Gitalk has been working for a long time before this issue occurs. I've checked that the Gitalk for my other posts works normal and only the new post has issue, which means the issue should be a standalone problem that related to the post self. 
 
 By searching google [gitalk issue #102](https://github.com/gitalk/gitalk/issues/102) I understood the problem is that the length of my new post's URL is excessive long `(> 50 characters)`. 
 
@@ -36,7 +36,13 @@ It is good!
 
 There is workable [JavaScript-MD5](https://github.com/blueimp/JavaScript-MD5) lib on the Github, I folk it and the rest thing is quite simple.
 
-I added the **MD5 JS** calling in my `comments.html` and reset the Gitalk id to 
+I added the **MD5 JS** calling in my `comments.html` 
+
+{% highlight html %}
+<script type="text/javascript" src="{{site.baseurl}}/assets/js/md5.min.js"></script>
+{% endhighlight %}
+
+and reset the Gitalk id to 
 
 {% highlight ruby %}
 id: md5(location.pathname),
