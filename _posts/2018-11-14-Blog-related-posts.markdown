@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "How did I implement related posts list in my blog"
+title:  "How did I implement related posts function in my blog"
 date:   2018-11-14 10:51:56 +0800
 categories: Blog
 tags: Blog
@@ -32,14 +32,14 @@ jekyll server --lsi
 
 
 ## Use plugins
-So I decide not to use this function and turn to find other support. 
+So I decided not to use this function and turned to find other support. 
 
 I found two plugins that can support the related posts function.    
 
 [toshimaru/jekyll-tagging-related_posts](https://github.com/toshimaru/jekyll-tagging-related_posts)    
 [lawrencewoodman/related_posts-jekyll_plugin](https://github.com/LawrenceWoodman/related_posts-jekyll_plugin)  
 
-By reading the readme file, both of them has the same feature that overrides the built in related_posts function to calculate related posts based on a posts' tags. And the embedded algorithm is identical, from [related_posts-jekyll_plugin](https://github.com/LawrenceWoodman/related_posts-jekyll_plugin) by @[LawrenceWoodman](https://github.com/LawrenceWoodman).
+By reading the readme file, both of them has the same feature that overrides the built in related_posts function to calculate related posts based on a posts' tags. And the algorithm is identical, from [related_posts-jekyll_plugin](https://github.com/LawrenceWoodman/related_posts-jekyll_plugin) by @[LawrenceWoodman](https://github.com/LawrenceWoodman).
 
 So I chose one of them to try the function. 
 
@@ -60,7 +60,7 @@ I installed the plugin and inserted below code to my post.html
 {% endraw %}
 {% endhighlight %}
 
-I tested and the above problem are fixed!
+I tested and the above problem was fixed!
 
 The plugin will return nothing if no related posts found instead of recent posts and looks also adding the ordering of the searched tags count. 
 

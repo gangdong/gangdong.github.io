@@ -36,7 +36,7 @@ It is good!
 
 There is workable [JavaScript-MD5](https://github.com/blueimp/JavaScript-MD5) lib on the Github, I folk it and the rest thing is quite simple.
 
-I added the **MD5 JS** calling in my `comments.html` 
+I add the **MD5 JS** calling in my `comments.html` 
 
 {% highlight html %}
 <script type="text/javascript" src="{{site.baseurl}}/assets/js/md5.min.js"></script>
