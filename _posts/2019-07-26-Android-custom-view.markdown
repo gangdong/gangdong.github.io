@@ -7,7 +7,7 @@ tags: Android
 tags: Android
 ---
 Today I met a error when I was trying to customize the android.widget.Button Class.:confused: <br>The error information is 
-{% highlight console %}
+{% highlight plaintext %}
 "This custom view should extend android.support.v7.widget.AppCompatButton instead."
 {% endhighlight %}
 
@@ -18,13 +18,13 @@ import android.annotation.SuppressLint;
 @SuppressLint("AppCompatCustomView")
 {% endhighlight %} 
 Besides, I had met 
-{% highlight console %}
+{% highlight plaintext %}
 "I/hwservicemanager: getTransport: Cannot find entry" 
 {% endhighlight %}
 when running application. That's because the application used HIDL interface which should register at the vintf/manifest.xml but hasn't done. This feature is introduced at Android O. Obviously, the solution is registering all of the HIDL interfaces that will be used at manifest.xml.
 
 Another issue is 
-{% highlight console %}
+{% highlight plaintext %}
 "avc: denied { read } for name="u:object_r:vendor_default_prop:s0" dev="tmpfs" ino=27157 
 scontext=u:r:platform_app:s0:c512,c768 tcontext=u:object_r:vendor_default_prop:s0 
 tclass=file permissive=1"

@@ -53,7 +53,7 @@ Linux 下的触摸协议分为协议A(protocol A)和协议B(protocol B)。
 {% endhighlight %}
 可以看到这次传输有两个触摸点的数据，每包数据以ABS_MT_SLOT起始，每个slot都会被分配一个ABS_MT_TRACKING_ID，不同的可识别的触摸点被打包成不同的slot数据。利用这个slot来传递对应触点的变化，触点的创建、替换和销毁是通过修改相关联slot的ABS_MT_TRACTKING_ID完成的。一个无符号的追踪id代表一个触点，值-1表示一个未使用的slot。一个未出现的过的追踪id被认为是新的，而一个不在出现的追踪id考虑被移除。因为只传递了变化的信息，每个触点的全部信息需要保存在接收端。当接收到MT事件时，简单地更新当前slot的对应属性。
 当移动其中一个触摸点时，会看到如下的数据被传输。
-{% highlight console %}
+{% highlight plaintext %}
    ABS_MT_SLOT 0
    ABS_MT_POSITION_X x[0]
    SYN_REPORT
@@ -77,7 +77,7 @@ ABS_MT_TRACKING_ID|为接触点分配的ID|
 
 以上为多点触摸协议的基本内容，目前触控设备大多具备硬件识别并区分触摸点的能力，因此协议A基本上已经很少使用了。
 基于协议B的驱动代码应该是基于如下的传输步骤。
-{% highlight console %}
+{% highlight plaintext %}
 //设定slot
 input_mt_slot(para = ABS_MT_TRACKING_ID); 
 //设定slot的状态，slot 由input_mt_slot()函数指定

@@ -22,7 +22,7 @@ language: chinese
 pid_t fork(void);
 {% endhighlight %}
 函数返回值:
-{% highlight console %}
+{% highlight plaintext %}
 0:子进程返回0
 -1:出错返回
 其它：父进程返回子进程ID
@@ -61,7 +61,7 @@ int main ()
 {% endhighlight %}
 执行结果如下。
 
-{% highlight console %}
+{% highlight plaintext %}
 子进程：id is    0, pid is 2621, ppid is 1158,执行了: 1 次
 父进程：id is 2621, pid is 2620, ppid is 2019,执行了: 1 次
 {% endhighlight %}
@@ -77,7 +77,7 @@ int main ()
     } 
 {% endhighlight %}
 结果如下，可以看出到是子进程先执行，父进程后执行，与程序的执行顺序无关。
-{% highlight console %}
+{% highlight plaintext %}
 子进程：id is    0, pid is 2621, ppid is 1158,执行了: 1 次
 父进程：id is 2621, pid is 2620, ppid is 2019,执行了: 1 次
 {% endhighlight %}

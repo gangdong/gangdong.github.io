@@ -56,7 +56,7 @@ void sort_bubble(int *a, int num)
 }
 {% endhighlight %}
 **打印结果如下**   
-{% highlight console %}
+{% highlight plaintext %}
 initial data:
 17,6,19,45,1,2,23,5,4,11,3,
 options:1
@@ -122,7 +122,7 @@ void sort_selection(int *a, int num)
 }
 {% endhighlight %}
 **打印结果**   
-{% highlight console %}
+{% highlight plaintext %}
 initial data:
 17,6,19,45,1,2,23,5,4,11,3,
 options:2
@@ -195,7 +195,7 @@ void sort_quick(int *a, int start, int end)
 }
 {% endhighlight %}
 **打印结果**   
-{% highlight console %}
+{% highlight plaintext %}
 initial data:
 17,6,19,45,1,2,23,5,4,11,3,
 options:3
@@ -277,7 +277,7 @@ void sort_insert(int *a, int num)
 }
 {% endhighlight %}
 **打印结果**   
-{% highlight console %}
+{% highlight plaintext %}
 initial data:
 17,6,19,45,1,2,23,5,4,11,3,
 options:4
@@ -334,7 +334,7 @@ void sort_shell(int *a, int num){
 }
 {% endhighlight %}
 **打印结果**   
-{% highlight console %}
+{% highlight plaintext %}
 initial data:
 17,6,19,45,1,2,23,5,4,11,3,
 options:5
@@ -348,13 +348,13 @@ after sort, data:
 {% endhighlight %}
 **结果分析**     
 以步长为5开始进行排序，可以通过将这列表放在有5列的表中来更好地描述算法，这样他们就应该看起来是这样：   
-{% highlight console %}
+{% highlight plaintext %}
 17|  6| 19| 45|  1
  2| 23|  5|  4| 11
  3|
 {% endhighlight %}
 对这5列进行插入排序后，序列变为
-{% highlight console %}
+{% highlight plaintext %}
  2|  6|  5|  4|  1
  3| 23| 19| 45| 11
 17|

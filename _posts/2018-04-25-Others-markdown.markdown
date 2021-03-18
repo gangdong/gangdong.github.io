@@ -25,7 +25,7 @@ Markdown 的语法学习归纳起来可以从下面几个方面来学习。
 - 删除线：文字两边用 `~~` 包起来<br>
 
 示列如下：<br>
-{% highlight console %}
+{% highlight plaintext %}
    *斜体*
    **粗体**
    ***粗斜体***
@@ -40,7 +40,7 @@ Markdown 的语法学习归纳起来可以从下面几个方面来学习。
 **语法**    
 共分为6级标题，分别在前面加 `#` ，同时在`#`号后加一个`空格`。
 示列：<br>
-{% highlight console %}
+{% highlight plaintext %}
 # 一级标题
 ## 二级标题
 ### 三级标题
@@ -55,7 +55,7 @@ Markdown 的语法学习归纳起来可以从下面几个方面来学习。
 
 ## <span id = "3">图片</span>
 **语法**
-{% highlight console %}
+{% highlight plaintext %}
 ![picname](图片地址''图片title'')
 {% endhighlight %}
 效果如下：<br>
@@ -65,7 +65,7 @@ Markdown 的语法学习归纳起来可以从下面几个方面来学习。
 ## <span id = "4">链接</span>
 **语法**   
 和图片的语法很类似，只是前面缺少一个`!`。<br>
-{% highlight console %}
+{% highlight plaintext %}
 [名称](地址''title'')
 {% endhighlight %}
 效果如下：<br>
@@ -73,7 +73,7 @@ Markdown 的语法学习归纳起来可以从下面几个方面来学习。
 ## <span id = "5">分割线</span>
 **语法**   
 三个或者更多的 `---` 或者 `***` <br>
-{% highlight console %}
+{% highlight plaintext %}
 我是分割线 
 ---
 {% endhighlight %}
@@ -84,7 +84,7 @@ Markdown 的语法学习归纳起来可以从下面几个方面来学习。
 ### 无序列表
 **语法**   
 在内容前使用`*` `-` `+` 都可以。<br>
-{% highlight console %}
+{% highlight plaintext %}
 - 名称
 - 年龄
 - 性别
@@ -97,7 +97,7 @@ Markdown 的语法学习归纳起来可以从下面几个方面来学习。
 ### 有序列表
 **语法**   
 在内容前使用`数字`。<br>
-{% highlight console %}
+{% highlight plaintext %}
 1. 名称
 2. 年龄
 3. 性别
@@ -110,7 +110,7 @@ Markdown 的语法学习归纳起来可以从下面几个方面来学习。
 ## <span id = "7">表格</span>
 **语法**      
 语法如下，其中第二行的 `---`: 表示了对齐方式，默认**左对齐**，还有**右对齐（右边加：）** 和**居中（两边加：）**
-{% highlight console %}
+{% highlight plaintext %}
 表头|表头|表头
 ---|:--:|---:
 内容|内容|内容

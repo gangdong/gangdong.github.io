@@ -13,7 +13,7 @@ The Bcdedit.exe command-line tool modifies the boot configuration data store. Th
 In the command line, enter the command `bcdedit /?` to view all bcdedit related operations.
 
 The command parameters is as below.  
-{% highlight console %}
+{% highlight plaintext %}
 Commands that operate on a store
 ================================
 /store          Used to specify a BCD store other than the current system default.
@@ -89,31 +89,31 @@ Command that control remote event logging
 Normally I use below commands in the development.
 
 + turn off digital signature.
-{% highlight console %}
+{% highlight plaintext %}
 bcdedit /set nointegritychecks on
 {% endhighlight %}
 + turn on digital signature
-{% highlight console %}
+{% highlight plaintext %}
 bcdedit /set nointegritychecks off
 {% endhighlight %}
 + enable kernel debug
-{% highlight console %}
+{% highlight plaintext %}
 bcdedit /set {default} DEBUG YES
 {% endhighlight %}
 + enable/disable test signature
-{% highlight console %}
+{% highlight plaintext %}
 bcdedit /set TESTSIGNING ON | OFF
 {% endhighlight %}
 + set a serial debug 
-{% highlight console %}
+{% highlight plaintext %}
 bcdedit /dbgsettings serial baudrate:115200 debugport:1
 {% endhighlight %}
 + set network debug
-{% highlight console %}
+{% highlight plaintext %}
 bcdedit /dbgsettings net hostip:192.168.xx.xx port:50000 key:1.2.3.4
 {% endhighlight %}
 hostip: host IP address, port: host port,key: password.
 + copy a entry
-{% highlight console %}
+{% highlight plaintext %}
 bcdedit /copy {current} /d “your name”
 {% endhighlight %}

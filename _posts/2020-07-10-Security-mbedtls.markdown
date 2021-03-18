@@ -193,7 +193,7 @@ mbed tls的ssl/tls部分提供了使用ssl/tls通过安全通信通道建立和�
 mbed 通过创建一个SSL/TLS服务器和客户端,通过提供一个框架来建立和通过SSL/TLS通信通道进行通信.SSL/TLS部分直接依赖于库的证书解析,对称和非对称和哈希模块.
 
 ### <span id="3.3">3.3 数据结构</span>
-{% highlight console %}
+{% highlight plaintext %}
 mbedtls_net_context：目前只有文件描述符，可以用于适配异步I/O库
 mbedtls_ssl_context：保存SSL基本数据
 mbedtls_ssl_config: SSL 配置数据

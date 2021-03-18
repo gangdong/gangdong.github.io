@@ -144,7 +144,7 @@ public class App {
 }
 {% endhighlight %}
 运行结果如下。
-{% highlight console %}
+{% highlight plaintext %}
 学生—0 年龄:19 性别:女
 学生—1 年龄:11 性别:男
 学生—2 年龄:19 性别:女

@@ -48,14 +48,14 @@ Google official documents provides more information about
 The total memory that Trusty TEE can provide is 32M, suggests allocate 10M memory (heap + stack + ta image) for fingerprint to use. For example, using 6M heap and 3M stack.
 ### <span id ="2.2">2.2 Buffer</span>
 + a. The communication between CA and TA is limited in size, and the overall size is limited to 128KB, including message header. Therefore, the buffer size `TAC_SHARED_BUFFER_SIZE` should be less than 128K.
-{% highlight console %}
+{% highlight plaintext %}
 #define TAC_SHARED_BUFFER_SIZE 1024 * 120 //should not be greater than 128k
 {% endhighlight %}
 + b. Accordingly, the actual data size that can be used for effective transmission between CA and TA is limited to 
 {% highlight ruby %}
 1024 x 128 - sizeof(union ta_target_commands) - sizeof(int32_t)
 {% endhighlight %}
-{% highlight console %}
+{% highlight plaintext %}
 /* ISEE may need extra room for their own header */
 #if defined(ISEE)
 #define MAX_CHUNK ((SECURE_BUFFER_MAX_SIZE) - (MAX_COMMAND_SIZE) - 64)

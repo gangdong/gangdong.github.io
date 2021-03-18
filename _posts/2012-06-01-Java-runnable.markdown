@@ -54,7 +54,7 @@ public class App
 
 {% endhighlight %}
 运行结果
-{% highlight console %}
+{% highlight plaintext %}
 线程Thread-0 被调用 1次
 线程Thread-9 被调用 1次
 线程Thread-8 被调用 1次
@@ -111,7 +111,7 @@ public class App
 }
 {% endhighlight %}
 运行结果
-{% highlight console %}
+{% highlight plaintext %}
 线程Thread-1 被调用 2次
 线程Thread-2 被调用 3次
 线程Thread-0 被调用 2次
@@ -149,7 +149,7 @@ public class MyRunnable implements Runnable{
 {% endhighlight %}
 使用`synchronized`修饰`run()`方法，使得其在执行时与其他的线程同步。经过synchronized修饰后线程在执行run()方法时会确认是否有其他线程正在执行，如果有的话就加入队列等待，知道可以获得执行权。
 执行结果如下。
-{% highlight console %}
+{% highlight plaintext %}
 线程Thread-1 被调用 1次
 线程Thread-3 被调用 2次
 线程Thread-2 被调用 3次

@@ -96,7 +96,7 @@ int input_register_device(struct input_dev *dev)
 `input_register_device()`函数是输入子系统核心（input core）提供的函数。该函数将`input_dev`结构体注册到输入子系统核心中，`input_dev`结构体必须由前面讲的 `input_allocate_device()`函数来分配。`input_register_device()`函数如果注册失败，必须调用 `input_free_device()` 函数释放分配的空间。如果该函数注册成功，在卸载函数中应该调用 `input_unregister_device()` 函数来注销输入设备结构体。   
 `input_register_device()`函数主要完成了如下的工作：
 + 函数中调用`__set_bit()`函数设置`input_dev`所支持的事件类型。事件类型由`input_dev`的`evbit`成员来表示，在这里将其`EV_SYN`置位，表示设备支持所有的事件。注意，一个设备可以支持一种或者多种事件类型。常用的事件类型如下：
-{% highlight console %}
+{% highlight plaintext %}
 #define EV_SYN 0x00 /*表示设备支持所有的事件*/
 #define EV_KEY 0x01 /*键盘或者按键，表示一个键码*/
 #define EV_REL 0x02 /*鼠标设备，表示一个相对的光标位置结果*/
@@ -173,7 +173,7 @@ struct input_dev *dev)
 + 匹配设备的产品总线类型/vendor/版本信息。
 + 如果`id->flags`定义的类型匹配成功，或者`id->flags`没有定义，才会进入到`MATCH_BIT`的匹配项。
 `MATCH_BIT`宏的定义如下：   
-{% highlight console %}
+{% highlight plaintext %}
 #define MATCH_BIT(bit, max) \
 for (i = 0; i < BITS_TO_LONGS(max); i++) \
 if ((id->bit[i] & dev->bit[i]) != id->bit[i]) \
@@ -540,7 +540,7 @@ int input_event_to_user(char __user *buffer, const struct input_event * event){
 }
 {% endhighlight %}
 事件读取函数调用流程   
-{% highlight console %}
+{% highlight plaintext %}
 read时候 evdev_read--> 从client->buffer[]循环获取事件 evdev_fetch_next_event() --> input_event_to_user() --> copy_to_user()
 {% endhighlight %}
 
@@ -552,7 +552,7 @@ read时候 evdev_read--> 从client->buffer[]循环获取事件 evdev_fetch_next_
 
 1. 按照linux设备架构,驱动模型实现touchscreen driver。
 2. 模块初始化函数中将触摸屏注册到了输入子系统中，于此同时，注册函数在事件处理层链表中寻找事件处理器，这里找到的是evdev，并且将驱动与事件处理器挂载。并且在`/dev/input`中生成设备文件event0，以后我们访问这个文件就会访问到设备数据。
-{% highlight console %}
+{% highlight plaintext %}
 当各个handler init时 --> input_register_handler() --> input_attach_handler() -->  handler->connect()
 或者驱动 --> probe() --> input_register_device() --> input_attach_handler -->  handler->connect()
 
@@ -561,12 +561,12 @@ handler->connect()-->  eg:evdev.c events() --+
                                              +-->cdev_device_add() 注册字符设备
 {% endhighlight %}
 3. 当点击触屏后, 进到中断处理,然后读取数据,再report,并存到client的buffer[]里。
-{% highlight console %}
+{% highlight plaintext %}
 input_report_abs() --> input_event(, EV_ABS, , ) --> input_handle_event() --> input_pass_values() --> input_to_handler() -->
 handler->events()/event() --> eg:evdev.c events() --> evdev_pass_values() --> 数据填充 --> __pass_event() --> client->buffer[]
 {% endhighlight %}
 4. 上层用户空调read时, 只要有数据,不断从client->buffer[]读取并通过`copy_to_user()`拷到用户空间, 所以上层就拿到数据了。
-{% highlight console %}
+{% highlight plaintext %}
 read时候...--> evdev_read--> 从client->buffer[]循环获取事件 evdev_fetch_next_event() --> 
 input_event_to_user() --> copy_to_user()
 {% endhighlight %}

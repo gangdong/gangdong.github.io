@@ -165,7 +165,7 @@ X.509正是一种数字证书的格式标准。
 X.509规定了数字证书的格式。         
 大致如下：
 
-{% highlight console %}
+{% highlight plaintext %}
 版本号
 序列号
 签名算法
@@ -213,7 +213,7 @@ SSL证书从生成到使用涉及到了三次加解密过程：
 
 
 用一张结构图表示下HTTPS和X.509的关系：
-{% highlight console %}
+{% highlight plaintext %}
     HTTPS
   /       \
 HTTP    TLS/SSL
