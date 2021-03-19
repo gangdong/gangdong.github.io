@@ -2,7 +2,7 @@
 layout: post
 title:  "Android 如何上报 Touchevent 给应用层"
 date:   2014-07-10 23:44:07 +0800
-categories: C Touch Linux Android
+categories: C Touch Android
 tags: C Touch Linux Android
 published: true
 language: chinese
