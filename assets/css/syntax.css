@@ -1,6 +1,5 @@
 .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
-.highlight pre { background-color: #222222; border-radius: 4px;  }
 .highlight .gh {
   color: #999999;
 }
@@ -137,47 +136,58 @@
 }
 .highlight .vc {
   color: #ffffff;
-  background-color: #272822;
+  /* no need background color */
+  /*background-color: #272822;*/
 }
 .highlight .nn {
   color: #ffffff;
-  background-color: #272822;
+  /* no need background color */
+  /*background-color: #272822;*/
 }
 .highlight .nl {
   color: #ffffff;
-  background-color: #272822;
+  /* no need background color */
+  /*background-color: #272822;*/
 }
 .highlight .ni {
   color: #ffffff;
-  background-color: #272822;
+  /* no need background color */
+  /*background-color: #272822;*/
 }
 .highlight .bp {
   color: #ffffff;
-  background-color: #272822;
+  /* no need background color */
+  /*background-color: #272822;*/
 }
 .highlight .vg {
   color: #ffffff;
-  background-color: #272822;
+  /* no need background color */
+  /*background-color: #272822;*/
 }
 .highlight .vi {
   color: #ffffff;
-  background-color: #272822;
+  /* no need background color */
+  /*background-color: #272822;*/
 }
 .highlight .nv, .highlight .vm {
   color: #ffffff;
-  background-color: #272822;
+  /* no need background color */
+  /*background-color: #272822;*/
 }
 .highlight .w {
   color: #ffffff;
-  background-color: #272822;
+  /* no need background color */
+  /*background-color: #272822;*/
 }
 .highlight {
   color: #ffffff;
   background-color: #272822;
+  border-radius: 4px;
 }
 .highlight .n, .highlight .py, .highlight .nx {
   color: #ffffff;
-  background-color: #272822;
+  /* no need background color */
+  /*background-color: #272822;*/
 }
 .highlight .ow {
   color: #f92672;

@@ -87,8 +87,7 @@
 		a {
 		 color: $dark_text_color;
          &:hover {
-			color: $dark_text_color;
-	        background-color: $dark_btn_color;;
+			color: $dark_btn_color;
           }
         }
 	}
@@ -314,3 +313,4 @@
 .dark pre>code {
   background: transparent;
 }
+.dark .highlight pre { border: 1px solid #777777;  }
