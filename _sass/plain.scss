@@ -185,7 +185,6 @@ main {
 }
 .post-categories-pin {
   font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;
-  font-weight: bold;
   list-style-type: none;
   color: white;
   margin: 0;
@@ -193,7 +192,7 @@ main {
   li {
     font-size: 14px;
     float: left;
-	border-radius: 40px;
+	border-radius: 60px;
     background-color: $btnColor;
     padding: 6px 20px 5px 10px;
     @media screen and (max-width: $mobileW) {
@@ -799,8 +798,7 @@ main {
 		margin-top: 10px;
 	}
     &:hover {
-      color:white;
-	  background-color: $btnColor;
+      color: $btnColor;
     }
   }
 }
@@ -933,9 +931,8 @@ pre>code {
 }
 
 pre {
-  background-color: #f8f8f8;
   font-size: 16px;
-  line-height: 1.4em;
+  line-height: 1.6em;
   overflow: auto;
   padding: 6px 10px;
   border-radius: 4px;
@@ -961,6 +958,13 @@ table {
     margin: 0 auto;
     display: block;
 	border-radius: 4px;
+	
+	/* 添加图片阴影 
+    box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+	*/
 }
 .web-statistics
 {

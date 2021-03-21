@@ -114,11 +114,19 @@
 {% if site.rawposts.search %}
 <script src="{{site.baseurl}}/assets/js/simple-jekyll-search.min.js"></script>
 <script src="{{site.baseurl}}/assets/js/search.js"></script>
-<link href="{{site.baseurl}}/assets/css/vim.css" rel="stylesheet"/>
 {% endif %}
 {% if site.rawposts.share_media %}
 <!-- Go to www.addthis.com/dashboard to customize your tools -->
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9"></script>
+{% endif %}
+
+{% if site.rawposts.highlighter %}
+	<!-- default stylesheet monokai.sublime ! -->
+	{% if site.rawposts.syntax %}
+	<link href="{{site.baseurl}}/assets/css/syntax/syntax.{{site.rawposts.syntax}}.css" rel="stylesheet"/>
+	{% else %}
+	<link href="{{site.baseurl}}/assets/css/syntax.css" rel="stylesheet"/>
+	{% endif %}
 {% endif %}
 </body>
 </html>

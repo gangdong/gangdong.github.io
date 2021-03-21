@@ -3,10 +3,6 @@
 
 @import "plain";
 
-{% if site.rawposts.highlighter %}
-  @import "vim.css";
-{% endif %}
-
 {% if site.rawposts.search %}
   @import "search";
 {% endif %}
