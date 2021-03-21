@@ -8,7 +8,7 @@ Published: true
 toc: true
 sidebar: true
 ---
-When writing posts, I need to display mathematics sometimes. MathJax helped me do it easily without using image or flash. This article will introduce what MathJax is and how to use MathJax display mathematics when writing post.
+When writing posts, I need to display mathematics sometimes. MathJax helped me do it easily without using image or flash. This article will introduce what MathJax is and how to use MathJax display mathematics.
 
 ## What is MathJax?
 
@@ -19,9 +19,9 @@ This is the definition of the [MathJax official website](https://www.mathjax.org
 To me, it has some benefits when writing blog.
 
 - No need plugin support in Jekyll. I don't have to worry about that it cannot be implemented when deploying the site at Github Pages for security checking. 
-- Unlike using bitmaps image to display, it uses the text editing and transform the math equation to HTML or SVG, so it is workable for zoom scale and is suitable to display under different size screen.
+- Unlike using bitmaps image to display, it is text editing and transforms the math equation to HTML or SVG, so it is workable for zoom scale and is suitable to display under different size screen.
 - I can write the math equation in markdown with plain text just by following the syntax of LaTex/TeX.
-- Friendly to new user, you can quick use it even you have no any knowledge about it. 
+- Friendly to new user, you can quickly use it even you have no any knowledge about it. 
 
 Moreover, looks MathJax has become into the most popular solution for rendering the Latex math equation in the web application. 
 
@@ -51,7 +51,7 @@ For TeX or LaTeX input component , it has two types. One is `in-line mathematics
 
 It uses double dollar sign `$$` as the default math delimiters for `displayed mathematics`, uses the `(\...\)` as the math delimiters for `in-line mathematics`.
 
-Here as an example, I inserted below snippet to add single dollar `$` signs as in-line math delimiters.
+Here as an example, I inserted below code snippet to add single dollar `$` signs as in-line math delimiters.
 
 {% highlight html %}
 <script type="text/x-mathjax-config">
@@ -77,7 +77,7 @@ So my last code is
 I wrote below words as startup.
 
 > Hi, there,     
-> This is my first MathJax case.    
+> This is my first MathJax equation.    
 > When $a \ne 0$, there are two solutions to    
 > <div>$$ax^2 + bx + c = 0$$</div>     
 > and they are    

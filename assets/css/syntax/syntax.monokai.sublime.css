@@ -185,6 +185,9 @@
   border-radius: 4px;
   margin-bottom: 30px;
   margin-top: 27px;
+  margin-left: 0px;
+  margin-right: 0px;
+  width: 100%;
 }
 .highlight .n, .highlight .py, .highlight .nx {
   color: #ffffff;
