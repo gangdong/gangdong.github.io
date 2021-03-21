@@ -20,7 +20,11 @@ rawposts:
   date_format: "%b %-d, %Y"
   sitemap: true # set to true to generate sitemap.xml content
   highlighter: rouge
-  syntax: monokai.sublime
+  syntax: monokai.sublime  # stylesheet, 
+                           # options: base16, base16.dark, base16.light, base16.monokai, 
+                           # base16.monokai.dark, base16.monokai.light, base16.solarized, base16.solarized.dark, base16.solarized.light, 
+                           # bw, colorful, github, gruvbox, gruvbox.dark, gruvbox.light, igorpro, magritte, molokai, monokai, monokai.sublime, 
+                           # pastie, thankful_eyes, tulip
  # markdown: kramdown
   search: true # set to true to enable searchbar
   dark_mode: true # set to true to add dark mode toggle
