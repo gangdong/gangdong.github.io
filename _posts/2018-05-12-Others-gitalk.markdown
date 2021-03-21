@@ -112,4 +112,4 @@ The appearance is like this.<br>
 When first loading, you will be requested to sign in your Github account to active the comment function.<br>
 ![firstload]({{site.baseurl}}/assets/image/others-gitalk-first-loading.png){: .center-image }<br>
 Active it then you can use it now!<br>
-If you like this page or you have anything would like to share, comment  at below! :relieved: <br>
+If you like this page or you have anything would like to share, comment  at below! 🙂 <br>

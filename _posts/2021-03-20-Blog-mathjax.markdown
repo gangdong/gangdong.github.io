@@ -86,7 +86,7 @@ I wrote below words as startup.
 ## Write at the last
 
 + I found importing the MathJax snippet will slow the site's loading speed. So I moved the MathJax snippet to the post's markdown file from `default.html`, only use it when the post need a mathematics expression. 
-+ I am not familiar with Latex syntax and I will spend some time in learning. It is not a problem! :smile:
++ I am not familiar with Latex syntax and I will spend some time in learning. It is not a problem! 😛
 
 <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>

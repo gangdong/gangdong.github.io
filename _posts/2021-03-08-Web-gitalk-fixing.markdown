@@ -18,7 +18,7 @@ For every post, the Gitalk will create an issue under your blog project reposito
 
 ![example]({{site.baseurl}}/assets/image/web-gitalk-fix-01.PNG "example"){: .center-image }
 
-However the problem here is that label length is restricted to maximum 50 characters ( Not sure if it is a hidden rule or a BUG here :confused: ).
+However the problem here is that label length is restricted to maximum 50 characters ( Not sure if it is a hidden rule or a BUG here 😕 ).
 
 In my Gitalk configuration, the issue id is set to 
 
@@ -54,7 +54,7 @@ I reopen the page and the error is gone, by checking the Gitalk issue label, it 
 
 ![example]({{site.baseurl}}/assets/image/web-gitalk-fix-02.PNG "example"){: .center-image }
 
-Which means the solution is working now! :smiley:
+Which means the solution is working now! 😊
 
 
 

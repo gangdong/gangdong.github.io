@@ -136,4 +136,4 @@ Use below code, I grouped the posts by the CATEGORY of theirs. Similar to archiv
 
 The last work is to create archive.html and category.html files to well organize the codes and display with desired layout, add a hyperlink to the HTML files on the website homepage.
 
-That's about it! Hopefully this is a useful reference for anyone that's looking to make their Jekyll archives a bit more accessible. The code is in my [github repository](https://github.com/gangdong/daviddong.github.io), if you are interesting, you can fork it. :grinning:
+That's about it! Hopefully this is a useful reference for anyone that's looking to make their Jekyll archives a bit more accessible. The code is in my [github repository](https://github.com/gangdong/daviddong.github.io), if you are interesting, you can fork it. 🙂

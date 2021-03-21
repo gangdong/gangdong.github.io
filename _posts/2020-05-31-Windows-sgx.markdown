@@ -31,7 +31,7 @@ Now let us go through above one by one.
 2. Find the corresponding model on the [Intel official website](https://ark.intel.com/content/www/us/en/ark/products/88185/intel-core-i5-6400-processor-6m-cache-up-to-3-30-ghz.html), which will indicate whether it supports SGX.  
 ![CPU]({{site.baseurl}}/assets/image/others-sgx-02.PNG){: .center_image}
 Oh! My laptop's CPU supports but need install IME software.  
-Ok, remember this requirement and do it later. :smirk:
+Ok, remember this requirement and do it later. 😎
 
 ## BIOS Query
 

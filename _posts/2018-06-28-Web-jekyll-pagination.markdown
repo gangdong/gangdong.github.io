@@ -122,4 +122,4 @@ Below code loops through the paginated posts.
 {% endhighlight %}
 ## Others
 Currently jekyll-paginate plugin doesn't allow paging over groups of posts linked by a common tag or category. 
-The more recent [jekyll-paginate-v2](https://github.com/sverrirs/jekyll-paginate-v2) plugin can support the pagination for categories, tags and collections. See the pagination examples in the repository.<br> **This plugin is not supported by GitHub Pages. I haven't tried it!** :worried:
+The more recent [jekyll-paginate-v2](https://github.com/sverrirs/jekyll-paginate-v2) plugin can support the pagination for categories, tags and collections. See the pagination examples in the repository.<br> **This plugin is not supported by GitHub Pages. I haven't tried it!** 🙂
