@@ -8,7 +8,7 @@ Published: true
 toc: true
 sidebar: true
 ---
-Today I want to add a auto **TOC** function to my blog. I used to write **TOC** manually and it is really boring. I found a good plugin [jekyll-toc](https://Github.com/toshimaru/jekyll-toc) in the Github, which can fully meet my requirement. 
+Today I want to add a auto TOC function to my blog. I used to write TOC manually and it is really boring. I found a good plugin [jekyll-toc](https://Github.com/toshimaru/jekyll-toc) in the Github, which can fully meet my requirement. 
 
 {% include toc.html %}
 
