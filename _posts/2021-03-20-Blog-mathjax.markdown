@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Display math in blog with MathJax"
+title:  "Display mathematics formula in blog with MathJax"
 date:   2021-03-20 11:11:12 +0800
 categories: Blog
 tags: Blog
