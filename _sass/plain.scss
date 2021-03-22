@@ -612,10 +612,8 @@ main {
    
   a {
     color: $linkColor;
-    text-decoration: none;
-    transition: border-bottom 0.4s;
+    text-decoration: underline;
     &:hover {
-      border-bottom: 0.5px solid $linkColor;
     }
   }
   h1,
@@ -634,10 +632,8 @@ main {
   line-height: 1.9em;
   a {
     color: $linkColor;
-    text-decoration: none;
-    transition: border-bottom 0.4s;
+    text-decoration: underline;
     &:hover {
-      border-bottom: 0.5px solid $linkColor;
     }
   }
   h1,
@@ -661,12 +657,10 @@ main {
   font-weight: 400;
   color: #222;
   line-height: 1.9em;
-  transition: border-bottom 0.4s;
   a {
     color: $linkColor;
-    text-decoration: none;
+    text-decoration: underline;
     &:hover {
-      border-bottom: 0.5px solid $linkColor;
     }
   }
 }

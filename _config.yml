@@ -86,14 +86,14 @@ theme: rawposts
 #    line_numbers:  false
 #    line_number_start: 1
 #    default_lang: c
-emoji:
+#emoji:
   # The emoji's image host url, 'https://github.githubassets.com' (default).
   # The trailing can't end with '/', and it's can be setting to '' (empty string).
-  src: 'https://github.githubassets.com'
+  #src: 'https://github.githubassets.com'
   
   # The emoji's image path of above host url, '/images/icons/' (default).
   # If it must start with '/' character, and it's can not be a empty string.
-  path: '/images/icons/'
+  #path: '/images/icons/'
   
 plugins:
   - jekyll-seo-tag

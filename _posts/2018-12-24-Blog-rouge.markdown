@@ -95,3 +95,5 @@ Copy the generated style CSS file to your site's style folder and don't forget t
 {% endhighlight %}
 
 And that’s all you need to start having syntax highlighting on your Jekyll site using Rouge.
+
+Hope that’s somehow useful for you! 🙂
