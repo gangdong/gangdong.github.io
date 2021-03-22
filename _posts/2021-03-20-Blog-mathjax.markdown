@@ -8,7 +8,7 @@ Published: true
 toc: true
 sidebar: true
 ---
-When writing posts, I need to display mathematics sometimes. MathJax helped me do it easily without using image or flash. This article will introduce what MathJax is and how to use MathJax display mathematics.
+When writing posts, I need to display mathematics formula sometimes. I write posts with Markdown, I don't want to save the formula into an image and load the image in markdown. It is better write the Latex formula in markdown file directly. MathJax helped me do it. This article will introduce what MathJax is and how to use MathJax.
 
 ## What is MathJax?
 
@@ -19,11 +19,11 @@ This is the definition of the [MathJax official website](https://www.mathjax.org
 To me, it has some benefits when writing blog.
 
 - No need plugin support in Jekyll. I don't have to worry about that it cannot be implemented when deploying the site at Github Pages for security checking. 
-- Unlike using bitmaps image to display, it is text editing and transforms the math equation to HTML or SVG, so it is workable for zoom scale and is suitable to display under different size screen.
-- I can write the math equation in markdown with plain text just by following the syntax of LaTex/TeX.
+- Unlike using bitmaps image to display, it is text editing and transforms the mathematics formula to HTML or SVG, so it is workable for zoom scale and is suitable to display under different size screen.
+- I can write the mathematics formula in markdown with plain text just by following the syntax of LaTex/TeX.
 - Friendly to new user, you can quickly use it even you have no any knowledge about it. 
 
-Moreover, looks MathJax has become into the most popular solution for rendering the Latex math equation in the web application. 
+Moreover, looks MathJax has become into the most popular solution for rendering the Latex mathematics formula in the web application. 
 
 At least, I think so.
 
