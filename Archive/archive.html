@@ -41,7 +41,7 @@ permalink: /archive
 {% endfor %}
 
 {% comment %}show navigation label here{% endcomment %}
-<div class="archive-label-meta" style ="margin-top:30px; margin-bottom:40px">
+<div class="archive-label-meta" style ="margin-top:30px">
 {% assign i = 0 %}
 {% comment %} remove the separator. {% endcomment %}
 {% assign counts_year = counts | split: ', ' | reverse %}
@@ -81,18 +81,18 @@ permalink: /archive
 	   
     {% if year != nyear %}
         {% if forloop.index != 1 %}{% endif %}
-        <h3 id = "{{year}}" class="archive-title">{{ post.date | date: '%B %Y' }}</h3>
+        <div id = "{{year}}" class="icon-videocam-2 archive-title">&nbsp;{{ post.date | date: '%Y' }}</div>
 		{% assign i = i | plus: 1 %}
     {% endif %}
 	{% if j == 0 %}
-	<div class="archive-meta archive-background" style="margin-left:15px;line-height:16px;">
+	<div class="archive-meta archive-background" style="margin-left:15px">
 		<div class="post-date" style="margin-right:30px; width:180px"><i class="icon-calendar"></i>{{ post.date | date: "%e %B %Y" }}</div>
 		<a class="post-link" href="{{ post.url | relative_url }}">
 			<h2 class="archive-link">{{ post.title | escape }}</h2>
 		</a>
 	</div>
    {% else %}
-   <div class="archive-meta" style="margin-left:15px;line-height:16px">
+   <div class="archive-meta" style="margin-left:15px">
 		<div class="post-date" style="margin-right:30px; width:180px"><i class="icon-calendar"></i>{{ post.date | date: "%e %B %Y" }}</div>
 		<a class="post-link" href="{{ post.url | relative_url }}">
 			<h2 class="archive-link">{{ post.title | escape }}</h2>

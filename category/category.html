@@ -34,7 +34,7 @@ permalink: /category
 {% endfor %}
 
 {% comment %}show navigation label here{% endcomment %}
-<div class="archive-label-meta" style ="margin-top:30px; margin-bottom:40px">
+<div class="archive-label-meta" style ="margin-top:30px">
 {% assign i = 0 %}
 {% assign counts = counts | split: ', ' %}
 {% for tag in site.categories reversed  %}
@@ -60,7 +60,7 @@ permalink: /category
 {% comment %}list post link for each category{% endcomment %}
 {% for tag in site.categories reversed %}
 <div>
-<h3 id = "{{tag[0]}}" class="archive-title">{{tag[0]}}</h3>
+<div id = "{{tag[0]}}" class="archive-title">#&nbsp;{{tag[0]}}</div>
 {% for post in tag[1] %}
 	{% if j == 0 %}
 	   {% assign j = j | plus: 1 %}
@@ -70,7 +70,7 @@ permalink: /category
 	
 	{% if j == 0 %}
 	{%- assign date_format = site.rawposts.date_format | default: "%b %-d, %Y" -%}
-    <div class="category-meta archive-background" style="margin-left:15px; line-height: 16px">
+    <div class="category-meta archive-background" style="margin-left:15px">
 		<a class="post-link" href="{{ post.url | relative_url }}">
 		<h2 class="archive-link" >&bull; {{ post.title | escape }}</h2>
 		</a>
@@ -80,7 +80,7 @@ permalink: /category
 		</div>
 	</div>
 	{% else %}
-	<div class="category-meta" style="margin-left:15px; line-height: 16px">
+	<div class="category-meta" style="margin-left:15px">
 		<a class="post-link" href="{{ post.url | relative_url }}">
 		<h2 class="archive-link" >&bull; {{ post.title | escape }}</h2>
 		</a>
