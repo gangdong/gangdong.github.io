@@ -16,7 +16,7 @@ $leftWidth: 200px;
 }
 
 body {
-  font-family: 'Arial', 'Microsoft Yahei', sans-serif;
+  font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   font-size: 16px;
   line-height: 1.2em;
   margin: 0;
@@ -202,7 +202,7 @@ main {
   }
 }
 .readingtime{
-	font-family: 'Arial', 'Raleway','Microsoft Yahei', sans-serif;
+	font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
 	font-weight: 400;
 	font-size: 14px;
 	white-space: pre;
@@ -366,7 +366,7 @@ main {
 }
 
 .readingtime-categories {
-  font-family: 'Arial', 'Raleway', 'Microsoft Yahei', sans-serif;
+  font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   font-size: 14px;
   list-style-type: none;
   
@@ -457,13 +457,13 @@ main {
     text-decoration: none;
     &:hover {
       color:white;
-	  background-color: #04B4AE;
+	  background-color: $btnColor;
 	  
     }
   }
 }
 .post-categories {
-  font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;
+  font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -593,7 +593,7 @@ main {
   font-family:  'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   font-weight: 400;
   color: #000;
-  line-height: 1.9em;
+  line-height: 1.8em;
   flex-shrink: 0; /* default 1 !important guarantee the post contents width constant */
   
   @media screen and (min-width: $mobileW + 1) {
@@ -634,7 +634,7 @@ main {
   font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   font-weight: 400;
   color: #000;
-  line-height: 1.9em;
+  line-height: 1.8em;
   a {
     color: $linkColor;
     text-decoration: none;
@@ -663,7 +663,7 @@ main {
   font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   font-weight: 400;
   color: #222;
-  line-height: 1.9em;
+  line-height: 1.8em;
   a {
     color: $linkColor;
     text-decoration: none;
@@ -732,7 +732,7 @@ main {
 	  }
 }
 #posts-label-chinese {
-  font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;
+  font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   margin: 0px 2px;
   border-bottom: 1px solid #eee;
   font-size: 20px;
@@ -783,7 +783,7 @@ main {
   align-items : center;
   align-content: space-between;
   text-decoration: none;
-  font-family:  'Poppins', 'Arial', 'Microsoft Yahei', sans-serif;
+  font-family:  'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   font-weight:400;
   color:#222;
   
@@ -874,6 +874,7 @@ main {
 }
 .archive-background {
 	background-color: #f8f8f8;
+	border-radius: 4px;
 }
 .footer {
 	margin-bottom: 30px;
@@ -1029,7 +1030,7 @@ table {
   font-weight: 400;
   font-size: 12px;
   color: #000;
-  line-height: 1.9em;
+  line-height: 1.8em;
   li {
   }
   a{
@@ -1042,7 +1043,6 @@ table {
 	&:hover {
 		color: white;
       	background-color: $btnColor;
-	  	font-weight: bold;
     }
   }
   
@@ -1123,14 +1123,13 @@ table {
 	border-radius: 10px;
 	a {
 		border-radius: 4px;
-	    line-height: 1.9em;
+	    line-height: 1.8em;
 		padding: 5px 10px;
 		text-decoration: none;
 		color: $btnColor;
 		&:hover {
 			color: white;
 			background-color: $btnColor;
-			font-weight: bold;
 		}
 	}
 }
