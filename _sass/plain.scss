@@ -428,13 +428,13 @@ main {
   }
 }
 .navigation-bar-label {
-	font-family: 'Arial','Raleway', 'Microsoft Yahei', sans-serif;
+	font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
 	font-size:14px;
 	font-weight: normal;
 	display: inline;
 }
 .navigation-bar {
-  font-family: 'Arial','Raleway', 'Microsoft Yahei', sans-serif;
+  font-family: 'Roboto', 'Arial','Microsoft Yahei', sans-serif;
   font-weight:bold;
   font-size:16px;
   list-style-type: none;
@@ -500,7 +500,8 @@ main {
   padding-left: 5px;
   color: #555;
   min-width: 150px;
-  font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;
+  font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
+  font-size: 15px;
 }
 .post-meta {
   display: flex;
@@ -565,8 +566,10 @@ main {
 }
 
 .post-title {
+  font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   line-height: 1.2em;
   font-size: 30px;
+  font-weight: 600;
 }
 .posts,
 .post-container {
@@ -587,7 +590,7 @@ main {
   padding-left: 30px;
 }
 .post-fix-width {
-  font-family: 'Arial', 'Tahoma', 'Raleway', 'Merriweather', 'Microsoft Yahei', sans-serif;
+  font-family:  'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   font-weight: 400;
   color: #000;
   line-height: 1.9em;
@@ -624,11 +627,11 @@ main {
   h4,
   h5,
   h6 {
-    font-family: 'Arial', 'Tahoma', 'Microsoft Yahei', sans-serif;
+    font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   }
 }
 .post {
-  font-family: 'Arial', 'Tahoma', 'Raleway', 'Merriweather', 'Microsoft Yahei', sans-serif;
+  font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   font-weight: 400;
   color: #000;
   line-height: 1.9em;
@@ -646,7 +649,7 @@ main {
   h4,
   h5,
   h6 {
-    font-family: 'Arial', 'Tahoma', 'Microsoft Yahei', sans-serif;
+    font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   }
 }
 .posts-labelgroup {
@@ -657,7 +660,7 @@ main {
 }
 .about-page{
   margin: 15px 2px;
-  font-family: 'Arial', 'Raleway','Tahoma', 'Merriweather',  'Microsoft Yahei', sans-serif;
+  font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   font-weight: 400;
   color: #222;
   line-height: 1.9em;
@@ -690,7 +693,7 @@ main {
   }
  .about-page-box-link-none {
 	  margin: 40px 2px;
-	  font-family: 'Raleway','Tahoma', 'Merriweather', 'Arial', 'Microsoft Yahei', sans-serif;
+	  font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;
 	  font-size: 18px;
 	  font-weight: 400;
 	  border-radius: 4px;
@@ -708,7 +711,7 @@ main {
 }
  .about-page-box {
 	  margin: 40px 2px;
-	  font-family: 'Raleway','Tahoma', 'Merriweather', 'Arial', 'Microsoft Yahei', sans-serif;
+	  font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;
 	  font-size: 18px;
 	  font-weight: 400;
 	  border-radius: 4px;
@@ -767,9 +770,9 @@ main {
   min-width: 100px;
 }
 .menu-logo {
-  font-size: 180%;
-  font-family: 'Arial', 'Raleway', 'Microsoft Yahei', sans-serif;
-  font-weight:800;
+  font-size: 200%;
+  font-family: 'Poppins', 'Arial', 'Microsoft Yahei', sans-serif;
+  font-weight:900;
   color:#222;
 }
 .menu{
@@ -780,7 +783,7 @@ main {
   align-items : center;
   align-content: space-between;
   text-decoration: none;
-  font-family: 'Arial', 'Raleway', 'Microsoft Yahei', sans-serif;
+  font-family:  'Poppins', 'Arial', 'Microsoft Yahei', sans-serif;
   font-weight:400;
   color:#222;
   
@@ -862,9 +865,10 @@ main {
   font-size:16px;
   font-weight: 400;
   color: #222;
-  font-family: 'Tahoma', 'Merriweather', 'Arial', 'Microsoft Yahei', sans-serif;
+  font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   &:hover {
       color:$linkColor;
+	  text-decoration: underline;
     }
   
 }
@@ -906,12 +910,12 @@ blockquote {
 }
 pre, code, tt {
   font-size: 16px;
-  font-family:  Consolas, "Liberation Mono", Courier, monospace,'Microsoft Yahei',sans-serif;
+  font-family:  'Roboto Mono', 'Consolas', 'Courier', 'monospace','Microsoft Yahei',sans-serif;
 }
 
 code, tt {
   margin: 0 0px;
-  font-family: 'Arial', Consolas, "Liberation Mono", Courier, monospace, sans-serif;
+  font-family: 'Roboto', 'Consolas', 'Courier', 'monospace', sans-serif;
   font-size: 14px;
   padding: 4px 4px;
   white-space: nowrap;
@@ -924,7 +928,7 @@ pre>code {
   margin: 0;
   padding: 0;
   font-size: 14px;
-  font-family: Consolas, "Liberation Mono", Courier, monospace,'Microsoft Yahei',sans-serif;
+  font-family: 'Roboto Mono', Consolas, Courier, monospace,'Microsoft Yahei',sans-serif;
   white-space: pre;
   border: none;
   background: transparent;
@@ -947,10 +951,10 @@ table {
     color: #222;
 	font-weight: 400;
     background-color: #eee;
-    font-family: 'Raleway', 'Microsoft Yahei';
+    font-family: 'Raleway', 'Arial', 'Microsoft Yahei';
   }
   td {
-	font-family: 'Arial', 'Microsoft Yahei';
+	font-family: 'Roboto', 'Arial', 'Microsoft Yahei';
   }
 }
 .center-image
@@ -969,7 +973,7 @@ table {
 .web-statistics
 {
 	padding: 5px 5px;
-	font-family: 'Arial', 'Microsoft Yahei';
+	font-family: 'Roboto', 'Arial', 'Microsoft Yahei';
 	color: #999;
 	font-weight: 200;
 }
@@ -1002,7 +1006,7 @@ table {
   	}
 }
 .post-index {
-  font-family: 'Arial', 'Tahoma', 'Raleway', 'Merriweather', 'Microsoft Yahei', sans-serif;
+  font-family: 'Arial', 'Roboto', 'Microsoft Yahei', sans-serif;
   font-weight: 400;
   font-size: 14px;
   color: white;
@@ -1018,7 +1022,7 @@ table {
   left:0px;
   top: 80px;
   margin-left: 10px;
-  font-family: 'Arial', 'Tahoma', 'Raleway', 'Merriweather', 'Microsoft Yahei', sans-serif;
+  font-family: 'Arial', 'Roboto', 'Microsoft Yahei', sans-serif;
   font-weight: 400;
   font-size: 12px;
   color: #000;
@@ -1048,7 +1052,7 @@ table {
 }
 .post-view {
 	width: inherit;
-	font-family: 'Arial', 'Tahoma', 'Raleway', 'Merriweather', 'Microsoft Yahei', sans-serif;
+	font-family: 'Arial', 'Roboto', 'Microsoft Yahei', sans-serif;
 	font-size: 16px;
 	color: #000;
 	text-transform: uppercase;
