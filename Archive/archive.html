@@ -68,20 +68,37 @@ permalink: /archive
 {% comment %}list post link for each year{% endcomment %}
 {% assign counts = counts | split: ', ' | reverse %}
 {% assign i = 0 %}
+{% assign j = 0 %}
 {% for post in site.posts %}
     {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
     {% capture nyear %}{{ post.next.date | date: '%Y' }}{% endcapture %}
-        {% if year != nyear %}
-            {% if forloop.index != 1 %}{% endif %}
-            <h3 id = "{{year}}" class="archive-title">{{ post.date | date: '%B %Y' }}</h3>
-			{% assign i = i | plus: 1 %}
-        {% endif %}
-	<div class="archive-meta" style="margin-left:15px;line-height:16px">
-	 <div class="post-date" style="margin-right:30px; width:180px"><i class="icon-calendar"></i>{{ post.date | date: "%e %B %Y" }}</div>
-     <a class="post-link" href="{{ post.url | relative_url }}">
-     <h2 class="archive-link">{{ post.title | escape }}</h2>
-     </a>
-   </div>
+	
+	{% if j == 0 %}
+	   {% assign j = j | plus: 1 %}
+	{% else %}
+	   {% assign j = j | minus: 1 %}
+	{% endif %}
+	   
+    {% if year != nyear %}
+        {% if forloop.index != 1 %}{% endif %}
+        <h3 id = "{{year}}" class="archive-title">{{ post.date | date: '%B %Y' }}</h3>
+		{% assign i = i | plus: 1 %}
+    {% endif %}
+	{% if j == 0 %}
+	<div class="archive-meta archive-background" style="margin-left:15px;line-height:16px;">
+		<div class="post-date" style="margin-right:30px; width:180px"><i class="icon-calendar"></i>{{ post.date | date: "%e %B %Y" }}</div>
+		<a class="post-link" href="{{ post.url | relative_url }}">
+			<h2 class="archive-link">{{ post.title | escape }}</h2>
+		</a>
+	</div>
+   {% else %}
+   <div class="archive-meta" style="margin-left:15px;line-height:16px">
+		<div class="post-date" style="margin-right:30px; width:180px"><i class="icon-calendar"></i>{{ post.date | date: "%e %B %Y" }}</div>
+		<a class="post-link" href="{{ post.url | relative_url }}">
+			<h2 class="archive-link">{{ post.title | escape }}</h2>
+		</a>
+	</div>
+   {% endif %}
 {% endfor %}
 </div>
 {% comment %}footer{% endcomment %}

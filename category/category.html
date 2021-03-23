@@ -56,21 +56,40 @@ permalink: /category
 {% assign i = i | plus: 1 %}
 {% endfor %}
 </div>
+{% assign j = 0 %}
 {% comment %}list post link for each category{% endcomment %}
 {% for tag in site.categories reversed %}
 <div>
 <h3 id = "{{tag[0]}}" class="archive-title">{{tag[0]}}</h3>
 {% for post in tag[1] %}
-{%- assign date_format = site.rawposts.date_format | default: "%b %-d, %Y" -%}
-    <div class="category-meta" style="margin-left:15px; line-height: 16px">
-      <a class="post-link" href="{{ post.url | relative_url }}">
+	{% if j == 0 %}
+	   {% assign j = j | plus: 1 %}
+	{% else %}
+	   {% assign j = j | minus: 1 %}
+	{% endif %}
+	
+	{% if j == 0 %}
+	{%- assign date_format = site.rawposts.date_format | default: "%b %-d, %Y" -%}
+    <div class="category-meta archive-background" style="margin-left:15px; line-height: 16px">
+		<a class="post-link" href="{{ post.url | relative_url }}">
 		<h2 class="archive-link" >&bull; {{ post.title | escape }}</h2>
-      </a>
+		</a>
+        <div class="post-date">
+          <span class="icon-calendar">
+            {{ post.date | date: date_format }}</span>
+		</div>
+	</div>
+	{% else %}
+	<div class="category-meta" style="margin-left:15px; line-height: 16px">
+		<a class="post-link" href="{{ post.url | relative_url }}">
+		<h2 class="archive-link" >&bull; {{ post.title | escape }}</h2>
+		</a>
         <div class="post-date">
           <span class="icon-calendar">
             {{ post.date | date: date_format }}</span>
 		</div>
     </div>
+	{% endif %}
 {% endfor %}
 </div>
 {% endfor %}
