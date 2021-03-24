@@ -69,14 +69,13 @@ permalink: /category
 	{% endif %}
 	
 	{% if j == 0 %}
-	{%- assign date_format = site.rawposts.date_format | default: "%b %-d, %Y" -%}
     <div class="category-meta archive-background" style="margin-left:15px">
 		<a class="post-link" href="{{ post.url | relative_url }}">
 		<h2 class="archive-link" >&bull; {{ post.title | escape }}</h2>
 		</a>
         <div class="post-date">
           <span class="icon-calendar">
-            {{ post.date | date: date_format }}</span>
+            {{ post.date | date: "%b %-d, %Y" }}</span>
 		</div>
 	</div>
 	{% else %}
@@ -86,7 +85,7 @@ permalink: /category
 		</a>
         <div class="post-date">
           <span class="icon-calendar">
-            {{ post.date | date: date_format }}</span>
+            {{ post.date | date: "%b %-d, %Y" }}</span>
 		</div>
     </div>
 	{% endif %}
