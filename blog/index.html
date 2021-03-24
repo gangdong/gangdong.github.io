@@ -5,7 +5,7 @@ title: Home
 
 {% include title.html %}
 {%- if paginator.posts.size > 0 -%}  
-  <ul class= "post-container">
+  <div class= "post-container">
     <!-- Put search box here -->
     <li class="posts-labelgroup" id="posts-labelgroup">
       <h1 id="posts-label">posts</h1>
@@ -82,7 +82,7 @@ title: Home
 		{%- endif -%}
       </li>
     {%- endfor -%}	
-  </ul>
+  </div>
   <!-- <p class="feed-subscribe"><svg class="svg-icon orange">
 		<use xlink:href="{{ '/assets/minima-social-icons.svg#rss' | relative_url }}"></use>
 	</svg><a href="{{ "/feed.xml" | relative_url }}">Subscribe</a></p> -->

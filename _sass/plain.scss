@@ -178,15 +178,14 @@ main {
     }
   }
 }
-
 .post-wrapper {
   border-bottom: 1px solid #ececec;
   margin-bottom: 1rem;
 }
 .post-categories-pin {
   font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
-  list-style-type: none;
   color: white;
+  list-style-type: none;
   margin: 0;
   padding: 0;
   li {
@@ -198,7 +197,7 @@ main {
     @media screen and (max-width: $mobileW) {
       margin-top: 5px;
     }
-    margin-right: 10px;
+	margin-right: 10px;
   }
 }
 .readingtime{
@@ -208,10 +207,8 @@ main {
 	white-space: pre;
 	line-height: 1.9em;
 	color: #666;
-	
 }
 .archive-categories-least {
-  font-family: 'Arial', 'Raleway', 'Microsoft Yahei', sans-serif;
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -237,7 +234,6 @@ main {
   }
 }
 .archive-categories-emphasis {
-  font-family: 'Arial', 'Raleway', 'Microsoft Yahei', sans-serif;
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -262,7 +258,6 @@ main {
   }
 }
 .archive-categories {
-  font-family: 'Arial', 'Raleway', 'Microsoft Yahei', sans-serif;
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -289,7 +284,6 @@ main {
 }
 
 .tag-categories-least {
-  font-family: 'Arial', 'Raleway', 'Microsoft Yahei', sans-serif;
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -314,7 +308,6 @@ main {
   }
 }
 .tag-categories-emphasis {
-  font-family: 'Arial', 'Raleway', 'Microsoft Yahei', sans-serif;
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -339,7 +332,6 @@ main {
   }
 }
 .tag-categories {
-  font-family: 'Arial', 'Raleway', 'Microsoft Yahei', sans-serif;
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -364,12 +356,10 @@ main {
     }
   }
 }
-
 .readingtime-categories {
   font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   font-size: 14px;
   list-style-type: none;
-  
   li {
     float: left;
 	color: $btnColor;
@@ -386,21 +376,6 @@ main {
       margin-top: 5px;
     }
     margin-right: 10px;
-  }
-  a {
-    float: left;
-    background-color: #e3e3e3;
-    padding: 5px 20px;
-    border-radius: 2px;
-    @media screen and (max-width: $mobileW) {
-      margin-top: 5px;
-    }
-    margin-right: 10px;
-    margin-bottom: 10px;
-    text-decoration: none;
-    &:hover {
-      color:$linkColor;
-    }
   }
 }
 .readingtime-meta {
@@ -441,7 +416,6 @@ main {
   margin: 10px 0px;
   padding: 0;
   border:1px solid;
-  border-radius: 2px;
   border-color:#eee;
   box-shadow: 2px 2px 5px #e3e3e3;
  
@@ -458,7 +432,6 @@ main {
     &:hover {
       color:white;
 	  background-color: $btnColor;
-	  
     }
   }
 }
@@ -478,29 +451,13 @@ main {
     }
     margin-right: 10px;
   }
-  
-  a {
-    float: left;
-    background-color: #e3e3e3;
-    padding: 5px 20px;
-    border-radius: 2px;
-    @media screen and (max-width: $mobileW) {
-      margin-top: 5px;
-    }
-    margin-right: 10px;
-    margin-bottom: 10px;
-    text-decoration: none;
-    &:hover {
-      color:$linkColor;
-    }
-  }
 }
 .post-date {
+  font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   margin-right: 0px;
   padding-left: 5px;
   color: #555;
   min-width: 150px;
-  font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   font-size: 15px;
 }
 .post-meta {
@@ -536,7 +493,6 @@ main {
   margin-top: 15px;
   margin-bottom: 15px;
   text-decoration: none;
-
 }
 .archive-meta {
   display: flex;
@@ -556,9 +512,6 @@ main {
     flex-direction: column-reverse;
     align-items: baseline;
 	align-content:stretch;
-    .post-date {
-     
-    }
   }
 }
 .post-link {
@@ -574,6 +527,7 @@ main {
 .post-container {
   list-style-type: none;
   margin: 10px 30px;
+  padding-left: 30px;
   @media screen and (max-width: $smallMobileW) {
     margin-left: 20px; /* !import for small device */
     margin-right: 20px;
@@ -584,9 +538,6 @@ main {
     margin-top: 0;
     max-width: $mobileW
   }
-}
-.post-container {
-  padding-left: 30px;
 }
 .post-fix-width {
   font-family:  'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
@@ -658,8 +609,8 @@ main {
   border-bottom: 1px solid #eeeeee;
 }
 .about-page{
-  margin: 15px 2px;
   font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
+  margin: 15px 2px;
   font-weight: 400;
   color: #222;
   line-height: 1.8em;
@@ -689,16 +640,15 @@ main {
     padding: 0px !important;
     margin-top: 0px;
   }
-  }
- .about-page-box-link-none {
-	  margin: 40px 2px;
-	  font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;
-	  font-size: 18px;
-	  font-weight: 400;
-	  border-radius: 4px;
-	  line-height: 1.9em;
-	  
-	  a {
+}
+.about-page-box-link-none {
+    font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;
+	margin: 40px 2px;
+	font-size: 18px;
+	font-weight: 400;
+	border-radius: 4px;
+	line-height: 1.9em;
+	a {
 	    color: white;
 	    background-color: #ececec;
 	    display: inline-block;
@@ -706,19 +656,19 @@ main {
 		border-radius: 4px;
 		text-align: center;
 		text-decoration: none;
-	  }
+	}
 }
- .about-page-box {
-	  margin: 40px 2px;
-	  font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;
-	  font-size: 18px;
-	  font-weight: 400;
-	  border-radius: 4px;
-	  line-height: 1.9em;
+.about-page-box {
+	font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;
+	margin: 40px 2px;
+	font-size: 18px;
+	font-weight: 400;
+	border-radius: 4px;
+	line-height: 1.9em;
 	  
-	  a {
-	    color: white;
-	    background-color: $btnColor;
+	a {
+		color: white;
+		background-color: $btnColor;
 		display: inline-block;
 		width: 120px;
 		border-radius: 4px;
@@ -728,7 +678,7 @@ main {
 		  background-color: #ececec;
 		  color: $btnColor;
 		}
-	  }
+	}
 }
 #posts-label-chinese {
   font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
@@ -769,8 +719,8 @@ main {
   min-width: 100px;
 }
 .menu-logo {
-  font-size: 200%;
   font-family: 'Poppins', 'Arial', 'Microsoft Yahei', sans-serif;
+  font-size: 200%;
   font-weight:900;
   color:#222;
 }
@@ -781,8 +731,8 @@ main {
   justify-content : space-around;
   align-items : center;
   align-content: space-between;
-  text-decoration: none;
   font-family:  'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
+  text-decoration: none;
   font-weight:400;
   color:#222;
   
@@ -805,11 +755,11 @@ main {
   }
 }
 .pagination-box-select{
+	font-family: 'Verdana', 'Arial', 'Microsoft Yahei', sans-serif;
     border:2px solid $btnColor;
 	padding: 4px 8px;
 	border-radius: 50%;
 	text-align:center;
-    font-family: 'Verdana', 'Arial', 'Microsoft Yahei', sans-serif;
 	font-weight: 300;
 	font-size: 14px;
     color: #ffffff;
@@ -817,20 +767,20 @@ main {
 	background-color: $btnColor;
 }
 .pagination-box{
+    font-family: 'Verdana', 'Arial', 'Microsoft Yahei', sans-serif;
 	border:2px solid #eee;
 	padding: 4px 8px;
 	border-radius: 50%;
 	text-align:center;
-    font-family: 'Verdana', 'Arial', 'Microsoft Yahei', sans-serif;
 	font-weight: 300;
 	font-size: 14px;
     color: #888;
 	align-items: center;
 }
 .pagination{
+    font-family: 'Verdana', 'Arial', 'Microsoft Yahei', sans-serif;
 	width:100%;
 	text-align:center;
-    font-family: 'Verdana', 'Arial', 'Microsoft Yahei', sans-serif;
 	font-weight: 200;
 	font-size: 14px;
     color: #888;
@@ -847,7 +797,6 @@ main {
 }
 .archive{
   margin: 0px 2px;
-  
   a {
     font-size: 10px;
 	font-weight: 50;
@@ -863,11 +812,11 @@ main {
   font-weight:600
 }
 .archive-link {
+  font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   margin-left: 5px;
   font-size:16px;
   font-weight: 400;
   color: #222;
-  font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   &:hover {
       color:$linkColor;
 	  text-decoration: underline;
@@ -879,9 +828,9 @@ main {
 	border-radius: 4px;
 }
 .footer {
+    font-family: 'Raleway', 'Arial', sans-serif;
 	margin-bottom: 30px;
 	text-align:center;
-	font-family: 'Raleway', 'Arial', sans-serif;
 	font-weight: 300;
 	font-size: 12px;
     color: #888;
@@ -896,17 +845,6 @@ main {
 		}
 	}
 }
-.morebox {
-	font-family: 'Arial', 'Raleway','Microsoft Yahei', sans-serif;
-	font-weight: 400;
-	font-size: 14px;
-	white-space: pre;
-	line-height: 1.9em;
-	
-	&:hover {
-     color:$linkColor;
-    }
-}
 blockquote {
   border-left: 6px solid #DDD;
   padding: 0 15px;
@@ -915,13 +853,13 @@ blockquote {
   position: relative;
 }
 pre, code, tt {
-  font-size: 16px;
   font-family:  'Roboto Mono', 'Consolas', 'Courier', 'monospace','Microsoft Yahei',sans-serif;
+  font-size: 16px;
 }
 
 code, tt {
-  margin: 0 0px;
   font-family: 'Roboto', 'Consolas', 'Courier', 'monospace', sans-serif;
+  margin: 0 0px;
   font-size: 14px;
   padding: 4px 4px;
   white-space: nowrap;
@@ -931,10 +869,10 @@ code, tt {
 }
 
 pre>code {
+  font-family: 'Roboto Mono', Consolas, Courier, monospace,'Microsoft Yahei',sans-serif;
   margin: 0;
   padding: 0;
   font-size: 14px;
-  font-family: 'Roboto Mono', Consolas, Courier, monospace,'Microsoft Yahei',sans-serif;
   white-space: pre;
   border: none;
   background: transparent;
@@ -969,7 +907,7 @@ table {
     display: block;
 	border-radius: 4px;
 	
-	/* 添加图片阴影 
+	/* add shadow for images 
     box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
     webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
     moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
@@ -1056,8 +994,8 @@ table {
   }
 }
 .post-view {
+    font-family: 'Arial', 'Roboto', 'Microsoft Yahei', sans-serif;
 	width: inherit;
-	font-family: 'Arial', 'Roboto', 'Microsoft Yahei', sans-serif;
 	font-size: 16px;
 	color: #000;
 	text-transform: uppercase;

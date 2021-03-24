@@ -204,24 +204,12 @@
 				background-color: $dark_btn_color;
 			}
 		}
-		a {
-			background-color: #333;
-			color: #fff;
-			&:hover {
-			color: $dark_link_color;
-		  }
-		}
 	}   
 	a {
 		color: $dark_link_color;
 	}
 	#title a {
 		color: #fff;
-		&:hover {
-			color: $dark_link_color;
-		}
-	}
-	.morebox {
 		&:hover {
 			color: $dark_link_color;
 		}
