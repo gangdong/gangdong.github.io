@@ -997,7 +997,7 @@ table {
   @media screen and (max-width: $mobileW) {
 		display: none;
   }
-  @media screen and (max-width: $mobileW + 255px) {
+  @media screen and (max-width: $mobileW + 256px) {
 		display: none;
   }
 }
