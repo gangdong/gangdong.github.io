@@ -16,7 +16,7 @@ $leftWidth: 200px;
 }
 
 body {
-  font-family: 'Arial', 'Microsoft Yahei', sans-serif;
+  font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   font-size: 16px;
   line-height: 1.2em;
   margin: 0;
@@ -184,7 +184,7 @@ main {
   margin-bottom: 1rem;
 }
 .post-categories-pin {
-  font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;
+  font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   list-style-type: none;
   color: white;
   margin: 0;
@@ -192,7 +192,7 @@ main {
   li {
     font-size: 14px;
     float: left;
-	border-radius: 60px;
+	border-radius: 2px;
     background-color: $btnColor;
     padding: 6px 20px 5px 10px;
     @media screen and (max-width: $mobileW) {
