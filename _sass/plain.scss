@@ -547,7 +547,7 @@ main {
   flex-shrink: 0; /* default 1 !important guarantee the post contents width constant */
   
   @media screen and (min-width: $mobileW + 1) {
-      max-width: 650px; /* fix the width */
+      max-width: 630px; /* fix the width */
       width: 100%;
    }
    @media screen and (max-width: $smallMobileW) {
@@ -933,14 +933,17 @@ table {
 	justify-content: flex-start;
 	align-content: center;
 	align-items: baseline; /* disable stretch for sidebar */
+	list-style-type: none;
+	margin: 0px 0px 0px 30px;
+	padding-left: 30px;
 	@media screen and (min-width: $mobileW + 1) {
       		max-width: calc(100% + 80px); /* !important, widen the area to accormadate the sidebar */
-      		width: 130%;
+      		width: 100%;
   	}
 	/* should be useless since display none at small device */
   	@media screen and (max-width: $smallMobileW) {
    		margin-left: 0px;
-    		margin-right: 0px;
+        margin-right: 0px;
 		max-width: $smallMobileW
   	}
   	@media screen and (max-width: $mobileW) {
@@ -962,6 +965,8 @@ table {
 .post-index-container {
   border: 1px solid #ececec;
   border-radius: 4px;
+  overflow: auto;
+  min-width: 100px;
   position: relative;
   left:0px;
   top: 80px;
@@ -990,6 +995,9 @@ table {
 		display: none; /* no sidebar display */
   }
   @media screen and (max-width: $mobileW) {
+		display: none;
+  }
+  @media screen and (max-width: $mobileW + 255px) {
 		display: none;
   }
 }

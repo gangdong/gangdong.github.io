@@ -21,6 +21,7 @@ layout: default
     </ul>
     <div class="post-date"><i class="icon-calendar"></i>{{ page.date | date: date_format }}</div>
   </div>
+</div>
   <!-- post content here! -->
   <!-- if sidebar! -->
   {% if page.sidebar and page.toc %}
@@ -41,11 +42,14 @@ layout: default
   </div>
   <!-- no sidebar, use flex width box! -->
   {% else %}
+  <div class="post-container">
   <div class="post">
     {{ content }}
   </div>
+  </div>
   {% endif %}
   <br><br><br>
+  <div class="post-container">
   {% if site.rawposts.share_media %}
   <div class = "share-box-meta">
   <!-- Go to www.addthis.com/dashboard to customize your tools -->
