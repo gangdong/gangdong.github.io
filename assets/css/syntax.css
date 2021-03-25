@@ -135,42 +135,42 @@
   color: #a6e22e;
 }
 .highlight .vc {
-  color: #ffffff;
+  color: #00cdcd;
   /* no need background color */
   /*background-color: #272822;*/
 }
 .highlight .nn {
-  color: #ffffff;
+  color: #00cdcd;
   /* no need background color */
   /*background-color: #272822;*/
 }
 .highlight .nl {
-  color: #ffffff;
+  color: #00cdcd;
   /* no need background color */
   /*background-color: #272822;*/
 }
 .highlight .ni {
-  color: #ffffff;
+  color: #00cdcd;
   /* no need background color */
   /*background-color: #272822;*/
 }
 .highlight .bp {
-  color: #ffffff;
+  color: #00cdcd;
   /* no need background color */
   /*background-color: #272822;*/
 }
 .highlight .vg {
-  color: #ffffff;
+  color: #00cdcd;
   /* no need background color */
   /*background-color: #272822;*/
 }
 .highlight .vi {
-  color: #ffffff;
+  color: #00cdcd;
   /* no need background color */
   /*background-color: #272822;*/
 }
 .highlight .nv, .highlight .vm {
-  color: #ffffff;
+  color: #00cdcd;
   /* no need background color */
   /*background-color: #272822;*/
 }
@@ -183,8 +183,17 @@
   color: #ffffff;
   background-color: #272822;
   border-radius: 4px;
+  margin-bottom: 30px;
+  margin-top: 27px;
+  margin-left: 0px;
+  margin-right: 0px;
+  width: 100%;
 }
-.highlight .n, .highlight .py, .highlight .nx {
+/* Name */
+.highlight .n {
+	color: #ffffff;
+}
+.highlight .py, .highlight .nx {
   color: #ffffff;
   /* no need background color */
   /*background-color: #272822;*/
@@ -206,4 +215,8 @@
 }
 .highlight .o {
   color: #f92672;
+}
+/* brace */
+.highlight .p, .highlight .pi {
+  color: #fbf1c7;
 }
