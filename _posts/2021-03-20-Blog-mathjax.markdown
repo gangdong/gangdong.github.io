@@ -14,6 +14,8 @@ keywords: MathJax Jekyll
 ---
 When writing posts, I need to display mathematics formula sometimes. I write posts with Markdown, I don't want to save the formula into an image and load the image in markdown. It is better write the Latex formula in markdown file directly. MathJax helped me do it. This article will introduce what MathJax is and how to use MathJax.
 
+{% include toc.html %}
+
 ## What is MathJax?
 
 > MathJax is an open-source JavaScript display engine for LaTeX, MathML, and AsciiMath notation that works in all modern browsers.

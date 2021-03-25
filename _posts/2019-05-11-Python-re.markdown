@@ -4,13 +4,21 @@ title:  "Python re module"
 date:   2019-05-11 20:36:23 +0800
 categories: Python
 tags: Python
+toc: false
+sidebar: true
 Published: true
+about: true
+author: david.dong
+description: This article introduced Python re module usage.
+keywords: Python re
 ---
 re module is a unique string matching module of Python. 
 
 Many functions provided in this module are implemented based on regular expressions.
 
 The module is handy, to use it, need to import re module at first.
+
+{% include toc.html %}
 
 ## prototype 
 {% highlight python %}

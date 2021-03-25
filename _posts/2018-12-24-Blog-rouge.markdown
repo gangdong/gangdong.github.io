@@ -7,8 +7,14 @@ tags: Blog
 Published: true
 toc: true
 sidebar: true
+about: true
+author: david.dong
+description: Do you want to add syntax highlighting function into your code block? <br><br>You can get help from this article.
+keywords: Rouge/Syntax highlighting
 ---
 Syntax highlighting is important (especially for programming blogs) because it improves the readability of posts. This article will introduce a syntax highlighter - [Rouge](https://rubygems.org/gems/rouge).
+
+{% include toc.html %}
 
 I think maybe someone who attach a code snippet into the blog wants to get a beautiful syntax highlighting style, just like we see in some famous IDE, Visual Code, Eceplise, Atom... 
 

@@ -8,10 +8,14 @@ Published: true
 toc: true
 sidebar: true
 language: chinese
+about: true
+author: david.dong
+description: mbedtls 的相关知识。
+keywords: mbetls/
 ---
 最近的工作中使用到了mbedtls，这里做一个简单的总结。
 
-{% if page.sidebar == false %}
+{% if page.toc == false %}
 <div class = "separator"></div>
 ## 目录
 

@@ -7,6 +7,10 @@ tags: Android Fingerprint
 Published: true
 toc: true
 sidebar: true
+about: true
+author: david.dong
+description: Some knowledge for Fingerprint framework in Android platform.
+keywords: Fingerprint framework/Android
 ---
 This page is trying to present a brief introduction on android fingerprint framework, aimed at helping anyone who want to learn android fingerprint related knowledge, created by referring some documents and android source code. 
 

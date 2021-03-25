@@ -14,30 +14,7 @@ keywords: rawposts 模板
 ---
 本博客使用了 [rawposts](https://github.com/gangdong/jekyll-theme-rawposts) 主题模板，不时有网友在 fork 使用该主题的时候提出了一些问题，这里我将该主题的使用方法汇总成一篇帖子，方便大家参考。
 
-
-{% if page.sidebar == false %}
-<div class = "separator"></div>
-
-## 索引
-
-1. [关于该主题](#1)
-2. [功能](#2)
-3. [应用插件](#3)
-4. [主题安装](#4)
-5. [客制化 & 配置](#5)
-    + [5.1 客制化设定](#5.1)
-    + [5.2 包含文件 ](#5.2)
-6. [开发](#6)  
-    + [6.1 搭建开发环境](#6.1)
-    + [6.2 Pull Requests](#6.2)
-7. [其他信息](#7) 
-    + [7.1 版本](#7.1)
-    + [7.2 贡献](#7.2)
-    + [7.3 协议](#7.3)
-8. [问题和回答 (Q&A)](#8)
-
-<div class = "separator"></div>
-{% endif %}
+{% include toc.html %}
 
 ## <span id ="1">1.关于该主题</span>
 `rawposts` 是一款轻量级,风格简洁清新的Jekyll主题。 该主题配置简单并支持丰富的特性,你可以将它用于Jekeyll网站或者个人博客的构建。该主题可以被用于部署在`Github page`上。

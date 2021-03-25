@@ -7,6 +7,10 @@ tags: Windows
 Published: true
 toc: true
 sidebar: true
+about: true
+author: david.dong
+description: This article introduced how to configure Intel SGX on Win10, show the necessary procedures and give an example.
+keywords: SGX/Win10
 ---
 The first step we should know if the hardware support SGX.<br>
 Which include:

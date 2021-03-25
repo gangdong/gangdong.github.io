@@ -8,6 +8,10 @@ Published: true
 toc: true
 sidebar: true
 language: chinese
+about: true
+author: david.dong
+description: 这篇文章转自网络，介绍了Python开发的规范，讲的非常好，转发一下方便以后查找。有相关需要的可以浏览一下。
+keywords: Python/编码规范
 ---
 ![cover]({{site.baseurl}}/assets/image/python-spec-cover.jpeg)     
 这篇文档所给出的编码约定适用于在主要的Python发布版本中组成标准库的Python 代码，请查阅相关的关于在Python的C实现中C代码风格指南的描述。
@@ -21,7 +25,7 @@ language: chinese
 
 好了，闲话少说，正文如下。
 
-{% if page.sidebar == false %}
+{% if page.toc == false %}
 <div class = "separator"></div>
 ## 目录
 1. [代码的布局](#1)

@@ -8,6 +8,10 @@ Published: true
 toc: true
 sidebar: true
 language: chinese
+about: true
+author: david.dong
+description: 本文详细介绍了数字签名及其相关的技术。
+keywords: 数字签名
 ---
 近日，腾讯公司状告贵州老干妈的新闻在互联网上闹得沸沸扬扬，💥 大家也应该有所耳闻。腾讯起诉老干妈合作推广后没有付广告费，但随后老干妈否认了此事，称完全不知道这个合作。 😕 后来经调查发现，这是三个人冒充老干妈市场部经理，然后刻了个假公章，就为了获得合作后的游戏礼包并从中牟利。
 
@@ -17,7 +21,7 @@ language: chinese
 
 这篇文章就来聊一聊数字签名。文章比较长，心急的读者可以选择直接跳到相关章节阅读。
 
-{% if page.sidebar == false %}
+{% if page.toc == false %}
 <div class = "separator"></div>
 ## 目录
 

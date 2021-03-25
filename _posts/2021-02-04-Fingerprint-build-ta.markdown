@@ -14,7 +14,7 @@ keywords: TEE
 ---
 This article will give a introduction on how to build TA images on different TrustZone.
 
-{% if page.sidebar == false %}
+{% if page.toc == false %}
 <div class = "separator"></div>
 
 ## Table of content

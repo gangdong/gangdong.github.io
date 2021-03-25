@@ -7,6 +7,10 @@ tags: Python
 Published: true
 toc: true
 sidebar: true
+about: true
+author: david.dong
+description: This article introduced the Python Pillow library usage explicitly by referring author's experience.
+keywords: Python/Pillow
 ---
 I recently completed some image processing works by Pillow Library. Pillow provides a powerful function and has friendly APIs to the developer. I thought it is necessary to make some notes here for the usage. 
 

@@ -7,6 +7,10 @@ tags: Blog
 Published: true
 toc: true
 sidebar: true
+about: true
+author: david.dong
+description: This article will help you implement related posts function in your blog. <br><br>It presents necessary knowledge and attach code-snippet. If you want to add this feature into your blog, just follow it!
+keywords: Related posts/Blog
 ---
 What will you learn in this post?     
 This post introduced how to implement `related posts` function with Jekyll. 

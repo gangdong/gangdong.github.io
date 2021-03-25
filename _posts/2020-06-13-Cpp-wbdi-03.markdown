@@ -5,6 +5,12 @@ date:   2020-06-13 10:37:55 +0800
 categories: C++ Fingerprint Windows
 tags: C++ Fingerprint Windows
 Published: true
+toc: false
+sidebar: true
+about: true
+author: david.dong
+description: Some knowledge for Fingerprint driver development.
+keywords: Fingerprint driver/Windows
 ---
 Following the last two articles...
 

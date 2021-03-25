@@ -5,13 +5,17 @@ date:   2020-07-09 18:24:12 +0800
 categories: Windows
 tags: Windows
 Published: true
-toc: true
-sidebar: false
+toc: false
+sidebar: true
 language: chinese
+about: true
+author: david.dong
+description: 想知道 Inf2Cat 工具使用的同学可以进来！
+keywords: Inf2Cat/
 ---
 Windows 驱动开发中经常会用到 Windows WDK 自带的 Inf2Cat.exe 工具将驱动程序的 INF 文件转成待签名的 CAT 格式的目录文件。Windows 7 64位系统以上的版本，如果没有对cat或者sys文件进行数字签名，驱动安装会出现问题，或者驱动使用过程也会出现异常。因此，对驱动程序的签名已经是一项必须的操作，这里就介绍一下 Inf2Cat.exe 这个工具。这个工具本身并不能生成签名，但是却是驱动程序签名的必要的一步。
 
-{% if page.sidebar == false %}
+{% if page.toc == false %}
 <div class = "separator"></div>
 <h2 class="no_toc">Table of content</h2>
 * TOC

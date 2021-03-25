@@ -5,8 +5,12 @@ date:   2019-09-15 22:14:47 +0800
 categories: Android Fingerprint
 tags: Android Fingerprint
 Published: true
-toc: true
-sidebar: false
+toc: false
+sidebar: true
+about: true
+author: david.dong
+description: Some knowledge for Fingerprint enrollment process in Android platform.
+keywords: Fingerprint enrollment/Android
 ---
 ![cover]({{site.baseurl}}/assets/image/fingerprint-enroll-cover.jpeg)    
 When we do fingerprint enrollment in android device, it will generate a fingerprint template that contains the user's fingerprint information in a specified directory (for example, /data/vendor_de/0/fpdata/user.db), which depends on the system configuration.
