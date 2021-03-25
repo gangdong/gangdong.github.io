@@ -928,7 +928,6 @@ table {
   border-bottom: 1px solid #eeeeee;
 }
 .post-viewer-container {
-    border: 1px solid blue;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
@@ -954,25 +953,16 @@ table {
 		max-width: $mobileW
   	}
 }
-.post-index {
-  font-family: 'Arial', 'Roboto', 'Microsoft Yahei', sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-  color: white;
-  text-align: center;
-  border: 1px solid $btnColor;
-  background-color: $btnColor;
-  border-radius: 4px;
-}
+
 .post-index-container {
   border: 1px solid #ececec;
-  border-radius: 4px;
+ 
   overflow: auto;
   min-width: 100px;
   position: relative;
   left:0px;
-  top: 80px;
-  margin-left: 10px;
+  top: 120px;
+  margin-left: 0px;
   font-family: 'Arial', 'Roboto', 'Microsoft Yahei', sans-serif;
   font-weight: 400;
   font-size: 12px;
@@ -984,8 +974,8 @@ table {
 	padding: 0px 10px;
     width: 100%;
 	height: 100%;
-	display: inline-table;
-	border-radius: 4px;
+	display: block;
+	
 	text-decoration: none;
 	&:hover {
 		color: white;
@@ -1084,8 +1074,7 @@ table {
 	}
 }
 .sidebar-container {
-    border:1px solid red;
-	
+	margin-left:30px;
     flex-shrink: 0; /* default 1 !important guarantee the post contents width constant */
 
 	max-width: 240px;
@@ -1101,8 +1090,25 @@ table {
 		display: none;
   }
 }
-.sidebar-about-title {
-	padding: 10px;
+.sidebar-about-box {
+    border: 1px solid #ececec;
+	position: relative;
+	left: 0px;
+	top: 30px;
+	
+}
+.sidebar-about-content {
+	padding: 10px 20px;
+	font-size: 14px;
+	
+}
+.sidebar-title {
+    color: white;
+	background-color: $btnColor;
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
 	text-transform: uppercase;
-	border:1px solid red;
+	font-size: 14px;
+	margin-bottom: 10px;
 }

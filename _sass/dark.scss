@@ -54,10 +54,13 @@
 			}
 		}
 	}
-    .post-index {
+    .sidebar-title {
 	  background-color: $dark_btn_color;
 	  color: white;
 	  border: 1px solid $dark_btn_color;
+	}
+	.sidebar-about-box {
+		border: 1px solid $dark_background_color;
 	}
 	.post-index-container {
 		border: 1px solid #474747;

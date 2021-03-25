@@ -32,19 +32,18 @@ layout: default
 	</div>
 	<!-- put sidebar! -->
 	<div class = "sidebar-container">
-	    <div>
-		<li class = "sidebar-about-title">About this article</li>
-		<li >About this article</li>
-		<li>This article will introduce what MathJax is and how to use MathJax.</li>
-		<li>Author: David Dong</li>
-		<li>Reading Time:</li>
-		<li>Words:</li>
+	    <div class = "sidebar-about-box">
+		<li class = "sidebar-title">About this article</li>
+		<li class = "sidebar-about-content">This article will introduce what MathJax is and how to use MathJax.</li>
+		<li class = "icon-link-1 sidebar-about-content" style = "margin-top:30px">AUTHOR: David Dong</li>
+		<li class = "icon-hourglass sidebar-about-content">READING TIME:</li>
+		<li class = "icon-th-list-1 sidebar-about-content">KEY WORDS:</li>
 		</div>
 	    <div class="post-index-container">
 			{% if page.language == 'chinese' %}
-			<li class = "post-index">文章目录</li>
+			<li class = "sidebar-title">文章目录</li>
 			{% else %}
-			<li class = "post-index">On this page</li>
+			<li class = "sidebar-title">Table of Content</li>
 			{% endif %}
 			<li>{% toc %}</li>
 		</div>
