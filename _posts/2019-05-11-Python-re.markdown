@@ -4,7 +4,7 @@ title:  "Python re module"
 date:   2019-05-11 20:36:23 +0800
 categories: Python
 tags: Python
-toc: false
+toc: true
 sidebar: true
 Published: true
 about: true
@@ -31,7 +31,7 @@ re.split(pattern, string, maxsplit=0, flags=0)
 + `flags`: Used to control how regular expressions are matched.<br>
 
 ## examples
-+ split the input string by space and `,`, only do one time split.
++ split the input string by `space` and `,`, only do one time split.
 {% highlight python %}
 import re
 inputs = re.split(r'[\s,]+', input("Enter: 'ID' ['File name'] >> "), 1)

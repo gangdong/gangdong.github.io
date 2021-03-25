@@ -50,29 +50,22 @@
 		a {
 			color: $dark_btn_color;
 			&:hover {
-				color: white;
+				color: $dark_text_color;
 				background-color: $dark_btn_color;
 			}
 		}
 	}
-    .sidebar-title {
-	  background-color: $dark_btn_color;
-	  color: white;
-	  border: 1px solid $dark_btn_color;
-	}
-	.sidebar-about-content {
+	.sidebar-about-box {
 		border-left: 1px solid $dark_separator_color;
 	}
 	.sidebar-toc-box {
+		border-left: 1px solid $dark_separator_color;
 		a {
-			color: white;
+			color: $dark_text_color;
 			&:hover {
-			background-color: $dark_btn_color;
+			color: $dark_link_color;
 			}
 		}
-	}
-	.sidebar-toc-content {
-		border-left: 1px solid $dark_separator_color;
 	}
 	.post-categories-pin {
 		li {

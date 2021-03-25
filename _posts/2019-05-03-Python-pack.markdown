@@ -5,7 +5,7 @@ date:   2019-05-03 14:07:05 +0800
 categories: Python
 tags: Python
 Published: true
-toc: false
+toc: true
 sidebar: true
 about: true
 author: david.dong
