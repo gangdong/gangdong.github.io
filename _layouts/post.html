@@ -31,19 +31,29 @@ layout: default
 		{{ content }}
 	</div>
 	<!-- put sidebar! -->
-	<div class="post-index-container">
-	    {% if page.language == 'chinese' %}
-		<li class = "post-index">文章目录</li>
-		{% else %}
-		<li class = "post-index">On this page</li>
-		{% endif %}
-		<li>{% toc %}</li>
+	<div class = "sidebar-container">
+	    <div>
+		<li class = "sidebar-about-title">About this article</li>
+		<li >About this article</li>
+		<li>This article will introduce what MathJax is and how to use MathJax.</li>
+		<li>Author: David Dong</li>
+		<li>Reading Time:</li>
+		<li>Words:</li>
+		</div>
+	    <div class="post-index-container">
+			{% if page.language == 'chinese' %}
+			<li class = "post-index">文章目录</li>
+			{% else %}
+			<li class = "post-index">On this page</li>
+			{% endif %}
+			<li>{% toc %}</li>
+		</div>
 	</div>
   </div>
   <!-- no sidebar, use flex width box! -->
   {% else %}
   <div class="post-container">
-  <div class="post">
+  <div class="post-fix-width">
     {{ content }}
   </div>
   </div>

@@ -7,7 +7,7 @@ $btnColor: #5499C7;
 $mobileW: 768px;
 $smallMobileW: 480px;
 $bigScreenW: 1600px;
-$leftWidth: 200px;
+$leftWidth: 220px;
 
 *,
 *:before,
@@ -544,10 +544,11 @@ main {
   font-weight: 400;
   color: #000;
   line-height: 1.8em;
-  flex-shrink: 0; /* default 1 !important guarantee the post contents width constant */
-  
+  flex-shrink: 2; /* default 1 !important guarantee the post contents width constant */
+  flex-grow: 1;
   @media screen and (min-width: $mobileW + 1) {
       max-width: 630px; /* fix the width */
+	  min-width: 100px;
       width: 100%;
    }
    @media screen and (max-width: $smallMobileW) {
@@ -927,6 +928,7 @@ table {
   border-bottom: 1px solid #eeeeee;
 }
 .post-viewer-container {
+    border: 1px solid blue;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
@@ -937,8 +939,8 @@ table {
 	margin: 0px 0px 0px 30px;
 	padding-left: 30px;
 	@media screen and (min-width: $mobileW + 1) {
-      		max-width: calc(100% + 80px); /* !important, widen the area to accormadate the sidebar */
-      		width: 100%;
+      	max-width: calc(100% + 100px); /* !important, widen the area to accormadate the sidebar */
+      	width: 100%;
   	}
 	/* should be useless since display none at small device */
   	@media screen and (max-width: $smallMobileW) {
@@ -1080,4 +1082,27 @@ table {
 			background-color: $btnColor;
 		}
 	}
+}
+.sidebar-container {
+    border:1px solid red;
+	
+    flex-shrink: 0; /* default 1 !important guarantee the post contents width constant */
+
+	max-width: 240px;
+    min-width: 100px;
+    
+    @media screen and (max-width: $smallMobileW) {
+		display: none; /* no sidebar display */
+  }
+  @media screen and (max-width: $mobileW) {
+		display: none;
+  }
+  @media screen and (max-width: $mobileW + 256px) {
+		display: none;
+  }
+}
+.sidebar-about-title {
+	padding: 10px;
+	text-transform: uppercase;
+	border:1px solid red;
 }
