@@ -10,7 +10,7 @@ sidebar: true
 about: true
 author: david.dong
 description: This article introduced how to use jekyll-toc plugin on Github Pages.
-keywords: jekyll-toc Github-Pages
+keywords: jekyll-toc/Github Pages
 ---
 Today I want to add a auto TOC function to my blog. I used to write TOC manually and it is really boring. I found a good plugin [jekyll-toc](https://Github.com/toshimaru/jekyll-toc) in the Github, which can fully meet my requirement. 
 
