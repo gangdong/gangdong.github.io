@@ -943,20 +943,18 @@ table {
   	}
 	/* should be useless since display none at small device */
   	@media screen and (max-width: $smallMobileW) {
-   		margin-left: 0px;
-        margin-right: 0px;
+		margin-left: 20px; /* !import for small device */
+		margin-right: 20px;
 		max-width: $smallMobileW
-  	}
-  	@media screen and (max-width: $mobileW) {
-    		padding: 0 !important;
-    		margin-top: 0;
+	  }
+  @media screen and (max-width: $mobileW) {
+		padding: 0 !important;
+		margin-top: 0;
 		max-width: $mobileW
-  	}
+	  }
 }
 
 .sidebar-toc-box {
-  border: 1px solid #ececec;
- 
   overflow: auto;
   min-width: 100px;
   position: relative;
@@ -965,9 +963,8 @@ table {
   margin-left: 0px;
   font-family: 'Arial', 'Roboto', 'Microsoft Yahei', sans-serif;
   font-weight: 400;
-  font-size: 14px;
   color: #000;
-  line-height: 1.8em;
+
   li {
   }
   a{
@@ -1091,7 +1088,7 @@ table {
   }
 }
 .sidebar-about-box {
-    border: 1px solid #ececec;
+    
 	position: relative;
 	left: 0px;
 	top: 50px;
@@ -1101,16 +1098,27 @@ table {
 }
 .sidebar-about-content {
 	padding: 10px 20px;
+	border-left: 1px solid #ececec;
+}
+.sidebar-font-big {
 	font-size: 14px;
-	
+	color: #777777;
+}
+.sidebar-font-medium {
+	font-size: 13px;
+	color: #777777;
 }
 .sidebar-title {
     color: white;
+	border-radius: 2px;
 	background-color: $btnColor;
-	text-align: center;
+	text-align: left;
 	padding: 10px 20px;
 	text-transform: uppercase;
 	font-size: 14px;
 	margin-bottom: 10px;
 	border: 1px solid $btnColor;
+}
+.sidebar-toc-content {
+	 border-left: 1px solid #ececec;
 }

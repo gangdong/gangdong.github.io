@@ -4,6 +4,7 @@
 	$dark_link_color: #4da3ff;
 	$dark_btn_color: #E74C3C;
 	$dark_background_color:  #171717;
+	$dark_separator_color: #555555;
 	background-color: $dark_background_color;
 	color: $dark_text_color;
 	border-color: #e6e6e6;
@@ -41,11 +42,11 @@
 		padding: 5px 20px;
 	}
     .share-box {
-		border: 1px solid #333333;
+		border: 1px solid $dark_separator_color;
 	
 	}
 	.related-posts-box {
-		border: 1px solid #333333;
+		border: 1px solid $dark_separator_color;
 		a {
 			color: $dark_btn_color;
 			&:hover {
@@ -59,17 +60,19 @@
 	  color: white;
 	  border: 1px solid $dark_btn_color;
 	}
-	.sidebar-about-box {
-		border: 1px solid #474747;;
+	.sidebar-about-content {
+		border-left: 1px solid $dark_separator_color;
 	}
 	.sidebar-toc-box {
-		border: 1px solid #474747;
 		a {
 			color: white;
 			&:hover {
 			background-color: $dark_btn_color;
 			}
 		}
+	}
+	.sidebar-toc-content {
+		border-left: 1px solid $dark_separator_color;
 	}
 	.post-categories-pin {
 		li {
@@ -109,7 +112,7 @@
 		}
 	}
 	.separator {
-		border-bottom: 1px solid #333;
+		border-bottom: 1px solid $dark_separator_color;
 	}
 	.pagination-box-select{
 		border:2px solid $dark_btn_color;
@@ -129,6 +132,7 @@
 	}
     .navigation-bar {
 		box-shadow: 0px 0px 0px $dark_background_color;
+		border: 1px solid $dark_separator_color;
 	    a {
 			color: #fff;
 			&:hover {
@@ -302,4 +306,4 @@
 .dark pre>code {
   background: transparent;
 }
-.dark .highlight pre { border: 1px solid #777777;  }
+.dark .highlight pre { border: 1px solid #555555; }
