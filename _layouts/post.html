@@ -1,6 +1,9 @@
 ---
 layout: default
 ---
+{% assign words = page.content | strip_html | strip_newlines | remove: " " | size %}
+{% assign time = page.content | strip_html | strip_newlines | remove: " " | size | divided_by: 400 | plus: 1 %}
+
 <!-- add menu bar here! -->
 {% include title.html %}
 
@@ -23,23 +26,37 @@ layout: default
   </div>
 </div>
   <!-- post content here! -->
-  <!-- if sidebar! -->
-  {% if page.sidebar and page.toc %}
   <!-- set fix width box to put content! -->
   <div class="post-viewer-container">
 	<div class="post-fix-width">
 		{{ content }}
 	</div>
 	<!-- put sidebar! -->
+	{% if page.sidebar %}
 	<div class = "sidebar-container">
+	    {% if page.about %}
 	    <div class = "sidebar-about-box">
-		<li class = "sidebar-title">About this article</li>
-		<li class = "sidebar-about-content">This article will introduce what MathJax is and how to use MathJax.</li>
-		<li class = "icon-link-1 sidebar-about-content" style = "margin-top:30px">AUTHOR: David Dong</li>
-		<li class = "icon-hourglass sidebar-about-content">READING TIME:</li>
-		<li class = "icon-th-list-1 sidebar-about-content">KEY WORDS:</li>
+		    {% if page.language == 'chinese' %}
+			<li class = "sidebar-title">关于文章</li>
+			{% else %}
+			<li class = "sidebar-title">About This Article</li>
+			{% endif %}
+			<li class = "sidebar-about-content">{{page.description}}</li>
+			{% if page.language == 'chinese' %}
+			<li class = "icon-link-1 sidebar-about-content" style = "margin-top:30px">文章作者: <a href="https://github.com/gangdong">{{page.author}}</a></li>
+			<li class = "icon-hourglass sidebar-about-content">阅读时间：{{ time }} {%if time > 1 %}mins{% else %}min{% endif %}</li>
+			<li class = "icon-book-open sidebar-about-content">全文字数：{{words}}</li>
+			<li class = "icon-th-list-1 sidebar-about-content">关键字: <a>{{page.keywords}}</a></li>
+			{% else %}
+			<li class = "icon-link-1 sidebar-about-content" style = "margin-top:30px">Author: <a href="https://github.com/gangdong">{{page.author}}</a></li>
+			<li class = "icon-clock-5 sidebar-about-content">{{ time }} {%if time > 1 %}mins{% else %}min{% endif %} to read</li>
+			<li class = "icon-book-1 sidebar-about-content">{{words}} words</li>
+			<li class = "icon-th-list-1 sidebar-about-content">Key Words: <a>{{page.keywords}}</a></li>
+			{% endif %}
 		</div>
-	    <div class="post-index-container">
+		{% endif %}
+		{% if page.toc %}
+	    <div class="sidebar-toc-box">
 			{% if page.language == 'chinese' %}
 			<li class = "sidebar-title">文章目录</li>
 			{% else %}
@@ -47,16 +64,11 @@ layout: default
 			{% endif %}
 			<li>{% toc %}</li>
 		</div>
+		{% endif %}
 	</div>
+	 {% endif %}
   </div>
   <!-- no sidebar, use flex width box! -->
-  {% else %}
-  <div class="post-container">
-  <div class="post-fix-width">
-    {{ content }}
-  </div>
-  </div>
-  {% endif %}
   <br><br><br>
   <div class="post-container">
   {% if site.rawposts.share_media %}

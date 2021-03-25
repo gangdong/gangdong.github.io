@@ -7,6 +7,10 @@ tags: Android Fingerprint
 Published: true
 toc: true
 sidebar: true
+about: true
+author: david.dong
+description: This article introduced the way of building TA images on QSEE/ISEE/TRUSTY TEEs.
+keywords: TEE
 ---
 This article will give a introduction on how to build TA images on different TrustZone.
 

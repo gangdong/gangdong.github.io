@@ -5,8 +5,12 @@ date:   2021-03-08 10:27:13 +0800
 categories: Blog
 tags: Blog
 Published: true
-toc: true
-sidebar: false
+toc: false
+sidebar: true
+about: true
+author: david.dong
+description: Teach how to fix the "validation failed" error when using Gitalk.
+keywords: Gitalk "validation failed"
 ---
 I've met an error `Validation Failed (422)` when using Gitalk in my blog. 
 

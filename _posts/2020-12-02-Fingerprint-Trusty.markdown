@@ -7,6 +7,10 @@ tags: Android Fingerprint
 Published: true
 toc: true
 sidebar: true
+about: true
+author: david.dong
+description: If you want to implement Fingerprint app on Trusty TEE, look at this article!.
+keywords: Trusty
 ---
 I have completed a Android platform fingerprint application on Trusty TEE recently for my work. This page will try to give some useful information, which is a summary of my work and might be helpful for somebody who want to bring up fingerprint application on Trusty TEE.
 

@@ -7,6 +7,10 @@ Published: true
 toc: true
 sidebar: true
 language: chinese
+about: true
+author: david.dong
+description: 关于 rawpost 模板的介绍, 使用方法及 (Q & A)
+keywords: rawposts 模板 
 ---
 本博客使用了 [rawposts](https://github.com/gangdong/jekyll-theme-rawposts) 主题模板，不时有网友在 fork 使用该主题的时候提出了一些问题，这里我将该主题的使用方法汇总成一篇帖子，方便大家参考。
 

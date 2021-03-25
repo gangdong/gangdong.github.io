@@ -7,6 +7,10 @@ tags: Blog
 Published: true
 toc: true
 sidebar: true
+about: true
+author: david.dong
+description: This article introduced what MathJax is and how to use MathJax.
+keywords: MathJax Jekyll
 ---
 When writing posts, I need to display mathematics formula sometimes. I write posts with Markdown, I don't want to save the formula into an image and load the image in markdown. It is better write the Latex formula in markdown file directly. MathJax helped me do it. This article will introduce what MathJax is and how to use MathJax.
 
