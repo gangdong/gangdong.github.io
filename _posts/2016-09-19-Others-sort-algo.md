@@ -4,9 +4,14 @@ title:  "几种常见的排序算法"
 date:   2016-09-19 19:04:30 +0800
 categories: Others
 tags: Others
+language: chinese
+Published: true
 toc: true
 sidebar: true
-language: chinese
+about: true
+author: david.dong
+description: 文章介绍了几种常见的排序算法及其实现，有关的代码可以参见作者提供的 Github 链接。
+keywords: 排序算法
 ---
 ![cover]({{site.baseurl}}/assets/image/others-sort-algo-cover.jpeg)    
 记得很多年以前，在我研究生毕业找工作那会儿，面试的时候被面试官问到过两次关于排序算法的问题。这件事至今给我的印象比较深刻，因为很少有在不同的面试过程中会被问到相同的问题。由此可见排序算法在面试中占有很大的比重，其实这也是考察程序员的一个基础。前几天在招聘的过程中又想起了这件事，觉得虽然这个问题比较基础，但是还是有必要整理总结一下的。

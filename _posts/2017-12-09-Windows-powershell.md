@@ -4,6 +4,13 @@ title:  "Powershell and CMD"
 date:   2017-12-09 20:44:05 +0800
 categories: Windows
 tags: Windows
+Published: true
+toc: false
+sidebar: true
+about: true
+author: david.dong
+description: This article discussed the difference of the Powershell and CMD (Windows console).
+keywords: Powershell/CMD console
 ---
 Although both of them are command line console of Windows system, and they have the similar outlook and Powershell can be treated as a update version of CMD, the intrinsic design model of them is totally different. 
 

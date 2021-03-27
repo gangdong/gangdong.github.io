@@ -5,6 +5,13 @@ date:   2018-04-25 11:03:36 +0800
 categories: Blog
 tags: Blog
 language: chinese
+Published: true
+toc: true
+sidebar: true
+about: true
+author: david.dong
+description: 本文介绍了 Markdown 的基本语法和使用
+keywords: Markdown
 ---
 ![示例图片]({{site.baseurl}}/assets/image/others-markdown-01.jpg "example")
 最近在写博客的时候用到了 Markdown 语言，做为一个学习总结，有必要把常用的语法mark一下。

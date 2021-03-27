@@ -4,6 +4,13 @@ title:  "Use bcdedit.exe in Windows"
 date:   2017-07-08 21:11:09 +0800
 categories: Windows
 tags: Windows
+Published: true
+toc: false
+sidebar: true
+about: true
+author: david.dong
+description: This article introduced the usage of bcdedit binary in Windows.
+keywords: bcdedit/
 ---
 **BCDEDIT** - Boot Configuration Data Store Editor.  
 `Bcdedit.exe` is a command line tool for managing boot configuration data (BCD). To use this tool, it needs the administrator permission to start a command line window.

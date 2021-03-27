@@ -4,6 +4,13 @@ title:  "Gitalk Usage"
 date:   2018-05-12 12:22:01 +0800
 categories: Blog
 tags: Blog
+Published: true
+toc: false
+sidebar: true
+about: true
+author: david.dong
+description: This article introduced how to use Gitalk on the blog, it is useful to someone who want to add comment function into the blog.
+keywords: Gitalk/
 ---
 If you are looking for a quick solution about how to add comment function on your personal blog, this article probably can help you.
 
