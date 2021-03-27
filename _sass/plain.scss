@@ -526,7 +526,7 @@ main {
 .posts,
 .post-container {
   list-style-type: none;
-  margin: 10px 50px 0px 30px;
+  margin: 10px 60px 0px 30px;
   padding-left: 30px;
   @media screen and (max-width: $smallMobileW) {
     margin-left: 20px; /* !import for small device */
@@ -906,9 +906,9 @@ table {
   }
   tbody tr:nth-child(2n) {
     background: rgba(158,188,226,0.12); 
-	&:hover {
-    background: #efefef; 
-  }
+		&:hover {
+			background: #efefef; 
+	  }
   }
   tr:hover {
     background: #efefef; 
