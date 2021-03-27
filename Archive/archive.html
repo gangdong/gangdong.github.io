@@ -86,14 +86,14 @@ permalink: /archive
     {% endif %}
 	{% if j == 0 %}
 	<div class="archive-meta archive-background" style="margin-left:15px">
-		<div class="post-date" style="margin-right:30px; width:180px"><i class="icon-calendar"></i>{{ post.date | date: "%e %B %Y" }}</div>
+		<div class="post-date" style="margin-right:30px; width:180px"><i class="icon-calendar"></i>{{ post.date | date: "%b %-d, %Y" }}</div>
 		<a class="post-link" href="{{ post.url | relative_url }}">
 			<h2 class="archive-link">{{ post.title | escape }}</h2>
 		</a>
 	</div>
    {% else %}
    <div class="archive-meta" style="margin-left:15px">
-		<div class="post-date" style="margin-right:30px; width:180px"><i class="icon-calendar"></i>{{ post.date | date: "%e %B %Y" }}</div>
+		<div class="post-date" style="margin-right:30px; width:180px"><i class="icon-calendar"></i>{{ post.date | date: "%b %-d, %Y" }}</div>
 		<a class="post-link" href="{{ post.url | relative_url }}">
 			<h2 class="archive-link">{{ post.title | escape }}</h2>
 		</a>

@@ -29,7 +29,7 @@
   display: inline-block;
   text-decoration: inherit;
   width: 1em;
-  margin-right: .2em;
+  margin-right: .4em;
   text-align: center;
   /* opacity: .8; */
  
@@ -42,7 +42,7 @@
  
   /* Animation center compensation - margins should be symmetric */
   /* remove if not needed */
-  margin-left: .2em;
+  margin-left: 0em;
  
   /* you can be more comfortable with increased icons size */
   /* font-size: 120%; */
@@ -179,10 +179,11 @@
 
 .icon-link-1:before { content: '\f07b'; } /* '' */
 .icon-th-list-1:before { content: '\f009'; } /* '' */
-
+.icon-hashtag:before { content: '\f292'; } /* '' */
 
 /* Font put to behind */
 .icon-right-circle:after { content: '\e863'; } /* '' */
 .icon-right:after { content: '\e85f'; } /* '' */
 .icon-right-1:after { content: '\e867'; } /* '' */
 .icon-right-outline:after { content: '\e861'; } /* '' */
+.icon-angle-double-right:after { content: '\f101'; } /* '' */

@@ -375,7 +375,7 @@ main {
     @media screen and (max-width: $mobileW) {
       margin-top: 5px;
     }
-    margin-right: 10px;
+    margin-right: 0px;
   }
 }
 .readingtime-meta {
@@ -456,7 +456,7 @@ main {
   font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   margin-right: 0px;
   padding-left: 5px;
-  color: #555;
+  color: #666;
   min-width: 150px;
   font-size: 15px;
 }

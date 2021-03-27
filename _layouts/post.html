@@ -16,13 +16,8 @@ layout: default
   <a class="post-link" href="{{ page.url | relative_url }}">
     <h2 class="post-title">{{ page.title | escape }}</h2>
   </a>
-  <div class="post-meta">
-    <ul class="post-categories">
-      {%- for tag in page.categories -%}
-      <li>{{ tag }}</li>
-      {%- endfor -%}
-    </ul>
-    <div class="post-date"><i class="icon-calendar"></i>{{ page.date | date: date_format }}</div>
+   <div class="post-meta">
+    <div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">{{ page.date | date: date_format }}</div>
   </div>
 </div>
   <!-- post content here! -->
@@ -37,22 +32,45 @@ layout: default
 	    {% if page.about %}
 	    <div class = "sidebar-about-box">
 		    {% if page.language == 'chinese' %}
-			<li class = "sidebar-title">关于文章</li>
+				<li class = "sidebar-title">关于文章</li>
 			{% else %}
-			<li class = "sidebar-title">About This Article</li>
+				<li class = "sidebar-title">About This Article</li>
 			{% endif %}
 			{% if page.language == 'chinese' %}
-			<li class = "sidebar-about-content sidebar-font-medium">{{page.description}}</li>
-			<li class = "icon-link-1 sidebar-about-content sidebar-font-medium" style = "margin-top:30px">文章作者: <a href="https://github.com/gangdong">{{page.author}}</a></li>
-			<li class = "icon-hourglass sidebar-about-content sidebar-font-medium">阅读时间：{{ time }} {%if time > 1 %}mins{% else %}min{% endif %}</li>
-			<li class = "icon-book-open sidebar-about-content sidebar-font-medium">全文字数：{{words}}</li>
-			<li class = "icon-th-list-1 sidebar-about-content sidebar-font-medium">关键字: <a>{{page.keywords}}</a></li>
+				{% if page.description %}
+					<li class = "sidebar-about-content sidebar-font-medium">{{page.description}}</li>
+				{% endif %}
+				{% if page.author %}
+					<li class = "icon-link-1 sidebar-about-content sidebar-font-medium" style = "margin-top:30px">文章作者: <a href="https://github.com/gangdong">{{page.author}}</a></li>
+				{% endif %}
+				<li class = "icon-hourglass sidebar-about-content sidebar-font-medium">阅读时间：{{ time }} {%if time > 1 %}mins{% else %}min{% endif %}</li>
+				<li class = "icon-book-open sidebar-about-content sidebar-font-medium">全文字数：{{words}}</li>
+				{% if page.keywords %}
+					<li class = "icon-th-list-1 sidebar-about-content sidebar-font-medium">关键字: <a>{{page.keywords}}</a></li>
+				{% endif %}
+				{% if page.tags != nil %}
+					<li class = "icon-hashtag sidebar-about-content sidebar-font-medium">标签: <a>{{page.tags | strip}}</a></li>
+				{% endif %}
 			{% else %}
-			<li class = "sidebar-about-content sidebar-font-big">{{page.description}}</li>
-			<li class = "icon-link-1 sidebar-about-content sidebar-font-big" style = "margin-top:30px">Author: <a href="https://github.com/gangdong">{{page.author}}</a></li>
-			<li class = "icon-clock-5 sidebar-about-content sidebar-font-big">{{ time }} {%if time > 1 %}mins{% else %}min{% endif %} to read</li>
-			<li class = "icon-book-1 sidebar-about-content sidebar-font-big">{{words}} words</li>
-			<li class = "icon-th-list-1 sidebar-about-content sidebar-font-big">Key Words: <a>{{page.keywords}}</a></li>
+				{% if page.description %}
+					<li class = "sidebar-about-content sidebar-font-big">{{page.description}}</li>
+				{% endif %}
+				{% if page.author %}
+					<li class = "icon-link-1 sidebar-about-content sidebar-font-big" style = "margin-top:30px">Author: <a href="https://github.com/gangdong">{{page.author}}</a></li>
+				{% endif %}
+					<li class = "icon-clock-5 sidebar-about-content sidebar-font-big">{{ time }} {%if time > 1 %}mins{% else %}min{% endif %} to read</li>
+					<li class = "icon-book-1 sidebar-about-content sidebar-font-big">{{words}} words</li>
+				{% if page.keywords %}
+					<li class = "icon-th-list-1 sidebar-about-content sidebar-font-big">Key Words: <a>{{page.keywords}}</a></li>
+				{% endif %}
+				{% if page.tags != nil %}
+				    {% assign tags_array = page.tags | split: "," %}
+					{% assign tag_name = "" %}
+					{% for tag in tags_array %}
+						{% assign tag_name = tag_name | append: tags[0] %}
+					{% endfor %}
+					<li class = "icon-hashtag sidebar-about-content sidebar-font-medium">Tags: <a>{{tag_name}}</a></li>
+				{% endif %}
 			{% endif %}
 		</div>
 		{% endif %}
