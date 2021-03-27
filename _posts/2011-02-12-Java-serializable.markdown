@@ -5,6 +5,12 @@ date:   2011-02-12 20:02:36 +0800
 categories: Java
 tags: Java
 language: chinese
+toc: true
+sidebar: true
+about: true
+author: david.dong
+description: 本文对 Java 序列化这个问题做了一些讨论。想对这个问题有些了解的同学可以参考。
+keywords: Java/序列化 
 ---
 Java的序列化提供了一种保存对象状态的机制，之所以要用到序列化是因为有时我们会在对象的生命期结束后需要把对象状态保存下来，通常是存放到外部的媒介上，比如文件，磁盘或网络上。并且在需要时能够通过一种机制来恢复。序列化能够在不同的JVM之间共享数据。<br>
 

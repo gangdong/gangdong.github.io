@@ -6,6 +6,12 @@ categories: Java
 tags: Java
 published: true
 language: chinese
+toc: false
+sidebar: true
+about: true
+author: david.dong
+description: 本文主要介绍了 Java 里的 finalize 方法，对 Java 语言里的垃圾回收机制对于资源释放方面展开一些讨论。
+keywords: Java/finalize
 ---
 Java提供的`finalize()`方法是定义JObject类中的方法。作用是帮助我们进行资源释放，类似于C++中的析构函数。但是需要注意的是该方法根本上和C++中的析构函数是不同的。
 

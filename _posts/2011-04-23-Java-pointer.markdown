@@ -5,6 +5,12 @@ date:   2011-04-23 23:18:23 +0800
 categories: Java
 tags: Java
 language: chinese
+toc: false
+sidebar: true
+about: true
+author: david.dong
+description: 本文阐述了 Java 语言里引用的概念。
+keywords: Java/引用 
 ---
 本文对Java里的引用的概念做一个简单的总结，不做过多的阐述。
 

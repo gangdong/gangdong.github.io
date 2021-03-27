@@ -6,6 +6,12 @@ categories: Java
 tags: Java
 published: true
 language: chinese
+toc: true
+sidebar: true
+about: true
+author: david.dong
+description: 本文详细说明了 Java 里实现多线程的方式。
+keywords: Java/线程/Runnable/ 
 ---
 Java 实现多线程编程的方式有两种，一种是继承 Thread 类，另一种是实现 Runnable 接口。<br>
 下面的内容会分别介绍这两种用法以及使用上的区别。

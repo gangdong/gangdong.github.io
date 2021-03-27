@@ -6,6 +6,12 @@ categories: Java
 tags: Java
 published: true
 language: chinese
+toc: true
+sidebar: true
+about: true
+author: david.dong
+description: 本文内容是基于作者对 Javadoc 的学习笔记，文中对 javadoc 使用做了详细说明。
+keywords: Javadoc 
 ---
 相信很多有经验的程序员都知道写注释的重要性，程序注释不仅仅是对代码进行说明，它其实也是代码本身组成的一部分。对于Java程序的开发者来说，更是如此。
 

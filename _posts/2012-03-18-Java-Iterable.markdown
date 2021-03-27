@@ -6,6 +6,12 @@ categories: Java
 tags: Java
 published: true
 language: chinese
+toc: false
+sidebar: true
+about: true
+author: david.dong
+description: Iterable 是 Java 的一个接口，本文主要对 Iterable 接口及其使用方法做了说明，给出了应用举例。
+keywords: Java/Iterable
 ---
 `Iterable<>` 是 `Java.lang` 包中定义的一个接口, 
 根据Java文档的介绍该接口主要声明了一个`Iterator()`方法，该方法返回一个`Iterator<>`接口。   
