@@ -19,6 +19,7 @@ layout: default
    <div class="post-meta">
     <div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">{{ page.date | date: date_format }}</div>
   </div>
+  <br>
 </div>
   <!-- post content here! -->
   <!-- set fix width box to put content! -->
@@ -46,15 +47,14 @@ layout: default
 				<li class = "icon-hourglass sidebar-about-content sidebar-font-medium">阅读时间：{{ time }} {%if time > 1 %}mins{% else %}min{% endif %}</li>
 				<li class = "icon-book-open sidebar-about-content sidebar-font-medium">全文字数：{{words}}</li>
 				{% if page.keywords %}
-					<li class = "icon-th-list-1 sidebar-about-content sidebar-font-medium">关键字: <a>{{page.keywords}}</a></li>
+					<li class = "icon-th-list-1 sidebar-about-content sidebar-font-medium">关键字: {{page.keywords}}</li>
 				{% endif %}
 				{% if page.tags != nil %}
-					{% assign tags_array = page.tags | split: "," %}
-					{% assign tag_name = "" %}
+					<li class = "icon-hashtag sidebar-about-content sidebar-font-medium">标签: 
 					{% for tag in page.tags %}
-					{% assign tag_name = tag_name | append: tag | append: ', ' %}
+					<a href="{{site.baseurl}}/category/#{{tag}}">{{tag}}&nbsp;</a>
 					{% endfor %}
-					<li class = "icon-hashtag sidebar-about-content sidebar-font-medium">标签: <a>{{tag_name}}</a></li>
+					</li>
 				{% endif %}
 			{% else %}
 				{% if page.description %}
@@ -66,15 +66,14 @@ layout: default
 					<li class = "icon-clock-5 sidebar-about-content sidebar-font-big">{{ time }} {%if time > 1 %}mins{% else %}min{% endif %} to read</li>
 					<li class = "icon-book-1 sidebar-about-content sidebar-font-big">{{words}} words</li>
 				{% if page.keywords %}
-					<li class = "icon-th-list-1 sidebar-about-content sidebar-font-big">Key Words: <a>{{page.keywords}}</a></li>
+					<li class = "icon-th-list-1 sidebar-about-content sidebar-font-big">Key Words: {{page.keywords}}</li>
 				{% endif %}
 				{% if page.tags != nil %}
-				    {% assign tags_array = page.tags | split: "," %}
-					{% assign tag_name = "" %}
+				    <li class = "icon-hashtag sidebar-about-content sidebar-font-medium">Tags: 
 					{% for tag in page.tags %}
-					{% assign tag_name = tag_name | append: tag | append: ', ' %}
+					<a href="{{site.baseurl}}/category/#{{tag}}">{{tag}}&nbsp;</a>
 					{% endfor %}
-					<li class = "icon-hashtag sidebar-about-content sidebar-font-medium">Tags: <a>{{tag_name}}</a></li>
+					</li>
 				{% endif %}
 			{% endif %}
 		</div>
