@@ -5,6 +5,12 @@ date:   2013-06-13 22:41:23 +0800
 categories: C
 tags: C
 language: chinese
+toc: false
+sidebar: true
+about: true
+author: david.dong
+description: 本文整理出了 MISRA C 编程规范的内容，方便查找。有需要的同学可以参考这部分内容。
+keywords: MISRA C
 ---
 最近工作中有接触到MISRA C的规范，为了方便以后查找，这里把规则都记录下来。
 

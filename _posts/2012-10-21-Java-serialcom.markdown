@@ -5,8 +5,14 @@ date:   2012-10-21 18:55:59 +0800
 categories: Java
 tags: Java
 language: chinese
+toc: false
+sidebar: true
+about: true
+author: david.dong
+description: 有关 Java 串口编程的内容。作者给出了实现的代码。
+keywords: 串口/Java/comm.jar
 ---
-前些天工作中用到了串口编程。Java上位机UI需要通过串行端口访问外部的设备，Java对串口设备的访问有提供库支持，使用起来比较容易，这里简单总结一下。
+前些天工作中用到了串口编程。Java 上位机 UI 需要通过串行端口访问外部的设备，Java 对串口设备的访问有提供库支持，使用起来比较容易，这里简单总结一下。
 
 首先先下载`javacomm20-win32`的package。<br>
 [下载链接](http://code.google.com/p/smslib/downloads/detail?name=javacomm20-win32.zip&can=2&q=)<br>

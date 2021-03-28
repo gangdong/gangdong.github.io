@@ -5,9 +5,15 @@ date:   2012-12-17 17:25:19 +0800
 categories: Java
 tags: Java
 language: chinese
+toc: true
+sidebar: true
+about: true
+author: david.dong
+description: 本文介绍了如何使用 JXL 库编写 Java 代码实现对 Windows Excel 文档的访问和处理。
+keywords: JXL/Excel 文档
 ---
 
-因为开发中用到了JXL库来处理Windows的excel文档，这里做一个总结记录，以方便未来查找。
+因为开发中用到了 JXL 库来处理 Windows 的 Excel 文档，这里做一个总结记录，以方便未来查找。
 
 JXL.jar是一个Java类包，封装了对Excel文档的操作。提供了一系列接口，方便编程者读写编辑Excel类型的文档。
 

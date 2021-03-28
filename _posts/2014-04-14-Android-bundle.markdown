@@ -5,6 +5,12 @@ date:   2014-04-14 21:03:36 +0800
 categories: Android
 tags: Android
 language: chinese
+toc: false
+sidebar: true
+about: true
+author: david.dong
+description: 这篇文章主要讨论了 Bundle 类在 Android 中的作用.
+keywords: Bundle/Android
 ---
 Android中Bundle类的作用，根据google [官方文档](http://developer.android.com/reference/android/os/Bundle.html)<br>Bundle类用作携带数据，它类似于Map，用于存放key-value名值对形式的值。<br>
 

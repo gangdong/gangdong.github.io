@@ -5,9 +5,13 @@ date:   2014-02-12 21:33:10 +0800
 categories: Touch Linux
 tags: Touch Linux
 published: true
+language: chinese
 toc: true
 sidebar: true
-language: chinese
+about: true
+author: david.dong
+description: 这篇文章主要对 Linux 下的多点触控协议进行了说明，比较了协议 A 和协议 B 的不同，最后给出了一段示例代码.
+keywords: 多点触控协议/
 ---
 这篇文章讲一下Linux下的多点触控的协议。
 

@@ -5,6 +5,12 @@ date:   2013-09-02 20:12:01 +0800
 categories: Linux
 tags: Linux
 language: chinese
+toc: false
+sidebar: true
+about: true
+author: david.dong
+description: 本文主要总结了Linux poll() 函数的使用。
+keywords: Linux/poll
 ---
 这篇文章对Linux的`poll()`函数的使用做一个总结。
 

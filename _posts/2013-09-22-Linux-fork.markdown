@@ -5,6 +5,12 @@ date:   2013-09-22 20:12:01 +0800
 categories: Linux
 tags: Linux
 language: chinese
+toc: false
+sidebar: true
+about: true
+author: david.dong
+description: 本文主要总结了Linux fork() 函数的使用。
+keywords: Linux/fork
 ---
 本文主要总结了Linux `fork()`函数的使用。
 

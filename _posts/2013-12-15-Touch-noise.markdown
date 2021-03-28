@@ -5,9 +5,13 @@ date:   2013-12-15 23:01:16 +0800
 categories: Touch
 tags: Touch
 published: true
+language: chinese
 toc: true
 sidebar: true
-language: chinese
+about: true
+author: david.dong
+description: 本文详细介绍了有关触摸屏噪声及其测量方面的一些知识。
+keywords: 触摸屏噪声/测量方法/降噪方法
 ---
 触摸屏在高噪声环境下的性能是当前移动电子设备特别是智能手机设计人员面临的巨大挑战之一。而在这些噪声当中，充电器噪声是被广泛涉及和对触摸屏影响最大的噪声源。这种噪声通过USB充电器物理耦合至传感器进而被TOUCH IC所采集。它可以造成触摸的精度或线性度下降、产生误触，严重的会造成触摸屏变得无响应。本文结合我在工作中的一些经验来介绍一下触摸屏设计中的对噪声相关的要求，测量方法以及一些降噪的方法。
 

@@ -5,9 +5,13 @@ date:   2014-01-09 23:54:06 +0800
 categories: Linux
 tags: Linux
 published: true
+language: chinese
 toc: true
 sidebar: true
-language: chinese
+about: true
+author: david.dong
+description: 本文从驱动代码的角度，阐述了如何在 Linux 系统中添加一个中断处理函数，并给出了示例代码.
+keywords: 中断/Linux/
 ---
 Linux 中断子系统的内部实现机制比较复杂，如果想讲清楚需要较长的篇幅才行，本文只从应用的角度介绍如何注册中断并添加中断处理函数到代码中，不对其内部的实现机制做太多阐述。
 
