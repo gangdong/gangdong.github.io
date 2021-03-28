@@ -3,6 +3,7 @@ layout: post
 title:  "关于本博客模板使用上的一些问题"
 date:   2019-02-23 12:21:47 +0800
 categories: Pinned
+tags: Pinned
 Published: true
 toc: true
 sidebar: true
