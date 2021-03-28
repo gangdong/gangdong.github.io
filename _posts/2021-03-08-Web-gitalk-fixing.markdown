@@ -3,7 +3,7 @@ layout: post
 title:  "A quick way to fix the Gitalk Error: Validation Failed"
 date:   2021-03-08 10:27:13 +0800
 categories: Blog
-tags: Blog
+tags: Blog 
 Published: true
 toc: false
 sidebar: true

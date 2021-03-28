@@ -5,6 +5,12 @@ date:   2014-11-11 23:55:17 +0800
 categories: Linux 
 tags: Linux
 published: true
+toc: false
+sidebar: true
+about: true
+author: david.dong
+description: This article introduced usage of the .PHONY attribute in makefile.
+keywords: .PHONY
 ---
 You may have run into the situation where the name of makefile command conflicts with the file name under the same directory.  
 

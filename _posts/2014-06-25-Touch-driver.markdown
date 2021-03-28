@@ -8,6 +8,10 @@ published: true
 toc: true
 sidebar: true
 language: chinese
+about: true
+author: david.dong
+description: 文章结合 ATMEL Touch IC 驱动源码，分析了触摸 IC 驱动代码的功能和实现过程。
+keywords: Touch 驱动代码，Atmel
 ---
 今天来讲一下touch controller IC 在android上的驱动代码。
 

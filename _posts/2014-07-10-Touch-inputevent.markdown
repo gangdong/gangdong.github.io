@@ -6,6 +6,12 @@ categories: C Touch Android
 tags: C Touch Linux Android
 published: true
 language: chinese
+toc: false
+sidebar: true
+about: true
+author: david.dong
+description: 本文详细介绍了Android Input子系统如何处理外部输入的Touch event事件。结合源码分析了事件被处理发送的过程。
+keywords: Touch event
 ---
 上一篇博文 [「ATMEL maXTouch IC驱动代码分析」]({{site.baseurl}}/c/touch/linux/2014/06/25/Touch-driver.html) 我们讲到了 Touch 驱动代码如何读取IC内部获取到的触摸事件信息并通过`input_report_abs()`和`input_sync()`函数上报给 Linux 的 Input 子系统的过程。今天这篇文章我们就走进 Input 子系统内部来看一下事件是如何被传递到 Android 的用户空间的。
 

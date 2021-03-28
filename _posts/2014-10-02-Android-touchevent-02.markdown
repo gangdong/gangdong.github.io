@@ -7,6 +7,10 @@ tags: Android Touch
 published: true
 toc: true
 sidebar: true
+about: true
+author: david.dong
+description: This article discussed the concept of the touch event is dispatched in Android framework.
+keywords: touch event, dispatch
 ---
 Recently, I've been busy with my work and haven't been able to update blog for a long time. This time, I am going to start a discussion and summarize how Android dispatch Touchevent after received them from touch screen device.
 

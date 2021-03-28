@@ -5,6 +5,12 @@ date:   2015-04-11 23:48:12 +0800
 categories: Android  
 tags: Android
 published: true
+toc: false
+sidebar: true
+about: true
+author: david.dong
+description: This article presents a effective way to achieve system property in the Android APP development. Which uses the Java reflect mechanism to access the method of class Systemproperties.
+keywords: Android APP, Systemproperties
 ---
 Recently I need to read system property in my Android apk development. I checked the Android documents and found that Android has a `Systemproperties` class to handle this kind of requirement. However `Systemproperties` class isn't a public class of SDK, which means it is invisible to the apk developer. My understanding is that google wants this class to be used for Android source developer rather than application developer.
 

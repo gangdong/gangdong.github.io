@@ -4,9 +4,14 @@ title:  "电容式触摸检测技术原理"
 date:   2014-04-11 12:10:27 +0800
 categories: Touch
 tags: Touch
+language: chinese
 toc: true
 sidebar: true
 language: chinese
+about: true
+author: david.dong
+description: 文章通过建立电容触摸的数学模型，详细讨论了电容触摸的技术实现原理。
+keywords: 电容式触摸
 ---
 智能手机的兴起不仅仅是由于操作系统上的改变，更多的是由于引入了一种新的人机交互的模式。这种全新的模式导致了用户体验的大幅度改善。电容式触摸检测技术正是其中的关键技术。
 
