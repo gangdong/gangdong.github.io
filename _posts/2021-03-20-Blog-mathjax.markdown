@@ -20,9 +20,9 @@ When writing posts, I need to display mathematics formula sometimes. I write pos
 
 > MathJax is an open-source JavaScript display engine for LaTeX, MathML, and AsciiMath notation that works in all modern browsers.
 
-This is the definition of the [MathJax official website](https://www.mathjax.org/), more information can be found from there.
+This is the definition of the MathJax in [MathJax official website](https://www.mathjax.org/), more information can be found from there.
 
-To me, it has some benefits when writing blog.
+To me, it brought some benefits for writing blog.
 
 - No need plugin support in Jekyll. I don't have to worry about that it cannot be implemented when deploying the site at Github Pages for security checking. 
 - Unlike using bitmaps image to display, it is text editing and transforms the mathematics formula to HTML or SVG, so it is workable for zoom scale and is suitable to display under different size screen.
