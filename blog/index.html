@@ -36,7 +36,7 @@ title: Home
                     <li class="icon-pin">{{tag}}</li>
                   {%- endfor -%}
                 </ul>
-                <div class="post-date" style = "text-align:right;margin-right:4px;font-size:14px">
+                <div class="post-date-right-align">
                   <i class="icon-calendar"></i>
                   {{ post.date | date: date_format }}
 				</div>
@@ -68,7 +68,7 @@ title: Home
               <a href="{{site.baseurl}}/category#{{tag}}">{{ tag }}</a>
             {%- endfor -%}
           </ul>
-          <div class="post-date" style = "text-align:right;margin-right:4px;font-size:14px">
+          <div class="post-date-right-align">
             <i class="icon-calendar"></i>
             {{ post.date | date: date_format }}</div>
         </div>
