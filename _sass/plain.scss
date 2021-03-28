@@ -189,11 +189,11 @@ main {
   margin: 0;
   padding: 0;
   li {
-    font-size: 14px;
+    font-size: 13px;
     float: left;
 	border-radius: 2px;
     background-color: $btnColor;
-    padding: 6px 20px 5px 10px;
+    padding: 5px 15px 5px 10px;
     @media screen and (max-width: $mobileW) {
       margin-top: 5px;
     }
@@ -441,10 +441,10 @@ main {
   margin: 0;
   padding: 0;
   li {
-    font-size: 14px;
+    font-size: 13px;
     float: left;
     background-color: #e3e3e3;
-    padding: 5px 20px;
+    padding: 5px 15px;
     border-radius: 2px;
     @media screen and (max-width: $mobileW) {
       margin-top: 5px;
