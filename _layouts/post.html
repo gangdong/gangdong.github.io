@@ -52,7 +52,7 @@ layout: default
 				{% if page.tags != nil %}
 					<li class = "icon-hashtag sidebar-about-content sidebar-font-medium">标签: 
 					{% for tag in page.tags %}
-					<a href="{{site.baseurl}}/category/#{{tag}}">{{tag}}&nbsp;</a>
+					<a href="{{site.baseurl}}/category#{{tag}}">{{tag}}&nbsp;</a>
 					{% endfor %}
 					</li>
 				{% endif %}
@@ -71,7 +71,7 @@ layout: default
 				{% if page.tags != nil %}
 				    <li class = "icon-hashtag sidebar-about-content sidebar-font-medium">Tags: 
 					{% for tag in page.tags %}
-					<a href="{{site.baseurl}}/category/#{{tag}}">{{tag}}&nbsp;</a>
+					<a href="{{site.baseurl}}/category#{{tag}}">{{tag}}&nbsp;</a>
 					{% endfor %}
 					</li>
 				{% endif %}
