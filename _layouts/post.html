@@ -49,7 +49,12 @@ layout: default
 					<li class = "icon-th-list-1 sidebar-about-content sidebar-font-medium">关键字: <a>{{page.keywords}}</a></li>
 				{% endif %}
 				{% if page.tags != nil %}
-					<li class = "icon-hashtag sidebar-about-content sidebar-font-medium">标签: <a>{{page.tags | strip}}</a></li>
+					{% assign tags_array = page.tags | split: "," %}
+					{% assign tag_name = "" %}
+					{% for tag in page.tags %}
+					{% assign tag_name = tag_name | append: tag | append: ', ' %}
+					{% endfor %}
+					<li class = "icon-hashtag sidebar-about-content sidebar-font-medium">标签: <a>{{tag_name}}</a></li>
 				{% endif %}
 			{% else %}
 				{% if page.description %}
@@ -66,8 +71,8 @@ layout: default
 				{% if page.tags != nil %}
 				    {% assign tags_array = page.tags | split: "," %}
 					{% assign tag_name = "" %}
-					{% for tag in tags_array %}
-						{% assign tag_name = tag_name | append: tags[0] %}
+					{% for tag in page.tags %}
+					{% assign tag_name = tag_name | append: tag | append: ', ' %}
 					{% endfor %}
 					<li class = "icon-hashtag sidebar-about-content sidebar-font-medium">Tags: <a>{{tag_name}}</a></li>
 				{% endif %}
