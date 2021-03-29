@@ -1,0 +1,135 @@
+---
+layout: post
+title:  "Fingerprint driver development in Windows(1)"
+date:   2020-06-07 21:19:23 +0800
+categories: C++ Fingerprint Windows
+tags: C++ Fingerprint Windows
+Published: false
+toc: false
+sidebar: true
+about: true
+author: david.dong
+description: Some knowledge for Fingerprint driver development.
+keywords: Fingerprint driver/Windows
+---
+Windows 7 and later implement support for Biometric devices. The Windows Biometric Framework (WBF) is a generic biometric architecture in Windows 7 and later versions of Windows.
+
+WBF includes an IOCTL-based driver interface known as the Windows Biometric Driver Interface (WBDI) as well as a Windows service called the Windows Biometric Framework API (Windows) (WBS). 
+
+WBDI drivers respond to requests from the WBS(WinBio) service. WBF also includes Windows log-in support.
+
+{% if page.toc == false %}
+<div class = "separator"></div>
+## Table of Contents
+1. [Basic Concepts](#1)
+2. [UMDF](#2)
+    + [2.1 UMDF advantages](#2.1)
+    + [2.2 When to use UMDF?](#2.2)
+    + [2.3 UDMF architecture](#2.3)
+3. [Biometric Unit]({{site.baseurl}}/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#3)
+4. [Biometric Unit Life Cycle]({{site.baseurl}}/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#4)
+    + [4.1 Creation]({{site.baseurl}}/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#4.1)
+    + [4.2 Configuration]({{site.baseurl}}/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#4.2)
+    + [4.3 Shut Down]({{site.baseurl}}/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#4.3)
+5. [Adapters]({{site.baseurl}}/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#5)
+    + [5.1 Sensor Adapter Function]({{site.baseurl}}/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#5.1)
+    + [5.2 Engine Adapter Function]({{site.baseurl}}/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#5.2)
+    + [5.3 Storage Adapter Function]({{site.baseurl}}/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#5.3)
+6. [IOCTLs Interface of Biometric]({{site.baseurl}}/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#6)
+    + [6.1 IOCTLs]({{site.baseurl}}/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#6.1)
+    + [6.2 Biometric IOCTLs Calling Sequence]({{site.baseurl}}/c++/fingerprint/2020/06/10/Cpp-wbdi-02.html#6.2)
+7. [Managing Queues in a WBDI Driver]({{site.baseurl}}/c++/fingerprint/2020/06/13/Cpp-wbdi-03.html#7)
+8. [Installing a Biometric Driver]({{site.baseurl}}/c++/fingerprint/2020/06/13/Cpp-wbdi-03.html#8)
+9. [Creating a Device Interface for a WBDI Driver]({{site.baseurl}}/c++/fingerprint/2020/06/13/Cpp-wbdi-03.html#9)
+
+<div class = "separator"></div>
+{% endif %}
+
+Starting with some concepts.
+
+## <span id = "1">1. Basic Concepts</span>
+### WBF:
+Windows Biometric Framework. WBF is a generic biometric architecture in Windows 7 and later versions of Windows. WBF includes an IOCTL-based driver interface known as the Windows Biometric Driver Interface (WBDI) as well as a Windows service called the Windows Biometric Service (WBS). 
+### WBDI:  
+Windows Biometric Driver Interface. WBDI is a programming interface that a biometric driver can use to expose the biometric device through the Windows Biometric Service (WBS). The developer can implement a WBDI driver by using any supported driver technology, including the following.
++ User Mode Driver Framework (UMDF)
++ Kernel Mode Driver Framework (KMDF)
++ Windows Driver Model (WDM)
+  
+A WBDI biometric driver must also support the WBDI driver interface GUID and all mandatory I/O controls (IOCTLs).  
+### WBS:  
+  Windows Biometric Service. The Windows Biometric Service manages installed biometric drivers and supports the Windows Biometric Framework API to provide device access to client applications.  
+### Adapters:   
+  Plug-in software components that connect a biometric unit to its underlying hardware and supply any functionality that may be missing from the sensor hardware. There are three types of adapters that you can create:  
++ A **sensor adapter** wraps a biometric device and provides a standard interface for configuring the sensor, capturing samples, and controlling the flow of biometric data to the processing engine.
++ An **engine adapter** generates biometric templates from captured samples, matches samples to existing templates, and indexes templates.
++ A **storage adapter** manages template databases.    
+
+### WDF:
+  Windows Driver Foundation.  
+### WUDF:
+  Windows User-Mode Driver Framework. Also referred to as UMDF.    
+### UMDF:
+  User-Mode Driver Framework.  
+### KMDF:
+  Kernel-Mode Driver Framework.  
+### Wudfhost(exe):
+  Windows User-mode Driver Framework Driver host process. The driver host process loads the DLL of the UMDF driver and framework provided by the vendor, and provides the execution environment for routing messages between the driver in the user mode driver and the driver in the user mode stack.
+### WDM:
+  Windows Driver Manager. The driver manager is a Windows service that manages all instances of the wudfhost driver host process. The driver manager starts and tracks information about each driver host process. Each host is a child of the driver manager.
+### Biometric Unit:  
+  The central component of the Windows Biometric Framework plug-in architecture, a software object that exposes the capabilities of a biometric device to the framework through a standard interface.
+### Overview
+The following figure shows how the UMDF based windows biometric driver interface (WBDI) driver can be used for windows biometric framework (WBF) biometric support in Windows 7. All biometric operations rely on client applications to windows biometric services (WBS). The WBS sends the request to the biometric device driver that exposes the WBDI interface.    
+    
+
+![framework]({{site.baseurl}}/assets/image/others-wbdi-01.PNG){: .center-image }
+
+## <span id = "2">2. UMDF</span>
+UMDF is a Framework for creating user mode drivers. Like the kernel mode driver framework (KMDF), UMDF provides an abstraction layer from WDM that handles a large number of plug and play (PNP) and power management functions, and allows the driver to choose to enable specific functions and event handling. UMDF driver abstracts hardware functions, runs in user mode environment, and can access various services.
+
+The UMDF driver interacts with the following components provided by the system.
++ Wudfhost(exe)
++ WDM
++ Reflector    
+
+
+![framework]({{site.baseurl}}/assets/image/others-wbdi-02.PNG){: .center-image }
+
+### <span id = "2.1">2.1 UMDF advantages</span>   
++ Because UMDF driver running on the user space, which result in the stability of operating systems because they only have access to the address space in which they run the process.
++ Because the localservice account runs under the UMDF driver, it has limited access to user data or system files.
++ User-mode drivers run in a simpler environment than KMDF.
++ UMDF-V2 provides most of the function of KMDF.
++ UMDF version 2 facilitates conversion between KMDF and UMDF.
+
+### <span id = "2.2">2.2 When to use UMDF?</span>   
+In most of occasions, Microsoft recommends to write UMDF driver instead of KMDF, since the two frameworks share multiple interfaces, you can  also later convert the driver to KMDF if necessary.  
+However, the following features are only available for KMDF drivers. If the driver requires one of these features, you must write a KMDF driver.  
++ DMA
++ Bus Enumeration
++ Power control (only limited support in UMDF)
++ Access WDM object and lrp
++ non-cache I/O access
++ WMI
++ IOCTLs
+
+### <span id = "2.3">2.3 UDMF architecture</span>   
+
+
+![framework]({{site.baseurl}}/assets/image/others-wbdi-03.PNG){: .center-image }  
+
+
+Above diagram shows how the driver manager builds a user-mode device stack, and how the host process, reflector, and driver manager process an I/O request that an application sends to a User-Mode Driver Framework (UMDF) driver.  
+
+Similar to a kernel-mode stack, the construction and tear down of a user-mode stack is driven by Plug and Play (PnP) events. After the kernel-mode stack has been built, the reflector notifies the driver manager to start construction of the user-mode stack. The driver manager launches the driver host process and provides sufficient information to the launched process to build the user-mode stack. 
+ 
+The driver host process provides the execution environment for user-mode drivers and routes messages between drivers in the user-mode stack. The reflector uses a message-based interprocess communication mechanism to communicate with the driver manager and host process.    
+
+To send an I/O request to a UMDF driver, an application calls a Win32 file I/O function, such as CreateFile, ReadFileEx, CancelIoEx, or DeviceIoControl. When the reflector receives a request from the client application, it sends the request to the appropriate driver host process. The driver host process then routes the request to the top of the correct user-mode device stack.  
+
+The request is either completed by one of the drivers in the user-mode stack or forwarded by one of the drivers back to the reflector. When the reflector receives a request from the user-mode driver stack, it sends the request down the kernel-mode stack for completion.  
+
+
+
+If no special requirements, fingerprint driver normally uses the UMDF model to develop.

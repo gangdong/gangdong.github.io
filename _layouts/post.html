@@ -1,0 +1,168 @@
+---
+layout: default
+---
+{% assign words = page.content | strip_html | strip_newlines | remove: " " | size %}
+{% assign time = page.content | strip_html | strip_newlines | remove: " " | size | divided_by: 400 | plus: 1 %}
+
+<!-- add menu bar here! -->
+{% include title.html %}
+
+{%- assign date_format = site.rawposts.date_format | default: "%b %-d, %Y" -%}
+
+<div class="post-container">
+  <li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">POST</h1>
+  </li>  
+  <a class="post-link" href="{{ page.url | relative_url }}">
+    <h2 class="post-title">{{ page.title | escape }}</h2>
+  </a>
+   <div class="post-meta">
+    <div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">{{ page.date | date: date_format }}</div>
+  </div>
+  <br>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+  <div class="post-viewer-container">
+	<div class="post-fix-width">
+		{{ content }}
+	</div>
+	<!-- put sidebar! -->
+	{% if page.sidebar %}
+	<div class = "sidebar-container">
+	    {% if page.about %}
+	    <div class = "sidebar-about-box">
+		    {% if page.language == 'chinese' %}
+				<li class = "sidebar-title">关于文章</li>
+			{% else %}
+				<li class = "sidebar-title">About This Article</li>
+			{% endif %}
+			{% if page.language == 'chinese' %}
+				{% if page.description %}
+					<li class = "sidebar-about-content sidebar-font-medium">{{page.description}}</li>
+				{% endif %}
+				{% if page.author %}
+					<li class = "icon-link-1 sidebar-about-content sidebar-font-medium" style = "margin-top:30px">文章作者: <a href="https://github.com/gangdong">{{page.author}}</a></li>
+				{% endif %}
+				<li class = "icon-hourglass sidebar-about-content sidebar-font-medium">阅读时间：{{ time }} {%if time > 1 %}mins{% else %}min{% endif %}</li>
+				<li class = "icon-book-open sidebar-about-content sidebar-font-medium">全文字数：{{words}}</li>
+				{% if page.keywords %}
+					<li class = "icon-th-list-1 sidebar-about-content sidebar-font-medium">关键字: {{page.keywords}}</li>
+				{% endif %}
+				{% if page.tags != nil %}
+					<li class = "icon-hashtag sidebar-about-content sidebar-font-medium">标签: 
+					{% for tag in page.tags %}
+					<a href="{{site.baseurl}}/category#{{tag}}">{{tag}}&nbsp;</a>
+					{% endfor %}
+					</li>
+				{% endif %}
+			{% else %}
+				{% if page.description %}
+					<li class = "sidebar-about-content sidebar-font-big">{{page.description}}</li>
+				{% endif %}
+				{% if page.author %}
+					<li class = "icon-link-1 sidebar-about-content sidebar-font-big" style = "margin-top:30px">Author: <a href="https://github.com/gangdong">{{page.author}}</a></li>
+				{% endif %}
+					<li class = "icon-clock-5 sidebar-about-content sidebar-font-big">{{ time }} {%if time > 1 %}mins{% else %}min{% endif %} to read</li>
+					<li class = "icon-book-1 sidebar-about-content sidebar-font-big">{{words}} words</li>
+				{% if page.keywords %}
+					<li class = "icon-th-list-1 sidebar-about-content sidebar-font-big">Key Words: {{page.keywords}}</li>
+				{% endif %}
+				{% if page.tags != nil %}
+				    <li class = "icon-hashtag sidebar-about-content sidebar-font-medium">Tags: 
+					{% for tag in page.tags %}
+					<a href="{{site.baseurl}}/category#{{tag}}">{{tag}}&nbsp;</a>
+					{% endfor %}
+					</li>
+				{% endif %}
+			{% endif %}
+		</div>
+		{% endif %}
+		{% if page.toc %}
+	    <div class="sidebar-toc-box">
+			{% if page.language == 'chinese' %}
+			<li class = "sidebar-title">文章目录</li>
+			<li class = "sidebar-font-medium sidebar-toc-content">{% toc %}</li>
+			{% else %}
+			<li class = "sidebar-title">Table of Content</li>
+			<li class = "sidebar-font-big sidebar-toc-content">{% toc %}</li>
+			{% endif %}
+		</div>
+		{% endif %}
+	</div>
+	 {% endif %}
+  </div>
+  <!-- no sidebar, use flex width box! -->
+  <br><br><br>
+  <div class="post-container">
+  {% if site.rawposts.share_media %}
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	{% if page.language == 'chinese' %}
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">分享:</span></div>
+	{% else %}
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">Share:</span></div>
+	{% endif %}
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+		<li class = "icon-eye">&nbsp;<span id="busuanzi_value_page_pv"></span></li>
+	</div>
+  </div>
+  {% endif %}
+  <!-- Related posts start here! -->
+	{%- if site.rawposts.related_posts -%}
+	  {% if site.related_posts.size >= 1 %}
+		{% if page.language == 'chinese' %}
+		<h1 id="posts-label">相关文章</h1>
+		{% else %}
+		<h1 id="posts-label">You may also like</h1>
+		{% endif %}
+	  <div class = "related-posts-box">
+		<ul>
+			{% for related_post in site.related_posts limit: 5 %}
+			<li><a href="{{ related_post.url | relative_url  }}">{{ related_post.title | escape}}</a></li>
+			{% endfor %}
+		</ul>
+	  </div>
+	  {% endif %}
+	{% endif %}
+  <!-- Page navigation start here! -->
+  {%- if site.rawposts.navigation -%}
+  {% if page.language == 'chinese' %}
+   <h1 id="posts-label">继续阅读</h1>
+  {% else %}
+   <h1 id="posts-label">further reading</h1>
+  {% endif %}
+  <div class = "separator"></div>
+  <div class="navigation-meta" style = "margin-bottom:40px">
+    {%- if page.previous -%}
+    <ul class="navigation-bar" style = "margin-top:40px; min-width:40%">
+	 {% if page.language == 'chinese' %}
+	 <a href="{{ page.previous.url | relative_url }}"; style="width:100%"><span class = "navigation-bar-label">前一章</span><br>{{page.previous.title | escape}}</a>
+	 {% else %}
+	 <a href="{{ page.previous.url | relative_url }}"; style="width:100%"><span class = "navigation-bar-label">Previous Post</span><br>{{page.previous.title | escape}}</a>
+	 {% endif %}
+    </ul>
+    {%- endif -%}
+    {%- if page.next -%}
+    <ul class="navigation-bar" style = "margin-top:40px; min-width:40%"> 
+	 {% if page.language == 'chinese' %}
+	 <a href="{{ page.next.url | relative_url }}"; style="width:100%"><span class = "navigation-bar-label">后一章</span><br>{{page.next.title | escape}}</a>
+	 {% else %}
+     <a href="{{ page.next.url | relative_url }}"; style="width:100%"><span class = "navigation-bar-label">Next Post</span><br>{{page.next.title | escape}}</a>
+	 {% endif %}
+    </ul>
+    {%- endif -%}
+  </div>
+  {%- endif -%}
+  <br>
+  <!-- comment box starts here! -->
+  {% include comments.html %}
+
+  {%- if site.rawposts.gittalk -%}
+  <div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  {% else %}
+  <div class = "footer" style="margin-top:50px">© 2012-2021 David Dong's Blog. All rights reserved.</div>
+  {% endif %}
+  <br>
+</div>

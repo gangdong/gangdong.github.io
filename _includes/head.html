@@ -1,0 +1,19 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono" rel="stylesheet">
+<link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
+<link rel="icon" href="{{site.baseurl}}/assets/favicon.ico">
+{% if site.rawposts.highlighter %}
+	<!-- default stylesheet monokai.sublime ! -->
+	{% if site.rawposts.syntax %}
+	<link href="{{site.baseurl}}/assets/css/syntax/syntax.{{site.rawposts.syntax}}.css" rel="stylesheet"/>
+	{% else %}
+	<link href="{{site.baseurl}}/assets/css/syntax.css" rel="stylesheet"/>
+	{% endif %}
+{% endif %}
+<title>{{ page.title }} | {{site.title }}</title>
+{% seo %}
+
+
+
