@@ -1,0 +1,109 @@
+I"/<p>想要理解Java的异常处理机制，只要掌握好这五个keywords 就可以了。 <br />
+<strong>try</strong>, <strong>catch</strong>, <strong>finally</strong>, <strong>throw</strong> 和 <strong>throws</strong> <br /></p>
+
+<h2 id="异常捕获">异常捕获</h2>
+<p>一个常用的异常捕获流程如下图所示，</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="k">try</span><span class="o">{</span>
+    <span class="n">需要监听异常的代码</span><span class="o">;</span>
+<span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">){</span>
+    <span class="n">异常处理代码</span><span class="o">;</span>   
+<span class="o">}</span><span class="k">finally</span><span class="o">{</span>
+    <span class="n">资源释放代码</span><span class="o">;</span> <span class="c1">//此段代码无论有无异常发生都会执行。</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>此外还有<code class="language-plaintext highlighter-rouge">try-catch</code>,<code class="language-plaintext highlighter-rouge">try-finally</code>的用法，是<code class="language-plaintext highlighter-rouge">try-catch-finally</code>的不同功能的组合。
+我们也可以在<code class="language-plaintext highlighter-rouge">tr</code>y的后面跟若干个<code class="language-plaintext highlighter-rouge">catch</code>，用于捕获多个异常。
+值得注意的是，无论有无执行到<code class="language-plaintext highlighter-rouge">catch</code>语句 (捕获异常) <strong>finally里面的代码一定会被执行</strong>, 执行的时间点是在<code class="language-plaintext highlighter-rouge">try</code>或者<code class="language-plaintext highlighter-rouge">catch</code>的<code class="language-plaintext highlighter-rouge">return</code>或者<code class="language-plaintext highlighter-rouge">throw</code>语句之前。也就是说在程序退出前会执行到<code class="language-plaintext highlighter-rouge">finally</code>包括的语句，然后回来执行<code class="language-plaintext highlighter-rouge">try</code>或者<code class="language-plaintext highlighter-rouge">catch</code>块中的<code class="language-plaintext highlighter-rouge">return</code>或者<code class="language-plaintext highlighter-rouge">throw</code>语句。如果<code class="language-plaintext highlighter-rouge">finally</code>中使用了<code class="language-plaintext highlighter-rouge">return</code>或者<code class="language-plaintext highlighter-rouge">throw</code>等终止方法的语句，则就不会跳回执行，直接停止。
+如果<code class="language-plaintext highlighter-rouge">finally</code>块中抛出异常则会覆盖前面<code class="language-plaintext highlighter-rouge">try</code>或者<code class="language-plaintext highlighter-rouge">catch</code>块中的异常。</p>
+
+<p><code class="language-plaintext highlighter-rouge">throw</code> 用来主动抛出异常。<br />
+<code class="language-plaintext highlighter-rouge">throws</code> 用在方法的声明当中，如果该方法声明throws一个异常，则表明该方法里可以不处理该异常，有JVM将异常传递里上层调用者处理。
+throw通常和throws联合使用，抛出的是程序中已经产生的异常类实例。</p>
+
+<h2 id="异常分类">异常分类</h2>
+<p>看完了异常处理的流程，我们再来看看Java异常的分类。
+Java的异常都来源于一个接口<code class="language-plaintext highlighter-rouge">throwable</code>，<code class="language-plaintext highlighter-rouge">throwable</code>是java.lang包里的一个接口。继承<code class="language-plaintext highlighter-rouge">java.lang.Object</code>.其中有两个直接子类<code class="language-plaintext highlighter-rouge">ERROR</code>和<code class="language-plaintext highlighter-rouge">EXCEPTION</code>，有兴趣可以参考 <a href="https://docs.oracle.com/javase/8/docs/api/">Java 官方文档</a><br />
+<code class="language-plaintext highlighter-rouge">Throwable</code> 主要提供了如下的一些方法。<br />
+<code class="language-plaintext highlighter-rouge">Throwable getCause()</code><br />
+<code class="language-plaintext highlighter-rouge">String    getMessage()</code><br />
+<code class="language-plaintext highlighter-rouge">void      printStackTrace()</code><br />
+<code class="language-plaintext highlighter-rouge">String    toString()</code><br />
+<br />
+<code class="language-plaintext highlighter-rouge">ERROR</code>是指的系统的错误，用户无法处理，比如内存溢出等，只有通过修改程序来更正，因此遇到此类错误会让程序终止运行。<br />
+ERROR和子类的关系如下图所示。<br /></p>
+
+<p><img src="/daviddong.github.io/assets/image/java-throwable-error.png" alt="Error/subclass" class="center-image" /><br />
+<code class="language-plaintext highlighter-rouge">EXCEPTION</code>指的是运行时的异常，是用户可以进行处理的异常。<br />
+EXCEPTION类和子类的关系如下。<br /></p>
+
+<p><img src="/daviddong.github.io/assets/image/java-throwable-exception.png" alt="Exception/subclass" class="center-image" /><br /></p>
+<h2 id="exception-和-runtimeexception">Exception 和 RuntimeException</h2>
+<p>可以看到<code class="language-plaintext highlighter-rouge">RuntimeException</code>是<code class="language-plaintext highlighter-rouge">Exception</code>的子类，实际上<code class="language-plaintext highlighter-rouge">RuntimeException</code>对应的是非检查性异常，用户可以处理也可以不处理，而如何继承的是<code class="language-plaintext highlighter-rouge">exception</code>,则为检查性异常，用户必须用<code class="language-plaintext highlighter-rouge">try-catch</code>来处理异常。<br />
+一个简单的例子。</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="cm">/**
+ * example of java exception
+ *
+ */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">App</span> 
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span> <span class="nc">String</span><span class="o">[]</span> <span class="n">args</span> <span class="o">)</span>
+    <span class="o">{</span>
+        <span class="n">runTimeExFun</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">runTimeExFun</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">RuntimeException</span><span class="o">{</span>
+
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="s">"new runtime exception!"</span><span class="o">);</span>
+        
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>运行结果</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Exception</span> <span class="n">in</span> <span class="n">thread</span> <span class="s">"main"</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">RuntimeException</span><span class="o">:</span> <span class="k">new</span> <span class="n">runtime</span> <span class="n">exception</span><span class="o">!</span>
+        <span class="n">at</span> <span class="n">daviddong</span><span class="o">.</span><span class="na">example</span><span class="o">.</span><span class="na">exception</span><span class="o">.</span><span class="na">App</span><span class="o">.</span><span class="na">runTimeExFun</span><span class="o">(</span><span class="nc">App</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">16</span><span class="o">)</span>
+        <span class="n">at</span> <span class="n">daviddong</span><span class="o">.</span><span class="na">example</span><span class="o">.</span><span class="na">exception</span><span class="o">.</span><span class="na">App</span><span class="o">.</span><span class="na">main</span><span class="o">(</span><span class="nc">App</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">11</span><span class="o">)</span></code></pre></figure>
+
+<p>可以看出如果函数声明的是抛出一个<code class="language-plaintext highlighter-rouge">RuntimeException</code>异常，则主调函数可以选择不用<code class="language-plaintext highlighter-rouge">try-catch</code>来处理。我们将<code class="language-plaintext highlighter-rouge">throws</code>的异常改为<code class="language-plaintext highlighter-rouge">Exception</code>,</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="cm">/**
+ * example of java exception
+ *
+ */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">App</span> 
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span> <span class="nc">String</span><span class="o">[]</span> <span class="n">args</span> <span class="o">)</span>
+    <span class="o">{</span>
+        <span class="n">runTimeExFun</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">runTimeExFun</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span><span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="s">"new runtime exception!"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>则会报语法错误<code class="language-plaintext highlighter-rouge">“Unhandled exception type ExceptionJava(16777384)”</code>，需要用<code class="language-plaintext highlighter-rouge">try-catch</code>来处理异常。<br />
+正确代码如下。</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="cm">/**
+ * example of java exception
+ *
+ */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">App</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">runTimeExFun</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// TODO Auto-generated catch block</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">runTimeExFun</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span><span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="s">"new runtime exception!"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+:ET

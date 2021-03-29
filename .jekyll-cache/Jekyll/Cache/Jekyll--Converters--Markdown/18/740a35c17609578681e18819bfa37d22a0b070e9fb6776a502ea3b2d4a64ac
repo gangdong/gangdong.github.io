@@ -1,0 +1,25 @@
+I"�<p>Android中Bundle类的作用，根据google <a href="http://developer.android.com/reference/android/os/Bundle.html">官方文档</a><br />Bundle类用作携带数据，它类似于Map，用于存放key-value名值对形式的值。<br /></p>
+
+<p>Bundle经常使用在Activity之间或者线程间传递数据，传递的数据可以是 <strong>boolean、byte、int、long、float、double、string</strong> 等基本类型或它们对应的数组，也可以是对象或对象数组。
+当Bundle传递的是对象或对象数组时，必须实现<code class="language-plaintext highlighter-rouge">Serializable</code> 或<code class="language-plaintext highlighter-rouge">Parcelable</code>接口。
+Bundle提供了各种常用类型的<code class="language-plaintext highlighter-rouge">putXxx()/getXxx()</code>方法，用于读写基本类型的数据。（各种方法可以查看API）<br />
+参考代码如下：<br /></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">                <span class="c1">//Student 类应该实现Serializable接口</span>
+                <span class="nc">Student</span> <span class="n">student</span> <span class="o">=</span> <span class="k">new</span> <span class="n">student</span><span class="o">();</span>
+
+                <span class="c1">//声明一个Bundle的对象</span>
+                <span class="nc">Bundle</span> <span class="n">bundle</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Bundle</span><span class="o">();</span>
+
+                <span class="c1">//将student对象装入bundle中，同时声明key值</span>
+                <span class="n">bundle</span><span class="o">.</span><span class="na">putSerializable</span><span class="o">(</span><span class="s">"student"</span><span class="o">,</span><span class="n">student</span><span class="o">);</span>
+
+                <span class="c1">//声明一个Intent 对象</span>
+                <span class="nc">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Intent</span><span class="o">(</span><span class="nc">MainActivity</span><span class="o">.</span><span class="na">this</span><span class="o">,</span><span class="nc">DisplayActivity</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+                <span class="c1">//intent.setAction("android.intent.action.DISPLAY");</span>
+
+                <span class="c1">//通过intent发送bundle到目标activity中，实现activity之间的对象传递</span>
+                <span class="n">intent</span><span class="o">.</span><span class="na">putExtras</span><span class="o">(</span><span class="n">bundle</span><span class="o">);</span>
+                
+                <span class="n">startActivityForResult</span><span class="o">(</span><span class="n">intent</span><span class="o">,</span><span class="mi">2</span><span class="o">);</span></code></pre></figure>
+:ET

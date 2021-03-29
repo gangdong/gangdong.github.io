@@ -1,0 +1,223 @@
+I"D~<p>Recently, I’ve been busy with my work and haven’t been able to update blog for a long time. This time, I am going to start a discussion and summarize how Android dispatch Touchevent after received them from touch screen device.</p>
+
+<p>You may know there are some ways in android system that can capture Touchevent.</p>
+
+<p>For example, register a component’s <code class="language-plaintext highlighter-rouge">setOnTouchListener()</code> and implements the <code class="language-plaintext highlighter-rouge">onTouchListener</code> interface by override the <code class="language-plaintext highlighter-rouge">onTouch()</code> method. 
+Else you can change it to <code class="language-plaintext highlighter-rouge">setOnClickListener()</code> and implements the <code class="language-plaintext highlighter-rouge">onClickListener</code> interface. Also you can even override the view’s <code class="language-plaintext highlighter-rouge">onTouchEvent()</code> method directly to capture the Touchevent. 
+But have you ever thought about what the difference is among these methods? How does android handle these methods sequentially?</p>
+
+<p>Let’s start with some pieces of code.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="nc">AppCompatActivity</span> <span class="o">{</span>
+
+    <span class="nc">Button</span> <span class="n">btn</span><span class="o">;</span>
+    <span class="nc">String</span> <span class="n">str</span> <span class="o">=</span><span class="s">""</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+    
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="nc">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
+
+        <span class="n">btn</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">button01</span><span class="o">);</span>
+
+        <span class="n">btn</span><span class="o">.</span><span class="na">setOnTouchListener</span><span class="o">(</span><span class="k">new</span> <span class="nc">View</span><span class="o">.</span><span class="na">OnTouchListener</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onTouch</span><span class="o">(</span><span class="nc">View</span> <span class="n">view</span><span class="o">,</span> <span class="nc">MotionEvent</span> <span class="n">motionEvent</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">cnt</span><span class="o">++;</span>
+                <span class="n">str</span><span class="o">+=</span> <span class="s">"_onTouch()"</span><span class="o">;</span>
+                <span class="k">switch</span><span class="o">(</span><span class="n">motionEvent</span><span class="o">.</span><span class="na">getAction</span><span class="o">())</span>
+                <span class="o">{</span>
+                    <span class="k">case</span> <span class="nc">MotionEvent</span><span class="o">.</span><span class="na">ACTION_DOWN</span><span class="o">:</span>
+                        <span class="n">str</span> <span class="o">+=</span> <span class="s">"_down"</span><span class="o">;</span>
+                        <span class="k">break</span><span class="o">;</span>
+                    <span class="k">case</span> <span class="nc">MotionEvent</span><span class="o">.</span><span class="na">ACTION_UP</span><span class="o">:</span>
+                        <span class="n">str</span> <span class="o">+=</span> <span class="s">"_up"</span><span class="o">;</span>
+                        <span class="k">break</span><span class="o">;</span>
+                    <span class="k">default</span><span class="o">:</span>
+                        <span class="n">str</span> <span class="o">+=</span> <span class="s">"_others"</span><span class="o">;</span>
+                        <span class="k">break</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="nc">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="s">"check"</span><span class="o">,</span><span class="n">str</span> <span class="o">+</span> <span class="s">"_count:"</span> <span class="o">+</span> <span class="n">cnt</span><span class="o">);</span>
+                <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+
+        <span class="n">btn</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="nc">View</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="nc">View</span> <span class="n">view</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">cnt</span><span class="o">++;</span>
+                <span class="n">str</span><span class="o">+=</span> <span class="s">"_onClick()"</span><span class="o">;</span>
+                <span class="nc">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="s">"check"</span><span class="o">,</span><span class="n">str</span> <span class="o">+</span> <span class="s">"_count:"</span> <span class="o">+</span> <span class="n">cnt</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>This pieces of code put a button on the activity and register two listeners to capture the Touchevent of the button, that is the click.<br />
+Let’s see what the result is when the button is clicked.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">_onTouch</span><span class="o">()</span><span class="nl">_down_count:</span><span class="mi">1</span>
+<span class="n">_onTouch</span><span class="o">()</span><span class="n">_down_onTouch</span><span class="o">()</span><span class="nl">_up_count:</span><span class="mi">2</span>
+<span class="n">_onTouch</span><span class="o">()</span><span class="n">_down_onTouch</span><span class="o">()</span><span class="n">_up_onClick</span><span class="o">()</span><span class="nl">_count:</span><span class="mi">3</span></code></pre></figure>
+
+<p>We can see when the button is clicked, the <code class="language-plaintext highlighter-rouge">OnTouchListener()</code> is triggered twice (for dwon and up) firstly and then the <code class="language-plaintext highlighter-rouge">onClickListener()</code> is called. <br />
+If we change the return value to “true” and re-run this pieces of code.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">btn</span><span class="o">.</span><span class="na">setOnTouchListener</span><span class="o">(</span><span class="k">new</span> <span class="nc">View</span><span class="o">.</span><span class="na">OnTouchListener</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onTouch</span><span class="o">(</span><span class="nc">View</span> <span class="n">view</span><span class="o">,</span> <span class="nc">MotionEvent</span> <span class="n">motionEvent</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">cnt</span><span class="o">++;</span>
+                <span class="n">str</span><span class="o">+=</span> <span class="s">"_onTouch()"</span><span class="o">;</span>
+                <span class="k">switch</span><span class="o">(</span><span class="n">motionEvent</span><span class="o">.</span><span class="na">getAction</span><span class="o">())</span>
+                <span class="o">{</span>
+                    <span class="k">case</span> <span class="nc">MotionEvent</span><span class="o">.</span><span class="na">ACTION_DOWN</span><span class="o">:</span>
+                        <span class="n">str</span> <span class="o">+=</span> <span class="s">"_down"</span><span class="o">;</span>
+                        <span class="k">break</span><span class="o">;</span>
+                    <span class="k">case</span> <span class="nc">MotionEvent</span><span class="o">.</span><span class="na">ACTION_UP</span><span class="o">:</span>
+                        <span class="n">str</span> <span class="o">+=</span> <span class="s">"_up"</span><span class="o">;</span>
+                        <span class="k">break</span><span class="o">;</span>
+                    <span class="k">default</span><span class="o">:</span>
+                        <span class="n">str</span> <span class="o">+=</span> <span class="s">"_others"</span><span class="o">;</span>
+                        <span class="k">break</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="nc">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="s">"check"</span><span class="o">,</span><span class="n">str</span> <span class="o">+</span> <span class="s">"_count:"</span> <span class="o">+</span> <span class="n">cnt</span><span class="o">);</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">});</span></code></pre></figure>
+
+<p>We see the <code class="language-plaintext highlighter-rouge">onClickListener()</code> will not be called any more.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">_onTouch</span><span class="o">()</span><span class="nl">_down_count:</span><span class="mi">1</span>
+<span class="n">_onTouch</span><span class="o">()</span><span class="n">_down_onTouch</span><span class="o">()</span><span class="nl">_up_count:</span><span class="mi">2</span></code></pre></figure>
+
+<p>Above code proves that the <code class="language-plaintext highlighter-rouge">OnTouchListener()</code> has high priority than <code class="language-plaintext highlighter-rouge">onClickListener()</code> and can block the latter to be executed.</p>
+
+<p>Next let track into the Android source code to find the root cause.</p>
+
+<p><img src="/daviddong.github.io/assets/image/android-touchevent-despatch01.PNG" alt="framework" class="center-image" /></p>
+
+<p>As above pictures shows, in android internal, there are two routes</p>
+<ul>
+  <li>one is from outside to inside, that is from activity - &gt; ViewGroup - &gt; view, call the <code class="language-plaintext highlighter-rouge">dispatchTouchEvent()</code> method from the outside to the inside, and Android will pass the motionevent parameter to the method in turn. The function of <code class="language-plaintext highlighter-rouge">dispatchTouchEvent()</code> is to deliver touch events. The <code class="language-plaintext highlighter-rouge">dispatchTouchEvent()</code> is the entrance to deliver touch events every time.</li>
+  <li>another is from inside to outside, that is to call the <code class="language-plaintext highlighter-rouge">onTouchEvent()</code> method from view - &gt; ViewGroup - &gt; activity, and Android will pass the motionevent parameter to the method in turn. The function of <code class="language-plaintext highlighter-rouge">onTouchEvent()</code> is to handle touch events.</li>
+</ul>
+
+<p>Nex, Let’s go into every components to check the details further.</p>
+
+<h2 id="activity">Activity</h2>
+
+<p><strong>dispatchTouchEvent()</strong>
+All touch events generated by touch operations on the UI will first trigger the execution of the <code class="language-plaintext highlighter-rouge">dispatchTouchEvent()</code> method in the activity.<br /> 
+The source code is as follows:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">dispatchTouchEvent</span><span class="o">()(</span><span class="nc">MotionEvent</span> <span class="n">ev</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">ev</span><span class="o">.</span><span class="na">getAction</span><span class="o">()</span> <span class="o">==</span> <span class="nc">MotionEvent</span><span class="o">.</span><span class="na">ACTION_DOWN</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">onUserInteraction</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">getWindow</span><span class="o">().</span><span class="na">superdispatchTouchEvent</span><span class="o">()(</span><span class="n">ev</span><span class="o">))</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="nf">onTouchEvent</span><span class="o">()(</span><span class="n">ev</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Activity first obtains the current window object through the <code class="language-plaintext highlighter-rouge">getWindow ()</code> method, then calls the <code class="language-plaintext highlighter-rouge">superdispatchTouchEvent()</code> method of window. In fact, <code class="language-plaintext highlighter-rouge">getWindow()</code> returns an instance of PhoneWindow type, which will invoke PhoneWindow’s <code class="language-plaintext highlighter-rouge">superdispatchTouchEvent()</code> method.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">superdispatchTouchEvent</span><span class="o">()(</span><span class="nc">MotionEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">mDecor</span><span class="o">.</span><span class="na">superdispatchTouchEvent</span><span class="o">()(</span><span class="n">event</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>mDecor is a variable of type decorview in phonewindow. Decorview represents the top-level view of the current window, which can be regarded as the root view. As can be seen from the above code, the <code class="language-plaintext highlighter-rouge">superdispatchTouchEvent()</code> method of decorview will be executed later.<br /> 
+Its source code is as follows:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">superdispatchTouchEvent</span><span class="o">()(</span><span class="nc">MotionEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">dispatchTouchEvent</span><span class="o">()(</span><span class="n">event</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>In fact, dectorview inherits from FrameLayout, so it indirectly inherits from ViewGroup, so it will execute the <code class="language-plaintext highlighter-rouge">dispatchTouchEvent()</code> method corresponding to its parent class ViewGroup.</p>
+
+<p>The above describes the transfer process of touch event from activity to ViewGroup with the help of <code class="language-plaintext highlighter-rouge">superdispatchTouchEvent()</code> and <code class="language-plaintext highlighter-rouge">dispatchTouchEvent()</code> methods. Both methods return a boolean type parameter. If true is returned, it means that the touch event is processed; otherwise, it means that the touch event is not processed. If we look at the source code of the <code class="language-plaintext highlighter-rouge">dispatchTouchEvent()</code> in the above activity, we will find that if the <code class="language-plaintext highlighter-rouge">superDispatchTouchEvent()</code> of phonewindow returns true, then the <code class="language-plaintext highlighter-rouge">dispatchTouchEvent()</code> method of activity directly returns true, indicating that the touch event has been processed by window, so the later <code class="language-plaintext highlighter-rouge">onTouchEvent()</code> method of activity will not be executed. Only when window does not handle the touch event, the activity will call the <code class="language-plaintext highlighter-rouge">onTouchEvent()</code> method to handle the event.</p>
+
+<p><strong>onTouchEvent()</strong>
+The source code of <code class="language-plaintext highlighter-rouge">onTouchEvent()</code> is as follows</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onTouchEvent</span><span class="o">()(</span><span class="nc">MotionEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">mWindow</span><span class="o">.</span><span class="na">shouldCloseOnTouch</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">event</span><span class="o">))</span> <span class="o">{</span>
+        <span class="n">finish</span><span class="o">();</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Only when the touch event has not been processed by any view or ViewGroup can the activity execute its own <code class="language-plaintext highlighter-rouge">onTouchEvent()</code> to process the touch event.</p>
+
+<h2 id="viewgroup">ViewGroup</h2>
+<p><a href="https://github.com/aosp-mirror/platform_frameworks_base/blob/android-6.0.0_r23/core/java/android/view/ViewGroup.java#L2077">source code</a><br />
+<strong>dispatchTouchEvent()</strong><br />
+When the activity receives the touch event, it will call the <code class="language-plaintext highlighter-rouge">dispatchTouchEvent()</code> method of ViewGroup through dectorview.<br />
+The <code class="language-plaintext highlighter-rouge">dispatchTouchEvent()</code> method is the entry point for ViewGroup to process touch events.<br /></p>
+
+<p>A member variable of TouchTarget type mFirstTouchTarget is defined in the ViewGroup, which is used to save the child views that handle touch events in the current ViewGroup.<br />
+First of all, the <code class="language-plaintext highlighter-rouge">dispatchTouchEvent()</code> method will call its own <code class="language-plaintext highlighter-rouge">onIntercepTouchEvent()</code> method. <code class="language-plaintext highlighter-rouge">onIntercepTouchEvent()</code> is used to intercept the touch event passed by the ViewGroup to its child view. If the method returns true, it means that the ViewGroup should intercept the touch event; if it returns false, it means that the ViewGroup should not intercept the touch event, and it should pass the touch event to the child view. A boolean type handled variable is defined in the <code class="language-plaintext highlighter-rouge">dispatchTouchEvent()</code> method to save the return value of the <code class="language-plaintext highlighter-rouge">dispatchTouchEvent()</code> method. If true, the touch event is processed by the current ViewGroup. Otherwise, it is not processed.</p>
+
+<p>Then, only when <code class="language-plaintext highlighter-rouge">onIntercepTouchEvent()</code> returns false, the ViewGroup will traverse its child views in turn. It will call <code class="language-plaintext highlighter-rouge">isTransformedTouchPointInView()</code> method to determine whether the coordinates of the touch event carried by motionevent fall within the scope of the child view. If the coordinates of the touch event fall within the scope of the child view, it means that we touch the child view within the current ViewGroup In this way, the ViewGroup will pass the coordinates of the touch event and the sub view to the <code class="language-plaintext highlighter-rouge">dispatchTransformedTouchEvent()</code> method. In this method, the dispatchTouchEvent() method of the sub view will be called. Its return value indicates whether the touch event has been handled by the self view. If the <code class="language-plaintext highlighter-rouge">dispatchTransformedTouchEvent()</code> returns true, it indicates that the sub view has handled the touch event. In this way, the ViewGroup will call <code class="language-plaintext highlighter-rouge">addTouchTarget()</code> method binds mFirstTouchTarget to the child view, and the variable alreadyDispatchedToNewTouchTarget is also set to true, indicating that a child view has handled the touch event. Once a child view handles the touch event, the ViewGroup will break out of the for loop and no longer traverse other child views.
+After the for loop of child view, if no child view handles touch events, mFirstTouchTarget is still null, and ViewGroup will pass null as the child parameter.</p>
+
+<p>In the <code class="language-plaintext highlighter-rouge">dispatchTransformedTouchEvent()</code> method, the method will call the <code class="language-plaintext highlighter-rouge">super.dispatchTouchEvent()</code> method. Since ViewGroup inherits from view, this is equivalent to executing the <code class="language-plaintext highlighter-rouge">dispatchTouchEvent()</code> method in the view class, so it is likely to execute the <code class="language-plaintext highlighter-rouge">onTouchEvent()</code> method inherited from view by ViewGroup. The return value of <code class="language-plaintext highlighter-rouge">dispatchTransformedTouchEvent()</code> is used as the value of the local variable handled. The <code class="language-plaintext highlighter-rouge">dispatchTouchEvent()</code> method in the view class is described in detail below.
+After the for loop of a subview, if a subview is found to handle touch events, then the already <code class="language-plaintext highlighter-rouge">dispatchedToNewTouchTarget()</code> is true, which will set the local variable handled to true, that is, as long as a subview handles touch events, it indicates that the current ViewGroup has also handled touch events, and in this case, the ViewGroup will not call v The <code class="language-plaintext highlighter-rouge">dispatchTouchEvent()</code> method inherited from the iew does not trigger the execution of the <code class="language-plaintext highlighter-rouge">onTouchEvent()</code> method of the ViewGroup.
+<strong>onIntercepTouchEvent()</strong> <br />
+As mentioned earlier, <code class="language-plaintext highlighter-rouge">onIntercepTouchEvent()</code> is used to intercept the transfer of touch events from ViewGroup to child views. The default implementation in ViewGroup always returns false, which means no interception. We can override this method to implement our own touch event interception logic.</p>
+
+<p><strong>onTouchEvent()</strong><br />
+The <code class="language-plaintext highlighter-rouge">onTouchEvent()</code> of the ViewGroup is inherited from the <code class="language-plaintext highlighter-rouge">onTouchEvent()</code> method of the view. The ViewGroup has not been overridden. We will introduce the implementation logic of the <code class="language-plaintext highlighter-rouge">onTouchEvent()</code> method of the view in the following section.</p>
+
+<h2 id="view">View</h2>
+<p><a href="https://github.com/aosp-mirror/platform_frameworks_base/blob/android-6.0.0_r23/core/java/android/view/View.java">source code</a>
+<br /></p>
+
+<p><strong>dispatchTouchEvent()</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">dispatchTouchEvent</span><span class="o">()(</span><span class="nc">MotionEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+    <span class="o">......</span>
+
+    <span class="kt">boolean</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+
+    <span class="o">......</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">onFilterTouchEventForSecurity</span><span class="o">(</span><span class="n">event</span><span class="o">))</span> <span class="o">{</span>
+        <span class="c1">//noinspection SimplifiableIfStatement</span>
+        <span class="nc">ListenerInfo</span> <span class="n">li</span> <span class="o">=</span> <span class="n">mListenerInfo</span><span class="o">;</span>
+        <span class="c1">//如果设置了onTouchListener，那么会在此处执行onTouchListener的onTouch方法</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">li</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">li</span><span class="o">.</span><span class="na">monTouchListener</span> <span class="o">!=</span> <span class="kc">null</span>
+                <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">mViewFlags</span> <span class="o">&amp;</span> <span class="no">ENABLED_MASK</span><span class="o">)</span> <span class="o">==</span> <span class="no">ENABLED</span>
+                <span class="o">&amp;&amp;</span> <span class="n">li</span><span class="o">.</span><span class="na">monTouchListener</span><span class="o">.</span><span class="na">onTouch</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">event</span><span class="o">))</span> <span class="o">{</span>
+            <span class="c1">//如果onTouchListener的onTouch方法返回true，</span>
+            <span class="c1">//就表示触摸事件被处理了，result就会设置为true</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="c1">//如果触摸事件没有被onTouchListener处理，那么就会执行View的onTouchEvent()方法</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="n">result</span> <span class="o">&amp;&amp;</span> <span class="n">onTouchEvent</span><span class="o">()(</span><span class="n">event</span><span class="o">))</span> <span class="o">{</span>
+            <span class="c1">//如果onTouchEvent()返回了true，</span>
+            <span class="c1">//就表示触摸事件被View处理了，result就被设置为了true</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="o">......</span>
+
+    <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+<span class="o">}</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">dispatchTouchEvent()</code> is the entry point for view to handle touch events. In this method, view will first check whether it has set onTouchListener. If it has, it will call onTouchListener’s ontouch method. If it returns true, it indicates that the touch event has been processed, and the result will be set to true. If the touch event is not processed by onTouchListener, the <code class="language-plaintext highlighter-rouge">onTouchEvent()</code> method of view will be executed. If <code class="language-plaintext highlighter-rouge">onTouchEvent()</code> returns true, it means that the touch event is processed by view, and the result is set to true.
+It can be seen from the above that in the <code class="language-plaintext highlighter-rouge">dispatchTouchEvent()</code> method, the onTouchListener’s ontouch method is executed first. Once it returns true, the view’s ontoucheevent method will not be called. Only when onTouchListener does not handle the touch event will the view’s ontoucheevent method be executed later.</p>
+
+<p><strong>onTouchEvent()</strong><br />
+<code class="language-plaintext highlighter-rouge">dispatchTouchEvent()</code> is the entry point for view to handle touch events. In this method, view will first check whether it has set onTouchListener. If it has, it will call onTouchListener’s ontouch method. If it returns true, it indicates that the touch event has been processed, and the result will be set to true. If the touch event is not processed by onTouchListener, the <code class="language-plaintext highlighter-rouge">onTouchEvent()</code> method of view will be executed. If <code class="language-plaintext highlighter-rouge">onTouchEvent()</code> returns true, it means that the touch event is processed by view, and the result is set to true.
+It can be seen from the above that in the <code class="language-plaintext highlighter-rouge">dispatchTouchEvent()</code> method, the onTouchListener’s <code class="language-plaintext highlighter-rouge">onTouch()</code> method is executed first. Once it returns true, the view’s <code class="language-plaintext highlighter-rouge">onTouchEvent()</code> method will not be called. Only when onTouchListener does not handle the touch event will the view’s <code class="language-plaintext highlighter-rouge">onTouchEvent()</code> method be executed later.</p>
+
+<p>At last, Let’s get a summary. <code class="language-plaintext highlighter-rouge">dispatchTouchEvent()</code> is the entry point for view to handle touch events. In this method, view will first check whether it has set onTouchListener. If it has, it will call onTouchListener’s <code class="language-plaintext highlighter-rouge">onTouch()</code> method. If it returns true, it indicates that the touch event has been processed, and the result will be set to true. If the touch event is not processed by onTouchListener, the <code class="language-plaintext highlighter-rouge">onTouchEvent()</code> method of view will be executed. If <code class="language-plaintext highlighter-rouge">onTouchEvent()</code> returns true, it means that the touch event is processed by view, and the result is set to true.
+It can be seen from the above that in the <code class="language-plaintext highlighter-rouge">dispatchTouchEvent()</code> method, the onTouchListener’s ontouch method is executed first. Once it returns true, the view’s <code class="language-plaintext highlighter-rouge">onTouchEvent()</code> method will not be called. Only when onTouchListener does not handle the touch event will the view’s <code class="language-plaintext highlighter-rouge">onTouchEvent()</code> method be executed later.</p>
+
+:ET

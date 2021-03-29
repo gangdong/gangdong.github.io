@@ -1,0 +1,210 @@
+I"i8<p>Java 实现多线程编程的方式有两种，一种是继承 Thread 类，另一种是实现 Runnable 接口。<br />
+下面的内容会分别介绍这两种用法以及使用上的区别。</p>
+
+<h2 id="thread-类">Thread 类</h2>
+<p>Java 通过Thread类来实现多线程，关于Thread类的介绍，可以查阅 <a href="https://docs.oracle.com/javase/8/docs/api/">Java文档 Thread</a>。<br />
+Thread类继承自java.lang.Object，实现了Runnable接口。<br />
+Thread类的用法如下。<br />
+MyThreadClass.java</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.daviddong</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyThreadClass</span> <span class="kd">extends</span> <span class="nc">Thread</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// TODO Auto-generated method stub</span>
+        <span class="n">cnt</span><span class="o">++;</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"线程"</span> <span class="o">+</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> 
+        <span class="s">" 被调用 "</span> <span class="o">+</span> <span class="n">cnt</span> <span class="o">+</span> <span class="s">"次"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>App.java</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.daviddong</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">App</span> 
+<span class="o">{</span>
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span> <span class="nc">String</span><span class="o">[]</span> <span class="n">args</span> <span class="o">)</span>
+    <span class="o">{</span>
+        <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">MyThreadClass</span><span class="o">&gt;</span> <span class="n">lists</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">MyThreadClass</span><span class="o">&gt;();</span>
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">10</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+            <span class="nc">MyThreadClass</span> <span class="n">tmp</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyThreadClass</span><span class="o">(</span><span class="n">mR</span><span class="o">);</span>
+            <span class="n">lists</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">tmp</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">for</span><span class="o">(</span><span class="nc">MyThreadClass</span> <span class="nl">tmp:</span><span class="n">lists</span><span class="o">){</span>
+            <span class="n">tmp</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>运行结果</p>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">线程Thread-0 被调用 1次
+线程Thread-9 被调用 1次
+线程Thread-8 被调用 1次
+线程Thread-7 被调用 1次
+线程Thread-5 被调用 1次
+线程Thread-6 被调用 1次
+线程Thread-3 被调用 1次
+线程Thread-4 被调用 1次
+线程Thread-2 被调用 1次
+线程Thread-1 被调用 1次</code></pre></figure>
+
+<p>由以上结果可以看出，线程的运行结果与执行顺序无关，并且10个线程分别被执行一次，线程内资源无法共享。</p>
+
+<h2 id="runnable-接口">Runnable 接口</h2>
+<p>Runnable接口的Java文档的介绍。<a href="">Runnable</a>
+Runnable接口内只声明一个方法<code class="language-plaintext highlighter-rouge">Run()</code>的方法，同Thread内的<code class="language-plaintext highlighter-rouge">Run()</code>方法一样，该方法内定义了线程的执行体。<br />
+Runnable接口的用法如下。<br />
+MyRunnable.java</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.daviddong</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyRunnable</span> <span class="kd">implements</span> <span class="nc">Runnable</span><span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// TODO Auto-generated method stub</span>
+        <span class="n">cnt</span><span class="o">++;</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"线程"</span> <span class="o">+</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> 
+        <span class="s">" 被调用 "</span> <span class="o">+</span> <span class="n">cnt</span> <span class="o">+</span> <span class="s">"次"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>App.java</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.daviddong</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">App</span> 
+<span class="o">{</span>
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span> <span class="nc">String</span><span class="o">[]</span> <span class="n">args</span> <span class="o">)</span>
+    <span class="o">{</span>
+        <span class="nc">MyRunnable</span> <span class="n">mR</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyRunnable</span><span class="o">();</span>
+        <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Thread</span><span class="o">&gt;</span> <span class="n">lists</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Thread</span><span class="o">&gt;();</span>
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">10</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+            <span class="nc">Thread</span> <span class="n">tmp</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="n">mR</span><span class="o">);</span>
+            <span class="n">lists</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">tmp</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">for</span><span class="o">(</span><span class="nc">Thread</span> <span class="nl">tmp:</span><span class="n">lists</span><span class="o">){</span>
+            <span class="n">tmp</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="o">}</span>   
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>运行结果</p>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">线程Thread-1 被调用 2次
+线程Thread-2 被调用 3次
+线程Thread-0 被调用 2次
+线程Thread-7 被调用 7次
+线程Thread-6 被调用 6次
+线程Thread-5 被调用 5次
+线程Thread-4 被调用 4次
+线程Thread-8 被调用 9次
+线程Thread-9 被调用 9次
+线程Thread-3 被调用 10次</code></pre></figure>
+
+<p>同Thread的例子一样，看的出线程的执行顺序与调用顺序无关。但是因为不同的线程中传入的是同一个实现了Runnable接口的对象，因此内部的变量被共享。
+由以上两个例子，可以看出使用Thread类和Runnable接口创建线程的不同主要是有2点。</p>
+<ul>
+  <li>因为Java只能实现单继承，但可以实现多个接口，所以使用继承Thread类的方法就会导致无法继承其他的类，而Runnable接口就可以避免继承的局限。</li>
+  <li>使用Runnable接口适合于资源的共享。</li>
+</ul>
+
+<p>上面的程序还有一个问题，我们看到使用Runable接口时，虽然资源是被共享的，但是顺序不对，而且有重复出现的情况，正常应该是每个线程被调用时，调用次数加一，且应该顺序增加。造成这个问题的原因是因为不同的线程在执行都会访问共享的资源，而这些线程没有实现同步，共享资源会在一个线程调用的过程中被另外的线程改变。
+解决这个问题的话就要用到<code class="language-plaintext highlighter-rouge">synchronized</code>，使线程之间同步运行。
+我们修改一下代码。<br />
+MyRunnale.java</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.daviddong</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyRunnable</span> <span class="kd">implements</span> <span class="nc">Runnable</span><span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// TODO Auto-generated method stub</span>
+        <span class="n">cnt</span><span class="o">++;</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"线程"</span> <span class="o">+</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> 
+        <span class="s">" 被调用 "</span> <span class="o">+</span> <span class="n">cnt</span> <span class="o">+</span> <span class="s">"次"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>使用<code class="language-plaintext highlighter-rouge">synchronized</code>修饰<code class="language-plaintext highlighter-rouge">run()</code>方法，使得其在执行时与其他的线程同步。经过synchronized修饰后线程在执行run()方法时会确认是否有其他线程正在执行，如果有的话就加入队列等待，知道可以获得执行权。
+执行结果如下。</p>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">线程Thread-1 被调用 1次
+线程Thread-3 被调用 2次
+线程Thread-2 被调用 3次
+线程Thread-7 被调用 4次
+线程Thread-0 被调用 5次
+线程Thread-9 被调用 6次
+线程Thread-8 被调用 7次
+线程Thread-6 被调用 8次
+线程Thread-5 被调用 9次
+线程Thread-4 被调用 10次</code></pre></figure>
+
+<p>现在我们看到共享资源是按顺序被调用且没有重复。<br />
+最后在介绍一些Thread类的常用方法。<br /></p>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Return</strong></th>
+      <th><strong>Function</strong></th>
+      <th><strong>Description</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Thread</td>
+      <td>currentThread</td>
+      <td>返回代码段当前被调用的线程</td>
+    </tr>
+    <tr>
+      <td>void</td>
+      <td>sleep()</td>
+      <td>在指定的毫秒数内让当前”正在执行的线程”休眠（暂停执行）</td>
+    </tr>
+    <tr>
+      <td>void</td>
+      <td>start()</td>
+      <td>启动当前线程</td>
+    </tr>
+    <tr>
+      <td>boolean</td>
+      <td>isAlive()</td>
+      <td>当前线程是否处于激活状态</td>
+    </tr>
+    <tr>
+      <td>String</td>
+      <td>getName()</td>
+      <td>返回当前线程的名字</td>
+    </tr>
+    <tr>
+      <td>long</td>
+      <td>getID()</td>
+      <td>返回当前线程的ID</td>
+    </tr>
+    <tr>
+      <td>void</td>
+      <td>setPriority()</td>
+      <td>设置优先级</td>
+    </tr>
+    <tr>
+      <td>boolean</td>
+      <td>isDaemon()</td>
+      <td>是否为守护进程</td>
+    </tr>
+  </tbody>
+</table>
+:ET

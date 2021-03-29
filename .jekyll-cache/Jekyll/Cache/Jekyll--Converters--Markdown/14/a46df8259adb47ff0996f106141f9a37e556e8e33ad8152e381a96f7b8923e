@@ -1,0 +1,165 @@
+I"ñ&<p>Android provides an ADB command <code class="language-plaintext highlighter-rouge">getevent</code> to obtain input events, such as obtaining key reporting event, obtaining touch screen reporting event, etc.</p>
+
+<p>User can use this command under adb console.</p>
+
+<h2 id="usage">Usage</h2>
+<p>The usage of this command is</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">adb shell getevent <span class="o">[</span>options] <span class="o">[</span>device]</code></pre></figure>
+
+<p>We input <code class="language-plaintext highlighter-rouge">adb shell getevent -h</code> on the CMD command line and will get the help information about this command.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">Usage: getevent <span class="o">[</span><span class="nt">-t</span><span class="o">]</span> <span class="o">[</span><span class="nt">-n</span><span class="o">]</span> <span class="o">[</span><span class="nt">-s</span> switchmask] <span class="o">[</span><span class="nt">-S</span><span class="o">]</span> <span class="o">[</span><span class="nt">-v</span> <span class="o">[</span>mask]] <span class="o">[</span><span class="nt">-d</span><span class="o">]</span> <span class="o">[</span><span class="nt">-p</span><span class="o">]</span> <span class="o">[</span><span class="nt">-i</span><span class="o">]</span> <span class="o">[</span><span class="nt">-l</span><span class="o">]</span> <span class="o">[</span><span class="nt">-q</span><span class="o">]</span>
+<span class="o">[</span><span class="nt">-c</span> count] <span class="o">[</span><span class="nt">-r</span><span class="o">]</span> <span class="o">[</span>device]
+  <span class="nt">-t</span>: show <span class="nb">time </span>stamps
+  <span class="nt">-n</span>: don<span class="s1">'t print newlines
+  -s: print switch states for given bits
+  -S: print all switch states
+  -v: verbosity mask (errs=1, dev=2, name=4, info=8, vers=16, pos. events=32, 
+      props=64)
+  -d: show HID descriptor, if available
+  -p: show possible events (errs, dev, name, pos. events)
+  -i: show all device info and possible events
+  -l: label event types and names in plain text
+  -q: quiet (clear verbosity mask)
+  -c: print given number of events then exit
+  -r: print rate events are received</span></code></pre></figure>
+
+<p>To display which input devices are on the system, use</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">adb shell getevent </code></pre></figure>
+
+<p>the command will return all of the input devices that the system used. For below my example, there are 7 input devices that registered at dev/input.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">add device 1: /dev/input/event6
+  name:     <span class="s2">"sdm670-mtp-snd-card Button Jack"</span>
+add device 2: /dev/input/event5
+  name:     <span class="s2">"sdm670-mtp-snd-card Headset Jack"</span>
+add device 3: /dev/input/event4
+  name:     <span class="s2">"capsense_bottom"</span>
+add device 4: /dev/input/event3
+  name:     <span class="s2">"capsense_top"</span>
+add device 5: /dev/input/event2
+  name:     <span class="s2">"himax-touchscreen"</span>
+add device 6: /dev/input/event0
+  name:     <span class="s2">"qpnp_pon"</span>
+add device 7: /dev/input/event1
+  name:     <span class="s2">"gpio-keys"</span></code></pre></figure>
+
+<p>Below are some examples, we can find the touchscreen input event is registered at /dev/input/event2, so we use touchscreen as a input device for the interpretion.</p>
+
+<ul>
+  <li>non-parameter:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">C:<span class="se">\W</span>INDOWS<span class="se">\S</span>ystem32&gt;adb shell getevent /dev/input/event2
+0003 0030 0000000f
+0003 0032 0000000f
+0003 003a 0000000f
+0003 0035 00000154</code></pre></figure>
+
+<p>Here the first column represents the <code class="language-plaintext highlighter-rouge">EVENT_TYPE</code>, the second column displays the <code class="language-plaintext highlighter-rouge">EVENT_CODE</code> and the third column is <code class="language-plaintext highlighter-rouge">EVENT_VALUE</code>.</p>
+
+<ul>
+  <li>-t: display timestamp</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">C:<span class="se">\W</span>INDOWS<span class="se">\S</span>ystem32&gt;adb shell getevent <span class="nt">-t</span> /dev/input/event2
+<span class="o">[</span>    1564.568377] 0003 0030 0000000f
+<span class="o">[</span>    1564.568377] 0003 0032 0000000f
+<span class="o">[</span>    1564.568377] 0003 003a 0000000f</code></pre></figure>
+
+<ul>
+  <li>-r: print report rate</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">C:<span class="se">\W</span>INDOWS<span class="se">\S</span>ystem32&gt;adb shell getevent <span class="nt">-r</span> /dev/input/event2
+0003 0032 00000027
+0003 003a 00000027
+0000 0000 00000000 rate 135</code></pre></figure>
+
+<ul>
+  <li>-p: print the event informaiton supported by the device.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">C:<span class="se">\W</span>INDOWS<span class="se">\S</span>ystem32&gt;adb shell getevent <span class="nt">-p</span> /dev/input/event2
+add device 1: /dev/input/event2
+  name:     <span class="s2">"himax-touchscreen"</span>
+  events:
+    KEY <span class="o">(</span>0001<span class="o">)</span>: 0066  008b  009e  00d9  014a  0244
+    ABS <span class="o">(</span>0003<span class="o">)</span>: 002f  : value 0, min 0, max 9, fuzz 0, flat 0, resolution 0
+                0030  : value 0, min 0, max 200, fuzz 0, flat 0, resolution 0
+                0032  : value 0, min 0, max 200, fuzz 0, flat 0, resolution 0
+                0035  : value 0, min 0, max 719, fuzz 0, flat 0, resolution 0
+                0036  : value 0, min 0, max 1599, fuzz 0, flat 0, resolution 0
+                0039  : value 0, min 0, max 65535, fuzz 0, flat 0, resolution 0
+                003a  : value 0, min 0, max 200, fuzz 0, flat 0, resolution 0
+  input props:
+    INPUT_PROP_DIRECT</code></pre></figure>
+
+<ul>
+  <li>-i: similar to -p, but will contain more information.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">C:<span class="se">\W</span>INDOWS<span class="se">\S</span>ystem32&gt;adb shell getevent <span class="nt">-i</span> /dev/input/event2
+add device 1: /dev/input/event2
+  bus:      0000
+  vendor    0000
+  product   0000
+  version   0000
+  name:     <span class="s2">"himax-touchscreen"</span>
+  location: <span class="s2">""</span>
+  <span class="nb">id</span>:       <span class="s2">""</span>
+  version:  1.0.1
+  events:
+    KEY <span class="o">(</span>0001<span class="o">)</span>: 0066  008b  009e  00d9  014a  0244
+    ABS <span class="o">(</span>0003<span class="o">)</span>: 002f  : value 0, min 0, max 9, fuzz 0, flat 0, resolution 0
+                0030  : value 0, min 0, max 200, fuzz 0, flat 0, resolution 0
+                0032  : value 0, min 0, max 200, fuzz 0, flat 0, resolution 0
+                0035  : value 0, min 0, max 719, fuzz 0, flat 0, resolution 0
+                0036  : value 0, min 0, max 1599, fuzz 0, flat 0, resolution 0
+                0039  : value 0, min 0, max 65535, fuzz 0, flat 0, resolution 0
+                003a  : value 0, min 0, max 200, fuzz 0, flat 0, resolution 0
+  input props:
+    INPUT_PROP_DIRECT</code></pre></figure>
+
+<ul>
+  <li>-l: print the event type/event code by plain text.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">C:<span class="se">\W</span>INDOWS<span class="se">\S</span>ystem32&gt;adb shell getevent <span class="nt">-l</span> /dev/input/event2
+EV_ABS       ABS_MT_TOUCH_MAJOR   0000000f
+EV_ABS       ABS_MT_WIDTH_MAJOR   0000000f
+EV_ABS       ABS_MT_PRESSURE      0000000f</code></pre></figure>
+
+<p>Compare with the default output, the <code class="language-plaintext highlighter-rouge">-l</code> output use the plain text replace the raw code of <code class="language-plaintext highlighter-rouge">EVENT_TYPE/EVENT_CODE/EVENT_VALUE</code> which is more intuitive.</p>
+<ul>
+  <li>-c: print given number of events then exit</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">C:<span class="se">\W</span>INDOWS<span class="se">\S</span>ystem32&gt;adb shell getevent <span class="nt">-c</span> 10  /dev/input/event2
+0003 0030 0000000f
+0003 0032 0000000f
+0003 003a 0000000f
+0003 0035 0000016d
+0003 0036 00000459
+0003 0039 00000025
+0001 014a 00000001
+0000 0000 00000000
+0003 0030 00000031
+0003 0032 00000031</code></pre></figure>
+
+<p>normal when we debug the touchscreen, we usually use below command to obtain the input event. This command will give all information with plain text output, which is useful for obtain the image of which input event is occurring.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">C:<span class="se">\W</span>INDOWS<span class="se">\S</span>ystem32&gt;adb shell getevent <span class="nt">-ltr</span>  /dev/input/event2
+<span class="o">[</span>    2311.461360] EV_ABS       ABS_MT_TOUCH_MAJOR   0000000f
+<span class="o">[</span>    2311.461360] EV_ABS       ABS_MT_WIDTH_MAJOR   0000000f
+<span class="o">[</span>    2311.461360] EV_ABS       ABS_MT_PRESSURE      0000000f
+<span class="o">[</span>    2311.461360] EV_ABS       ABS_MT_POSITION_X    0000013f
+<span class="o">[</span>    2311.461360] EV_ABS       ABS_MT_POSITION_Y    000003e6
+<span class="o">[</span>    2311.461360] EV_ABS       ABS_MT_TRACKING_ID   00000026
+<span class="o">[</span>    2311.461360] EV_KEY       BTN_TOUCH            DOWN
+<span class="o">[</span>    2311.461360] EV_SYN       SYN_REPORT           00000000</code></pre></figure>
+
+<p>The source code is at <a href="https://www.androidos.net.cn/android/9.0.0_r8/xref/system/core/toolbox/getevent.c">getevent.c</a>.</p>
+:ET

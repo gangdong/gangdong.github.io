@@ -1,0 +1,39 @@
+I"b<p>这篇文章对Linux的<code class="language-plaintext highlighter-rouge">poll()</code>函数的使用做一个总结。</p>
+
+<h3 id="poll-函数">poll() 函数</h3>
+<p>Linux 中 <code class="language-plaintext highlighter-rouge">poll()</code> 函数用来监听并等待多个文件描述符的属性变化。<br />
+原型</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">poll</span><span class="p">(</span><span class="k">struct</span> <span class="n">pollfd</span> <span class="o">*</span><span class="n">fds</span><span class="p">,</span> <span class="n">nfds_t</span> <span class="n">nfds</span><span class="p">,</span> <span class="kt">int</span> <span class="n">timeout</span><span class="p">);</span></code></pre></figure>
+
+<p>其中fds：指向一个结构体数组的第0个元素的指针，每个数组元素都是一个struct pollfd结构，用于指定测试某个给定的fd的条件。</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">pollfd</span><span class="p">{</span>
+	<span class="kt">int</span> <span class="n">fd</span><span class="p">;</span>			<span class="cm">/*文件描述符*/</span>
+	<span class="kt">short</span> <span class="n">events</span><span class="p">;</span>	<span class="cm">/*等待的事件*/</span>
+	<span class="kt">short</span> <span class="n">revents</span><span class="p">;</span>	<span class="cm">/*实际发生的事件*/</span>
+<span class="p">};</span></code></pre></figure>
+
+<h4 id="fds-结构体参数说明">fds 结构体参数说明</h4>
+<ul>
+  <li><strong>fd</strong>：每一个 pollfd 结构体指定了一个被监视的文件描述符，可以传递多个结构体，指示 <code class="language-plaintext highlighter-rouge">poll()</code> 监视多个文件描述符。</li>
+  <li><strong>events</strong>：指定监测fd的事件（输入、输出、错误），每一个事件有多个取值，如下</li>
+  <li><strong>revents</strong>：revents 域是文件描述符的操作结果事件，内核在调用返回时设置这个域。events 域中请求的任何事件都可能在 revents 域中返回。
+注意：每个结构体的 events 域是由用户来设置，告诉内核我们关注的是什么，而 revents 域是返回时内核设置的，以说明对该描述符发生了什么事件。</li>
+  <li><strong>nfds</strong>：用来指定第一个参数数组元素个数。</li>
+  <li><strong>timeout</strong>：指定等待的毫秒数，无论 I/O 是否准备好，<code class="language-plaintext highlighter-rouge">poll()</code> 都会返回。</li>
+</ul>
+
+<h4 id="返回值">返回值：</h4>
+<p>成功时，poll() 返回结构体中 revents 域不为 0 的文件描述符个数；如果在超时前没有任何事件发生，poll()返回 0； <br />
+失败时，poll() 返回 -1； <br />
+并设置 errno 为下列值之一：</p>
+<ul>
+  <li><strong>EBADF</strong>：一个或多个结构体中指定的文件描述符无效。</li>
+  <li><strong>EFAULT</strong>：fds 指针指向的地址超出进程的地址空间。</li>
+  <li><strong>EINTR</strong>：请求的事件之前产生一个信号，调用可以重新发起。</li>
+  <li><strong>EINVAL</strong>：nfds 参数超出 PLIMIT_NOFILE 值。</li>
+  <li><strong>ENOMEM</strong>：可用内存不足，无法完成请求。<br /></li>
+</ul>
+
+:ET

@@ -1,0 +1,15 @@
+I"�<p>You may have run into situations where <code class="language-plaintext highlighter-rouge">.gitignore</code> doesn’t work.😕  <br />
+During the project development, you want to add some directors or files into the ignore rule and you specified them at the <code class="language-plaintext highlighter-rouge">.gitignore</code>. You committed and checked the status, unfortunately you found they were still being tracked.</p>
+
+<p>That is because the <code class="language-plaintext highlighter-rouge">.gitignore</code> can only ignore those files that were not originally tracked. If some files have been submitted before and have been included in version management, modifying <code class="language-plaintext highlighter-rouge">.gitignore</code> is invalid. The solution is to delete the local cache (change it to untrack) and resubmit <code class="language-plaintext highlighter-rouge">.gitignore</code> file.</p>
+
+<p>The git command is like this.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">git</span> <span class="n">rm</span> <span class="o">-</span><span class="n">r</span> <span class="o">--</span><span class="n">cached</span> <span class="p">.</span>
+<span class="nf">git</span> <span class="n">add</span> <span class="p">.</span>
+<span class="nf">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s2">"refresh .gitnore"</span>
+<span class="n">git</span> <span class="n">push</span> <span class="o">-</span><span class="n">u</span> <span class="n">origin</span> <span class="n">master</span></code></pre></figure>
+
+<p>In short, <code class="language-plaintext highlighter-rouge">.gitignore</code> just ignores files that are not staged (cached).
+For the files that have been staged, when adding <code class="language-plaintext highlighter-rouge">.gitignore</code>, they must be removed from the staged before they can be ignored.</p>
+:ET

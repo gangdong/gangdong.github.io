@@ -1,0 +1,24 @@
+I"N<p>You may have run into the situation where the name of makefile command conflicts with the file name under the same directory.</p>
+
+<p>For example, I have below code.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">B_TARGET:<span class="o">=</span>testapp
+clean:
+  <span class="nb">rm</span> <span class="nt">-f</span> <span class="si">$(</span>B_TARGET<span class="si">)</span>   </code></pre></figure>
+
+<p>I execute <code class="language-plaintext highlighter-rouge">make clean</code>, everything is ok. The target folder is removed as expected. However if there is a file named <code class="language-plaintext highlighter-rouge">clean</code> in the directory. I will get a result when I execute the <code class="language-plaintext highlighter-rouge">make clean</code> command.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">make: <span class="s1">'clean'</span> is up to date.</code></pre></figure>
+
+<p>To avoid this issue happen, use <code class="language-plaintext highlighter-rouge">.PHONY</code> command. The main function of <code class="language-plaintext highlighter-rouge">.PHONY</code> configuration item is to avoid the conflict between the specified command and the file with the same name under the project, and to optimize the performance. <code class="language-plaintext highlighter-rouge">.PHONY [command name]</code> explicitly specifies a command name instead of the actual file name, so that the <code class="language-plaintext highlighter-rouge">make [command name]</code> command can be parsed and executed correctly. You don’t have to worry about if the same name file existing or not.</p>
+
+<p>I change the code as this.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">.PHONY clean
+B_TARGET:<span class="o">=</span>testapp
+clean:
+  <span class="nb">rm</span> <span class="nt">-f</span> <span class="si">$(</span>B_TARGET<span class="si">)</span>   </code></pre></figure>
+
+<p>I execute <code class="language-plaintext highlighter-rouge">make clean</code> and the command works this time.</p>
+
+:ET

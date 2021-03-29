@@ -1,0 +1,95 @@
+I"A/<p>Recently I need to read system property in my Android apk development. I checked the Android documents and found that Android has a <code class="language-plaintext highlighter-rouge">Systemproperties</code> class to handle this kind of requirement. However <code class="language-plaintext highlighter-rouge">Systemproperties</code> class isn’t a public class of SDK, which means it is invisible to the apk developer. My understanding is that google wants this class to be used for Android source developer rather than application developer.</p>
+
+<p>If I use this class as a source developer, I have to raise my program with root permission and re-build the whole system.</p>
+
+<p>So I applied a trick way to access the <code class="language-plaintext highlighter-rouge">Systemproperties</code> method with the help of Java reflect mechanism.</p>
+
+<p>I studied the source code of <a href="https://www.androidos.net.cn/android/9.0.0_r8/xref/frameworks/base/core/java/android/os/SystemProperties.java">SystemProperties.java</a> and found the methods it implemented.</p>
+
+<p>SystemProperties.java</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">static</span> <span class="kd">native</span> <span class="nc">String</span> <span class="nf">native_get</span><span class="o">(</span><span class="nc">String</span> <span class="n">key</span><span class="o">);</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">native</span> <span class="nc">String</span> <span class="nf">native_get</span><span class="o">(</span><span class="nc">String</span> <span class="n">key</span><span class="o">,</span> <span class="nc">String</span> <span class="n">def</span><span class="o">);</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">native</span> <span class="kt">int</span> <span class="nf">native_get_int</span><span class="o">(</span><span class="nc">String</span> <span class="n">key</span><span class="o">,</span> <span class="kt">int</span> <span class="n">def</span><span class="o">);</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">native</span> <span class="kt">long</span> <span class="nf">native_get_long</span><span class="o">(</span><span class="nc">String</span> <span class="n">key</span><span class="o">,</span> <span class="kt">long</span> <span class="n">def</span><span class="o">);</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">native</span> <span class="kt">boolean</span> <span class="nf">native_get_boolean</span><span class="o">(</span><span class="nc">String</span> <span class="n">key</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">def</span><span class="o">);</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">native</span> <span class="kt">void</span> <span class="nf">native_set</span><span class="o">(</span><span class="nc">String</span> <span class="n">key</span><span class="o">,</span> <span class="nc">String</span> <span class="n">def</span><span class="o">);</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">native</span> <span class="kt">void</span> <span class="nf">native_add_change_callback</span><span class="o">();</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">native</span> <span class="kt">void</span> <span class="nf">native_report_sysprop_change</span><span class="o">();</span></code></pre></figure>
+
+<p>This class defined the set/get methods for different data type. What I need is the get() method of return a String type.</p>
+
+<p>The rest work is straightforward, I wrote below codes and inserted into my class.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="o">...</span>
+<span class="kn">import</span> <span class="nn">java.lang.reflect.Method</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.support.annotation.NonNull</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.support.annotation.Nullable</span><span class="o">;</span>
+<span class="o">...</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="nc">DisabledNavigationActivity</span> <span class="o">{</span>
+     <span class="kd">private</span> <span class="nc">Logger</span> <span class="n">mLogger</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Logger</span><span class="o">(</span><span class="n">getClass</span><span class="o">().</span><span class="na">getSimpleName</span><span class="o">());</span>
+     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="no">VIBRATE_MS_IMAGE</span> <span class="o">=</span> <span class="mi">50</span><span class="o">;</span>
+     <span class="kd">private</span> <span class="nc">Handler</span> <span class="n">mHandler</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Handler</span><span class="o">(</span><span class="nc">Looper</span><span class="o">.</span><span class="na">getMainLooper</span><span class="o">());</span>
+ 
+     <span class="o">...</span>
+
+	 <span class="kd">private</span> <span class="kd">final</span> <span class="nc">String</span> <span class="n">vendorKey</span> <span class="o">=</span> <span class="s">"my_property"</span><span class="o">;</span>
+
+     <span class="o">...</span>
+
+	<span class="kd">private</span> <span class="kd">interface</span> <span class="nc">PropertiesKeys</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="no">VENDOR</span> <span class="o">=</span> <span class="s">"persist.vendor.sys.fp.vendor"</span><span class="o">;</span>
+    <span class="o">}</span>
+
+	<span class="kd">private</span> <span class="nc">String</span> <span class="nf">getStringProperty</span><span class="o">(</span>
+            <span class="nd">@Nullable</span> <span class="nc">Method</span> <span class="n">systemPropertiesGetString</span><span class="o">,</span>
+            <span class="nd">@NonNull</span> <span class="nc">String</span> <span class="n">propertyKey</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="nc">String</span> <span class="n">defaultValue</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">==</span> <span class="n">systemPropertiesGetString</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">defaultValue</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="o">(</span><span class="nc">String</span><span class="o">)</span> <span class="n">systemPropertiesGetString</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span>
+                    <span class="kc">null</span><span class="o">,</span> <span class="c1">// No object when calling a static method.</span>
+                    <span class="n">propertyKey</span><span class="o">,</span>
+                    <span class="n">defaultValue</span><span class="o">);</span>
+
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">mLogger</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="nc">Logger</span><span class="o">.</span><span class="na">format</span><span class="o">(</span>
+                  <span class="s">"Failed to read system property (%s): %s"</span><span class="o">,</span>
+                  <span class="n">propertyKey</span><span class="o">,</span>
+                 <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">()));</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">defaultValue</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="o">....</span>
+
+     <span class="nd">@Override</span>
+     <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="nc">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+         <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+         <span class="n">mLogger</span><span class="o">.</span><span class="na">enter</span><span class="o">(</span><span class="s">"onCreate"</span><span class="o">);</span>
+         <span class="n">setContentView</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
+ 
+		<span class="nc">Method</span> <span class="n">sysPropGetString</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="k">try</span> <span class="o">{</span>
+            <span class="c1">// The SystemProperties class is not public in the SDK - access via reflection.</span>
+            <span class="kd">final</span> <span class="nc">Class</span> <span class="n">systemProperties</span> <span class="o">=</span> <span class="nc">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">"android.os.SystemProperties"</span><span class="o">);</span>
+            <span class="n">sysPropGetString</span> <span class="o">=</span> <span class="n">systemProperties</span><span class="o">.</span><span class="na">getMethod</span><span class="o">(</span><span class="s">"get"</span><span class="o">,</span><span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">,</span><span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">mLogger</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="nc">Logger</span><span class="o">.</span><span class="na">format</span><span class="o">(</span>
+                    <span class="s">"Failed to get method system properties: %s"</span><span class="o">,</span>
+                    <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">()));</span>
+        <span class="o">}</span>
+
+		<span class="nc">String</span> <span class="n">propStr</span> <span class="o">=</span> <span class="n">getStringProperty</span><span class="o">(</span><span class="n">sysPropGetString</span><span class="o">,</span> <span class="nc">PropertiesKeys</span><span class="o">.</span><span class="na">VENDOR</span><span class="o">);</span>
+
+		<span class="n">mLogger</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">"the vendor is "</span> <span class="o">+</span> <span class="n">propStr</span><span class="o">);</span>
+
+		<span class="k">if</span><span class="o">(!</span><span class="n">propStr</span><span class="o">.</span><span class="na">equal</span><span class="o">(</span><span class="n">vendorKey</span><span class="o">)){</span>
+			<span class="o">...</span>
+		<span class="o">}</span>
+	
+		<span class="o">...</span></code></pre></figure>
+:ET
