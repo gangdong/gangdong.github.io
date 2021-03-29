@@ -6,7 +6,7 @@ script:
 - bundle install
 - bundle exec jekyll build
 before_install:
-- openssl aes-256-cbc -K $encrypted_f217180e22ee_key -iv $encrypted_f217180e22ee_iv
+- openssl aes-256-cbc -K $encrypted_f217180e22ee_key 
   -in id_rsa.enc -out id_rsa -d
 addons: ssh_known_hosts:52.74.223.119
 after_success:
