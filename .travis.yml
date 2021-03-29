@@ -10,12 +10,12 @@ script:
 - bundle install
 - bundle exec jekyll build
  
-addons: ssh_known_hosts:52.74.223.119
+addons: ssh_known_hosts:daviddong.github.io
 after_success:
 - cp ./_site/* ../site
 - git init
 - git checkout test_travisci
-- git rm -rf *
+- rm -rf *
 - cp ../site/* ./
 - git config user.name "gangdong"
 - git config user.email "dqdongg@hotmail.com"
