@@ -1,17 +1,20 @@
 language: ruby
 rvm:
 - 2.6.6
+before_install:
 install: gem install jekyll
+before_script:
+- pwd
+- ls -la
 script:
 - bundle install
 - bundle exec jekyll build
-before_install: 
+ 
 addons: ssh_known_hosts:52.74.223.119
 after_success:
-- rm -rf *
 - git config user.name "gangdong"
 - git config user.email "dqdongg@hotmail.com"
-- git add --all .
+- git add ./_site/*
 - git commit -m "Travis CI Auto Builder"
 - git push -f "https://${GH_TOKEN}@${GH_REF}" master:test_travisci
 env:
