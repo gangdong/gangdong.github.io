@@ -14,11 +14,11 @@ ssh-add blog_id_rsa
 # 删除解密后的私钥
 rm blog_id_rsa
 
-git config --global user.name 'Travis'  
-git config --global user.email 'travis@travis-ci.com' 
+git config --global user.name 'gangdong'  
+git config --global user.email 'dqdongg@hotmail.com' 
 
 # commit the assets in storybook-static/ to the gh-pages branch and push to GitHub using SSH
 rm -rf *
 git add --all .
 git commit -m "Travis CI Auto Builder"
-git push -f "https://${GH_TOKEN}@${GH_REF}" master:test_travisci
+git push -f git@github.com:gangdong/daviddong.github.io.git master
