@@ -42,7 +42,8 @@ after_success:
 - git remote add origin https://github.com/gangdong/daviddong.github.io.git
 - git show-ref
 - git remote -v
-- git checkout master
+- git branch -a
+- git checkout origin/master
 - git add -f ./_site/*
 - git commit -m "Update docs"
 - git push -u origin master
