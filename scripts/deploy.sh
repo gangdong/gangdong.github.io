@@ -14,7 +14,7 @@ ssh-add blog_id_rsa
 # 删除解密后的私钥
 rm blog_id_rsa
 ssh -T git@github.com
-
+git show-ref
 # commit the assets in storybook-static/ to the gh-pages branch and push to GitHub using SSH
 git config user.name "gangdong"
 git config user.email "dqdongg@hotmail.com"
