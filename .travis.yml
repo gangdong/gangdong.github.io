@@ -12,11 +12,9 @@ script:
 addons: ssh_known_hosts:daviddong.github.io
 deploy:
   provider: script
-  # Do not delete the build assets
   skip_cleanup: true
   script: bash scripts/deploy.sh
   on:
-    # 当 master 有 push 的时候，触发 deploy 操作
     branch: dev
 env:
   global:
