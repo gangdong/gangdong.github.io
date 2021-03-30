@@ -27,8 +27,8 @@ git config user.email "dqdongg@hotmail.com"
 git remote add origin https://github.com/gangdong/daviddong.github.io.git
 git show-ref
 git remote -v
-git checkout test_travisci
+git checkout master
 git add -f ./_site/*
 git commit -m "Update docs"
-git push -u origin test_travisci
+git push -u origin master
 
