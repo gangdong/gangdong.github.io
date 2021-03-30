@@ -16,11 +16,10 @@ rm blog_id_rsa
 ssh -T git@github.com
 
 # commit the assets in storybook-static/ to the gh-pages branch and push to GitHub using SSH
-cd dist
 git init
 git config user.name "gangdong"
 git config user.email "dqdongg@hotmail.com"
-git add .
+git add ./_site/*
 git commit -m "Update docs"
-git push -f git@github.com:gangdong/daviddong.github.io.git test_travisci
+git push -f git@github.com/gangdong/daviddong.github.io.git test_travisci
 
