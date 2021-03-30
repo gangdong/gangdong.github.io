@@ -1,5 +1,5 @@
 #!/bin/sh
-set -e
+
 
 # setup ssh-agent and provide the GitHub deploy key
 openssl aes-256-cbc -K $encrypted_70fbe34e406c_key -iv $encrypted_70fbe34e406c_iv -in blog_id_rsa.enc -out blog_id_rsa -d
@@ -13,10 +13,14 @@ ssh-add blog_id_rsa
 
 # 删除解密后的私钥
 rm blog_id_rsa
-
+ssh -T git@github.com
 
 # commit the assets in storybook-static/ to the gh-pages branch and push to GitHub using SSH
-rm -rf *
-git add --all .
-git commit -m "Travis CI Auto Builder"
-ssh -T git@github.com
+cd dist
+git init
+git config user.name "gangdong"
+git config user.email "dqdongg@hotmail.com"
+git add .
+git commit -m "Update docs"
+git push -f git@github.com:gangdong/daviddong.github.io.git test_travisci
+
