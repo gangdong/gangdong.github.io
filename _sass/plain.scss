@@ -184,7 +184,6 @@ main {
 }
 .post-categories-pin {
   font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
-  color: white;
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -192,8 +191,10 @@ main {
     font-size: 13px;
     float: left;
 	border-radius: 2px;
-    background-color: $btnColor;
-    padding: 5px 15px 5px 10px;
+    background-color: #F2F4F4;
+	border: 1px solid #95A5A6;
+	box-shadow: 0 0 1px 0px #d8d8d8;
+    padding: 4px 10px 4px 7px;
     @media screen and (max-width: $mobileW) {
       margin-top: 5px;
     }
@@ -444,9 +445,12 @@ main {
     text-decoration: none;
     font-size: 13px;
     float: left;
-    background-color: #e3e3e3;
-    padding: 5px 15px;
+    background-color: #F2F4F4;
+	border: 1px solid #95A5A6;
+	box-shadow: 0 0 1px 0px #d8d8d8;
+    padding: 3px 10px;
     border-radius: 2px;
+	
     @media screen and (max-width: $mobileW) {
       margin-top: 5px;
     }
