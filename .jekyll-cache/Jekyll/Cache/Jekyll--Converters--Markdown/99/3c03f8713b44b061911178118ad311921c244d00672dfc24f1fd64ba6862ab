@@ -1,0 +1,128 @@
+I",<p>I recently used Liquid language to design my blog website. Liquid is an open source template language written in Ruby. This article is a short study note and presented some main knowledge points.</p>
+
+<p>My blog website was constructed by Jekyll, Jekyll uses Liquid as its template language and adds many objects, tags and filters. The new content includes objects representing content pages, tags to introduce content fragments into the page, and filters to manipulate strings and URLs.</p>
+
+<p>I have no knowledge about this language previous, so I spent some time in learning it.</p>
+
+<p>The liquid code consists of <strong>objects</strong>, <strong>tags</strong>, and <strong>filters</strong>.</p>
+
+<h2 id="objects">objects</h2>
+<p>Object tells liquid where to display content on the page. Object and variable names are identified by double curly braces: <code class="language-plaintext highlighter-rouge">{{ }}</code></p>
+
+<figure class="highlight"><pre><code class="language-liquid" data-lang="liquid"><span class="p">{{</span><span class="nv">post</span><span class="p">.</span><span class="nv">name</span><span class="p">}}</span></code></pre></figure>
+
+<h2 id="tags">tags</h2>
+<p>Tags create the logic and control flow of templates. They are identified by a single bracket with a percent sign: <code class="language-plaintext highlighter-rouge">{%</code> and <code class="language-plaintext highlighter-rouge">%}</code>.
+Tags do not produce any visible text output. This means that you can use them to assign values to variables, create conditions and loop logic, and do not display any liquid logic code on the page.</p>
+
+<p>Tags are divided into three categories:</p>
+<ul>
+  <li><a href="https://liquid.bootcss.com/tags/control-flow/">control flow</a></li>
+  <li><a href="https://liquid.bootcss.com/tags/iteration/">iteration</a></li>
+  <li><a href="https://liquid.bootcss.com/tags/variable/">Variable assignment</a></li>
+</ul>
+
+<h2 id="filters">filters</h2>
+<p>The filter changes the output of the liquid object. They are used for output, separated by a <code class="language-plaintext highlighter-rouge">|</code> symbol.</p>
+
+<p>The keywords includes:<br /></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">abs</span>
+<span class="n">append</span>
+<span class="n">at_least</span> 
+<span class="n">at_most</span> 
+<span class="n">capitalize</span> 
+<span class="n">ceil</span>
+<span class="n">compact</span> 
+<span class="n">concat</span> 
+<span class="n">date</span>
+<span class="n">default</span> 
+<span class="n">divided_by</span>
+<span class="n">downcase</span>
+<span class="n">escape</span>
+<span class="n">escape_once</span>
+<span class="n">first</span>
+<span class="n">floor</span>
+<span class="n">join</span>
+<span class="n">last</span>
+<span class="n">lstrip</span> 
+<span class="n">map</span>
+<span class="n">minus</span> 
+<span class="n">modulo</span>
+<span class="n">newline_to_br</span> 
+<span class="n">plus</span>
+<span class="n">prepend</span>
+<span class="n">remove</span>
+<span class="n">remove_first</span> 
+<span class="n">replace</span>
+<span class="n">replace_first</span>
+<span class="n">reverse</span>
+<span class="n">round</span>
+<span class="n">rstrip</span>
+<span class="n">size</span>
+<span class="n">slice</span>
+<span class="n">sort</span>
+<span class="n">sort_natural</span> 
+<span class="nb">split</span>
+<span class="n">strip</span>
+<span class="n">strip_html</span>
+<span class="n">strip_newlines</span>
+<span class="n">times</span>
+<span class="n">truncate</span>
+<span class="n">truncatewords</span> 
+<span class="n">uniq</span>
+<span class="n">upcase</span>
+<span class="n">url_decode</span>
+<span class="n">url_encode</span></code></pre></figure>
+
+<h2 id="operator">Operator</h2>
+<p>Except the 3 basic elements, Liquid contains the logical and comparison operators. <br />
+They are</p>
+
+<figure class="highlight"><pre><code class="language-liquid" data-lang="liquid">"=","&gt;","&lt;","&gt;=","&lt;=","!=","or","and".</code></pre></figure>
+
+<p>The syntax is similar to other language, like C.</p>
+
+<h2 id="object-type">Object Type</h2>
+<p>There are five types of Liquid objects.</p>
+<ul>
+  <li>String</li>
+  <li>Number</li>
+  <li>Boolean</li>
+  <li>Nil</li>
+  <li>Array</li>
+</ul>
+
+<p>Actually, except Nil (Nil type represents a null object.), others you can find the same type at other language (for example C), the usage is quite similar.</p>
+
+<h2 id="liquid-in-jekyll">Liquid in Jekyll</h2>
+
+<p>In Jekyll, Jekyll adds a few handy filters and tags of its own.</p>
+
+<p>Below are some of useful tags and filters, which I have used on my blog website.</p>
+
+<h3 id="filters-1">filters</h3>
+<ul>
+  <li>relative_url</li>
+  <li>date_to_string</li>
+  <li>group_by</li>
+  <li>where</li>
+  <li>number_of_words</li>
+</ul>
+
+<h3 id="tags-1">tags</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">{% highlight ruby linenos  %}</code><br />
+<code class="language-plaintext highlighter-rouge">{% endhighlight %}</code><br />
+This tag support for syntax highlighting of over 100 languages, in addition, it can also output the line numbers of the code. Check this page <a href="https://github.com/rouge-ruby/rouge/wiki/List-of-supported-languages-and-lexers">Rouge wiki</a> to find the appropriate identifier to use for the language you want to highlight.</li>
+  <li><code class="language-plaintext highlighter-rouge">{% link url.md %}</code><br />
+The link tag will generate the correct permalink URL for the path you specify, you must include the file’s original extension when using the link tag. This tag can also be used to create a link in Markdown.</li>
+  <li><code class="language-plaintext highlighter-rouge">{% post_url post_name %}</code> <br />
+The post_url tag will generate the correct permalink URL for the post you specify. Unlike <code class="language-plaintext highlighter-rouge">{% link %}</code> tag, there is no need to include the file extension when using the <code class="language-plaintext highlighter-rouge">post_url</code> tag. This tag can also be used on Markdown.</li>
+</ul>
+
+<p>The <a href="https://jekyll.zcopy.site/docs/liquid/">Jekeyll page</a> gives more details.</p>
+
+<p>The above elements constitutes the main Liquid grammar, I am trying to avoid writing excessive long article, so I decide to quit here. For more contents, you can find at <a href="https://liquid.bootcss.com/">liquid website</a>.</p>
+:ET

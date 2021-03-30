@@ -1,0 +1,2 @@
+I"Õ<p>For the windows driver development as what I am doing these days, Microsoft provides a log printing and log viewing mechanism, which can view the logs of specified driver files, filter the logs according to <code class="language-plaintext highlighter-rouge">LEVEL</code> and <code class="language-plaintext highlighter-rouge">FLAG</code>, or save them as files. This mechanism is WPP and  <code class="language-plaintext highlighter-rouge">TraceView.exe</code>.</p>
+:ET

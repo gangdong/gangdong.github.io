@@ -1,0 +1,114 @@
+I"q)<p>A simple sample code to get start with the SGX application development.</p>
+
+<ol>
+  <li>New create VC++ <code class="language-plaintext highlighter-rouge">Win32 Console Application</code>.
+<img src="/daviddong.github.io/assets/image/others-sgx-start-01.PNG" alt="project" class="center-image" />
+The project name is ‘HelloWorld’.</li>
+  <li>Create new VC++ <code class="language-plaintext highlighter-rouge">Intel SGX Enclave project</code>.
+<img src="/daviddong.github.io/assets/image/others-sgx-11.PNG" alt="psw" class="center-image" />
+Use default project name ‘Enclave1’.</li>
+  <li>Edit <code class="language-plaintext highlighter-rouge">Enclave1.edl</code> file with below code.
+<img src="/daviddong.github.io/assets/image/others-sgx-start-02.PNG" alt="project" class="center-image" />
+This piece of code declares the <code class="language-plaintext highlighter-rouge">foo()</code> method as a trusted method and executes at trusted zone.</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">enclave</span> <span class="p">{</span>
+    <span class="n">from</span> <span class="s2">"sgx_tstdc.edl"</span> <span class="n">import</span> <span class="o">*</span><span class="p">;</span>
+
+    <span class="n">trusted</span> <span class="p">{</span>
+        <span class="sr">/* define ECALLs here. */</span>
+		<span class="kp">public</span> <span class="n">void</span> <span class="n">foo</span><span class="p">([</span><span class="n">out</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">len</span><span class="p">]</span> <span class="n">char</span><span class="o">*</span> <span class="n">buf</span><span class="p">,</span><span class="n">size_t</span> <span class="n">len</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="n">untrusted</span> <span class="p">{</span>
+        <span class="sr">/* define OCALLs here. */</span>
+
+    <span class="p">};</span>
+<span class="p">};</span></code></pre></figure>
+
+<p>Edit <code class="language-plaintext highlighter-rouge">Enclave1.cpp</code>. Realize the <code class="language-plaintext highlighter-rouge">foo()</code> method.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">#include "sgx_trts.h"</span>
+<span class="c1">#include "Enclave1_t.h"</span>
+<span class="c1">#include "sgx_trts.h"</span>
+<span class="c1">#include &lt;string.h&gt;</span>
+<span class="n">void</span> <span class="n">foo</span><span class="p">(</span><span class="n">char</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">len</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">secret</span> <span class="o">=</span> <span class="s2">"Hello App!"</span><span class="p">;</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">len</span> <span class="o">&gt;</span> <span class="n">strlen</span><span class="p">(</span><span class="n">secret</span><span class="p">))</span>
+	<span class="p">{</span>
+		<span class="n">memcpy</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">secret</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">secret</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<ol>
+  <li>Set the ‘Enclave1’ project configuration as below.
+<img src="/daviddong.github.io/assets/image/others-sgx-start-03.PNG" alt="project" class="center-image" /></li>
+  <li>Build the ‘Enclave1’ project.
+<img src="/daviddong.github.io/assets/image/others-sgx-start-04.PNG" alt="project" class="center-image" />
+Above result shows the ‘Enclave1’ project has been build successfully. Next I need to add it into the ‘HelloWorld’ project and call the <code class="language-plaintext highlighter-rouge">foo()</code> methods.</li>
+  <li>Edit the <code class="language-plaintext highlighter-rouge">main()</code> method of <code class="language-plaintext highlighter-rouge">HelloWorld.cpp</code> file.</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">#include "stdafx.h"</span>
+<span class="c1">#include &lt;stdio.h&gt;</span>
+<span class="c1">#include &lt;tchar.h&gt;</span>
+<span class="c1">#include "sgx_urts.h"</span>
+<span class="c1">#include &lt;string.h&gt;</span>
+<span class="c1">#include "Enclave1_u.h"</span>
+<span class="c1">#define ENCLAVE_FILE _T("Enclave1.signed.dll")</span>
+<span class="c1">#define MAX_BUF_LEN 100</span>
+<span class="n">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="n">sgx_enclave_id_t</span>	<span class="n">eid</span><span class="p">;</span>
+	<span class="n">sgx_status_t</span>		<span class="n">ret</span> <span class="o">=</span> <span class="no">SGX_SUCCESS</span><span class="p">;</span>
+	<span class="n">sgx_launch_token_t</span>	<span class="n">token</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span>
+	<span class="n">int</span> <span class="n">updated</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="n">char</span> <span class="n">buffer</span><span class="p">[</span><span class="no">MAX_BUF_LEN</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Hello World!"</span><span class="p">;</span>
+	<span class="sr">//</span><span class="n">create</span> <span class="n">a</span> <span class="n">enclave</span> <span class="n">container</span>
+	<span class="n">ret</span> <span class="o">=</span> <span class="n">sgx_create_enclave</span><span class="p">(</span><span class="no">ENCLAVE_FILE</span><span class="p">,</span> <span class="no">SGX_DEBUG_FLAG</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">token</span><span class="p">,</span> 
+    <span class="o">&amp;</span><span class="n">updated</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">eid</span><span class="p">,</span> <span class="no">NULL</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">!=</span> <span class="no">SGX_SUCCESS</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="nb">printf</span><span class="p">(</span><span class="s2">"APP:error %#x ,failed to create enclave .</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">ret</span><span class="p">);</span>
+		<span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="sr">//</span><span class="no">Enclave</span> <span class="no">CALL</span><span class="p">(</span><span class="no">ECALL</span><span class="p">)</span> 
+	<span class="n">foo</span><span class="p">(</span><span class="n">eid</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="no">MAX_BUF_LEN</span><span class="p">);</span>
+	<span class="nb">printf</span><span class="p">(</span><span class="s2">"%s</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">buffer</span><span class="p">);</span>
+	<span class="n">getchar</span><span class="p">();</span>
+	<span class="sr">//</span><span class="n">distory</span> <span class="n">enclave</span> <span class="n">container</span>
+	<span class="k">if</span> <span class="p">(</span><span class="no">SGX_SUCCESS</span> <span class="o">!=</span> <span class="n">sgx_destroy_enclave</span><span class="p">(</span><span class="n">eid</span><span class="p">))</span>
+		<span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+	<span class="nb">system</span><span class="p">(</span><span class="s2">"pause"</span><span class="p">);</span>
+	<span class="n">getchar</span><span class="p">();</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<ol>
+  <li>Set the ‘HelloWorld’ project configuration.
+<img src="/daviddong.github.io/assets/image/others-sgx-start-06.PNG" alt="project" class="center-image" /></li>
+  <li>Add ‘Enclave1’ project into the ‘HelloWorld’ project.
+Right click ‘Solution HelloWorld’ -&gt; add -&gt; existing project and select ‘Enclave1’ project. Now there are two projects under the ‘Solution HelloWorld’.
+<img src="/daviddong.github.io/assets/image/others-sgx-start-15.PNG" alt="project" class="center-image" />
+right click ‘HelloWorld’ project -&gt; Intel SGX Configuration -&gt; Import Enclave
+<img src="/daviddong.github.io/assets/image/others-sgx-start-07.PNG" alt="project" class="center-image" />
+Select <code class="language-plaintext highlighter-rouge">Enclave1.edl</code>.
+<img src="/daviddong.github.io/assets/image/others-sgx-start-08.PNG" alt="project" class="center-image" /><br class="center-image" />
+The <code class="language-plaintext highlighter-rouge">Enclave1.edl</code> file will be envoloved into the source of ‘HelloWorld’ project.
+<img src="/daviddong.github.io/assets/image/others-sgx-start-09.PNG" alt="project" class="center-image" /></li>
+  <li>Since the ‘HelloWorld’ project is the main project, I need to add the dependency of ‘Enclave1’ project.
+Set the main project.
+<img src="/daviddong.github.io/assets/image/others-sgx-start-10.PNG" alt="project" class="center-image" />
+Set the dependency.
+<img src="/daviddong.github.io/assets/image/others-sgx-start-11.PNG" alt="project" class="center-image" /></li>
+  <li>The configuration is done!  <br />
+Build the main project and start to run.</li>
+  <li>Unfortunately, the trying is failed with the below error.
+<img src="/daviddong.github.io/assets/image/others-sgx-start-12.PNG" alt="project" class="center-image" />
+That is because my CPU cannot support SGX at present. I have to change the running mode to Simulation.
+<img src="/daviddong.github.io/assets/image/others-sgx-start-13.PNG" alt="project" class="center-image" />
+I got below result, which means my first app was runing well.:v:<br />
+<img src="/daviddong.github.io/assets/image/others-sgx-start-14.PNG" alt="project" class="center-image" /></li>
+</ol>
+:ET

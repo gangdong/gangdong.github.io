@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono" rel="stylesheet">
+<link rel="stylesheet" href="/daviddong.github.io/assets/css/style.css">
+<link rel="icon" href="/daviddong.github.io/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="/daviddong.github.io/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<title>Android Fingerprint Framework (2) | David Dong's Blog</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Android Fingerprint Framework (2) | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Android Fingerprint Framework (2)" />
+<meta name="author" content="David Dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This page will follow the last article to continue introducing the android fingerprint framework knowledge. The content is focus on android source code inspecting and analysis." />
+<meta property="og:description" content="This page will follow the last article to continue introducing the android fingerprint framework knowledge. The content is focus on android source code inspecting and analysis." />
+<link rel="canonical" href="http://localhost:4000/daviddong.github.io/android/fingerprint/2019/12/07/Fingerprint-frmk2.html" />
+<meta property="og:url" content="http://localhost:4000/daviddong.github.io/android/fingerprint/2019/12/07/Fingerprint-frmk2.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-12-07T23:52:01+08:00" />
+<script type="application/ld+json">
+{"dateModified":"2019-12-07T23:52:01+08:00","datePublished":"2019-12-07T23:52:01+08:00","url":"http://localhost:4000/daviddong.github.io/android/fingerprint/2019/12/07/Fingerprint-frmk2.html","@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/daviddong.github.io/BLOG"},"name":"David Dong"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/daviddong.github.io/android/fingerprint/2019/12/07/Fingerprint-frmk2.html"},"author":{"@type":"Person","name":"David Dong"},"headline":"Android Fingerprint Framework (2)","description":"This page will follow the last article to continue introducing the android fingerprint framework knowledge. The content is focus on android source code inspecting and analysis.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+
+</head>
+  <body><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><main class="container">
+      <section class="about">
+        <a href="/daviddong.github.io/blog/index.html"><img src="/daviddong.github.io/assets/avatar.png" alt="David Dong"></a>
+        <h2 id="title">
+          <a href="/daviddong.github.io/blog/index.html">David Dong</a>
+        </h2>
+        <p class="tagline">Java/C/C#/Python</p>
+		<!--add navigation --><nav class="navigation">
+            <ul>
+              
+            </ul>
+          </nav><!--put dark mode button here --><div>
+		  <ul class = "social" >
+			<p style = "font-family: Raleway, sans-serif;font-size: 100%">Dark Mode
+			  <i class="icon-moon"></i>
+			  <label class="switch">
+				<input type="checkbox" id="dark-mode-toggle" onclick="toggleDarkMode()">
+				<span class="slider round"></span>
+			  </label>
+			</p>
+		  </ul>
+		<script type="text/javascript" src="/daviddong.github.io/assets/js/darkmode.js"></script>
+		</div><!--put rss/code link here -->
+	    <div>
+          <ul class="tool"><a style ="margin-right:10px; text-decoration: none" href="/daviddong.github.io/rss.xml">
+              <span class="icon-rss-1 tooltip">
+				<span class="tooltiptext">Rss</span>
+			  </span>
+           </a><a style="text-decoration: none" href="https://github.com/gangdong/daviddong.github.io">
+              <span class="icon-file-code tooltip">
+				<span class="tooltiptext">Code</span>
+			  </span>
+            </a></ul>
+        </div>
+	    <!--show contact me -->
+	    <div class = "contact"><li>CONTACT ME</li></div>
+		<!-- put social link here -->
+		<div>
+	      <ul class="social" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture-3"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled-1"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		</div>
+		<!--put timestamp here -->
+		<div class ="timestamp">&copy; 2021</div>
+	  <!-- about box end here -->
+      </section>
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+
+
+<div class="post-container">
+	<div  class = "menu-meta">
+		<div  class = "menu-logo" style="margin-top: 20px">BLOG</div>
+		<div  class = "menu" style = "margin-top: 20px">
+			<a class = "icon-doc-text icon_font" href="/daviddong.github.io/blog/index.html">Posts</a><a  class = "icon-archive-1 icon_font" href="/daviddong.github.io/archive">Archives</a><a  class = "icon-tags-1 icon_font" href="/daviddong.github.io/category">Categories</a><a  class = "icon-help-circled-3 icon_font" href="/daviddong.github.io/about">About</a>
+		</div>
+	</div>
+</div><div class="post-container">
+  <li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">POST</h1>
+  </li>  
+  <a class="post-link" href="/daviddong.github.io/android/fingerprint/2019/12/07/Fingerprint-frmk2.html">
+    <h2 class="post-title">Android Fingerprint Framework (2)</h2>
+  </a>
+   <div class="post-meta">
+    <div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">Dec 7, 2019</div>
+  </div>
+  <br>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+  <div class="post-viewer-container">
+	<div class="post-fix-width">
+		<p>This page will follow the <a href="/daviddong.github.io/android/fingerprint/2019/10/03/Fingerprint-frmk1.html">last article</a> to continue introducing the android fingerprint framework knowledge. The content is focus on android source code inspecting and analysis.</p>
+
+<div class="separator"></div>
+<h2 class="no_toc">Table of content</h2>
+<ul id="markdown-toc">
+  <li><a href="#step-one---startup-fingerprintd-service" id="markdown-toc-step-one---startup-fingerprintd-service">Step one - startup fingerprintd service</a></li>
+  <li><a href="#step-two---startup-fingerprintservice" id="markdown-toc-step-two---startup-fingerprintservice">Step two - Startup FingerprintService</a></li>
+</ul>
+<div class="separator"></div>
+
+<h2 id="step-one---startup-fingerprintd-service">Step one - startup fingerprintd service</h2>
+<p>Looking at the <code class="language-plaintext highlighter-rouge">init.rc</code> file, a task is assigned at <code class="language-plaintext highlighter-rouge">init.rc</code> when the android system boots up - start the fingerprint daemon service.</p>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">service fingerprintd /system/bin/fingerprintd
+class late_start
+user root
+group root sdcard_r sdcard_rw</code></pre></figure>
+
+<p>Let’s go on to check the <code class="language-plaintext highlighter-rouge">fingerprintd</code> program.<br /> 
+Here I would recommend a useful website for you viewing the android source code.<br /> 
+<a href="https://www.androidos.net.cn/android/10.0.0_r6/xref">Android Community</a></p>
+
+<p>We can see the android path of the <a href="https://www.androidos.net.cn/android/7.1.1_r28/xref/system/core/fingerprintd/fingerprintd.cpp">fingerprintd.cpp</a> is <code class="language-plaintext highlighter-rouge">system/core/fingerprintd/</code> and the directory structure is as below.</p>
+
+<p><img src="/daviddong.github.io/assets/image/android-fingerprint-framework2-fingerprintd-directory.png" alt="fingerprintd directory structure" class="center-image" /></p>
+
+<p>read the 
+<a href="https://www.androidos.net.cn/android/7.1.1_r28/xref/system/core/fingerprintd/Android.mk">Android.mk</a><br /></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">androdi</span> <span class="ss">path: </span><span class="n">root</span><span class="o">/</span><span class="nb">system</span><span class="o">/</span><span class="n">core</span><span class="o">/</span><span class="n">fingerprintd</span><span class="o">/</span><span class="no">Android</span><span class="p">.</span><span class="nf">mk</span></code></pre></figure>
+
+<p>we can know that this package is built as a executable program.<br /></p>
+
+<figure class="highlight"><pre><code class="language-make" data-lang="make"><span class="nv">LOCAL_PATH</span> <span class="o">:=</span> <span class="nf">$(</span><span class="nb">call</span> my-dir<span class="nf">)</span>
+<span class="k">include</span><span class="sx"> $(CLEAR_VARS)</span>
+<span class="nv">LOCAL_CFLAGS</span> <span class="o">:=</span> <span class="nt">-Wall</span> <span class="nt">-Wextra</span> <span class="nt">-Werror</span> <span class="nt">-Wunused</span>
+<span class="nv">LOCAL_SRC_FILES</span> <span class="o">:=</span> <span class="se">\</span>
+	FingerprintDaemonProxy.cpp <span class="se">\</span>
+	IFingerprintDaemon.cpp <span class="se">\</span>
+	IFingerprintDaemonCallback.cpp <span class="se">\</span>
+	fingerprintd.cpp
+<span class="nv">LOCAL_MODULE</span> <span class="o">:=</span> fingerprintd
+<span class="nv">LOCAL_SHARED_LIBRARIES</span> <span class="o">:=</span> <span class="se">\</span>
+	libbinder <span class="se">\</span>
+	liblog <span class="se">\</span>
+	libhardware <span class="se">\</span>
+	libutils <span class="se">\</span>
+	libkeystore_binder
+<span class="k">include</span><span class="sx"> $(BUILD_EXECUTABLE)</span></code></pre></figure>
+
+<p>next open the 
+<a href="https://www.androidos.net.cn/android/7.1.1_r28/xref/system/core/fingerprintd/fingerprintd.cpp">fingerprintd.cpp</a><br /></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">android</span> <span class="ss">path: </span><span class="n">root</span><span class="o">/</span><span class="nb">system</span><span class="o">/</span><span class="n">core</span><span class="o">/</span><span class="n">fingerprintd</span><span class="o">/</span><span class="n">fingerprintd</span><span class="p">.</span><span class="nf">cpp</span></code></pre></figure>
+
+<p>The task of the <code class="language-plaintext highlighter-rouge">main()</code> function is very simple, just create a <code class="language-plaintext highlighter-rouge">FingerprintDaemonProxy</code> object and add it into the service queue.</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include "FingerprintDaemonProxy.h"
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">ALOGI</span><span class="p">(</span><span class="s">"Starting "</span> <span class="n">LOG_TAG</span><span class="p">);</span>
+    <span class="n">android</span><span class="o">::</span><span class="n">sp</span><span class="o">&lt;</span><span class="n">android</span><span class="o">::</span><span class="n">IServiceManager</span><span class="o">&gt;</span> <span class="n">serviceManager</span> 
+    <span class="o">=</span> <span class="n">android</span><span class="o">::</span><span class="n">defaultServiceManager</span><span class="p">();</span>
+    <span class="n">android</span><span class="o">::</span><span class="n">sp</span><span class="o">&lt;</span><span class="n">android</span><span class="o">::</span><span class="n">FingerprintDaemonProxy</span><span class="o">&gt;</span> <span class="n">proxy</span> <span class="o">=</span>
+            <span class="n">android</span><span class="o">::</span><span class="n">FingerprintDaemonProxy</span><span class="o">::</span><span class="n">getInstance</span><span class="p">();</span>
+    <span class="n">android</span><span class="o">::</span><span class="n">status_t</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">serviceManager</span><span class="o">-&gt;</span><span class="n">addService</span><span class="p">(</span>
+            <span class="n">android</span><span class="o">::</span><span class="n">FingerprintDaemonProxy</span><span class="o">::</span><span class="n">descriptor</span><span class="p">,</span> <span class="n">proxy</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">!=</span> <span class="n">android</span><span class="o">::</span><span class="n">OK</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ALOGE</span><span class="p">(</span><span class="s">"Couldn't register "</span> <span class="n">LOG_TAG</span> <span class="s">" binder service!"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/*
+     * We're the only thread in existence, so we're just going to process
+     * Binder transaction as a single-threaded program.
+     */</span>
+    <span class="n">android</span><span class="o">::</span><span class="n">IPCThreadState</span><span class="o">::</span><span class="n">self</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">joinThreadPool</span><span class="p">();</span>
+    <span class="n">ALOGI</span><span class="p">(</span><span class="s">"Done"</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>From the 
+<a href="https://www.androidos.net.cn/android/7.1.1_r28/xref/system/core/fingerprintd/FingerprintDaemonProxy.h">FingerprintDaemonProxy.h</a><br /></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">android</span> <span class="ss">path: </span><span class="n">root</span><span class="o">/</span><span class="nb">system</span><span class="o">/</span><span class="n">core</span><span class="o">/</span><span class="n">fingerprintd</span><span class="o">/</span></code></pre></figure>
+
+<p>FingerprintDaemonProxy.h<br />
+We find the remote service is fingerprint daemon. <code class="language-plaintext highlighter-rouge">Fingerprinted</code> registers the remote service to the servicemanager for the client to use.
+The protocol interface is <code class="language-plaintext highlighter-rouge">IFingerprintdaemon</code>. <code class="language-plaintext highlighter-rouge">FingerprintService</code> in the framework will eventually call the remote service, that is, the method in 
+<a href="https://www.androidos.net.cn/android/7.1.1_r28/xref/system/core/fingerprintd/FingerprintDaemonProxy.cpp">fingerprintdaemonproxy.cpp</a>.<br /></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">android</span> <span class="ss">path: </span><span class="n">root</span><span class="o">/</span><span class="nb">system</span><span class="o">/</span><span class="n">core</span><span class="o">/</span><span class="n">fingerprintd</span><span class="o">/</span></code></pre></figure>
+
+<p>fingerprintdaemonproxy.cpp<br /></p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="o">++</span>
+<span class="cp">#ifndef FINGERPRINT_DAEMON_PROXY_H_
+#define FINGERPRINT_DAEMON_PROXY_H_
+</span>
+<span class="cp">#include "IFingerprintDaemon.h"
+#include "IFingerprintDaemonCallback.h"
+</span>
+<span class="k">namespace</span> <span class="n">android</span> <span class="p">{</span>
+
+<span class="k">class</span> <span class="nc">FingerprintDaemonProxy</span> <span class="o">:</span> <span class="k">public</span> <span class="n">BnFingerprintDaemon</span> <span class="p">{</span>
+    <span class="nl">public:</span>
+        <span class="k">static</span> <span class="n">FingerprintDaemonProxy</span><span class="o">*</span> <span class="n">getInstance</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">sInstance</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">sInstance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FingerprintDaemonProxy</span><span class="p">();</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="n">sInstance</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// These reflect binder methods.</span>
+        <span class="k">virtual</span> <span class="kt">void</span> <span class="n">init</span><span class="p">(</span><span class="k">const</span> <span class="n">sp</span><span class="o">&lt;</span><span class="n">IFingerprintDaemonCallback</span><span class="o">&gt;&amp;</span> <span class="n">callback</span><span class="p">);</span>
+        <span class="k">virtual</span> <span class="kt">int32_t</span> <span class="n">enroll</span><span class="p">(</span><span class="k">const</span> <span class="kt">uint8_t</span><span class="o">*</span> <span class="n">token</span><span class="p">,</span> <span class="kt">ssize_t</span> 
+        <span class="n">tokenLength</span><span class="p">,</span> <span class="kt">int32_t</span> <span class="n">groupId</span><span class="p">,</span> <span class="kt">int32_t</span> <span class="n">timeout</span><span class="p">);</span>
+        <span class="k">virtual</span> <span class="kt">uint64_t</span> <span class="n">preEnroll</span><span class="p">();</span>
+        <span class="k">virtual</span> <span class="kt">int32_t</span> <span class="n">postEnroll</span><span class="p">();</span>
+        <span class="k">virtual</span> <span class="kt">int32_t</span> <span class="n">stopEnrollment</span><span class="p">();</span>
+        <span class="k">virtual</span> <span class="kt">int32_t</span> <span class="n">authenticate</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="n">sessionId</span><span class="p">,</span> <span class="kt">uint32_t</span> 
+        <span class="n">groupId</span><span class="p">);</span>
+        <span class="k">virtual</span> <span class="kt">int32_t</span> <span class="n">stopAuthentication</span><span class="p">();</span>
+        <span class="k">virtual</span> <span class="kt">int32_t</span> <span class="n">remove</span><span class="p">(</span><span class="kt">int32_t</span> <span class="n">fingerId</span><span class="p">,</span> <span class="kt">int32_t</span> <span class="n">groupId</span><span class="p">);</span>
+        <span class="k">virtual</span> <span class="kt">int32_t</span> <span class="n">enumerate</span><span class="p">();</span>
+        <span class="k">virtual</span> <span class="kt">uint64_t</span> <span class="n">getAuthenticatorId</span><span class="p">();</span>
+        <span class="k">virtual</span> <span class="kt">int32_t</span> <span class="n">setActiveGroup</span><span class="p">(</span><span class="kt">int32_t</span> <span class="n">groupId</span><span class="p">,</span> 
+        <span class="k">const</span> <span class="kt">uint8_t</span><span class="o">*</span> <span class="n">path</span><span class="p">,</span> <span class="kt">ssize_t</span> <span class="n">pathLen</span><span class="p">);</span>
+        <span class="k">virtual</span> <span class="kt">int64_t</span> <span class="n">openHal</span><span class="p">();</span>
+        <span class="k">virtual</span> <span class="kt">int32_t</span> <span class="n">closeHal</span><span class="p">();</span>
+
+    <span class="nl">private:</span>
+        <span class="n">FingerprintDaemonProxy</span><span class="p">();</span>
+        <span class="k">virtual</span> <span class="o">~</span><span class="n">FingerprintDaemonProxy</span><span class="p">();</span>
+        <span class="kt">void</span> <span class="n">binderDied</span><span class="p">(</span><span class="k">const</span> <span class="n">wp</span><span class="o">&lt;</span><span class="n">IBinder</span><span class="o">&gt;&amp;</span> <span class="n">who</span><span class="p">);</span>
+        <span class="kt">void</span> <span class="n">notifyKeystore</span><span class="p">(</span><span class="k">const</span> <span class="kt">uint8_t</span> <span class="o">*</span><span class="n">auth_token</span><span class="p">,</span> <span class="k">const</span> <span class="kt">size_t</span>
+        <span class="n">auth_token_length</span><span class="p">);</span>
+        <span class="k">static</span> <span class="kt">void</span> <span class="n">hal_notify_callback</span><span class="p">(</span><span class="k">const</span> <span class="n">fingerprint_msg_t</span> <span class="o">*</span><span class="n">msg</span><span class="p">);</span>
+
+        <span class="k">static</span> <span class="n">FingerprintDaemonProxy</span><span class="o">*</span> <span class="n">sInstance</span><span class="p">;</span>
+        <span class="n">fingerprint_module_t</span> <span class="k">const</span><span class="o">*</span> <span class="n">mModule</span><span class="p">;</span>
+        <span class="n">fingerprint_device_t</span><span class="o">*</span> <span class="n">mDevice</span><span class="p">;</span>
+        <span class="n">sp</span><span class="o">&lt;</span><span class="n">IFingerprintDaemonCallback</span><span class="o">&gt;</span> <span class="n">mCallback</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="p">}</span> <span class="c1">// namespace android</span>
+
+<span class="cp">#endif // FINGERPRINT_DAEMON_PROXY_H_</span></code></pre></figure>
+
+<h2 id="step-two---startup-fingerprintservice">Step two - Startup FingerprintService</h2>
+<p>Next, we will move to framework layer to find how the Fingerprint Service start up. 
+open the 
+<a href="https://www.androidos.net.cn/android/7.1.1_r28/xref/frameworks/base/services/java/com/android/server/SystemServer.java">SystemServer.java</a><br /></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">android</span> <span class="ss">path: </span><span class="n">root</span><span class="o">/</span><span class="n">frameworks</span><span class="o">/</span><span class="n">base</span><span class="o">/</span><span class="n">services</span><span class="o">/</span><span class="n">java</span><span class="o">/</span><span class="n">com</span><span class="o">/</span><span class="n">android</span><span class="o">/</span><span class="n">server</span><span class="o">/</span></code></pre></figure>
+
+<p>SystemServer.java  <br />
+This class is in charge of the system service managerment, include start up the necessary service.
+When Android system loads system server, starts Fingerprint Service.</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">import</span> <span class="n">com</span><span class="p">.</span><span class="n">android</span><span class="p">.</span><span class="n">server</span><span class="p">.</span><span class="n">fingerprint</span><span class="p">.</span><span class="n">FingerprintService</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">mPackageManager</span><span class="p">.</span><span class="n">hasSystemFeature</span><span class="p">(</span><span class="n">PackageManager</span><span class="p">.</span><span class="n">FEATURE_FINGERPRINT</span><span class="p">))</span> <span class="p">{</span>
+                <span class="n">traceBeginAndSlog</span><span class="p">(</span><span class="s">"StartFingerprintSensor"</span><span class="p">);</span>
+                <span class="n">mSystemServiceManager</span><span class="p">.</span><span class="n">startService</span><span class="p">(</span><span class="n">FingerprintService</span><span class="p">.</span><span class="k">class</span><span class="err">);</span>
+                <span class="nc">traceEnd</span><span class="p">();</span>
+            <span class="p">}</span></code></pre></figure>
+
+<p>Keep looking into the 
+<a href="https://www.androidos.net.cn/android/7.1.1_r28/xref/frameworks/base/services/core/java/com/android/server/fingerprint/FingerprintService.java">FingerprintService.java</a>.<br /></p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">android</span> <span class="n">path</span><span class="o">:</span> <span class="n">root</span><span class="o">/</span><span class="n">frameworks</span><span class="o">/</span><span class="n">base</span><span class="o">/</span><span class="n">services</span><span class="o">/</span><span class="n">core</span><span class="o">/</span><span class="n">java</span><span class="o">/</span><span class="n">com</span><span class="o">/</span><span class="n">android</span><span class="o">/</span><span class="n">server</span><span class="o">/</span><span class="n">fingerprint</span><span class="o">/</span><span class="n">FingerprintService</span><span class="p">.</span><span class="n">java</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">FingerprintService</code> is a subclass of <code class="language-plaintext highlighter-rouge">SystemService</code> class and implements the <code class="language-plaintext highlighter-rouge">IHwbinder</code> interface.</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">public</span> <span class="k">class</span> <span class="nc">FingerprintService</span> <span class="n">extends</span> <span class="n">SystemService</span> <span class="n">implements</span>
+<span class="n">IHwBinder</span><span class="p">.</span><span class="n">DeathRecipient</span> <span class="p">{</span>
+
+    <span class="k">public</span> <span class="n">synchronized</span> <span class="n">IBiometricsFingerprint</span> <span class="n">getFingerprintDaemon</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">mDaemon</span> <span class="o">==</span> <span class="n">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">Slog</span><span class="p">.</span><span class="n">v</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span> <span class="s">"mDaemon was null, reconnect to fingerprint"</span><span class="p">);</span>
+            <span class="k">try</span> <span class="p">{</span>
+                <span class="n">mDaemon</span> <span class="o">=</span> <span class="n">IBiometricsFingerprint</span><span class="p">.</span><span class="n">getService</span><span class="p">();</span>
+            <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="n">util</span><span class="p">.</span><span class="n">NoSuchElementException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">// Service doesn't exist or cannot be opened. Logged below.</span>
+            <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">RemoteException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">Slog</span><span class="p">.</span><span class="n">e</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span> <span class="s">"Failed to get biometric interface"</span><span class="p">,</span> <span class="n">e</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">mDaemon</span> <span class="o">==</span> <span class="n">null</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">Slog</span><span class="p">.</span><span class="n">w</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span> <span class="s">"fingerprint HIDL not available"</span><span class="p">);</span>
+                <span class="k">return</span> <span class="n">null</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="n">mDaemon</span><span class="p">.</span><span class="n">asBinder</span><span class="p">().</span><span class="n">linkToDeath</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+            <span class="k">try</span> <span class="p">{</span>
+                <span class="n">mHalDeviceId</span> <span class="o">=</span> <span class="n">mDaemon</span><span class="p">.</span><span class="n">setNotify</span><span class="p">(</span><span class="n">mDaemonCallback</span><span class="p">);</span>
+            <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">RemoteException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">Slog</span><span class="p">.</span><span class="n">e</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span> <span class="s">"Failed to open fingerprint HAL"</span><span class="p">,</span> <span class="n">e</span><span class="p">);</span>
+                <span class="n">mDaemon</span> <span class="o">=</span> <span class="n">null</span><span class="p">;</span> <span class="c1">// try again later!</span>
+            <span class="p">}</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">DEBUG</span><span class="p">)</span> <span class="n">Slog</span><span class="p">.</span><span class="n">v</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span> <span class="s">"Fingerprint HAL id: "</span> <span class="o">+</span> <span class="n">mHalDeviceId</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">mHalDeviceId</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">loadAuthenticatorIds</span><span class="p">();</span>
+                <span class="n">updateActiveGroup</span><span class="p">(</span><span class="n">ActivityManager</span><span class="p">.</span><span class="n">getCurrentUser</span><span class="p">(),</span> <span class="n">null</span><span class="p">);</span>
+                <span class="n">doFingerprintCleanupForUser</span><span class="p">(</span><span class="n">ActivityManager</span><span class="p">.</span><span class="n">getCurrentUser</span><span class="p">());</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="n">Slog</span><span class="p">.</span><span class="n">w</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span> <span class="s">"Failed to open Fingerprint HAL!"</span><span class="p">);</span>
+                <span class="n">MetricsLogger</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="n">mContext</span><span class="p">,</span> <span class="s">"fingerprintd_openhal_error"</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+                <span class="n">mDaemon</span> <span class="o">=</span> <span class="n">null</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">mDaemon</span><span class="p">;</span>
+    <span class="p">}</span>
+
+<span class="p">}</span></code></pre></figure>
+
+<p>Let’s see the mehtod <code class="language-plaintext highlighter-rouge">getFingerprintDaemon()</code>, this method will acquire the fingerprint remote service object, that is, the object of fingerprint daemon <code class="language-plaintext highlighter-rouge">(system/core/fingerprintd)</code>, which has been registered in the init.rc. Then initialize the remote service <code class="language-plaintext highlighter-rouge">fingerprintdaemon</code> and set the callback <code class="language-plaintext highlighter-rouge">mDaemonCallback</code>.</p>
+
+<p>It can be seen from the above that the fingerprint service in the framework calls the fingerprint remote service of the native layer fingerprint daemon (related to the hardware), which can be regarded as the client of the fingerprint remote service fingerprint daemon.</p>
+
+<p>Ok, we have already went through the working process of framework layer and how they register the system service and access the HAL code by calling the remote Fingerprint Service through Binder. Let’s move to native layer in next article.</p>
+
+	</div>
+	<!-- put sidebar! -->
+	
+  </div>
+  <!-- no sidebar, use flex width box! -->
+  <br><br><br>
+  <div class="post-container">
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">Share:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+		<li class = "icon-eye">&nbsp;<span id="busuanzi_value_page_pv"></span></li>
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">You may also like</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/daviddong.github.io/android/fingerprint/2021/02/04/Fingerprint-build-ta.html">Build TA images on different TEE</a></li>
+			
+			<li><a href="/daviddong.github.io/android/fingerprint/2020/12/02/Fingerprint-Trusty.html">Some useful knowledge for Fingerprint Application on Trusty TEE</a></li>
+			
+			<li><a href="/daviddong.github.io/android/fingerprint/2020/01/09/Fingerprint-impl-AN8.0.html">Fingerprint implementation in android 8.0 and later</a></li>
+			
+			<li><a href="/daviddong.github.io/android/fingerprint/2019/12/21/Fingerprint-frmk3.html">Android Fingerprint Framework (3)</a></li>
+			
+			<li><a href="/daviddong.github.io/android/fingerprint/2019/10/03/Fingerprint-frmk1.html">Android Fingerprint Framework (1)</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">further reading</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta" style = "margin-bottom:40px"><ul class="navigation-bar" style = "margin-top:40px; min-width:40%">
+	 
+	 <a href="/daviddong.github.io/android/fingerprint/2019/10/03/Fingerprint-frmk1.html"; style="width:100%"><span class = "navigation-bar-label">Previous Post</span><br>Android Fingerprint Framework (1)</a>
+	 
+    </ul><ul class="navigation-bar" style = "margin-top:40px; min-width:40%"> 
+	 
+     <a href="/daviddong.github.io/android/fingerprint/2019/12/21/Fingerprint-frmk3.html"; style="width:100%"><span class = "navigation-bar-label">Next Post</span><br>Android Fingerprint Framework (3)</a>
+	 
+    </ul></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/daviddong.github.io/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'daviddong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+      </section>
+    </main>
+<script src="/daviddong.github.io/assets/js/simple-jekyll-search.min.js"></script>
+<script src="/daviddong.github.io/assets/js/search.js"></script>
+
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9"></script>
+
+</body>
+</html>

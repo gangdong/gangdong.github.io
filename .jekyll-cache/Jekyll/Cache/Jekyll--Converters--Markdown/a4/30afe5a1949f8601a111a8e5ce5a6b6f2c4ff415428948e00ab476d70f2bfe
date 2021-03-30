@@ -1,0 +1,228 @@
+I"+<p>Python uses <code class="language-plaintext highlighter-rouge">struct.pack()</code> to pack python data type into binary data (byte stream), which means convert a value to a string based on the format.</p>
+
+<p>Because there is no byte type in Python, here the string is actually equivalent to byte stream, or byte array.</p>
+
+<h3 id="structpack">struct.pack()</h3>
+
+<p>The function prototype:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">struck</span><span class="p">.</span><span class="n">pack</span><span class="p">(</span><span class="nb">format</span><span class="p">,</span> <span class="n">data1</span><span class="p">,</span> <span class="n">data2</span><span class="p">,...)</span></code></pre></figure>
+
+<p>format: define the convert format.
+data1,data2,…: the data needs to be packed.</p>
+
+<p>The format includes</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><strong>Format</strong></th>
+      <th style="text-align: center"><strong>C Type</strong></th>
+      <th style="text-align: center"><strong>Python Type</strong></th>
+      <th style="text-align: center"><strong>Standard Size</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">x</td>
+      <td style="text-align: center">pad byte</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center">c</td>
+      <td style="text-align: center">char</td>
+      <td style="text-align: center">string of length 1</td>
+      <td style="text-align: center">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">b</td>
+      <td style="text-align: center">signed char</td>
+      <td style="text-align: center">integer</td>
+      <td style="text-align: center">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">B</td>
+      <td style="text-align: center">unsigned char</td>
+      <td style="text-align: center">integer</td>
+      <td style="text-align: center">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">?</td>
+      <td style="text-align: center">_bool</td>
+      <td style="text-align: center">bool</td>
+      <td style="text-align: center">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">h</td>
+      <td style="text-align: center">short</td>
+      <td style="text-align: center">integer</td>
+      <td style="text-align: center">2</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">H</td>
+      <td style="text-align: center">unsigned short</td>
+      <td style="text-align: center">integer</td>
+      <td style="text-align: center">2</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">i</td>
+      <td style="text-align: center">int</td>
+      <td style="text-align: center">integer</td>
+      <td style="text-align: center">4</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">I</td>
+      <td style="text-align: center">unsigned int</td>
+      <td style="text-align: center">integer</td>
+      <td style="text-align: center">4</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">l</td>
+      <td style="text-align: center">long</td>
+      <td style="text-align: center">integer</td>
+      <td style="text-align: center">4</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">L</td>
+      <td style="text-align: center">unsigned long</td>
+      <td style="text-align: center">integer</td>
+      <td style="text-align: center">4</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">q</td>
+      <td style="text-align: center">long long</td>
+      <td style="text-align: center">integer</td>
+      <td style="text-align: center">8</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Q</td>
+      <td style="text-align: center">unsigned long long</td>
+      <td style="text-align: center">integer</td>
+      <td style="text-align: center">8</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">f</td>
+      <td style="text-align: center">float</td>
+      <td style="text-align: center">float</td>
+      <td style="text-align: center">4</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">d</td>
+      <td style="text-align: center">double</td>
+      <td style="text-align: center">float</td>
+      <td style="text-align: center">8</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">s</td>
+      <td style="text-align: center">char[]</td>
+      <td style="text-align: center">string</td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center">p</td>
+      <td style="text-align: center">char[]string</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center">P</td>
+      <td style="text-align: center">void *</td>
+      <td style="text-align: center">integer</td>
+      <td style="text-align: center"> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In order to exchange data with the structure in C, it is also necessary to consider that some C or C + + compilers use byte alignment, usually a 32-bit system with 4 bytes as the unit. Therefore, struct can be converted according to the byte order of the local machine. The alignment can be changed by the first character in the format. The definition is as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><strong>Format</strong></th>
+      <th style="text-align: center"><strong>Byte Order</strong></th>
+      <th style="text-align: center"><strong>Size</strong></th>
+      <th style="text-align: center"><strong>alignment</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">@</td>
+      <td style="text-align: center">native byte</td>
+      <td style="text-align: center">native</td>
+      <td style="text-align: center">native</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">=</td>
+      <td style="text-align: center">native</td>
+      <td style="text-align: center">standard</td>
+      <td style="text-align: center">none</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">&lt;</td>
+      <td style="text-align: center">little-endian char</td>
+      <td style="text-align: center">standard</td>
+      <td style="text-align: center">none</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">&gt;</td>
+      <td style="text-align: center">big-endian char</td>
+      <td style="text-align: center">standard</td>
+      <td style="text-align: center">none</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">!</td>
+      <td style="text-align: center">network (= big-endian)</td>
+      <td style="text-align: center">standard</td>
+      <td style="text-align: center">none</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Use it in the first place of format.</p>
+
+<p>for example.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">struct</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="mi">11</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">12</span>
+
+<span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">struct</span><span class="p">.</span><span class="n">pack</span><span class="p">(</span><span class="s">"ii"</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)))</span>
+<span class="mi">8</span>
+<span class="k">print</span><span class="p">(</span><span class="n">struct</span><span class="p">.</span><span class="n">pack</span><span class="p">(</span><span class="s">"ii"</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">))</span>
+<span class="s">b'</span><span class="se">\x0b\x00\x00\x00\x0c\x00\x00\x00</span><span class="s">'</span></code></pre></figure>
+
+<h3 id="structunpack">struct.unpack()</h3>
+
+<p><code class="language-plaintext highlighter-rouge">struct.unpack()</code> unpacks the byte stream into Python data type.<br />
+The function prototype:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">struct</span><span class="p">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">fmt</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span></code></pre></figure>
+
+<p>This function return a tuple.</p>
+
+<p>For example.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">a</span> <span class="o">=</span> <span class="mi">11</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="n">packdata</span> <span class="o">=</span> <span class="n">struct</span><span class="p">.</span><span class="n">pack</span><span class="p">(</span><span class="s">"ii"</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<span class="n">c</span><span class="p">,</span><span class="n">d</span> <span class="o">=</span> <span class="n">struct</span><span class="p">.</span><span class="n">unpack</span><span class="p">(</span><span class="s">"1i1i"</span><span class="p">,</span><span class="n">packdata</span><span class="p">)</span>
+<span class="k">print</span><span class="p">((</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">))</span>
+<span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">)</span></code></pre></figure>
+
+<h3 id="structcalcsize">struct.calcsize()</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Struct.calcsize()</code> is used to calculate the length of the result corresponding to the format string.</p>
+
+<p>For example.<br /></p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">print</span><span class="p">(</span><span class="n">struct</span><span class="p">.</span><span class="n">calcsize</span><span class="p">(</span><span class="s">"c"</span><span class="p">))</span>
+<span class="mi">1</span>
+<span class="k">print</span><span class="p">(</span><span class="n">struct</span><span class="p">.</span><span class="n">calcsize</span><span class="p">(</span><span class="s">"H"</span><span class="p">))</span>
+<span class="mi">2</span>
+<span class="k">print</span><span class="p">(</span><span class="n">struct</span><span class="p">.</span><span class="n">calcsize</span><span class="p">(</span><span class="s">"L"</span><span class="p">))</span>
+<span class="mi">4</span>
+<span class="k">print</span><span class="p">(</span><span class="n">struct</span><span class="p">.</span><span class="n">calcsize</span><span class="p">(</span><span class="s">"Q"</span><span class="p">))</span>
+<span class="mi">8</span></code></pre></figure>
+:ET

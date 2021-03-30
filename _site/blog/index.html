@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono" rel="stylesheet">
+<link rel="stylesheet" href="/daviddong.github.io/assets/css/style.css">
+<link rel="icon" href="/daviddong.github.io/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="/daviddong.github.io/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<title>Home | David Dong's Blog</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Home | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Home" />
+<meta name="author" content="David Dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This is DavidDong’s blog. This blog recorded the time of my life and learning from it. Welcome to visit!" />
+<meta property="og:description" content="This is DavidDong’s blog. This blog recorded the time of my life and learning from it. Welcome to visit!" />
+<link rel="canonical" href="http://localhost:4000/daviddong.github.io/blog/" />
+<meta property="og:url" content="http://localhost:4000/daviddong.github.io/blog/" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<link rel="next" href="http://localhost:4000/daviddong.github.io/blog/page2/" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/daviddong.github.io/blog/","@type":"WebPage","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/daviddong.github.io/BLOG"},"name":"David Dong"},"author":{"@type":"Person","name":"David Dong"},"headline":"Home","description":"This is DavidDong’s blog. This blog recorded the time of my life and learning from it. Welcome to visit!","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+
+</head>
+  <body><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><main class="container">
+      <section class="about">
+        <a href="/daviddong.github.io/blog/index.html"><img src="/daviddong.github.io/assets/avatar.png" alt="David Dong"></a>
+        <h2 id="title">
+          <a href="/daviddong.github.io/blog/index.html">David Dong</a>
+        </h2>
+        <p class="tagline">Java/C/C#/Python</p>
+		<!--add navigation --><nav class="navigation">
+            <ul>
+              
+            </ul>
+          </nav><!--put dark mode button here --><div>
+		  <ul class = "social" >
+			<p style = "font-family: Raleway, sans-serif;font-size: 100%">Dark Mode
+			  <i class="icon-moon"></i>
+			  <label class="switch">
+				<input type="checkbox" id="dark-mode-toggle" onclick="toggleDarkMode()">
+				<span class="slider round"></span>
+			  </label>
+			</p>
+		  </ul>
+		<script type="text/javascript" src="/daviddong.github.io/assets/js/darkmode.js"></script>
+		</div><!--put rss/code link here -->
+	    <div>
+          <ul class="tool"><a style ="margin-right:10px; text-decoration: none" href="/daviddong.github.io/rss.xml">
+              <span class="icon-rss-1 tooltip">
+				<span class="tooltiptext">Rss</span>
+			  </span>
+           </a><a style="text-decoration: none" href="https://github.com/gangdong/daviddong.github.io">
+              <span class="icon-file-code tooltip">
+				<span class="tooltiptext">Code</span>
+			  </span>
+            </a></ul>
+        </div>
+	    <!--show contact me -->
+	    <div class = "contact"><li>CONTACT ME</li></div>
+		<!-- put social link here -->
+		<div>
+	      <ul class="social" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture-3"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled-1"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		</div>
+		<!--put timestamp here -->
+		<div class ="timestamp">&copy; 2021</div>
+	  <!-- about box end here -->
+      </section>
+      <section class="content">
+        
+
+<div class="post-container">
+	<div  class = "menu-meta">
+		<div  class = "menu-logo" style="margin-top: 20px">BLOG</div>
+		<div  class = "menu" style = "margin-top: 20px">
+			<a class = "icon-doc-text icon_font" href="/daviddong.github.io/blog/index.html">Posts</a><a  class = "icon-archive-1 icon_font" href="/daviddong.github.io/archive">Archives</a><a  class = "icon-tags-1 icon_font" href="/daviddong.github.io/category">Categories</a><a  class = "icon-help-circled-3 icon_font" href="/daviddong.github.io/about">About</a>
+		</div>
+	</div>
+</div><div class= "post-container">
+    <!-- Put search box here -->
+    <li class="posts-labelgroup" id="posts-labelgroup">
+      <h1 id="posts-label">posts</h1>
+      <div class="search-container">
+        <div class="search-section">
+          <i class="icon-search-5"></i>
+          <input type="text" name="search" id="searchbar" autocomplete="off" aria-label="search in posts">
+        </div>
+        <div class="search-results" id="search-results" data-placeholder="No Results" style="display: none;"></div>
+      </div>
+    </li>
+	<!-- Try to look for the pinned article and locked at the first page -->
+	
+	   <!-- Should look for site.posts instead of paginator.posts -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' --><li class="post-wrapper"><a class="post-link" href="/daviddong.github.io/pinned/2019/02/23/Pinned-Template.html">
+                <h2 class="post-title">关于本博客模板使用上的一些问题</h2>
+              </a>
+              <div class="post-meta">
+                <ul class="post-categories-pin"><li class="icon-pin">Pinned</li></ul>
+                <div class="post-date-right-align">
+                  <i class="icon-calendar"></i>
+                  Feb 23, 2019
+				</div>
+              </div>
+              <div class="post"><p>本博客使用了 <a href="https://github.com/gangdong/jekyll-theme-rawposts">rawposts</a> 主题模板，不时有网友在 fork 使用该主题的时候提出了一些问题，这里我将该主题的使用方法汇总成一篇帖子，方便大家参考。</p>
+</div>
+
+
+
+<footer>
+    <div class="readingtime-meta" style="margin-top:20px;margin-bottom:30px">
+	    <div>
+		
+		<span class="icon-hourglass readingtime" style="margin-right:20px">阅读时间：7 mins</span>
+		<span class="icon-book-open readingtime" >字数：2657</span>
+		
+		</div>
+		<div>
+		<a class="readingtime-categories" href="/daviddong.github.io/pinned/2019/02/23/Pinned-Template.html">
+			
+            <li class="icon-angle-double-right" style = "padding-right:0px">阅读全文&nbsp;</li>
+			
+        </a>
+		</div>
+	</div>
+</footer> </li>
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+
+	<!-- This loops through the paginated posts --><li class="post-wrapper"><a class="post-link" href="/daviddong.github.io/blog/2021/03/20/Blog-travisci.html">
+          <h2 class="post-title">Display mathematics formula in blog with MathJax</h2>
+        </a>
+        <div class="post-meta">
+          <ul class="post-categories"><a href="/daviddong.github.io/category#Blog">Blog</a></ul>
+          <div class="post-date-right-align">
+            <i class="icon-calendar"></i>
+            Mar 20, 2021</div>
+        </div>
+        <div class="post"><p>When writing posts, I need to display mathematics formula sometimes. I write posts with Markdown, I don’t want to save the formula into an image and load the image in markdown. It is better write the Latex formula in markdown file directly. MathJax helped me do it. This article will introduce what MathJax is and how to use MathJax.</p>
+</div>
+
+
+
+<footer>
+    <div class="readingtime-meta" style="margin-top:20px;margin-bottom:30px">
+	    <div>
+		
+		<span class="icon-clock-5 readingtime" style="margin-right:20px">8 mins to read</span>
+		<span class="icon-book-1 readingtime" > 3036 words</span>
+		
+		</div>
+		<div>
+		<a class="readingtime-categories" href="/daviddong.github.io/blog/2021/03/20/Blog-travisci.html">
+			
+			<li class="icon-angle-double-right" style = "padding-right:0px">Continue reading&nbsp;</li>
+			
+        </a>
+		</div>
+	</div>
+</footer> </li><li class="post-wrapper"><a class="post-link" href="/daviddong.github.io/blog/2021/03/20/Blog-mathjax.html">
+          <h2 class="post-title">Display mathematics formula in blog with MathJax</h2>
+        </a>
+        <div class="post-meta">
+          <ul class="post-categories"><a href="/daviddong.github.io/category#Blog">Blog</a></ul>
+          <div class="post-date-right-align">
+            <i class="icon-calendar"></i>
+            Mar 20, 2021</div>
+        </div>
+        <div class="post"><p>When writing posts, I need to display mathematics formula sometimes. I write posts with Markdown, I don’t want to save the formula into an image and load the image in markdown. It is better write the Latex formula in markdown file directly. MathJax helped me do it. This article will introduce what MathJax is and how to use MathJax.</p>
+</div>
+
+
+
+<footer>
+    <div class="readingtime-meta" style="margin-top:20px;margin-bottom:30px">
+	    <div>
+		
+		<span class="icon-clock-5 readingtime" style="margin-right:20px">8 mins to read</span>
+		<span class="icon-book-1 readingtime" > 3036 words</span>
+		
+		</div>
+		<div>
+		<a class="readingtime-categories" href="/daviddong.github.io/blog/2021/03/20/Blog-mathjax.html">
+			
+			<li class="icon-angle-double-right" style = "padding-right:0px">Continue reading&nbsp;</li>
+			
+        </a>
+		</div>
+	</div>
+</footer> </li><li class="post-wrapper"><a class="post-link" href="/daviddong.github.io/blog/github/2021/03/14/Blog-Jekyll-toc-plugin.html">
+          <h2 class="post-title">Use jekyll-toc plugin on Github Pages</h2>
+        </a>
+        <div class="post-meta">
+          <ul class="post-categories"><a href="/daviddong.github.io/category#Blog">Blog</a><a href="/daviddong.github.io/category#Github">Github</a></ul>
+          <div class="post-date-right-align">
+            <i class="icon-calendar"></i>
+            Mar 14, 2021</div>
+        </div>
+        <div class="post"><p>Today I want to add a auto TOC function to my blog. I used to write TOC manually and it is really boring. I found a good plugin <a href="https://Github.com/toshimaru/jekyll-toc">jekyll-toc</a> in the Github, which can fully meet my requirement.</p>
+</div>
+
+
+
+<footer>
+    <div class="readingtime-meta" style="margin-top:20px;margin-bottom:30px">
+	    <div>
+		
+		<span class="icon-clock-5 readingtime" style="margin-right:20px">7 mins to read</span>
+		<span class="icon-book-1 readingtime" > 2459 words</span>
+		
+		</div>
+		<div>
+		<a class="readingtime-categories" href="/daviddong.github.io/blog/github/2021/03/14/Blog-Jekyll-toc-plugin.html">
+			
+			<li class="icon-angle-double-right" style = "padding-right:0px">Continue reading&nbsp;</li>
+			
+        </a>
+		</div>
+	</div>
+</footer> </li><li class="post-wrapper"><a class="post-link" href="/daviddong.github.io/blog/2021/03/08/Web-gitalk-fixing.html">
+          <h2 class="post-title">A quick way to fix the Gitalk Error: Validation Failed</h2>
+        </a>
+        <div class="post-meta">
+          <ul class="post-categories"><a href="/daviddong.github.io/category#Blog">Blog</a></ul>
+          <div class="post-date-right-align">
+            <i class="icon-calendar"></i>
+            Mar 8, 2021</div>
+        </div>
+        <div class="post"><p>I’ve met an error <code class="language-plaintext highlighter-rouge">Validation Failed (422)</code> when using Gitalk in my blog.</p>
+</div>
+
+
+
+<footer>
+    <div class="readingtime-meta" style="margin-top:20px;margin-bottom:30px">
+	    <div>
+		
+		<span class="icon-clock-5 readingtime" style="margin-right:20px">5 mins to read</span>
+		<span class="icon-book-1 readingtime" > 1711 words</span>
+		
+		</div>
+		<div>
+		<a class="readingtime-categories" href="/daviddong.github.io/blog/2021/03/08/Web-gitalk-fixing.html">
+			
+			<li class="icon-angle-double-right" style = "padding-right:0px">Continue reading&nbsp;</li>
+			
+        </a>
+		</div>
+	</div>
+</footer> </li><li class="post-wrapper"><a class="post-link" href="/daviddong.github.io/android/fingerprint/2021/02/04/Fingerprint-build-ta.html">
+          <h2 class="post-title">Build TA images on different TEE</h2>
+        </a>
+        <div class="post-meta">
+          <ul class="post-categories"><a href="/daviddong.github.io/category#Android">Android</a><a href="/daviddong.github.io/category#Fingerprint">Fingerprint</a></ul>
+          <div class="post-date-right-align">
+            <i class="icon-calendar"></i>
+            Feb 4, 2021</div>
+        </div>
+        <div class="post"><p>This article will give a introduction on how to build TA images on different TrustZone.</p>
+</div>
+
+
+
+<footer>
+    <div class="readingtime-meta" style="margin-top:20px;margin-bottom:30px">
+	    <div>
+		
+		<span class="icon-clock-5 readingtime" style="margin-right:20px">11 mins to read</span>
+		<span class="icon-book-1 readingtime" > 4322 words</span>
+		
+		</div>
+		<div>
+		<a class="readingtime-categories" href="/daviddong.github.io/android/fingerprint/2021/02/04/Fingerprint-build-ta.html">
+			
+			<li class="icon-angle-double-right" style = "padding-right:0px">Continue reading&nbsp;</li>
+			
+        </a>
+		</div>
+	</div>
+</footer> </li><li class="post-wrapper"><a class="post-link" href="/daviddong.github.io/android/fingerprint/2020/12/02/Fingerprint-Trusty.html">
+          <h2 class="post-title">Some useful knowledge for Fingerprint Application on Trusty TEE</h2>
+        </a>
+        <div class="post-meta">
+          <ul class="post-categories"><a href="/daviddong.github.io/category#Android">Android</a><a href="/daviddong.github.io/category#Fingerprint">Fingerprint</a></ul>
+          <div class="post-date-right-align">
+            <i class="icon-calendar"></i>
+            Dec 2, 2020</div>
+        </div>
+        <div class="post"><p>I have completed a Android platform fingerprint application on Trusty TEE recently for my work. This page will try to give some useful information, which is a summary of my work and might be helpful for somebody who want to bring up fingerprint application on Trusty TEE.</p>
+</div>
+
+
+
+<footer>
+    <div class="readingtime-meta" style="margin-top:20px;margin-bottom:30px">
+	    <div>
+		
+		<span class="icon-clock-5 readingtime" style="margin-right:20px">17 mins to read</span>
+		<span class="icon-book-1 readingtime" > 6590 words</span>
+		
+		</div>
+		<div>
+		<a class="readingtime-categories" href="/daviddong.github.io/android/fingerprint/2020/12/02/Fingerprint-Trusty.html">
+			
+			<li class="icon-angle-double-right" style = "padding-right:0px">Continue reading&nbsp;</li>
+			
+        </a>
+		</div>
+	</div>
+</footer> </li><li class="post-wrapper"><a class="post-link" href="/daviddong.github.io/security/windows/2020/07/23/Security-signature-02.html">
+          <h2 class="post-title">利用Microsoft WDK工具生成数字签名</h2>
+        </a>
+        <div class="post-meta">
+          <ul class="post-categories"><a href="/daviddong.github.io/category#Security">Security</a><a href="/daviddong.github.io/category#Windows">Windows</a></ul>
+          <div class="post-date-right-align">
+            <i class="icon-calendar"></i>
+            Jul 23, 2020</div>
+        </div>
+        <div class="post"><p>看过我这一篇文章 <a href="/daviddong.github.io/others/2020/07/06/Others-signature.html">「浅谈数字签名」</a> 的读者应该记得，在这篇文章的末尾遗留了一个问题 — <strong>在windows平台下如何利用Microsoft提供的工具来生成数字签名</strong>。我在这篇文章中会对这个问题做一个说明，并引用一个例子来介绍签名的过程。</p>
+</div>
+
+
+
+<footer>
+    <div class="readingtime-meta" style="margin-top:20px;margin-bottom:30px">
+	    <div>
+		
+		<span class="icon-hourglass readingtime" style="margin-right:20px">阅读时间：29 mins</span>
+		<span class="icon-book-open readingtime" >字数：11449</span>
+		
+		</div>
+		<div>
+		<a class="readingtime-categories" href="/daviddong.github.io/security/windows/2020/07/23/Security-signature-02.html">
+			
+            <li class="icon-angle-double-right" style = "padding-right:0px">阅读全文&nbsp;</li>
+			
+        </a>
+		</div>
+	</div>
+</footer> </li><li class="post-wrapper"><a class="post-link" href="/daviddong.github.io/security/2020/07/10/Security-mbedtls.html">
+          <h2 class="post-title">mbedtls 使用说明</h2>
+        </a>
+        <div class="post-meta">
+          <ul class="post-categories"><a href="/daviddong.github.io/category#Security">Security</a></ul>
+          <div class="post-date-right-align">
+            <i class="icon-calendar"></i>
+            Jul 10, 2020</div>
+        </div>
+        <div class="post"><p>最近的工作中使用到了mbedtls，这里做一个简单的总结。</p>
+</div>
+
+
+
+<footer>
+    <div class="readingtime-meta" style="margin-top:20px;margin-bottom:30px">
+	    <div>
+		
+		<span class="icon-hourglass readingtime" style="margin-right:20px">阅读时间：10 mins</span>
+		<span class="icon-book-open readingtime" >字数：3601</span>
+		
+		</div>
+		<div>
+		<a class="readingtime-categories" href="/daviddong.github.io/security/2020/07/10/Security-mbedtls.html">
+			
+            <li class="icon-angle-double-right" style = "padding-right:0px">阅读全文&nbsp;</li>
+			
+        </a>
+		</div>
+	</div>
+</footer> </li><li class="post-wrapper"><a class="post-link" href="/daviddong.github.io/windows/2020/07/09/Windows-inf2cat.html">
+          <h2 class="post-title">Inf2Cat 工具</h2>
+        </a>
+        <div class="post-meta">
+          <ul class="post-categories"><a href="/daviddong.github.io/category#Windows">Windows</a></ul>
+          <div class="post-date-right-align">
+            <i class="icon-calendar"></i>
+            Jul 9, 2020</div>
+        </div>
+        <div class="post"><p>Windows 驱动开发中经常会用到 Windows WDK 自带的 Inf2Cat.exe 工具将驱动程序的 INF 文件转成待签名的 CAT 格式的目录文件。Windows 7 64位系统以上的版本，如果没有对cat或者sys文件进行数字签名，驱动安装会出现问题，或者驱动使用过程也会出现异常。因此，对驱动程序的签名已经是一项必须的操作，这里就介绍一下 Inf2Cat.exe 这个工具。这个工具本身并不能生成签名，但是却是驱动程序签名的必要的一步。</p>
+</div>
+
+
+
+<footer>
+    <div class="readingtime-meta" style="margin-top:20px;margin-bottom:30px">
+	    <div>
+		
+		<span class="icon-hourglass readingtime" style="margin-right:20px">阅读时间：10 mins</span>
+		<span class="icon-book-open readingtime" >字数：3735</span>
+		
+		</div>
+		<div>
+		<a class="readingtime-categories" href="/daviddong.github.io/windows/2020/07/09/Windows-inf2cat.html">
+			
+            <li class="icon-angle-double-right" style = "padding-right:0px">阅读全文&nbsp;</li>
+			
+        </a>
+		</div>
+	</div>
+</footer> </li><li class="post-wrapper"><a class="post-link" href="/daviddong.github.io/security/2020/07/01/Security-signature.html">
+          <h2 class="post-title">浅谈数字签名</h2>
+        </a>
+        <div class="post-meta">
+          <ul class="post-categories"><a href="/daviddong.github.io/category#Security">Security</a></ul>
+          <div class="post-date-right-align">
+            <i class="icon-calendar"></i>
+            Jul 1, 2020</div>
+        </div>
+        <div class="post"><p>近日，腾讯公司状告贵州老干妈的新闻在互联网上闹得沸沸扬扬，💥 大家也应该有所耳闻。腾讯起诉老干妈合作推广后没有付广告费，但随后老干妈否认了此事，称完全不知道这个合作。 😕 后来经调查发现，这是三个人冒充老干妈市场部经理，然后刻了个假公章，就为了获得合作后的游戏礼包并从中牟利。</p>
+</div>
+
+
+
+<footer>
+    <div class="readingtime-meta" style="margin-top:20px;margin-bottom:30px">
+	    <div>
+		
+		<span class="icon-hourglass readingtime" style="margin-right:20px">阅读时间：15 mins</span>
+		<span class="icon-book-open readingtime" >字数：5622</span>
+		
+		</div>
+		<div>
+		<a class="readingtime-categories" href="/daviddong.github.io/security/2020/07/01/Security-signature.html">
+			
+            <li class="icon-angle-double-right" style = "padding-right:0px">阅读全文&nbsp;</li>
+			
+        </a>
+		</div>
+	</div>
+</footer> </li><li class="post-wrapper"><a class="post-link" href="/daviddong.github.io/others/2020/06/20/Others-covid19.html">
+          <h2 class="post-title">COVID-19</h2>
+        </a>
+        <div class="post-meta">
+          <ul class="post-categories"><a href="/daviddong.github.io/category#Others">Others</a></ul>
+          <div class="post-date-right-align">
+            <i class="icon-calendar"></i>
+            Jun 20, 2020</div>
+        </div>
+        <div class="post"><p><img src="/daviddong.github.io/assets/image/others-covid19-cover.jpeg" alt="cover" />  <br />
+It has been <code class="language-plaintext highlighter-rouge">196</code> days passed since the first case was reported at WUHAN city, China. During the past half year, millions of people were infected and more than <code class="language-plaintext highlighter-rouge">400000</code> died around the whole world. 😱</p>
+</div>
+
+
+
+<footer>
+    <div class="readingtime-meta" style="margin-top:20px;margin-bottom:30px">
+	    <div>
+		
+		<span class="icon-clock-5 readingtime" style="margin-right:20px">2 mins to read</span>
+		<span class="icon-book-1 readingtime" > 638 words</span>
+		
+		</div>
+		<div>
+		<a class="readingtime-categories" href="/daviddong.github.io/others/2020/06/20/Others-covid19.html">
+			
+			<li class="icon-angle-double-right" style = "padding-right:0px">Continue reading&nbsp;</li>
+			
+        </a>
+		</div>
+	</div>
+</footer> </li><li class="post-wrapper"><a class="post-link" href="/daviddong.github.io/c++/fingerprint/windows/2020/06/13/Cpp-wbdi-03.html">
+          <h2 class="post-title">Fingerprint driver development in Windows(3)</h2>
+        </a>
+        <div class="post-meta">
+          <ul class="post-categories"><a href="/daviddong.github.io/category#C++">C++</a><a href="/daviddong.github.io/category#Fingerprint">Fingerprint</a><a href="/daviddong.github.io/category#Windows">Windows</a></ul>
+          <div class="post-date-right-align">
+            <i class="icon-calendar"></i>
+            Jun 13, 2020</div>
+        </div>
+        <div class="post"><p>Following the last two articles…</p>
+</div>
+
+
+
+<footer>
+    <div class="readingtime-meta" style="margin-top:20px;margin-bottom:30px">
+	    <div>
+		
+		<span class="icon-clock-5 readingtime" style="margin-right:20px">19 mins to read</span>
+		<span class="icon-book-1 readingtime" > 7515 words</span>
+		
+		</div>
+		<div>
+		<a class="readingtime-categories" href="/daviddong.github.io/c++/fingerprint/windows/2020/06/13/Cpp-wbdi-03.html">
+			
+			<li class="icon-angle-double-right" style = "padding-right:0px">Continue reading&nbsp;</li>
+			
+        </a>
+		</div>
+	</div>
+</footer> </li></div>
+  <!-- <p class="feed-subscribe"><svg class="svg-icon orange">
+		<use xlink:href="/daviddong.github.io/assets/minima-social-icons.svg#rss"></use>
+	</svg><a href="/daviddong.github.io/feed.xml">Subscribe</a></p> --><div class="post-container">
+  <!-- put paginator here -->
+  <!-- Pagination links -->
+
+<div class="pagination">
+  
+  <!--do not add button here -->
+  
+
+  
+    
+      <span class="pagination-box-select">1</span>
+    
+
+    
+      <a class="pagination-box" href="/daviddong.github.io/blog/page2/">2</a>
+    
+
+    
+      <a class="pagination-box" href="/daviddong.github.io/blog/page3/">3</a>
+    
+
+    
+      <a class="pagination-box" href="/daviddong.github.io/blog/page4/">4</a>
+    
+
+    
+      <a class="pagination-box" href="/daviddong.github.io/blog/page5/">5</a>
+    
+
+    
+      <a class="pagination-box" href="/daviddong.github.io/blog/page6/">6</a>
+    
+
+  
+  
+    <a class="pagination-box" href="/daviddong.github.io/blog/page2/"> &raquo;</a>
+  
+</div>
+
+  <!-- put footer here -->
+  <div class ="footer" style="margin-top:30px">
+    Copyright © 2021 David Dong's Blog  |  <a href = "https://github.com/gangdong/daviddong.github.io"> Github Project </a> powered by Jekyll<div>
+     <span class="icon-user-1"> <span class="web-statistics" id="busuanzi_value_site_uv"></span> </span>
+   </div></div>
+</div>
+      </section>
+    </main>
+<script src="/daviddong.github.io/assets/js/simple-jekyll-search.min.js"></script>
+<script src="/daviddong.github.io/assets/js/search.js"></script>
+
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9"></script>
+
+</body>
+</html>

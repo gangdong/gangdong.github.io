@@ -1,0 +1,57 @@
+I"�<p>What will you learn in this post?   <br />
+This post introduced how to implement <code class="language-plaintext highlighter-rouge">related posts</code> function with Jekyll.</p>
+
+<h2 id="jekylls-native-support">Jekyll’s Native Support</h2>
+<p>My blog was constructed with Jekyll, Jekyll has native support for related posts function, which can be used with Liquid as <code class="language-plaintext highlighter-rouge">site.related_posts</code>.</p>
+
+<p>However, when I used it, I found this function has some points not as good as I expected.</p>
+
+<h3 id="problem">problem</h3>
+<ul>
+  <li>
+    <p>This function collects the related posts and group them by searching the same tags among them. But if there aren’t enough posts sharing the same tags. It will return ten most recent posts as default.<br /> <br />
+This behavior doesn’t make sense to me!<br />       <br />
+Why should a post be related to another post that they have nothing to do with the contents just because they are close in release time and there are no other related posts existing?</p>
+  </li>
+  <li>
+    <p>This function lists posts with mutual tags without ordering by how many mutual tags they share. In this way, if A post is tagged with <code class="language-plaintext highlighter-rouge">a</code>, <code class="language-plaintext highlighter-rouge">b</code> and <code class="language-plaintext highlighter-rouge">c</code>, B post is tagged with <code class="language-plaintext highlighter-rouge">a</code> and C post is tagged with <code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">c</code>, There is no problem if you do not limit the count of the related posts. It will return B and C as A’s related posts. But if you set the limit to 1, A’s related posts may contain only B instead of C. Apparently, C should be the right one under this case since it is more related to A.</p>
+  </li>
+  <li>
+    <p>To achieve this function, need to run the jekyll command with the <code class="language-plaintext highlighter-rouge">--lsi</code> (<code class="language-plaintext highlighter-rouge">latent semantic indexing</code>) option when build.<br /> <br />
+Unfortunately GitHub Pages does not support the <code class="language-plaintext highlighter-rouge">lsi</code> option when generating sites.</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">jekyll</span> <span class="n">server</span> <span class="o">--</span><span class="n">lsi</span></code></pre></figure>
+
+<h2 id="use-plugins">Use plugins</h2>
+<p>So I decided not to use this function and turned to find other support.</p>
+
+<p>I found two plugins that can support the related posts function.</p>
+
+<p><a href="https://github.com/toshimaru/jekyll-tagging-related_posts">toshimaru/jekyll-tagging-related_posts</a>  <br />
+<a href="https://github.com/LawrenceWoodman/related_posts-jekyll_plugin">lawrencewoodman/related_posts-jekyll_plugin</a></p>
+
+<p>By reading the readme file, both of them has the same feature that overrides the built in related_posts function to calculate related posts based on a posts’ tags. And the algorithm is identical, from <a href="https://github.com/LawrenceWoodman/related_posts-jekyll_plugin">related_posts-jekyll_plugin</a> by @<a href="https://github.com/LawrenceWoodman">LawrenceWoodman</a>.</p>
+
+<p>So I chose one of them to try the function.</p>
+
+<p>I installed the plugin and inserted below code to my post.html</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">{% if site.related_posts.size &gt;= 1 %}
+<span class="nt">&lt;div&gt;</span>
+  <span class="nt">&lt;h3&gt;</span>Related Posts<span class="nt">&lt;/h3&gt;</span>
+  <span class="nt">&lt;ul&gt;</span>
+  {% for related_post in site.related_posts limit: 5 %}
+    <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"{{ related_post.url }}"</span><span class="nt">&gt;</span>{{ related_post.title }}<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+  {% endfor %}
+  <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+{% endif %}</code></pre></figure>
+
+<p>I tested and the above problem was fixed!</p>
+
+<p>The plugin will return nothing if no related posts found instead of recent posts and looks also adding the ordering of the searched tags count.</p>
+
+<p>Only one problem, the Github Pages cannot support these two plugins since they are not in the <a href="https://pages.github.com/versions/">whitelist</a> and will be blocked to build for security reasons.</p>
+:ET

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono" rel="stylesheet">
+<link rel="stylesheet" href="/daviddong.github.io/assets/css/style.css">
+<link rel="icon" href="/daviddong.github.io/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="/daviddong.github.io/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<title>A quick way to fix the Gitalk Error: Validation Failed | David Dong's Blog</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>A quick way to fix the Gitalk Error: Validation Failed | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="A quick way to fix the Gitalk Error: Validation Failed" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Teach how to fix the “validation failed” error when using Gitalk." />
+<meta property="og:description" content="Teach how to fix the “validation failed” error when using Gitalk." />
+<link rel="canonical" href="http://localhost:4000/daviddong.github.io/blog/2021/03/08/Web-gitalk-fixing.html" />
+<meta property="og:url" content="http://localhost:4000/daviddong.github.io/blog/2021/03/08/Web-gitalk-fixing.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-03-08T10:27:13+08:00" />
+<script type="application/ld+json">
+{"dateModified":"2021-03-08T10:27:13+08:00","datePublished":"2021-03-08T10:27:13+08:00","url":"http://localhost:4000/daviddong.github.io/blog/2021/03/08/Web-gitalk-fixing.html","@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/daviddong.github.io/BLOG"},"name":"david.dong"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/daviddong.github.io/blog/2021/03/08/Web-gitalk-fixing.html"},"author":{"@type":"Person","name":"david.dong"},"headline":"A quick way to fix the Gitalk Error: Validation Failed","description":"Teach how to fix the “validation failed” error when using Gitalk.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+
+</head>
+  <body><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><main class="container">
+      <section class="about">
+        <a href="/daviddong.github.io/blog/index.html"><img src="/daviddong.github.io/assets/avatar.png" alt="David Dong"></a>
+        <h2 id="title">
+          <a href="/daviddong.github.io/blog/index.html">David Dong</a>
+        </h2>
+        <p class="tagline">Java/C/C#/Python</p>
+		<!--add navigation --><nav class="navigation">
+            <ul>
+              
+            </ul>
+          </nav><!--put dark mode button here --><div>
+		  <ul class = "social" >
+			<p style = "font-family: Raleway, sans-serif;font-size: 100%">Dark Mode
+			  <i class="icon-moon"></i>
+			  <label class="switch">
+				<input type="checkbox" id="dark-mode-toggle" onclick="toggleDarkMode()">
+				<span class="slider round"></span>
+			  </label>
+			</p>
+		  </ul>
+		<script type="text/javascript" src="/daviddong.github.io/assets/js/darkmode.js"></script>
+		</div><!--put rss/code link here -->
+	    <div>
+          <ul class="tool"><a style ="margin-right:10px; text-decoration: none" href="/daviddong.github.io/rss.xml">
+              <span class="icon-rss-1 tooltip">
+				<span class="tooltiptext">Rss</span>
+			  </span>
+           </a><a style="text-decoration: none" href="https://github.com/gangdong/daviddong.github.io">
+              <span class="icon-file-code tooltip">
+				<span class="tooltiptext">Code</span>
+			  </span>
+            </a></ul>
+        </div>
+	    <!--show contact me -->
+	    <div class = "contact"><li>CONTACT ME</li></div>
+		<!-- put social link here -->
+		<div>
+	      <ul class="social" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture-3"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled-1"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		</div>
+		<!--put timestamp here -->
+		<div class ="timestamp">&copy; 2021</div>
+	  <!-- about box end here -->
+      </section>
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+
+
+<div class="post-container">
+	<div  class = "menu-meta">
+		<div  class = "menu-logo" style="margin-top: 20px">BLOG</div>
+		<div  class = "menu" style = "margin-top: 20px">
+			<a class = "icon-doc-text icon_font" href="/daviddong.github.io/blog/index.html">Posts</a><a  class = "icon-archive-1 icon_font" href="/daviddong.github.io/archive">Archives</a><a  class = "icon-tags-1 icon_font" href="/daviddong.github.io/category">Categories</a><a  class = "icon-help-circled-3 icon_font" href="/daviddong.github.io/about">About</a>
+		</div>
+	</div>
+</div><div class="post-container">
+  <li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">POST</h1>
+  </li>  
+  <a class="post-link" href="/daviddong.github.io/blog/2021/03/08/Web-gitalk-fixing.html">
+    <h2 class="post-title">A quick way to fix the Gitalk Error: Validation Failed</h2>
+  </a>
+   <div class="post-meta">
+    <div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">Mar 8, 2021</div>
+  </div>
+  <br>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+  <div class="post-viewer-container">
+	<div class="post-fix-width">
+		<p>I’ve met an error <code class="language-plaintext highlighter-rouge">Validation Failed (422)</code> when using Gitalk in my blog.</p>
+
+<p>I posted a new article in my blog and found the Gitalk report such issue. My Gitalk has been working for a long time before this issue occurs. I’ve checked that the Gitalk for my other posts works normal and only the new post has issue, which means the issue should be a standalone problem that related to the post self.</p>
+
+<p>By searching google <a href="https://github.com/gitalk/gitalk/issues/102">gitalk issue #102</a> I understood the problem is that the length of my new post’s URL is excessive long <code class="language-plaintext highlighter-rouge">(&gt; 50 characters)</code>.</p>
+
+<p>For every post, the Gitalk will create an issue under your blog project repository in Github to track the comment thread. The issue id is used to form the issue’s label and Gitalk uses the label to identify comment thread.</p>
+
+<p><img src="/daviddong.github.io/assets/image/web-gitalk-fix-01.PNG" alt="example" title="example" class="center-image" /></p>
+
+<p>However the problem here is that label length is restricted to maximum 50 characters ( Not sure if it is a hidden rule or a BUG here 😕 ).</p>
+
+<p>In my Gitalk configuration, the issue id is set to</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="ss">id: </span><span class="p">{</span> <span class="p">{</span><span class="n">page</span><span class="p">.</span><span class="nf">url</span><span class="p">}</span> <span class="p">},</span></code></pre></figure>
+
+<p>So if the <code class="language-plaintext highlighter-rouge">page.url</code> is too long and is beyond the restriction, the issue’s label cannot be created and the <code class="language-plaintext highlighter-rouge">Validation Failed</code> error will be threw out.</p>
+
+<p>Since limitation is clear now, let’s fix it.    <br /></p>
+
+<p>The straightforward way is to use a shorter URL to avoid this issue. But I don’t like this restriction that blocking I write post. To convert the URL to a fixed length string looks like a better solution. Why not try hash function? The interesting thing is that I found there has already been a same solution online <a href="https://blog.csdn.net/death05/article/details/83618887">-&gt; issue fix</a>, which use the <strong>MD5</strong> method. This method not only unifies the URL length but also differentiates them.</p>
+
+<p>It is good!</p>
+
+<p>There is workable <a href="https://github.com/blueimp/JavaScript-MD5">JavaScript-MD5</a> lib on the Github, I folk it and the rest thing is quite simple.</p>
+
+<p>I add the <strong>MD5 JS</strong> calling in my <code class="language-plaintext highlighter-rouge">comments.html</code></p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">src=</span><span class="s">"/daviddong.github.io/assets/js/md5.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
+
+<p>and reset the Gitalk id to</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="ss">id: </span><span class="n">md5</span><span class="p">(</span><span class="n">location</span><span class="p">.</span><span class="nf">pathname</span><span class="p">),</span></code></pre></figure>
+
+<p>Commit the change.</p>
+
+<p>I reopen the page and the error is gone, by checking the Gitalk issue label, it has been converted to MD5 code.</p>
+
+<p><img src="/daviddong.github.io/assets/image/web-gitalk-fix-02.PNG" alt="example" title="example" class="center-image" /></p>
+
+<p>Which means the solution is working now! 😊</p>
+
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box">
+		    
+				<li class = "sidebar-title">About This Article</li>
+			
+			
+				
+					<li class = "sidebar-about-content sidebar-font-big">Teach how to fix the "validation failed" error when using Gitalk.</li>
+				
+				
+					<li class = "icon-link-1 sidebar-about-content sidebar-font-big" style = "margin-top:30px">Author: <a href="https://github.com/gangdong">david.dong</a></li>
+				
+					<li class = "icon-clock-5 sidebar-about-content sidebar-font-big">5 mins to read</li>
+					<li class = "icon-book-1 sidebar-about-content sidebar-font-big">1711 words</li>
+				
+					<li class = "icon-th-list-1 sidebar-about-content sidebar-font-big">Key Words: Gitalk/</li>
+				
+				
+				    <li class = "icon-hashtag sidebar-about-content sidebar-font-medium">Tags: 
+					
+					<a href="/daviddong.github.io/category#Blog">Blog&nbsp;</a>
+					
+					</li>
+				
+			
+		</div>
+		
+		
+	</div>
+	 
+  </div>
+  <!-- no sidebar, use flex width box! -->
+  <br><br><br>
+  <div class="post-container">
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">Share:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+		<li class = "icon-eye">&nbsp;<span id="busuanzi_value_page_pv"></span></li>
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">You may also like</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/daviddong.github.io/blog/2021/03/20/Blog-mathjax.html">Display mathematics formula in blog with MathJax</a></li>
+			
+			<li><a href="/daviddong.github.io/blog/2021/03/20/Blog-travisci.html">Display mathematics formula in blog with MathJax</a></li>
+			
+			<li><a href="/daviddong.github.io/blog/github/2021/03/14/Blog-Jekyll-toc-plugin.html">Use jekyll-toc plugin on Github Pages</a></li>
+			
+			<li><a href="/daviddong.github.io/blog/2018/12/22/Blog-rouge.html">Syntax Highlighting your code in Jekyll with Rouge</a></li>
+			
+			<li><a href="/daviddong.github.io/blog/2018/11/14/Blog-related-posts.html">How did I implement related posts function in my blog</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">further reading</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta" style = "margin-bottom:40px"><ul class="navigation-bar" style = "margin-top:40px; min-width:40%">
+	 
+	 <a href="/daviddong.github.io/android/fingerprint/2021/02/04/Fingerprint-build-ta.html"; style="width:100%"><span class = "navigation-bar-label">Previous Post</span><br>Build TA images on different TEE</a>
+	 
+    </ul><ul class="navigation-bar" style = "margin-top:40px; min-width:40%"> 
+	 
+     <a href="/daviddong.github.io/blog/github/2021/03/14/Blog-Jekyll-toc-plugin.html"; style="width:100%"><span class = "navigation-bar-label">Next Post</span><br>Use jekyll-toc plugin on Github Pages</a>
+	 
+    </ul></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/daviddong.github.io/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'daviddong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+      </section>
+    </main>
+<script src="/daviddong.github.io/assets/js/simple-jekyll-search.min.js"></script>
+<script src="/daviddong.github.io/assets/js/search.js"></script>
+
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9"></script>
+
+</body>
+</html>

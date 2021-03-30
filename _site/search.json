@@ -1,0 +1,867 @@
+[
+  
+    {
+      "title"    : "Display mathematics formula in blog with MathJax",
+      "title-lower"    : "display mathematics formula in blog with mathjax",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Blog",
+      "tags"     : "Blog",
+      "url"      : "/daviddong.github.io/blog/2021/03/20/Blog-travisci.html",
+      "date"     : "2021-03-20 11:11:12 +0800",
+      "content"     : "When writing posts, I need to display mathematics formula sometimes. I write posts with Markdown, I don’t want to save the formula into an image and load the image in markdown. It is better write t..."
+    } ,
+  
+    {
+      "title"    : "Display mathematics formula in blog with MathJax",
+      "title-lower"    : "display mathematics formula in blog with mathjax",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Blog",
+      "tags"     : "Blog",
+      "url"      : "/daviddong.github.io/blog/2021/03/20/Blog-mathjax.html",
+      "date"     : "2021-03-20 11:11:12 +0800",
+      "content"     : "When writing posts, I need to display mathematics formula sometimes. I write posts with Markdown, I don’t want to save the formula into an image and load the image in markdown. It is better write t..."
+    } ,
+  
+    {
+      "title"    : "Use jekyll-toc plugin on Github Pages",
+      "title-lower"    : "use jekyll-toc plugin on github pages",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "BlogGithub",
+      "tags"     : "Blog, Github",
+      "url"      : "/daviddong.github.io/blog/github/2021/03/14/Blog-Jekyll-toc-plugin.html",
+      "date"     : "2021-03-14 21:11:16 +0800",
+      "content"     : "Today I want to add a auto TOC function to my blog. I used to write TOC manually and it is really boring. I found a good plugin jekyll-toc in the Github, which can fully meet my requirement.StartTh..."
+    } ,
+  
+    {
+      "title"    : "A quick way to fix the Gitalk Error: Validation Failed",
+      "title-lower"    : "a quick way to fix the gitalk error: validation failed",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Blog",
+      "tags"     : "Blog",
+      "url"      : "/daviddong.github.io/blog/2021/03/08/Web-gitalk-fixing.html",
+      "date"     : "2021-03-08 10:27:13 +0800",
+      "content"     : "I’ve met an error Validation Failed (422) when using Gitalk in my blog.I posted a new article in my blog and found the Gitalk report such issue. My Gitalk has been working for a long time before th..."
+    } ,
+  
+    {
+      "title"    : "Build TA images on different TEE",
+      "title-lower"    : "build ta images on different tee",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "AndroidFingerprint",
+      "tags"     : "Android, Fingerprint",
+      "url"      : "/daviddong.github.io/android/fingerprint/2021/02/04/Fingerprint-build-ta.html",
+      "date"     : "2021-02-04 12:21:47 +0800",
+      "content"     : "This article will give a introduction on how to build TA images on different TrustZone.1. About TEENowadays, any security related application must run on the TEE. TEE (Trusted Execution Environment..."
+    } ,
+  
+    {
+      "title"    : "Some useful knowledge for Fingerprint Application on Trusty TEE",
+      "title-lower"    : "some useful knowledge for fingerprint application on trusty tee",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "AndroidFingerprint",
+      "tags"     : "Android, Fingerprint",
+      "url"      : "/daviddong.github.io/android/fingerprint/2020/12/02/Fingerprint-Trusty.html",
+      "date"     : "2020-12-02 22:24:12 +0800",
+      "content"     : "I have completed a Android platform fingerprint application on Trusty TEE recently for my work. This page will try to give some useful information, which is a summary of my work and might be helpfu..."
+    } ,
+  
+    {
+      "title"    : "利用Microsoft WDK工具生成数字签名",
+      "title-lower"    : "利用microsoft wdk工具生成数字签名",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "SecurityWindows",
+      "tags"     : "Security, Windows",
+      "url"      : "/daviddong.github.io/security/windows/2020/07/23/Security-signature-02.html",
+      "date"     : "2020-07-23 18:24:12 +0800",
+      "content"     : "看过我这一篇文章 「浅谈数字签名」 的读者应该记得，在这篇文章的末尾遗留了一个问题 — 在windows平台下如何利用Microsoft提供的工具来生成数字签名。我在这篇文章中会对这个问题做一个说明，并引用一个例子来介绍签名的过程。1. 相关工具这里我先把和签名相关的工具罗列出来。            工具      说明                  makecert.exe    ..."
+    } ,
+  
+    {
+      "title"    : "mbedtls 使用说明",
+      "title-lower"    : "mbedtls 使用说明",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Security",
+      "tags"     : "Security",
+      "url"      : "/daviddong.github.io/security/2020/07/10/Security-mbedtls.html",
+      "date"     : "2020-07-10 10:24:12 +0800",
+      "content"     : "最近的工作中使用到了mbedtls，这里做一个简单的总结。1. 什么是 mbedtlsmbedtls 一句话来概况的话就是它是一个开源的SSL/TLS库。 –项目源码地址 –项目API文档1.1 SSL关于SSL(Secure Sockets Layer 安全套接字协议)，百度百科的解释如下  SSL协议位于TCP/IP协议与各种应用层协议之间，为数据通讯提供安全支持。SSL协议可分为两层：..."
+    } ,
+  
+    {
+      "title"    : "Inf2Cat 工具",
+      "title-lower"    : "inf2cat 工具",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Windows",
+      "tags"     : "Windows",
+      "url"      : "/daviddong.github.io/windows/2020/07/09/Windows-inf2cat.html",
+      "date"     : "2020-07-09 18:24:12 +0800",
+      "content"     : "Windows 驱动开发中经常会用到 Windows WDK 自带的 Inf2Cat.exe 工具将驱动程序的 INF 文件转成待签名的 CAT 格式的目录文件。Windows 7 64位系统以上的版本，如果没有对cat或者sys文件进行数字签名，驱动安装会出现问题，或者驱动使用过程也会出现异常。因此，对驱动程序的签名已经是一项必须的操作，这里就介绍一下 Inf2Cat.exe 这个工具。这..."
+    } ,
+  
+    {
+      "title"    : "浅谈数字签名",
+      "title-lower"    : "浅谈数字签名",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Security",
+      "tags"     : "Security",
+      "url"      : "/daviddong.github.io/security/2020/07/01/Security-signature.html",
+      "date"     : "2020-07-01 18:24:12 +0800",
+      "content"     : "近日，腾讯公司状告贵州老干妈的新闻在互联网上闹得沸沸扬扬，💥 大家也应该有所耳闻。腾讯起诉老干妈合作推广后没有付广告费，但随后老干妈否认了此事，称完全不知道这个合作。 😕 后来经调查发现，这是三个人冒充老干妈市场部经理，然后刻了个假公章，就为了获得合作后的游戏礼包并从中牟利。且不说这个事情的性质，就从三个骗子用一个假公章，居然把腾讯骗得团团转来看，也折射出来目前的一些问题。试想如果腾讯在和老..."
+    } ,
+  
+    {
+      "title"    : "COVID-19",
+      "title-lower"    : "covid-19",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Others",
+      "tags"     : "Life",
+      "url"      : "/daviddong.github.io/others/2020/06/20/Others-covid19.html",
+      "date"     : "2020-06-20 18:24:12 +0800",
+      "content"     : "  It has been 196 days passed since the first case was reported at WUHAN city, China. During the past half year, millions of people were infected and more than 400000 died around the whole world. 😱..."
+    } ,
+  
+    {
+      "title"    : "Fingerprint driver development in Windows(3)",
+      "title-lower"    : "fingerprint driver development in windows(3)",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "C++FingerprintWindows",
+      "tags"     : "C++, Fingerprint, Windows",
+      "url"      : "/daviddong.github.io/c++/fingerprint/windows/2020/06/13/Cpp-wbdi-03.html",
+      "date"     : "2020-06-13 10:37:55 +0800",
+      "content"     : "Following the last two articles…7. Managing Queues in a WBDI DriverWBDI drivers should create at least one queue to handle multiple concurrent requests from the service. If you are using UMDF, you ..."
+    } ,
+  
+    {
+      "title"    : "Fingerprint driver development in Windows(2)",
+      "title-lower"    : "fingerprint driver development in windows(2)",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "C++FingerprintWindows",
+      "tags"     : "C++, Fingerprint, Windows",
+      "url"      : "/daviddong.github.io/c++/fingerprint/windows/2020/06/10/Cpp-wbdi-02.html",
+      "date"     : "2020-06-10 20:57:55 +0800",
+      "content"     : "Continue…3. Biometric UnitBiometric devices are manufactured in a wide variety of types and configurations. The Windows Biometric Framework (WBF) addresses this variety by providing an extensible a..."
+    } ,
+  
+    {
+      "title"    : "Fingerprint driver development in Windows(1)",
+      "title-lower"    : "fingerprint driver development in windows(1)",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "C++FingerprintWindows",
+      "tags"     : "C++, Fingerprint, Windows",
+      "url"      : "/daviddong.github.io/c++/fingerprint/windows/2020/06/07/Cpp-wbdi.html",
+      "date"     : "2020-06-07 21:19:23 +0800",
+      "content"     : "Windows 7 and later implement support for Biometric devices. The Windows Biometric Framework (WBF) is a generic biometric architecture in Windows 7 and later versions of Windows.WBF includes an IOC..."
+    } ,
+  
+    {
+      "title"    : "Use TraceView to trace windows driver log",
+      "title-lower"    : "use traceview to trace windows driver log",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Windows",
+      "tags"     : "Windows",
+      "url"      : "/daviddong.github.io/windows/2020/06/04/Windows-traceview.html",
+      "date"     : "2020-06-04 20:14:41 +0800",
+      "content"     : "For the windows driver development as what I am doing these days, Microsoft provides a log printing and log viewing mechanism, which can view the logs of specified driver files, filter the logs acc..."
+    } ,
+  
+    {
+      "title"    : "HelloWorld: my first SGX application",
+      "title-lower"    : "helloworld: my first sgx application",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Windows",
+      "tags"     : "Windows",
+      "url"      : "/daviddong.github.io/windows/2020/06/01/Windows-sgx-helloworld.html",
+      "date"     : "2020-06-01 22:04:51 +0800",
+      "content"     : "A simple sample code to get start with the SGX application development.  New create VC++ Win32 Console Application.The project name is ‘HelloWorld’.  Create new VC++ Intel SGX Enclave project.Use d..."
+    } ,
+  
+    {
+      "title"    : "Configure Intel SGX on Win10",
+      "title-lower"    : "configure intel sgx on win10",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Windows",
+      "tags"     : "Windows",
+      "url"      : "/daviddong.github.io/windows/2020/05/31/Windows-sgx.html",
+      "date"     : "2020-05-31 22:42:44 +0800",
+      "content"     : "The first step we should know if the hardware support SGX.Which include:  BIOS support?  CPU support?  Software packages installed?Now let us go through above one by one.CPU Query  Get the CPU mode..."
+    } ,
+  
+    {
+      "title"    : "Some notes for WSL",
+      "title-lower"    : "some notes for wsl",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Linux",
+      "tags"     : "Linux",
+      "url"      : "/daviddong.github.io/linux/2020/05/25/Linux-wsl.html",
+      "date"     : "2020-05-25 22:53:27 +0800",
+      "content"     : "Recently I’m using WSL(Window Subsystem for Linux) for program development. This article presents some short notes for the WSL installation and usage.Below is the official introduction of WSL, I co..."
+    } ,
+  
+    {
+      "title"    : "My album is online now!",
+      "title-lower"    : "my album is online now!",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Others",
+      "tags"     : "Life",
+      "url"      : "/daviddong.github.io/others/2020/04/23/Others-album.html",
+      "date"     : "2020-04-23 21:23:16 +0800",
+      "content"     : "My album is online now! Welcome to visit My Album.This website collected some of interesting stories and photos of my travel experiences. I love to explore all kinds of landscapes and experience di..."
+    } ,
+  
+    {
+      "title"    : "Fingerprint implementation in android 8.0 and later",
+      "title-lower"    : "fingerprint implementation in android 8.0 and later",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "AndroidFingerprint",
+      "tags"     : "Android, Fingerprint",
+      "url"      : "/daviddong.github.io/android/fingerprint/2020/01/09/Fingerprint-impl-AN8.0.html",
+      "date"     : "2020-01-09 20:59:29 +0800",
+      "content"     : "Since Android 8.0, Android has fully introduced HIDL layer into the framework. The purpose is to separate vendor partition from system partition, so that Android is capable to upgrade framework thr..."
+    } ,
+  
+    {
+      "title"    : "Android Fingerprint Framework (3)",
+      "title-lower"    : "android fingerprint framework (3)",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "AndroidFingerprint",
+      "tags"     : "Android, Fingerprint",
+      "url"      : "/daviddong.github.io/android/fingerprint/2019/12/21/Fingerprint-frmk3.html",
+      "date"     : "2019-12-21 22:24:43 +0800",
+      "content"     : "Following the last two articles, this article will have a discussion on the remain part of the fingerprint framework on android. This article will end this topic.In last article,Android Fingerprint..."
+    } ,
+  
+    {
+      "title"    : "Android Fingerprint Framework (2)",
+      "title-lower"    : "android fingerprint framework (2)",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "AndroidFingerprint",
+      "tags"     : "Android, Fingerprint",
+      "url"      : "/daviddong.github.io/android/fingerprint/2019/12/07/Fingerprint-frmk2.html",
+      "date"     : "2019-12-07 23:52:01 +0800",
+      "content"     : "This page will follow the last article to continue introducing the android fingerprint framework knowledge. The content is focus on android source code inspecting and analysis.Table of content  Ste..."
+    } ,
+  
+    {
+      "title"    : "Android Fingerprint Framework (1)",
+      "title-lower"    : "android fingerprint framework (1)",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "AndroidFingerprint",
+      "tags"     : "Android, Fingerprint",
+      "url"      : "/daviddong.github.io/android/fingerprint/2019/10/03/Fingerprint-frmk1.html",
+      "date"     : "2019-10-03 15:17:47 +0800",
+      "content"     : "This page is trying to present a brief introduction on android fingerprint framework, aimed at helping anyone who want to learn android fingerprint related knowledge, created by referring some docu..."
+    } ,
+  
+    {
+      "title"    : "Fingerprint enrollment in Android",
+      "title-lower"    : "fingerprint enrollment in android",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "AndroidFingerprint",
+      "tags"     : "Android, Fingerprint",
+      "url"      : "/daviddong.github.io/android/fingerprint/2019/09/15/Fingerprint-enroll.html",
+      "date"     : "2019-09-15 22:14:47 +0800",
+      "content"     : "  When we do fingerprint enrollment in android device, it will generate a fingerprint template that contains the user’s fingerprint information in a specified directory (for example, /data/vendor_d..."
+    } ,
+  
+    {
+      "title"    : "Some tips for android development errors",
+      "title-lower"    : "some tips for android development errors",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Android",
+      "tags"     : "Android",
+      "url"      : "/daviddong.github.io/android/2019/07/26/Android-custom-view.html",
+      "date"     : "2019-07-26 23:45:19 +0800",
+      "content"     : "Today I met a error when I was trying to customize the android.widget.Button Class.😕 The error information is&quot;This custom view should extend android.support.v7.widget.AppCompatButton instead.&..."
+    } ,
+  
+    {
+      "title"    : "Python re module",
+      "title-lower"    : "python re module",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Python",
+      "tags"     : "Python",
+      "url"      : "/daviddong.github.io/python/2019/05/11/Python-re.html",
+      "date"     : "2019-05-11 20:36:23 +0800",
+      "content"     : "re module is a unique string matching module of Python.Many functions provided in this module are implemented based on regular expressions.The module is handy, to use it, need to import re module a..."
+    } ,
+  
+    {
+      "title"    : "Python struct.pack()",
+      "title-lower"    : "python struct.pack()",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Python",
+      "tags"     : "Python",
+      "url"      : "/daviddong.github.io/python/2019/05/03/Python-pack.html",
+      "date"     : "2019-05-03 14:07:05 +0800",
+      "content"     : "Python uses struct.pack() to pack python data type into binary data (byte stream), which means convert a value to a string based on the format.Because there is no byte type in Python, here the stri..."
+    } ,
+  
+    {
+      "title"    : "Python 开发编码规范（转）",
+      "title-lower"    : "python 开发编码规范（转）",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Python",
+      "tags"     : "Python",
+      "url"      : "/daviddong.github.io/python/2019/04/01/Python-coding-spec.html",
+      "date"     : "2019-04-01 22:17:33 +0800",
+      "content"     : "   这篇文档所给出的编码约定适用于在主要的Python发布版本中组成标准库的Python 代码，请查阅相关的关于在Python的C实现中C代码风格指南的描述。这篇文档改编自Guido最初的《Python风格指南》一文，并从《Barry’s style guide》中添加了部分内容。在有冲突的地方，Guido的风格规则应该是符合本PEP的意图(译注：指当有冲突时，应以Guido风格为准)。这..."
+    } ,
+  
+    {
+      "title"    : "Python Pillow library usage",
+      "title-lower"    : "python pillow library usage",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Python",
+      "tags"     : "Python",
+      "url"      : "/daviddong.github.io/python/2019/03/07/Python-pillow.html",
+      "date"     : "2019-03-07 20:59:29 +0800",
+      "content"     : "I recently completed some image processing works by Pillow Library. Pillow provides a powerful function and has friendly APIs to the developer. I thought it is necessary to make some notes here for..."
+    } ,
+  
+    {
+      "title"    : "关于本博客模板使用上的一些问题",
+      "title-lower"    : "关于本博客模板使用上的一些问题",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Pinned",
+      "tags"     : "Pinned",
+      "url"      : "/daviddong.github.io/pinned/2019/02/23/Pinned-Template.html",
+      "date"     : "2019-02-23 12:21:47 +0800",
+      "content"     : "本博客使用了 rawposts 主题模板，不时有网友在 fork 使用该主题的时候提出了一些问题，这里我将该主题的使用方法汇总成一篇帖子，方便大家参考。1.关于该主题rawposts 是一款轻量级,风格简洁清新的Jekyll主题。 该主题配置简单并支持丰富的特性,你可以将它用于Jekeyll网站或者个人博客的构建。该主题可以被用于部署在Github page上。[作者]：DavidDong ..."
+    } ,
+  
+    {
+      "title"    : "Install python3.6 on ubuntu16.04",
+      "title-lower"    : "install python3.6 on ubuntu16.04",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Python",
+      "tags"     : "Python",
+      "url"      : "/daviddong.github.io/python/2019/01/23/Python-installation-ubuntu.html",
+      "date"     : "2019-01-23 23:07:49 +0800",
+      "content"     : "Today I spent some time installing the python3.6 on my ubuntu16.04.Here is a short note for the process, which might be useful for anyone who want to do the same thing.The first thing before you st..."
+    } ,
+  
+    {
+      "title"    : "Syntax Highlighting your code in Jekyll with Rouge",
+      "title-lower"    : "syntax highlighting your code in jekyll with rouge",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Blog",
+      "tags"     : "Blog",
+      "url"      : "/daviddong.github.io/blog/2018/12/22/Blog-rouge.html",
+      "date"     : "2018-12-22 23:09:12 +0800",
+      "content"     : "Syntax highlighting is important (especially for programming blogs) because it improves the readability of posts. This article will introduce a syntax highlighter - Rouge.I think maybe someone who ..."
+    } ,
+  
+    {
+      "title"    : "How did I implement related posts function in my blog",
+      "title-lower"    : "how did i implement related posts function in my blog",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Blog",
+      "tags"     : "Blog",
+      "url"      : "/daviddong.github.io/blog/2018/11/14/Blog-related-posts.html",
+      "date"     : "2018-11-14 10:51:56 +0800",
+      "content"     : "What will you learn in this post?   This post introduced how to implement related posts function with Jekyll.Jekyll’s Native SupportMy blog was constructed with Jekyll, Jekyll has native support fo..."
+    } ,
+  
+    {
+      "title"    : "Liquid grammar",
+      "title-lower"    : "liquid grammar",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Blog",
+      "tags"     : "Blog",
+      "url"      : "/daviddong.github.io/blog/2018/10/03/Web-liquid-grammar.html",
+      "date"     : "2018-10-03 23:33:19 +0800",
+      "content"     : "I recently used Liquid language to design my blog website. Liquid is an open source template language written in Ruby. This article is a short study note and presented some main knowledge points.My..."
+    } ,
+  
+    {
+      "title"    : "Calculate reading time in Jekyll",
+      "title-lower"    : "calculate reading time in jekyll",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Blog",
+      "tags"     : "Blog",
+      "url"      : "/daviddong.github.io/blog/2018/08/13/Web-jekyll-reading-time.html",
+      "date"     : "2018-08-13 19:12:43 +0800",
+      "content"     : "I believe it is a good idea to estimate the reading time of every post and display it to readers following the post excerpts.There are plenty of Jekyll plugins that support realizing this feature, ..."
+    } ,
+  
+    {
+      "title"    : "Archive in Jekyll",
+      "title-lower"    : "archive in jekyll",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Blog",
+      "tags"     : "Blog",
+      "url"      : "/daviddong.github.io/blog/2018/06/30/Web-jekyll-archive.html",
+      "date"     : "2018-06-30 15:44:56 +0800",
+      "content"     : "After setting up the pagination, the next thing I wanted to add to my blog was a ‘proper’ archive by both date and category rather than just the reverse chronological list of posts. Although this w..."
+    } ,
+  
+    {
+      "title"    : "Pagination in Jekyll",
+      "title-lower"    : "pagination in jekyll",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Blog",
+      "tags"     : "Blog",
+      "url"      : "/daviddong.github.io/blog/2018/06/28/Web-jekyll-pagination.html",
+      "date"     : "2018-06-28 19:43:17 +0800",
+      "content"     : "If you don’t have pagination for your personal blog and you want to do it, this page is probably helpful to you.My personal blog is constructed by Jekyll, so I will only write down how to paginate ..."
+    } ,
+  
+    {
+      "title"    : "Gitalk Usage",
+      "title-lower"    : "gitalk usage",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Blog",
+      "tags"     : "Blog",
+      "url"      : "/daviddong.github.io/blog/2018/05/12/Others-gitalk.html",
+      "date"     : "2018-05-12 12:22:01 +0800",
+      "content"     : "If you are looking for a quick solution about how to add comment function on your personal blog, this article probably can help you.I has been trying to add comment function under my personal blogs..."
+    } ,
+  
+    {
+      "title"    : "Mark一下 Markdown 语言的基本语法",
+      "title-lower"    : "mark一下 markdown 语言的基本语法",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Blog",
+      "tags"     : "Blog",
+      "url"      : "/daviddong.github.io/blog/2018/04/25/Others-markdown.html",
+      "date"     : "2018-04-25 11:03:36 +0800",
+      "content"     : "最近在写博客的时候用到了 Markdown 语言，做为一个学习总结，有必要把常用的语法mark一下。Markdown 是一种轻量级的「标记语言」，它允许人们使用易读易写的纯文本格式编写文档。Markdown 的语法十分简单。常用的标记符号也不超过十个，Markdown 编写的文档可以导出 HTML 、Word、图像、PDF、Epub 等多种格式的文档。Markdown 的语法学习归纳起来可以..."
+    } ,
+  
+    {
+      "title"    : "Getting started with Jekyll (2)",
+      "title-lower"    : "getting started with jekyll (2)",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Blog",
+      "tags"     : "Blog",
+      "url"      : "/daviddong.github.io/blog/2018/04/13/Web-jekyll-grammar.html",
+      "date"     : "2018-04-13 23:21:15 +0800",
+      "content"     : "This page will continue to give a brief introduction of the Jekyll grammar.After read last article you should complete the installation of Jekyll and download a Jekyll theme on your computer.Let’s ..."
+    } ,
+  
+    {
+      "title"    : "Getting started with Jekyll (1)",
+      "title-lower"    : "getting started with jekyll (1)",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Blog",
+      "tags"     : "Blog",
+      "url"      : "/daviddong.github.io/blog/2018/03/27/Web-jekyll-installation.html",
+      "date"     : "2018-03-27 20:56:30 +0800",
+      "content"     : "  In my last article, I have introduced how to create a blog based on Github pages, if you haven’t read it and you want to read, find the blog at here. Following that article, this page will give a..."
+    } ,
+  
+    {
+      "title"    : "How to build your personal blog on Github Pages",
+      "title-lower"    : "how to build your personal blog on github pages",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "BlogGithub",
+      "tags"     : "Blog, Github",
+      "url"      : "/daviddong.github.io/blog/github/2018/03/23/Github-github-blog.html",
+      "date"     : "2018-03-23 21:03:36 +0800",
+      "content"     : "  I have constructed my personal blog by Jekyll on Github pages, I thought I would write a little blog post about how to make your own blog website by Jekyll on Github Pages.I would separate the co..."
+    } ,
+  
+    {
+      "title"    : "Powershell and CMD",
+      "title-lower"    : "powershell and cmd",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Windows",
+      "tags"     : "Windows",
+      "url"      : "/daviddong.github.io/windows/2017/12/09/Windows-powershell.html",
+      "date"     : "2017-12-09 20:44:05 +0800",
+      "content"     : "Although both of them are command line console of Windows system, and they have the similar outlook and Powershell can be treated as a update version of CMD, the intrinsic design model of them is t..."
+    } ,
+  
+    {
+      "title"    : "Use bcdedit.exe in Windows",
+      "title-lower"    : "use bcdedit.exe in windows",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Windows",
+      "tags"     : "Windows",
+      "url"      : "/daviddong.github.io/windows/2017/07/08/Windows-bcdedit.html",
+      "date"     : "2017-07-08 21:11:09 +0800",
+      "content"     : "BCDEDIT - Boot Configuration Data Store Editor.Bcdedit.exe is a command line tool for managing boot configuration data (BCD). To use this tool, it needs the administrator permission to start a comm..."
+    } ,
+  
+    {
+      "title"    : "几种常见的排序算法",
+      "title-lower"    : "几种常见的排序算法",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Others",
+      "tags"     : "Others",
+      "url"      : "/daviddong.github.io/others/2016/09/19/Others-sort-algo.html",
+      "date"     : "2016-09-19 19:04:30 +0800",
+      "content"     : "  记得很多年以前，在我研究生毕业找工作那会儿，面试的时候被面试官问到过两次关于排序算法的问题。这件事至今给我的印象比较深刻，因为很少有在不同的面试过程中会被问到相同的问题。由此可见排序算法在面试中占有很大的比重，其实这也是考察程序员的一个基础。前几天在招聘的过程中又想起了这件事，觉得虽然这个问题比较基础，但是还是有必要整理总结一下的。大多数的人应该都能回答出冒泡排序和选择排序的算法，我想这..."
+    } ,
+  
+    {
+      "title"    : "聊一聊开源协议那些事",
+      "title-lower"    : "聊一聊开源协议那些事",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Others",
+      "tags"     : "Others",
+      "url"      : "/daviddong.github.io/others/2016/06/25/Others-licenses.html",
+      "date"     : "2016-06-25 15:34:40 +0800",
+      "content"     : "   说到开源代码，有些人认为既然都已经开源了，那自然不需要声明任何软件的许可协议。有意思的是，事实正好相反，如果你想把代码分享出来，最好还是选择一个合适的开源协议，这样别人才可以放心的使用。让我们先看一看什么是开源协议。什么是开源协议我们讲的开源协议通常指的是软件的许可协议(License)，主要内容其实就是界定了软件授权人和被授权人的权利和义务。打个比方，作为软件开发者的你，想开放哪些授..."
+    } ,
+  
+    {
+      "title"    : "A way to fix .gitignore doesn&#39;t work",
+      "title-lower"    : "a way to fix .gitignore doesn&#39;t work",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Github",
+      "tags"     : "Github",
+      "url"      : "/daviddong.github.io/github/2015/06/06/Github-gitignore.html",
+      "date"     : "2015-06-06 21:41:29 +0800",
+      "content"     : "You may have run into situations where .gitignore doesn’t work.😕  During the project development, you want to add some directors or files into the ignore rule and you specified them at the .gitigno..."
+    } ,
+  
+    {
+      "title"    : "Read/Write system property in Android APP",
+      "title-lower"    : "read/write system property in android app",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Android",
+      "tags"     : "Android",
+      "url"      : "/daviddong.github.io/android/2015/04/11/Android-read-property.html",
+      "date"     : "2015-04-11 23:48:12 +0800",
+      "content"     : "Recently I need to read system property in my Android apk development. I checked the Android documents and found that Android has a Systemproperties class to handle this kind of requirement. Howeve..."
+    } ,
+  
+    {
+      "title"    : "Getevent command usage",
+      "title-lower"    : "getevent command usage",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Android",
+      "tags"     : "Android",
+      "url"      : "/daviddong.github.io/android/2015/02/25/Android-getevent.html",
+      "date"     : "2015-02-25 20:33:04 +0800",
+      "content"     : "Android provides an ADB command getevent to obtain input events, such as obtaining key reporting event, obtaining touch screen reporting event, etc.User can use this command under adb console.Usage..."
+    } ,
+  
+    {
+      "title"    : "Use of .PHONY in makefile",
+      "title-lower"    : "use of .phony in makefile",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Linux",
+      "tags"     : "Linux",
+      "url"      : "/daviddong.github.io/linux/2014/11/11/Linux-phony.html",
+      "date"     : "2014-11-11 23:55:17 +0800",
+      "content"     : "You may have run into the situation where the name of makefile command conflicts with the file name under the same directory.For example, I have below code.B_TARGET:=testappclean:  rm -f $(B_TARGET..."
+    } ,
+  
+    {
+      "title"    : "How does Android dispatch Touchevent?",
+      "title-lower"    : "how does android dispatch touchevent?",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "AndroidTouch",
+      "tags"     : "Android, Touch",
+      "url"      : "/daviddong.github.io/android/touch/2014/10/02/Android-touchevent-02.html",
+      "date"     : "2014-10-02 22:17:21 +0800",
+      "content"     : "Recently, I’ve been busy with my work and haven’t been able to update blog for a long time. This time, I am going to start a discussion and summarize how Android dispatch Touchevent after received ..."
+    } ,
+  
+    {
+      "title"    : "Android 如何上报 Touchevent 给应用层",
+      "title-lower"    : "android 如何上报 touchevent 给应用层",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "CTouchAndroid",
+      "tags"     : "C, Touch, Linux, Android",
+      "url"      : "/daviddong.github.io/c/touch/android/2014/07/10/Touch-inputevent.html",
+      "date"     : "2014-07-10 23:44:07 +0800",
+      "content"     : "上一篇博文 「ATMEL maXTouch IC驱动代码分析」 我们讲到了 Touch 驱动代码如何读取IC内部获取到的触摸事件信息并通过input_report_abs()和input_sync()函数上报给 Linux 的 Input 子系统的过程。今天这篇文章我们就走进 Input 子系统内部来看一下事件是如何被传递到 Android 的用户空间的。内容如下。目录  Input 子系统..."
+    } ,
+  
+    {
+      "title"    : "ATMEL maXTouch IC驱动代码分析",
+      "title-lower"    : "atmel maxtouch ic驱动代码分析",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "CTouchLinux",
+      "tags"     : "C, Touch, Linux",
+      "url"      : "/daviddong.github.io/c/touch/linux/2014/06/25/Touch-driver.html",
+      "date"     : "2014-06-25 17:18:35 +0800",
+      "content"     : "今天来讲一下touch controller IC 在android上的驱动代码。Touch Screen 作为一个input device, 驱动代码当然要符合 android 对输入设备的一般性要求。实际上驱动代码完成的工作相对简单，主要有以下这么几个内容。  初始化设备  完成 Input device 在 andorid 的注册  注册中断  初始化相关的系统文件节点  上报 inp..."
+    } ,
+  
+    {
+      "title"    : "Bundle 在android中的应用",
+      "title-lower"    : "bundle 在android中的应用",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Android",
+      "tags"     : "Android",
+      "url"      : "/daviddong.github.io/android/2014/04/14/Android-bundle.html",
+      "date"     : "2014-04-14 21:03:36 +0800",
+      "content"     : "Android中Bundle类的作用，根据google 官方文档Bundle类用作携带数据，它类似于Map，用于存放key-value名值对形式的值。Bundle经常使用在Activity之间或者线程间传递数据，传递的数据可以是 boolean、byte、int、long、float、double、string 等基本类型或它们对应的数组，也可以是对象或对象数组。当Bundle传递的是对象或..."
+    } ,
+  
+    {
+      "title"    : "电容式触摸检测技术原理",
+      "title-lower"    : "电容式触摸检测技术原理",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Touch",
+      "tags"     : "Touch",
+      "url"      : "/daviddong.github.io/touch/2014/04/11/Touch-princple.html",
+      "date"     : "2014-04-11 12:10:27 +0800",
+      "content"     : "智能手机的兴起不仅仅是由于操作系统上的改变，更多的是由于引入了一种新的人机交互的模式。这种全新的模式导致了用户体验的大幅度改善。电容式触摸检测技术正是其中的关键技术。电容式触摸检测本质上是一种精密的电信号测量技术，其测量的电荷变化量为皮库伦级别。触控IC通过高精度的ADC采样触摸屏上的电压信号，在人手或者其他导电体接触到设备后，检测到的电压信号会发生变化（mv级别），这些变化量被采样到触控I..."
+    } ,
+  
+    {
+      "title"    : "Linux 系统下的多点触摸协议",
+      "title-lower"    : "linux 系统下的多点触摸协议",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "TouchLinux",
+      "tags"     : "Touch, Linux",
+      "url"      : "/daviddong.github.io/touch/linux/2014/02/12/Touch-protocol.html",
+      "date"     : "2014-02-12 21:33:10 +0800",
+      "content"     : "这篇文章讲一下Linux下的多点触控的协议。为了支持多点触控的设备，Linux制定了多点触摸协议（multi-touch，MT）。Linux 下的触摸协议分为协议A(protocol A)和协议B(protocol B)。作为都支持多点触摸的协议，那么协议A和协议B有什么区别？我们以下的篇幅里会做详细的说明。协议A主要应用于早期处理触点的设备，该类设备无法跟踪并识别每个触摸点，因此协议A里无..."
+    } ,
+  
+    {
+      "title"    : "Linux 添加中断处理",
+      "title-lower"    : "linux 添加中断处理",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Linux",
+      "tags"     : "Linux",
+      "url"      : "/daviddong.github.io/linux/2014/01/09/Linux-interrupt.html",
+      "date"     : "2014-01-09 23:54:06 +0800",
+      "content"     : "Linux 中断子系统的内部实现机制比较复杂，如果想讲清楚需要较长的篇幅才行，本文只从应用的角度介绍如何注册中断并添加中断处理函数到代码中，不对其内部的实现机制做太多阐述。下面以我自己的代码为例，说明一下如何添加中断的处理。1. 中断中断是指在CPU正常运行期间，由于内外部事件或由程序预先安排的事件引起的CPU暂时停止正在运行的程序，转而为该内部或外部事件或预先安排的事件服务的程序中去，服务..."
+    } ,
+  
+    {
+      "title"    : "浅谈触摸屏充电器噪声要求及测量方法",
+      "title-lower"    : "浅谈触摸屏充电器噪声要求及测量方法",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Touch",
+      "tags"     : "Touch",
+      "url"      : "/daviddong.github.io/touch/2013/12/15/Touch-noise.html",
+      "date"     : "2013-12-15 23:01:16 +0800",
+      "content"     : "触摸屏在高噪声环境下的性能是当前移动电子设备特别是智能手机设计人员面临的巨大挑战之一。而在这些噪声当中，充电器噪声是被广泛涉及和对触摸屏影响最大的噪声源。这种噪声通过USB充电器物理耦合至传感器进而被TOUCH IC所采集。它可以造成触摸的精度或线性度下降、产生误触，严重的会造成触摸屏变得无响应。本文结合我在工作中的一些经验来介绍一下触摸屏设计中的对噪声相关的要求，测量方法以及一些降噪的方法..."
+    } ,
+  
+    {
+      "title"    : "Linux fork() 函数",
+      "title-lower"    : "linux fork() 函数",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Linux",
+      "tags"     : "Linux",
+      "url"      : "/daviddong.github.io/linux/2013/09/22/Linux-fork.html",
+      "date"     : "2013-09-22 20:12:01 +0800",
+      "content"     : "本文主要总结了Linux fork()函数的使用。在Linux中每个进程拥有独立的地址空间,地址空间包括代码段、数据段和堆栈段。代码段：存储程序的代码数据段：存储程序的全局变量和动态分配的内存堆栈段：存储函数运行时的局部变量进程之间的地址空间是隔离的。fork()函数的作用是新建立一个进程。这个进程是从父进程COPY过来，因此和父进程几乎完全相同。fork()函数的原型如下,需要注意的是函数..."
+    } ,
+  
+    {
+      "title"    : "poll() 函数使用",
+      "title-lower"    : "poll() 函数使用",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Linux",
+      "tags"     : "Linux",
+      "url"      : "/daviddong.github.io/linux/2013/09/02/Linux-epoll.html",
+      "date"     : "2013-09-02 20:12:01 +0800",
+      "content"     : "这篇文章对Linux的poll()函数的使用做一个总结。poll() 函数Linux 中 poll() 函数用来监听并等待多个文件描述符的属性变化。原型int poll(struct pollfd *fds, nfds_t nfds, int timeout);其中fds：指向一个结构体数组的第0个元素的指针，每个数组元素都是一个struct pollfd结构，用于指定测试某个给定的fd的条..."
+    } ,
+  
+    {
+      "title"    : "MISRA C 规则",
+      "title-lower"    : "misra c 规则",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "C",
+      "tags"     : "C",
+      "url"      : "/daviddong.github.io/c/2013/06/13/C-MISRAC.html",
+      "date"     : "2013-06-13 22:41:23 +0800",
+      "content"     : "最近工作中有接触到MISRA C的规范，为了方便以后查找，这里把规则都记录下来。MISRA C编程规范（MISRA C Coding Standard），是针对C 语言编程的软件开发标准。它的目标促进C代码在嵌入式系统中的安全性、可移植性和可靠性。以下内容为转贴。Rule 1. 严格遵循ANSI C89标准，不允许任何扩展。Rule 3. 如果要嵌入汇编语言，则必须将所有汇编语句包装在C函数..."
+    } ,
+  
+    {
+      "title"    : "Java 调用COM组件的方法",
+      "title-lower"    : "java 调用com组件的方法",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Java",
+      "tags"     : "Java",
+      "url"      : "/daviddong.github.io/java/2013/05/07/Java-com.html",
+      "date"     : "2013-05-07 19:11:17 +0800",
+      "content"     : "最近项目中需要用JavaSE来调用Windows的下的程序代码。如Java编写的GUI需要操作Windows平台下自己开发的代码。这里总结一下相关的技术内容。因为考虑到要跨语言的程序调用，就要用到COM组件。COM组件是为了实现代码的跨平台/语言复用，提供一种独立于平台与编程语言之外的，共享二进制代码的方法。其实就是一种规范化的接口，基于DLL(动态链接库)的形式存在。因为是以二进制的形式传..."
+    } ,
+  
+    {
+      "title"    : "Java JDOM 库的使用",
+      "title-lower"    : "java jdom 库的使用",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Java",
+      "tags"     : "Java",
+      "url"      : "/daviddong.github.io/java/2013/03/01/Java-jdom.html",
+      "date"     : "2013-03-01 09:01:11 +0800",
+      "content"     : "最近的开发工作中使用到了JDOM工具包来编辑XML类型的文档。JDOM是一种使用 XML 的Java 工具包。基于 Java 平台并通过 Java 代码来访问、操作并输出 XML 数据。以下的介绍转载自百度百科, JDOM工具包的下载地址  JDOM是一个开源项目，它基于树型结构，利用纯JAVA的技术对XML文档实现解析、生成、序列化以及多种操作。JDOM 直接为JAVA编程服务。它利用更为..."
+    } ,
+  
+    {
+      "title"    : "Java 使用JXL库编辑Excel文档",
+      "title-lower"    : "java 使用jxl库编辑excel文档",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Java",
+      "tags"     : "Java",
+      "url"      : "/daviddong.github.io/java/2012/12/17/Java-jxl.html",
+      "date"     : "2012-12-17 17:25:19 +0800",
+      "content"     : "因为开发中用到了 JXL 库来处理 Windows 的 Excel 文档，这里做一个总结记录，以方便未来查找。JXL.jar是一个Java类包，封装了对Excel文档的操作。提供了一系列接口，方便编程者读写编辑Excel类型的文档。JXL的官方下载地址 官方地址将下载后的文件解包，得到JXL.JAR，放入classpath。如果包不能正常的加载，可以把你下载好的JXL.JAR包放入本机jre..."
+    } ,
+  
+    {
+      "title"    : "Java 串口编程",
+      "title-lower"    : "java 串口编程",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Java",
+      "tags"     : "Java",
+      "url"      : "/daviddong.github.io/java/2012/10/21/Java-serialcom.html",
+      "date"     : "2012-10-21 18:55:59 +0800",
+      "content"     : "前些天工作中用到了串口编程。Java 上位机 UI 需要通过串行端口访问外部的设备，Java 对串口设备的访问有提供库支持，使用起来比较容易，这里简单总结一下。首先先下载javacomm20-win32的package。下载链接从解压包中有三个重要的文件,            文件      说明                  comm.jar      提供了通讯用的java API..."
+    } ,
+  
+    {
+      "title"    : "Java 的线程和Runnable接口",
+      "title-lower"    : "java 的线程和runnable接口",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Java",
+      "tags"     : "Java",
+      "url"      : "/daviddong.github.io/java/2012/06/01/Java-runnable.html",
+      "date"     : "2012-06-01 13:27:23 +0800",
+      "content"     : "Java 实现多线程编程的方式有两种，一种是继承 Thread 类，另一种是实现 Runnable 接口。下面的内容会分别介绍这两种用法以及使用上的区别。Thread 类Java 通过Thread类来实现多线程，关于Thread类的介绍，可以查阅 Java文档 Thread。Thread类继承自java.lang.Object，实现了Runnable接口。Thread类的用法如下。MyThr..."
+    } ,
+  
+    {
+      "title"    : "Javadoc 使用",
+      "title-lower"    : "javadoc 使用",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Java",
+      "tags"     : "Java",
+      "url"      : "/daviddong.github.io/java/2012/04/22/Java-javadoc.html",
+      "date"     : "2012-04-22 22:44:19 +0800",
+      "content"     : "相信很多有经验的程序员都知道写注释的重要性，程序注释不仅仅是对代码进行说明，它其实也是代码本身组成的一部分。对于Java程序的开发者来说，更是如此。注释已经变成了代码API接口文档的一部分。这是因为Java提供了一个工具Javadoc，能够从注释中抽取信息，直接生成API的帮助文档。文档的格式就同Java SDK官方API文档保持一致。这对于善于写代码却头疼写API文档的人来说简直是一款神器..."
+    } ,
+  
+    {
+      "title"    : "Java 的Iterable接口使用",
+      "title-lower"    : "java 的iterable接口使用",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Java",
+      "tags"     : "Java",
+      "url"      : "/daviddong.github.io/java/2012/03/18/Java-Iterable.html",
+      "date"     : "2012-03-18 13:27:23 +0800",
+      "content"     : "Iterable&amp;lt;&amp;gt; 是 Java.lang 包中定义的一个接口, 根据Java文档的介绍该接口主要声明了一个Iterator()方法，该方法返回一个Iterator&amp;lt;&amp;gt;接口。Iterable Java 文档那我们接下来看一看Iterator&amp;lt;&amp;gt;接口主要内容，Iterator&amp;lt;&amp;gt;接..."
+    } ,
+  
+    {
+      "title"    : "Java 的finalize()方法总结",
+      "title-lower"    : "java 的finalize()方法总结",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Java",
+      "tags"     : "Java",
+      "url"      : "/daviddong.github.io/java/2011/12/04/Java-finalize.html",
+      "date"     : "2011-12-04 23:42:04 +0800",
+      "content"     : "Java提供的finalize()方法是定义JObject类中的方法。作用是帮助我们进行资源释放，类似于C++中的析构函数。但是需要注意的是该方法根本上和C++中的析构函数是不同的。我们都知道Java是运行在JVM上的，JVM的垃圾回收机制承担了系统资源释放的任务，因此在编写Java程序的时候是不用考虑显式的调用方法进行资源释放的。这是因为Java是完全面向对象的语言，所有对象都驻留在堆内存..."
+    } ,
+  
+    {
+      "title"    : "Java 的异常处理",
+      "title-lower"    : "java 的异常处理",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Java",
+      "tags"     : "Java",
+      "url"      : "/daviddong.github.io/java/2011/07/27/Java-abnormal.html",
+      "date"     : "2011-07-27 20:02:36 +0800",
+      "content"     : "想要理解Java的异常处理机制，只要掌握好这五个keywords 就可以了。 try, catch, finally, throw 和 throws 异常捕获一个常用的异常捕获流程如下图所示，try{    需要监听异常的代码;}catch(Exception e){    异常处理代码;   }finally{    资源释放代码; //此段代码无论有无异常发生都会执行。}此外还有try-..."
+    } ,
+  
+    {
+      "title"    : "Java 里的引用和C++指针的区别",
+      "title-lower"    : "java 里的引用和c++指针的区别",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Java",
+      "tags"     : "Java",
+      "url"      : "/daviddong.github.io/java/2011/04/23/Java-pointer.html",
+      "date"     : "2011-04-23 23:18:23 +0800",
+      "content"     : "本文对Java里的引用的概念做一个简单的总结，不做过多的阐述。Java里面除了基本数据类型外,其他所有对象的引用都是指针引用.基本数据类型也可以用对象来引用。 所谓指针引用就是传递的是对象的地址,而不是该对象值的拷贝。因此从这一点上来说Java的引用和C++里面的指针的作用是一致的。Java 里的引用和c++的区别是 c++里的指针类型变量可以做运算,强制类型转换。 Java里面的引用避免了..."
+    } ,
+  
+    {
+      "title"    : "Java 的序列化(Serializable)",
+      "title-lower"    : "java 的序列化(serializable)",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Java",
+      "tags"     : "Java",
+      "url"      : "/daviddong.github.io/java/2011/02/12/Java-serializable.html",
+      "date"     : "2011-02-12 20:02:36 +0800",
+      "content"     : "Java的序列化提供了一种保存对象状态的机制，之所以要用到序列化是因为有时我们会在对象的生命期结束后需要把对象状态保存下来，通常是存放到外部的媒介上，比如文件，磁盘或网络上。并且在需要时能够通过一种机制来恢复。序列化能够在不同的JVM之间共享数据。实现类的序列化在语法上非常简单，只需要实现Serializable接口即可。Serializable接口没有需要实现的方法（这是一个”标记接口-t..."
+    } 
+  
+]

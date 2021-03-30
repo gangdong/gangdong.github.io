@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono" rel="stylesheet">
+<link rel="stylesheet" href="/daviddong.github.io/assets/css/style.css">
+<link rel="icon" href="/daviddong.github.io/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="/daviddong.github.io/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<title>MISRA C 规则 | David Dong's Blog</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>MISRA C 规则 | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="MISRA C 规则" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="本文整理出了 MISRA C 编程规范的内容，方便查找。有需要的同学可以参考这部分内容。" />
+<meta property="og:description" content="本文整理出了 MISRA C 编程规范的内容，方便查找。有需要的同学可以参考这部分内容。" />
+<link rel="canonical" href="http://localhost:4000/daviddong.github.io/c/2013/06/13/C-MISRAC.html" />
+<meta property="og:url" content="http://localhost:4000/daviddong.github.io/c/2013/06/13/C-MISRAC.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-06-13T22:41:23+08:00" />
+<script type="application/ld+json">
+{"dateModified":"2013-06-13T22:41:23+08:00","datePublished":"2013-06-13T22:41:23+08:00","url":"http://localhost:4000/daviddong.github.io/c/2013/06/13/C-MISRAC.html","@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/daviddong.github.io/BLOG"},"name":"david.dong"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/daviddong.github.io/c/2013/06/13/C-MISRAC.html"},"author":{"@type":"Person","name":"david.dong"},"headline":"MISRA C 规则","description":"本文整理出了 MISRA C 编程规范的内容，方便查找。有需要的同学可以参考这部分内容。","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+
+</head>
+  <body><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><main class="container">
+      <section class="about">
+        <a href="/daviddong.github.io/blog/index.html"><img src="/daviddong.github.io/assets/avatar.png" alt="David Dong"></a>
+        <h2 id="title">
+          <a href="/daviddong.github.io/blog/index.html">David Dong</a>
+        </h2>
+        <p class="tagline">Java/C/C#/Python</p>
+		<!--add navigation --><nav class="navigation">
+            <ul>
+              
+            </ul>
+          </nav><!--put dark mode button here --><div>
+		  <ul class = "social" >
+			<p style = "font-family: Raleway, sans-serif;font-size: 100%">Dark Mode
+			  <i class="icon-moon"></i>
+			  <label class="switch">
+				<input type="checkbox" id="dark-mode-toggle" onclick="toggleDarkMode()">
+				<span class="slider round"></span>
+			  </label>
+			</p>
+		  </ul>
+		<script type="text/javascript" src="/daviddong.github.io/assets/js/darkmode.js"></script>
+		</div><!--put rss/code link here -->
+	    <div>
+          <ul class="tool"><a style ="margin-right:10px; text-decoration: none" href="/daviddong.github.io/rss.xml">
+              <span class="icon-rss-1 tooltip">
+				<span class="tooltiptext">Rss</span>
+			  </span>
+           </a><a style="text-decoration: none" href="https://github.com/gangdong/daviddong.github.io">
+              <span class="icon-file-code tooltip">
+				<span class="tooltiptext">Code</span>
+			  </span>
+            </a></ul>
+        </div>
+	    <!--show contact me -->
+	    <div class = "contact"><li>CONTACT ME</li></div>
+		<!-- put social link here -->
+		<div>
+	      <ul class="social" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture-3"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled-1"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		</div>
+		<!--put timestamp here -->
+		<div class ="timestamp">&copy; 2021</div>
+	  <!-- about box end here -->
+      </section>
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+
+
+<div class="post-container">
+	<div  class = "menu-meta">
+		<div  class = "menu-logo" style="margin-top: 20px">BLOG</div>
+		<div  class = "menu" style = "margin-top: 20px">
+			<a class = "icon-doc-text icon_font" href="/daviddong.github.io/blog/index.html">Posts</a><a  class = "icon-archive-1 icon_font" href="/daviddong.github.io/archive">Archives</a><a  class = "icon-tags-1 icon_font" href="/daviddong.github.io/category">Categories</a><a  class = "icon-help-circled-3 icon_font" href="/daviddong.github.io/about">About</a>
+		</div>
+	</div>
+</div><div class="post-container">
+  <li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">POST</h1>
+  </li>  
+  <a class="post-link" href="/daviddong.github.io/c/2013/06/13/C-MISRAC.html">
+    <h2 class="post-title">MISRA C 规则</h2>
+  </a>
+   <div class="post-meta">
+    <div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">Jun 13, 2013</div>
+  </div>
+  <br>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+  <div class="post-viewer-container">
+	<div class="post-fix-width">
+		<p>最近工作中有接触到MISRA C的规范，为了方便以后查找，这里把规则都记录下来。</p>
+
+<p>MISRA C编程规范（MISRA C Coding Standard），是针对C 语言编程的软件开发标准。它的目标促进C代码在嵌入式系统中的安全性、可移植性和可靠性。</p>
+
+<p><em>以下内容为转贴。</em><br /></p>
+
+<p>Rule 1. 严格遵循ANSI C89标准，不允许任何扩展。</p>
+
+<p>Rule 3. 如果要嵌入汇编语言，则必须将所有汇编语句包装在C函数里，而且这些函数中只有汇编语句，
+        没有常规C语句。</p>
+
+<p>Rule 7. 不得使用三元操作符（? : )</p>
+
+<p>Rule 10. 不得残留被注释掉的废代码。</p>
+
+<p>Rule 11. 所有标识符不超过31字符。</p>
+
+<p>Rule 12. 不同名空间中的变量名不得相同。
+         例如：</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c">             <span class="k">typedef</span> <span class="k">struct</span> <span class="n">MyStruct</span> <span class="p">{...</span> <span class="p">}</span> <span class="n">MyStruct</span><span class="p">;</span>  <span class="p">(</span><span class="err">违规）</span>
+
+             <span class="k">struct</span> <span class="n">Person</span> <span class="p">{</span>
+               <span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="p">;</span>
+               <span class="p">...</span>
+             <span class="p">};</span>
+             <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>  <span class="err">（违规）</span>
+		  </code></pre></figure>
+
+<p>Rule 13. 不得使用char, int, float, double, long等基本类型，
+         应该用自己定义的类型显示表示类型的大小，
+         如CHAR8, UCHAR8, INT16, INT32, FLOAT32, LONG64, ULONG64等。</p>
+
+<p>Rule 14. 不得使用类型char，必须显示声明为unsigned char或者signed char。</p>
+
+<p>Rule 18. 所有数字常数应当加上合适的后缀表示类型，例如51L, 42U, 34.12F等。</p>
+
+<p>Rule 19. 禁止使用八进制数。（因为086U这样的常数很容易引起误解）。</p>
+
+<p>Rule 21. 不得定义与外部作用域中某个标识符同名的对象，以避免遮盖外部作用域中的标识符。</p>
+
+<p>Rule 23. 具有文件作用域的对象尽量声名为static的。</p>
+
+<p>Rule 24. 在同一个编译单元中，同一个标识符不应该同事具有内部链接和外部链接的声名。
+         这里我略作说明：
+         我们通常将一些放在头文件里的变量声名为“外部链接”的，如：
+         extern UINT32 g_count;  // 俗话叫变量声明（对应于变量定义，不分配实际空间）
+         对于“使用”这个变量的.c文件来说，这很好，因为g_count始终保持外部链接性质。
+         可是对于定义g_count（实际分配空间）的.c文件来说，如果包含了上述的头文件，
+         则在这个编译单元里就发生了内部链接和外部链接的冲突。
+         解决办法是，定义g_count的文件尽量不要包含声名g_count的头文件。
+         个人感觉这不是任何时候都做得到的，尤其是在对付遗留代码的时候。</p>
+
+<p>Rule 25. 具有外部链接性质的标识符应该只声明一次。</p>
+
+<p>Rule 27. 外部对象不得在多个文件中声名。</p>
+
+<p>Rule 28. 禁止使用register关键字。</p>
+
+<p>Rule 29. 自动对象（栈对象）使用前必须赋初值。</p>
+
+<p>Rule 33. 操作符&amp;&amp;和||的右侧表达式不得具有副作用（side-effect）。
+         也就是说，象 if (x == 20 &amp;&amp; ++y == 19)这样的表达式被禁止。</p>
+
+<p>Rule 35. 在返回布尔值的表达式中不得出现赋值操作。
+         也就是说，我们常用的 if (!(fp = fopen(“fname”, “r”))) { /* error */ }被禁止。</p>
+
+<p>Rule 37. 不得对有符号数施加位操作，例如 1 « 4 将被禁止，必须写 1UL « 4;</p>
+
+<p>Rule 39. 不得对有符号表达式施加一元 “-“ 操作符。</p>
+
+<p>Rule 40. 不得对有副作用的表达式施加sizeof操作符。</p>
+
+<p>Rule 42. 除了循环控制语句，不得使用逗号表达式。</p>
+
+<p>Rule 44. 禁止冗余的显式转型。比如: double pi = (double) 3.1416F;</p>
+
+<p>Rule 45. 禁止从任意类型到指针的强制转型，禁止从指针到任意类型的强制转型。
+         例如：void* p = (void*)0xFFFF8888UL;</p>
+
+<p>Rule 49. 显示测试值是否为零。</p>
+
+<p>Rule 50. 不得显式判断浮点数的相等性和不等性。</p>
+
+<p>Rule 52. 不得遗留“永远不会用到”的代码。</p>
+
+<p>Rule 53. 所有非空语句必须具有副作用。</p>
+
+<p>Rule 55. 除了switch语句，不得使用标号(label)。</p>
+
+<p>Rule 56. 不得使用goto.</p>
+
+<p>Rule 57. 不得使用continue。</p>
+
+<p>Rule 58. 除了switch语句，不得使用break.</p>
+
+<p>Rule 59. if, else if, else, while, do..while, for语句块必须使用{}括起。</p>
+
+<p>Rule 60. 任何if..else if 语句，最后必须有一个收尾的else。例如：</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c">         <span class="k">if</span> <span class="p">(</span><span class="n">ans</span> <span class="o">==</span> <span class="sc">'Y'</span><span class="p">)</span> <span class="p">{</span>
+           <span class="p">...</span>
+         <span class="p">}</span>
+         <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">ans</span> <span class="o">==</span> <span class="sc">'N'</span><span class="p">)</span> <span class="p">{</span>
+           <span class="p">...</span>
+         <span class="p">}</span>
+         <span class="k">else</span> <span class="p">{</span>
+           <span class="p">;</span>
+         <span class="p">}</span>
+        </code></pre></figure>
+
+<p>Rule 67. 循环计数器的值不得在循环体内修改。</p>
+
+<p>Rule 70. 禁止任何直接和间接的递归函数调用。</p>
+
+<p>Rule 82. 每个函数只能有一个推出点。</p>
+
+<p>Rule 86. 如果一个函数可能返回错误信息，则调用后必须加以测试。</p>
+
+<p>Rule 92. 不应该使用#undef</p>
+
+<p>Rule 95. 不得将宏作为参数传给宏函数</p>
+
+<p>Rule 98. 在一个宏定义中，#或##符号只能出现一次。</p>
+
+<p>Rule 101. 禁止指针运算（代之以数组下标运算）。</p>
+
+<p>Rule 102. 禁止超过两级的指针。</p>
+
+<p>Rule 104. 禁止使用指向函数的非常量指针。</p>
+
+<p>Rule 106. 不得将栈对象的地址传给外部作用域的对象。</p>
+
+<div class="separator"></div>
+<p>后面的规则针对实时嵌入式系统，对其他类型的开发未必适用，如：</p>
+
+<p>Rule 118. 禁止使用动态堆分配（也就是不得使用malloc, calloc和realloc）。</p>
+
+<p>Rule 119. 禁止使用errno。</p>
+
+<p>Rule 120. 禁止使用offsetof.</p>
+
+<p>Rule 121. 禁止使用<locale.h></locale.h></p>
+
+<p>Rule 122. 禁止使用setjmp, longjmp.</p>
+
+<p>Rule 123. 禁止使用<signal.h></signal.h></p>
+
+<p>Rule 124. 禁止使用<stdio.h>（不能用printf, scanf了！）</stdio.h></p>
+
+<p>Rule 125. 禁止使用atoi, atof, atol。（这个我很赞成，建议使用strtol, strtod等函数）</p>
+
+<p>Rule 126. 禁止使用abort, exit, getenv。</p>
+
+<p>Rule 127. 禁止使用<time.h></time.h></p>
+
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box">
+		    
+				<li class = "sidebar-title">关于文章</li>
+			
+			
+				
+					<li class = "sidebar-about-content sidebar-font-medium">本文整理出了 MISRA C 编程规范的内容，方便查找。有需要的同学可以参考这部分内容。</li>
+				
+				
+					<li class = "icon-link-1 sidebar-about-content sidebar-font-medium" style = "margin-top:30px">文章作者: <a href="https://github.com/gangdong">david.dong</a></li>
+				
+				<li class = "icon-hourglass sidebar-about-content sidebar-font-medium">阅读时间：6 mins</li>
+				<li class = "icon-book-open sidebar-about-content sidebar-font-medium">全文字数：2390</li>
+				
+					<li class = "icon-th-list-1 sidebar-about-content sidebar-font-medium">关键字: MISRA C</li>
+				
+				
+					<li class = "icon-hashtag sidebar-about-content sidebar-font-medium">标签: 
+					
+					<a href="/daviddong.github.io/category#C">C&nbsp;</a>
+					
+					</li>
+				
+			
+		</div>
+		
+		
+	</div>
+	 
+  </div>
+  <!-- no sidebar, use flex width box! -->
+  <br><br><br>
+  <div class="post-container">
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">分享:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+		<li class = "icon-eye">&nbsp;<span id="busuanzi_value_page_pv"></span></li>
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">相关文章</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/daviddong.github.io/c/touch/android/2014/07/10/Touch-inputevent.html">Android 如何上报 Touchevent 给应用层</a></li>
+			
+			<li><a href="/daviddong.github.io/c/touch/linux/2014/06/25/Touch-driver.html">ATMEL maXTouch IC驱动代码分析</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">继续阅读</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta" style = "margin-bottom:40px"><ul class="navigation-bar" style = "margin-top:40px; min-width:40%">
+	 
+	 <a href="/daviddong.github.io/java/2013/05/07/Java-com.html"; style="width:100%"><span class = "navigation-bar-label">前一章</span><br>Java 调用COM组件的方法</a>
+	 
+    </ul><ul class="navigation-bar" style = "margin-top:40px; min-width:40%"> 
+	 
+	 <a href="/daviddong.github.io/linux/2013/09/02/Linux-epoll.html"; style="width:100%"><span class = "navigation-bar-label">后一章</span><br>poll() 函数使用</a>
+	 
+    </ul></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/daviddong.github.io/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'daviddong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+      </section>
+    </main>
+<script src="/daviddong.github.io/assets/js/simple-jekyll-search.min.js"></script>
+<script src="/daviddong.github.io/assets/js/search.js"></script>
+
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9"></script>
+
+</body>
+</html>

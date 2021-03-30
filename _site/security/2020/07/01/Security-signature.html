@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono" rel="stylesheet">
+<link rel="stylesheet" href="/daviddong.github.io/assets/css/style.css">
+<link rel="icon" href="/daviddong.github.io/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="/daviddong.github.io/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<title>浅谈数字签名 | David Dong's Blog</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>浅谈数字签名 | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="浅谈数字签名" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="本文详细介绍了数字签名及其相关的技术。" />
+<meta property="og:description" content="本文详细介绍了数字签名及其相关的技术。" />
+<link rel="canonical" href="http://localhost:4000/daviddong.github.io/security/2020/07/01/Security-signature.html" />
+<meta property="og:url" content="http://localhost:4000/daviddong.github.io/security/2020/07/01/Security-signature.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-07-01T18:24:12+08:00" />
+<script type="application/ld+json">
+{"dateModified":"2020-07-01T18:24:12+08:00","datePublished":"2020-07-01T18:24:12+08:00","url":"http://localhost:4000/daviddong.github.io/security/2020/07/01/Security-signature.html","@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/daviddong.github.io/BLOG"},"name":"david.dong"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/daviddong.github.io/security/2020/07/01/Security-signature.html"},"author":{"@type":"Person","name":"david.dong"},"headline":"浅谈数字签名","description":"本文详细介绍了数字签名及其相关的技术。","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+
+</head>
+  <body><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><main class="container">
+      <section class="about">
+        <a href="/daviddong.github.io/blog/index.html"><img src="/daviddong.github.io/assets/avatar.png" alt="David Dong"></a>
+        <h2 id="title">
+          <a href="/daviddong.github.io/blog/index.html">David Dong</a>
+        </h2>
+        <p class="tagline">Java/C/C#/Python</p>
+		<!--add navigation --><nav class="navigation">
+            <ul>
+              
+            </ul>
+          </nav><!--put dark mode button here --><div>
+		  <ul class = "social" >
+			<p style = "font-family: Raleway, sans-serif;font-size: 100%">Dark Mode
+			  <i class="icon-moon"></i>
+			  <label class="switch">
+				<input type="checkbox" id="dark-mode-toggle" onclick="toggleDarkMode()">
+				<span class="slider round"></span>
+			  </label>
+			</p>
+		  </ul>
+		<script type="text/javascript" src="/daviddong.github.io/assets/js/darkmode.js"></script>
+		</div><!--put rss/code link here -->
+	    <div>
+          <ul class="tool"><a style ="margin-right:10px; text-decoration: none" href="/daviddong.github.io/rss.xml">
+              <span class="icon-rss-1 tooltip">
+				<span class="tooltiptext">Rss</span>
+			  </span>
+           </a><a style="text-decoration: none" href="https://github.com/gangdong/daviddong.github.io">
+              <span class="icon-file-code tooltip">
+				<span class="tooltiptext">Code</span>
+			  </span>
+            </a></ul>
+        </div>
+	    <!--show contact me -->
+	    <div class = "contact"><li>CONTACT ME</li></div>
+		<!-- put social link here -->
+		<div>
+	      <ul class="social" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture-3"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled-1"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		</div>
+		<!--put timestamp here -->
+		<div class ="timestamp">&copy; 2021</div>
+	  <!-- about box end here -->
+      </section>
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+
+
+<div class="post-container">
+	<div  class = "menu-meta">
+		<div  class = "menu-logo" style="margin-top: 20px">BLOG</div>
+		<div  class = "menu" style = "margin-top: 20px">
+			<a class = "icon-doc-text icon_font" href="/daviddong.github.io/blog/index.html">Posts</a><a  class = "icon-archive-1 icon_font" href="/daviddong.github.io/archive">Archives</a><a  class = "icon-tags-1 icon_font" href="/daviddong.github.io/category">Categories</a><a  class = "icon-help-circled-3 icon_font" href="/daviddong.github.io/about">About</a>
+		</div>
+	</div>
+</div><div class="post-container">
+  <li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">POST</h1>
+  </li>  
+  <a class="post-link" href="/daviddong.github.io/security/2020/07/01/Security-signature.html">
+    <h2 class="post-title">浅谈数字签名</h2>
+  </a>
+   <div class="post-meta">
+    <div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">Jul 1, 2020</div>
+  </div>
+  <br>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+  <div class="post-viewer-container">
+	<div class="post-fix-width">
+		<p>近日，腾讯公司状告贵州老干妈的新闻在互联网上闹得沸沸扬扬，💥 大家也应该有所耳闻。腾讯起诉老干妈合作推广后没有付广告费，但随后老干妈否认了此事，称完全不知道这个合作。 😕 后来经调查发现，这是三个人冒充老干妈市场部经理，然后刻了个假公章，就为了获得合作后的游戏礼包并从中牟利。</p>
+
+<p>且不说这个事情的性质，就从三个骗子用一个假公章，居然把腾讯骗得团团转来看，也折射出来目前的一些问题。</p>
+
+<p>试想如果腾讯在和老干妈的合同中使用了数字签名… 上述事件根本就不会发生。</p>
+
+<p>这篇文章就来聊一聊数字签名。文章比较长，心急的读者可以选择直接跳到相关章节阅读。</p>
+
+<p>本文就从散列函数开始说起，然后引出 👉 <code class="language-plaintext highlighter-rouge">数字摘要</code>技术和<code class="language-plaintext highlighter-rouge">非对称加密</code>技术，最后介绍基于这两个技术应用的数字签名。</p>
+
+<h2 id="15">1. 数字摘要技术</h2>
+<h3 id="2">1.1 散列函数</h3>
+<p>官方解释：散列函数一般是指Hash函数，是一种从任何一种数据中创建小的数字<code class="language-plaintext highlighter-rouge">指纹</code>的方法。散列函数把消息或数据压缩成<code class="language-plaintext highlighter-rouge">摘要</code>，使得数据量变小，将数据的格式固定下来。</p>
+
+<p>我的理解：散列函数是将任意长度的消息映射成为定长的散列值的函数，以该散列值（消息摘要）作为认证符。</p>
+
+<h3 id="3">1.2 密码散列函数</h3>
+<p>密码散列函数（Cryptographic hash function），又译为加密散列函数，是散列函数的一种。这种散列函数的输入数据，通常被称为<code class="language-plaintext highlighter-rouge">消息</code>（message），而它的输出结果，经常被称为<code class="language-plaintext highlighter-rouge">消息摘要</code>（message digest）或摘要（digest）。将任意长度的消息压缩到某一固定长度的消息摘要，一个理想的密码散列函数应该有四个主要的特性：</p>
+<ol>
+  <li>对于任何一个给定的消息，它都很容易就能运算出散列数值（摘要）。</li>
+  <li>难以由一个已知的散列数值 (摘要)，去推算出原始的消息。（评注：单向，不可逆）</li>
+  <li>在不更动散列数值 (摘要) 的前提下，修改消息内容是不可行的。（评注：唯一性）</li>
+  <li>对于两个不同的消息，它不能给与相同的散列数值 (摘要)。</li>
+</ol>
+
+<p>单向散列函数生成的信息摘要是不可预见的，消息摘要看起来和原始的数据没有任何的关系。而且，原始数据的任何微小变化都会对生成的信息摘要产生很大的影响。</p>
+
+<h3 id="4">1.3 MD5</h3>
+<p>MD5信息摘要算法（MD5， Message-Digest Algorithm），一种被广泛使用的密码散列函数，可以产生出一个128位（16字节）的散列值（hash value），用于确保信息传输完整一致。</p>
+
+<p>应用：</p>
+<ul>
+  <li>用于密码管理 - 把用户的密码以MD5值（或类似的其它算法）的方式保存起来，用户注册的时候，系统是把用户输入的密码计算成 MD5 值，然后再去和系统中保存的 MD5 值进行比较，如果密文相同，就可以认定密码是正确的，否则密码错误。通过这样的步骤，系统在并不知道用户密码明码的情况下就可以确定用户登录系统的合法性。</li>
+  <li>电子签名 - 使用 MD5算法就可以为任何文件（不管其大小、格式、数量）产生一个独一无二的<code class="language-plaintext highlighter-rouge">数字指纹</code>，借助这个<code class="language-plaintext highlighter-rouge">数字指纹</code>，通过检查文件前后 MD5 值是否发生了改变，就可以知道源文件是否被改动。</li>
+</ul>
+
+<h3 id="5">1.4 SHA</h3>
+<p>安全散列算法（SHA, Secure Hash Algorithm）是一个密码散列函数家族，是FIPS所认证的安全散列算法。SHA家族的五个算法，分别是SHA-1、SHA-224、SHA-256、SHA-384，和SHA-512，后四者有时并称为SHA-2。SHA在许多安全协定中广为使用，包括TLS和SSL、PGP、SSH、S/MIME和IPsec，曾被视为是MD5（更早之前被广为使用的杂凑函数）的后继者。</p>
+
+<h3 id="6">1.5 HMAC</h3>
+<p>HMAC是密钥相关的哈希运算消息认证码（Hash-based Message Authentication Code）的缩写,它可以与任何迭代<code class="language-plaintext highlighter-rouge">散列函数</code>捆绑使用。HMAC算法是一种基于密钥的报文完整性的验证方法 ，其安全性是建立在Hash加密算法基础上的。它要求通信双方<code class="language-plaintext highlighter-rouge">共享密钥</code>、<code class="language-plaintext highlighter-rouge">约定算法</code>、对报文进行Hash运算，形成固定长度的<code class="language-plaintext highlighter-rouge">认证码</code>。通信双方通过<code class="language-plaintext highlighter-rouge">认证码</code>的校验来确定报文的合法性。 HMAC算法可以用来作加密、数字签名、报文验证等。 <br />
+HMAC是一种利用密码学中的<a href="">散列函数</a>来进行消息认证的一种机制，所能提供的消息认证包括两方面内容：</p>
+<ul>
+  <li>① 消息完整性认证：能够证明消息内容在传送过程没有被修改。</li>
+  <li>② 信源身份认证：因为通信双方共享了认证的密钥，接收方能够认证发送该数据的信源与所宣称的一致，即能够可靠地确认接收的消息与发送的一致。</li>
+</ul>
+
+<h3 id="7">1.6 消息认证码</h3>
+<p>消息认证（message authentication）就是验证消息的完整性，当接收方收到发送方的报文时，接收方能够验证收到的报文是真实的和未被篡改的。</p>
+
+<p>消息认证所用的摘要算法与一般的对称或非对称加密算法不同，它并不用于防止信息被窃取，而是用于证明原文的完整性和准确性，也就是说，消息认证主要用于防止信息被篡改。</p>
+
+<p>消息认证码（Message authentication code，缩写为MAC）又译为消息鉴别码、文件消息认证码、讯息鉴别码、信息认证码，是经过特定算法后产生的一小段信息，检查某段消息的完整性，以及作身份验证。</p>
+
+<p>它可以用来：</p>
+<ol>
+  <li>检查消息的完整性</li>
+  <li>鉴别消息的来源</li>
+</ol>
+
+<p>消息认证码的算法中，通常会使用带密钥的散列函数（<code class="language-plaintext highlighter-rouge">HMAC</code>），或者块密码的带认证工作模式（如<code class="language-plaintext highlighter-rouge">CBC-MAC</code>）。信息鉴别码不能提供对信息的保密，若要同时实现保密认证，同时需要对信息进行<code class="language-plaintext highlighter-rouge">加密</code>。</p>
+
+<p>以上为<code class="language-plaintext highlighter-rouge">数字摘要</code>技术的内容，接下来我们讲一讲<code class="language-plaintext highlighter-rouge">非对称加密</code>技术。</p>
+
+<h2 id="8">2. 非对称加密技术</h2>
+<p>非对称加密算法需要两个密钥：公开密钥（public key:简称pk）和私有密钥（Secret key:简称sk）。公钥与私钥是一对，如果用公钥对数据进行加密，只有用对应的私钥才能解密。</p>
+
+<p>非对称加密算法实现机密信息交换的基本过程是：甲方生成一对密钥并将公钥公开，需要向甲方发送信息的其他角色(乙方)使用该密钥(甲方的公钥)对机密信息进行加密后再发送给甲方；甲方再用自己私钥对加密后的信息进行解密。甲方想要回复乙方时正好相反，使用乙方的公钥对数据进行加密，同理，乙方使用自己的私钥来进行解密。另一方面，甲方可以使用自己的私钥对机密信息进行签名后再发送给乙方；乙方再用甲方的公钥对甲方发送回来的数据进行验签。</p>
+
+<h3 id="15">2.1 RSA</h3>
+<p>RSA是一种公钥密码算法，被用于公钥密码和数字签名。RSA是一种非对称加密技术。</p>
+
+<p>RSA密钥至少为500位长，一般推荐使用1024位。这就使加密的计算量很大。为减少计算量，在传送信息时，常采用传统加密方法与公开密钥加密方法相结合的方式，即信息采用改进的DES或IDEA对话密钥加密，然后使用RSA密钥加密对话密钥和信息摘要。对方收到信息后，用不同的密钥解密并可核对信息摘要。</p>
+
+<p>RSA算法的保密强度随其密钥的长度增加而增强。但是，密钥越长，其加解密所耗用的时间也越长。速度一直是RSA的缺陷。一般来说只用于少量数据加密。RSA的速度比对应同样安全级别的对称密码算法要慢很多。</p>
+
+<p>通过上面的介绍，我们可以总结出RSA的特性:</p>
+
+<p><strong>既可以用公钥加密然后私钥解密，也可以用私钥加密然后公钥解密</strong></p>
+
+<blockquote>
+  <ul>
+    <li>公钥加密然后私钥解密，可以用于通信中拥有公钥的一方向拥有私钥的另一方传递机密信息，不被第三方窃听。可应用在原文的加密。</li>
+    <li>那么私钥加密然后公钥解密是用在什么场合呢？就是数字签名（摘要的加密）。</li>
+  </ul>
+</blockquote>
+
+<h2 id="9">3. 数字签名</h2>
+<p>数字签名（又称公钥数字签名）是只有信息的发送者才能产生的别人无法伪造的一段数字串，这段数字串同时也是对信息的<code class="language-plaintext highlighter-rouge">发送者发送信息真实性</code>的一个有效证明。</p>
+
+<p>通过发送数字签名， <br />
+接收者可以</p>
+<ol>
+  <li>确认接收到的消息（报文）的完整性，发送过程中有没有被篡改</li>
+  <li>鉴别发送者的身份</li>
+  <li>防抵赖</li>
+</ol>
+
+<p>发送者可以</p>
+<ol>
+  <li>加密信息</li>
+  <li>防止伪造信息</li>
+  <li>防止重放攻击</li>
+</ol>
+
+<p>数字签名应用<code class="language-plaintext highlighter-rouge">非对称密钥加密</code>技术与<code class="language-plaintext highlighter-rouge">数字摘要</code>技术。</p>
+
+<p>数字签名技术是将摘要信息用发送者的私钥加密，与原文一起传送给接收者。接收者用自己的公钥解密被加密的摘要信息，然后用HASH函数对收到的原文产生一个摘要信息，与解密的摘要信息对比。如果相同，则说明收到的信息是完整的，在传输过程中没有被修改，否则说明信息被修改过，因此数字签名能够验证信息的完整性。数字签名是个加密的过程，数字签名验证是个解密的过程。</p>
+
+<p>如果签名者想要对某个文件进行数字签名，公钥必须向<code class="language-plaintext highlighter-rouge">CA</code> (身份认证机构）来注册。注册后身份认证机构给你发一数字证书。对文件签名后，你把此数字证书连同文件及签名一起发给接受者，接受者向身份认证机构求证是否真地是用你的密钥签发的文件。</p>
+
+<h3 id="10">3.1 签名过程</h3>
+<ol>
+  <li>在正式的数字签名中，发送方首先对发送文件采用哈希算法，得到一个固定长度的消息摘要(Message Digest)；</li>
+  <li>再用自己的私钥(Secret key，SK)对消息摘要进行签名，形成发送方的数字签名。</li>
+  <li>数字签名将作为队件和原文一起发送给接收方；</li>
+  <li>接收方首先用发送方的公钥对数字签名进行解密得到发送方的数字摘要，然后用相同的哈希函数对原文进行哈希计算，得到一个新的消息摘要，最后将消息摘要与收到的消息摘要做比较。</li>
+</ol>
+
+<p><img src="/daviddong.github.io/assets/image/others-sign-01.png" alt="sign-process" class="center-image" /></p>
+
+<p><span id="3.1.1"><strong>3.1.1 例子</strong></span>     <br />
+一个完整的签名例子如下。</p>
+
+<p>为了保证信息传送的保密性、真实性、完整性和不可否认性，需要对传送的信息进行数字加密和签名，其传送过程为：</p>
+
+<blockquote>
+  <ol>
+    <li>发送者准备好要传送的数字信息（明文）</li>
+    <li>发送者对数字信息进行哈希运算（SH256/MD5），得到一个信息摘要；</li>
+    <li>发送者用自己的私钥对信息摘要进行加密得到数字签名（RSA），并将其附在数字信息上；</li>
+    <li>发送者随机产生一个加密密钥，并用此密码对要发送的信息（明文）进行加密（对称加密DES），形成密文；</li>
+    <li>发送者用接收者的公钥对刚才随机产生的加密密钥🔑进行加密，将加密后的<code class="language-plaintext highlighter-rouge">DES</code>密钥连同密文一起传送给接收者；</li>
+    <li>接收者收到传送来的密文和加密过的DES密钥，先用自己的私钥对加密的DES密钥进行解密，得到发送者随机产生的加密密钥；</li>
+    <li>接收者然后用随机密钥🔑对收到的密文进行解密，得到明文的数字信息，然后将随机密钥抛弃；</li>
+    <li>接收者用发送者的公钥对发送者的数字签名进行解密，得到信息摘要；</li>
+    <li>接收者用相同的哈希算法对收到的明文再进行一次哈希运算，得到一个新的信息摘要；</li>
+    <li>接收者将收到的信息摘要和新产生的信息摘要进行比较，如果一致，说明收到的信息没有被修改过，并且确实来自于发送者。</li>
+  </ol>
+</blockquote>
+
+<h3 id="11">3.2 X.509</h3>
+<p>最后我们来说一下数字签名中用于公钥的数字证书，为了证明公钥的有效性和合法性，信息发送者必须向<code class="language-plaintext highlighter-rouge">CA</code> (身份认证机构）来注册。注册后身份认证机构给你发一数字证书。信息发送者在签名时必须将数字证书连同文件及签名一起发给接受者，接受者接收到信息后会通过数字证书确认是否手里的公钥为发送者的。</p>
+
+<p>X.509正是一种数字证书的格式标准。</p>
+
+<p><span id="3.2.1"><strong>3.2.1 格式</strong></span>         <br />
+X.509规定了数字证书的格式。       <br />
+大致如下：</p>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">版本号
+序列号
+签名算法
+颁发者
+证书有效期
+  开始日期
+  终止日期
+主题
+主题公钥信息
+  公钥算法
+  主体公钥
+颁发者唯一身份信息（可选）
+主题唯一身份信息（可选）
+扩展信息（可选）
+签名</code></pre></figure>
+
+<p><span id="3.2.2"><strong>3.2.2 扩展名</strong></span>         <br />
+X.509有多种常用的扩展名。不过其中的一些还用于其它用途，就是说具有这个扩展名的文件可能并不是证书，比如说可能只是保存了私钥。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>扩展名</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>.pem(隐私增强型电子邮件)</td>
+      <td>DER编码的证书再进行Base64编码的数据存放在<code class="language-plaintext highlighter-rouge">-----BEGIN CERTIFICATE-----</code>和<code class="language-plaintext highlighter-rouge">-----END CERTIFICATE-----</code>之中</td>
+    </tr>
+    <tr>
+      <td>.cer/.crt/.der</td>
+      <td>通常是DER二进制格式的，但Base64编码后也很常见。</td>
+    </tr>
+    <tr>
+      <td>p7b/.p7c</td>
+      <td>PKCS</td>
+    </tr>
+    <tr>
+      <td>.p12</td>
+      <td>PKCS#12格式，包含证书的同时可能还有带密码保护的私钥。</td>
+    </tr>
+    <tr>
+      <td>.pfx</td>
+      <td>PKCS#12之前的格式（通常用PKCS#12格式，比如那些由IIS产生的PFX文件）。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="12">3.3 SSL证书</h3>
+
+<p>符合X.509格式的证书有多种，这里以SSL证书为例。</p>
+
+<p>常见的场景会是下面这样：</p>
+
+<blockquote>
+  <ul>
+    <li>客户端，比如浏览器会向服务端发送请求，服务端为了证明自己的身份，会发送证书给对方。</li>
+    <li>浏览器读取证书的数字签名部分，用自身根证书列表中对应的公钥证书对其进行解密。如果解密成功，并且证书哈希值与签名内的哈希值匹配一致，可证明站点提供的证书确实是该CA根证书签发的，否则给出风险提示。</li>
+    <li>验证通过之后，使用证书中的公钥对随机数和对称加密算法加密，发送给服务端，服务端用私钥进行解密，获得密钥和加密算法。</li>
+    <li>服务端与浏览器后续通信将会使用新的对称加密算法和随机密钥加密信息。</li>
+  </ul>
+</blockquote>
+
+<p>SSL证书从生成到使用涉及到了三次加解密过程：</p>
+
+<ul>
+  <li>证书生成的时候利用私钥签名，验证证书的时候利用公钥解密。</li>
+  <li>确认证书有效后，利用证书中的公钥进行加密，服务端利用私钥解密。</li>
+  <li>双方使用新生成的随机密钥进行数据加解密。</li>
+</ul>
+
+<p>用一张结构图表示下HTTPS和X.509的关系：</p>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">    HTTPS
+  /       \
+HTTP    TLS/SSL
+        /      \
+   通信内容    确认身份
+   对称加密    SSL证书 —— X.509 格式，非对称加密</code></pre></figure>
+
+<h3 id="13">3.4 数字签名应用</h3>
+
+<ul>
+  <li><strong>网站认证</strong> <br />
+最常见的用处就是用来认证一个网站的身份,用浏览器打开任何一个网站，然后点击地址栏前面的 🔒，点击查看证书，就可以看到网站的数字签名证书了。看过之前的内容我们就知道数字证书其实是对公钥的封装，在公钥的基础上添加了诸如颁发者之类的信息。</li>
+</ul>
+
+<p><img src="/daviddong.github.io/assets/image/others-sign-02.png" alt="sign-process" class="center-image" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">签名算法</code>一栏可以看到，它使用的是sha256RSA，也就是使用SHA-256计算摘要，然后使用RSA对摘要进行签名。</p>
+
+<ul>
+  <li>
+    <p><strong>代码签名</strong> <br />
+而除此之外，还有个地方我们经常碰到数字签名的——代码签名。<br /> 
+代码签名用于确保其来源可靠且未被篡改。</p>
+  </li>
+  <li>
+    <p><strong>比特币</strong> <br />
+比特币是一种完全匿名的数字货币，它的身份认证是基于ECDSA。比特币的账户地址就是对公钥计算摘要得到的，向全世界公布。而确认你是账户拥有者的唯一办法就是看你有没有账户对应的私钥。对于比特币中的任意一个交易记录，只有当其中付款方的签名是有效的，它才是有效的。</p>
+  </li>
+</ul>
+
+<h3 id="14">3.5 生成数字签名</h3>
+<p>在Windows平台下，Microsoft提供了一组工具用于生成和校验数字签名。关于这部分内容，我会另外写一篇文章介绍如何利用 Microsoft WDK 工具来生成数字签名。</p>
+
+<p>最后推荐一篇文章，讲的比我好，如果看了以上内容还有不明白的地方，可以继续阅读这篇文章。</p>
+
+<p><a href="http://www.ruanyifeng.com/blog/2011/08/what_is_a_digital_signature.html">数字签名是什么？</a>
+来自：<a href="http://www.ruanyifeng.com/blog/">阮一峰的网络日志</a></p>
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box">
+		    
+				<li class = "sidebar-title">关于文章</li>
+			
+			
+				
+					<li class = "sidebar-about-content sidebar-font-medium">本文详细介绍了数字签名及其相关的技术。</li>
+				
+				
+					<li class = "icon-link-1 sidebar-about-content sidebar-font-medium" style = "margin-top:30px">文章作者: <a href="https://github.com/gangdong">david.dong</a></li>
+				
+				<li class = "icon-hourglass sidebar-about-content sidebar-font-medium">阅读时间：15 mins</li>
+				<li class = "icon-book-open sidebar-about-content sidebar-font-medium">全文字数：5622</li>
+				
+					<li class = "icon-th-list-1 sidebar-about-content sidebar-font-medium">关键字: 数字签名</li>
+				
+				
+					<li class = "icon-hashtag sidebar-about-content sidebar-font-medium">标签: 
+					
+					<a href="/daviddong.github.io/category#Security">Security&nbsp;</a>
+					
+					</li>
+				
+			
+		</div>
+		
+		
+	    <div class="sidebar-toc-box">
+			
+			<li class = "sidebar-title">文章目录</li>
+			<li class = "sidebar-font-medium sidebar-toc-content"><ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#15">1. 数字摘要技术</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#2">1.1 散列函数</a></li>
+<li class="toc-entry toc-h3"><a href="#3">1.2 密码散列函数</a></li>
+<li class="toc-entry toc-h3"><a href="#4">1.3 MD5</a></li>
+<li class="toc-entry toc-h3"><a href="#5">1.4 SHA</a></li>
+<li class="toc-entry toc-h3"><a href="#6">1.5 HMAC</a></li>
+<li class="toc-entry toc-h3"><a href="#7">1.6 消息认证码</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#8">2. 非对称加密技术</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#15">2.1 RSA</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#9">3. 数字签名</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#10">3.1 签名过程</a></li>
+<li class="toc-entry toc-h3"><a href="#11">3.2 X.509</a></li>
+<li class="toc-entry toc-h3"><a href="#12">3.3 SSL证书</a></li>
+<li class="toc-entry toc-h3"><a href="#13">3.4 数字签名应用</a></li>
+<li class="toc-entry toc-h3"><a href="#14">3.5 生成数字签名</a></li>
+</ul>
+</li>
+</ul></li>
+			
+		</div>
+		
+	</div>
+	 
+  </div>
+  <!-- no sidebar, use flex width box! -->
+  <br><br><br>
+  <div class="post-container">
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">分享:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+		<li class = "icon-eye">&nbsp;<span id="busuanzi_value_page_pv"></span></li>
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">相关文章</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/daviddong.github.io/security/windows/2020/07/23/Security-signature-02.html">利用Microsoft WDK工具生成数字签名</a></li>
+			
+			<li><a href="/daviddong.github.io/security/2020/07/10/Security-mbedtls.html">mbedtls 使用说明</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">继续阅读</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta" style = "margin-bottom:40px"><ul class="navigation-bar" style = "margin-top:40px; min-width:40%">
+	 
+	 <a href="/daviddong.github.io/others/2020/06/20/Others-covid19.html"; style="width:100%"><span class = "navigation-bar-label">前一章</span><br>COVID-19</a>
+	 
+    </ul><ul class="navigation-bar" style = "margin-top:40px; min-width:40%"> 
+	 
+	 <a href="/daviddong.github.io/windows/2020/07/09/Windows-inf2cat.html"; style="width:100%"><span class = "navigation-bar-label">后一章</span><br>Inf2Cat 工具</a>
+	 
+    </ul></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/daviddong.github.io/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'daviddong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+      </section>
+    </main>
+<script src="/daviddong.github.io/assets/js/simple-jekyll-search.min.js"></script>
+<script src="/daviddong.github.io/assets/js/search.js"></script>
+
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9"></script>
+
+</body>
+</html>

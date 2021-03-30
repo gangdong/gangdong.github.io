@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono" rel="stylesheet">
+<link rel="stylesheet" href="/daviddong.github.io/assets/css/style.css">
+<link rel="icon" href="/daviddong.github.io/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="/daviddong.github.io/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<title>利用Microsoft WDK工具生成数字签名 | David Dong's Blog</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>利用Microsoft WDK工具生成数字签名 | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="利用Microsoft WDK工具生成数字签名" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="文章提供了”在windows平台下如何利用Microsoft提供的工具来生成数字签名”的方法。" />
+<meta property="og:description" content="文章提供了”在windows平台下如何利用Microsoft提供的工具来生成数字签名”的方法。" />
+<link rel="canonical" href="http://localhost:4000/daviddong.github.io/security/windows/2020/07/23/Security-signature-02.html" />
+<meta property="og:url" content="http://localhost:4000/daviddong.github.io/security/windows/2020/07/23/Security-signature-02.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-07-23T18:24:12+08:00" />
+<script type="application/ld+json">
+{"dateModified":"2020-07-23T18:24:12+08:00","datePublished":"2020-07-23T18:24:12+08:00","url":"http://localhost:4000/daviddong.github.io/security/windows/2020/07/23/Security-signature-02.html","@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/daviddong.github.io/BLOG"},"name":"david.dong"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/daviddong.github.io/security/windows/2020/07/23/Security-signature-02.html"},"author":{"@type":"Person","name":"david.dong"},"headline":"利用Microsoft WDK工具生成数字签名","description":"文章提供了”在windows平台下如何利用Microsoft提供的工具来生成数字签名”的方法。","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+
+</head>
+  <body><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><main class="container">
+      <section class="about">
+        <a href="/daviddong.github.io/blog/index.html"><img src="/daviddong.github.io/assets/avatar.png" alt="David Dong"></a>
+        <h2 id="title">
+          <a href="/daviddong.github.io/blog/index.html">David Dong</a>
+        </h2>
+        <p class="tagline">Java/C/C#/Python</p>
+		<!--add navigation --><nav class="navigation">
+            <ul>
+              
+            </ul>
+          </nav><!--put dark mode button here --><div>
+		  <ul class="social">
+			<p style="font-family: Raleway, sans-serif;font-size: 100%">Dark Mode
+			  <i class="icon-moon"></i>
+			  <label class="switch">
+				<input type="checkbox" id="dark-mode-toggle" onclick="toggleDarkMode()">
+				<span class="slider round"></span>
+			  </label>
+			</p>
+		  </ul>
+		<script type="text/javascript" src="/daviddong.github.io/assets/js/darkmode.js"></script>
+		</div>
+<!--put rss/code link here -->
+	    <div>
+          <ul class="tool">
+<a style="margin-right:10px; text-decoration: none" href="/daviddong.github.io/rss.xml">
+              <span class="icon-rss-1 tooltip">
+				<span class="tooltiptext">Rss</span>
+			  </span>
+           </a><a style="text-decoration: none" href="https://github.com/gangdong/daviddong.github.io">
+              <span class="icon-file-code tooltip">
+				<span class="tooltiptext">Code</span>
+			  </span>
+            </a>
+</ul>
+        </div>
+	    <!--show contact me -->
+	    <div class="contact"><li>CONTACT ME</li></div>
+		<!-- put social link here -->
+		<div>
+	      <ul class="social">
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture-3"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled-1"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/%E5%88%9A-%E8%91%A3-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style="font-size: 27px"></i>
+              </li>
+            </a>
+</ul>
+		</div>
+		<!--put timestamp here -->
+		<div class="timestamp">© 2021</div>
+	  <!-- about box end here -->
+      </section>
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+
+
+<div class="post-container">
+	<div class="menu-meta">
+		<div class="menu-logo" style="margin-top: 20px">BLOG</div>
+		<div class="menu" style="margin-top: 20px">
+			<a class="icon-doc-text icon_font" href="/daviddong.github.io/blog/index.html">Posts</a><a class="icon-archive-1 icon_font" href="/daviddong.github.io/archive">Archives</a><a class="icon-tags-1 icon_font" href="/daviddong.github.io/category">Categories</a><a class="icon-help-circled-3 icon_font" href="/daviddong.github.io/about">About</a>
+		</div>
+	</div>
+</div>
+<div class="post-container">
+  <li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">POST</h1>
+  </li>  
+  <a class="post-link" href="/daviddong.github.io/security/windows/2020/07/23/Security-signature-02.html">
+    <h2 class="post-title">利用Microsoft WDK工具生成数字签名</h2>
+  </a>
+   <div class="post-meta">
+    <div class="post-date icon-calendar" style="padding-left:0px;font-size:14px">Jul 23, 2020</div>
+  </div>
+  <br>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+  <div class="post-viewer-container">
+	<div class="post-fix-width">
+		<p>看过我这一篇文章 <a href="/daviddong.github.io/others/2020/07/06/Others-signature.html">「浅谈数字签名」</a> 的读者应该记得，在这篇文章的末尾遗留了一个问题 — <strong>在windows平台下如何利用Microsoft提供的工具来生成数字签名</strong>。我在这篇文章中会对这个问题做一个说明，并引用一个例子来介绍签名的过程。</p>
+
+<h2 id="1-相关工具"><span id="5">1. 相关工具</span></h2>
+<p>这里我先把和签名相关的工具罗列出来。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>工具</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>makecert.exe</td>
+      <td>使用这个工具来生成测试用的证书</td>
+    </tr>
+    <tr>
+      <td>cert2spc.exe</td>
+      <td>使用 cert2spc.exe 将公钥证书转换为软件发布者证书，即spc文件</td>
+    </tr>
+    <tr>
+      <td>pvk2pfx.exe</td>
+      <td>使用 pvk2pfx.exe 将公钥证书和私钥证书合并成一个PFX格式的证书文件</td>
+    </tr>
+    <tr>
+      <td>inf2cat.exe</td>
+      <td>驱动开发会用到，该工具确定驱动程序包的 INF 文件是否可以针对指定的 Windows 版本列表进行数字签名。如果可以，那么 Inf2Cat.exe 会生成适用于指定 Windows 版本的未签名的目录文件</td>
+    </tr>
+    <tr>
+      <td>signtool.exe</td>
+      <td>数字签名制作工具,制作数字签名和验证</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="2-制作流程"><span id="6">2. 制作流程</span></h2>
+
+<ol>
+  <li>使用 Inf2Cat.exe 将INF转成CAT 目录文件（针对驱动开发，非驱动程序可跳过这步）</li>
+  <li>使用 makecert.exe 制作自己的根证书</li>
+  <li>使用 cert2spc.exe 将公钥证书转换为软件发布者证书，即spc文件</li>
+  <li>使用 pvk2pfx.exe 将公钥证书和私钥证书合并成一个PFX格式的证书文件</li>
+  <li>使用 signtool.exe 签名</li>
+  <li>使用 signtool.exe 验证签名</li>
+</ol>
+
+<h2 id="3-举例"><span id="7">3. 举例</span></h2>
+
+<p>下面我就以一个例子来演示一下整个过程。</p>
+
+<h3 id="31-生成目录文件cat"><span id="8">3.1 生成目录文件（*.cat）</span></h3>
+<p>利用 Inf2Cat.exe 将INF 转换为 CAT 目录文件这部分内容，我在这一篇文章 <a href="/daviddong.github.io/others/2020/07/09/Others-inf2cat.html">Inf2Cat 工具使用</a> 中已经做过介绍。这里不在进行说明。</p>
+
+<h3 id="32-生成数字证书"><span id="9">3.2 生成数字证书</span></h3>
+<p>makecert.exe 是一种证书创建工具，生成仅用于测试目的的 <a href="/daviddong.github.io/others/2020/07/06/Others-signature.html#11">X.509</a> 证书。此工具将密钥对与指定发行者的名称相关联，并创建一个 X.509 证书，该证书将用户指定的名称绑定到密钥对的公共部分。</p>
+
+<p><strong>makecert.exe 的存放路径</strong></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">C</span><span class="p">:\</span><span class="no">Program</span> <span class="no">Files</span> <span class="p">(</span><span class="n">x86</span><span class="p">)\</span><span class="no">Windows</span> <span class="no">Kits</span><span class="p">\</span><span class="mi">10</span><span class="p">\</span><span class="n">bin</span><span class="p">\</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">17763.0</span><span class="p">\</span><span class="n">x86</span></code></pre></figure>
+
+<p>如果没有设置该路径的环境变量的话，使用时要先切换到该路径下。或者直接使用Visual Studio 的 <a href="https://docs.microsoft.com/zh-cn/dotnet/framework/tools/developer-command-prompt-for-vs">开发人员命令提示</a> <code class="language-plaintext highlighter-rouge">Developer Command Prompt</code> 执行命令。</p>
+
+<p>关于 makecert.exe 的命令格式和参数，请见附录 <a href="#1">「makecert.exe 命令格式」</a>。</p>
+
+<p>执行下列命令创建一个创建自签署证书 <code class="language-plaintext highlighter-rouge">RootDavid</code>。</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">makecert</span> <span class="o">-</span><span class="n">n</span> <span class="s2">"CN=RootDavid"</span> <span class="o">-</span><span class="n">r</span> <span class="o">-</span><span class="n">sv</span> <span class="n">testsk</span><span class="p">.</span><span class="nf">pvk</span> <span class="n">testpk</span><span class="p">.</span><span class="nf">cer</span></code></pre></figure>
+
+<p>运行这个命令后，会弹出提示框，首先给 <code class="language-plaintext highlighter-rouge">testsk.pvk</code> 文件设置私钥保护口令。</p>
+
+<p><img src="/daviddong.github.io/assets/image/others-make-sign-01.png" alt="makecert01" class="center-image"></p>
+
+<p>然后，再次输入这个口令用私钥(testsk.pvk文件中）来给公钥（<code class="language-plaintext highlighter-rouge">testpk.cer</code>文件中）签名（自签名）。</p>
+
+<p><img src="/daviddong.github.io/assets/image/others-make-sign-02.png" alt="makecert01" class="center-image"></p>
+
+<p>输入正确的私钥口令后，控制台会返回 Succeeded. 并在当前目录下生成两个文件</p>
+
+<p><img src="/daviddong.github.io/assets/image/others-make-sign-04.png" alt="makecert01" class="center-image"></p>
+
+<p>其中</p>
+<ol>
+  <li>私钥证书 - <code class="language-plaintext highlighter-rouge">testsk.pvk</code>
+</li>
+  <li>公钥证书 - <code class="language-plaintext highlighter-rouge">testpk.cer</code>
+</li>
+</ol>
+
+<p>如果你需要用这个根证书签发其他子证书的话，可以运行如下命令签发。</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">makecert</span> <span class="o">-</span><span class="n">n</span> <span class="s2">"CN=SubCertDavid"</span> <span class="o">-</span><span class="n">iv</span> <span class="n">testsk</span><span class="p">.</span><span class="nf">pvk</span> <span class="o">-</span><span class="n">ic</span> <span class="n">testpk</span><span class="p">.</span><span class="nf">cer</span> <span class="o">-</span><span class="n">sv</span> <span class="n">subsk</span><span class="p">.</span><span class="nf">pvk</span> <span class="n">subpk</span><span class="p">.</span><span class="nf">cer</span></code></pre></figure>
+
+<h3 id="33-将公钥证书格式转换成spc软件发布者证书"><span id="10">3.3 将公钥证书格式转换成SPC（软件发布者证书）</span></h3>
+
+<p>使用 cert2spc.exe 这个工具将刚才生成的公钥证书（testpk.cer）转换为 SPC 文件。  <br>
+<strong>cert2spc.exe 的存放路径</strong></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">C</span><span class="p">:\</span><span class="no">Program</span> <span class="no">Files</span> <span class="p">(</span><span class="n">x86</span><span class="p">)\</span><span class="no">Windows</span> <span class="no">Kits</span><span class="p">\</span><span class="mi">10</span><span class="p">\</span><span class="n">bin</span><span class="p">\</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">17763.0</span><span class="p">\</span><span class="n">x86</span></code></pre></figure>
+
+<p>关于 cert2spc.exe 的用法，请见附录 <a href="#2">「cert2spc.exe 命令格式」</a>。</p>
+
+<p>运行如下命令</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">C</span><span class="p">:\</span><span class="no">Program</span> <span class="no">Files</span> <span class="p">(</span><span class="n">x86</span><span class="p">)\</span><span class="no">Windows</span> <span class="no">Kits</span><span class="p">\</span><span class="mi">10</span><span class="p">\</span><span class="n">bin</span><span class="p">\</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">17763.0</span><span class="p">\</span><span class="n">x86</span><span class="p">\</span><span class="n">cert2spc</span> <span class="n">testpk</span><span class="p">.</span><span class="nf">cer</span> <span class="n">testpk</span><span class="p">.</span><span class="nf">spc</span></code></pre></figure>
+
+<p>执行成功后在当前目录下生成</p>
+
+<p><img src="/daviddong.github.io/assets/image/others-make-sign-06.png" alt="makecert01" class="center-image"></p>
+
+<h3 id="34-将公钥证书和私钥合并成一个pfx格式的证书文件"><span id="11">3.4 将公钥证书和私钥合并成一个PFX格式的证书文件</span></h3>
+<p>使用 pvk2pfx .exe 这个工具将公钥证书（testpk.spc）和私钥证书(testsk.pvk)合并成一个<code class="language-plaintext highlighter-rouge">PFX</code>格式的证书文件。    <br>
+<strong>pvk2pfx.exe 的存放路径</strong></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">C</span><span class="p">:\</span><span class="no">Program</span> <span class="no">Files</span> <span class="p">(</span><span class="n">x86</span><span class="p">)\</span><span class="no">Windows</span> <span class="no">Kits</span><span class="p">\</span><span class="mi">10</span><span class="p">\</span><span class="n">bin</span><span class="p">\</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">17763.0</span><span class="p">\</span><span class="n">x86</span></code></pre></figure>
+
+<p>关于 pvk2pfx.exe 的用法，请见附录 <a href="#3">「pvk2pfx.exe 命令格式」</a>。</p>
+
+<p>执行如下命令</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">C</span><span class="p">:\</span><span class="no">Program</span> <span class="no">Files</span> <span class="p">(</span><span class="n">x86</span><span class="p">)\</span><span class="no">Windows</span> <span class="no">Kits</span><span class="p">\</span><span class="mi">10</span><span class="p">\</span><span class="n">bin</span><span class="p">\</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">17763.0</span><span class="p">\</span><span class="n">x86</span><span class="p">\</span><span class="n">pvk2pfx</span> <span class="o">-</span><span class="n">pvk</span> <span class="n">testsk</span><span class="p">.</span><span class="nf">pvk</span> <span class="o">-</span><span class="n">spc</span> <span class="n">testpk</span><span class="p">.</span><span class="nf">spc</span> <span class="o">-</span><span class="n">pfx</span> <span class="n">testpfx</span><span class="p">.</span><span class="nf">pfx</span></code></pre></figure>
+
+<p>合并时会要求输入私钥testsk.pvk的保护口令来合并.pvk和.spc文件。输入之前设定的口令，就可在当前目录下得到生成的pfx文件。</p>
+
+<p><img src="/daviddong.github.io/assets/image/others-make-sign-08.png" alt="makecert01" class="center-image"></p>
+
+<h3 id="35-生成签名"><span id="12">3.5 生成签名</span></h3>
+<p>使用signtool命令签名。</p>
+
+<p><strong>signtool.exe 的存放路径</strong></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">C</span><span class="p">:\</span><span class="no">Program</span> <span class="no">Files</span> <span class="p">(</span><span class="n">x86</span><span class="p">)\</span><span class="no">Windows</span> <span class="no">Kits</span><span class="p">\</span><span class="mi">10</span><span class="p">\</span><span class="n">bin</span><span class="p">\</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">17763.0</span><span class="p">\</span><span class="n">x86</span></code></pre></figure>
+
+<p>关于signtool的用法，请见附录 <a href="#4">「signtool.exe 命令格式」</a>。</p>
+
+<p>执行下列命令。</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">signtool</span> <span class="n">sign</span> <span class="sr">/v /</span><span class="n">f</span> <span class="n">testpfx</span><span class="p">.</span><span class="nf">pfx</span> <span class="sr">/tr http:/</span><span class="o">/</span><span class="n">timestamp</span><span class="p">.</span><span class="nf">digicert</span><span class="p">.</span><span class="nf">com</span> <span class="no">MXT_ENC2Array_Converter</span><span class="p">.</span><span class="nf">exe</span></code></pre></figure>
+
+<p>如果成功，会返回</p>
+
+<p><img src="/daviddong.github.io/assets/image/others-make-sign-10.png" alt="makecert01" class="center-image"></p>
+
+<p>这时签名已经成功了。我们打开被签名的应用程序的属性标签，找到数字签名那一栏，可以看到签名的信息。</p>
+
+<p><img src="/daviddong.github.io/assets/image/others-make-sign-11.png" alt="makecert01" class="center-image"></p>
+
+<p>点开 <code class="language-plaintext highlighter-rouge">详细信息</code>-&gt; <code class="language-plaintext highlighter-rouge">高级</code>，可以看详细的签名信息。</p>
+
+<p><img src="/daviddong.github.io/assets/image/others-make-sign-12.png" alt="makecert01" class="center-image"></p>
+
+<p>X.509 格式证书信息。</p>
+
+<p><img src="/daviddong.github.io/assets/image/others-make-sign-13.png" alt="makecert01" class="center-image"></p>
+
+<p>证书颁发路径为根证书。</p>
+
+<p><img src="/daviddong.github.io/assets/image/others-make-sign-14.png" alt="makecert01" class="center-image"></p>
+
+<p>我们看到当前的证书是不授信的，需要将其添加导入证书库中。 <br>
+Microsoft规定应使用证书存储区来安全地存储证书（证书存储区是系统中一个特殊区域，专门用来保存X.509数字证书）。</p>
+
+<p><img src="/daviddong.github.io/assets/image/others-make-sign-15.png" alt="makecert01" class="center-image"></p>
+
+<p>Windows 预设了以下存储区：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>存储区</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>AddressBook</td>
+      <td>其他用户的 X.509 证书存储区。</td>
+    </tr>
+    <tr>
+      <td>AuthRoot</td>
+      <td>第三方证书颁发机构 (CA) 的 X.509 证书存储区。</td>
+    </tr>
+    <tr>
+      <td>CertificateAuthority</td>
+      <td>中间证书颁发机构 (CA) 的 X.509 证书存储区。</td>
+    </tr>
+    <tr>
+      <td>Disallowed</td>
+      <td>吊销的证书的 X.509 证书存储区。</td>
+    </tr>
+    <tr>
+      <td>My</td>
+      <td>个人证书的 X.509 证书存储区。</td>
+    </tr>
+    <tr>
+      <td>Root</td>
+      <td>受信任的根证书颁发机构 (CA) 的 X.509 证书存储区。</td>
+    </tr>
+    <tr>
+      <td>TrustedPeople</td>
+      <td>直接受信任的人和资源的 X.509 证书存储区。</td>
+    </tr>
+    <tr>
+      <td>TrustedPublisher</td>
+      <td>直接受信任的发行者的 X.509 证书存储区。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>下面我们就将证书添加到存储区，选择 <code class="language-plaintext highlighter-rouge">安装证书</code>，然后一路 <code class="language-plaintext highlighter-rouge">Next</code>。</p>
+
+<p><img src="/daviddong.github.io/assets/image/others-make-sign-16.png" alt="makecert01" class="center-image"></p>
+
+<p>直到 <code class="language-plaintext highlighter-rouge">证书存储</code> 步骤，选择 <code class="language-plaintext highlighter-rouge">将所有的证书放入下列存储</code>：点击 <code class="language-plaintext highlighter-rouge">浏览</code>，在弹出的对话框中选择 <code class="language-plaintext highlighter-rouge">个人</code>-&gt; <code class="language-plaintext highlighter-rouge">确定</code>。</p>
+
+<p><img src="/daviddong.github.io/assets/image/others-make-sign-17.png" alt="makecert01" class="center-image"></p>
+
+<p>为什么要选择 <code class="language-plaintext highlighter-rouge">个人</code> 呢？可以参见 signtool 的 <a href="#sign">sign 子命令的/s</a> 选项的说明：「指定要在搜索证书时打开的存储区。 如果未指定该选项，则打开<code class="language-plaintext highlighter-rouge">My</code>存储」这里的 <code class="language-plaintext highlighter-rouge">My</code> 就是 <code class="language-plaintext highlighter-rouge">个人</code>。然后就可以一路 <code class="language-plaintext highlighter-rouge">下一步</code> 到导入完成了。我们可以到计算机的管理控制台确认。在开始菜单中搜索并运行<code class="language-plaintext highlighter-rouge">mmc</code>。在mmc界面中，选择 <code class="language-plaintext highlighter-rouge">文件</code>-&gt; <code class="language-plaintext highlighter-rouge">添加删除管理单元</code>。在弹出的 <code class="language-plaintext highlighter-rouge">添加删除管理单元</code> 对话框中，在左边的 <code class="language-plaintext highlighter-rouge">可用的管理单元</code> 中选择 <code class="language-plaintext highlighter-rouge">证书</code>。</p>
+
+<p><img src="/daviddong.github.io/assets/image/others-make-sign-18.png" alt="makecert01" class="center-image"></p>
+
+<p>点击中间的 <code class="language-plaintext highlighter-rouge">添加</code> 按钮，在弹出的对话框中选择 <code class="language-plaintext highlighter-rouge">我的用户帐户</code> 或 <code class="language-plaintext highlighter-rouge">计算机用户帐户</code>，再点击 <code class="language-plaintext highlighter-rouge">完成</code>：</p>
+
+<p><img src="/daviddong.github.io/assets/image/others-make-sign-19.png" alt="makecert01" class="center-image"></p>
+
+<p>就将 <code class="language-plaintext highlighter-rouge">证书</code> 节点添加到 <code class="language-plaintext highlighter-rouge">所选管理节点</code> 中了：</p>
+
+<p>点击 <code class="language-plaintext highlighter-rouge">确定</code>，回到管理控制台主界面中，在左边的树控件中展开 <code class="language-plaintext highlighter-rouge">证书</code> -&gt; <code class="language-plaintext highlighter-rouge">当前用户</code>-&gt; <code class="language-plaintext highlighter-rouge">个人</code>，选择 <code class="language-plaintext highlighter-rouge">证书</code> 节点，就可以看见已经导入的RootDavid证书。</p>
+
+<p><img src="/daviddong.github.io/assets/image/others-make-sign-20.png" alt="makecert01" class="center-image"> 
+双击RootDavid，可以看见证书对话框里写着“您有一个与该证书对应的私钥”。对话框里还写着“此CA根目录证书不受信任。要启用信任，请将该证书安装到 <code class="language-plaintext highlighter-rouge">受信任的根证书颁发机构</code> 存储区”。后面会讲到这一点。</p>
+
+<p><img src="/daviddong.github.io/assets/image/others-make-sign-21.png" alt="makecert01" class="center-image"></p>
+
+<h3 id="36-验证签名"><span id="15">3.6 验证签名</span></h3>
+
+<p>接下来就是要验证exe的签名。</p>
+
+<p>执行下列命令</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">signtool</span> <span class="n">verify</span> <span class="sr">/pa MXT_ENC2Array_Converter.exe</span></code></pre></figure>
+
+<p>此时返回了如下的结果，显示</p>
+
+<p><img src="/daviddong.github.io/assets/image/others-make-sign-22.png" alt="makecert01" class="center-image"></p>
+
+<p>这是因为目前还没有将RootDavid的公钥证书添加到之前提到的 <code class="language-plaintext highlighter-rouge">受信任的根证书颁发机构</code>。要做这一步的话，需要找到公钥证书 <code class="language-plaintext highlighter-rouge">testpk.cer</code>，然后双击该cer文件，在弹出的证书对话框中选择 <code class="language-plaintext highlighter-rouge">安装证书</code>。接下来和之前的导入证书操作一样，只是在 <code class="language-plaintext highlighter-rouge">证书存储</code> 这一步，需要选择将证书存储在 <code class="language-plaintext highlighter-rouge">受信任的根证书颁发机构</code> 存储区，而不是之前的 <code class="language-plaintext highlighter-rouge">个人</code> 存储区中。</p>
+
+<p><img src="/daviddong.github.io/assets/image/others-make-sign-23.png" alt="makecert01" class="center-image">
+此时会弹出一个警告提示，让你确认是否要安装此证书到授信存储区，点击确认后，成功安装。回到管理控制台主界面中，在左边的树控件中展开 <code class="language-plaintext highlighter-rouge">证书</code> -&gt; <code class="language-plaintext highlighter-rouge">当前用户</code> -&gt; <code class="language-plaintext highlighter-rouge">受信任的根证书颁发机构</code>，选择 <code class="language-plaintext highlighter-rouge">证书</code> 节点，就可以看见已经导入的 <code class="language-plaintext highlighter-rouge">testpk.cer</code> 公钥证书。 <br>
+此时在进行验证，验证成功！<img class="emoji" title=":100:" alt=":100:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f4af.png" height="20" width="20"></p>
+
+<p><img src="/daviddong.github.io/assets/image/others-make-sign-24.png" alt="makecert01" class="center-image"></p>
+
+<p>此时再打开被签名的应用程序属性页，可以看到签名已经是授信的了。</p>
+
+<p><img src="/daviddong.github.io/assets/image/others-make-sign-25.png" alt="makecert01" class="center-image"></p>
+
+<p><br></p>
+<h2 id="4-常见问题"><span id="13">4. 常见问题</span></h2>
+
+<ol>
+  <li>执行 makecert.exe 时出现如下错误</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="s1">'makecert'</span> <span class="n">is</span> <span class="n">not</span> <span class="n">recognized</span> <span class="n">as</span> <span class="n">an</span> <span class="n">internal</span> <span class="n">or</span> <span class="n">external</span> <span class="n">command</span><span class="p">,</span>
+<span class="n">operable</span> <span class="n">program</span> <span class="n">or</span> <span class="n">batch</span> <span class="n">file</span><span class="o">.</span></code></pre></figure>
+
+<p>原因：这是因为没有在 makecert.exe 的路径下执行该命令，解决方法时切换到工具所在的目录下执行。</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">cd</span> <span class="no">C</span><span class="p">:\</span><span class="no">Program</span> <span class="no">Files</span> <span class="p">(</span><span class="n">x86</span><span class="p">)\</span><span class="no">Windows</span> <span class="no">Kits</span><span class="p">\</span><span class="mi">10</span><span class="p">\</span><span class="n">bin</span><span class="p">\</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">17763.0</span><span class="p">\</span><span class="n">x86</span></code></pre></figure>
+
+<p>或者直接使用Visual Studio 的 <a href="https://docs.microsoft.com/zh-cn/dotnet/framework/tools/developer-command-prompt-for-vs">开发人员命令提示</a> <code class="language-plaintext highlighter-rouge">Developer Command Prompt</code> 运行命令。</p>
+
+<ol>
+  <li>我在执行 makecert.exe 时失败，返回如下提示</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Error</span><span class="p">:</span> <span class="no">File</span> <span class="n">already</span> <span class="n">exists</span> <span class="k">for</span> <span class="n">the</span> <span class="n">subject</span> <span class="p">(</span><span class="s1">'testsk.pvk'</span><span class="p">)</span>
+<span class="no">Error</span><span class="p">:</span> <span class="no">Can</span><span class="s1">'t create the key of the subject ('</span><span class="n">testsk</span><span class="p">.</span><span class="nf">pvk</span><span class="err">'</span><span class="p">)</span>
+<span class="no">Failed</span></code></pre></figure>
+
+<p>原因：这是因为没有在管理员权限下执行 makecert.exe 命令，解决方法是用管理员权限打开 CMD，运行命令。</p>
+
+<ol>
+  <li>我的需要签名的文件名里有空格，执行签名的操作后失败。</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">signtool</span> <span class="n">sign</span> <span class="sr">/v /</span><span class="n">f</span> <span class="n">testpfx</span><span class="p">.</span><span class="nf">pfx</span> <span class="sr">/tr http:/</span><span class="o">/</span><span class="n">timestamp</span><span class="p">.</span><span class="nf">wosign</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="n">rfc3161</span> <span class="n">my</span> <span class="n">file</span> <span class="nb">name</span><span class="p">.</span><span class="nf">exe</span></code></pre></figure>
+
+<p>原因：文件名不能包含空格，重命名后再次签名可以成功。</p>
+
+<ol>
+  <li>执行 <code class="language-plaintext highlighter-rouge">signtool verify</code> 时提示
+<img src="/daviddong.github.io/assets/image/others-make-sign-26.png" alt="makecert01" class="center-image">
+原因：这是因为公钥文件xx.cer没有被添加到受信任的根证书颁发机构。解决方法 <a href="#15">如上</a>。</li>
+</ol>
+
+<h2 id="5-附录"><span id="14">5. 附录</span></h2>
+<h3 id="51-makecertexe-"><span id="1">5.1 makecert.exe </span></h3>
+<p>makecert.exe 命令格式</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">MakeCert</span> <span class="p">[</span><span class="sr">/b DateStart] [/e</span> <span class="no">DateEnd</span><span class="p">]</span> <span class="p">[</span><span class="sr">/len KeyLength] [/m</span> <span class="n">nMonths</span><span class="p">]</span> <span class="p">[</span><span class="sr">/n "Name"] [/</span><span class="n">pe</span><span class="p">]</span> <span class="p">[</span><span class="sr">/r] [/s</span><span class="n">c</span> <span class="no">SubjectCertFile</span><span class="p">]</span> <span class="p">[</span><span class="sr">/sk SubjectKey] [/s</span><span class="n">r</span> <span class="no">SubjectCertStoreLocation</span><span class="p">]</span> <span class="p">[</span><span class="sr">/ss SubjectCertStoreName] [/s</span><span class="n">v</span> <span class="no">SubjectKeyFile</span><span class="p">]</span><span class="no">OutputFile</span></code></pre></figure>
+
+<p><span id="5.1.1"><strong>5.1.1 基本选项</strong></span></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>选项</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">-n</code> x.509name</td>
+      <td>指定主题的证书名称。在双引号中指定此名称，并加上前缀 CN=；例如，”CN=myName”。</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-pe</code></td>
+      <td>将所生成的私钥标记为可导出。这样可将私钥包括在证书中。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">-sk</code> keyname</td>
+      <td>指定主题的密钥容器位置，该位置包含私钥。如果密钥容器不存在，系统将创建一个。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">-sr</code> location</td>
+      <td>指定主题的证书存储位置。Location 可以是 currentuser（默认值）或 localmachine。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">-ss</code> store</td>
+      <td>指定主题的证书存储名称，输出证书即存储在那里。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">-#</code> number</td>
+      <td>指定一个介于 1 和 2,147,483,647 之间的序列号。默认值是由 Makecert.exe 生成的唯一值。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">-$</code> authority</td>
+      <td>指定证书的签名权限，必须设置为 commercial（对于商业软件发行者使用的证书）或 individual（对于个人软件发行者使用的证书）。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><span id="5.1.1"><strong>5.1.2 扩展选项</strong></span></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>选项</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">-a</code> algorithm</td>
+      <td>指定签名算法。必须是 <code class="language-plaintext highlighter-rouge">md5</code>（默认值）或 <code class="language-plaintext highlighter-rouge">sha1</code>。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">-b</code> mm/dd/yyyy</td>
+      <td>指定有效期的开始时间。默认为证书的创建日期。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">-e</code> mm/dd/yyyy</td>
+      <td>指定有效期的结束时间。默认为 <code class="language-plaintext highlighter-rouge">12/31/2039 11:59:59 GMT</code>。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">-m</code> number</td>
+      <td>以月为单位指定证书有效期的持续时间。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">-cy</code> certType</td>
+      <td>指定证书类型。有效值是 <code class="language-plaintext highlighter-rouge">end</code>（对于最终实体）和 <code class="language-plaintext highlighter-rouge">authority</code>（对于证书颁发机构）。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">-d</code> name</td>
+      <td>显示主题的名称</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">-eku</code> oid[,oid]</td>
+      <td>将用逗号分隔的增强型密钥用法对象标识符 (OID) 列表插入到证书中。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">-h</code> number</td>
+      <td>指定此证书下面的树的最大高度。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">-ic</code> file</td>
+      <td>指定颁发者的证书文件。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">-ik</code> keyName</td>
+      <td>指定颁发者的密钥容器名称。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">-iky</code> keytype</td>
+      <td>指定颁发者的密钥类型，必须是 exchange、signature 或一个表示提供程序类型的整数。默认情况下，可传入 1 表示交换密钥，传入 2 表示签名密钥。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">-in</code> name</td>
+      <td>指定颁发者的证书公用名称。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">-ip</code> provider</td>
+      <td>指定颁发者的 CryptoAPI 提供程序名称。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">-ir</code> location</td>
+      <td>指定颁发者的证书存储位置。Location 可以是 currentuser（默认值）或 localmachine。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">-is</code> store</td>
+      <td>指定颁发者的证书存储名称。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">-iv</code> pvkFile</td>
+      <td>指定颁发者的 .pvk 私钥文件。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">-iy</code> pvkFile</td>
+      <td>指定颁发者的 CryptoAPI 提供程序类型。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">-l</code> link</td>
+      <td>到策略信息的链接（例如，一个 URL）。</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-r</code></td>
+      <td>创建自签署证书。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">-sc</code> file</td>
+      <td>指定主题的证书文件。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">-sky</code> keytype</td>
+      <td>指定主题的密钥类型，必须是exchange、 signature或一个表示提供程序类型的整数。默认情况下，可传入 1 表示交换密钥，传入 2 表示签名密钥。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">-sp</code> provider</td>
+      <td>指定主题的 CryptoAPI 提供程序名称。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">-sv</code> pvkFile</td>
+      <td>指定主题的 .pvk 私钥文件。如果该文件不存在，系统将创建一个。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">-sy</code> type</td>
+      <td>指定主题的 CryptoAPI 提供程序类型。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="52-cert2spcexe-"><span id="2">5.2 cert2spc.exe </span></h3>
+<p>软件发行者证书测试工具 cert2spc.exe 从一个或多个X.509证书创建软件发行者证书（SPC）。cert2spc.exe 仅用于测试目的。商业目的的SPC可以从证书颁发机构（如VeriSign或Thawte）获取。</p>
+
+<p><span id="5.2.1"><strong>5.2.1 语法格式</strong></span></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">cert2spc</span> <span class="n">cert1</span><span class="p">.</span><span class="nf">cer</span> <span class="o">|</span> <span class="n">crl1</span><span class="p">.</span><span class="nf">crl</span> <span class="p">[</span><span class="o">...</span> <span class="n">certN</span><span class="p">.</span><span class="nf">cer</span> <span class="o">|</span> <span class="n">crlN</span><span class="p">.</span><span class="nf">crl</span><span class="p">]</span> <span class="n">outputSPCfile</span><span class="p">.</span><span class="nf">spc</span></code></pre></figure>
+
+<p><span id="5.2.2"><strong>5.2.2 参数</strong></span></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>参数</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">certN.cer</code></td>
+      <td>要包含在 SPC 文件中的 X.509 证书的名称。 可以指定用空格分隔的多个名称。</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">crlN.crl</code></td>
+      <td>要包含在 SPC 文件中的证书吊销列表的名称。 可以指定用空格分隔的多个名称。</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">outputSPCfile.spc</code></td>
+      <td>将包含 X.509 证书的 PKCS #7 对象的名称。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><span id="5.2.3"><strong>5.2.3 选项</strong></span></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>选项</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>/?</td>
+      <td>显示该工具的命令语法和选项。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="53-pvk2pfxexe-"><span id="3">5.3 pvk2pfx.exe </span></h3>
+<p>Pvk2Pfx.exe 是一个命令行工具，它将.spc、.cer和.pvk文件中包含的公钥和私钥信息复制到个人信息交换（.pfx）文件中。
+命令格式</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">pvk2pfx</span> <span class="sr">/pvk pvkfilename.pvk [/</span><span class="n">pi</span> <span class="n">pvkpassword</span><span class="p">]</span> <span class="o">/</span><span class="n">spc</span> <span class="n">spcfilename</span><span class="p">.</span><span class="nf">ext</span> <span class="p">[</span><span class="sr">/pfx pfxfilename.pfx [/</span><span class="n">po</span> <span class="n">pfxpassword</span><span class="p">]</span> <span class="p">[</span><span class="sr">/f]]</span></code></pre></figure>
+
+<p><span id="5.3.1"><strong>5.3.1 参数</strong></span></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>参数</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/pvk</code> pvkfilename.pvk</td>
+      <td>指定一个.pvk 文件的名称。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/spc</code> spcfilename.ext</td>
+      <td>指定的名称和扩展名软件发布者证书 (SPC)包含证书的文件。 该文件可以是.spc 文件或 <code class="language-plaintext highlighter-rouge">.cer</code> 文件。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/pfx</code> pfxfilename.pfx</td>
+      <td>指定.pfx 文件的名称。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/pi</code> pvkpassword</td>
+      <td>指定.pvk 文件的密码。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/po</code> pfxpassword</td>
+      <td>指定.pfx 文件的密码。 如果未指定.pfx 文件的密码，.pfx 文件的密码将作为.pvk 文件的密码相同。</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/f</code></td>
+      <td>配置 Pvk2Pfx 覆盖.pfx 文件，如果存在与指定的同名 -pfx切换。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>若要使用 SignTool 工具来签署驱动程序符合的方式使用 SPC内核模式代码签署策略，必须将 SPC 信息添加到对进行签名的驱动程序在本地计算机上个人证书存储。有关如何将 SPC 信息添加到个人证书存储区的信息，请参阅<a href="https://docs.microsoft.com/zh-cn/windows-hardware/drivers/install/software-publisher-certificate">「Microsoft Docs - 软件发布者证书」</a>。</p>
+
+<h3 id="54-signtoolexe-"><span id="4">5.4 signtool.exe </span></h3>
+<p>签名工具是一个命令行工具，用于对文件进行数字签名，以及验证文件和时间戳文件中的签名。</p>
+
+<p><span id="5.4.1"><strong>5.4.1 语法格式</strong></span> <br>
+在命令提示符处，键入以下内容：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">signtool</span> <span class="p">[</span><span class="n">command</span><span class="p">]</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="p">[</span><span class="n">file_name</span> <span class="o">|</span> <span class="o">...</span><span class="p">]</span>  </code></pre></figure>
+
+<p><span id="5.4.2"><strong>5.4.2 参数</strong></span></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>参数</th>
+      <th>描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">command</code></td>
+      <td>指定要对文件执行的操作的四个命令（<code class="language-plaintext highlighter-rouge">catdb</code>、<code class="language-plaintext highlighter-rouge">sign</code>、<code class="language-plaintext highlighter-rouge">Timestamp</code> 或 <code class="language-plaintext highlighter-rouge">Verify</code>）之一。 有关每个命令的说明，请参见下一个表。</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">options</code></td>
+      <td>用于修改命令的选项。 除全局 <code class="language-plaintext highlighter-rouge">/q</code> 和 <code class="language-plaintext highlighter-rouge">/v</code> 选项之外，每个命令均支持一组唯一选项。</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">file_name</code></td>
+      <td>要进行签名的文件的路径。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>签名工具支持下列命令。 每个命令均与不同的选项集结合使用，这些选项集已在其各自的节中列出。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>命令</th>
+      <th>描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">catdb</code></td>
+      <td>在目录数据库中添加或移除目录文件。 目录数据库用于自动查找目录文件，并由 GUID 标识。 有关 <code class="language-plaintext highlighter-rouge">catdb</code> 命令支持的选项列表，请参阅 <a href="#catdb">catdb 命令选项</a>。</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sign</code></td>
+      <td>对文件进行数字签名。 数字签名可以阻止文件被篡改，并且使用户能够基于签名证书验证签名者。 有关 <code class="language-plaintext highlighter-rouge">sign</code> 命令支持的选项列表，请参阅 <a href="#sign">sign 命令选项</a>。</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Timestamp</code></td>
+      <td>为文件添加时间戳。 有关 <code class="language-plaintext highlighter-rouge">TimeStamp</code> 命令支持的选项列表，请参阅 <a href="#TimeStamp">TimeStamp 命令选项</a>。</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Verify</code></td>
+      <td>通过确定签名证书是否由受信任的颁发机构颁发、是否已撤消签名证书，以及签名证书对于特定策略是否有效（可选）来验证文件的数字签名。 有关 <code class="language-plaintext highlighter-rouge">Verify</code> 命令支持的选项列表，请参阅 <a href="#Verify">Verify 命令选项</a>。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>下列选项适用于所有签名工具命令。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>全局选项</th>
+      <th>描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>/q</strong></td>
+      <td>如果命令运行成功，则不显示输出；如果命令运行失败，则显示最小输出。</td>
+    </tr>
+    <tr>
+      <td><strong>/v</strong></td>
+      <td>无论命令是否运行成功，都显示详细输出，并显示警告消息。</td>
+    </tr>
+    <tr>
+      <td><strong>/debug</strong></td>
+      <td>显示调试信息。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><a name="catdb"></a>
+<span id="5.4.3"><strong>5.4.3 catdb 命令选项</strong></span><br>
+ 下表列出了可与 <code class="language-plaintext highlighter-rouge">catdb</code> 命令一起使用的选项。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Catdb 选项</th>
+      <th>描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/d</code></td>
+      <td>指定更新默认目录数据库。 如果 <code class="language-plaintext highlighter-rouge">/d</code> 和 <code class="language-plaintext highlighter-rouge">/g</code> 选项都未使用，则签名工具会更新系统组件和驱动程序数据库。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/g</code> GUID</td>
+      <td>指定由全局唯一标识符 GUID 标识的目录数据库已更新。</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/r</code></td>
+      <td>从目录数据库中移除指定的目录。 如果未指定该选项，签名工具将向目录数据库添加指定目录。</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/u</code></td>
+      <td>指定自动为添加的目录文件生成唯一名称。 如有必要，重命名目录文件以阻止与现有目录文件发生名称冲突。 如果未指定该选项，签名工具将覆盖与所添加的目录同名的任何现有目录。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><a name="sign"></a>
+<span id="5.4.4"><strong>5.4.4 sign 命令选项</strong></span><br>
+ 下表列出了可与 <code class="language-plaintext highlighter-rouge">sign</code> 命令一起使用的选项。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sign 命令选项</th>
+      <th>描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/a</code></td>
+      <td>自动选择最佳签名证书。 签名工具将查找满足所有指定条件的所有有效证书，并选择有效时间最长的证书。 如果未提供该选项，签名工具仅查找一个有效的签名证书。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/ac</code>  file</td>
+      <td>将 file 中的其他证书添加到签名块。</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/as</code></td>
+      <td>追加此签名。 如果不存在主签名，则改为使此签名成为主签名。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/c</code>  CertTemplateName</td>
+      <td>指定用于对证书进行签名的证书模板名（一个 Microsoft 扩展）。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/csp</code>  CSPName</td>
+      <td>指定包含私钥容器的加密服务提供程序 (CSP)。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/d</code>  Desc</td>
+      <td>指定已签名内容的说明。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/du</code>  URL</td>
+      <td>为已签名内容的详细说明指定统一资源定位器 (URL)。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/f</code>  SignCertFile</td>
+      <td>指定文件中的签名证书。 如果文件采用个人信息交换 (PFX) 格式且受密码保护，则使用 <code class="language-plaintext highlighter-rouge">/p</code> 选项指定密码。 如果文件不包含私钥，则使用 <code class="language-plaintext highlighter-rouge">/csp</code> 和 <code class="language-plaintext highlighter-rouge">/kc</code> 选项指定 CSP 和私钥容器名。</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/fd</code></td>
+      <td>指定要用于创建文件签名的文件摘要算法。 默认值为 SHA1。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/i</code>  IssuerName</td>
+      <td>指定签名证书的颁发者的名称。 该值可以是整个颁发者名称的子字符串。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/kc</code>  PrivKeyContainerName</td>
+      <td>指定私钥容器名。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/n</code>  SubjectName</td>
+      <td>指定签名证书的主题的名称。 该值可以是整个主题名称的子字符串。</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/nph</code></td>
+      <td>如果支持，则取消可执行文件的页面哈希。 默认值由 SIGNTOOL_PAGE_HASHES 环境变量和 wintrust.dll 版本决定。 对于非 PE 文件，忽略此选项。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/p</code>  Password</td>
+      <td>指定打开 PFX 文件时要使用的密码。 （使用 <code class="language-plaintext highlighter-rouge">/f</code> 选项指定 PFX 文件。）</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/p7</code> <em>路径</em>
+</td>
+      <td>指定为每个指定的内容文件生成的公钥加密标准 (PKCS) #7 文件。 PKCS #7 文件命名为 path\filename.p7。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/p7ce</code> Value</td>
+      <td>为已签名的 PKCS #7 内容指定选项。 将 Value 设置为“嵌入的”，可将已签名内容嵌入到 PKCS #7 文件中；如果设置为“DetachedSignedData”，则可生成分离的 PKCS #7 文件的已签名数据部分。 如果未使用 <code class="language-plaintext highlighter-rouge">/p7ce</code> 选项，默认情况下将嵌入已签名的内容。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/p7co</code> &lt;OID&gt;</td>
+      <td>指定标识已签名的 PKCS #7 内容的对象标识符 (OID)。</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/ph</code></td>
+      <td>如果支持，则生成可执行文件的页面哈希。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/r</code>  RootSubjectName</td>
+      <td>指定签名证书必须链接到的根证书的主题名称。 该值可以是根证书的整个主题名称的子字符串。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/s</code>  StoreName</td>
+      <td>指定要在搜索证书时打开的存储。 如果未指定该选项，则打开 <code class="language-plaintext highlighter-rouge">My</code> 存储。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/sha1</code>  Hash</td>
+      <td>指定签名证书的 SHA1 哈希。 当多个证书满足剩余开关指定的条件时，通常会指定 SHA1 哈希。</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/sm</code></td>
+      <td>指定使用计算机存储，而不是用户存储。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/t</code>  URL</td>
+      <td>指定时间戳服务器的 URL。 如果该选项（或 <code class="language-plaintext highlighter-rouge">/tr</code>）不存在，将不会对签名文件执行时间戳操作。 如果时间戳操作失败，将生成一个警告。 此选项不能与 <code class="language-plaintext highlighter-rouge">/tr</code> 选项一起使用。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/td</code>  alg</td>
+      <td>将此选项与 <code class="language-plaintext highlighter-rouge">/tr</code> 选项一起使用可请求 RFC 3161 时间戳服务器使用的摘要算法。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/tr</code>  URL</td>
+      <td>指定 RFC 3161 时间戳服务器的 URL。 如果该选项（或 <code class="language-plaintext highlighter-rouge">/t</code>）不存在，将不会对签名文件执行时间戳操作。 如果时间戳操作失败，将生成一个警告。 此选项不能与 <code class="language-plaintext highlighter-rouge">/t</code> 选项一起使用。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/u</code>  Usage</td>
+      <td>指定签名证书中必须存在的增强型密钥用法 (EKU)。 可以通过 OID 或字符串指定该用法的值。 默认用法为“代码签名”(1.3.6.1.5.5.7.3.3)。</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/uw</code></td>
+      <td>指定“Windows 系统组件验证”(1.3.6.1.4.1.311.10.3.6) 的用法。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>有关用法示例，请参阅 <a href="https://docs.microsoft.com/zh-cn/windows/win32/seccrypto/using-signtool-to-sign-a-file">「Microsoft Docs - Using SignTool to Sign a File」</a>（使用 SignTool 为文件签名）。</p>
+
+<p><a name="TimeStamp"></a>
+<span id="5.4.5"><strong>5.4.5 TimeStamp 命令选项</strong></span> 
+ 下表列出了可与 <code class="language-plaintext highlighter-rouge">TimeStamp</code> 命令一起使用的选项。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>TimeStamp 选项</th>
+      <th>描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/p7</code></td>
+      <td>对 PKCS #7 文件执行时间戳操作。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/t</code>  URL</td>
+      <td>指定时间戳服务器的 URL。 要执行时间戳操作的文件必须在以前已进行签名。 需要 <code class="language-plaintext highlighter-rouge">/t</code> 或 <code class="language-plaintext highlighter-rouge">/tr</code> 选项。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/td</code>  alg</td>
+      <td>请求 RFC 3161 时间戳服务器使用的摘要算法。 <code class="language-plaintext highlighter-rouge">/td</code> 与 <code class="language-plaintext highlighter-rouge">/tr</code> 选项一起使用。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/tp</code> index</td>
+      <td>对 index 处的签名进行时间戳操作。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/tr</code>  URL</td>
+      <td>指定 RFC 3161 时间戳服务器的 URL。 要执行时间戳操作的文件必须在以前已进行签名。 需要 <code class="language-plaintext highlighter-rouge">/tr</code> 或 <code class="language-plaintext highlighter-rouge">/t</code> 选项。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>有关使用示例，请参阅 <a href="https://docs.microsoft.com/zh-cn/windows/win32/seccrypto/adding-time-stamps-to-previously-signed-files">「Microsoft Docs - Adding Time Stamps to Previously Signed Files」</a>（向之前已签名的文件添加时间戳）。</p>
+
+<p><a name="Verify"></a>
+<span id="5.4.6"><strong>5.4.6 Verify 命令选项</strong></span></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Verify 选项</th>
+      <th>描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/a</code></td>
+      <td>指定可以使用所有方法来验证文件。 首先，搜索目录数据库以确定是否在目录中对文件进行签名。 如果未在任何目录中对文件进行签名，签名工具将尝试验证文件的嵌入签名。 验证可以或不能在目录中进行签名的文件时，建议使用该选项。 这些文件的示例包括 Windows 文件或驱动程序。</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/ad</code></td>
+      <td>使用默认的目录数据库查找目录。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/ag</code> CatDBGUID</td>
+      <td>在由 CatDBGUID 标识的目录数据库中查找目录。</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/all</code></td>
+      <td>验证包含多个签名的文件中的所有签名。</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/as</code></td>
+      <td>使用系统组件（驱动程序）目录数据库查找目录。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/c</code> CatFile</td>
+      <td>通过名称指定目录文件。</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/d</code></td>
+      <td>指定签名工具应打印描述和描述 URL。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/ds</code>  Index</td>
+      <td>验证指定位置的签名。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/hash</code> (<code class="language-plaintext highlighter-rouge">SHA1</code>|<code class="language-plaintext highlighter-rouge">SHA256</code>)</td>
+      <td>指定在目录中搜索文件时要使用的可选哈希算法。</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/kp</code></td>
+      <td>指定应使用内核模式驱动程序签名策略执行验证。</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/ms</code></td>
+      <td>使用多个验证语义。 这是 Windows 8 和更高版本上的 <a href="https://docs.microsoft.com/zh-cn/windows/win32/seccrypto/using-signtool-to-verify-a-file-signature">「Microsoft Docs - WinVerifyTrust」</a> 调用的默认行为。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/o</code> Version</td>
+      <td>按操作系统版本验证文件。 版本具有以下格式：PlatformID：VerMajor.VerMinor.BuildNumber。 PlatformID 表示 <system.platformid> 枚举成员的基础值。 **重要提示：** 建议使用 `/o` 开关。 如果未指定 `/o`，SignTool.exe 可能会返回意外的结果。 例如，如果你未将 `/o` 开关包含在内，则能在旧版操作系统上正确验证的系统目录可能在新版操作系统上无法正确验证。</system.platformid>
+</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/p7</code></td>
+      <td>验证 PKCS #7 文件。 无现有策略用于 PKCS #7 验证。 该签名处于选中状态，并为签名证书生成了链。</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/pa</code></td>
+      <td>指定应使用默认认证码验证策略。 如果未指定 <code class="language-plaintext highlighter-rouge">/pa</code> 选项，签名工具将使用 Windows 驱动程序验证策略。 此选项不能与 <code class="language-plaintext highlighter-rouge">catdb</code> 选项一起使用。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/pg</code> PolicyGUID</td>
+      <td>通过 GUID 指定验证策略。 PolicyGUID 相当于验证策略的 ActionID。 此选项不能与 <code class="language-plaintext highlighter-rouge">catdb</code> 选项一起使用。</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/ph</code></td>
+      <td>指定签名工具应打印并验证页面哈希值。</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">/r</code> RootSubjectName</td>
+      <td>指定签名证书必须链接到的根证书的主题名称。 该值可以是根证书的整个主题名称的子字符串。</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/tw</code></td>
+      <td>指定在未对签名进行时间戳操作时应生成警告。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><span id="5.4.7"><strong>5.4.7 返回值</strong></span>  <br>
+ 当其终止时，签名工具将返回下列退出代码之一。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>退出代码</th>
+      <th>描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>执行成功。</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>执行失败。</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>执行完成，但出现警告。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><span id="5.4.8"><strong>5.4.8 示例</strong></span>   <br>
+ 以下命令将目录文件 MyCatalogFileName.cat 添加到系统组件和驱动程序数据库中。 如有必要阻止替换名为 <code class="language-plaintext highlighter-rouge">/u</code> 的现有目录文件，<code class="language-plaintext highlighter-rouge">MyCatalogFileName.cat</code> 选项会生成唯一名称。</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">signtool</span> <span class="n">catdb</span> <span class="sr">/v /u</span> <span class="no">MyCatalogFileName</span><span class="p">.</span><span class="nf">cat</span>  </code></pre></figure>
+
+<p>以下命令通过使用最佳证书对文件进行自动签名。</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">signtool</span> <span class="n">sign</span> <span class="sr">/a MyFile.exe  </span></code></pre></figure>
+
+<p>以下命令使用存储在受密码保护的 PFX 文件中的证书对文件进行数字签名。</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">signtool</span> <span class="n">sign</span> <span class="sr">/f MyCert.pfx /</span><span class="nb">p</span> <span class="no">MyPassword</span> <span class="no">MyFile</span><span class="p">.</span><span class="nf">exe</span>  </code></pre></figure>
+
+<p>以下命令对文件进行数字签名并加盖时间戳。 用于对文件进行签名的证书存储在 PFX 文件中。</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">signtool</span> <span class="n">sign</span> <span class="sr">/f MyCert.pfx /</span><span class="n">t</span> <span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">timestamp</span><span class="p">.</span><span class="nf">digicert</span><span class="p">.</span><span class="nf">com</span> <span class="no">MyFile</span><span class="p">.</span><span class="nf">exe</span>  </code></pre></figure>
+
+<p>以下命令通过使用位于 <code class="language-plaintext highlighter-rouge">My</code> 存储中的证书对文件进行签名，该证书的主题名为 <code class="language-plaintext highlighter-rouge">My Company Certificate</code>。</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">signtool</span> <span class="n">sign</span> <span class="sr">/n "My Company Certificate" MyFile.exe  </span></code></pre></figure>
+
+<p>以下命令对 ActiveX 控件进行签名，并提供在系统提示用户安装此控件时由 Internet Explorer 显示的信息。</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Signtool</span> <span class="n">sign</span> <span class="sr">/f MyCert.pfx /</span><span class="ss">d: </span><span class="s2">"MyControl"</span> <span class="o">/</span><span class="n">du</span> <span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">www</span><span class="p">.</span><span class="nf">example</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="no">MyControl</span><span class="o">/</span><span class="n">info</span><span class="p">.</span><span class="nf">html</span> <span class="no">MyControl</span><span class="p">.</span><span class="nf">exe</span>  </code></pre></figure>
+
+<p>以下命令对已进行数字签名的文件加盖时间戳。</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">signtool</span> <span class="n">timestamp</span> <span class="sr">/t http:/</span><span class="o">/</span><span class="n">timestamp</span><span class="p">.</span><span class="nf">digicert</span><span class="p">.</span><span class="nf">com</span> <span class="no">MyFile</span><span class="p">.</span><span class="nf">exe</span>  </code></pre></figure>
+
+<p>以下命令确认文件已签名。</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">signtool</span> <span class="n">verify</span> <span class="no">MyFile</span><span class="p">.</span><span class="nf">exe</span>  </code></pre></figure>
+
+<p>以下命令验证可能已在目录中签名的系统文件。</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">signtool</span> <span class="n">verify</span> <span class="sr">/a SystemFile.dll  </span></code></pre></figure>
+
+<p>以下命令验证已在名为 <code class="language-plaintext highlighter-rouge">MyCatalog.cat</code> 目录中签名的系统文件。</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">signtool</span> <span class="n">verify</span> <span class="sr">/c MyCatalog.cat SystemFile.dll  </span></code></pre></figure>
+
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class="sidebar-container">
+	    
+	    <div class="sidebar-about-box">
+		    
+				<li class="sidebar-title">关于文章</li>
+			
+			
+				
+					<li class="sidebar-about-content sidebar-font-medium">文章提供了"在windows平台下如何利用Microsoft提供的工具来生成数字签名"的方法。</li>
+				
+				
+					<li class="icon-link-1 sidebar-about-content sidebar-font-medium" style="margin-top:30px">文章作者: <a href="https://github.com/gangdong">david.dong</a>
+</li>
+				
+				<li class="icon-hourglass sidebar-about-content sidebar-font-medium">阅读时间：29 mins</li>
+				<li class="icon-book-open sidebar-about-content sidebar-font-medium">全文字数：11449</li>
+				
+					<li class="icon-th-list-1 sidebar-about-content sidebar-font-medium">关键字: 数字签名/ Windows/</li>
+				
+				
+					<li class="icon-hashtag sidebar-about-content sidebar-font-medium">标签: 
+					
+					<a href="/daviddong.github.io/category#Security">Security </a>
+					
+					<a href="/daviddong.github.io/category#Windows">Windows </a>
+					
+					</li>
+				
+			
+		</div>
+		
+		
+	    <div class="sidebar-toc-box">
+			
+			<li class="sidebar-title">文章目录</li>
+			<li class="sidebar-font-medium sidebar-toc-content"><ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#1-%E7%9B%B8%E5%85%B3%E5%B7%A5%E5%85%B7">1. 相关工具</a></li>
+<li class="toc-entry toc-h2"><a href="#2-%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B">2. 制作流程</a></li>
+<li class="toc-entry toc-h2">
+<a href="#3-%E4%B8%BE%E4%BE%8B">3. 举例</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#31-%E7%94%9F%E6%88%90%E7%9B%AE%E5%BD%95%E6%96%87%E4%BB%B6cat">3.1 生成目录文件（*.cat）</a></li>
+<li class="toc-entry toc-h3"><a href="#32-%E7%94%9F%E6%88%90%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6">3.2 生成数字证书</a></li>
+<li class="toc-entry toc-h3"><a href="#33-%E5%B0%86%E5%85%AC%E9%92%A5%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2%E6%88%90spc%E8%BD%AF%E4%BB%B6%E5%8F%91%E5%B8%83%E8%80%85%E8%AF%81%E4%B9%A6">3.3 将公钥证书格式转换成SPC（软件发布者证书）</a></li>
+<li class="toc-entry toc-h3"><a href="#34-%E5%B0%86%E5%85%AC%E9%92%A5%E8%AF%81%E4%B9%A6%E5%92%8C%E7%A7%81%E9%92%A5%E5%90%88%E5%B9%B6%E6%88%90%E4%B8%80%E4%B8%AApfx%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%AF%81%E4%B9%A6%E6%96%87%E4%BB%B6">3.4 将公钥证书和私钥合并成一个PFX格式的证书文件</a></li>
+<li class="toc-entry toc-h3"><a href="#35-%E7%94%9F%E6%88%90%E7%AD%BE%E5%90%8D">3.5 生成签名</a></li>
+<li class="toc-entry toc-h3"><a href="#36-%E9%AA%8C%E8%AF%81%E7%AD%BE%E5%90%8D">3.6 验证签名</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#4-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98">4. 常见问题</a></li>
+<li class="toc-entry toc-h2">
+<a href="#5-%E9%99%84%E5%BD%95">5. 附录</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#51-makecertexe-">5.1 makecert.exe </a></li>
+<li class="toc-entry toc-h3"><a href="#52-cert2spcexe-">5.2 cert2spc.exe </a></li>
+<li class="toc-entry toc-h3"><a href="#53-pvk2pfxexe-">5.3 pvk2pfx.exe </a></li>
+<li class="toc-entry toc-h3"><a href="#54-signtoolexe-">5.4 signtool.exe </a></li>
+</ul>
+</li>
+</ul></li>
+			
+		</div>
+		
+	</div>
+	 
+  </div>
+  <!-- no sidebar, use flex width box! -->
+  <br><br><br>
+  <div class="post-container">
+  
+  <div class="share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style="padding: 2px">分享:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class="post-view">
+		<li class="icon-eye"> <span id="busuanzi_value_page_pv"></span>
+</li>
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">相关文章</h1>
+		
+	  <div class="related-posts-box">
+		<ul>
+			
+			<li><a href="/daviddong.github.io/security/2020/07/10/Security-mbedtls.html">mbedtls 使用说明</a></li>
+			
+			<li><a href="/daviddong.github.io/security/2020/07/01/Security-signature.html">浅谈数字签名</a></li>
+			
+			<li><a href="/daviddong.github.io/windows/2020/07/09/Windows-inf2cat.html">Inf2Cat 工具</a></li>
+			
+			<li><a href="/daviddong.github.io/c++/fingerprint/windows/2020/06/13/Cpp-wbdi-03.html">Fingerprint driver development in Windows(3)</a></li>
+			
+			<li><a href="/daviddong.github.io/c++/fingerprint/windows/2020/06/10/Cpp-wbdi-02.html">Fingerprint driver development in Windows(2)</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">继续阅读</h1>
+  
+  <div class="separator"></div>
+  <div class="navigation-meta" style="margin-bottom:40px">
+<ul class="navigation-bar" style="margin-top:40px; min-width:40%">
+	 
+	 <a href="/daviddong.github.io/security/2020/07/10/Security-mbedtls.html" style="width:100%"><span class="navigation-bar-label">前一章</span><br>mbedtls 使用说明</a>
+	 
+    </ul>
+<ul class="navigation-bar" style="margin-top:40px; min-width:40%"> 
+	 
+	 <a href="/daviddong.github.io/android/fingerprint/2020/12/02/Fingerprint-Trusty.html" style="width:100%"><span class="navigation-bar-label">后一章</span><br>Some useful knowledge for Fingerprint Application on Trusty TEE</a>
+	 
+    </ul>
+</div>
+<br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/daviddong.github.io/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'daviddong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br><br><br><div class="footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+      </section>
+    </main>
+<script src="/daviddong.github.io/assets/js/simple-jekyll-search.min.js"></script>
+<script src="/daviddong.github.io/assets/js/search.js"></script>
+
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9"></script>
+
+</body>
+</html>

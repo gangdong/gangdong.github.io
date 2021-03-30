@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono" rel="stylesheet">
+<link rel="stylesheet" href="/daviddong.github.io/assets/css/style.css">
+<link rel="icon" href="/daviddong.github.io/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="/daviddong.github.io/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<title>Display mathematics formula in blog with MathJax | David Dong's Blog</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Display mathematics formula in blog with MathJax | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Display mathematics formula in blog with MathJax" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This article introduced what MathJax is and how to use MathJax." />
+<meta property="og:description" content="This article introduced what MathJax is and how to use MathJax." />
+<link rel="canonical" href="http://localhost:4000/daviddong.github.io/blog/2021/03/20/Blog-mathjax.html" />
+<meta property="og:url" content="http://localhost:4000/daviddong.github.io/blog/2021/03/20/Blog-mathjax.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-03-20T11:11:12+08:00" />
+<script type="application/ld+json">
+{"dateModified":"2021-03-20T11:11:12+08:00","datePublished":"2021-03-20T11:11:12+08:00","url":"http://localhost:4000/daviddong.github.io/blog/2021/03/20/Blog-mathjax.html","@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/daviddong.github.io/BLOG"},"name":"david.dong"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/daviddong.github.io/blog/2021/03/20/Blog-mathjax.html"},"author":{"@type":"Person","name":"david.dong"},"headline":"Display mathematics formula in blog with MathJax","description":"This article introduced what MathJax is and how to use MathJax.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+
+</head>
+  <body><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><main class="container">
+      <section class="about">
+        <a href="/daviddong.github.io/blog/index.html"><img src="/daviddong.github.io/assets/avatar.png" alt="David Dong"></a>
+        <h2 id="title">
+          <a href="/daviddong.github.io/blog/index.html">David Dong</a>
+        </h2>
+        <p class="tagline">Java/C/C#/Python</p>
+		<!--add navigation --><nav class="navigation">
+            <ul>
+              
+            </ul>
+          </nav><!--put dark mode button here --><div>
+		  <ul class = "social" >
+			<p style = "font-family: Raleway, sans-serif;font-size: 100%">Dark Mode
+			  <i class="icon-moon"></i>
+			  <label class="switch">
+				<input type="checkbox" id="dark-mode-toggle" onclick="toggleDarkMode()">
+				<span class="slider round"></span>
+			  </label>
+			</p>
+		  </ul>
+		<script type="text/javascript" src="/daviddong.github.io/assets/js/darkmode.js"></script>
+		</div><!--put rss/code link here -->
+	    <div>
+          <ul class="tool"><a style ="margin-right:10px; text-decoration: none" href="/daviddong.github.io/rss.xml">
+              <span class="icon-rss-1 tooltip">
+				<span class="tooltiptext">Rss</span>
+			  </span>
+           </a><a style="text-decoration: none" href="https://github.com/gangdong/daviddong.github.io">
+              <span class="icon-file-code tooltip">
+				<span class="tooltiptext">Code</span>
+			  </span>
+            </a></ul>
+        </div>
+	    <!--show contact me -->
+	    <div class = "contact"><li>CONTACT ME</li></div>
+		<!-- put social link here -->
+		<div>
+	      <ul class="social" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture-3"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled-1"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		</div>
+		<!--put timestamp here -->
+		<div class ="timestamp">&copy; 2021</div>
+	  <!-- about box end here -->
+      </section>
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+
+
+<div class="post-container">
+	<div  class = "menu-meta">
+		<div  class = "menu-logo" style="margin-top: 20px">BLOG</div>
+		<div  class = "menu" style = "margin-top: 20px">
+			<a class = "icon-doc-text icon_font" href="/daviddong.github.io/blog/index.html">Posts</a><a  class = "icon-archive-1 icon_font" href="/daviddong.github.io/archive">Archives</a><a  class = "icon-tags-1 icon_font" href="/daviddong.github.io/category">Categories</a><a  class = "icon-help-circled-3 icon_font" href="/daviddong.github.io/about">About</a>
+		</div>
+	</div>
+</div><div class="post-container">
+  <li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">POST</h1>
+  </li>  
+  <a class="post-link" href="/daviddong.github.io/blog/2021/03/20/Blog-mathjax.html">
+    <h2 class="post-title">Display mathematics formula in blog with MathJax</h2>
+  </a>
+   <div class="post-meta">
+    <div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">Mar 20, 2021</div>
+  </div>
+  <br>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+  <div class="post-viewer-container">
+	<div class="post-fix-width">
+		<p>When writing posts, I need to display mathematics formula sometimes. I write posts with Markdown, I don’t want to save the formula into an image and load the image in markdown. It is better write the Latex formula in markdown file directly. MathJax helped me do it. This article will introduce what MathJax is and how to use MathJax.</p>
+
+<h2 id="what-is-mathjax">What is MathJax?</h2>
+
+<blockquote>
+  <p>MathJax is an open-source JavaScript display engine for LaTeX, MathML, and AsciiMath notation that works in all modern browsers.</p>
+</blockquote>
+
+<p>This is the definition of the MathJax in <a href="https://www.mathjax.org/">MathJax official website</a>, more information can be found from there.</p>
+
+<p>To me, it brought some benefits for writing blog.</p>
+
+<ul>
+  <li>No need plugin support in Jekyll. I don’t have to worry about that it cannot be implemented when deploying the site at Github Pages for security checking.</li>
+  <li>Unlike using bitmaps image to display, it is text editing and transforms the mathematics formula to HTML or SVG, so it is workable for zoom scale and is suitable to display under different size screen.</li>
+  <li>I can write the mathematics formula in markdown with plain text just by following the syntax of LaTex/TeX.</li>
+  <li>Friendly to new user, you can quickly use it even you have no any knowledge about it.</li>
+</ul>
+
+<p>Moreover, looks MathJax has become into the most popular solution for rendering the Latex mathematics formula in the web application.</p>
+
+<p>At least, I think so.</p>
+
+<h2 id="how-to-implement">How to implement?</h2>
+
+<h3 id="including-mathjax-in-a-web-page">Including MathJax in a web page</h3>
+<p>As I said, one of the benefit of MathJax is that you don’t need to install any plugin to implement it, just introduce a piece of JavaScript code into your page’s HTML.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">async</span> <span class="na">src=</span><span class="s">"//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/script&gt;</span></code></pre></figure>
+
+<p>I added above snippet into my <code class="language-plaintext highlighter-rouge">default.html</code>, you can insert it into <code class="language-plaintext highlighter-rouge">head.html</code> or any page’s HTML where you want to use MathJax.</p>
+
+<h3 id="configuration">Configuration</h3>
+
+<p>Here <code class="language-plaintext highlighter-rouge">TeX-MML-AM_CHTML</code> is the configuration for common user case.
+For more configuration, can find at <a href="https://docs.mathjax.org/en/latest/web/configuration.html">here</a>.</p>
+
+<p>MathJax offers a global object named MathJax that contains configuration data for the various components of MathJax.</p>
+
+<p>For TeX or LaTeX input component , it has two types. One is <code class="language-plaintext highlighter-rouge">in-line mathematics</code>(display in paragraph) and the other is <code class="language-plaintext highlighter-rouge">displayed mathematics</code>(display as a single paragraph).</p>
+
+<p>It uses double dollar sign <code class="language-plaintext highlighter-rouge">$$</code> as the default math delimiters for <code class="language-plaintext highlighter-rouge">displayed mathematics</code>, uses the <code class="language-plaintext highlighter-rouge">(\...\)</code> as the math delimiters for <code class="language-plaintext highlighter-rouge">in-line mathematics</code>.</p>
+
+<p>Here as an example, I inserted below code snippet to add single dollar <code class="language-plaintext highlighter-rouge">$</code> signs as in-line math delimiters.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/x-mathjax-config"</span><span class="nt">&gt;</span>
+  <span class="nx">MathJax</span><span class="p">.</span><span class="nx">Hub</span><span class="p">.</span><span class="nx">Config</span><span class="p">({</span><span class="na">tex2jax</span><span class="p">:</span> <span class="p">{</span><span class="na">inlineMath</span><span class="p">:</span> <span class="p">[[</span><span class="dl">'</span><span class="s1">$</span><span class="dl">'</span><span class="p">,</span><span class="dl">'</span><span class="s1">$</span><span class="dl">'</span><span class="p">],</span> <span class="p">[</span><span class="dl">'</span><span class="se">\\</span><span class="s1">(</span><span class="dl">'</span><span class="p">,</span><span class="dl">'</span><span class="se">\\</span><span class="s1">)</span><span class="dl">'</span><span class="p">]]}});</span>
+<span class="nt">&lt;/script&gt;</span></code></pre></figure>
+
+<p>It is better place the MathJax object in a <code class="language-plaintext highlighter-rouge">&lt;script&gt;</code> tag just before the script that loads MathJax itself.</p>
+
+<p>So my last code is</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/x-mathjax-config"</span><span class="nt">&gt;</span>
+  <span class="nx">MathJax</span><span class="p">.</span><span class="nx">Hub</span><span class="p">.</span><span class="nx">Config</span><span class="p">({</span><span class="na">tex2jax</span><span class="p">:</span> <span class="p">{</span><span class="na">inlineMath</span><span class="p">:</span> <span class="p">[[</span><span class="dl">'</span><span class="s1">$</span><span class="dl">'</span><span class="p">,</span><span class="dl">'</span><span class="s1">$</span><span class="dl">'</span><span class="p">],</span> <span class="p">[</span><span class="dl">'</span><span class="se">\\</span><span class="s1">(</span><span class="dl">'</span><span class="p">,</span><span class="dl">'</span><span class="se">\\</span><span class="s1">)</span><span class="dl">'</span><span class="p">]]}});</span>
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">async</span> <span class="na">src=</span><span class="s">"//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/script&gt;</span></code></pre></figure>
+
+<h3 id="mathematics-expression-with-mathjax">Mathematics expression with MathJax</h3>
+
+<p>I wrote below words as startup.</p>
+
+<blockquote>
+  <p>Hi, there,   <br />
+This is my first MathJax equation.  <br />
+When $a \ne 0$, there are two solutions to</p>
+  <div>$$ax^2 + bx + c = 0$$</div>
+  <p>and they are</p>
+  <div>$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$</div>
+</blockquote>
+
+<h2 id="write-at-the-last">Write at the last</h2>
+
+<ul>
+  <li>I found importing the MathJax snippet will slow the site’s loading speed. So I moved the MathJax snippet to the post’s markdown file from <code class="language-plaintext highlighter-rouge">default.html</code>, only use it when the post need a mathematics expression.</li>
+  <li>I am not familiar with Latex syntax and I will spend some time in learning. It is not a problem! 😛</li>
+</ul>
+
+<script type="text/javascript" async="" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			inlineMath: [['$','$'], ['\\(','\\)']]
+		}
+	});
+</script>
+
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box">
+		    
+				<li class = "sidebar-title">About This Article</li>
+			
+			
+				
+					<li class = "sidebar-about-content sidebar-font-big">This article introduced what MathJax is and how to use MathJax.</li>
+				
+				
+					<li class = "icon-link-1 sidebar-about-content sidebar-font-big" style = "margin-top:30px">Author: <a href="https://github.com/gangdong">david.dong</a></li>
+				
+					<li class = "icon-clock-5 sidebar-about-content sidebar-font-big">8 mins to read</li>
+					<li class = "icon-book-1 sidebar-about-content sidebar-font-big">3036 words</li>
+				
+					<li class = "icon-th-list-1 sidebar-about-content sidebar-font-big">Key Words: MathJax/Jekyll</li>
+				
+				
+				    <li class = "icon-hashtag sidebar-about-content sidebar-font-medium">Tags: 
+					
+					<a href="/daviddong.github.io/category#Blog">Blog&nbsp;</a>
+					
+					</li>
+				
+			
+		</div>
+		
+		
+	    <div class="sidebar-toc-box">
+			
+			<li class = "sidebar-title">Table of Content</li>
+			<li class = "sidebar-font-big sidebar-toc-content"><ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#what-is-mathjax">What is MathJax?</a></li>
+<li class="toc-entry toc-h2"><a href="#how-to-implement">How to implement?</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#including-mathjax-in-a-web-page">Including MathJax in a web page</a></li>
+<li class="toc-entry toc-h3"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h3"><a href="#mathematics-expression-with-mathjax">Mathematics expression with MathJax</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#write-at-the-last">Write at the last</a></li>
+</ul></li>
+			
+		</div>
+		
+	</div>
+	 
+  </div>
+  <!-- no sidebar, use flex width box! -->
+  <br><br><br>
+  <div class="post-container">
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">Share:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+		<li class = "icon-eye">&nbsp;<span id="busuanzi_value_page_pv"></span></li>
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">You may also like</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/daviddong.github.io/blog/2021/03/20/Blog-travisci.html">Display mathematics formula in blog with MathJax</a></li>
+			
+			<li><a href="/daviddong.github.io/blog/github/2021/03/14/Blog-Jekyll-toc-plugin.html">Use jekyll-toc plugin on Github Pages</a></li>
+			
+			<li><a href="/daviddong.github.io/blog/2021/03/08/Web-gitalk-fixing.html">A quick way to fix the Gitalk Error: Validation Failed</a></li>
+			
+			<li><a href="/daviddong.github.io/blog/2018/12/22/Blog-rouge.html">Syntax Highlighting your code in Jekyll with Rouge</a></li>
+			
+			<li><a href="/daviddong.github.io/blog/2018/11/14/Blog-related-posts.html">How did I implement related posts function in my blog</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">further reading</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta" style = "margin-bottom:40px"><ul class="navigation-bar" style = "margin-top:40px; min-width:40%">
+	 
+	 <a href="/daviddong.github.io/blog/github/2021/03/14/Blog-Jekyll-toc-plugin.html"; style="width:100%"><span class = "navigation-bar-label">Previous Post</span><br>Use jekyll-toc plugin on Github Pages</a>
+	 
+    </ul><ul class="navigation-bar" style = "margin-top:40px; min-width:40%"> 
+	 
+     <a href="/daviddong.github.io/blog/2021/03/20/Blog-travisci.html"; style="width:100%"><span class = "navigation-bar-label">Next Post</span><br>Display mathematics formula in blog with MathJax</a>
+	 
+    </ul></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/daviddong.github.io/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'daviddong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+      </section>
+    </main>
+<script src="/daviddong.github.io/assets/js/simple-jekyll-search.min.js"></script>
+<script src="/daviddong.github.io/assets/js/search.js"></script>
+
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9"></script>
+
+</body>
+</html>

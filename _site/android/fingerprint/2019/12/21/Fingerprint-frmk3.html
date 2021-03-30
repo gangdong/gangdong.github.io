@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono" rel="stylesheet">
+<link rel="stylesheet" href="/daviddong.github.io/assets/css/style.css">
+<link rel="icon" href="/daviddong.github.io/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="/daviddong.github.io/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<title>Android Fingerprint Framework (3) | David Dong's Blog</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Android Fingerprint Framework (3) | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Android Fingerprint Framework (3)" />
+<meta name="author" content="David Dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Following the last two articles, this article will have a discussion on the remain part of the fingerprint framework on android. This article will end this topic." />
+<meta property="og:description" content="Following the last two articles, this article will have a discussion on the remain part of the fingerprint framework on android. This article will end this topic." />
+<link rel="canonical" href="http://localhost:4000/daviddong.github.io/android/fingerprint/2019/12/21/Fingerprint-frmk3.html" />
+<meta property="og:url" content="http://localhost:4000/daviddong.github.io/android/fingerprint/2019/12/21/Fingerprint-frmk3.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-12-21T22:24:43+08:00" />
+<script type="application/ld+json">
+{"dateModified":"2019-12-21T22:24:43+08:00","datePublished":"2019-12-21T22:24:43+08:00","url":"http://localhost:4000/daviddong.github.io/android/fingerprint/2019/12/21/Fingerprint-frmk3.html","@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/daviddong.github.io/BLOG"},"name":"David Dong"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/daviddong.github.io/android/fingerprint/2019/12/21/Fingerprint-frmk3.html"},"author":{"@type":"Person","name":"David Dong"},"headline":"Android Fingerprint Framework (3)","description":"Following the last two articles, this article will have a discussion on the remain part of the fingerprint framework on android. This article will end this topic.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+
+</head>
+  <body><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><main class="container">
+      <section class="about">
+        <a href="/daviddong.github.io/blog/index.html"><img src="/daviddong.github.io/assets/avatar.png" alt="David Dong"></a>
+        <h2 id="title">
+          <a href="/daviddong.github.io/blog/index.html">David Dong</a>
+        </h2>
+        <p class="tagline">Java/C/C#/Python</p>
+		<!--add navigation --><nav class="navigation">
+            <ul>
+              
+            </ul>
+          </nav><!--put dark mode button here --><div>
+		  <ul class = "social" >
+			<p style = "font-family: Raleway, sans-serif;font-size: 100%">Dark Mode
+			  <i class="icon-moon"></i>
+			  <label class="switch">
+				<input type="checkbox" id="dark-mode-toggle" onclick="toggleDarkMode()">
+				<span class="slider round"></span>
+			  </label>
+			</p>
+		  </ul>
+		<script type="text/javascript" src="/daviddong.github.io/assets/js/darkmode.js"></script>
+		</div><!--put rss/code link here -->
+	    <div>
+          <ul class="tool"><a style ="margin-right:10px; text-decoration: none" href="/daviddong.github.io/rss.xml">
+              <span class="icon-rss-1 tooltip">
+				<span class="tooltiptext">Rss</span>
+			  </span>
+           </a><a style="text-decoration: none" href="https://github.com/gangdong/daviddong.github.io">
+              <span class="icon-file-code tooltip">
+				<span class="tooltiptext">Code</span>
+			  </span>
+            </a></ul>
+        </div>
+	    <!--show contact me -->
+	    <div class = "contact"><li>CONTACT ME</li></div>
+		<!-- put social link here -->
+		<div>
+	      <ul class="social" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture-3"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled-1"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		</div>
+		<!--put timestamp here -->
+		<div class ="timestamp">&copy; 2021</div>
+	  <!-- about box end here -->
+      </section>
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+
+
+<div class="post-container">
+	<div  class = "menu-meta">
+		<div  class = "menu-logo" style="margin-top: 20px">BLOG</div>
+		<div  class = "menu" style = "margin-top: 20px">
+			<a class = "icon-doc-text icon_font" href="/daviddong.github.io/blog/index.html">Posts</a><a  class = "icon-archive-1 icon_font" href="/daviddong.github.io/archive">Archives</a><a  class = "icon-tags-1 icon_font" href="/daviddong.github.io/category">Categories</a><a  class = "icon-help-circled-3 icon_font" href="/daviddong.github.io/about">About</a>
+		</div>
+	</div>
+</div><div class="post-container">
+  <li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">POST</h1>
+  </li>  
+  <a class="post-link" href="/daviddong.github.io/android/fingerprint/2019/12/21/Fingerprint-frmk3.html">
+    <h2 class="post-title">Android Fingerprint Framework (3)</h2>
+  </a>
+   <div class="post-meta">
+    <div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">Dec 21, 2019</div>
+  </div>
+  <br>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+  <div class="post-viewer-container">
+	<div class="post-fix-width">
+		<p>Following the last two articles, this article will have a discussion on the remain part of the fingerprint framework on android. This article will end this topic.</p>
+
+<p>In last article,<br />
+<a href="/daviddong.github.io/android/fingerprint/2019/12/07/Fingerprint-frmk2.html">Android Fingerprint Framework (2)</a><br />
+We have had a overview on the android fingerprint work flow as below.</p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">Init.rc</code>, starts <code class="language-plaintext highlighter-rouge">Fingerprintd</code> and register the remote service <code class="language-plaintext highlighter-rouge">FingerprintDaemon</code> with <code class="language-plaintext highlighter-rouge">ServiceManager</code>.</li>
+  <li>The system loads <code class="language-plaintext highlighter-rouge">SystemServer</code> and starts <code class="language-plaintext highlighter-rouge">fingerservice</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">FingerService</code> gets the object of the remote service <code class="language-plaintext highlighter-rouge">FingerprintDaemon</code>, and calls the methods to access the HAL.
+<code class="language-plaintext highlighter-rouge">FingerprintDaemoProxy::openHal()</code> will open the native library <code class="language-plaintext highlighter-rouge">xx.So</code> to access hardware.</li>
+</ol>
+
+<h3 id="about-hal">About HAL</h3>
+<p>The hardware abstract layer (HAL) of Android system runs in user space. It shields the implementation details of hardware driver module downward and provides hardware access service (JNI or binder) upward. Through the hardware abstraction layer, Android system is divided into two layers to support hardware devices, one layer is implemented in user space, the other is implemented in kernel space. In traditional Linux system, the support for hardware is completely implemented in kernel space, that is, the support for hardware is completely implemented in hardware driver module.</p>
+
+<p>The hardware abstraction layer of Android system manages various hardware access interfaces in the form of modules. Each hardware module has a dynamic link library <code class="language-plaintext highlighter-rouge">xx.So</code> file. The compilation of these dynamic link libraries needs to conform to certain specifications. In Android system, each hardware abstraction layer module is described by <code class="language-plaintext highlighter-rouge">hw_module_t</code>, and the hardware device is described by <code class="language-plaintext highlighter-rouge">hw_device_t</code>.</p>
+
+<p>These definition of these two struct is defined at <br />
+<a href="https://www.androidos.net.cn/android/7.0.0_r31/xref/hardware/libhardware/include/hardware/hardware.h">hardware.h</a><br /></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">android</span> <span class="ss">path: </span><span class="n">root</span><span class="o">/</span><span class="n">hardware</span><span class="o">/</span><span class="n">libhardware</span><span class="o">/</span><span class="kp">include</span><span class="sr">/hardware/</span><span class="n">hardware</span><span class="p">.</span><span class="nf">h</span></code></pre></figure>
+
+<p><strong>hardware.h</strong></p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">typedef</span> <span class="k">struct</span> <span class="n">hw_module_t</span> <span class="p">{</span>
+    <span class="cm">/** tag must be initialized to HARDWARE_MODULE_TAG */</span>
+    <span class="kt">uint32_t</span> <span class="n">tag</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * The API version of the implemented module. The module owner is
+     * responsible for updating the version when a module interface has
+     * changed.
+     *
+     * The derived modules such as gralloc and audio own and manage this field.
+     * The module user must interpret the version field to decide whether or
+     * not to inter-operate with the supplied module implementation.
+     * For example, SurfaceFlinger is responsible for making sure that
+     * it knows how to manage different versions of the gralloc-module API,
+     * and AudioFlinger must know how to do the same for audio-module API.
+     *
+     * The module API version should include a major and a minor component.
+     * For example, version 1.0 could be represented as 0x0100. This format
+     * implies that versions 0x0100-0x01ff are all API-compatible.
+     *
+     * In the future, libhardware will expose a hw_get_module_version()
+     * (or equivalent) function that will take minimum/maximum supported
+     * versions as arguments and would be able to reject modules with
+     * versions outside of the supplied range.
+     */</span>
+    <span class="kt">uint16_t</span> <span class="n">module_api_version</span><span class="p">;</span>
+<span class="cp">#define version_major module_api_version
+</span>    <span class="cm">/**
+     * version_major/version_minor defines are supplied here for temporary
+     * source code compatibility. They will be removed in the next version.
+     * ALL clients must convert to the new version format.
+     */</span>
+
+    <span class="cm">/**
+     * The API version of the HAL module interface. This is meant to
+     * version the hw_module_t, hw_module_methods_t, and hw_device_t
+     * structures and definitions.
+     *
+     * The HAL interface owns this field. Module users/implementations
+     * must NOT rely on this value for version information.
+     *
+     * Presently, 0 is the only valid value.
+     */</span>
+    <span class="kt">uint16_t</span> <span class="n">hal_api_version</span><span class="p">;</span>
+<span class="cp">#define version_minor hal_api_version
+</span>
+    <span class="cm">/** Identifier of module */</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">id</span><span class="p">;</span>
+
+    <span class="cm">/** Name of this module */</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>
+
+    <span class="cm">/** Author/owner/implementor of the module */</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">author</span><span class="p">;</span>
+
+    <span class="cm">/** Modules methods */</span>
+    <span class="k">struct</span> <span class="n">hw_module_methods_t</span><span class="o">*</span> <span class="n">methods</span><span class="p">;</span>
+
+    <span class="cm">/** module's dso */</span>
+    <span class="kt">void</span><span class="o">*</span> <span class="n">dso</span><span class="p">;</span>
+
+<span class="cp">#ifdef __LP64__
+</span>    <span class="kt">uint64_t</span> <span class="n">reserved</span><span class="p">[</span><span class="mi">32</span><span class="o">-</span><span class="mi">7</span><span class="p">];</span>
+<span class="cp">#else
+</span>    <span class="cm">/** padding to 128 bytes, reserved for future use */</span>
+    <span class="kt">uint32_t</span> <span class="n">reserved</span><span class="p">[</span><span class="mi">32</span><span class="o">-</span><span class="mi">7</span><span class="p">];</span>
+<span class="cp">#endif
+</span>
+<span class="p">}</span> <span class="n">hw_module_t</span><span class="p">;</span>
+
+<span class="cm">/**
+ * Every device data structure must begin with hw_device_t
+ * followed by module specific public methods and attributes.
+ */</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">hw_device_t</span> <span class="p">{</span>
+    <span class="cm">/** tag must be initialized to HARDWARE_DEVICE_TAG */</span>
+    <span class="kt">uint32_t</span> <span class="n">tag</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * Version of the module-specific device API. This value is used by
+     * the derived-module user to manage different device implementations.
+     *
+     * The module user is responsible for checking the module_api_version
+     * and device version fields to ensure that the user is capable of
+     * communicating with the specific module implementation.
+     *
+     * One module can support multiple devices with different versions. This
+     * can be useful when a device interface changes in an incompatible way
+     * but it is still necessary to support older implementations at the same
+     * time. One such example is the Camera 2.0 API.
+     *
+     * This field is interpreted by the module user and is ignored by the
+     * HAL interface itself.
+     */</span>
+    <span class="kt">uint32_t</span> <span class="n">version</span><span class="p">;</span>
+
+    <span class="cm">/** reference to the module this device belongs to */</span>
+    <span class="k">struct</span> <span class="n">hw_module_t</span><span class="o">*</span> <span class="n">module</span><span class="p">;</span>
+
+    <span class="cm">/** padding reserved for future use */</span>
+<span class="cp">#ifdef __LP64__
+</span>    <span class="kt">uint64_t</span> <span class="n">reserved</span><span class="p">[</span><span class="mi">12</span><span class="p">];</span>
+<span class="cp">#else
+</span>    <span class="kt">uint32_t</span> <span class="n">reserved</span><span class="p">[</span><span class="mi">12</span><span class="p">];</span>
+<span class="cp">#endif
+</span>
+    <span class="cm">/** Close this device */</span>
+    <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">close</span><span class="p">)(</span><span class="k">struct</span> <span class="n">hw_device_t</span><span class="o">*</span> <span class="n">device</span><span class="p">);</span>
+
+<span class="p">}</span> <span class="n">hw_device_t</span><span class="p">;</span></code></pre></figure>
+
+<p>Besides, this header file also declares the module name and two important functions. <br />
+<strong>hardware.h</strong></p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="cm">/**
+ * Name of the hal_module_info
+ */</span>
+<span class="cp">#define HAL_MODULE_INFO_SYM         HMI
+</span>
+<span class="cm">/**
+ * Get the module info associated with a module by id.
+ *
+ * @return: 0 == success, &lt;0 == error and *module == NULL
+ */</span>
+<span class="kt">int</span> <span class="nf">hw_get_module</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">id</span><span class="p">,</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">hw_module_t</span> <span class="o">**</span><span class="n">module</span><span class="p">);</span>
+
+<span class="cm">/**
+ * Get the module info associated with a module instance by class 'class_id'
+ * and instance 'inst'.
+ *
+ * Some modules types necessitate multiple instances. For example audio supports
+ * multiple concurrent interfaces and thus 'audio' is the module class
+ * and 'primary' or 'a2dp' are module interfaces. This implies that the files
+ * providing these modules would be named audio.primary.&lt;variant&gt;.so and
+ * audio.a2dp.&lt;variant&gt;.so
+ *
+ * @return: 0 == success, &lt;0 == error and *module == NULL
+ */</span>
+<span class="kt">int</span> <span class="nf">hw_get_module_by_class</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">class_id</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">inst</span><span class="p">,</span>
+                           <span class="k">const</span> <span class="k">struct</span> <span class="n">hw_module_t</span> <span class="o">**</span><span class="n">module</span><span class="p">);</span></code></pre></figure>
+
+<p>These two functions are realized at <br />
+<a href="https://www.androidos.net.cn/android/7.0.0_r31/xref/hardware/libhardware/hardware.c">hardware.c</a><br /></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">android</span> <span class="ss">path: </span><span class="n">root</span><span class="o">/</span><span class="n">hardware</span><span class="o">/</span><span class="n">libhardware</span><span class="o">/</span><span class="n">hardware</span><span class="p">.</span><span class="nf">c</span></code></pre></figure>
+
+<p>From the file, we can find the module search path is as below. <br />
+<strong>hardware.c</strong></p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="cm">/** Base path of the hal modules */</span>
+<span class="cp">#if defined(__LP64__)
+#define HAL_LIBRARY_PATH1 "/system/lib64/hw"
+#define HAL_LIBRARY_PATH2 "/vendor/lib64/hw"
+#define HAL_LIBRARY_PATH3 "/odm/lib64/hw"
+#else
+#define HAL_LIBRARY_PATH1 "/system/lib/hw"
+#define HAL_LIBRARY_PATH2 "/vendor/lib/hw"
+#define HAL_LIBRARY_PATH3 "/odm/lib/hw"
+#endif
+</span>
+<span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">variant_keys</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">"ro.hardware"</span><span class="p">,</span>  <span class="cm">/* This goes first so that it can pick up a different
+                       file on the emulator. */</span>
+    <span class="s">"ro.product.board"</span><span class="p">,</span>
+    <span class="s">"ro.board.platform"</span><span class="p">,</span>
+    <span class="s">"ro.arch"</span>
+<span class="p">};</span>
+
+<span class="k">static</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">HAL_VARIANT_KEYS_COUNT</span> <span class="o">=</span>
+    <span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">variant_keys</span><span class="p">)</span><span class="o">/</span><span class="k">sizeof</span><span class="p">(</span><span class="n">variant_keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]));</span>
+
+<span class="cm">/**
+ * Load the file defined by the variant and if successful
+ * return the dlopen handle and the hmi.
+ * @return 0 = success, !0 = failure.
+ */</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">load</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">id</span><span class="p">,</span>
+        <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span>
+        <span class="k">const</span> <span class="k">struct</span> <span class="n">hw_module_t</span> <span class="o">**</span><span class="n">pHmi</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">status</span> <span class="o">=</span> <span class="o">-</span><span class="n">EINVAL</span><span class="p">;</span>
+    <span class="kt">void</span> <span class="o">*</span><span class="n">handle</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">hw_module_t</span> <span class="o">*</span><span class="n">hmi</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+    <span class="cm">/*
+     * load the symbols resolving undefined symbols before
+     * dlopen returns. Since RTLD_GLOBAL is not or'd in with
+     * RTLD_NOW the external symbols will not be global
+     */</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">dlopen</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">RTLD_NOW</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">handle</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span><span class="n">err_str</span> <span class="o">=</span> <span class="n">dlerror</span><span class="p">();</span>
+        <span class="n">ALOGE</span><span class="p">(</span><span class="s">"load: module=%s</span><span class="se">\n</span><span class="s">%s"</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">err_str</span><span class="o">?</span><span class="n">err_str</span><span class="o">:</span><span class="s">"unknown"</span><span class="p">);</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="o">-</span><span class="n">EINVAL</span><span class="p">;</span>
+        <span class="k">goto</span> <span class="n">done</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/* Get the address of the struct hal_module_info. */</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">sym</span> <span class="o">=</span> <span class="n">HAL_MODULE_INFO_SYM_AS_STR</span><span class="p">;</span>
+    <span class="n">hmi</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">hw_module_t</span> <span class="o">*</span><span class="p">)</span><span class="n">dlsym</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">sym</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">hmi</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ALOGE</span><span class="p">(</span><span class="s">"load: couldn't find symbol %s"</span><span class="p">,</span> <span class="n">sym</span><span class="p">);</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="o">-</span><span class="n">EINVAL</span><span class="p">;</span>
+        <span class="k">goto</span> <span class="n">done</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/* Check that the id matches */</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">hmi</span><span class="o">-&gt;</span><span class="n">id</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ALOGE</span><span class="p">(</span><span class="s">"load: id=%s != hmi-&gt;id=%s"</span><span class="p">,</span> <span class="n">id</span><span class="p">,</span> <span class="n">hmi</span><span class="o">-&gt;</span><span class="n">id</span><span class="p">);</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="o">-</span><span class="n">EINVAL</span><span class="p">;</span>
+        <span class="k">goto</span> <span class="n">done</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">hmi</span><span class="o">-&gt;</span><span class="n">dso</span> <span class="o">=</span> <span class="n">handle</span><span class="p">;</span>
+
+    <span class="cm">/* success */</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="nl">done:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">status</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">hmi</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">handle</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">dlclose</span><span class="p">(</span><span class="n">handle</span><span class="p">);</span>
+            <span class="n">handle</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">ALOGV</span><span class="p">(</span><span class="s">"loaded HAL id=%s path=%s hmi=%p handle=%p"</span><span class="p">,</span>
+                <span class="n">id</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="o">*</span><span class="n">pHmi</span><span class="p">,</span> <span class="n">handle</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="o">*</span><span class="n">pHmi</span> <span class="o">=</span> <span class="n">hmi</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="n">status</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/*
+ * Check if a HAL with given name and subname exists, if so return 0, otherwise
+ * otherwise return negative.  On success path will contain the path to the HAL.
+ */</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">hw_module_exists</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">path_len</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span>
+                            <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">subname</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">snprintf</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">path_len</span><span class="p">,</span> <span class="s">"%s/%s.%s.so"</span><span class="p">,</span>
+             <span class="n">HAL_LIBRARY_PATH3</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">subname</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">access</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">R_OK</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="n">snprintf</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">path_len</span><span class="p">,</span> <span class="s">"%s/%s.%s.so"</span><span class="p">,</span>
+             <span class="n">HAL_LIBRARY_PATH2</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">subname</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">access</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">R_OK</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="n">snprintf</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">path_len</span><span class="p">,</span> <span class="s">"%s/%s.%s.so"</span><span class="p">,</span>
+             <span class="n">HAL_LIBRARY_PATH1</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">subname</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">access</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">R_OK</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="o">-</span><span class="n">ENOENT</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">hw_get_module_by_class</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">class_id</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">inst</span><span class="p">,</span>
+                           <span class="k">const</span> <span class="k">struct</span> <span class="n">hw_module_t</span> <span class="o">**</span><span class="n">module</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">prop</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+    <span class="kt">char</span> <span class="n">path</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+    <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+    <span class="kt">char</span> <span class="n">prop_name</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">inst</span><span class="p">)</span>
+        <span class="n">snprintf</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">PATH_MAX</span><span class="p">,</span> <span class="s">"%s.%s"</span><span class="p">,</span> <span class="n">class_id</span><span class="p">,</span> <span class="n">inst</span><span class="p">);</span>
+    <span class="k">else</span>
+        <span class="n">strlcpy</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">class_id</span><span class="p">,</span> <span class="n">PATH_MAX</span><span class="p">);</span>
+
+    <span class="cm">/*
+     * Here we rely on the fact that calling dlopen multiple times on
+     * the same .so will simply increment a refcount (and not load
+     * a new copy of the library).
+     * We also assume that dlopen() is thread-safe.
+     */</span>
+
+    <span class="cm">/* First try a property specific to the class and possibly instance */</span>
+    <span class="n">snprintf</span><span class="p">(</span><span class="n">prop_name</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">prop_name</span><span class="p">),</span> <span class="s">"ro.hardware.%s"</span><span class="p">,</span> <span class="n">name</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">property_get</span><span class="p">(</span><span class="n">prop_name</span><span class="p">,</span> <span class="n">prop</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">hw_module_exists</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="n">name</span><span class="p">,</span> <span class="n">prop</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">goto</span> <span class="n">found</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="cm">/* Loop through the configuration variants looking for a module */</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span> <span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">HAL_VARIANT_KEYS_COUNT</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">property_get</span><span class="p">(</span><span class="n">variant_keys</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">prop</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">continue</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">hw_module_exists</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="n">name</span><span class="p">,</span> <span class="n">prop</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">goto</span> <span class="n">found</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="cm">/* Nothing found, try the default */</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">hw_module_exists</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="n">name</span><span class="p">,</span> <span class="s">"default"</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">goto</span> <span class="n">found</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="o">-</span><span class="n">ENOENT</span><span class="p">;</span>
+
+<span class="nl">found:</span>
+    <span class="cm">/* load the module, if this fails, we're doomed, and we should not try
+     * to load a different variant. */</span>
+    <span class="k">return</span> <span class="n">load</span><span class="p">(</span><span class="n">class_id</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">module</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">hw_get_module</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">id</span><span class="p">,</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">hw_module_t</span> <span class="o">**</span><span class="n">module</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">hw_get_module_by_class</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">module</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">hw_get_module()</code> will call the <code class="language-plaintext highlighter-rouge">hw_get_module_by_class()</code> function. Firstly, it will read the system property <code class="language-plaintext highlighter-rouge">ro.hardware</code> through the <code class="language-plaintext highlighter-rouge">property_get()</code> function. If the property is found, it then uses the <code class="language-plaintext highlighter-rouge">hw_module_exists()</code> function to check whether the <code class="language-plaintext highlighter-rouge">xx.So</code> library exists. If it exists, load it directly else if it does not exist, continue to search for the variant_keys array. Checking system attribute values. If found, load it directly. If it does not exist still, load the default.</p>
+
+<p>Let’s turn back to the <code class="language-plaintext highlighter-rouge">FingerprintDaemonProxy::openHal()</code> to see how it call the <code class="language-plaintext highlighter-rouge">hw_get_module()</code> function. <br />
+<strong>FingerprintDaemonProxy.cpp</strong></p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">int64_t</span> <span class="n">FingerprintDaemonProxy</span><span class="o">::</span><span class="n">openHal</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">ALOG</span><span class="p">(</span><span class="n">LOG_VERBOSE</span><span class="p">,</span> <span class="n">LOG_TAG</span><span class="p">,</span> <span class="s">"nativeOpenHal()</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">err</span><span class="p">;</span>
+    <span class="k">const</span> <span class="n">hw_module_t</span> <span class="o">*</span><span class="n">hw_module</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">!=</span> <span class="p">(</span><span class="n">err</span> <span class="o">=</span> <span class="n">hw_get_module</span><span class="p">(</span><span class="n">FINGERPRINT_HARDWARE_MODULE_ID</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">hw_module</span><span class="p">)))</span> <span class="p">{</span>
+        <span class="n">ALOGE</span><span class="p">(</span><span class="s">"Can't open fingerprint HW Module, error: %d"</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">NULL</span> <span class="o">==</span> <span class="n">hw_module</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ALOGE</span><span class="p">(</span><span class="s">"No valid fingerprint module"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">mModule</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">fingerprint_module_t</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">hw_module</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">mModule</span><span class="o">-&gt;</span><span class="n">common</span><span class="p">.</span><span class="n">methods</span><span class="o">-&gt;</span><span class="n">open</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ALOGE</span><span class="p">(</span><span class="s">"No valid open method"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">hw_device_t</span> <span class="o">*</span><span class="n">device</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">!=</span> <span class="p">(</span><span class="n">err</span> <span class="o">=</span> <span class="n">mModule</span><span class="o">-&gt;</span><span class="n">common</span><span class="p">.</span><span class="n">methods</span><span class="o">-&gt;</span><span class="n">open</span><span class="p">(</span><span class="n">hw_module</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">device</span><span class="p">)))</span> <span class="p">{</span>
+        <span class="n">ALOGE</span><span class="p">(</span><span class="s">"Can't open fingerprint methods, error: %d"</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">kVersion</span> <span class="o">!=</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">version</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ALOGE</span><span class="p">(</span><span class="s">"Wrong fp version. Expected %d, got %d"</span><span class="p">,</span> <span class="n">kVersion</span><span class="p">,</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">version</span><span class="p">);</span>
+        <span class="c1">// return 0; // FIXME</span>
+    <span class="p">}</span>
+
+    <span class="n">mDevice</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">fingerprint_device_t</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">device</span><span class="p">);</span>
+    <span class="n">err</span> <span class="o">=</span> <span class="n">mDevice</span><span class="o">-&gt;</span><span class="n">set_notify</span><span class="p">(</span><span class="n">mDevice</span><span class="p">,</span> <span class="n">hal_notify_callback</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">err</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ALOGE</span><span class="p">(</span><span class="s">"Failed in call to set_notify(), err=%d"</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Sanity check - remove</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">mDevice</span><span class="o">-&gt;</span><span class="n">notify</span> <span class="o">!=</span> <span class="n">hal_notify_callback</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ALOGE</span><span class="p">(</span><span class="s">"NOTIFY not set properly: %p != %p"</span><span class="p">,</span> <span class="n">mDevice</span><span class="o">-&gt;</span><span class="n">notify</span><span class="p">,</span> 
+        <span class="n">hal_notify_callback</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">ALOG</span><span class="p">(</span><span class="n">LOG_VERBOSE</span><span class="p">,</span> <span class="n">LOG_TAG</span><span class="p">,</span> <span class="s">"fingerprint HAL successfully initialized"</span><span class="p">);</span>
+    <span class="k">return</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">int64_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">mDevice</span><span class="p">);</span> <span class="c1">// This is just a handle</span>
+<span class="p">}</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">openHal()</code> will call the <code class="language-plaintext highlighter-rouge">hw_get_module()</code> to get the pointer to <code class="language-plaintext highlighter-rouge">hw_module_t</code> module, after then it will call the <code class="language-plaintext highlighter-rouge">open()</code> function. Once the HAL module is opened, the Fingerprintd is able to operate fingerprint device through the <code class="language-plaintext highlighter-rouge">hw_device_t</code>.</p>
+
+<p>The funciton of the fingerprint module can be found at 
+<a href="https://www.androidos.net.cn/android/7.1.1_r28/xref/hardware/libhardware/include/hardware/fingerprint.h">fingerprint.h</a> and <a href="https://www.androidos.net.cn/android/7.1.1_r28/xref/hardware/libhardware/modules/fingerprint/fingerprint.c">fingerprint.c</a>.</p>
+
+<p>For now, we have gone over the whole process of the fingerprint working. we can give the summary here.</p>
+
+<p>ServiceManager-&gt;FingerprintService.java-&gt;FingerprintDaemonProxy.cpp-&gt;fingerprint.c<br />-&gt;vendorHal.cpp-&gt;vendorCA.cpp——–TEE-&gt;TA.c</p>
+
+<p>However, from Android 8.0, Android has made some change for the HAL access method, and introduced the HIDL concept. Therefore the contents we introduced is for the Android early version before 8.0.</p>
+
+<p>Next, I will write a article to introduce the difference of the fingerprint framework on Android 8.0 version.</p>
+
+	</div>
+	<!-- put sidebar! -->
+	
+  </div>
+  <!-- no sidebar, use flex width box! -->
+  <br><br><br>
+  <div class="post-container">
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">Share:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+		<li class = "icon-eye">&nbsp;<span id="busuanzi_value_page_pv"></span></li>
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">You may also like</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/daviddong.github.io/android/fingerprint/2021/02/04/Fingerprint-build-ta.html">Build TA images on different TEE</a></li>
+			
+			<li><a href="/daviddong.github.io/android/fingerprint/2020/12/02/Fingerprint-Trusty.html">Some useful knowledge for Fingerprint Application on Trusty TEE</a></li>
+			
+			<li><a href="/daviddong.github.io/android/fingerprint/2020/01/09/Fingerprint-impl-AN8.0.html">Fingerprint implementation in android 8.0 and later</a></li>
+			
+			<li><a href="/daviddong.github.io/android/fingerprint/2019/12/07/Fingerprint-frmk2.html">Android Fingerprint Framework (2)</a></li>
+			
+			<li><a href="/daviddong.github.io/android/fingerprint/2019/10/03/Fingerprint-frmk1.html">Android Fingerprint Framework (1)</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">further reading</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta" style = "margin-bottom:40px"><ul class="navigation-bar" style = "margin-top:40px; min-width:40%">
+	 
+	 <a href="/daviddong.github.io/android/fingerprint/2019/12/07/Fingerprint-frmk2.html"; style="width:100%"><span class = "navigation-bar-label">Previous Post</span><br>Android Fingerprint Framework (2)</a>
+	 
+    </ul><ul class="navigation-bar" style = "margin-top:40px; min-width:40%"> 
+	 
+     <a href="/daviddong.github.io/android/fingerprint/2020/01/09/Fingerprint-impl-AN8.0.html"; style="width:100%"><span class = "navigation-bar-label">Next Post</span><br>Fingerprint implementation in android 8.0 and later</a>
+	 
+    </ul></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/daviddong.github.io/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'daviddong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+      </section>
+    </main>
+<script src="/daviddong.github.io/assets/js/simple-jekyll-search.min.js"></script>
+<script src="/daviddong.github.io/assets/js/search.js"></script>
+
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9"></script>
+
+</body>
+</html>

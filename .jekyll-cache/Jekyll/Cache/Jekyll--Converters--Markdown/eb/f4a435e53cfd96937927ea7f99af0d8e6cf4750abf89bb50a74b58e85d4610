@@ -1,0 +1,92 @@
+I"�<p>Recently I’m using WSL(Window Subsystem for Linux) for program development. This article presents some short notes for the WSL installation and usage.</p>
+
+<p>Below is the official introduction of WSL, I copied it here as a startup.</p>
+
+<blockquote>
+  <h2 id="what-is-wsl">What is WSL?</h2>
+  <p>The Windows Subsystem for Linux lets developers run a GNU/Linux environment – including most command-line tools, utilities, and applications – directly on Windows, unmodified, without the overhead of a virtual machine. <br />
+You can:</p>
+  <ul>
+    <li>Choose your favorite GNU/Linux distributions from the Microsoft Store.</li>
+    <li>Run common command-line tools such as grep, sed, awk, or other ELF-64 binaries.</li>
+    <li>Run Bash shell scripts and GNU/Linux command-line applications including:
+      <ul>
+        <li>Tools: vim, emacs, tmux.</li>
+        <li>Languages: NodeJS, Javascript, Python, Ruby, C/C++, C# &amp; F#, Rust, Go, etc.</li>
+        <li>Services: SSHD, MySQL, Apache, lighttpd, MongoDB, PostgreSQL.</li>
+      </ul>
+    </li>
+    <li>Install additional software using own GNU/Linux distribution package manager.</li>
+    <li>Invoke Windows applications using a Unix-like command-line shell.</li>
+    <li>Invoke GNU/Linux applications on Windows.</li>
+  </ul>
+</blockquote>
+
+<h2 id="how-to-install-wsl">How to install WSL?</h2>
+<p>You can refer to <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">installation guidance</a>, the introduction is detailed. You can complete the installation of <code class="language-plaintext highlighter-rouge">WSL1</code> and <code class="language-plaintext highlighter-rouge">WSL2</code> easily just by following the guidance step by step.</p>
+
+<h2 id="how-to-use">How to use?</h2>
+<p>On above procedure, you will be requested to choose one Linux OS to install, the choice has</p>
+<ul>
+  <li>Ubuntu 16.04 LTS</li>
+  <li>Ubuntu 18.04 LTS</li>
+  <li>openSUSE Leap 15.1</li>
+  <li>SUSE Linux Enterprise Server 12 SP5</li>
+  <li>SUSE Linux Enterprise Server 15 SP1</li>
+  <li>Kali Linux</li>
+  <li>Debian GNU/Linux</li>
+  <li>Fedora Remix for WSL</li>
+  <li>Pengwin</li>
+  <li>Pengwin Enterprise</li>
+  <li>Alpine WSL</li>
+  <li>After installing the Linux OS at Windows store.</li>
+</ul>
+
+<p>I choose Ubuntu 16.04 LTS as my Linux system and installed. The system installation is quite faster than installing on virtual machine from my own experience. During the process, no need to input any information. 
+After installation, just open CMD console and input <code class="language-plaintext highlighter-rouge">ubuntu</code>, you will run Ubuntu on your windows system.</p>
+
+<p>Here are some tips for the usage.</p>
+
+<h3 id="use-wslconfig-command">use wslconfig command</h3>
+<p>In the CMD console, input below command to set the default Linux system if you have multiple.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">wslconfig</span> <span class="sr">/setdefault &lt;DistributionName&gt;</span></code></pre></figure>
+
+<p>use below command to uninstall the specified Linux system.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">wslconfig</span> <span class="sr">/unregister &lt;DistributionName&gt;</span></code></pre></figure>
+
+<p>use below command to check the available system on you computer.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">wslconfig</span> <span class="sr">/list</span></code></pre></figure>
+
+<p>The output of my computer is</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">C</span><span class="p">:\</span><span class="no">WINDOWS</span><span class="p">\</span><span class="no">System32</span><span class="o">&gt;</span><span class="n">wslconfig</span> <span class="sr">/list
+Windows Subsystem for Linux Distributions:
+Ubuntu-16.04 (Default)</span></code></pre></figure>
+
+<h3 id="set-the-default-user">set the default user</h3>
+<p>If you want to change the user, you can use below command 
+For example you want to set the default user as root on the Ubuntu.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">ubuntu</span> <span class="n">config</span> <span class="o">--</span><span class="n">default</span><span class="o">-</span><span class="n">user</span> <span class="n">root</span></code></pre></figure>
+
+<h3 id="wsl-file-system-and-local-file-system-access">WSL file system and local file system access</h3>
+<ul>
+  <li>
+    <p>Access local file in the WSL system. 
+It is easy to access local file in WSL system, the local file system is mounted at /mnt folder. There are <code class="language-plaintext highlighter-rouge">c</code>, <code class="language-plaintext highlighter-rouge">d</code>, <code class="language-plaintext highlighter-rouge">e</code> and other folders in the <code class="language-plaintext highlighter-rouge">/mnt</code> directory, which respectively represent the local C disk, D disk and E disk. You can directly cd them to the corresponding path.</p>
+  </li>
+  <li>
+    <p>Access WSL file in the local system. 
+It is not recommend to do so, at least do not try to modify any file externally. Otherwise it might cause some problems.</p>
+  </li>
+</ul>
+
+<p>Actually, the root directory of WSL can be found at local system path.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">C</span><span class="p">:\</span><span class="no">Users</span><span class="p">\</span><span class="no">XXXX</span><span class="p">\</span><span class="no">AppData</span><span class="p">\</span><span class="no">Local</span><span class="p">\</span><span class="no">Packages</span>
+<span class="p">\</span><span class="no">CanonicalGroupLimited</span><span class="o">.</span><span class="no">UbuntuonWindows_79rhkp1fndgsc</span><span class="p">\</span><span class="no">LocalState</span><span class="p">\</span><span class="n">rootfs</span></code></pre></figure>
+
+:ET

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono" rel="stylesheet">
+<link rel="stylesheet" href="/daviddong.github.io/assets/css/style.css">
+<link rel="icon" href="/daviddong.github.io/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="/daviddong.github.io/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<title>Java 的线程和Runnable接口 | David Dong's Blog</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Java 的线程和Runnable接口 | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Java 的线程和Runnable接口" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="本文详细说明了 Java 里实现多线程的方式。" />
+<meta property="og:description" content="本文详细说明了 Java 里实现多线程的方式。" />
+<link rel="canonical" href="http://localhost:4000/daviddong.github.io/java/2012/06/01/Java-runnable.html" />
+<meta property="og:url" content="http://localhost:4000/daviddong.github.io/java/2012/06/01/Java-runnable.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2012-06-01T13:27:23+08:00" />
+<script type="application/ld+json">
+{"dateModified":"2012-06-01T13:27:23+08:00","datePublished":"2012-06-01T13:27:23+08:00","url":"http://localhost:4000/daviddong.github.io/java/2012/06/01/Java-runnable.html","@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/daviddong.github.io/BLOG"},"name":"david.dong"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/daviddong.github.io/java/2012/06/01/Java-runnable.html"},"author":{"@type":"Person","name":"david.dong"},"headline":"Java 的线程和Runnable接口","description":"本文详细说明了 Java 里实现多线程的方式。","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+
+</head>
+  <body><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><main class="container">
+      <section class="about">
+        <a href="/daviddong.github.io/blog/index.html"><img src="/daviddong.github.io/assets/avatar.png" alt="David Dong"></a>
+        <h2 id="title">
+          <a href="/daviddong.github.io/blog/index.html">David Dong</a>
+        </h2>
+        <p class="tagline">Java/C/C#/Python</p>
+		<!--add navigation --><nav class="navigation">
+            <ul>
+              
+            </ul>
+          </nav><!--put dark mode button here --><div>
+		  <ul class = "social" >
+			<p style = "font-family: Raleway, sans-serif;font-size: 100%">Dark Mode
+			  <i class="icon-moon"></i>
+			  <label class="switch">
+				<input type="checkbox" id="dark-mode-toggle" onclick="toggleDarkMode()">
+				<span class="slider round"></span>
+			  </label>
+			</p>
+		  </ul>
+		<script type="text/javascript" src="/daviddong.github.io/assets/js/darkmode.js"></script>
+		</div><!--put rss/code link here -->
+	    <div>
+          <ul class="tool"><a style ="margin-right:10px; text-decoration: none" href="/daviddong.github.io/rss.xml">
+              <span class="icon-rss-1 tooltip">
+				<span class="tooltiptext">Rss</span>
+			  </span>
+           </a><a style="text-decoration: none" href="https://github.com/gangdong/daviddong.github.io">
+              <span class="icon-file-code tooltip">
+				<span class="tooltiptext">Code</span>
+			  </span>
+            </a></ul>
+        </div>
+	    <!--show contact me -->
+	    <div class = "contact"><li>CONTACT ME</li></div>
+		<!-- put social link here -->
+		<div>
+	      <ul class="social" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture-3"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled-1"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		</div>
+		<!--put timestamp here -->
+		<div class ="timestamp">&copy; 2021</div>
+	  <!-- about box end here -->
+      </section>
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+
+
+<div class="post-container">
+	<div  class = "menu-meta">
+		<div  class = "menu-logo" style="margin-top: 20px">BLOG</div>
+		<div  class = "menu" style = "margin-top: 20px">
+			<a class = "icon-doc-text icon_font" href="/daviddong.github.io/blog/index.html">Posts</a><a  class = "icon-archive-1 icon_font" href="/daviddong.github.io/archive">Archives</a><a  class = "icon-tags-1 icon_font" href="/daviddong.github.io/category">Categories</a><a  class = "icon-help-circled-3 icon_font" href="/daviddong.github.io/about">About</a>
+		</div>
+	</div>
+</div><div class="post-container">
+  <li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">POST</h1>
+  </li>  
+  <a class="post-link" href="/daviddong.github.io/java/2012/06/01/Java-runnable.html">
+    <h2 class="post-title">Java 的线程和Runnable接口</h2>
+  </a>
+   <div class="post-meta">
+    <div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">Jun 1, 2012</div>
+  </div>
+  <br>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+  <div class="post-viewer-container">
+	<div class="post-fix-width">
+		<p>Java 实现多线程编程的方式有两种，一种是继承 Thread 类，另一种是实现 Runnable 接口。<br />
+下面的内容会分别介绍这两种用法以及使用上的区别。</p>
+
+<h2 id="thread-类">Thread 类</h2>
+<p>Java 通过Thread类来实现多线程，关于Thread类的介绍，可以查阅 <a href="https://docs.oracle.com/javase/8/docs/api/">Java文档 Thread</a>。<br />
+Thread类继承自java.lang.Object，实现了Runnable接口。<br />
+Thread类的用法如下。<br />
+MyThreadClass.java</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.daviddong</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyThreadClass</span> <span class="kd">extends</span> <span class="nc">Thread</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// TODO Auto-generated method stub</span>
+        <span class="n">cnt</span><span class="o">++;</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"线程"</span> <span class="o">+</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> 
+        <span class="s">" 被调用 "</span> <span class="o">+</span> <span class="n">cnt</span> <span class="o">+</span> <span class="s">"次"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>App.java</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.daviddong</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">App</span> 
+<span class="o">{</span>
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span> <span class="nc">String</span><span class="o">[]</span> <span class="n">args</span> <span class="o">)</span>
+    <span class="o">{</span>
+        <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">MyThreadClass</span><span class="o">&gt;</span> <span class="n">lists</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">MyThreadClass</span><span class="o">&gt;();</span>
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">10</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+            <span class="nc">MyThreadClass</span> <span class="n">tmp</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyThreadClass</span><span class="o">(</span><span class="n">mR</span><span class="o">);</span>
+            <span class="n">lists</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">tmp</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">for</span><span class="o">(</span><span class="nc">MyThreadClass</span> <span class="nl">tmp:</span><span class="n">lists</span><span class="o">){</span>
+            <span class="n">tmp</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>运行结果</p>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">线程Thread-0 被调用 1次
+线程Thread-9 被调用 1次
+线程Thread-8 被调用 1次
+线程Thread-7 被调用 1次
+线程Thread-5 被调用 1次
+线程Thread-6 被调用 1次
+线程Thread-3 被调用 1次
+线程Thread-4 被调用 1次
+线程Thread-2 被调用 1次
+线程Thread-1 被调用 1次</code></pre></figure>
+
+<p>由以上结果可以看出，线程的运行结果与执行顺序无关，并且10个线程分别被执行一次，线程内资源无法共享。</p>
+
+<h2 id="runnable-接口">Runnable 接口</h2>
+<p>Runnable接口的Java文档的介绍。<a href="">Runnable</a>
+Runnable接口内只声明一个方法<code class="language-plaintext highlighter-rouge">Run()</code>的方法，同Thread内的<code class="language-plaintext highlighter-rouge">Run()</code>方法一样，该方法内定义了线程的执行体。<br />
+Runnable接口的用法如下。<br />
+MyRunnable.java</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.daviddong</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyRunnable</span> <span class="kd">implements</span> <span class="nc">Runnable</span><span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// TODO Auto-generated method stub</span>
+        <span class="n">cnt</span><span class="o">++;</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"线程"</span> <span class="o">+</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> 
+        <span class="s">" 被调用 "</span> <span class="o">+</span> <span class="n">cnt</span> <span class="o">+</span> <span class="s">"次"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>App.java</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.daviddong</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">App</span> 
+<span class="o">{</span>
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span> <span class="nc">String</span><span class="o">[]</span> <span class="n">args</span> <span class="o">)</span>
+    <span class="o">{</span>
+        <span class="nc">MyRunnable</span> <span class="n">mR</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyRunnable</span><span class="o">();</span>
+        <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Thread</span><span class="o">&gt;</span> <span class="n">lists</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Thread</span><span class="o">&gt;();</span>
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">10</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+            <span class="nc">Thread</span> <span class="n">tmp</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="n">mR</span><span class="o">);</span>
+            <span class="n">lists</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">tmp</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">for</span><span class="o">(</span><span class="nc">Thread</span> <span class="nl">tmp:</span><span class="n">lists</span><span class="o">){</span>
+            <span class="n">tmp</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="o">}</span>   
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>运行结果</p>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">线程Thread-1 被调用 2次
+线程Thread-2 被调用 3次
+线程Thread-0 被调用 2次
+线程Thread-7 被调用 7次
+线程Thread-6 被调用 6次
+线程Thread-5 被调用 5次
+线程Thread-4 被调用 4次
+线程Thread-8 被调用 9次
+线程Thread-9 被调用 9次
+线程Thread-3 被调用 10次</code></pre></figure>
+
+<p>同Thread的例子一样，看的出线程的执行顺序与调用顺序无关。但是因为不同的线程中传入的是同一个实现了Runnable接口的对象，因此内部的变量被共享。
+由以上两个例子，可以看出使用Thread类和Runnable接口创建线程的不同主要是有2点。</p>
+<ul>
+  <li>因为Java只能实现单继承，但可以实现多个接口，所以使用继承Thread类的方法就会导致无法继承其他的类，而Runnable接口就可以避免继承的局限。</li>
+  <li>使用Runnable接口适合于资源的共享。</li>
+</ul>
+
+<p>上面的程序还有一个问题，我们看到使用Runable接口时，虽然资源是被共享的，但是顺序不对，而且有重复出现的情况，正常应该是每个线程被调用时，调用次数加一，且应该顺序增加。造成这个问题的原因是因为不同的线程在执行都会访问共享的资源，而这些线程没有实现同步，共享资源会在一个线程调用的过程中被另外的线程改变。
+解决这个问题的话就要用到<code class="language-plaintext highlighter-rouge">synchronized</code>，使线程之间同步运行。
+我们修改一下代码。<br />
+MyRunnale.java</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.daviddong</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyRunnable</span> <span class="kd">implements</span> <span class="nc">Runnable</span><span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// TODO Auto-generated method stub</span>
+        <span class="n">cnt</span><span class="o">++;</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"线程"</span> <span class="o">+</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> 
+        <span class="s">" 被调用 "</span> <span class="o">+</span> <span class="n">cnt</span> <span class="o">+</span> <span class="s">"次"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>使用<code class="language-plaintext highlighter-rouge">synchronized</code>修饰<code class="language-plaintext highlighter-rouge">run()</code>方法，使得其在执行时与其他的线程同步。经过synchronized修饰后线程在执行run()方法时会确认是否有其他线程正在执行，如果有的话就加入队列等待，知道可以获得执行权。
+执行结果如下。</p>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">线程Thread-1 被调用 1次
+线程Thread-3 被调用 2次
+线程Thread-2 被调用 3次
+线程Thread-7 被调用 4次
+线程Thread-0 被调用 5次
+线程Thread-9 被调用 6次
+线程Thread-8 被调用 7次
+线程Thread-6 被调用 8次
+线程Thread-5 被调用 9次
+线程Thread-4 被调用 10次</code></pre></figure>
+
+<p>现在我们看到共享资源是按顺序被调用且没有重复。<br />
+最后在介绍一些Thread类的常用方法。<br /></p>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Return</strong></th>
+      <th><strong>Function</strong></th>
+      <th><strong>Description</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Thread</td>
+      <td>currentThread</td>
+      <td>返回代码段当前被调用的线程</td>
+    </tr>
+    <tr>
+      <td>void</td>
+      <td>sleep()</td>
+      <td>在指定的毫秒数内让当前”正在执行的线程”休眠（暂停执行）</td>
+    </tr>
+    <tr>
+      <td>void</td>
+      <td>start()</td>
+      <td>启动当前线程</td>
+    </tr>
+    <tr>
+      <td>boolean</td>
+      <td>isAlive()</td>
+      <td>当前线程是否处于激活状态</td>
+    </tr>
+    <tr>
+      <td>String</td>
+      <td>getName()</td>
+      <td>返回当前线程的名字</td>
+    </tr>
+    <tr>
+      <td>long</td>
+      <td>getID()</td>
+      <td>返回当前线程的ID</td>
+    </tr>
+    <tr>
+      <td>void</td>
+      <td>setPriority()</td>
+      <td>设置优先级</td>
+    </tr>
+    <tr>
+      <td>boolean</td>
+      <td>isDaemon()</td>
+      <td>是否为守护进程</td>
+    </tr>
+  </tbody>
+</table>
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box">
+		    
+				<li class = "sidebar-title">关于文章</li>
+			
+			
+				
+					<li class = "sidebar-about-content sidebar-font-medium">本文详细说明了 Java 里实现多线程的方式。</li>
+				
+				
+					<li class = "icon-link-1 sidebar-about-content sidebar-font-medium" style = "margin-top:30px">文章作者: <a href="https://github.com/gangdong">david.dong</a></li>
+				
+				<li class = "icon-hourglass sidebar-about-content sidebar-font-medium">阅读时间：8 mins</li>
+				<li class = "icon-book-open sidebar-about-content sidebar-font-medium">全文字数：2895</li>
+				
+					<li class = "icon-th-list-1 sidebar-about-content sidebar-font-medium">关键字: Java/线程/Runnable/</li>
+				
+				
+					<li class = "icon-hashtag sidebar-about-content sidebar-font-medium">标签: 
+					
+					<a href="/daviddong.github.io/category#Java">Java&nbsp;</a>
+					
+					</li>
+				
+			
+		</div>
+		
+		
+	    <div class="sidebar-toc-box">
+			
+			<li class = "sidebar-title">文章目录</li>
+			<li class = "sidebar-font-medium sidebar-toc-content"><ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#thread-类">Thread 类</a></li>
+<li class="toc-entry toc-h2"><a href="#runnable-接口">Runnable 接口</a></li>
+</ul></li>
+			
+		</div>
+		
+	</div>
+	 
+  </div>
+  <!-- no sidebar, use flex width box! -->
+  <br><br><br>
+  <div class="post-container">
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">分享:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+		<li class = "icon-eye">&nbsp;<span id="busuanzi_value_page_pv"></span></li>
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">相关文章</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/daviddong.github.io/java/2013/05/07/Java-com.html">Java 调用COM组件的方法</a></li>
+			
+			<li><a href="/daviddong.github.io/java/2013/03/01/Java-jdom.html">Java JDOM 库的使用</a></li>
+			
+			<li><a href="/daviddong.github.io/java/2012/12/17/Java-jxl.html">Java 使用JXL库编辑Excel文档</a></li>
+			
+			<li><a href="/daviddong.github.io/java/2012/10/21/Java-serialcom.html">Java 串口编程</a></li>
+			
+			<li><a href="/daviddong.github.io/java/2012/04/22/Java-javadoc.html">Javadoc 使用</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">继续阅读</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta" style = "margin-bottom:40px"><ul class="navigation-bar" style = "margin-top:40px; min-width:40%">
+	 
+	 <a href="/daviddong.github.io/java/2012/04/22/Java-javadoc.html"; style="width:100%"><span class = "navigation-bar-label">前一章</span><br>Javadoc 使用</a>
+	 
+    </ul><ul class="navigation-bar" style = "margin-top:40px; min-width:40%"> 
+	 
+	 <a href="/daviddong.github.io/java/2012/10/21/Java-serialcom.html"; style="width:100%"><span class = "navigation-bar-label">后一章</span><br>Java 串口编程</a>
+	 
+    </ul></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/daviddong.github.io/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'daviddong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+      </section>
+    </main>
+<script src="/daviddong.github.io/assets/js/simple-jekyll-search.min.js"></script>
+<script src="/daviddong.github.io/assets/js/search.js"></script>
+
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9"></script>
+
+</body>
+</html>

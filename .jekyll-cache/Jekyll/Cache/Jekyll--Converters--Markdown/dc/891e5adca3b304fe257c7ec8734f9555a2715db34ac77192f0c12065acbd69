@@ -1,0 +1,64 @@
+I"l<p><img src="/daviddong.github.io/assets/image/web-jekyll-1-cover.png" alt="Jekyll theme pic" />  <br />
+In my last article, I have introduced how to create a blog based on Github pages, if you haven’t read it and you want to read, find the blog at <a href="/daviddong.github.io/web/github/2018/03/23/Github-github-blog.html">here</a>. Following that article, this page will give a brief introduction about Jekyll and its installation.</p>
+
+<h2 id="jekyll">Jekyll</h2>
+<p>What’s Jekyll?
+Jekyll is a simple and free blog generation tool, similar to WordPress. But it’s very different from WordPress because Jekyll is just a tool for generating static web pages and does not need database support. It can work with third-party services, such as Disqus. The key is that Jekyll can be deployed on GitHub free of charge and can bind its own domain name.</p>
+
+<p>As a static site generator, Jekyll provides many advantages, for example, a website constructed by Jekyll will get a faster page speed over a dynamic, database driven site.</p>
+
+<p>Jekyll also offers a way of storing data in a more human readable format, such as yaml or JSON. This means you can store data that is used in multiple places across your site in one file and reference it in many places.</p>
+
+<p>Others are Jekyll gives the developer more freedom to design and build the site. It is freely to write your own html and text onto the page in the format you want.</p>
+
+<p>Generally, Jekyll is a static site generator. It will transform your plain text into static websites and blogs. No more databases, slow loading websites, risk of being hacked…just your content.</p>
+
+<p>Let’s turn to how to build the website by Jekyll, I suggests you construct your website on Github pages because Jekyll is well deployed on Github and there are many Jekyll theme templates for you powering your website. More important is all of these are totally free of charge. If you like, you can even bind your domain on it. you can view my previous <a href="/daviddong.github.io/web/github/2018/03/23/Others-github-blog.html">blog</a> to learn how to create blog on Gitgub pages.</p>
+<h2 id="installation">Installation</h2>
+<p>The first step is installing the Jekyll tools on your PC, here I just introduce the installation on windows platform.</p>
+
+<ol>
+  <li>download Ruby at <a href="https://rubyinstaller.org/">here</a> and install. You can skip it if you have already had.</li>
+  <li>download RubyGems at <a href="https://rubygems.org/pages/download">here</a>. Again, skip this step if you have done.</li>
+  <li>unzip the RubyGems folder and enter the directory. Execute below command.</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">ruby</span> <span class="n">setup</span><span class="p">.</span><span class="nf">rb</span></code></pre></figure>
+
+<ol>
+  <li>execute command install Jekyll.</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">gem</span> <span class="n">install</span> <span class="no">Jekyll</span></code></pre></figure>
+
+<p>After the installation, check it by creating a Jekyll template.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">cd</span> <span class="ss">d:
+d:
+</span><span class="no">Jekyll</span> <span class="n">new</span> <span class="n">testblog</span>
+<span class="n">cd</span> <span class="n">testblog</span>
+<span class="no">Jekyll</span> <span class="n">server</span></code></pre></figure>
+
+<p>If you see below output message, the Jekyll is working on your PC now.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Generating</span><span class="o">...</span>
+    <span class="n">done</span> <span class="k">in</span> <span class="mf">1.684</span> <span class="n">seconds</span><span class="o">.</span>
+<span class="no">Please</span> <span class="n">add</span> <span class="n">the</span> <span class="n">following</span> <span class="n">to</span> <span class="n">your</span> <span class="no">Gemfile</span> <span class="n">to</span> <span class="n">avoid</span> <span class="n">polling</span> <span class="k">for</span> <span class="ss">changes:
+    </span><span class="n">gem</span> <span class="s1">'wdm'</span><span class="p">,</span> <span class="s1">'&gt;= 0.1.0'</span> <span class="k">if</span> <span class="no">Gem</span><span class="p">.</span><span class="nf">win_platform?</span>
+<span class="no">Auto</span><span class="o">-</span><span class="ss">regeneration: </span><span class="n">enabled</span> <span class="k">for</span> <span class="s1">'D:/Study/backup/daviddong.github.io'</span>
+    <span class="no">Server</span> <span class="ss">address: </span><span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">4000</span>
+<span class="no">Server</span> <span class="n">running</span><span class="o">...</span> <span class="n">press</span> <span class="n">ctrl</span><span class="o">-</span><span class="n">c</span> <span class="n">to</span> <span class="n">stop</span><span class="o">.</span></code></pre></figure>
+
+<p>So far you can input http://127.0.0.1:4000/ in the browser to browse the blog you just created.</p>
+
+<h2 id="jekyll-theme">Jekyll theme</h2>
+<p>Jekyll provides a lot of beautiful theme templates, you can use them to power your website easily.<br /> 
+you can view the demo, download the source code and use it on your own website.</p>
+
+<p><img src="/daviddong.github.io/assets/image/web-jekyll-1-template.png" alt="Jekyll theme pic" /></p>
+
+<p>Now go and choose one you like -&gt; <a href="http://jekyllthemes.org/">Jekyll theme</a>.</p>
+
+<p>Next article, I will introduce the Jekyll grammar. If you have questions about this atricle, please add them at below comment box. I will try to answer you as prompt as I can.</p>
+
+:ET

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono" rel="stylesheet">
+<link rel="stylesheet" href="/daviddong.github.io/assets/css/style.css">
+<link rel="icon" href="/daviddong.github.io/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="/daviddong.github.io/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<title>Fingerprint driver development in Windows(3) | David Dong's Blog</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Fingerprint driver development in Windows(3) | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Fingerprint driver development in Windows(3)" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Some knowledge for Fingerprint driver development." />
+<meta property="og:description" content="Some knowledge for Fingerprint driver development." />
+<link rel="canonical" href="http://localhost:4000/daviddong.github.io/c++/fingerprint/windows/2020/06/13/Cpp-wbdi-03.html" />
+<meta property="og:url" content="http://localhost:4000/daviddong.github.io/c++/fingerprint/windows/2020/06/13/Cpp-wbdi-03.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-06-13T10:37:55+08:00" />
+<script type="application/ld+json">
+{"dateModified":"2020-06-13T10:37:55+08:00","datePublished":"2020-06-13T10:37:55+08:00","url":"http://localhost:4000/daviddong.github.io/c++/fingerprint/windows/2020/06/13/Cpp-wbdi-03.html","@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/daviddong.github.io/BLOG"},"name":"david.dong"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/daviddong.github.io/c++/fingerprint/windows/2020/06/13/Cpp-wbdi-03.html"},"author":{"@type":"Person","name":"david.dong"},"headline":"Fingerprint driver development in Windows(3)","description":"Some knowledge for Fingerprint driver development.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+
+</head>
+  <body><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><main class="container">
+      <section class="about">
+        <a href="/daviddong.github.io/blog/index.html"><img src="/daviddong.github.io/assets/avatar.png" alt="David Dong"></a>
+        <h2 id="title">
+          <a href="/daviddong.github.io/blog/index.html">David Dong</a>
+        </h2>
+        <p class="tagline">Java/C/C#/Python</p>
+		<!--add navigation --><nav class="navigation">
+            <ul>
+              
+            </ul>
+          </nav><!--put dark mode button here --><div>
+		  <ul class = "social" >
+			<p style = "font-family: Raleway, sans-serif;font-size: 100%">Dark Mode
+			  <i class="icon-moon"></i>
+			  <label class="switch">
+				<input type="checkbox" id="dark-mode-toggle" onclick="toggleDarkMode()">
+				<span class="slider round"></span>
+			  </label>
+			</p>
+		  </ul>
+		<script type="text/javascript" src="/daviddong.github.io/assets/js/darkmode.js"></script>
+		</div><!--put rss/code link here -->
+	    <div>
+          <ul class="tool"><a style ="margin-right:10px; text-decoration: none" href="/daviddong.github.io/rss.xml">
+              <span class="icon-rss-1 tooltip">
+				<span class="tooltiptext">Rss</span>
+			  </span>
+           </a><a style="text-decoration: none" href="https://github.com/gangdong/daviddong.github.io">
+              <span class="icon-file-code tooltip">
+				<span class="tooltiptext">Code</span>
+			  </span>
+            </a></ul>
+        </div>
+	    <!--show contact me -->
+	    <div class = "contact"><li>CONTACT ME</li></div>
+		<!-- put social link here -->
+		<div>
+	      <ul class="social" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture-3"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled-1"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		</div>
+		<!--put timestamp here -->
+		<div class ="timestamp">&copy; 2021</div>
+	  <!-- about box end here -->
+      </section>
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+
+
+<div class="post-container">
+	<div  class = "menu-meta">
+		<div  class = "menu-logo" style="margin-top: 20px">BLOG</div>
+		<div  class = "menu" style = "margin-top: 20px">
+			<a class = "icon-doc-text icon_font" href="/daviddong.github.io/blog/index.html">Posts</a><a  class = "icon-archive-1 icon_font" href="/daviddong.github.io/archive">Archives</a><a  class = "icon-tags-1 icon_font" href="/daviddong.github.io/category">Categories</a><a  class = "icon-help-circled-3 icon_font" href="/daviddong.github.io/about">About</a>
+		</div>
+	</div>
+</div><div class="post-container">
+  <li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">POST</h1>
+  </li>  
+  <a class="post-link" href="/daviddong.github.io/c++/fingerprint/windows/2020/06/13/Cpp-wbdi-03.html">
+    <h2 class="post-title">Fingerprint driver development in Windows(3)</h2>
+  </a>
+   <div class="post-meta">
+    <div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">Jun 13, 2020</div>
+  </div>
+  <br>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+  <div class="post-viewer-container">
+	<div class="post-fix-width">
+		<p>Following the last two articles…</p>
+
+<h2 id="7-managing-queues-in-a-wbdi-driver"><span id="7">7. Managing Queues in a WBDI Driver</span></h2>
+<p>WBDI drivers should create at least one queue to handle multiple concurrent requests from the service. If you are using UMDF, you can take advantage of its queue management support.</p>
+
+<p>In WudfBioUsbSample, the CBiometricIoQueue class implements the I/O queue interface.</p>
+
+<p>In the method <code class="language-plaintext highlighter-rouge">CBiometricIoQueue::Initialize</code>, specifically, the driver queries the owning <code class="language-plaintext highlighter-rouge">CBiometricIoQueue</code> object for a pointer to the <code class="language-plaintext highlighter-rouge">IQueueCallbackDeviceIoControl</code> interface that the framework uses to determine the event callback functions that the driver subscribes to on the queue:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">if</span> <span class="p">(</span><span class="no">SUCCEEDED</span><span class="p">(</span><span class="n">hr</span><span class="p">))</span> 
+<span class="p">{</span>
+    <span class="n">hr</span> <span class="o">=</span> <span class="n">this</span><span class="o">-&gt;</span><span class="no">QueryInterface</span><span class="p">(</span><span class="n">__uuidof</span><span class="p">(</span><span class="no">IUnknown</span><span class="p">),</span> <span class="p">(</span><span class="n">void</span> <span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="n">unknown</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Then the driver calls <code class="language-plaintext highlighter-rouge">IWDFDevice::CreateIoQueue</code> to configure the default I/O queue:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">hr</span> <span class="o">=</span> <span class="no">FxDevice</span><span class="o">-&gt;</span><span class="no">CreateIoQueue</span><span class="p">(</span><span class="n">unknown</span><span class="p">,</span><span class="no">FALSE</span><span class="p">,</span><span class="no">WdfIoQueueDispatchParallel</span><span class="p">,</span><span class="no">FALSE</span><span class="p">,</span><span class="no">FALSE</span><span class="p">,</span><span class="o">&amp;</span><span class="n">fxQueue</span><span class="p">);</span>
+<span class="no">BiometricSafeRelease</span><span class="p">(</span><span class="n">unknown</span><span class="p">);</span></code></pre></figure>
+
+<p>The call specifies <code class="language-plaintext highlighter-rouge">WdfIoQueueDispatchParallel</code> so that the framework will present requests to the driver’s I/O queue callback functions as soon as the requests are available.</p>
+
+<p>Next, the driver calls <code class="language-plaintext highlighter-rouge">IWDFDevice::ConfigureRequestDispatching</code> to configure the queue to filter all Device I/O requests:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">hr</span> <span class="o">=</span> <span class="no">FxDevice</span><span class="o">-&gt;</span><span class="no">ConfigureRequestDispatching</span><span class="p">(</span><span class="n">fxQueue</span><span class="p">,</span><span class="no">WdfRequestDeviceIoControl</span><span class="p">,</span><span class="no">TRUE</span><span class="p">);</span></code></pre></figure>
+
+<p>Because the driver specifies <code class="language-plaintext highlighter-rouge">WdfRequestDeviceIoControl</code> in this call, it provides an OnDeviceIoControl handler to process I/O notifications from the framework. It does this in the <code class="language-plaintext highlighter-rouge">IQueueCallbackDeviceIoControl::OnDeviceIoControl</code> method that is part of the “unknown” parameter in the call to <code class="language-plaintext highlighter-rouge">CreateIoQueue</code> previously.</p>
+
+<p>There can only be one outstanding <code class="language-plaintext highlighter-rouge">IOCTL_BIOMETRIC_CAPTURE_DATA</code> request at a time. The driver should track <code class="language-plaintext highlighter-rouge">IOCTL_BIOMETRIC_CAPTURE_DATA</code> requests, either by internally keeping a pointer to the pending requests or by using another framework queue to handle those requests.</p>
+
+<p>In the sample, if there is a pending I/O request, the sample maintains a pointer to the request in a member of the CBiometricDevice class, as defined in Device.h:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">IWDFIoRequest</span> <span class="o">*</span><span class="n">m_PendingRequest</span><span class="p">;</span></code></pre></figure>
+
+<p>While one sensor data collection I/O is pending, subsequent calls to the data collection IOCTLs should fail:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">FxRequest</span><span class="o">-&gt;</span><span class="no">Complete</span><span class="p">(</span><span class="no">WINBIO_E_DATA_COLLECTION_IN_PROGRESS</span><span class="p">);</span></code></pre></figure>
+
+<p>When a capture request is completed or canceled, this value is set to NULL:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">IWDFIoRequest</span> <span class="o">*</span><span class="no">FxRequest</span> <span class="o">=</span> <span class="p">(</span><span class="no">IWDFIoRequest</span> <span class="o">*</span><span class="p">)</span><span class="no">InterlockedExchangePointer</span><span class="p">((</span><span class="no">PVOID</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">m_PendingRequest</span><span class="p">,</span> <span class="no">NULL</span><span class="p">);</span></code></pre></figure>
+
+<h2 id="8-installing-a-biometric-driver"><span id="8">8. Installing a Biometric Driver</span></h2>
+<p>Vendors can provide an INF file to install a WBDI driver.</p>
+
+<p>The following is a list of guidelines for biometric device installation. The code examples in this topic are taken from the <code class="language-plaintext highlighter-rouge">WudfBioUsbSample.inx</code> file of the <a href="https://github.com/Microsoft/Windows-driver-samples/tree/master/biometrics/driver">WudfBioUsbSample</a>:</p>
+
+<ul>
+  <li>WBDI drivers should specify a class of “Biometric.” Set ClassGuid equal to the value that corresponds to <code class="language-plaintext highlighter-rouge">GUID_DEVCLASS_BIOMETRIC</code> in Devguid.h:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="p">[</span><span class="no">Version</span><span class="p">]</span>
+<span class="no">Signature</span><span class="o">=</span><span class="s2">"$Windows NT$"</span>
+<span class="no">Class</span><span class="o">=</span><span class="no">Biometric</span>
+<span class="no">ClassGuid</span><span class="o">=</span><span class="p">{</span><span class="mi">53</span><span class="no">D29EF7</span><span class="o">-</span><span class="mi">377</span><span class="no">C</span><span class="o">-</span><span class="mi">4</span><span class="no">D14</span><span class="o">-</span><span class="mi">864</span><span class="no">B</span><span class="o">-</span><span class="no">EB3A85769359</span><span class="p">}</span></code></pre></figure>
+
+<ul>
+  <li>In your .HW section, provide AddReg directives to specify three sections that contain entries to be added to the registry:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="p">[</span><span class="no">Biometric_Install</span><span class="o">.</span><span class="no">NT</span><span class="p">.</span><span class="nf">hw</span><span class="p">]</span>
+<span class="no">AddReg</span><span class="o">=</span><span class="no">Biometric_Device_AddReg</span>
+<span class="no">AddReg</span><span class="o">=</span><span class="no">DriverPlugInAddReg</span><span class="p">,</span> <span class="no">DatabaseAddReg</span></code></pre></figure>
+
+<ul>
+  <li>Provide the named sections referred to in the .HW section. The <code class="language-plaintext highlighter-rouge">[Biometric_Device_AddReg]</code> section sets values for the biometric device, including the exclusive flag and system wake/device idle. To be recognized by Windows Biometric Framework, UMDF-based WBDI drivers must set the “Exclusive” value to 1. The first two lines of the <code class="language-plaintext highlighter-rouge">[Biometric_Device_AddReg]</code> section specify access control list (ACL) rights so that the device can only be opened by an administrator or the local system account. When you specify these ACL rights, third-party applications cannot open the device and capture fingerprint data when the WinBio service is not running. For example:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="p">[</span><span class="no">Biometric_Device_AddReg</span><span class="p">]</span>
+<span class="no">HKR</span><span class="p">,,</span><span class="s2">"DeviceCharacteristics"</span><span class="p">,</span><span class="mh">0x10001</span><span class="p">,</span><span class="mh">0x0100</span>     <span class="p">;</span> <span class="no">Use</span> <span class="n">same</span> <span class="n">security</span> <span class="n">checks</span> <span class="n">on</span> <span class="n">relative</span> <span class="n">opens</span>
+<span class="no">HKR</span><span class="p">,,</span><span class="s2">"Security"</span><span class="p">,,</span><span class="s2">"D:P(A;;GA;;;BA)(A;;GA;;;SY)"</span>  <span class="p">;</span> <span class="no">Allow</span> <span class="n">generic</span><span class="o">-</span><span class="n">all</span> <span class="n">access</span> <span class="n">to</span> <span class="no">Built</span><span class="o">-</span><span class="k">in</span> <span class="n">administrators</span> <span class="n">and</span> <span class="no">Local</span> <span class="nb">system</span>
+<span class="no">HKR</span><span class="p">,,</span><span class="s2">"LowerFilters"</span><span class="p">,</span><span class="mh">0x00010008</span><span class="p">,</span><span class="s2">"WinUsb"</span> <span class="p">;</span> <span class="no">FLG_ADDREG_TYPE_MULTI_SZ</span> <span class="o">|</span> <span class="no">FLG_ADDREG_APPEND</span>
+<span class="no">HKR</span><span class="p">,,</span><span class="s2">"Exclusive"</span><span class="p">,</span><span class="mh">0x10001</span><span class="p">,</span><span class="mi">1</span>
+<span class="no">HKR</span><span class="p">,,</span><span class="s2">"SystemWakeEnabled"</span><span class="p">,</span><span class="mh">0x00010001</span><span class="p">,</span><span class="mi">1</span>
+<span class="no">HKR</span><span class="p">,,</span><span class="s2">"DeviceIdleEnabled"</span><span class="p">,</span><span class="mh">0x00010001</span><span class="p">,</span><span class="mi">1</span>
+<span class="no">HKR</span><span class="p">,,</span><span class="s2">"UserSetDeviceIdleEnabled"</span><span class="p">,</span><span class="mh">0x00010001</span><span class="p">,</span><span class="mi">1</span>
+<span class="no">HKR</span><span class="p">,,</span><span class="s2">"DefaultIdleState"</span><span class="p">,</span><span class="mh">0x00010001</span><span class="p">,</span><span class="mi">1</span>
+<span class="no">HKR</span><span class="p">,,</span><span class="s2">"DefaultIdleTimeout"</span><span class="p">,</span><span class="mh">0x00010001</span><span class="p">,</span><span class="mi">5000</span></code></pre></figure>
+
+<p>A WBDI driver that exposes functionality to a legacy (non-WBDI) biometric stack should set the Exclusive value to zero. If this value is set to zero, the Windows Biometric Framework does not attempt to control the device and the device is not exposed through WBF.</p>
+
+<p>Vendors can have a single driver binary that can work with legacy stacks and WBF, but the two cannot operate simultaneously. WBF will only operate if the device can be opened with exclusive access.</p>
+
+<ul>
+  <li>The second named section contains registry values for the plug-in adapters. The sample uses the Microsoft-provided sensor adapter and storage adapter. This section also enables Windows log-in support by setting the SystemSensor value:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="p">[</span><span class="no">DriverPlugInAddReg</span><span class="p">]</span>
+<span class="no">HKR</span><span class="p">,</span><span class="no">WinBio</span><span class="p">\</span><span class="no">Configurations</span><span class="p">,</span><span class="no">DefaultConfiguration</span><span class="p">,,</span><span class="s2">"0"</span>
+<span class="no">HKR</span><span class="p">,</span><span class="no">WinBio</span><span class="p">\</span><span class="no">Configurations</span><span class="p">\</span><span class="mi">0</span><span class="p">,</span><span class="no">SensorMode</span><span class="p">,</span><span class="mh">0x10001</span><span class="p">,</span><span class="mi">1</span>                                <span class="p">;</span> <span class="no">Basic</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="no">Advanced</span> <span class="o">-</span> <span class="mi">2</span>
+<span class="no">HKR</span><span class="p">,</span><span class="no">WinBio</span><span class="p">\</span><span class="no">Configurations</span><span class="p">\</span><span class="mi">0</span><span class="p">,</span><span class="no">SystemSensor</span><span class="p">,</span><span class="mh">0x10001</span><span class="p">,</span><span class="mi">1</span>                              <span class="p">;</span> <span class="no">UAC</span><span class="o">/</span><span class="no">Winlogon</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="no">HKR</span><span class="p">,</span><span class="no">WinBio</span><span class="p">\</span><span class="no">Configurations</span><span class="p">\</span><span class="mi">0</span><span class="p">,</span><span class="no">SensorAdapterBinary</span><span class="p">,,</span><span class="s2">"WinBioSensorAdapter.DLL"</span>      <span class="p">;</span> <span class="no">Windows</span> <span class="n">built</span><span class="o">-</span><span class="k">in</span> <span class="no">WBDI</span> <span class="n">sensor</span> <span class="n">adapter</span><span class="o">.</span>
+<span class="no">HKR</span><span class="p">,</span><span class="no">WinBio</span><span class="p">\</span><span class="no">Configurations</span><span class="p">\</span><span class="mi">0</span><span class="p">,</span><span class="no">EngineAdapterBinary</span><span class="p">,,</span><span class="s2">"EngineAdapter.DLL"</span>            <span class="p">;</span> <span class="no">Vendor</span> <span class="n">engine</span>
+<span class="no">HKR</span><span class="p">,</span><span class="no">WinBio</span><span class="p">\</span><span class="no">Configurations</span><span class="p">\</span><span class="mi">0</span><span class="p">,</span><span class="no">StorageAdapterBinary</span><span class="p">,,</span><span class="s2">"WinBioStorageAdapter.DLL"</span>    <span class="p">;</span> <span class="no">Windows</span> <span class="n">built</span><span class="o">-</span><span class="k">in</span> <span class="n">storage</span> <span class="n">adapter</span>
+<span class="no">HKR</span><span class="p">,</span><span class="no">WinBio</span><span class="p">\</span><span class="no">Configurations</span><span class="p">\</span><span class="mi">0</span><span class="p">,</span><span class="no">DatabaseId</span><span class="p">,,</span><span class="s2">"6E9D4C5A-55B4-4c52-90B7-DDDC75CA4D50"</span>  <span class="p">;</span> <span class="no">Unique</span> <span class="n">database</span> <span class="no">GUID</span></code></pre></figure>
+
+<ul>
+  <li>Finally, the third section sets the following registry values for the database service. The identifying GUID must be unique for each vendor database of a certain format. For instance, in this code example from the sample, change <code class="language-plaintext highlighter-rouge">6E9D4C5A-55B4-4c52-90B7-DDDC75CA4D50</code> to your own unique GUID in your INF file.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="p">[</span><span class="no">DatabaseAddReg</span><span class="p">]</span>
+<span class="no">HKLM</span><span class="p">,</span><span class="no">System</span><span class="p">\</span><span class="no">CurrentControlSet</span><span class="p">\</span><span class="no">Services</span><span class="p">\</span><span class="no">WbioSrvc</span><span class="p">\</span><span class="no">Databases</span><span class="p">\{</span><span class="mf">6E9</span><span class="no">D4C5A</span><span class="o">-</span><span class="mi">55</span><span class="no">B4</span><span class="o">-</span><span class="mi">4</span><span class="n">c52</span><span class="o">-</span><span class="mi">90</span><span class="no">B7</span><span class="o">-</span><span class="no">DDDC75CA4D50</span><span class="p">},</span><span class="no">BiometricType</span><span class="p">,</span><span class="mh">0x00010001</span><span class="p">,</span><span class="mh">0x00000008</span>
+<span class="no">HKLM</span><span class="p">,</span><span class="no">System</span><span class="p">\</span><span class="no">CurrentControlSet</span><span class="p">\</span><span class="no">Services</span><span class="p">\</span><span class="no">WbioSrvc</span><span class="p">\</span><span class="no">Databases</span><span class="p">\{</span><span class="mf">6E9</span><span class="no">D4C5A</span><span class="o">-</span><span class="mi">55</span><span class="no">B4</span><span class="o">-</span><span class="mi">4</span><span class="n">c52</span><span class="o">-</span><span class="mi">90</span><span class="no">B7</span><span class="o">-</span><span class="no">DDDC75CA4D50</span><span class="p">},</span><span class="no">Attributes</span><span class="p">,</span><span class="mh">0x00010001</span><span class="p">,</span><span class="mh">0x00000001</span>
+<span class="no">HKLM</span><span class="p">,</span><span class="no">System</span><span class="p">\</span><span class="no">CurrentControlSet</span><span class="p">\</span><span class="no">Services</span><span class="p">\</span><span class="no">WbioSrvc</span><span class="p">\</span><span class="no">Databases</span><span class="p">\{</span><span class="mf">6E9</span><span class="no">D4C5A</span><span class="o">-</span><span class="mi">55</span><span class="no">B4</span><span class="o">-</span><span class="mi">4</span><span class="n">c52</span><span class="o">-</span><span class="mi">90</span><span class="no">B7</span><span class="o">-</span><span class="no">DDDC75CA4D50</span><span class="p">},</span><span class="no">Format</span><span class="p">,,</span><span class="s2">"00000000-0000-0000-0000-000000000000"</span>
+<span class="no">HKLM</span><span class="p">,</span><span class="no">System</span><span class="p">\</span><span class="no">CurrentControlSet</span><span class="p">\</span><span class="no">Services</span><span class="p">\</span><span class="no">WbioSrvc</span><span class="p">\</span><span class="no">Databases</span><span class="p">\{</span><span class="mf">6E9</span><span class="no">D4C5A</span><span class="o">-</span><span class="mi">55</span><span class="no">B4</span><span class="o">-</span><span class="mi">4</span><span class="n">c52</span><span class="o">-</span><span class="mi">90</span><span class="no">B7</span><span class="o">-</span><span class="no">DDDC75CA4D50</span><span class="p">},</span><span class="no">InitialSize</span><span class="p">,</span><span class="mh">0x00010001</span><span class="p">,</span><span class="mh">0x00000020</span>
+<span class="no">HKLM</span><span class="p">,</span><span class="no">System</span><span class="p">\</span><span class="no">CurrentControlSet</span><span class="p">\</span><span class="no">Services</span><span class="p">\</span><span class="no">WbioSrvc</span><span class="p">\</span><span class="no">Databases</span><span class="p">\{</span><span class="mf">6E9</span><span class="no">D4C5A</span><span class="o">-</span><span class="mi">55</span><span class="no">B4</span><span class="o">-</span><span class="mi">4</span><span class="n">c52</span><span class="o">-</span><span class="mi">90</span><span class="no">B7</span><span class="o">-</span><span class="no">DDDC75CA4D50</span><span class="p">},</span><span class="no">AutoCreate</span><span class="p">,</span><span class="mh">0x00010001</span><span class="p">,</span><span class="mh">0x00000001</span>
+<span class="no">HKLM</span><span class="p">,</span><span class="no">System</span><span class="p">\</span><span class="no">CurrentControlSet</span><span class="p">\</span><span class="no">Services</span><span class="p">\</span><span class="no">WbioSrvc</span><span class="p">\</span><span class="no">Databases</span><span class="p">\{</span><span class="mf">6E9</span><span class="no">D4C5A</span><span class="o">-</span><span class="mi">55</span><span class="no">B4</span><span class="o">-</span><span class="mi">4</span><span class="n">c52</span><span class="o">-</span><span class="mi">90</span><span class="no">B7</span><span class="o">-</span><span class="no">DDDC75CA4D50</span><span class="p">},</span><span class="no">AutoName</span><span class="p">,</span><span class="mh">0x00010001</span><span class="p">,</span><span class="mh">0x00000001</span>
+<span class="no">HKLM</span><span class="p">,</span><span class="no">System</span><span class="p">\</span><span class="no">CurrentControlSet</span><span class="p">\</span><span class="no">Services</span><span class="p">\</span><span class="no">WbioSrvc</span><span class="p">\</span><span class="no">Databases</span><span class="p">\{</span><span class="mf">6E9</span><span class="no">D4C5A</span><span class="o">-</span><span class="mi">55</span><span class="no">B4</span><span class="o">-</span><span class="mi">4</span><span class="n">c52</span><span class="o">-</span><span class="mi">90</span><span class="no">B7</span><span class="o">-</span><span class="no">DDDC75CA4D50</span><span class="p">},</span><span class="no">FilePath</span><span class="p">,,</span><span class="s2">""</span>
+<span class="no">HKLM</span><span class="p">,</span><span class="no">System</span><span class="p">\</span><span class="no">CurrentControlSet</span><span class="p">\</span><span class="no">Services</span><span class="p">\</span><span class="no">WbioSrvc</span><span class="p">\</span><span class="no">Databases</span><span class="p">\{</span><span class="mf">6E9</span><span class="no">D4C5A</span><span class="o">-</span><span class="mi">55</span><span class="no">B4</span><span class="o">-</span><span class="mi">4</span><span class="n">c52</span><span class="o">-</span><span class="mi">90</span><span class="no">B7</span><span class="o">-</span><span class="no">DDDC75CA4D50</span><span class="p">},</span><span class="no">ConnectionString</span><span class="p">,,</span><span class="s2">""</span></code></pre></figure>
+
+<p>For information about INX files and how they differ from INF files, see Using INX Files to Create INF Files.</p>
+
+<h2 id="9-creating-a-device-interface-for-a-wbdi-driver"><span id="9">9. Creating a Device Interface for a WBDI Driver</span></h2>
+<p>After the device callback object has been initialized and returned to the driver, at the time of queue setup, the driver should create a device interface instance for the biometric device.</p>
+
+<p>Specifically, WBDI drivers must expose the <code class="language-plaintext highlighter-rouge">GUID_DEVINTERFACE_BIOMETRIC_READER</code> device interface by calling <code class="language-plaintext highlighter-rouge">IWDFDevice::CreateDeviceInterface</code>:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">hr</span> <span class="o">=</span> <span class="n">m_FxDevice</span><span class="o">-&gt;</span><span class="no">CreateDeviceInterface</span><span class="p">(</span><span class="o">&amp;</span><span class="no">GUID_DEVINTERFACE_BIOMETRIC_READER</span><span class="p">,</span> <span class="no">NULL</span><span class="p">);</span></code></pre></figure>
+
+<p>This call is followed by a call to <code class="language-plaintext highlighter-rouge">IWDFDevice::AssignDeviceInterfaceState</code>:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">hr</span> <span class="o">=</span> <span class="n">m_FxDevice</span><span class="o">-&gt;</span><span class="no">AssignDeviceInterfaceState</span><span class="p">(</span><span class="o">&amp;</span><span class="no">GUID_DEVINTERFACE_BIOMETRIC_READER</span><span class="p">,</span><span class="no">NULL</span><span class="p">,</span><span class="no">TRUE</span><span class="p">);</span></code></pre></figure>
+
+<p>A WBDI driver that wants to expose functionality to a legacy (non-WBDI) biometric stack should expose another device interface for legacy applications and make sure that the Exclusive value is set to zero in the INX file that installs the legacy stack.</p>
+
+<p>Exposing the <code class="language-plaintext highlighter-rouge">GUID_DEVINTERFACE_BIOMETRIC_READER</code> device interface causes the WBF service to enumerate the driver only. If Exclusive mode is not set, WBF does not attempt to open and control the device.</p>
+
+<p>Alternatively, the driver could detect internally that it is in legacy mode and then not expose the <code class="language-plaintext highlighter-rouge">GUID_DEVINTERFACE_BIOMETRIC_READER</code> device interface.</p>
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box">
+		    
+				<li class = "sidebar-title">About This Article</li>
+			
+			
+				
+					<li class = "sidebar-about-content sidebar-font-big">Some knowledge for Fingerprint driver development.</li>
+				
+				
+					<li class = "icon-link-1 sidebar-about-content sidebar-font-big" style = "margin-top:30px">Author: <a href="https://github.com/gangdong">david.dong</a></li>
+				
+					<li class = "icon-clock-5 sidebar-about-content sidebar-font-big">19 mins to read</li>
+					<li class = "icon-book-1 sidebar-about-content sidebar-font-big">7515 words</li>
+				
+					<li class = "icon-th-list-1 sidebar-about-content sidebar-font-big">Key Words: Fingerprint driver/Windows</li>
+				
+				
+				    <li class = "icon-hashtag sidebar-about-content sidebar-font-medium">Tags: 
+					
+					<a href="/daviddong.github.io/category#C++">C++&nbsp;</a>
+					
+					<a href="/daviddong.github.io/category#Fingerprint">Fingerprint&nbsp;</a>
+					
+					<a href="/daviddong.github.io/category#Windows">Windows&nbsp;</a>
+					
+					</li>
+				
+			
+		</div>
+		
+		
+	</div>
+	 
+  </div>
+  <!-- no sidebar, use flex width box! -->
+  <br><br><br>
+  <div class="post-container">
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">Share:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+		<li class = "icon-eye">&nbsp;<span id="busuanzi_value_page_pv"></span></li>
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">You may also like</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/daviddong.github.io/c++/fingerprint/windows/2020/06/10/Cpp-wbdi-02.html">Fingerprint driver development in Windows(2)</a></li>
+			
+			<li><a href="/daviddong.github.io/c++/fingerprint/windows/2020/06/07/Cpp-wbdi.html">Fingerprint driver development in Windows(1)</a></li>
+			
+			<li><a href="/daviddong.github.io/android/fingerprint/2021/02/04/Fingerprint-build-ta.html">Build TA images on different TEE</a></li>
+			
+			<li><a href="/daviddong.github.io/android/fingerprint/2020/12/02/Fingerprint-Trusty.html">Some useful knowledge for Fingerprint Application on Trusty TEE</a></li>
+			
+			<li><a href="/daviddong.github.io/security/windows/2020/07/23/Security-signature-02.html">利用Microsoft WDK工具生成数字签名</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">further reading</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta" style = "margin-bottom:40px"><ul class="navigation-bar" style = "margin-top:40px; min-width:40%">
+	 
+	 <a href="/daviddong.github.io/c++/fingerprint/windows/2020/06/10/Cpp-wbdi-02.html"; style="width:100%"><span class = "navigation-bar-label">Previous Post</span><br>Fingerprint driver development in Windows(2)</a>
+	 
+    </ul><ul class="navigation-bar" style = "margin-top:40px; min-width:40%"> 
+	 
+     <a href="/daviddong.github.io/others/2020/06/20/Others-covid19.html"; style="width:100%"><span class = "navigation-bar-label">Next Post</span><br>COVID-19</a>
+	 
+    </ul></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/daviddong.github.io/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'daviddong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+      </section>
+    </main>
+<script src="/daviddong.github.io/assets/js/simple-jekyll-search.min.js"></script>
+<script src="/daviddong.github.io/assets/js/search.js"></script>
+
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9"></script>
+
+</body>
+</html>
