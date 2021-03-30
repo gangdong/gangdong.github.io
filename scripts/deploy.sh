@@ -18,8 +18,7 @@ git config --global user.name 'Travis'
 git config --global user.email 'travis@travis-ci.com' 
 
 # commit the assets in storybook-static/ to the gh-pages branch and push to GitHub using SSH
-git checkout test_travisci
 rm -rf *
 git add --all .
 git commit -m "Travis CI Auto Builder"
-git push -u origin master
+git push -u origin master:test_travisci
