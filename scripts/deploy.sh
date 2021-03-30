@@ -2,17 +2,17 @@
 set -e
 
 # setup ssh-agent and provide the GitHub deploy key
-openssl aes-256-cbc -K $encrypted_f217180e22ee_key -iv $encrypted_f217180e22ee_iv -in id_rsa.enc -out id_rsa -d
+openssl aes-256-cbc -K $encrypted_70fbe34e406c_key -iv $encrypted_70fbe34e406c_iv -in blog_id_rsa.enc -out blog_id_rsa -d
 # 对解密后的私钥添加权限
-chmod 600 id_rsa
+chmod 600 blog_id_rsa
 
 # 启动 ssh-agent
 eval "$(ssh-agent -s)"
 
-ssh-add id_rsa
+ssh-add blog_id_rsa
 
 # 删除解密后的私钥
-rm id_rsa
+rm blog_id_rsa
 
 git config --global user.name 'Travis'  
 git config --global user.email 'travis@travis-ci.com' 
