@@ -43,10 +43,10 @@ after_success:
 - git show-ref
 - git remote -v
 - git branch -a
-- git checkout origin/master
+- git checkout origin/dev
 - git add -f ./_site/*
 - git commit -m "Update docs"
-- git push -u origin master
+- git push -u origin dev
 env:
   global:
   - GH_REF: github.com/gangdong/daviddong.github.io.git
