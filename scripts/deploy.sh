@@ -21,4 +21,4 @@ git config --global user.email 'travis@travis-ci.com'
 rm -rf *
 git add --all .
 git commit -m "Travis CI Auto Builder"
-git push -u origin master:test_travisci
+git push -f "https://${GH_TOKEN}@${GH_REF}" master:test_travisci
