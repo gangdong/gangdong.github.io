@@ -14,9 +14,9 @@ ssh-add blog_id_rsa
 # 删除解密后的私钥
 rm blog_id_rsa
 
-ssh -T git@github.com
+
 # commit the assets in storybook-static/ to the gh-pages branch and push to GitHub using SSH
 rm -rf *
 git add --all .
 git commit -m "Travis CI Auto Builder"
-git push -f git@github.com:gangdong/daviddong.github.io.git master
+ssh -T git@github.com
