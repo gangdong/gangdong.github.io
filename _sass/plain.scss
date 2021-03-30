@@ -902,11 +902,14 @@ pre {
 }
 table {
   margin: auto;
-  border-collapse: collapse; 
+  border-radius: 2px;
+  border-collapse: collapse;
+  border-style:hidden;
+  box-shadow: 0 0 2px 1px #d8d8d8;
   empty-cells: show; 
   th, td {
     padding: 8px 13px;
-    border: 1px solid #dfe2e5;
+    border: 1px solid #d8d8d8;
   }
   th {
     color: #eee;
