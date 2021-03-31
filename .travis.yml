@@ -35,21 +35,18 @@ after_success:
 # copy _site to tmp
 - cp -r /home/travis/build/gangdong/daviddong.github.io/_site  /tmp/
 - ls -la /tmp/_site
-# check repository
-- git remote -v
-- git branch -vv
-- git branch -al
-
-- git checkout -b master 
-- git pull -f origin gh-pages:master
-# create master
+- git checkout -b travis
+# clean 
 - rm -rf *
 - ls -la
+# copy _site 
 - cp -r /tmp/_site/* ./
 - ls -la
+# git add & commit
 - git add -A
-- git commit -m "update blog"
-- git push --force "https://${GH_TOKEN}@${GH_REF}" master:gh-pages
+- git commit -m "travis_ci update gh-pages"
+# push remote 
+- git push --force "https://${GH_TOKEN}@${GH_REF}" travis:gh-pages
 
 env:
   global:
