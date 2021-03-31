@@ -29,27 +29,25 @@ addons: ssh_known_hosts:daviddong.github.io
 #    branch: dev
 after_success:
 - ssh -T git@github.com
-- git show-ref
-- git remote set-url origin https://github.com/gangdong/daviddong.github.io.git
-- git show-ref
-- git remote -v
-- git clone https://github.com/gangdong/daviddong.github.io.git
-- git show-ref
-- git remote -v
+
 # commit the assets in storybook-static/ to the gh-pages branch and push to GitHub using SSH
 - git config user.name "gangdong"
 - git config user.email "dqdongg@hotmail.com"
-- git remote add origin https://github.com/gangdong/daviddong.github.io.git
+
 - git show-ref
 - git remote -v
 - git branch -al
 - cp -r /home/travis/build/gangdong/daviddong.github.io/_site  /tmp/
-- ls -la /tmp/
-- git checkout -b test_travisci 
-- git pull origin/test_travisci
+- ls -la /tmp/_site
+- git checkout -b gh-pages 
+- git pull origin/gh-pages
 - git branch -vv
-- git add -f ./_site/*
+- ls -la
+- rm -rf *
+- cp /tmp/_site/* ./
+- git add -f *
 - git commit -m "Update docs"
+
 
 env:
   global:
