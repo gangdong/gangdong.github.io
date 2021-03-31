@@ -36,15 +36,16 @@ after_success:
 - cp -r /home/travis/build/gangdong/daviddong.github.io/_site  /tmp/
 - ls -la /tmp/_site
 # check repository
-- git remove -v
+- git remote -v
 - git branch -vv
 - git branch -al
 
+- git checkout -b master 
+- git pull -f origin gh-pages:master
 # create master
-- git checkout -b master
 - rm -rf *
 - ls -la
-- cp /tmp/_site/* ./
+- cp -r /tmp/_site/* ./
 - ls -la
 - git add -f *
 - git commit -m "Travis CI auto build: from dev -> gh-pages"
