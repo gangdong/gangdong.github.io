@@ -39,14 +39,18 @@ after_success:
 - git branch -al
 - cp -r /home/travis/build/gangdong/daviddong.github.io/_site  /tmp/
 - ls -la /tmp/_site
-- git checkout -b gh-pages 
-- git pull origin/gh-pages
 - git branch -vv
 - git fetch --all
 - git branch -al
+- git checkout -b master  
+- git pull origin/master
+- git branch -al
+- git branch -vv
 - ls -la
 - rm -rf *
+- ls -la
 - cp /tmp/_site/* ./
+- ls -la
 - git add -f *
 - git commit -m "Update docs"
 
