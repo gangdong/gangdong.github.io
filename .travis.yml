@@ -42,6 +42,8 @@ after_success:
 - git checkout -b gh-pages 
 - git pull origin/gh-pages
 - git branch -vv
+- git fetch --all
+- git branch -al
 - ls -la
 - rm -rf *
 - cp /tmp/_site/* ./
