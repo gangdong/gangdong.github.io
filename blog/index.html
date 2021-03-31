@@ -62,6 +62,7 @@ title: Home
         <a class="post-link" href="{{ post.url | relative_url }}">
           <h2 class="post-title">{{ post.title | escape }}</h2>
         </a>
+		{% if site.rawposts.show_category_box == true %}
         <div class="post-meta">
           <ul class="post-categories">
             {%- for tag in post.categories -%}
@@ -70,8 +71,17 @@ title: Home
           </ul>
           <div class="post-date-right-align">
             <i class="icon-calendar"></i>
-            {{ post.date | date: date_format }}</div>
+            {{ post.date | date: date_format }}
+		  </div>
+		</div>
+		{% else %}
+		<div class = "post-meta" style = "justify-content: flex-start;">
+		  <div class="post-date-right-align" style = "text-align:left">
+            <i class="icon-calendar"></i>
+            {{ post.date | date: date_format }}
+		  </div>
         </div>
+		{% endif %}
         <div class="post">
           {%- if site.show_excerpts -%}
             {{ post.excerpt }}

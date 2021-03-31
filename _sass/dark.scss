@@ -135,6 +135,20 @@
 			}
 		}
     }
+	.post-categories-box-label {
+		border: 1px solid $dark_separator_color;
+	}
+	.post-categories-box {
+		a {
+			background-color: $dark_btn_color;
+			border: 1px solid $dark_btn_color;
+			color: #fff;
+			
+			&:hover {
+			  background-color: #EC7063;
+			}
+		}
+	}
 	.post-categories {
 		li {
 			background-color: #333;
