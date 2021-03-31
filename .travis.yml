@@ -34,27 +34,16 @@ after_success:
 - git config user.name "gangdong"
 - git config user.email "dqdongg@hotmail.com"
 
-- git show-ref
-- git remote -v
-- git branch -al
+
 - cp -r /home/travis/build/gangdong/daviddong.github.io/_site  /tmp/
 - ls -la /tmp/_site
-- git branch -vv
-- git fetch --all
-- git branch -al
-- git branch -vv
-- git pull origin/master
-- git branch -al
-- git branch -vv
-- git remote add origin https://github.com/gangdong/daviddong.github.io.git
-- git pull -f origin master:master
-- ls -la
+- git checkout -b master
 - rm -rf *
 - ls -la
 - cp /tmp/_site/* ./
 - ls -la
 - git add -f *
-- git commit -m "Update docs"
+- git commit -m "Travis CI auto build: from dev -> gh-pages"
 - git push --force "https://${GH_TOKEN}@${GH_REF}" master:gh-pages
 
 env:
