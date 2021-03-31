@@ -42,7 +42,7 @@ after_success:
 - git branch -vv
 - git fetch --all
 - git branch -al
-- git checkout -b master  
+- git branch -vv
 - git pull origin/master
 - git branch -al
 - git branch -vv
