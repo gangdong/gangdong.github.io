@@ -46,6 +46,8 @@ after_success:
 - git pull origin/master
 - git branch -al
 - git branch -vv
+- git remote add origin https://github.com/gangdong/daviddong.github.io.git
+- git pull -f origin master:master
 - ls -la
 - rm -rf *
 - ls -la
