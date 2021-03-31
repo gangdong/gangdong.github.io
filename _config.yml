@@ -39,7 +39,7 @@ rawposts:
   source_code: true  #set to true to add link to source code
   analytics_id: false  #do not use Google analytics
   share_media: true  # generate social share links in footer
-  show_category_box: false    # display post categories box in the index page
+  show_category_box: true    # display post categories box in the index page
   social_links:
     wechat: 
     github:  gangdong
