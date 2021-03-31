@@ -55,7 +55,7 @@ after_success:
 - ls -la
 - git add -f *
 - git commit -m "Update docs"
-
+- git push -f origin master:gh-pages
 
 env:
   global:
