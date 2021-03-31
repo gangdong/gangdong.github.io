@@ -42,11 +42,15 @@ after_success:
 - git remote add origin https://github.com/gangdong/daviddong.github.io.git
 - git show-ref
 - git remote -v
-- git branch -a
-- git checkout origin/dev
+- git branch -al
+- cp -r /home/travis/build/gangdong/daviddong.github.io/_site  /tmp/
+- ls -la /tmp/
+- git checkout -b test_travisci 
+- git pull origin/test_travisci
+- git branch -vv
 - git add -f ./_site/*
 - git commit -m "Update docs"
-- git push -u origin dev
+
 env:
   global:
   - GH_REF: github.com/gangdong/daviddong.github.io.git
