@@ -95,6 +95,21 @@ layout: default
   <!-- no sidebar, use flex width box! -->
   <br><br><br>
   <div class="post-container">
+  <!-- post categories box! here  -->
+  {% if site.rawposts.show_category_box == false %}
+  <div class="post-categories-meta">
+	{% if page.language == 'chinese' %}
+	<div class = "icon-hashtag post-categories-box-label">标签</div>
+	{% else %}
+	<div class = "icon-hashtag post-categories-box-label">Tags</div>
+	{% endif %}
+	<div class="post-categories-box">
+	{%- for tag in page.categories -%}
+		<a href="{{site.baseurl}}/category#{{tag}}">{{ tag }}</a>
+	{%- endfor -%}
+	</div>
+  </div>
+  {% endif %}
   {% if site.rawposts.share_media %}
   <div class = "share-box-meta">
   <!-- Go to www.addthis.com/dashboard to customize your tools -->

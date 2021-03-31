@@ -11,7 +11,7 @@ title: Home
       <h1 id="posts-label">posts</h1>
       <div class="search-container">
         <div class="search-section">
-          <i class="icon-search-5"></i>
+          <i class="icon-search-3"></i>
           <input type="text" name="search" id="searchbar" autocomplete="off" aria-label="search in posts">
         </div>
         <div class="search-results" id="search-results" data-placeholder="No Results" style="display: none;"></div>
@@ -62,6 +62,7 @@ title: Home
         <a class="post-link" href="{{ post.url | relative_url }}">
           <h2 class="post-title">{{ post.title | escape }}</h2>
         </a>
+		{% if site.rawposts.show_category_box == true %}
         <div class="post-meta">
           <ul class="post-categories">
             {%- for tag in post.categories -%}
@@ -70,8 +71,17 @@ title: Home
           </ul>
           <div class="post-date-right-align">
             <i class="icon-calendar"></i>
-            {{ post.date | date: date_format }}</div>
+            {{ post.date | date: date_format }}
+		  </div>
+		</div>
+		{% else %}
+		<div class = "post-meta" style = "justify-content: flex-start;">
+		  <div class="post-date-right-align" style = "text-align:left">
+            <i class="icon-calendar"></i>
+            {{ post.date | date: date_format }}
+		  </div>
         </div>
+		{% endif %}
         <div class="post">
           {%- if site.show_excerpts -%}
             {{ post.excerpt }}

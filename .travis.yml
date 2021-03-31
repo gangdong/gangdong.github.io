@@ -1,9 +1,57 @@
 language: ruby
 rvm:
-  - 2.6.6
+- 2.6.6
+before_install:
+- openssl aes-256-cbc -K $encrypted_70fbe34e406c_key -iv $encrypted_70fbe34e406c_iv -in blog_id_rsa.enc -out blog_id_rsa -d
 
+- chmod 600 blog_id_rsa
+
+
+- eval "$(ssh-agent -s)"
+
+- ssh-add blog_id_rsa
+
+
+- rm blog_id_rsa
 install: gem install jekyll
-
+before_script:
+- pwd
+- ls -la
 script:
-  - bundle install
-  - bundle exec jekyll build
+- bundle install
+- bundle exec jekyll build
+addons: ssh_known_hosts:daviddong.github.io
+#deploy:
+#  provider: script
+#  skip_cleanup: true
+#  script: bash scripts/deploy.sh
+#  on:
+#    branch: dev
+after_success:
+- ssh -T git@github.com
+
+# commit the assets in storybook-static/ to the gh-pages branch and push to GitHub using SSH
+- git config user.name "gangdong"
+- git config user.email "dqdongg@hotmail.com"
+
+- git show-ref
+- git remote -v
+- git branch -al
+- cp -r /home/travis/build/gangdong/daviddong.github.io/_site  /tmp/
+- ls -la /tmp/_site
+- git checkout -b gh-pages 
+- git pull origin/gh-pages
+- git branch -vv
+- git fetch --all
+- git branch -al
+- ls -la
+- rm -rf *
+- cp /tmp/_site/* ./
+- git add -f *
+- git commit -m "Update docs"
+
+
+env:
+  global:
+  - GH_REF: github.com/gangdong/daviddong.github.io.git
+  - secure: NiBbDRjSP7+KRko5wT0uOfSiS4GqdyLzEBFa/95OdN8mCrEslnAPS2aMWNdm5FBqMh4sotR31KCXtgnvQUk0NhxCEdNLYLvv6lK9MA2oLRhhQaeYMQjeGvCGmZyScew3cLNRdo9rn/9wXVNtZM0YUZ+CTJbpZS+jyC3KfndganTE4PPpkel/BS1BnDt8HGaioeyik805CK3bAmXClYjD/+sPaxAL6dS4BJEZzge16JK3IcJepYY+wCgzWtqhsSmHfqxJ8mFodKh8hNSQRNyOiT7G+kX8GiA7Hl5kZdd4Qia7V8ct/ovOhxL/QkVWQYp7uukjg8ugQgq02SYcMdMs86SodSmdSD6cYez5CCnmpDqfFh8SXOcNyAfqQf7MGmItI9WraTNPWPfkv5pUp/7go/ZnfGNUobnDdZh5B5cVr5xogif+B4UI2vpesZmf6IXH+XntlHlfh2x/DG6hSwywUJEEQLGJjsfiAkdQ2jbQZ9WylbNNFovT0Px2jZaetOQ9cD3ekVCjyPHfW4/vfqx6cfr2kdGjxEiQghfyfQ5bV05gJXKNfDenWFNMI4X+L0ELITjJb+q+l1L8CKF0KLjfh7lJsqWMV61qU7QCM7siU1f7KvUZCKjtNu4Wot4A11O+a5HaCzSjf7zQTuIrRwFb4srLf39rRIqU5agtxzBxAOA=

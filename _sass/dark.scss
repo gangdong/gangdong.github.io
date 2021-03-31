@@ -69,8 +69,9 @@
 	}
 	.post-categories-pin {
 		li {
-			background-color: $dark_btn_color;
-			color: white;
+			background-color: #333;
+			color: #fff;
+			border:1px solid #5F6A6A;
 		}
 	}
 	.tooltip .tooltiptext {
@@ -134,6 +135,20 @@
 			}
 		}
     }
+	.post-categories-box-label {
+		border: 1px solid $dark_separator_color;
+	}
+	.post-categories-box {
+		a {
+			background-color: $dark_btn_color;
+			border: 1px solid $dark_btn_color;
+			color: #fff;
+			
+			&:hover {
+			  background-color: #EC7063;
+			}
+		}
+	}
 	.post-categories {
 		li {
 			background-color: #333;
@@ -141,6 +156,7 @@
 		}
 		a {
 			background-color: #333;
+			border: 1px solid #5F6A6A;
 			color: #fff;
 			&:hover {
 			color: $dark_link_color;
@@ -279,6 +295,8 @@
 	}
 }
 .dark table {
+    border: 1px solid #d8d8d8;
+	box-shadow: 0 0 0px 0px #d8d8d8;
 	th, td {
 		border: 1px solid #888;
 	}
