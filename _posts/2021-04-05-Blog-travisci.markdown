@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Use Travis CI to build and deploy your project in Github automatically"
+title:  "Use Travis CI to build and deploy your project automatically in Github"
 date:   2021-04-01 13:02:34 +0800
 categories: Blog Github
 tags: Blog Github
@@ -20,9 +20,9 @@ This article will introduce how to use Travis CI to build, test and deploy Githu
 
 If you've looked at my previous article, you may know my blog was deployed on Github Pages and was built by Jekyll static site generator.
 
-Github Pages are a great approach to build websites. Using a Github repository and with the Jekyll static site generator we can build a static websites easily. It is very suitable for building personal blog.
+Github Pages are a great approach to build websites. Using a Github repository and with the Jekyll static site generator we can build a static websites easily. It is suitable for building personal blog.
 
-Although Github Pages can automatically generate a website from a repository containing a Jekyll project (you just commit your source code, don't need to pay any effort on the building and deployment. Github Pages will do it for you!), it has some limitations.     
+Although Github Pages can automatically generate a website from a repository containing a Jekyll project (you just need to commit your source code to Github and don't pay any effort on the building and deployment. Github Pages will do it for you!), it has some limitations.     
 One of them is 
 
 + *we can't use jekyll plugins*
@@ -43,7 +43,9 @@ So my current workflow is
 
 or I can push the files in `_site` to remote gh-pages branch forcely from dev branch. But it is not a ideal way of routine operation.
 
-You see it! Very tedious, isn't it? I cannot stand the low efficiency. 
+You see it! Very tedious, isn't it? 
+
+I think it is poor efficiency and should be improved. 
 
 The main motivation for me is to be able to get a tool that help me do above works automatically. What I want to do is just committing the code to remote dev branch (this is the necessary work) and others leave to tool. 
 
@@ -164,15 +166,15 @@ travis encrypt -r <user name>/<repo name> GH_TOKEN= "value of PATs"
 
 `GH_TOKEN` is the environment variable, which can be accessed in the `.travis.yml` file.
 
-Once you got the PATs and encrypted, you can access the Github repo by below method:
+Once you got the personal access token and encrypted, you can access the Github repo by below method:
 
 {% highlight shell %}
 https://${GH_TOKEN}@${GH_REF}" travis:gh-pages
 {% endhighlight %}
 
-`GH_REF` environment variable is defined by github.com/`user-name`/`repo-name`.git.
+`GH_REF` environment variable can be set to "github.com/`user-name`/`repo-name`.git".
 
-With this method, you are able to avoid being request passphrase when start accessing.
+With this method, you are able to avoid being request passphrase when accessing.
 
 This will output a string looking something like:
 {% highlight shell %}
