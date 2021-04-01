@@ -29,7 +29,7 @@ One of them is
 
 I need to use plugins to extend the function of my website, e.g. for implementation of toc and markdown function enrichment.
 
-It is understandable that Github Pages doesn't allow the plugin for security reasons (it uses the Jekyll `--safe` flag). The workaround is to generate the site locally and then to push the generated HTML to Github (I've interpreted how to do in my previous [article]({{site.baseurl}}/daviddong.github.io/blog/github/2021/03/14/Blog-Jekyll-toc-plugin.html)). However, I usually use the different branch for debugging code and output static HTMLs. The `dev` branch accommodates the source code and `gh-pages` branch, which is as a window of external accessing, stores the static website files.
+It is understandable that Github Pages doesn't allow the plugin for security reasons (it uses the Jekyll `--safe` flag). The workaround is to generate the site locally and then to push the generated HTML to Github (I've interpreted how to do in my previous [article]({{site.baseurl}}/blog/github/2021/03/14/Blog-Jekyll-toc-plugin.html)). However, I usually use the different branch for debugging code and output static HTMLs. The `dev` branch accommodates the source code and `gh-pages` branch, which is as a window of external accessing, stores the static website files.
 
 So my current workflow is 
 
@@ -190,7 +190,7 @@ travis encrypt -r <user name>/<repo name> GH_TOKEN=PAT --add
 Please note that the name of the environment variable and its value are both encoded in the string produced by “travis encrypt.” You must add the entry to your `.travis.yml` with key `secure` (underneath the `env` key). This makes the environment variable `GH_TOKEN` with value of PATs available to your program.
 
 ### Example
-I attached my blog project's [.travis.yml]() file here as an example.
+I attached my blog project's [.travis.yml](https://github.com/gangdong/daviddong.github.io/blob/master/.travis.yml) file here as an example.
 
 {% highlight yml %}
 language: ruby
