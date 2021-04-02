@@ -52,7 +52,7 @@ main {
     max-width: 1440px;
   }
   @media screen and (max-width: 1280px) {
-    margin: 0 75px;
+    margin: 0px 45px 0px 75px;
   }
   @media screen and (max-width: 1024px) {
     margin: 0 35px;
@@ -594,7 +594,7 @@ main {
 .posts,
 .post-container {
   list-style-type: none;
-  margin: 10px 80px 0px 30px;
+  margin: 10px 110px 0px 30px;
   padding-left: 30px;
   @media screen and (max-width: $smallMobileW) {
     margin-left: 20px; /* !import for small device */
@@ -616,7 +616,7 @@ main {
   flex-shrink: 2; /* default 1 !important guarantee the post contents width constant */
   flex-grow: 1;
   @media screen and (min-width: $mobileW + 1) {
-      max-width: 630px; /* fix the width */
+      max-width: 700px; /* fix the width */
 	  min-width: 100px;
       width: 100%;
    }
@@ -630,11 +630,15 @@ main {
   @media screen and (max-width: $mobileW) {
     padding: 0 !important;
     margin-top: 0;
+	margin-left: 0px;  /* no margin to parent */
+    margin-right:0px;
     max-width: $mobileW;
     width: 100%;
 	font-size: 16px;
    }
-   
+   @media screen and (max-width: $mobileW + 256px) {
+		margin-right:35px;
+  }
   a {
     color: $linkColor;
     text-decoration: none;
@@ -1031,7 +1035,7 @@ table {
 	margin: 0px 0px 0px 30px;
 	padding-left: 30px;
 	@media screen and (min-width: $mobileW + 1) {
-      	max-width: calc(100% + 100px); /* !important, widen the area to accormadate the sidebar */
+      	max-width: calc(100% +1px); /* !important, widen the area to accormadate the sidebar */
       	width: 100%;
   	}
 	/* should be useless since display none at small device */
@@ -1040,7 +1044,7 @@ table {
 		margin-right: 20px;
 		max-width: $smallMobileW
 	  }
-  @media screen and (max-width: $mobileW) {
+	@media screen and (max-width: $mobileW) {
 		padding: 0 !important;
 		margin-top: 0;
 		max-width: $mobileW
@@ -1170,7 +1174,7 @@ table {
     flex-shrink: 0; /* default 1 !important guarantee the post contents width constant */
 
 	max-width: 240px;
-    min-width: 100px;
+    min-width: 10px;
     
     @media screen and (max-width: $smallMobileW) {
 		display: none; /* no sidebar display */
