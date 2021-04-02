@@ -22,32 +22,32 @@ If you've looked at my previous article, you may know my blog was deployed on Gi
 
 Github Pages are a great approach to build websites. Using a Github repository and with the Jekyll static site generator we can build a static websites easily. It is suitable for building personal blog.
 
-Although Github Pages can automatically generate a website from a repository containing a Jekyll project (you just need to commit your source code to Github and don't pay any effort on the building and deployment. Github Pages will do it for you!), it has some limitations.     
+Although Github Pages can automatically generate a website from a repository containing a Jekyll project (*you just need to commit your source code to Github repo and don't pay any effort on the building and deployment. Github Pages will do it for you!*), it has some limitations.     
 One of them is 
 
 + *we can't use jekyll plugins*
 
 I need to use plugins to extend the function of my website, e.g. for implementation of toc and markdown function enrichment.
 
-It is understandable that Github Pages doesn't allow the plugin for security reasons (it uses the Jekyll `--safe` flag). The workaround is to generate the site locally and then to push the generated HTML to Github (I've interpreted how to do in my previous [article]({{site.baseurl}}/blog/github/2021/03/14/Blog-Jekyll-toc-plugin.html)). However, I usually use the different branch for debugging code and output static HTMLs. The `dev` branch accommodates the source code and `gh-pages` branch, which is as a window of external accessing, stores the static website files.
+It is understandable that Github Pages doesn't allow the plugin for security reasons (*it uses the Jekyll `--safe` flag*). The workaround is to generate the site locally and then to push the generated HTML to Github (*I've interpreted how to do in my previous [article]({{site.baseurl}}/blog/github/2021/03/14/Blog-Jekyll-toc-plugin.html)*). However, I usually use the different branch for source code and output static HTMLs. The `dev` branch accommodates the source code and `gh-pages` branch, which is as a window of website visiting, stores the static website files.
 
 So my current workflow is 
 
 + modify the source code at dev branch and use jekyll build locally.
 + commit the change to dev branch.
-+ copy the output static website files in `_site` folder to \tmp folder.
++ copy the output static website files which is in `_site` folder to \tmp folder.
 + switch to local gh-pages branch.
-+ copy new static website file in `_site` folder to gh_pages branch folder.
++ add copied static website file in `_site` folder to gh_pages branch.
 + git add & commit.
 + push to remote gh-pages branch.
 
-or I can push the files in `_site` to remote gh-pages branch forcely from dev branch. But it is not a ideal way of routine operation.
+or I can push the files in `_site` to remote gh-pages branch forcely from dev branch although it is not a ideal way of routine operation.
 
-You see it! Very tedious, isn't it? 
+You see it! ☹️ Really tedious, isn't it? 
 
-I think it is poor efficiency and should be improved. 
+I think it is a poor efficiency and should be improved. 
 
-The main motivation for me is to be able to get a tool that help me do above works automatically. What I want to do is just committing the code to remote dev branch (this is the necessary work) and others leave to tool. 
+The main motivation for me is to be able to get a tool that help me do above works automatically. What I want to do is just committing the code to remote dev branch (*this is the necessary work*) and others leave to tool. 
 
 The basic idea is to use the [Travis CI continuous integration (CI)](https://docs.travis-ci.com/user/for-beginners/) service. The function of Travis CI service fully meets my expectation. And the most important point is that it is *FREE* for open source project in Github. 
 
@@ -61,7 +61,7 @@ To start using Travis CI, make sure you have:
 	+ [Connecting to GitHub with SSH](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh)    
 	<br>
 + Travis CI account and [sign up](https://docs.travis-ci.com/user/migrate/open-source-on-travis-ci-com/), you can use your Github account ID to login directly.
-+ Authorize the Travis CI (you will be requested to do it when you sign in to Travis CI for the first time), active your Github repositories that you want to use Travis CI service. Please refer to 
++ Authorize the Travis CI (*you will be requested to do it when you sign in to Travis CI for the first time*), active your Github repositories that you want to use Travis CI service. Please refer to 
 
 	+ [To get started with Travis CI using GitHub](https://docs.travis-ci.com/user/tutorial#travis-ci-github-oauth-app-access-rights)    
 	<br>
@@ -72,11 +72,11 @@ To start using Travis CI, make sure you have:
 The workflow of Travis CI building and deployment is as follows:
 
 + git push to the Github repo triggers Travis CI
-+ Travis CI starts up a virtual machine and installs all required software (mostly Ruby gems)
++ Travis CI starts up a virtual machine and installs all required software (*mostly Ruby gems*)
 + I use a custom rake task to tell travis CI how to build the Jekyll site and push the updated content back to Github
-+ Travis CI clones a different branch (either dev or master, depending on the kind of Github repo) that holds the website's source code.
-+ Travis CI runs jekyll build with the destination in the other branch (gh-pages)
-+ Travis CI does a git push of the other branch (gh-pages)
++ Travis CI clones a different branch (*either dev or master, depending on the kind of Github repo*) that holds the website's source code.
++ Travis CI runs jekyll build with the destination in the other branch (*gh-pages*)
++ Travis CI does a git push of the other branch (*gh-pages*)
 + Github Pages starts serving the updates site
 
 Depending on the required software that needs to be installed, the whole process takes anywhere between 1 and 5 min and is fully automated.
@@ -102,14 +102,14 @@ To get to know the details and learn how to write `.travis.yml` file, please rea
 
 ### Sensitive Data
 
-It is inevitable that Travis CI will use the sensitive data to access the Github as a external APP. Of course we cannot expose the data without any  encryption. Travis CI provides [encryption scheme](https://docs.travis-ci.com/user/encryption-keys/) to protect your secret information.
+It is inevitable that Travis CI will use the sensitive data (*for example, SSH private key or Github personal access token*) to access the Github. Of course we cannot expose the data without any  encryption. Travis CI provides [encryption scheme](https://docs.travis-ci.com/user/encryption-keys/) to protect your secret information.
 
 Travis CI offers commands that is able to encrypt the private key or any files. You can also save your sensitive data to [environment variables](https://docs.travis-ci.com/user/environment-variables/), in where the data is invisible and can be accessed from any stage in your build process.
 
 To my project, I choose two methods as below:
 
 + use SSH scheme access Github with RSA key pairs
-+ access with encrypted Github PATs (personal access tokens)
++ access with encrypted Github PATs (*personal access tokens*)
 
 #### SSH
 
@@ -130,12 +130,12 @@ If you get message like this, you are accessing the Github successfully.
 Then use below command that Travis CI provides to encrypt the private key. 
 {% highlight shell %}
 # Sign in travis-ci.com
-travis login --com  --github-token "your github personal access keys (PATs)" 
+travis login --com  --github-token "your github personal access keys (*PATs*)" 
 # encrypt the SSH private key
 travis encrypt-file "your private key" --add
 {% endhighlight %}
 
-Above commands sign in travis CI (for applying the APIs), encrypt the private key and generate a code snippet (as below) into your `.travis.yml` file to decrypt the private key during building process.
+Above commands sign in travis CI (*for applying the APIs*), encrypt the private key and generate a code snippet (*as below*) into your `.travis.yml` file to decrypt the private key during building process.
 
 {% highlight shell %}
 openssl aes-256-cbc -K $encrypted_70fbe34e406c_key -iv $encrypted_70fbe34e406c_iv -in blog_id_rsa.enc -out blog_id_rsa -d
@@ -148,7 +148,7 @@ eval `ssh-agent -s`
 ssh-add blog_id_rsa
 {% endhighlight %}
 
-After generated the encrypted key leave it into your repo and don't forget **remove your private key** before you commit!
+After generated the encrypted key leave it into your repo and do not forget `REMOVE YOUR PRIVATE KEY` before you commit!
 
 #### PATs
 
@@ -164,18 +164,6 @@ If using PATs, you should follow below steps:
 travis encrypt -r <user name>/<repo name> GH_TOKEN= "value of PATs"
 {% endhighlight %}
 
-`GH_TOKEN` is the environment variable, which can be accessed in the `.travis.yml` file.
-
-Once you got the personal access token and encrypted, you can access the Github repo by below method:
-
-{% highlight shell %}
-https://${GH_TOKEN}@${GH_REF}" travis:gh-pages
-{% endhighlight %}
-
-`GH_REF` environment variable can be set to "github.com/`user-name`/`repo-name`.git".
-
-With this method, you are able to avoid being request passphrase when accessing.
-
 This will output a string looking something like:
 {% highlight shell %}
 secure: ".... encrypted data ...."
@@ -189,7 +177,19 @@ You can also skip the above, and add it automatically by running:
 travis encrypt -r <user name>/<repo name> GH_TOKEN=PAT --add
 {% endhighlight %}
 
-Please note that the name of the environment variable and its value are both encoded in the string produced by “travis encrypt.” You must add the entry to your `.travis.yml` with key `secure` (underneath the `env` key). This makes the environment variable `GH_TOKEN` with value of PATs available to your program.
+`GH_TOKEN` is the environment variable, which can be accessed in the `.travis.yml` file.
+
+`GH_REF` environment variable can be set to "github.com/`user-name`/`repo-name`.git".
+
+Please note that the name of the environment variable and its value are both encoded in the string produced by “travis encrypt.” You must add the entry to your `.travis.yml` with key `secure` (*underneath the `env` key*). This makes the environment variable `GH_TOKEN` with value of PATs available to your program.
+
+Once you got the personal access token and encrypted, you can access the Github repo by below method:
+
+{% highlight shell %}
+https://${GH_TOKEN}@${GH_REF}" travis:gh-pages
+{% endhighlight %}
+
+With this method, you are able to avoid being request passphrase when accessing.
 
 ### Example
 I attached my blog project's [.travis.yml](https://github.com/gangdong/daviddong.github.io/blob/master/.travis.yml) file here as an example.
@@ -292,7 +292,7 @@ Let me go to the Github gh-pages repo to check the result.
 
 GREAT! 😄 
 
-The repo was updated successfully with the new update. 
+The repo was updated successfully with the new contents. 
 
 The Travis CI works well, which means I can get back to the normal workflow to develop my personal blog without extra git operation between different branch. 
 
@@ -313,7 +313,7 @@ Possible Reason:
 	+ check the config file `~/.travis/config.yml`, the value of endpoint should be `https://api.travis-ci.com/`.
 {% highlight yml %}
 repos:
-endpoint: https://api.travis-ci.com/
+	endpoint: https://api.travis-ci.com/
 {% endhighlight %}
 
 
@@ -321,7 +321,7 @@ endpoint: https://api.travis-ci.com/
 It is because you set the passphrase when generating the SSH key, use `ssh-keygen -p` command to reset the passphrase to none.
 Then replace the private key with the new one and re-encrypt the private key.
 
-+ Report `the encrypted_70fbe34e406c_key file size is not right` when decryption. <br><br>
++ Report `the encrypted_xxx file size is incorrect` when decryption. <br><br>
 Probably you are using the wrong format encryption file, the Travis CI host are running on Ubuntu OS. So the file format should be UNIX, if you generate encryption file with DOS format, you will encounter this issue. <br><br>
 The solution is to use `dos2unix` or `fromdos` command to convert the format to UNIX.
 
