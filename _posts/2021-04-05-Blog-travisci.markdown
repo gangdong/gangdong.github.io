@@ -298,6 +298,10 @@ The Travis CI works well, which means I can get back to the normal workflow to d
 
 The workflow is not only valid for blog project deployed on Github Pages but any open source projects on Github.  
 
+The last thing is don't forget to add a Travis CI logo/link to your README.
+
+[![Build Status](https://travis-ci.com/gangdong/daviddong.github.io.svg?branch=dev)](https://travis-ci.com/gangdong/daviddong.github.io)
+
 ## Troubleshooting
 
 Building Errors: 

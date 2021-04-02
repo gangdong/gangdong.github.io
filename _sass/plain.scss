@@ -625,12 +625,14 @@ main {
     margin-right:0px;
     max-width: $smallMobileW;
     width: 100%;
+	font-size: 16px;
   }
   @media screen and (max-width: $mobileW) {
     padding: 0 !important;
     margin-top: 0;
     max-width: $mobileW;
     width: 100%;
+	font-size: 16px;
    }
    
   a {
@@ -671,6 +673,12 @@ main {
   h5,
   h6 {
     font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
+  }
+  @media screen and (max-width: $smallMobileW) {
+		font-size: 16px;
+  }
+  @media screen and (max-width: $mobileW) {
+		font-size: 16px;
   }
 }
 .posts-labelgroup {
@@ -1206,4 +1214,8 @@ table {
 	text-decoration: underline;
 }
 .sidebar-toc-content {
+}
+.travis-building-box {
+	text-align:left; 
+	margin-top: 40px;
 }
