@@ -43,7 +43,7 @@ after_success:
 - ls -la
 # git add & commit
 - git add -A
-- git commit -m "travis_ci update gh-pages dev -> 7725e8c"
+- git commit -m "travis_ci update gh-pages dev -> c347417"
 # push remote 
 - git push --force "https://${GH_TOKEN}@${GH_REF}" travis:gh-pages
 
