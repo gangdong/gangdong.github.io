@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Use jekyll-toc plugin on Github Pages"
-date:   2021-03-14 21:11:16 +0800
+date:   2018-12-29 21:11:16 +0800
 categories: Blog Github
 tags: Blog Github
 Published: true
@@ -41,7 +41,7 @@ I built the code locally by Jekyll and reloaded the page.
 
 Cheers! 
 
-The TOC appeared, this was just what I want!
+The TOC appeared, this was exact what I want!
 
 ## I got a trouble
 
@@ -70,7 +70,7 @@ I referred two articles[^1] here.
 [^1]:[https://mccxj.Github.io/blog/20130127_jekyll-plugin-with-git-branch.html]() [https://www.cnblogs.com/ihardcoder/p/4479356.html]()
 
 {% highlight shell %}
-git add _site/
+git add _site/*
 git commit -m "add static site file"
 git push origin master
 {% endhighlight %}
@@ -87,14 +87,16 @@ Thanks to these two articles[^2].
 
 [^2]:[https://www.it1352.com/798173.html](https://www.it1352.com/798173.html) [https://www.cnblogs.com/pengshuo/p/5368035.html](https://www.it1352.com/798173.html), 
 
-I made it clear when I build the site by Github Pages generator, it actually creates a new branch `gh-pages` under master branch, in where it stores the static site files for external accessing. Therefore I need to create the `gh-pages` branch and place my `_site\` to there.
+I made it clear when I build the website by Github Pages generator, it actually creates a new branch `gh-pages` under master branch, in where it stores the static site files for accessing. Therefore I need to create the `gh-pages` branch and place the generated static HTMLs to there.
 
 I changed the command as below.
 
 {% highlight shell %}
+cp -r _site /tmp/
 git checkout -b gh-pages
-cp -r _site/* .
-git add _site
+rm -rf *
+cp -r /tmp/_site/* ./
+git add -A
 git commit -m "add site files"
 git push origin gh-pages
 {% endhighlight %}

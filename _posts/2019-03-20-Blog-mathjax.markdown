@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Display mathematics formula in blog with MathJax"
-date:   2021-03-20 11:11:12 +0800
+date:   2019-03-20 11:11:12 +0800
 categories: Blog
 tags: Blog
 Published: true
@@ -91,7 +91,7 @@ I wrote below words as startup.
 
 ## Write at the last
 
-+ I found importing the MathJax snippet will slow the site's loading speed. So I moved the MathJax snippet to the post's markdown file from `default.html`, only use it when the post need a mathematics expression. 
++ I found introducing the MathJax code snippet will slow the website's loading speed. So I moved the MathJax code snippet to the post's markdown file from `default.html`, only use it when the post needs a mathematics expression. 
 + I am not familiar with Latex syntax and I will spend some time in learning. It is not a problem! 😛
 
 <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
