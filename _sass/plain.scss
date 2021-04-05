@@ -939,9 +939,11 @@ main {
 	}
 }
 blockquote {
-  border-left: 6px solid #DDD;
-  padding: 0 15px;
-  color: #777;
+  border-left: 6px solid $btnColor;
+  background-color: #F2F4F4;
+  font-size: 15px;
+  border-radius: 2px;
+  padding: 15px 15px;
   margin: 0 5px;
   position: relative;
 }
