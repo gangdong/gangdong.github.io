@@ -7,7 +7,7 @@ $btnColor: #5499C7;
 $mobileW: 768px;
 $smallMobileW: 480px;
 $bigScreenW: 1600px;
-$leftWidth: 205px;
+$leftWidth: 210px;
 
 *,
 *:before,
@@ -594,7 +594,7 @@ main {
 .posts,
 .post-container {
   list-style-type: none;
-  margin: 10px 120px 0px 30px;
+  margin: 10px 115px 0px 30px;
   padding-left: 30px;
   @media screen and (max-width: $smallMobileW) {
     margin-left: 20px; /* !import for small device */
