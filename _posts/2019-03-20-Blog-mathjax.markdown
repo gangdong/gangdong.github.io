@@ -22,9 +22,9 @@ When writing posts, I need to display mathematics formula sometimes. I write pos
 
 This is the definition of the MathJax in [MathJax official website](https://www.mathjax.org/), more information can be found from there.
 
-To me, it brought some benefits for writing blog.
+To me, it brought some benefits when writing blog.
 
-- No need plugin support in Jekyll. I don't have to worry about that it cannot be implemented when deploying the site at Github Pages for security checking. 
+- No need plugin support in Jekyll. I don't have to worry about that it cannot be implemented when deploying the site at Github Pages for security checking (*Github Pages uses the Jekyll `--safe` flag*). 
 - Unlike using bitmaps image to display, it is text editing and transforms the mathematics formula to HTML or SVG, so it is workable for zoom scale and is suitable to display under different size screen.
 - I can write the mathematics formula in markdown with plain text just by following the syntax of LaTex/TeX.
 - Friendly to new user, you can quickly use it even you have no any knowledge about it. 
@@ -53,7 +53,7 @@ For more configuration, can find at [here](https://docs.mathjax.org/en/latest/we
 
 MathJax offers a global object named MathJax that contains configuration data for the various components of MathJax.
 
-For TeX or LaTeX input component , it has two types. One is `in-line mathematics`(display in paragraph) and the other is `displayed mathematics`(display as a single paragraph).
+For TeX or LaTeX input component , it has two types. One is `in-line mathematics`(*display in paragraph*) and the other is `displayed mathematics`(*display as a single paragraph*).
 
 It uses double dollar sign `$$` as the default math delimiters for `displayed mathematics`, uses the `(\...\)` as the math delimiters for `in-line mathematics`.
 

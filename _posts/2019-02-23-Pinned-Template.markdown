@@ -18,7 +18,7 @@ keywords: rawposts/模板
 {% include toc.html %}
 
 ## <span id ="1">1.关于该主题</span>
-`rawposts` 是一款轻量级,风格简洁清新的Jekyll主题。 该主题配置简单并支持丰富的特性,你可以将它用于Jekeyll网站或者个人博客的构建。该主题可以被用于部署在`Github page`上。
+`rawposts` 是一款轻量级,风格简洁清新的Jekyll主题。 该主题配置简单并支持丰富的特性,你可以将它用于Jekeyll网站或者个人博客的构建。该主题可以被用于部署在`Github Pages`上。
 
 [作者]：[DavidDong](https://github.com/gangdong)       
 [协议]：MIT 

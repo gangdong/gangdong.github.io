@@ -55,7 +55,7 @@ The basic idea is to use the [Travis CI continuous integration (CI)](https://doc
 To start using Travis CI, make sure you have:
 
 + Github account 
-+ Authenticating Travis CI to your Github account. You can do it by creating a personal access token (PATs) or connecting to GitHub with SSH. If you don't know how to do, please refer to   
++ Adding authentication methods to your Github account. You can do it by creating a personal access token (PATs) or connecting to GitHub with SSH Key. If you don't know how to do, please refer to   
  
 	+ [Creating a personal access token (PATs)](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)    
 	+ [Connecting to GitHub with SSH](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh)    
@@ -102,11 +102,11 @@ To get to know the details and learn how to write `.travis.yml` file, please rea
 
 ### Sensitive Data
 
-It is inevitable that Travis CI will use the sensitive data (*for example, SSH private key or Github personal access token*) to access the Github. Of course we cannot expose the data without any  encryption. Travis CI provides [encryption scheme](https://docs.travis-ci.com/user/encryption-keys/) to protect your secret information.
+It is inevitable that Travis CI will use the sensitive data (*for example, SSH private key or Github personal access token*) to access the Github. Of course we cannot expose the data without any  protection. Travis CI provides [encryption scheme](https://docs.travis-ci.com/user/encryption-keys/) to protect your secret information.
 
 Travis CI offers commands that is able to encrypt the private key or any files. You can also save your sensitive data to [environment variables](https://docs.travis-ci.com/user/environment-variables/), in where the data is invisible and can be accessed from any stage in your build process.
 
-To my project, I choose two methods as below:
+To my project, I've tried two methods as below:
 
 + use SSH scheme access Github with RSA key pairs
 + access with encrypted Github PATs (*personal access tokens*)
