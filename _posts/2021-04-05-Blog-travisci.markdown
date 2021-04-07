@@ -330,7 +330,7 @@ The solution is to use `dos2unix` or `fromdos` command to convert the format to 
 travis encrypt -r 'user-name'/'repo-name' DEPLOY_TOKEN = 'your PATs'
 {% endhighlight %}
 
-It is because your current repo is not in the Repos list in the config.yml, add your repos name into the config.yml and indicate the endpoint to  `https://api.travis-ci.com/` manually.
+It is because your current repo is not in the Repos list in the config.yml, add your repos name into the config.yml and indicate the endpoint to `https://api.travis-ci.com/` manually.
 {% highlight yml %}
 repos:
   gangdong/daviddong.github.io:
