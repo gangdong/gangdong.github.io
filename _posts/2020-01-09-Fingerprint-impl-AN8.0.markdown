@@ -139,7 +139,7 @@ I drew a flow chart to help understand the whole flow more clearly.
 The related source code and android path can be found at below table. Android 7.0 (NOUGAT)<br>
 
 File|Android Path|
-:--|:--|
+:--:|:--:|
 [init.rc](https://www.androidos.net.cn/android/7.0.0_r31/xref/system/core/rootdir/init.rc)|root/system/core/rootdir/init.rc|
 [fingerprintd.cpp](https://www.androidos.net.cn/android/7.0.0_r31/xref/system/core/fingerprintd/fingerprintd.cpp)|root/system/core/fingerprintd/fingerprintd.cpp|
 [FingerprintDaemonProxy.h](https://www.androidos.net.cn/android/7.0.0_r31/xref/system/core/fingerprintd/FingerprintDaemonProxy.h)|root/system/core/fingerprintd/
@@ -284,7 +284,7 @@ Compare this flowchart carefully with last flowchart above, we can find the diff
 The related source code and android path can be found at below table<br>
 
 File|Android Path|
-:--|:--|
+:--:|:--:|
 [fingerprint@2.1-service](https://www.androidos.net.cn/android/8.0.0_r4/xref/hardware/interfaces/biometrics/fingerprint/2.1/default/android.hardware.biometrics.fingerprint@2.1-service.rc)|root/hardware/interfaces/biometrics/fingerprint/2.1/default|
 [service.cpp](https://www.androidos.net.cn/android/8.0.0_r4/xref/hardware/interfaces/biometrics/fingerprint/2.1/default/service.cpp)|root/hardware/interfaces/biometrics/fingerprint/2.1/default|
 [BiometricsFingerprint.h](https://www.androidos.net.cn/android/8.0.0_r4/xref/hardware/interfaces/biometrics/fingerprint/2.1/default/BiometricsFingerprint.h)|root/hardware/interfaces/biometrics/fingerprint/2.1/default|
