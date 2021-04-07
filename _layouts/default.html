@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {%- include head.html -%}
+  </head>
+  <body>
+  {%- if site.rawposts.show_statistics -%}
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  {%- endif -%}
+    <main class="container">
+      <section class="about">
+        <a href="{{site.baseurl}}/blog/index.html"><img src="{{ "/assets/avatar.png" | relative_url }}" alt="{{ site.rawposts.name }}"></a>
+        <h2 id="title">
+          <a href="{{site.baseurl}}/blog/index.html">{{ site.rawposts.name }}</a>
+        </h2>
+        <p class="tagline">{{ site.rawposts.tagline }}</p>
+		<!--add navigation -->
+        {%- if site.rawposts.navigation -%}
+          <nav class="navigation">
+            <ul>
+              {% for link in site.rawposts.navigation %}
+                <li>
+                  <a href="{{ link.url }}">{{ link.title }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          </nav>
+        {%- endif -%}
+		<!--put dark mode button here -->
+		{%- if site.rawposts.dark_mode -%}
+		<div>
+		  <ul class = "social" >
+			<p style = "font-family: Raleway, sans-serif;font-size: 100%">Dark Mode
+			  <i class="icon-moon"></i>
+			  <label class="switch">
+				<input type="checkbox" id="dark-mode-toggle" onclick="toggleDarkMode()">
+				<span class="slider round"></span>
+			  </label>
+			</p>
+		  </ul>
+		<script type="text/javascript" src="{{site.baseurl}}/assets/js/darkmode.js"></script>
+		</div>
+		{%- endif -%}
+		<!--put rss/code link here -->
+	    <div>
+          <ul class="tool">
+			{%- if site.rawposts.rss -%}
+		   <a style ="margin-right:10px; text-decoration: none" href="{{site.baseurl}}/rss.xml">
+              <span class="icon-rss-1 tooltip">
+				<span class="tooltiptext">Rss</span>
+			  </span>
+           </a>
+			{%- endif -%}
+			{%- if site.rawposts.source_code -%}
+            <a style="text-decoration: none" href="https://github.com/gangdong/daviddong.github.io">
+              <span class="icon-file-code tooltip">
+				<span class="tooltiptext">Code</span>
+			  </span>
+            </a>
+			{%- endif -%}
+          </ul>
+        </div>
+	    <!--show contact me -->
+	    <div class = "contact"><li>CONTACT ME</li></div>
+		<!-- put social link here -->
+		<div>
+	      <ul class="social" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture-3"></i>
+              </li>
+           </a>
+          {%- if site.rawposts.social_links.github -%}
+            <a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled-1"></i>
+              </li>
+            </a>
+          {%- endif -%}
+          {%- if site.rawposts.social_links.linkedIn -%}
+            <a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a>
+          {%- endif -%}
+		  {%- if site.rawposts.social_links.mail -%}
+            <a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a>
+          {%- endif -%}
+          </ul>
+		</div>
+		<!--put timestamp here -->
+		<div class ="timestamp">&copy; {{ "now" | date: "%Y" }}</div>
+	  <!-- about box end here -->
+      </section>
+      <section class="content">
+        {{ content }}
+      </section>
+    </main>
+    {%- if site.rawposts.analytics_id -%}
+      <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.rawposts.analytics_id }}"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', '{{ site.rawposts.analytics_id }}');
+	</script>
+    {%- endif -%} 
+{% if site.rawposts.search %}
+<script src="{{site.baseurl}}/assets/js/simple-jekyll-search.min.js"></script>
+<script src="{{site.baseurl}}/assets/js/search.js"></script>
+{% endif %}
+{% if site.rawposts.share_media %}
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9"></script>
+{% endif %}
+</body>
+</html>
