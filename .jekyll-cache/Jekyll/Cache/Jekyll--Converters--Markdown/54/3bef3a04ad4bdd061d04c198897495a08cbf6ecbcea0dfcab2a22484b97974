@@ -1,0 +1,8 @@
+I"»<p>The first step we should know if the hardware support SGX.<br />
+Which include:</p>
+<ul>
+  <li>BIOS support?</li>
+  <li>CPU support?</li>
+  <li>Software packages installed?</li>
+</ul>
+:ET

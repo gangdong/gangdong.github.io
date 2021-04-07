@@ -1,0 +1,163 @@
+I"<p><img src="/daviddong.github.io/assets/image/others-markdown-01.jpg" alt="示例图片" title="example" />
+最近在写博客的时候用到了 Markdown 语言，做为一个学习总结，有必要把常用的语法mark一下。</p>
+
+<p>Markdown 是一种轻量级的「标记语言」，它允许人们使用易读易写的纯文本格式编写文档。</p>
+
+<p>Markdown 的语法十分简单。常用的标记符号也不超过十个，Markdown 编写的文档可以导出 HTML 、Word、图像、PDF、Epub 等多种格式的文档。</p>
+
+<p>Markdown 的语法学习归纳起来可以从下面几个方面来学习。</p>
+<ol>
+  <li><a href="#1">字体</a>  2. <a href="#2">标题</a> 3. <a href="#3">图片</a> 4. <a href="#4">链接</a> 5. <a href="#5">分割线</a> 6. <a href="#6">列表</a> 7. <a href="#7">表格</a> 8. <a href="#8">代码</a></li>
+</ol>
+
+<h2 id="字体"><span id="1">字体</span></h2>
+<p><strong>语法</strong></p>
+
+<ul>
+  <li>斜体：文字两边用 <code class="language-plaintext highlighter-rouge">*</code> 包起来</li>
+  <li>粗体：文字两边用 <code class="language-plaintext highlighter-rouge">**</code> 包起来</li>
+  <li>粗斜体：文字两边用 <code class="language-plaintext highlighter-rouge">***</code> 包起来</li>
+  <li>删除线：文字两边用 <code class="language-plaintext highlighter-rouge">~~</code> 包起来<br /></li>
+</ul>
+
+<p>示列如下：<br /></p>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">   *斜体*
+   **粗体**
+   ***粗斜体***
+   ~~删除线~~</code></pre></figure>
+
+<p>效果如下：<br />
+<em>斜体</em>  <br />
+<strong>粗体</strong> <br />
+<strong><em>粗斜体</em></strong> <br />
+<del>删除线</del><br /></p>
+<h2 id="标题"><span id="2">标题</span></h2>
+<p><strong>语法</strong>  <br />
+共分为6级标题，分别在前面加 <code class="language-plaintext highlighter-rouge">#</code> ，同时在<code class="language-plaintext highlighter-rouge">#</code>号后加一个<code class="language-plaintext highlighter-rouge">空格</code>。
+示列：<br /></p>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext"># 一级标题
+## 二级标题
+### 三级标题
+#### 四级标题</code></pre></figure>
+
+<p>效果如下：<br /></p>
+<h1 id="一级标题">一级标题</h1>
+<h2 id="二级标题">二级标题</h2>
+<h3 id="三级标题">三级标题</h3>
+<h4 id="四级标题">四级标题</h4>
+<p>依次论推…</p>
+
+<h2 id="图片"><span id="3">图片</span></h2>
+<p><strong>语法</strong></p>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">![picname](图片地址''图片title'')</code></pre></figure>
+
+<p>效果如下：<br /></p>
+
+<p><img src="/daviddong.github.io/assets/image/others-markdown-example.png" alt="示例图片" title="example" class="center-image" /></p>
+
+<h2 id="链接"><span id="4">链接</span></h2>
+<p><strong>语法</strong> <br />
+和图片的语法很类似，只是前面缺少一个<code class="language-plaintext highlighter-rouge">!</code>。<br /></p>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">[名称](地址''title'')</code></pre></figure>
+
+<p>效果如下：<br />
+<a href="/daviddong.github.io/blog/index.html">DAVID DONG的博客</a><br /></p>
+<h2 id="分割线"><span id="5">分割线</span></h2>
+<p><strong>语法</strong> <br />
+三个或者更多的 <code class="language-plaintext highlighter-rouge">---</code> 或者 <code class="language-plaintext highlighter-rouge">***</code> <br /></p>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">我是分割线 
+---</code></pre></figure>
+
+<p>效果如下:<br /></p>
+<h5 id="我是分割线">我是分割线</h5>
+<hr />
+<h2 id="列表"><span id="6">列表</span></h2>
+<h3 id="无序列表">无序列表</h3>
+<p><strong>语法</strong> <br />
+在内容前使用<code class="language-plaintext highlighter-rouge">*</code> <code class="language-plaintext highlighter-rouge">-</code> <code class="language-plaintext highlighter-rouge">+</code> 都可以。<br /></p>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">- 名称
+- 年龄
+- 性别</code></pre></figure>
+
+<p>效果如下:<br /></p>
+<ul>
+  <li>名称</li>
+  <li>年龄</li>
+  <li>性别</li>
+</ul>
+
+<h3 id="有序列表">有序列表</h3>
+<p><strong>语法</strong> <br />
+在内容前使用<code class="language-plaintext highlighter-rouge">数字</code>。<br /></p>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">1. 名称
+2. 年龄
+3. 性别</code></pre></figure>
+
+<p>效果如下:</p>
+<ol>
+  <li>名称</li>
+  <li>年龄</li>
+  <li>性别</li>
+</ol>
+
+<h2 id="表格"><span id="7">表格</span></h2>
+<p><strong>语法</strong>    <br />
+语法如下，其中第二行的 <code class="language-plaintext highlighter-rouge">---</code>: 表示了对齐方式，默认<strong>左对齐</strong>，还有<strong>右对齐（右边加：）</strong> 和<strong>居中（两边加：）</strong></p>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">表头|表头|表头
+---|:--:|---:
+内容|内容|内容
+内容|内容|内容</code></pre></figure>
+
+<p>效果如下:<br /></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">语言</th>
+      <th style="text-align: center">面向对象</th>
+      <th style="text-align: center">动态语言</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Java</td>
+      <td style="text-align: center">是</td>
+      <td style="text-align: center">否</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">C</td>
+      <td style="text-align: center">否</td>
+      <td style="text-align: center">否</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Python</td>
+      <td style="text-align: center">是</td>
+      <td style="text-align: center">是</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="代码"><span id="8">代码</span></h2>
+<p><strong>语法</strong><br />
+对于码农来说是非常有用的，方便打印代码在博客里。
+对于单条语句用<code class="language-plaintext highlighter-rouge">'</code>包裹语句即可。
+对于代码块，用<code class="language-plaintext highlighter-rouge">'''</code>包裹即可。<br />
+效果如下:<br /></p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(){</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"just show how to print me!"</span><span class="p">);</span>
+	<span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>到这里 <strong>markdown</strong> 一些基本的命令就讲完了，用 <strong>markdown</strong> 写文档还是很方便的。
+最后再介绍几款好用的 <strong>markdown</strong> 的编辑器，方便网友使用。<br />
+目前比较主流的支持 <strong>markdown</strong> 语言的编辑有 <code class="language-plaintext highlighter-rouge">markdownpad</code>,<code class="language-plaintext highlighter-rouge">typora</code>,<code class="language-plaintext highlighter-rouge">sublime</code>,<code class="language-plaintext highlighter-rouge">Mou</code>,<code class="language-plaintext highlighter-rouge">atom</code>,<code class="language-plaintext highlighter-rouge">Cmd Markdown</code> 等，这些软件大部分都能支持 windows/liunx 和 ios(Mou只支持ios) 的平台。而且大部分是免费使用。功能上大同小异，都支持实时预览和 HTML/PDF 输出，有些还能够自定义语法的高亮显示等。我目前使用的是 <code class="language-plaintext highlighter-rouge">markdownpad2</code>,编辑起来还是很方便的。</p>
+:ET

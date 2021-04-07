@@ -1,0 +1,23 @@
+I"�<p>Today I met a error when I was trying to customize the android.widget.Button Class.😕 <br />The error information is</p>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">"This custom view should extend android.support.v7.widget.AppCompatButton instead."</code></pre></figure>
+
+<p>The temporary solution that I used is as below.</p>
+
+<figure class="highlight"><pre><code class="language-android" data-lang="android">import android.annotation.SuppressLint;
+@SuppressLint("AppCompatCustomView")</code></pre></figure>
+
+<p>Besides, I had met</p>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">"I/hwservicemanager: getTransport: Cannot find entry" </code></pre></figure>
+
+<p>when running application. That’s because the application used HIDL interface which should register at the vintf/manifest.xml but hasn’t done. This feature is introduced at Android O. Obviously, the solution is registering all of the HIDL interfaces that will be used at manifest.xml.</p>
+
+<p>Another issue is</p>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">"avc: denied { read } for name="u:object_r:vendor_default_prop:s0" dev="tmpfs" ino=27157 
+scontext=u:r:platform_app:s0:c512,c768 tcontext=u:object_r:vendor_default_prop:s0 
+tclass=file permissive=1"</code></pre></figure>
+
+<p>which is related to selinux, the selinux policy is missing that cause the permission is rejected. Need to add the permission to selinux.</p>
+:ET

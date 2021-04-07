@@ -1,0 +1,78 @@
+I"<p>Syntax highlighting is important (<em>especially for programming blogs</em>) because it improves the readability of posts. This article will introduce a syntax highlighter - <a href="https://rubygems.org/gems/rouge">Rouge</a>.</p>
+
+<p>I think maybe someone who attach a code snippet into the blog wants to get a beautiful syntax highlighting style, just like we see in some popular IDEs, Visual Code, Eceplise, Atom…</p>
+
+<p>I also like that, so I decide to add syntax highlighter into my blog.</p>
+
+<p>My blog was constructed by Jekyll, Jekyll has built in support for syntax highlighting and Rouge is the default highlighter in Jekyll 3 and above. It’s also supported by Github Pages, you can use it when you deploy your site on Github Pages.</p>
+
+<h2 id="install-rouge">Install Rouge</h2>
+<p>There is nothing special about the installation, like a ordinary Jekyll plugin installation.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">gem</span> <span class="n">install</span> <span class="n">rouge</span></code></pre></figure>
+
+<p>and declare in the <code class="language-plaintext highlighter-rouge">_config.yml</code></p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">highlighter</span><span class="pi">:</span> <span class="s">rouge</span></code></pre></figure>
+
+<p>If you use <code class="language-plaintext highlighter-rouge">kramdown</code>, add this</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">markdown</span><span class="pi">:</span> <span class="s">kramdown</span>
+<span class="na">kramdown</span><span class="pi">:</span>
+<span class="na">input</span><span class="pi">:</span> <span class="s">GFM</span>
+<span class="na">syntax_highlighter</span><span class="pi">:</span> <span class="s">rouge</span></code></pre></figure>
+
+<h2 id="syntax-highlighting-with-rouge">Syntax highlighting with Rouge</h2>
+
+<p>Rouge can support syntax highlighting of over 100 languages, find them <a href="https://github.com/rouge-ruby/rouge/wiki/List-of-supported-languages-and-lexers">here</a>.</p>
+
+<p>To render a code block with syntax highlighting, surround your code as</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="p">{</span><span class="sx">% highlight </span><span class="n">ruby</span> <span class="sx">%}
+def foo
+  puts 'foo'
+end
+{% endhighlight %}</span></code></pre></figure>
+
+<p>Including the <code class="language-plaintext highlighter-rouge">linenos</code> argument will force the highlighted code to include line numbers.</p>
+
+<h2 id="stylesheet">Stylesheet</h2>
+
+<p>There are some syntax highlighting style themes available in Rouge, you can look for them at   <br />
+<a href="https://rouge-ruby.github.io/docs/Rouge/Themes.html">Rouge Themes Doc</a> / <a href="https://github.com/mzlogin/rouge-themes">Rouge themes</a></p>
+
+<p>Rouge comes built-in with <code class="language-plaintext highlighter-rouge">rougify</code>, a command-line tool that converts a style theme to a CSS file.</p>
+
+<p>Use below command to view the themes that Rouge supports.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">rougify</span> <span class="n">help</span> <span class="n">style</span></code></pre></figure>
+
+<p>As of rouge 1.11.1, the available themes are:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">base16</span><span class="p">,</span> 
+<span class="n">base16</span><span class="p">.</span><span class="nf">dark</span><span class="p">,</span> 
+<span class="n">base16</span><span class="p">.</span><span class="nf">monokai</span><span class="p">,</span> 
+<span class="n">base16</span><span class="p">.</span><span class="nf">monokai</span><span class="p">.</span><span class="nf">light</span><span class="p">,</span> 
+<span class="n">base16</span><span class="p">.</span><span class="nf">solarized</span><span class="p">,</span> 
+<span class="n">base16</span><span class="p">.</span><span class="nf">solarized</span><span class="p">.</span><span class="nf">dark</span><span class="p">,</span> 
+<span class="n">colorful</span><span class="p">,</span> 
+<span class="n">github</span><span class="p">,</span> 
+<span class="n">gruvbox</span><span class="p">,</span> 
+<span class="n">gruvbox</span><span class="p">.</span><span class="nf">light</span><span class="p">,</span> 
+<span class="n">molokai</span><span class="p">,</span> 
+<span class="n">monokai</span><span class="p">,</span> 
+<span class="n">monokai</span><span class="p">.</span><span class="nf">sublime</span><span class="p">,</span> 
+<span class="n">thankful_eyes</span></code></pre></figure>
+
+<p>Use below command to generate CSS file for the syntax highlighting style you want.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">rougify</span> <span class="n">style</span> <span class="n">monokai</span><span class="p">.</span><span class="nf">sublime</span> <span class="o">&gt;</span> <span class="n">syntax_monokai</span><span class="p">.</span><span class="nf">css</span></code></pre></figure>
+
+<p>Copy the generated style CSS file to your site’s style folder and don’t forget to include the stylesheet file into your head.html.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">&lt;</span><span class="n">link</span> <span class="n">href</span><span class="o">=</span><span class="s2">"/daviddong.github.io/assets/css/syntax_monokai.css"</span> <span class="n">rel</span><span class="o">=</span><span class="s2">"stylesheet"</span><span class="o">/&gt;</span></code></pre></figure>
+
+<p>And that’s all you need to start having syntax highlighting on your Jekyll site using Rouge.</p>
+
+<p>Hope that’s somehow useful for you! 🙂</p>
+:ET

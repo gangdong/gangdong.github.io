@@ -1,0 +1,2 @@
+I"Ñ<p>Python uses <code class="language-plaintext highlighter-rouge">struct.pack()</code> to pack python data type into binary data (byte stream), which means convert a value to a string based on the format.</p>
+:ET

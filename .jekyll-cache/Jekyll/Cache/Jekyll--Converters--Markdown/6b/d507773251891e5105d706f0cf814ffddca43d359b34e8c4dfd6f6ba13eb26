@@ -1,0 +1,154 @@
+I",<p>本博客使用了 <a href="https://github.com/gangdong/jekyll-theme-rawposts">rawposts</a> 主题模板，不时有网友在 fork 使用该主题的时候提出了一些问题，这里我将该主题的使用方法汇总成一篇帖子，方便大家参考。</p>
+
+<h2 id="1关于该主题"><span id="1">1.关于该主题</span></h2>
+<p><code class="language-plaintext highlighter-rouge">rawposts</code> 是一款轻量级,风格简洁清新的Jekyll主题。 该主题配置简单并支持丰富的特性,你可以将它用于Jekeyll网站或者个人博客的构建。该主题可以被用于部署在<code class="language-plaintext highlighter-rouge">Github Pages</code>上。</p>
+
+<p>[作者]：<a href="https://github.com/gangdong">DavidDong</a>     <br />
+[协议]：MIT</p>
+
+<h3 id="预览">预览</h3>
+<p><img src="/daviddong.github.io/assets/screenshot.png" alt="screenshot" /></p>
+
+<h2 id="2功能"><span id="2">2.功能</span></h2>
+<ul>
+  <li>响应式设计</li>
+  <li>针对平板&amp;手机屏幕设计优化</li>
+  <li>portfolio 主题图片设置</li>
+  <li>个性化社交链接（支持电子邮件，Github，Facebook，Twitter，领英等）</li>
+  <li>社交媒体分享 （Linkedin, Facebook, Twitter, Weixin…,180+）</li>
+  <li>中英文双语支持</li>
+  <li>分页功能</li>
+  <li>归档</li>
+  <li>文章分类</li>
+  <li>摘要</li>
+  <li>优化Github风格的代码样式</li>
+  <li>Rouge 语法高亮</li>
+  <li>评论模块：Gittalk / Disqus  <br />
+中国大陆用户推荐使用 Gittalk.</li>
+  <li>阅读量统计：busuanzi</li>
+  <li>站点统计：busuanzi / google analytics <br />
+中国大陆用户推荐使用 busuanzi analytics</li>
+  <li>RSS</li>
+  <li>Sitemap</li>
+  <li>jemoji emoji表情支持</li>
+  <li>两种皮肤可切换：浅色/深色</li>
+  <li>文章字数统计</li>
+  <li>阅读时间统计</li>
+</ul>
+
+<h2 id="3应用插件"><span id="3">3.应用插件</span></h2>
+<ul>
+  <li>jekyll-seo-tag</li>
+  <li>jemoji</li>
+  <li>kramdown</li>
+  <li>jekyll-archives</li>
+  <li>jekyll-paginate</li>
+  <li>jekyll-toc</li>
+  <li>rouge</li>
+</ul>
+
+<h2 id="4主题安装"><span id="4">4.主题安装</span></h2>
+<ol>
+  <li>fork <a href="https://github.com/gangdong/jekyll-theme-rawposts">主题</a> 到你的github仓库。</li>
+  <li>复制该主题的仓库到本地。</li>
+  <li>如果你还没有安装Jekell，请先安装Jekyll。如果你不知道如何安装Jekyll，可以参考 <a href="https://gangdong.github.io/daviddong.github.io/web/2018/03/27/Web-jekyll-installation.html">Getting started with Jekyll (1)</a>。</li>
+  <li>在本地项目的根目录下运行命令 <code class="language-plaintext highlighter-rouge">bundle install</code> 来安装主题以及该主题的依赖。</li>
+  <li>运行 <code class="language-plaintext highlighter-rouge">bundle exec jekyll server</code> 构建项目并生成网站。</li>
+  <li>至此安装完成! :v: 下一步你需要通过配置 _config.yml来定制你自己的网站。</li>
+</ol>
+
+<h2 id="5客制化--配置"><span id="5">5.客制化 &amp; 配置</span></h2>
+<p>你可以通过配置 _config.yml 文件来客制化该主题。</p>
+
+<h3 id="51-客制化设定"><span id="5.1">5.1 客制化设定</span></h3>
+<p>你需要更改<code class="language-plaintext highlighter-rouge">描述</code>、<code class="language-plaintext highlighter-rouge">标题</code>和<code class="language-plaintext highlighter-rouge">url</code>以便与个人信息匹配。你还需要将/assets/目录中的<code class="language-plaintext highlighter-rouge">logo</code>、<code class="language-plaintext highlighter-rouge">默认社交链接</code>和<code class="language-plaintext highlighter-rouge">默认avatar图像</code>替换为您自己的图片，并需要将<code class="language-plaintext highlighter-rouge">电子邮件</code>更改为您要接收的联系人表单查询的电子邮件。
+当前此主题的模板中的默认配置为我个人的信息，将该部分替换为你自己的信息。</p>
+<h4 id="show_excerpts"><code class="language-plaintext highlighter-rouge">show_excerpts</code></h4>
+<p>_config.yml中设置该字段为 <code class="language-plaintext highlighter-rouge">true</code> 将会启用目录的摘要功能。</p>
+<h4 id="paginate"><code class="language-plaintext highlighter-rouge">paginate</code></h4>
+<p>_config.yml中通过设置该字段来设定每页最大的文章数量。</p>
+<h4 id="paginate_path"><code class="language-plaintext highlighter-rouge">paginate_path</code></h4>
+<p>_config.yml中设置该字段为你需要放置子页的路径。</p>
+<h4 id="sitemap"><code class="language-plaintext highlighter-rouge">sitemap</code></h4>
+<p>_config.yml中设置该字段为 <code class="language-plaintext highlighter-rouge">true</code> 将生成 sitemap.html 文件。</p>
+<h4 id="dark_mode"><code class="language-plaintext highlighter-rouge">dark_mode</code></h4>
+<p>_config.yml中设置该字段为 <code class="language-plaintext highlighter-rouge">true</code> 将会启用网站的深色模式切换功能。</p>
+<h4 id="reading_time"><code class="language-plaintext highlighter-rouge">reading_time</code></h4>
+<p>_config.yml中设置该字段为 <code class="language-plaintext highlighter-rouge">true</code> 将会增加文章的阅读时间和字数统计，并显示。</p>
+<h4 id="archives"><code class="language-plaintext highlighter-rouge">archives</code></h4>
+<p>_config.yml中设置该字段为 <code class="language-plaintext highlighter-rouge">true</code> 将会启用文章的时间归档功能。</p>
+<h4 id="categories"><code class="language-plaintext highlighter-rouge">categories</code></h4>
+<p>_config.yml中设置该字段为 <code class="language-plaintext highlighter-rouge">true</code> 将会启用文章的归类功能。</p>
+<h4 id="gittalk"><code class="language-plaintext highlighter-rouge">gittalk</code></h4>
+<p>_config.yml中设置该字段为 <code class="language-plaintext highlighter-rouge">true</code> 将会增加gittalk评论模块。</p>
+<h4 id="show_statistics"><code class="language-plaintext highlighter-rouge">show_statistics</code></h4>
+<p>_config.yml中设置该字段为 <code class="language-plaintext highlighter-rouge">true</code> 将会启用网站访客统计功能，默认busuanzi引擎。</p>
+<h4 id="rss"><code class="language-plaintext highlighter-rouge">rss</code></h4>
+<p>_config.yml中设置该字段为 <code class="language-plaintext highlighter-rouge">true</code> 将会启用rss生成功能。</p>
+<h4 id="source_code"><code class="language-plaintext highlighter-rouge">source_code</code></h4>
+<p>_config.yml中设置该字段为 <code class="language-plaintext highlighter-rouge">true</code> 将会增加源代码导引。</p>
+
+<h3 id="52-包含文件"><span id="5.2">5.2 包含文件</span></h3>
+<p>该主题有一些必要的 「.html」文件来实现网站的功能，它们位于不同的文件夹中。</p>
+
+<h4 id="indexhtml"><code class="language-plaintext highlighter-rouge">index.html</code></h4>
+<p>index.html 是主页的入口文件，生成在项目根目录 <code class="language-plaintext highlighter-rouge">/blog</code> 文件夹中。</p>
+
+<h4 id="archivehtml"><code class="language-plaintext highlighter-rouge">archive.html</code></h4>
+<p>archive.html 实现文章的归档功能，生成在根目录 <code class="language-plaintext highlighter-rouge">/archive</code> 文件夹中。</p>
+
+<h4 id="categoryhtml"><code class="language-plaintext highlighter-rouge">category.html</code></h4>
+<p>category.html 实现文章的分类功能，生成在根目录 <code class="language-plaintext highlighter-rouge">/category</code> 文件夹中。</p>
+
+<h4 id="abouthtml"><code class="language-plaintext highlighter-rouge">about.html</code></h4>
+<p>about.html 文件内容对应网站的「关于」页面，里面的内容多为个人相关，将它们替换成你自己的信息，存在于根目录 <code class="language-plaintext highlighter-rouge">/about</code> 文件夹中。</p>
+
+<h4 id="paginationhtml"><code class="language-plaintext highlighter-rouge">pagination.html</code></h4>
+<p>pagination.html 实现网站的分页功能，存放在根目录 <code class="language-plaintext highlighter-rouge">_includes</code> 文件夹中。</p>
+
+<h4 id="reading_timehtml"><code class="language-plaintext highlighter-rouge">reading_time.html</code></h4>
+<p>reading_time.html 统计文章的字数和阅读时间并显示. 存放在根目录 <code class="language-plaintext highlighter-rouge">_includes</code> 文件夹中。</p>
+
+<h4 id="titlehtml"><code class="language-plaintext highlighter-rouge">title.html</code></h4>
+<p>生成主页的功能菜单项, 存放在根目录 <code class="language-plaintext highlighter-rouge">_includes</code> 文件夹中。</p>
+
+<h2 id="6开发"><span id="6">6.开发</span></h2>
+<h3 id="61-搭建开发环境"><span id="6.1">6.1 搭建开发环境</span></h3>
+<p>以下用于配置该主题的开发环境:</p>
+
+<ol>
+  <li>复制该主题的仓库到本地；</li>
+  <li>进入到该主题项目的根目录并执行<code class="language-plaintext highlighter-rouge">bundle install</code>。</li>
+</ol>
+
+<p>在你对该主题做了修改后可以在本地测试然后再推送到远端:</p>
+
+<ol>
+  <li>进入到该主题本地的根目录 (比如 jekyll-theme-rawposts)；</li>
+  <li>运行 <code class="language-plaintext highlighter-rouge">jekyll server</code> 构建该项目并生成网站，在浏览器中打开http://localhost:4000/你设定的baseurl 来预览网站。再度修改后可以通过刷新网页来预览效果。</li>
+</ol>
+
+<h3 id="62-pull-requests"><span id="6.2">6.2 Pull Requests</span></h3>
+<p>当你需要提交一个 pull request时，可以：</p>
+
+<ol>
+  <li>复制该项目；</li>
+  <li>创建一个分支并对该分支起一个容易辨认的名字并填写好<code class="language-plaintext highlighter-rouge">问题</code>或者<code class="language-plaintext highlighter-rouge">需求描述</code>，<code class="language-plaintext highlighter-rouge">更改记录</code>；</li>
+  <li>在Github上提交该分支到一个 pull request。</li>
+</ol>
+
+<p>我平时的编程主要应用在移动端和嵌入式设备上面，偶尔写写前端，纯属个人爱好。因此该主题模板目前看写的还比较粗糙，需要持续改进。欢迎大家提 pull requests 给我, 对于每一个pull request, 我都会尽快review，对于好的建议我都会merge进该主题的代码中，包括但不限于提交问题或需求，修复代码等。</p>
+
+<h2 id="7其他信息"><span id="7">7.其他信息</span></h2>
+<h3 id="71-版本"><span id="7.1">7.1 版本</span></h3>
+<p>1.0.0</p>
+
+<h3 id="72-贡献"><span id="7.2">7.2 贡献</span></h3>
+<p>主题起始于 <a href="https://github.com/samarsault/plainwhite-jekyll">plainwhite</a> 模板，在此基础上做了大量的修改，添加了功能。</p>
+
+<h3 id="73-协议"><span id="7.3">7.3 协议</span></h3>
+<p>该主题为开源软件，基于<code class="language-plaintext highlighter-rouge">MIT</code>协议。</p>
+
+<h2 id="8问题和回答-qa"><span id="8">8.问题和回答 (Q&amp;A)</span></h2>
+<p>如果你有针对该主题的任何问题，欢迎在下面评论区留言，每个问题我都会认真回复。:smile:</p>
+:ET

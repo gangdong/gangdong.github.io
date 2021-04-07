@@ -1,0 +1,78 @@
+I"U<p>This page will continue to give a brief introduction of the Jekyll grammar.</p>
+
+<p>After read <a href="/daviddong.github.io/web/2018/03/27/Web-jekyll-installation.html">last article</a> you should complete the installation of Jekyll and download a Jekyll theme on your computer.</p>
+
+<p>Let’s start this article from the source code of the theme you downloaded.</p>
+
+<h2 id="jekyll-directory-structure">Jekyll directory structure</h2>
+<p>Unzip the package you downloaded and check the directory structure.The Jekyll directory structure mainly includes the following directories.</p>
+
+<p><img src="/daviddong.github.io/assets/image/web-jekyll-2-directory.png" alt="directory" /></p>
+
+<p>The description of each folder.</p>
+
+<p><img src="/daviddong.github.io/assets/image/web-jekyll-2-directory-description.png" alt="directory" /></p>
+
+<p>Every file or directory beginning with the following characters: ., _ , # or ~ in the source directory will not be included in the destination folder. Such paths will have to be explicitly specified via the config file in the include directive to make sure they’re copied over.</p>
+
+<h2 id="liquid">Liquid</h2>
+<p>Jekyll uses the Liquid templating language to process templates.
+Generally in Liquid you output content using two curly braces and perform logic statements by surrounding them in a curly brace percentage sign.</p>
+
+<p>To learn more about Liquid, check out the <a href="https://shopify.github.io/liquid/">official Liquid Documentation</a>.</p>
+
+<h2 id="variables">Variables</h2>
+
+<p>Jekyll traverses your site looking for files to process. Any files with front matter are subject to processing. For each of these files, Jekyll makes a variety of data available via Liquid. The following is a reference of the available data.</p>
+
+<h3 id="global-variables">global variables</h3>
+<p><img src="/daviddong.github.io/assets/image/web-jekyll-2-variables-global.png" alt="directory" /></p>
+
+<h3 id="site-variables">site variables</h3>
+<p><img src="/daviddong.github.io/assets/image/web-jekyll-2-variables-site.png" alt="directory" /></p>
+
+<h3 id="page-variables">page variables</h3>
+<p><img src="/daviddong.github.io/assets/image/web-jekyll-2-variables-page.png" alt="directory" /></p>
+
+<h3 id="paginator-variables">paginator variables</h3>
+<p><img src="/daviddong.github.io/assets/image/web-jekyll-2-variables-paginator.png" alt="directory" /></p>
+
+<p>above is the description from the official docs. talk is always easy, next I will write some code to demonstrate the usage. 
+below shows the variables value of my blog.</p>
+
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">This page's title is Getting started with Jekyll (2)
+This page's name is 
+This page's url is /blog/2018/04/13/Web-jekyll-grammar.html
+This page's id is /blog/2018/04/13/Web-jekyll-grammar
+This page's date is 2018-04-13 23:21:15 +0800
+This page's categories is Blog
+This page's collection is posts
+This page's tags is Blog
+This page's dir is 
+This page's path is _posts/2018-04-13-Web-jekyll-grammar.markdown
+This site's url is http://localhost:4000</span></code></pre></figure>
+
+<h3 id="jekyll-command">Jekyll command</h3>
+<p>Jekyll has below commands</p>
+
+<p><code class="language-plaintext highlighter-rouge">Jekyll new PATH:</code> Create a new site in the specified directory using the gem based default theme. <br />
+<code class="language-plaintext highlighter-rouge">Jekyll new PATH --blank:</code>Create a new blank site in the specified directory.<br />
+<code class="language-plaintext highlighter-rouge">Jekyll build or Jekyll b:</code>Perform a build and output the generated site to the. / site (default) directory.<br />
+<code class="language-plaintext highlighter-rouge">Jekyll serve or Jekyll s:</code>Build site and provide local access service when source file changes.<br />
+<code class="language-plaintext highlighter-rouge">Jekyll doctor:</code>Output any deprecated features or configuration issues.<br />
+<code class="language-plaintext highlighter-rouge">Jekyll clean:</code>Delete all generated files: destination folder, metadata file, sass and Jekyll caches.<br />
+<code class="language-plaintext highlighter-rouge">Jekyll help:</code>Display help information, or display help information for specific subcommands, such as Jekyll help build.<br />
+<code class="language-plaintext highlighter-rouge">Jekyll new-theme:</code>Creates a new Jekyll theme scaffold.<br /></p>
+
+<p>above contents are not include all of the Jekyll’s grammar, there are some other part, such as</p>
+<ul>
+  <li>Jekyll configuraiton</li>
+  <li>Includes</li>
+  <li>Layouts</li>
+  <li>Permalinks</li>
+  <li>Themes</li>
+  <li>Pagination</li>
+</ul>
+
+<p>Due to the blog’s length limitation, I cannot list all of the contents, if you are interesing in the other part, please find more details at below website <a href="https://jekyll.zcopy.site/docs/">Jekyll Tutorial</a>.</p>
+:ET

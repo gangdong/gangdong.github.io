@@ -1,0 +1,3 @@
+I"�<p>You may have run into situations where <code class="language-plaintext highlighter-rouge">.gitignore</code> doesn’t work.😕  <br />
+During the project development, you want to add some directors or files into the ignore rule and you specified them at the <code class="language-plaintext highlighter-rouge">.gitignore</code>. You committed and checked the status, unfortunately you found they were still being tracked.</p>
+:ET

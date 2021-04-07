@@ -1,0 +1,92 @@
+I"�<p>When writing posts, I need to display mathematics formula sometimes. I write posts with Markdown, I don’t want to save the formula into an image and load the image in markdown. It is better write the Latex formula in markdown file directly. MathJax helped me do it. This article will introduce what MathJax is and how to use MathJax.</p>
+
+<h2 id="what-is-mathjax">What is MathJax?</h2>
+
+<blockquote>
+  <p>MathJax is an open-source JavaScript display engine for LaTeX, MathML, and AsciiMath notation that works in all modern browsers.</p>
+</blockquote>
+
+<p>This is the definition of the MathJax in <a href="https://www.mathjax.org/">MathJax official website</a>, more information can be found from there.</p>
+
+<p>To me, it brought some benefits when writing blog.</p>
+
+<ul>
+  <li>No need plugin support in Jekyll. I don’t have to worry about that it cannot be implemented when deploying the site at Github Pages for security checking (<em>Github Pages uses the Jekyll <code class="language-plaintext highlighter-rouge">--safe</code> flag</em>).</li>
+  <li>Unlike using bitmaps image to display, it is text editing and transforms the mathematics formula to HTML or SVG, so it is workable for zoom scale and is suitable to display under different size screen.</li>
+  <li>I can write the mathematics formula in markdown with plain text just by following the syntax of LaTex/TeX.</li>
+  <li>Friendly to new user, you can quickly use it even you have no any knowledge about it.</li>
+</ul>
+
+<p>Moreover, looks MathJax has become into the most popular solution for rendering the Latex mathematics formula in the web application.</p>
+
+<p>At least, I think so.</p>
+
+<h2 id="how-to-implement">How to implement?</h2>
+
+<h3 id="including-mathjax-in-a-web-page">Including MathJax in a web page</h3>
+<p>As I said, one of the benefit of MathJax is that you don’t need to install any plugin to implement it, just introduce a piece of JavaScript code into your page’s HTML.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">async</span> <span class="na">src=</span><span class="s">"//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/script&gt;</span></code></pre></figure>
+
+<p>I added above snippet into my <code class="language-plaintext highlighter-rouge">default.html</code>, you can insert it into <code class="language-plaintext highlighter-rouge">head.html</code> or any page’s HTML where you want to use MathJax.</p>
+
+<h3 id="configuration">Configuration</h3>
+
+<p>Here <code class="language-plaintext highlighter-rouge">TeX-MML-AM_CHTML</code> is the configuration for common user case.
+For more configuration, can find at <a href="https://docs.mathjax.org/en/latest/web/configuration.html">here</a>.</p>
+
+<p>MathJax offers a global object named MathJax that contains configuration data for the various components of MathJax.</p>
+
+<p>For TeX or LaTeX input component , it has two types. One is <code class="language-plaintext highlighter-rouge">in-line mathematics</code>(<em>display in paragraph</em>) and the other is <code class="language-plaintext highlighter-rouge">displayed mathematics</code>(<em>display as a single paragraph</em>).</p>
+
+<p>It uses double dollar sign <code class="language-plaintext highlighter-rouge">$$</code> as the default math delimiters for <code class="language-plaintext highlighter-rouge">displayed mathematics</code>, uses the <code class="language-plaintext highlighter-rouge">(\...\)</code> as the math delimiters for <code class="language-plaintext highlighter-rouge">in-line mathematics</code>.</p>
+
+<p>Here as an example, I inserted below code snippet to add single dollar <code class="language-plaintext highlighter-rouge">$</code> signs as in-line math delimiters.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/x-mathjax-config"</span><span class="nt">&gt;</span>
+  <span class="nx">MathJax</span><span class="p">.</span><span class="nx">Hub</span><span class="p">.</span><span class="nx">Config</span><span class="p">({</span><span class="na">tex2jax</span><span class="p">:</span> <span class="p">{</span><span class="na">inlineMath</span><span class="p">:</span> <span class="p">[[</span><span class="dl">'</span><span class="s1">$</span><span class="dl">'</span><span class="p">,</span><span class="dl">'</span><span class="s1">$</span><span class="dl">'</span><span class="p">],</span> <span class="p">[</span><span class="dl">'</span><span class="se">\\</span><span class="s1">(</span><span class="dl">'</span><span class="p">,</span><span class="dl">'</span><span class="se">\\</span><span class="s1">)</span><span class="dl">'</span><span class="p">]]}});</span>
+<span class="nt">&lt;/script&gt;</span></code></pre></figure>
+
+<p>It is better place the MathJax object in a <code class="language-plaintext highlighter-rouge">&lt;script&gt;</code> tag just before the script that loads MathJax itself.</p>
+
+<p>So my last code is</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/x-mathjax-config"</span><span class="nt">&gt;</span>
+  <span class="nx">MathJax</span><span class="p">.</span><span class="nx">Hub</span><span class="p">.</span><span class="nx">Config</span><span class="p">({</span><span class="na">tex2jax</span><span class="p">:</span> <span class="p">{</span><span class="na">inlineMath</span><span class="p">:</span> <span class="p">[[</span><span class="dl">'</span><span class="s1">$</span><span class="dl">'</span><span class="p">,</span><span class="dl">'</span><span class="s1">$</span><span class="dl">'</span><span class="p">],</span> <span class="p">[</span><span class="dl">'</span><span class="se">\\</span><span class="s1">(</span><span class="dl">'</span><span class="p">,</span><span class="dl">'</span><span class="se">\\</span><span class="s1">)</span><span class="dl">'</span><span class="p">]]}});</span>
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">async</span> <span class="na">src=</span><span class="s">"//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/script&gt;</span></code></pre></figure>
+
+<h3 id="mathematics-expression-with-mathjax">Mathematics expression with MathJax</h3>
+
+<p>I wrote below words as startup.</p>
+
+<blockquote>
+  <p>Hi, there,   <br />
+This is my first MathJax equation.  <br />
+When $a \ne 0$, there are two solutions to</p>
+  <div>$$ax^2 + bx + c = 0$$</div>
+  <p>and they are</p>
+  <div>$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$</div>
+</blockquote>
+
+<h2 id="write-at-the-last">Write at the last</h2>
+
+<ul>
+  <li>I found introducing the MathJax code snippet will slow the website’s loading speed. So I moved the MathJax code snippet to the post’s markdown file from <code class="language-plaintext highlighter-rouge">default.html</code>, only use it when the post needs a mathematics expression.</li>
+  <li>I am not familiar with Latex syntax and I will spend some time in learning. It is not a problem! 😛</li>
+</ul>
+
+<script type="text/javascript" async="" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			inlineMath: [['$','$'], ['\\(','\\)']]
+		}
+	});
+</script>
+
+:ET

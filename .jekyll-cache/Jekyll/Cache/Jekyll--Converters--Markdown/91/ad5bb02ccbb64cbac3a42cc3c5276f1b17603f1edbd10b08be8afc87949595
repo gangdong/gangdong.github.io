@@ -1,0 +1,41 @@
+I"!<p>I believe it is a good idea to estimate the reading time of every post and display it to readers following the post excerpts.</p>
+
+<p>There are plenty of Jekyll plugins that support realizing this feature, but I don’t suggest to use them if you want to deploy your blog on Github pages. (GitHub may block the working of these plugins by running with the <code class="language-plaintext highlighter-rouge">--safe</code> flag).</p>
+
+<p>So I tried to write below trick code to realize this feature.</p>
+
+<figure class="highlight"><pre><code class="language-liquid" data-lang="liquid"><span class="p">{%</span><span class="w"> </span><span class="nt">assign</span><span class="w"> </span><span class="nv">words</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">post</span><span class="p">.</span><span class="nv">content</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">strip_html</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">strip_newlines</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">remove</span><span class="p">:</span><span class="w"> </span><span class="s2">" "</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">size</span><span class="w"> </span><span class="p">%}</span>
+<span class="p">{%</span><span class="w"> </span><span class="nt">assign</span><span class="w"> </span><span class="nv">time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">post</span><span class="p">.</span><span class="nv">content</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">strip_html</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">strip_newlines</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">remove</span><span class="p">:</span><span class="w"> </span><span class="s2">" "</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">size</span><span class="w"> </span><span class="err">
+</span><span class="p">|</span><span class="w"> </span><span class="nf">divided_by</span><span class="p">:</span><span class="w"> </span><span class="mi">400</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">plus</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">%}</span>
+
+&lt;footer&gt;
+  &lt;div style="margin-top:25px"&gt;
+	&lt;a class="post-link" href="<span class="p">{{</span><span class="w"> </span><span class="nv">post</span><span class="p">.</span><span class="nv">url</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">relative_url</span><span class="w"> </span><span class="p">}}</span>"&gt;
+		&lt;span class="icon-clock morebox" &gt;Reading time: <span class="p">{{</span><span class="w"> </span><span class="nv">time</span><span class="w"> </span><span class="p">}}</span> 
+        <span class="p">{%</span><span class="kr">if</span><span class="w"> </span><span class="nv">time</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">%}</span> mins
+        <span class="p">{%</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">%}</span>min<span class="p">{%</span><span class="w"> </span><span class="kr">endif</span><span class="w"> </span><span class="p">%}</span>, <span class="p">{{</span><span class="nv">words</span><span class="p">}}</span> words.&lt;br&gt;      Continue read...&lt;/span&gt;
+    &lt;/a&gt;
+  &lt;/div&gt;
+&lt;/footer&gt; </code></pre></figure>
+
+<p>The method is straightforward,</p>
+<ul>
+  <li>Statistics the words count of every post. Actually a more simple and pure Liquid code is like this.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-liquid" data-lang="liquid"><span class="p">{%</span><span class="w"> </span><span class="nt">assign</span><span class="w"> </span><span class="nv">words</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">content</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">number_of_words</span><span class="w"> </span><span class="p">%}</span></code></pre></figure>
+
+<p>But Jekyll built-in filter <code class="language-plaintext highlighter-rouge">number_of_words</code> cannot accurately count the number of Chinese words. If you have Chinese words to calculate, you can use Liquid’s size filter to avoid this problem. In order to make statistics more accurate, it is better to ignore all HTML tags and blank lines before calculation.</p>
+<ul>
+  <li>Get a number of WPM (word per minute), by google the WPM value, an person can read 300-500 words per minute in a computer monitor. I read fast and I think it can be a bigger value, but I set an median 400 here for my blog.</li>
+  <li>The rest work is easy, we only need calculating the reading time by dividing words count with WPM.</li>
+</ul>
+
+<p>Next, I create a <strong>read_time.html</strong> in my _includes folder and put all this code into it to well orgianze them.</p>
+
+<p>I just include the <strong>read_time.html</strong> in my post layout.</p>
+
+<figure class="highlight"><pre><code class="language-liquid" data-lang="liquid"><span class="p">{%</span><span class="w"> </span><span class="nt">include</span><span class="w"> </span>reading_time.html<span class="w"> </span><span class="p">%}</span></code></pre></figure>
+
+<p>That’s all. If you want to get all code, fork it <a href="https://github.com/gangdong/daviddong.github.io">here</a>.</p>
+:ET

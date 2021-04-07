@@ -1,0 +1,3 @@
+I"�<p><code class="language-plaintext highlighter-rouge">Iterable&lt;&gt;</code> 是 <code class="language-plaintext highlighter-rouge">Java.lang</code> 包中定义的一个接口, 
+根据Java文档的介绍该接口主要声明了一个<code class="language-plaintext highlighter-rouge">Iterator()</code>方法，该方法返回一个<code class="language-plaintext highlighter-rouge">Iterator&lt;&gt;</code>接口。</p>
+:ET
