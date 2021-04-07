@@ -321,9 +321,23 @@ repos:
 It is because you set the passphrase when generating the SSH key, use `ssh-keygen -p` command to reset the passphrase to none.
 Then replace the private key with the new one and re-encrypt the private key.
 
-+ Report `the encrypted_xxx file size is incorrect` when decryption. <br><br>
++ Error: report `the encrypted_xxx file size is incorrect` when decryption. <br><br>
 Probably you are using the wrong format encryption file, the Travis CI host are running on Ubuntu OS. So the file format should be UNIX, if you generate encryption file with DOS format, you will encounter this issue. <br><br>
 The solution is to use `dos2unix` or `fromdos` command to convert the format to UNIX.
+
++ Error: you got ***repository not known to https://api.travis-ci.org/: user-name/repo-name*** when you execute command
+{% highlight yml %}
+travis encrypt -r 'user-name'/'repo-name' DEPLOY_TOKEN = 'your PATs'
+{% endhighlight %}
+
+It is because your current repo is not in the Repos list in the config.yml, add your repos name into the config.yml manually.
+{% highlight yml %}
+repos:
+  gangdong/daviddong.github.io:
+    endpoint: https://api.travis-ci.com/
+  gangdong/sort-algos:
+    endpoint: https://api.travis-ci.com/
+{% endhighlight %}
 
 ## Reference
 
