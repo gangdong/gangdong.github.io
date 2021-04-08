@@ -14,8 +14,10 @@ keywords: 串口/Java/comm.jar
 ---
 前些天工作中用到了串口编程。Java 上位机 UI 需要通过串行端口访问外部的设备，Java 对串口设备的访问有提供库支持，使用起来比较容易，这里简单总结一下。
 
-首先先下载`javacomm20-win32`的package。<br>
-[下载链接](http://code.google.com/p/smslib/downloads/detail?name=javacomm20-win32.zip&can=2&q=)<br>
+首先先下载`javacomm20-win32`的package。
+
+[下载链接](http://code.google.com/p/smslib/downloads/detail?name=javacomm20-win32.zip&can=2&q=)
+
 从解压包中有三个重要的文件,
 
 |文件|说明|
@@ -30,7 +32,7 @@ javax.comm.properties|是这个驱动的类配置文件
 3. `javax.comm.properties`放在JDK中的`jre\lib`目录下，C:\jdk1.6\jre\lib;
 
 使用上可以参考我写的如下代码。<br>
-CommBean.java 实现了一个针对串口的通用操作类，封装了串口设备的打开,配置,关闭，读写操作。
+`CommBean.java` 实现了一个针对串口的通用操作类，封装了串口设备的打开,配置,关闭，读写操作。
 {% highlight java %}
 /*
  * To change this template, choose Tools | Templates
@@ -448,7 +450,7 @@ public class ComBean implements SerialPortEventListener {
     }
 }
 {% endhighlight %}
-ReadSerial.java 读取类，使用CommBean的对象进行串口的数据读取。<br>
+`ReadSerial.java` 读取类，使用 CommBean 的对象进行串口的数据读取。<br>
 {% highlight java %}
 /*
  * To change this template, choose Tools | Templates
@@ -491,4 +493,4 @@ public class ReadSerial extends Thread {
 {% endhighlight %}
 
 我的Github上的项目链接如下
-[Github 项目](https://github.com/gangdong/BLDC)
+[Github 项目](https://github.com/gangdong/BLDC)。

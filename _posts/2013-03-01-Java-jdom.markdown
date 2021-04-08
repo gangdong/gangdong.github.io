@@ -199,16 +199,16 @@ public Document generateConfigurationFile(GlobalConfigurationStore gcs) {
 {% endhighlight %}
 如以上代码，使用JDOM解析一个XML文档的步骤如下。<br>
 
-1. 实例化一个合适的解析器对象,本例中我们使用SAXBuilder<br>
++ 实例化一个合适的解析器对象,本例中我们使用SAXBuilder<br>
 {% highlight java %}
 SAXBuilder builder = new SAXBuilder(false);
 {% endhighlight %}
-2. 以包含XML数据的文件为参数，构建一个文档对象myDocument<br>
++ 以包含XML数据的文件为参数，构建一个文档对象myDocument<br>
 {% highlight java %}
 InputStreamReader isr = new InputStreamReader(new FileInputStream(path), "gbk");
 Document doc = builder.build(isr);
 {% endhighlight %}
-3. 找到根元素
++ 找到根元素
 {% highlight java %}
 Element rootElement = doc.getRootElement();
 {% endhighlight %}

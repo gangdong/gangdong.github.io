@@ -16,13 +16,16 @@ keywords: Java/Iterable
 `Iterable<>` 是 `Java.lang` 包中定义的一个接口, 
 根据Java文档的介绍该接口主要声明了一个`Iterator()`方法，该方法返回一个`Iterator<>`接口。   
 
-[Iterable Java 文档](https://docs.oracle.com/javase/8/docs/api/)<br>
+[Java 文档 - Iterable](https://docs.oracle.com/javase/8/docs/api/)<br>
 
 ![Iterable]({{site.baseurl}}/assets/image/java-iterable-function.png){: .center-image }
 <br>
 
 那我们接下来看一看`Iterator<>`接口主要内容，`Iterator<>`接口的Java 文档里说明
-`Iterator<>`接口主要声明了三个方法。   [Iterator Java 文档](https://docs.oracle.com/javase/8/docs/api/)
+`Iterator<>`接口主要声明了三个方法。   
+
+[Java 文档 - Iterator](https://docs.oracle.com/javase/8/docs/api/)
+
 + `hasNext()`
 + `next()`
 + `remove()`

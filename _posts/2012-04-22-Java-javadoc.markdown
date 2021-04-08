@@ -77,7 +77,11 @@ data-description数据描述以序列化形式记录数据的类型和顺序。�
 异常描述 , 用于描述方法内部可能抛出的异常。@throws和@exception标记是同义词。在生成的文档中添加一个`Throws`标签，其中包含类名和说明文本。类名是该方法可能引发的异常的名称。此标签仅在方法或构造函数的文档注释中有效。对于相同或不同的异常，可以在给定的文档注释中使用多个@throws标记。
 为了确保记录所有选中的异常，如果throws子句中的异常不存在@throws标记，Javadoc工具会自动将该异常添加到HTML输出中（没有描述），就好像它是用@throws标记记录的一样。
 
-更多详情可以参考[How to Write Doc Comments for the Javadoc Tool](https://www.oracle.com/technical-resources/articles/java/javadoc-tool.html)和[The Java API Documentation Generator](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javadoc.html#author).
+更多详情可以参考
+
+[How to Write Doc Comments for the Javadoc Tool](https://www.oracle.com/technical-resources/articles/java/javadoc-tool.html) 
+
+和 [The Java API Documentation Generator](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javadoc.html#author).
 
 ## 命令
 Javadoc的命令行语法如下：
