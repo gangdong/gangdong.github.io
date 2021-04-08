@@ -22,9 +22,10 @@ Recently I'm using WSL(Window Subsystem for Linux) for program development. This
 <div class = "separator"></div>
 {% endif %}
 
+## What is WSL?
 Below is the official introduction of WSL, I copied it here as a startup.
 
-> ## What is WSL?   
+>    
 The Windows Subsystem for Linux lets developers run a GNU/Linux environment -- including most command-line tools, utilities, and applications -- directly on Windows, unmodified, without the overhead of a virtual machine.   
 You can:   
 + Choose your favorite GNU/Linux distributions from the Microsoft Store.

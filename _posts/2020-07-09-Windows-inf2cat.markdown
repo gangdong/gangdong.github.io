@@ -24,7 +24,7 @@ Windows 驱动开发中经常会用到 Windows WDK 自带的 Inf2Cat.exe 工具�
 {% endif %}
 
 ## Inf2Cat
-MSDN里对这个工具的说明如下。
+MSDN里对这个工具的说明如下：
 > Inf2Cat (Inf2Cat.exe) is a command-line tool that determines whether a driver package's INF file can be digitally-signed for a specified list of Windows versions. If so, Inf2Cat generates the unsigned catalog files that apply to the specified Windows versions.
 
 Inf2Cat 工具检查驱动程序包的 INF 文件，了解是否存在结构错误，并且是否可以对验证驱动程序包进行数字签名。仅当 INF 文件中引用的所有文件都存在且源文件位于正确的位置时，才能对驱动程序包进行签名。

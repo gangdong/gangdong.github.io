@@ -19,22 +19,22 @@ Bundle经常使用在Activity之间或者线程间传递数据，传递的数据
 Bundle提供了各种常用类型的`putXxx()/getXxx()`方法，用于读写基本类型的数据。（各种方法可以查看API）<br>
 参考代码如下：<br>
 {% highlight java %}
-                //Student 类应该实现Serializable接口
-                Student student = new student();
+//Student 类应该实现Serializable接口
+Student student = new student();
 
-                //声明一个Bundle的对象
-                Bundle bundle = new Bundle();
+//声明一个Bundle的对象
+Bundle bundle = new Bundle();
 
-                //将student对象装入bundle中，同时声明key值
-                bundle.putSerializable("student",student);
+//将student对象装入bundle中，同时声明key值
+bundle.putSerializable("student",student);
 
-                //声明一个Intent 对象
-                Intent intent = new Intent(MainActivity.this,DisplayActivity.class);
-                //intent.setAction("android.intent.action.DISPLAY");
+//声明一个Intent 对象
+Intent intent = new Intent(MainActivity.this,DisplayActivity.class);
+//intent.setAction("android.intent.action.DISPLAY");
 
-                //通过intent发送bundle到目标activity中，实现activity之间的对象传递
-                intent.putExtras(bundle);
+//通过intent发送bundle到目标activity中，实现activity之间的对象传递
+intent.putExtras(bundle);
                 
-                startActivityForResult(intent,2);
+startActivityForResult(intent,2);
 
 {% endhighlight %}
