@@ -12,7 +12,7 @@ author: david.dong
 description: Some knowledge for Fingerprint driver development.
 keywords: Fingerprint driver/Windows
 ---
-Windows 7 and later implement support for Biometric devices. The Windows Biometric Framework (WBF) is a generic biometric architecture in Windows 7 and later versions of Windows.
+Windows 7 and later implements support for Biometric devices. The Windows Biometric Framework (WBF) is a generic biometric architecture in Windows 7 and later versions of Windows.
 
 WBF includes an IOCTL-based driver interface known as the Windows Biometric Driver Interface (WBDI) as well as a Windows service called the Windows Biometric Framework API (Windows) (WBS). 
 
