@@ -48,11 +48,7 @@
 	.related-posts-box {
 		border: 1px solid $dark_separator_color;
 		a {
-			color: $dark_btn_color;
-			&:hover {
-				color: $dark_text_color;
-				background-color: $dark_btn_color;
-			}
+			color: $dark_link_color;
 		}
 	}
 	.sidebar-about-box {
@@ -68,10 +64,14 @@
 		}
 	}
 	.post-categories-pin {
-		li {
+		a {
 			background-color: #333;
 			color: #fff;
 			border:1px solid #5F6A6A;
+			&:hover {
+				color: $dark_link_color;
+				background-color: #3C3C3C;
+			}
 		}
 	}
 	.tooltip .tooltiptext {
@@ -130,7 +130,7 @@
 	    a {
 			color: #fff;
 			&:hover {
-			    color: $dark_btn_color;
+			    color: $dark_link_color;
 				background-color: $dark_background_color;
 			}
 		}
@@ -158,8 +158,9 @@
 			border: 1px solid #5F6A6A;
 			color: #fff;
 			&:hover {
-			color: $dark_link_color;
-		}
+				color: $dark_link_color;
+				background-color: #3C3C3C;
+			}
 		}
 	}
 	.archive-categories {

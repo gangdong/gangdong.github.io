@@ -187,7 +187,8 @@ main {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  li {
+  a {
+	text-decoration: none;
     font-size: 13px;
     float: left;
 	border-radius: 2px;
@@ -1174,8 +1175,7 @@ table {
 		text-decoration: none;
 		color: $btnColor;
 		&:hover {
-			color: white;
-			background-color: $btnColor;
+			text-decoration: underline;
 		}
 	}
 }

@@ -33,7 +33,7 @@ title: Home
               <div class="post-meta">
                 <ul class="post-categories-pin">
                   {%- for tag in post.categories -%}
-                    <li class="icon-pin">{{tag}}</li>
+                    <a class="icon-pin" href="{{site.baseurl}}/category#{{tag}}">{{ tag }}</a>
                   {%- endfor -%}
                 </ul>
                 <div class="post-date-right-align">
