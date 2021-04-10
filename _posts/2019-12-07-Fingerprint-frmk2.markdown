@@ -29,7 +29,7 @@ Here I would recommend a useful website for you viewing the android source code.
 We can see the android path of the [fingerprintd.cpp](https://www.androidos.net.cn/android/7.1.1_r28/xref/system/core/fingerprintd/fingerprintd.cpp) is `system/core/fingerprintd/` and the directory structure is as below.    
 
 
-![fingerprintd directory structure]({{site.baseurl}}/assets/image/android-fingerprint-framework2-fingerprintd-directory.png){: .center-image }
+![fingerprintd directory structure]({{site.cdn_baseurl}}/assets/image/android-fingerprint-framework2-fingerprintd-directory.png){: .center-image }
 
 
 read the 

@@ -12,8 +12,8 @@ author: david.dong
 description: Jekyll is a website generate/debug tool. This article introduced what Jekyll is and how to install Jekyll as a startup.
 keywords: Jekyll
 ---
-![Jekyll theme pic]({{site.baseurl}}/assets/image/web-jekyll-1-cover.png)    
-In my last article, I have introduced how to create a blog based on Github pages, if you haven't read it and you want to read, find the blog at [here]({{site.baseurl}}/web/github/2018/03/23/Github-github-blog.html). Following that article, this page will give a brief introduction about Jekyll and its installation.
+![Jekyll theme pic]({{site.cdn_baseurl}}/assets/image/web-jekyll-1-cover.png)    
+In my last article, I have introduced how to create a blog based on Github pages, if you haven't read it and you want to read, find the blog at [here]({{site.baseurl}}/blog/github/2018/03/23/Github-github-blog.html). Following that article, this page will give a brief introduction about Jekyll and its installation.
 
 {% include toc.html %}
 
@@ -29,7 +29,7 @@ Others are Jekyll gives the developer more freedom to design and build the site.
 
 Generally, Jekyll is a static site generator. It will transform your plain text into static websites and blogs. No more databases, slow loading websites, risk of being hacked…just your content.
 
-Let's turn to how to build the website by Jekyll, I suggests you construct your website on Github pages because Jekyll is well deployed on Github and there are many Jekyll theme templates for you powering your website. More important is all of these are totally free of charge. If you like, you can even bind your domain on it. you can view my previous [blog]({{site.baseurl}}/web/github/2018/03/23/Others-github-blog.html) to learn how to create blog on Gitgub pages. 
+Let's turn to how to build the website by Jekyll, I suggests you construct your website on Github pages because Jekyll is well deployed on Github and there are many Jekyll theme templates for you powering your website. More important is all of these are totally free of charge. If you like, you can even bind your domain on it. you can view my previous [blog]({{site.baseurl}}/blog/github/2018/03/23/Github-github-blog.html) to learn how to create blog on Gitgub pages. 
 ## Installation
 The first step is installing the Jekyll tools on your PC, here I just introduce the installation on windows platform.
 
@@ -67,7 +67,7 @@ So far you can input http://127.0.0.1:4000/ in the browser to browse the blog yo
 Jekyll provides a lot of beautiful theme templates, you can use them to power your website easily.<br> 
 you can view the demo, download the source code and use it on your own website.
 
-![Jekyll theme pic]({{site.baseurl}}/assets/image/web-jekyll-1-template.png)
+![Jekyll theme pic]({{site.cdn_baseurl}}/assets/image/web-jekyll-1-template.png)
 
 Now go and choose one you like -> [Jekyll theme](http://jekyllthemes.org/).
 

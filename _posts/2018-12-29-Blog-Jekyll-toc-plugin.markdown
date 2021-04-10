@@ -55,7 +55,7 @@ The tag `toc` on line 32 in `/_layouts/post.html` is not a recognized Liquid tag
 
 I realized immediately that this plugin wasn't in the [whitelist](https://pages.Github.com/versions/) of Github Pages. I forgot that!
 
-![notification]({{site.baseurl}}/assets/image/blog-jekyll-toc-01.PNG){: .center-image }
+![notification]({{site.cdn_baseurl}}/assets/image/blog-jekyll-toc-01.PNG){: .center-image }
 
 I have to use a trick way to skip the restriction. As above bulletin showed, I need to build the site locally and push the generated static files to my Github repository ( ***Don't use Github Pages generator build***).
 
@@ -101,14 +101,14 @@ git commit -m "add site files"
 git push origin gh-pages
 {% endhighlight %}
 
-![master-root]({{site.baseurl}}/assets/image/blog-jekyll-toc-02.PNG)
+![master-root]({{site.cdn_baseurl}}/assets/image/blog-jekyll-toc-02.PNG)
 
 **It worked this time!** 
 
-![toc@sidebar]({{site.baseurl}}/assets/image/blog-jekyll-toc-04.PNG)
+![toc@sidebar]({{site.cdn_baseurl}}/assets/image/blog-jekyll-toc-04.PNG)
 
 ## Conclusion
 
 If you want to deploy your personal website on Github Pages with the unsupported plugins, you will need to build you site locally and create `gh-pages` branch and upload your site file to this branch. One important point is that you should use the branch as the root, which means placing the site file into the directory directly instead of a sub-directory.
 
-![master-root]({{site.baseurl}}/assets/image/blog-jekyll-toc-03.PNG)
+![master-root]({{site.cdn_baseurl}}/assets/image/blog-jekyll-toc-03.PNG)

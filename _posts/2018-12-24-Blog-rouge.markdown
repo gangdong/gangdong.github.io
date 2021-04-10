@@ -97,7 +97,7 @@ rougify style monokai.sublime > syntax_monokai.css
 Copy the generated style CSS file to your site's style folder and don't forget to include the stylesheet file into your head.html.
 
 {% highlight ruby %}
-<link href="{{site.baseurl}}/assets/css/syntax_monokai.css" rel="stylesheet"/>
+<link href="{{site.cdn_baseurl}}/assets/css/syntax_monokai.css" rel="stylesheet"/>
 {% endhighlight %}
 
 And that’s all you need to start having syntax highlighting on your Jekyll site using Rouge.

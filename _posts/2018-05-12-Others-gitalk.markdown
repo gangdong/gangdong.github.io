@@ -29,20 +29,20 @@ The installation is simple, just need to refer below procedure.
 1. Register a Github application,as a Github application you need to get an authorization before use it. The path to open OAuth Apps page is Github homepage->Settings->Developer Settings->OAuth Apps.<br>    
 2.  <br>
 
-![oAuth Apps]({{site.baseurl}}/assets/image/others-gitalk-oauth-apps.png){: .center-image }
+![oAuth Apps]({{site.cdn_baseurl}}/assets/image/others-gitalk-oauth-apps.png){: .center-image }
 
 
 You must specify the website domain url in the Authorization callback URL field.
 After registration, you will get a 'Client ID' and 'Client Secret', remember these two numbers, you will need to fill them in the following step.    
 
-![oAuth Apps]({{site.baseurl}}/assets/image/others-gitalk-oauth-apps-clientID.png){: .center-image }
+![oAuth Apps]({{site.cdn_baseurl}}/assets/image/others-gitalk-oauth-apps-clientID.png){: .center-image }
 
 
 Please note, the user number is zero at this moment when you haven't authenticated the application. You need to do it later.
 Now you have registered Github application for Gitalk. <br>
 Next,copy below code into the page where you want to use Gitalk or add it into the posts page, it depends on your website's structure. <br>
 
-![code]({{site.baseurl}}/assets/image/others-gitalk-code.png){: .center-image }
+![code]({{site.cdn_baseurl}}/assets/image/others-gitalk-code.png){: .center-image }
 
 <br>
 Below are the setting options.<br>
@@ -115,8 +115,8 @@ Since the Gitalk uses the repository issues to store the comments, so don't forg
 
 For now, the Gitalk comment component has been added into your website successfully.<br>
 The appearance is like this.<br>
-![effect]({{site.baseurl}}/assets/image/others-gitalk-effect.png)
+![effect]({{site.cdn_baseurl}}/assets/image/others-gitalk-effect.png)
 When first loading, you will be requested to sign in your Github account to active the comment function.<br>
-![firstload]({{site.baseurl}}/assets/image/others-gitalk-first-loading.png){: .center-image }<br>
+![firstload]({{site.cdn_baseurl}}/assets/image/others-gitalk-first-loading.png){: .center-image }<br>
 Active it then you can use it now!<br>
 If you like this page or you have anything would like to share, comment  at below! 🙂 <br>

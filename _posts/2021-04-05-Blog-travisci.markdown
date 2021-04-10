@@ -268,23 +268,23 @@ I modify code and push to remote dev branch, open my Travis CI web page to view 
 
 Yes, my commit event to `dev` branch triggers Travis CI to work for building.
 
-![startup]({{site.baseurl}}/assets/image/blog-travisci-01.PNG){: .center-image }
+![startup]({{site.cdn_baseurl}}/assets/image/blog-travisci-01.PNG){: .center-image }
 
 Booting virtual machine ...
 
-![startup]({{site.baseurl}}/assets/image/blog-travisci-02.PNG){: .center-image }
+![startup]({{site.cdn_baseurl}}/assets/image/blog-travisci-02.PNG){: .center-image }
 
 Setting environment variable...
-![startup]({{site.baseurl}}/assets/image/blog-travisci-03.PNG){: .center-image }
+![startup]({{site.cdn_baseurl}}/assets/image/blog-travisci-03.PNG){: .center-image }
 
 Continue waiting..., oh! start to decryption and install toolchain...
-![startup]({{site.baseurl}}/assets/image/blog-travisci-04.PNG){: .center-image }
+![startup]({{site.cdn_baseurl}}/assets/image/blog-travisci-04.PNG){: .center-image }
 
 Installation completed, building now...
-![startup]({{site.baseurl}}/assets/image/blog-travisci-05.PNG){: .center-image }
+![startup]({{site.cdn_baseurl}}/assets/image/blog-travisci-05.PNG){: .center-image }
 
 Building succeed! The last step, deploy...
-![startup]({{site.baseurl}}/assets/image/blog-travisci-06.PNG){: .center-image }
+![startup]({{site.cdn_baseurl}}/assets/image/blog-travisci-06.PNG){: .center-image }
 
 It's done! Looks the whole process completed successfully! 👍
 

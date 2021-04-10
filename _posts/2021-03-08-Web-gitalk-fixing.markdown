@@ -20,7 +20,7 @@ By searching google [gitalk issue #102](https://github.com/gitalk/gitalk/issues/
 
 For every post, the Gitalk will create a Github issue under your blog project repository to track the comment thread. The issue's id is used to form the issue's label and Gitalk uses the label to identify comment thread. 
 
-![example]({{site.baseurl}}/assets/image/web-gitalk-fix-01.PNG "example"){: .center-image }
+![example]({{site.cdn_baseurl}}/assets/image/web-gitalk-fix-01.PNG "example"){: .center-image }
 
 However the problem here is that label length is restricted to maximum 50 characters ( Not sure if it is a hidden rule or a BUG here 😕 ).
 
@@ -43,7 +43,7 @@ There is workable [JavaScript-MD5](https://github.com/blueimp/JavaScript-MD5) li
 I add the below code snippet for calling `JavaScript-MD5` lib in my `comments.html` 
 
 {% highlight html %}
-<script type="text/javascript" src="{{site.baseurl}}/assets/js/md5.min.js"></script>
+<script type="text/javascript" src="{{site.cdn_baseurl}}/assets/js/md5.min.js"></script>
 {% endhighlight %}
 
 and reset the Gitalk id to 
@@ -56,7 +56,7 @@ Commit the change.
 
 I reopen the page and the error is gone, by checking the Gitalk issue's label, it has been converted to MD5 code. 
 
-![example]({{site.baseurl}}/assets/image/web-gitalk-fix-02.PNG "example"){: .center-image }
+![example]({{site.cdn_baseurl}}/assets/image/web-gitalk-fix-02.PNG "example"){: .center-image }
 
 Which means the solution is working now! 😊
 

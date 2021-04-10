@@ -25,7 +25,7 @@ keywords: rawposts/模板
 
 
 ### 预览
-![screenshot]({{site.baseurl}}/assets/screenshot.png)
+![screenshot]({{site.cdn_baseurl}}/assets/screenshot.png)
 
 ## <span id ="2">2.功能</span>
 + 响应式设计

@@ -99,7 +99,7 @@ static int __devinit mxt_probe(struct i2c_client *client,
 		goto err_free_mem;
 	}
 {% endhighlight %}
-这里面结构体 `input_dev` 用于描述一个输入子系统设备，任何驱动设备如果想标明自己是输入设备，都应该通过初始化这样的结构体。`input_allocate_device()`这个函数会为 input_dev 这个结构体申请内存并完成这个结构体在内核中的注册。关于这个函数的说明请参考我的另一篇文章 [「Android 如何上报 Touchevent 给应用层」]({{site.baseurl}}/c/touch/linux/android/2014/07/10/Touch-inputevent.html#2)。
+这里面结构体 `input_dev` 用于描述一个输入子系统设备，任何驱动设备如果想标明自己是输入设备，都应该通过初始化这样的结构体。`input_allocate_device()`这个函数会为 input_dev 这个结构体申请内存并完成这个结构体在内核中的注册。关于这个函数的说明请参考我的另一篇文章 [「Android 如何上报 Touchevent 给应用层」]({{site.baseurl}}/c/touch/android/2014/07/10/Touch-inputevent.html#2)。
 {% highlight c %}
 /* Initialize i2c device */
 	error = mxt_initialize(data);
@@ -252,7 +252,7 @@ error = mxt_read_resolution(data);
 		goto err_free_irq;
 	}
 {% endhighlight %}
-以上为注册 Input device 的代码，这里涉及到 Linux input 设备的初始化，需要调用 `__set_bit()`, `input_set_abs_params()` 函数来完成输入设备的一些必要的配置，比如 Input 事件类型，多少个手指，分辨率是多少等，具体可以参考[「Android 如何上报 Touchevent 给应用层」]({{site.baseurl}}/c/touch/linux/android/2014/07/10/Touch-inputevent.html#2)。<br>
+以上为注册 Input device 的代码，这里涉及到 Linux input 设备的初始化，需要调用 `__set_bit()`, `input_set_abs_params()` 函数来完成输入设备的一些必要的配置，比如 Input 事件类型，多少个手指，分辨率是多少等，具体可以参考[「Android 如何上报 Touchevent 给应用层」]({{site.baseurl}}/c/touch/android/2014/07/10/Touch-inputevent.html#2)。<br>
 最后调用`input_register_device()`函数来将刚才配置好的 Input device 注册到 kernel 中去。
 
 ## <span id = "3">3. 初始化中断</span>

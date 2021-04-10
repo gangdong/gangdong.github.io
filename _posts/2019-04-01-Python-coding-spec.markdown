@@ -13,7 +13,7 @@ author: david.dong
 description: 这篇文章转自网络，介绍了Python开发的规范，讲的非常好，转发一下方便以后查找。有相关需要的可以浏览一下。
 keywords: Python/编码规范
 ---
-![cover]({{site.baseurl}}/assets/image/python-spec-cover.jpeg)     
+![cover]({{site.cdn_baseurl}}/assets/image/python-spec-cover.jpeg)     
 这篇文档所给出的编码约定适用于在主要的Python发布版本中组成标准库的Python 代码，请查阅相关的关于在Python的C实现中C代码风格指南的描述。
 
 这篇文档改编自Guido最初的《Python风格指南》一文，并从《Barry's style guide》中添加了部分内容。在有冲突的地方，Guido的风格规则应该是符合本PEP的意图(译注：指当有冲突时，应以Guido风格为准)。这篇PEP仍然尚未完成(实际上，它可能永远都不会完成)。

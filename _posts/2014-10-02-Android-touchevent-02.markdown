@@ -112,7 +112,7 @@ Above code proves that the `OnTouchListener()` has high priority than `onClickLi
 
 Next let track into the Android source code to find the root cause. 
 
-![framework]({{site.baseurl}}/assets/image/android-touchevent-despatch01.PNG){: .center-image }
+![framework]({{site.cdn_baseurl}}/assets/image/android-touchevent-despatch01.PNG){: .center-image }
 
 As above pictures shows, in android internal, there are two routes
 + one is from outside to inside, that is from activity - > ViewGroup - > view, call the `dispatchTouchEvent()` method from the outside to the inside, and Android will pass the motionevent parameter to the method in turn. The function of `dispatchTouchEvent()` is to deliver touch events. The `dispatchTouchEvent()` is the entrance to deliver touch events every time.

@@ -21,5 +21,5 @@ I hope the epidemic will eventually pass and we will return to the normal life s
 
 2020.06.20
 
-![pic1]({{site.baseurl}}/assets/image/others-covid19-02.png)   
-![pic2]({{site.baseurl}}/assets/image/others-covid19-01.png) 
+![pic1]({{site.cdn_baseurl}}/assets/image/others-covid19-02.png)   
+![pic2]({{site.cdn_baseurl}}/assets/image/others-covid19-01.png) 

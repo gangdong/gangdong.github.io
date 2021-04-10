@@ -47,11 +47,11 @@ Java的异常都来源于一个接口`throwable`，`throwable`是java.lang包里
 `ERROR`是指的系统的错误，用户无法处理，比如内存溢出等，只有通过修改程序来更正，因此遇到此类错误会让程序终止运行。<br>
 ERROR和子类的关系如下图所示。<br>
 
-![Error/subclass]({{site.baseurl}}/assets/image/java-throwable-error.png){: .center-image }<br>
+![Error/subclass]({{site.cdn_baseurl}}/assets/image/java-throwable-error.png){: .center-image }<br>
 `EXCEPTION`指的是运行时的异常，是用户可以进行处理的异常。<br>
 EXCEPTION类和子类的关系如下。<br>
 
-![Exception/subclass]({{site.baseurl}}/assets/image/java-throwable-exception.png){: .center-image }<br>
+![Exception/subclass]({{site.cdn_baseurl}}/assets/image/java-throwable-exception.png){: .center-image }<br>
 ## Exception 和 RuntimeException
 可以看到`RuntimeException`是`Exception`的子类，实际上`RuntimeException`对应的是非检查性异常，用户可以处理也可以不处理，而如何继承的是`exception`,则为检查性异常，用户必须用`try-catch`来处理异常。<br>
 一个简单的例子。

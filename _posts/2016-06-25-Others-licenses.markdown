@@ -13,7 +13,7 @@ author: david.dong
 description: 文章重点介绍了开源协议和如何使用开源协议。
 keywords: 开源协议
 ---
-![cover]({{site.baseurl}}/assets/image/others-license-cover.jpeg)     
+![cover]({{site.cdn_baseurl}}/assets/image/others-license-cover.jpeg)     
 说到开源代码，有些人认为既然都已经开源了，那自然不需要声明任何软件的许可协议。有意思的是，事实正好相反，如果你想把代码分享出来，最好还是选择一个合适的开源协议，这样别人才可以放心的使用。让我们先看一看什么是开源协议。
 
 ## 什么是开源协议
@@ -32,7 +32,7 @@ keywords: 开源协议
 对比这些协议的差异其实是一件很耗费时间和精力的事情，幸运的是我从网上找来了一张图片，可以很清楚简明的把这件事讲清楚，也能节省我不少的时间，好让我有时间喝杯 ☕。   
 图片来源：[http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html](http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html)
 
-![licenses]({{site.baseurl}}/assets/image/others-license-01.png){: .center-image }
+![licenses]({{site.cdn_baseurl}}/assets/image/others-license-01.png){: .center-image }
 
 以上所有的协议都是免费的，选择时根据自身的需要选择即可。
 

@@ -13,7 +13,7 @@ author: david.dong
 description: 本文介绍了 Markdown 的基本语法和使用
 keywords: Markdown
 ---
-![示例图片]({{site.baseurl}}/assets/image/others-markdown-01.jpg "example")
+![示例图片]({{site.cdn_baseurl}}/assets/image/others-markdown-01.jpg "example")
 最近在写博客的时候用到了 Markdown 语言，做为一个学习总结，有必要把常用的语法mark一下。
 
 Markdown 是一种轻量级的「标记语言」，它允许人们使用易读易写的纯文本格式编写文档。
@@ -67,7 +67,7 @@ Markdown 的语法学习归纳起来可以从下面几个方面来学习。
 {% endhighlight %}
 效果如下：<br>
 
-![示例图片]({{site.baseurl}}/assets/image/others-markdown-example.png "example"){: .center-image }
+![示例图片]({{site.cdn_baseurl}}/assets/image/others-markdown-example.png "example"){: .center-image }
 
 ## <span id = "4">链接</span>
 **语法**   

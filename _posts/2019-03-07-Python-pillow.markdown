@@ -42,7 +42,7 @@ There’s a histogram method allowing you to pull some statistics out of an imag
 ### Installation
 
 Below is the python version information that Pillow can support.
-![support version]({{site.baseurl}}/assets/image/python-pillow-01.png){: .center-image }
+![support version]({{site.cdn_baseurl}}/assets/image/python-pillow-01.png){: .center-image }
 
 Pillow has been packaged into a standard Python library so the installation is quite easy, uses pip complete installation.
 
@@ -80,7 +80,7 @@ im.show()
 {% endhighlight %}
 The format attribute identifies the source of an image. If the image was not read from a file, it is set to None. The size attribute is a 2-tuple containing width and height (in pixels). The mode attribute defines the number and names of the bands in the image, and also the pixel type and depth. Common modes are `L` (luminance) for greyscale images, `RGB` for true color images, and `CMYK` for pre-press images.<br>
 Above four row codes will open and display a image on the screen. it will use the default image viewer of your computer to show the image.
-![image]({{site.baseurl}}/assets/image/python-pillow-02.jpg){: .center-image }
+![image]({{site.cdn_baseurl}}/assets/image/python-pillow-02.jpg){: .center-image }
 
 + **resize()** 
 {% highlight python %}
@@ -91,14 +91,14 @@ im.show()
 print(im.size)
 (150, 100)
 {% endhighlight %}
-![image]({{site.baseurl}}/assets/image/python-pillow-03.JPG){: .center-image }
+![image]({{site.cdn_baseurl}}/assets/image/python-pillow-03.JPG){: .center-image }
 
 + **transpose()**
 {% highlight python %}
 im_rotate_180 = im.transpose(Image.ROTATE_180)
 im_rotate_180.show()
 {% endhighlight %}
-![image]({{site.baseurl}}/assets/image/python-pillow-04.JPG){: .center-image }   
+![image]({{site.cdn_baseurl}}/assets/image/python-pillow-04.JPG){: .center-image }   
 The parameters can be <br>
 -`Image.FLIP_LEFT_RIGHT`, which means to flip the image left and right<br>
 -`Image.FLIP_TOP_BOTTOM`, which means to flip the image up and down<br>
@@ -117,7 +117,7 @@ region.show()
 {% endhighlight %}
 The above code cuts out a box rectangle area on the `im` and displays it. Box is a tuple with four numbers (upper left, upper left, lower right, lower right). Each pixel represents a coordinate `unit. Crop()` still returns an image object.<br>
 
-![image]({{site.baseurl}}/assets/image/python-pillow-05.JPG){: .center-image }
+![image]({{site.cdn_baseurl}}/assets/image/python-pillow-05.JPG){: .center-image }
 
 + **filter()**<br>
 Image can provide below filters.<br>
@@ -142,17 +142,17 @@ sharpen.show()
 emboss.show()
 {% endhighlight %} 
 `BLUR`<br>
-![blur]({{site.baseurl}}/assets/image/python-pillow-06.JPG){: .center-image }<br>
+![blur]({{site.cdn_baseurl}}/assets/image/python-pillow-06.JPG){: .center-image }<br>
 `CONTOUR`<br>
-![blur]({{site.baseurl}}/assets/image/python-pillow-07.JPG){: .center-image }<br>
+![blur]({{site.cdn_baseurl}}/assets/image/python-pillow-07.JPG){: .center-image }<br>
 `EDGE`<br>
-![blur]({{site.baseurl}}/assets/image/python-pillow-08.JPG){: .center-image }<br>
+![blur]({{site.cdn_baseurl}}/assets/image/python-pillow-08.JPG){: .center-image }<br>
 `SMOOTH`<br>
-![blur]({{site.baseurl}}/assets/image/python-pillow-09.JPG){: .center-image }<br>
+![blur]({{site.cdn_baseurl}}/assets/image/python-pillow-09.JPG){: .center-image }<br>
 `SHARPEN`<br>
-![blur]({{site.baseurl}}/assets/image/python-pillow-10.JPG){: .center-image }<br>
+![blur]({{site.cdn_baseurl}}/assets/image/python-pillow-10.JPG){: .center-image }<br>
 `EMBOSS`<br>
-![emboss]({{site.baseurl}}/assets/image/python-pillow-11.JPG){: .center-image }<br>
+![emboss]({{site.cdn_baseurl}}/assets/image/python-pillow-11.JPG){: .center-image }<br>
 
 + **rotate()**
 {% highlight python %}
@@ -166,9 +166,9 @@ im_45.show()
 im_90.show()
 {% endhighlight %}
 `rotate 45 degree`<br>
-![rotate45]({{site.baseurl}}/assets/image/python-pillow-12.JPG){: .center-image }<br>
+![rotate45]({{site.cdn_baseurl}}/assets/image/python-pillow-12.JPG){: .center-image }<br>
 `rotate 90 degree`<br>
-![rotate45]({{site.baseurl}}/assets/image/python-pillow-13.JPG){: .center-image }<br>
+![rotate45]({{site.cdn_baseurl}}/assets/image/python-pillow-13.JPG){: .center-image }<br>
 
 + **convert()**<br>
 `Convert()` is a method of image instance object. It accepts a mode parameter to specify a color mode. The value of mode can be as follows:<br>
@@ -198,15 +198,15 @@ im_CMYK.show()
 im_F.show()
 {% endhighlight %}
 `mode 1`<br>
-![mode1]({{site.baseurl}}/assets/image/python-pillow-14.JPG){: .center-image }<br>
+![mode1]({{site.cdn_baseurl}}/assets/image/python-pillow-14.JPG){: .center-image }<br>
 `mode L`<br>
-![model]({{site.baseurl}}/assets/image/python-pillow-15.JPG){: .center-image }<br>
+![model]({{site.cdn_baseurl}}/assets/image/python-pillow-15.JPG){: .center-image }<br>
 `mode p`<br>
-![modep]({{site.baseurl}}/assets/image/python-pillow-16.JPG){: .center-image }<br>
+![modep]({{site.cdn_baseurl}}/assets/image/python-pillow-16.JPG){: .center-image }<br>
 `mode CMYK`<br>
-![modecmyk]({{site.baseurl}}/assets/image/python-pillow-17.JPG){: .center-image }<br>
+![modecmyk]({{site.cdn_baseurl}}/assets/image/python-pillow-17.JPG){: .center-image }<br>
 `mode F`<br>
-![modef]({{site.baseurl}}/assets/image/python-pillow-18.JPG){: .center-image }<br>
+![modef]({{site.cdn_baseurl}}/assets/image/python-pillow-18.JPG){: .center-image }<br>
 
 + **paste()**<br>
 Paste one image onto another.
@@ -222,7 +222,7 @@ im.paste(region,(100,100))
 im.show()
 {% endhighlight %}
 in above code, `region` is the object to be pasted. <br>
-![paste]({{site.baseurl}}/assets/image/python-pillow-19.JPG){: .center-image }<br>
+![paste]({{site.cdn_baseurl}}/assets/image/python-pillow-19.JPG){: .center-image }<br>
 
 + **split()**<br>
 `Split()` method can separate each channel of the original image. For example, for `RGB` image, the three color channels `R`, `G` and `B` can be separated.
@@ -237,11 +237,11 @@ g.show()
 b.show()
 {% endhighlight %}
 `R`<br>
-![R]({{site.baseurl}}/assets/image/python-pillow-20.JPG){: .center-image }<br>
+![R]({{site.cdn_baseurl}}/assets/image/python-pillow-20.JPG){: .center-image }<br>
 `G`<br>
-![G]({{site.baseurl}}/assets/image/python-pillow-21.JPG){: .center-image }<br>
+![G]({{site.cdn_baseurl}}/assets/image/python-pillow-21.JPG){: .center-image }<br>
 `B`<br>
-![B]({{site.baseurl}}/assets/image/python-pillow-22.JPG){: .center-image }<br>
+![B]({{site.cdn_baseurl}}/assets/image/python-pillow-22.JPG){: .center-image }<br>
 
 + **merge()**<br>
 Merge method and split method are relative. it combines multiple single channel sequences to form a multi-channel image. Mode is the mode of the combined image, such as `RGB`, and channels is the sequence composed of multiple single channels.
@@ -249,6 +249,6 @@ Merge method and split method are relative. it combines multiple single channel 
 im_merge = Image.merge("RGB",[r,g,b])
 im_merge.show()
 {% endhighlight %}
-![merge]({{site.baseurl}}/assets/image/python-pillow-23.JPG){: .center-image }<br>
+![merge]({{site.cdn_baseurl}}/assets/image/python-pillow-23.JPG){: .center-image }<br>
 
 

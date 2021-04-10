@@ -50,7 +50,7 @@ paginate_path: "/page:num/"
 {% endhighlight %}
 ## Attributes
 The pagination plugin exposes the paginator liquid object. <br>
-You can find the attributes in my another blog [Getting started with Jekyll (2)]({{site.baseurl}}/web/2018/04/13/Web-jekyll-grammar.html)
+You can find the attributes in my another blog [Getting started with Jekyll (2)]({{site.baseurl}}/blog/2018/04/13/Web-jekyll-grammar.html)
 
 ## Render the pages
 You have enabled the pagination so far, next thing is to display your posts in a list using the paginator variable that will now be available to you.

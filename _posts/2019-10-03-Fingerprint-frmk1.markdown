@@ -28,10 +28,10 @@ Below description is from android official document about fingerprint framework.
 + **FingerprintService** operates in the system process, which handles communication with fingerprint HAL.
 + **Fingerprint HAL** is a C/C++ implementation of the IBiometricsFingerprint HIDL interface. This contains the vendor-specific library that communicates with the device-specific hardware.
 + **Keystore API and Keymaster** components provide hardware-backed cryptography for secure key storage in a secure environment, such as the Trusted Execution Environment (TEE).    
-![framework]({{site.baseurl}}/assets/image/android-fingerprint-framework-framework.png){: .center-image }
+![framework]({{site.cdn_baseurl}}/assets/image/android-fingerprint-framework-framework.png){: .center-image }
 A vendor-specific HAL implementation must use the communication protocol required by a TEE. Raw images and processed fingerprint features must not be passed in untrusted memory. All such biometric data needs to be stored in the secure hardware such as the TEE. Rooting must not be able to compromise biometric data.   
 FingerprintService and fingerprintd make calls through the Fingerprint HAL to the vendor-specific library to enroll fingerprints and perform other operations.
-![tee]({{site.baseurl}}/assets/image/android-fingerprint-framework-tee.png){: .center-image }      
+![tee]({{site.cdn_baseurl}}/assets/image/android-fingerprint-framework-tee.png){: .center-image }      
 <br/><br/>
 
 

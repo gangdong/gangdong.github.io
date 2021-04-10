@@ -28,7 +28,7 @@ we have had a discussion of the fingerprint framework on the android 7.0 in prev
 This diagram is the fingerprint framework on the android platform, I have presented in other article and copied here.        
 
 
-![framework]({{site.baseurl}}/assets/image/android-fingerprint-framework-framework.png){: .center-image }
+![framework]({{site.cdn_baseurl}}/assets/image/android-fingerprint-framework-framework.png){: .center-image }
 
 
 
@@ -134,7 +134,7 @@ int64_t FingerprintDaemonProxy::openHal() {
 {% endhighlight %}
 I drew a flow chart to help understand the whole flow more clearly.
 
-![workflow]({{site.baseurl}}/assets/image/android-fingerprint-android8-workflow.png)
+![workflow]({{site.cdn_baseurl}}/assets/image/android-fingerprint-android8-workflow.png)
 
 The related source code and android path can be found at below table. Android 7.0 (NOUGAT)<br>
 
@@ -154,7 +154,7 @@ Above is the fingerprint framework of Android 7.0, however in Android 8.0 and la
 
 Let's see the difference.
 
-![hidl]({{site.baseurl}}/assets/image/android-fingerprint-framework-android8-diff.png){: .center-image }
+![hidl]({{site.cdn_baseurl}}/assets/image/android-fingerprint-framework-android8-diff.png){: .center-image }
 
 Android 8.0 add a sub-directory `/interface` in the `/hardware` directory, which includes all HIDL files for hardware module. 
 
@@ -192,7 +192,7 @@ We may notice that the `IBiometricsFingerprint` returns a service for caller, ac
     group system input
 {% endhighlight %}
 The files of the fingerprint HIDL related.
-![hidl file]({{site.baseurl}}/assets/image/android-fingerprint-android8-hidl.png)
+![hidl file]({{site.cdn_baseurl}}/assets/image/android-fingerprint-android8-hidl.png)
 
 If we look at the **Service.cpp**, we will find the service actually will create a `BiometricsFingerprint` instance and register as service.
 {% highlight cpp %}
@@ -277,7 +277,7 @@ Have you found that the function realization is similiar to the `FingerprintDaem
 
 So far, we can change the fingerprint framework of Android 8.0 as below.
 
-![fingerprint framework android8.0]({{site.baseurl}}/assets/image/android-fingerprint-android8-workflow2.png){: .center-image }
+![fingerprint framework android8.0]({{site.cdn_baseurl}}/assets/image/android-fingerprint-android8-workflow2.png){: .center-image }
 
 Compare this flowchart carefully with last flowchart above, we can find the difference clearly.
 

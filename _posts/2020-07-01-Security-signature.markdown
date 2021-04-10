@@ -140,7 +140,7 @@ RSA算法的保密强度随其密钥的长度增加而增强。但是，密钥�
 3. 数字签名将作为队件和原文一起发送给接收方；
 4. 接收方首先用发送方的公钥对数字签名进行解密得到发送方的数字摘要，然后用相同的哈希函数对原文进行哈希计算，得到一个新的消息摘要，最后将消息摘要与收到的消息摘要做比较。
 
-![sign-process]({{site.baseurl}}/assets/image/others-sign-01.png){: .center-image }
+![sign-process]({{site.cdn_baseurl}}/assets/image/others-sign-01.png){: .center-image }
 
 
 <span id="3.1.1">**3.1.1 例子**</span>       
@@ -231,7 +231,7 @@ HTTP    TLS/SSL
 + **网站认证**   
 最常见的用处就是用来认证一个网站的身份,用浏览器打开任何一个网站，然后点击地址栏前面的 🔒，点击查看证书，就可以看到网站的数字签名证书了。看过之前的内容我们就知道数字证书其实是对公钥的封装，在公钥的基础上添加了诸如颁发者之类的信息。   
 
-![sign-process]({{site.baseurl}}/assets/image/others-sign-02.png){: .center-image }   
+![sign-process]({{site.cdn_baseurl}}/assets/image/others-sign-02.png){: .center-image }   
 
 `签名算法`一栏可以看到，它使用的是sha256RSA，也就是使用SHA-256计算摘要，然后使用RSA对摘要进行签名。
 

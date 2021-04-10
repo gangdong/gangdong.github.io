@@ -34,7 +34,7 @@ keywords: Touch event
 
 ## <span id = "1">1. Input 子系统框架</span>
 首先我们从 Input 子系统介绍开始。Input 子系统由驱动层、输入子系统核心层（Input Core）和事件处理层（Event Handler）3部分组成。一个输入事件，如鼠标移动，触摸事件等通过驱动层->系统核心层->事件处理层->用户空间的顺序到达用户空间并传给应用程序使用。其中Input Core即输入子系统核心层由 `driver/input/input.c` 及相关头文件实现。其对下提供了设备驱动的接口，对上提供了事件处理层的编程接口。输入子系统主要设计`input_dev`、`input_handler`、`input_handle`等数据结构，它们的用途和功能如下图所示。   
-![touchevent framework]({{site.baseurl}}/assets/image/touch-touchevent-01.png)
+![touchevent framework]({{site.cdn_baseurl}}/assets/image/touch-touchevent-01.png)
 
 ## <span id = "2">2. 注册 Input 设备</span>
 我们在之前介绍驱动代码的时候讲到过，输入设备在初始化的时候都需要调用`input_allocate_device()`和`input_register_device()`进行注册。其中`input_allocate_device()`函数在内存中为输入设备结构体分配一个空间，并对其主要的成员进行了初始化。它的代码如下。   
@@ -202,7 +202,7 @@ static inline void input_report_abs(struct input_dev *dev, unsigned int code, in
 {% endhighlight %}
 可以看到其为内联函数, 为`input_event(,EV_ABS, ...)`的二次封装。
 
-![touchevent framework]({{site.baseurl}}/assets/image/touch-touchevent-02.png)
+![touchevent framework]({{site.cdn_baseurl}}/assets/image/touch-touchevent-02.png)
 
 `input_event()`的代码如下,略过无关的部分：
 {% highlight c %}
@@ -413,7 +413,7 @@ input_dev、input_handler和handle三者之间的关系如下：
 + input_handler 通过全局的`input_handler_list`链接在一起。事件处理器注册的时候实现这个操作（事件处理器一般内核自带，一般不需要我们来写）；
 + input_hande 没有一个全局的链表，它注册的时候将自己分别挂在了input_dev 和input_handler 的h_list上了。通过input_dev 和input_handler就可以找到input_handle 在设备注册和事件处理器，注册的时候都要进行配对工作，配对后就会实现链接。通过input_handle也可以找到input_dev和input_handler。
 
-![touchevent framework]({{site.baseurl}}/assets/image/touch-touchevent-03.png)
+![touchevent framework]({{site.cdn_baseurl}}/assets/image/touch-touchevent-03.png)
 
 ### <span id = "3.5">3.5 由核心层 (inputcore) 到事件处理层 (eventhandler)</span>
 我们看到上面的代码调用到
@@ -554,7 +554,7 @@ read时候 evdev_read--> 从client->buffer[]循环获取事件 evdev_fetch_next_
 
 最后总结一下整个数据的走向和传送的流程。
 
-![touchevent framework]({{site.baseurl}}/assets/image/touch-touchevent-04.png)
+![touchevent framework]({{site.cdn_baseurl}}/assets/image/touch-touchevent-04.png)
 
 1. 按照linux设备架构,驱动模型实现touchscreen driver。
 2. 模块初始化函数中将触摸屏注册到了输入子系统中，于此同时，注册函数在事件处理层链表中寻找事件处理器，这里找到的是evdev，并且将驱动与事件处理器挂载。并且在`/dev/input`中生成设备文件event0，以后我们访问这个文件就会访问到设备数据。

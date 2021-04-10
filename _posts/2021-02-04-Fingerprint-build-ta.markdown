@@ -44,7 +44,7 @@ Nowadays, any security related application must run on the TEE. TEE (Trusted Exe
 
 Before start, I want to use below diagram for presenting a short description on how TEE works on fingerprint application. 
 
-![fingerprint-tee]({{site.baseurl}}/assets/image/fingerprint-build-ta-01.png){: .center-image }
+![fingerprint-tee]({{site.cdn_baseurl}}/assets/image/fingerprint-build-ta-01.png){: .center-image }
 
 The main control flow, handling the various use cases, is implemented in REE (Fingerprint HAL). Images from the sensor are captured on the TEE side and managed by fingerprint library, which also coordinates data flow towards the submodules implementing various algorithms for image processing and biometric processing. Enrolled fingerprint templates are managed in a RAM database in Fingerprint TA, and encrypted before passed to REE side for persistent storage. when authentication occurred, the matcher algorithm in the TEE side will work and give the matching result to REE. The communication channel - SPI transmission is physical in TEE and normally works by calling TEE API.
 
@@ -76,7 +76,7 @@ python build_all.py -b TZ.XF.5.0.1 CHIPSET=sdm845 --cbt="$(FPC_CONFIG_TZ_IMAGE_N
 {% endhighlight %}
 
 Build process
-![fingerprint-tee]({{site.baseurl}}/assets/image/fingerprint-build-ta-02.png){: .center-image }
+![fingerprint-tee]({{site.cdn_baseurl}}/assets/image/fingerprint-build-ta-02.png){: .center-image }
 
 ### <span id ="2.4">2.4 Image </span>
 TA images are generated at path:
@@ -122,7 +122,7 @@ cd /home/david/devtools/platforms/mt6797/vendor/fingerprints/fingerprint_ta/secu
  make
 {% endhighlight %}
 Build process
-![fingerprint-tee]({{site.baseurl}}/assets/image/fingerprint-build-ta-03.png){: .center-image }
+![fingerprint-tee]({{site.cdn_baseurl}}/assets/image/fingerprint-build-ta-03.png){: .center-image }
 ### <span id ="3.4">3.4 image </span>
 TA image is generated at path
 {% highlight ruby %}
@@ -153,7 +153,7 @@ cd /home/david/devtools/trusty_sdk
 make M="app/demo/fpctzapp:TA"
 {% endhighlight %}
 Build process
-![fingerprint-tee]({{site.baseurl}}/assets/image/fingerprint-build-ta-04.png){: .center-image }
+![fingerprint-tee]({{site.cdn_baseurl}}/assets/image/fingerprint-build-ta-04.png){: .center-image }
 ### <span id ="4.4">4.4 image </span>
 The TA image is generated at below location after compiling completed.
 {% highlight ruby %}

@@ -18,7 +18,7 @@ keywords: Java/Iterable
 
 [Java 文档 - Iterable](https://docs.oracle.com/javase/8/docs/api/)<br>
 
-![Iterable]({{site.baseurl}}/assets/image/java-iterable-function.png){: .center-image }
+![Iterable]({{site.cdn_baseurl}}/assets/image/java-iterable-function.png){: .center-image }
 <br>
 
 那我们接下来看一看`Iterator<>`接口主要内容，`Iterator<>`接口的Java 文档里说明

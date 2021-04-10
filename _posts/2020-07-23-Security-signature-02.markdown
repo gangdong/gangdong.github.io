@@ -13,7 +13,7 @@ author: david.dong
 description: 文章提供了"在windows平台下如何利用Microsoft提供的工具来生成数字签名"的方法。
 keywords: 数字签名/ Windows/
 ---
-看过我这一篇文章 [「浅谈数字签名」]({{site.cdn_baseurl}}/others/2020/07/06/Others-signature.html) 的读者应该记得，在这篇文章的末尾遗留了一个问题 --- **在windows平台下如何利用Microsoft提供的工具来生成数字签名**。我在这篇文章中会对这个问题做一个说明，并引用一个例子来介绍签名的过程。
+看过我这一篇文章 [「浅谈数字签名」]({{site.baseurl}}/security/2020/07/01/Security-signature.html) 的读者应该记得，在这篇文章的末尾遗留了一个问题 --- **在windows平台下如何利用Microsoft提供的工具来生成数字签名**。我在这篇文章中会对这个问题做一个说明，并引用一个例子来介绍签名的过程。
 
 {% if page.toc == false %}
 <div class = "separator"></div>
@@ -78,10 +78,10 @@ keywords: 数字签名/ Windows/
 下面我就以一个例子来演示一下整个过程。
 
 ### <span id ="8">3.1 生成目录文件（*.cat）</span>
-利用 Inf2Cat.exe 将INF 转换为 CAT 目录文件这部分内容，我在这一篇文章 [Inf2Cat 工具使用]({{site.cdn_baseurl}}/others/2020/07/09/Others-inf2cat.html) 中已经做过介绍。这里不在进行说明。
+利用 Inf2Cat.exe 将INF 转换为 CAT 目录文件这部分内容，我在这一篇文章 [Inf2Cat 工具使用]({{site.baseurl}}/windows/2020/07/09/Windows-inf2cat.html) 中已经做过介绍。这里不在进行说明。
 
 ### <span id ="9">3.2 生成数字证书</span>
-makecert.exe 是一种证书创建工具，生成仅用于测试目的的 [X.509]({{site.cdn_baseurl}}/others/2020/07/06/Others-signature.html#11) 证书。此工具将密钥对与指定发行者的名称相关联，并创建一个 X.509 证书，该证书将用户指定的名称绑定到密钥对的公共部分。
+makecert.exe 是一种证书创建工具，生成仅用于测试目的的 [X.509]({{site.baseurl}}/security/2020/07/01/Security-signature.html#11) 证书。此工具将密钥对与指定发行者的名称相关联，并创建一个 X.509 证书，该证书将用户指定的名称绑定到密钥对的公共部分。
 
 **makecert.exe 的存放路径** 
 {% highlight ruby %}
