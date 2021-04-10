@@ -13,7 +13,7 @@ author: david.dong
 description: 文章提供了"在windows平台下如何利用Microsoft提供的工具来生成数字签名"的方法。
 keywords: 数字签名/ Windows/
 ---
-看过我这一篇文章 [「浅谈数字签名」]({{site.baseurl}}/others/2020/07/06/Others-signature.html) 的读者应该记得，在这篇文章的末尾遗留了一个问题 --- **在windows平台下如何利用Microsoft提供的工具来生成数字签名**。我在这篇文章中会对这个问题做一个说明，并引用一个例子来介绍签名的过程。
+看过我这一篇文章 [「浅谈数字签名」]({{site.cdn_baseurl}}/others/2020/07/06/Others-signature.html) 的读者应该记得，在这篇文章的末尾遗留了一个问题 --- **在windows平台下如何利用Microsoft提供的工具来生成数字签名**。我在这篇文章中会对这个问题做一个说明，并引用一个例子来介绍签名的过程。
 
 {% if page.toc == false %}
 <div class = "separator"></div>
@@ -78,10 +78,10 @@ keywords: 数字签名/ Windows/
 下面我就以一个例子来演示一下整个过程。
 
 ### <span id ="8">3.1 生成目录文件（*.cat）</span>
-利用 Inf2Cat.exe 将INF 转换为 CAT 目录文件这部分内容，我在这一篇文章 [Inf2Cat 工具使用]({{site.baseurl}}/others/2020/07/09/Others-inf2cat.html) 中已经做过介绍。这里不在进行说明。
+利用 Inf2Cat.exe 将INF 转换为 CAT 目录文件这部分内容，我在这一篇文章 [Inf2Cat 工具使用]({{site.cdn_baseurl}}/others/2020/07/09/Others-inf2cat.html) 中已经做过介绍。这里不在进行说明。
 
 ### <span id ="9">3.2 生成数字证书</span>
-makecert.exe 是一种证书创建工具，生成仅用于测试目的的 [X.509]({{site.baseurl}}/others/2020/07/06/Others-signature.html#11) 证书。此工具将密钥对与指定发行者的名称相关联，并创建一个 X.509 证书，该证书将用户指定的名称绑定到密钥对的公共部分。
+makecert.exe 是一种证书创建工具，生成仅用于测试目的的 [X.509]({{site.cdn_baseurl}}/others/2020/07/06/Others-signature.html#11) 证书。此工具将密钥对与指定发行者的名称相关联，并创建一个 X.509 证书，该证书将用户指定的名称绑定到密钥对的公共部分。
 
 **makecert.exe 的存放路径** 
 {% highlight ruby %}
@@ -97,15 +97,15 @@ makecert -n "CN=RootDavid" -r -sv testsk.pvk testpk.cer
 {% endhighlight %}
 运行这个命令后，会弹出提示框，首先给 `testsk.pvk` 文件设置私钥保护口令。
 
-![makecert01]({{site.baseurl}}/assets/image/others-make-sign-01.png){: .center-image }
+![makecert01]({{site.cdn_baseurl}}/assets/image/others-make-sign-01.png){: .center-image }
 
 然后，再次输入这个口令用私钥(testsk.pvk文件中）来给公钥（`testpk.cer`文件中）签名（自签名）。
 
-![makecert01]({{site.baseurl}}/assets/image/others-make-sign-02.png){: .center-image }
+![makecert01]({{site.cdn_baseurl}}/assets/image/others-make-sign-02.png){: .center-image }
 
 输入正确的私钥口令后，控制台会返回 Succeeded. 并在当前目录下生成两个文件
 
-![makecert01]({{site.baseurl}}/assets/image/others-make-sign-04.png){: .center-image }
+![makecert01]({{site.cdn_baseurl}}/assets/image/others-make-sign-04.png){: .center-image }
 
 其中
 1. 私钥证书 - `testsk.pvk`
@@ -132,7 +132,7 @@ C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86\cert2spc testpk.cer 
 
 执行成功后在当前目录下生成
 
-![makecert01]({{site.baseurl}}/assets/image/others-make-sign-06.png){: .center-image }
+![makecert01]({{site.cdn_baseurl}}/assets/image/others-make-sign-06.png){: .center-image }
 
 ### <span id ="11">3.4 将公钥证书和私钥合并成一个PFX格式的证书文件</span>
 使用 pvk2pfx .exe 这个工具将公钥证书（testpk.spc）和私钥证书(testsk.pvk)合并成一个`PFX`格式的证书文件。      
@@ -150,7 +150,7 @@ C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86\pvk2pfx -pvk testsk.
 
 合并时会要求输入私钥testsk.pvk的保护口令来合并.pvk和.spc文件。输入之前设定的口令，就可在当前目录下得到生成的pfx文件。
 
-![makecert01]({{site.baseurl}}/assets/image/others-make-sign-08.png){: .center-image }
+![makecert01]({{site.cdn_baseurl}}/assets/image/others-make-sign-08.png){: .center-image }
 
 
 ### <span id ="12">3.5 生成签名</span>
@@ -168,28 +168,28 @@ signtool sign /v /f testpfx.pfx /tr http://timestamp.digicert.com MXT_ENC2Array_
 {% endhighlight %}
 如果成功，会返回
 
-![makecert01]({{site.baseurl}}/assets/image/others-make-sign-10.png){: .center-image }
+![makecert01]({{site.cdn_baseurl}}/assets/image/others-make-sign-10.png){: .center-image }
 
 这时签名已经成功了。我们打开被签名的应用程序的属性标签，找到数字签名那一栏，可以看到签名的信息。
 
-![makecert01]({{site.baseurl}}/assets/image/others-make-sign-11.png){: .center-image }
+![makecert01]({{site.cdn_baseurl}}/assets/image/others-make-sign-11.png){: .center-image }
 
 点开 `详细信息`-> `高级`，可以看详细的签名信息。
 
-![makecert01]({{site.baseurl}}/assets/image/others-make-sign-12.png){: .center-image }
+![makecert01]({{site.cdn_baseurl}}/assets/image/others-make-sign-12.png){: .center-image }
 
 X.509 格式证书信息。
 
-![makecert01]({{site.baseurl}}/assets/image/others-make-sign-13.png){: .center-image }
+![makecert01]({{site.cdn_baseurl}}/assets/image/others-make-sign-13.png){: .center-image }
 
 证书颁发路径为根证书。
 
-![makecert01]({{site.baseurl}}/assets/image/others-make-sign-14.png){: .center-image }
+![makecert01]({{site.cdn_baseurl}}/assets/image/others-make-sign-14.png){: .center-image }
 
 我们看到当前的证书是不授信的，需要将其添加导入证书库中。   
 Microsoft规定应使用证书存储区来安全地存储证书（证书存储区是系统中一个特殊区域，专门用来保存X.509数字证书）。
 
-![makecert01]({{site.baseurl}}/assets/image/others-make-sign-15.png){: .center-image }
+![makecert01]({{site.cdn_baseurl}}/assets/image/others-make-sign-15.png){: .center-image }
 
 Windows 预设了以下存储区： 
 
@@ -206,28 +206,28 @@ Windows 预设了以下存储区：
 
 下面我们就将证书添加到存储区，选择 `安装证书`，然后一路 `Next`。
 
-![makecert01]({{site.baseurl}}/assets/image/others-make-sign-16.png){: .center-image }                     
+![makecert01]({{site.cdn_baseurl}}/assets/image/others-make-sign-16.png){: .center-image }                     
 
 直到 `证书存储` 步骤，选择 `将所有的证书放入下列存储`：点击 `浏览`，在弹出的对话框中选择 `个人`-> `确定`。
                           
-![makecert01]({{site.baseurl}}/assets/image/others-make-sign-17.png){: .center-image } 
+![makecert01]({{site.cdn_baseurl}}/assets/image/others-make-sign-17.png){: .center-image } 
                                         
 为什么要选择 `个人` 呢？可以参见 signtool 的 [sign 子命令的/s](#sign) 选项的说明：「指定要在搜索证书时打开的存储区。 如果未指定该选项，则打开`My`存储」这里的 `My` 就是 `个人`。然后就可以一路 `下一步` 到导入完成了。我们可以到计算机的管理控制台确认。在开始菜单中搜索并运行`mmc`。在mmc界面中，选择 `文件`-> `添加删除管理单元`。在弹出的 `添加删除管理单元` 对话框中，在左边的 `可用的管理单元` 中选择 `证书`。
 
-![makecert01]({{site.baseurl}}/assets/image/others-make-sign-18.png){: .center-image } 
+![makecert01]({{site.cdn_baseurl}}/assets/image/others-make-sign-18.png){: .center-image } 
                                                
 点击中间的 `添加` 按钮，在弹出的对话框中选择 `我的用户帐户` 或 `计算机用户帐户`，再点击 `完成`：
 
-![makecert01]({{site.baseurl}}/assets/image/others-make-sign-19.png){: .center-image } 
+![makecert01]({{site.cdn_baseurl}}/assets/image/others-make-sign-19.png){: .center-image } 
 
 就将 `证书` 节点添加到 `所选管理节点` 中了：
 
 点击 `确定`，回到管理控制台主界面中，在左边的树控件中展开 `证书` -> `当前用户`-> `个人`，选择 `证书` 节点，就可以看见已经导入的RootDavid证书。
 
-![makecert01]({{site.baseurl}}/assets/image/others-make-sign-20.png){: .center-image } 
+![makecert01]({{site.cdn_baseurl}}/assets/image/others-make-sign-20.png){: .center-image } 
 双击RootDavid，可以看见证书对话框里写着“您有一个与该证书对应的私钥”。对话框里还写着“此CA根目录证书不受信任。要启用信任，请将该证书安装到 `受信任的根证书颁发机构` 存储区”。后面会讲到这一点。
 
-![makecert01]({{site.baseurl}}/assets/image/others-make-sign-21.png){: .center-image }
+![makecert01]({{site.cdn_baseurl}}/assets/image/others-make-sign-21.png){: .center-image }
 
 ### <span id = "15">3.6 验证签名</span>
 
@@ -239,19 +239,19 @@ signtool verify /pa MXT_ENC2Array_Converter.exe
 {% endhighlight %}
 此时返回了如下的结果，显示
 
-![makecert01]({{site.baseurl}}/assets/image/others-make-sign-22.png){: .center-image }
+![makecert01]({{site.cdn_baseurl}}/assets/image/others-make-sign-22.png){: .center-image }
 
 这是因为目前还没有将RootDavid的公钥证书添加到之前提到的 `受信任的根证书颁发机构`。要做这一步的话，需要找到公钥证书 `testpk.cer`，然后双击该cer文件，在弹出的证书对话框中选择 `安装证书`。接下来和之前的导入证书操作一样，只是在 `证书存储` 这一步，需要选择将证书存储在 `受信任的根证书颁发机构` 存储区，而不是之前的 `个人` 存储区中。
 
-![makecert01]({{site.baseurl}}/assets/image/others-make-sign-23.png){: .center-image }
+![makecert01]({{site.cdn_baseurl}}/assets/image/others-make-sign-23.png){: .center-image }
 此时会弹出一个警告提示，让你确认是否要安装此证书到授信存储区，点击确认后，成功安装。回到管理控制台主界面中，在左边的树控件中展开 `证书` -> `当前用户` -> `受信任的根证书颁发机构`，选择 `证书` 节点，就可以看见已经导入的 `testpk.cer` 公钥证书。   
 此时在进行验证，验证成功！:100:
 
-![makecert01]({{site.baseurl}}/assets/image/others-make-sign-24.png){: .center-image }
+![makecert01]({{site.cdn_baseurl}}/assets/image/others-make-sign-24.png){: .center-image }
 
 此时再打开被签名的应用程序属性页，可以看到签名已经是授信的了。
 
-![makecert01]({{site.baseurl}}/assets/image/others-make-sign-25.png){: .center-image }
+![makecert01]({{site.cdn_baseurl}}/assets/image/others-make-sign-25.png){: .center-image }
 
 <br/>
 ## <span id ="13">4. 常见问题</span>
@@ -282,7 +282,7 @@ signtool sign /v /f testpfx.pfx /tr http://timestamp.wosign.com/rfc3161 my file 
 原因：文件名不能包含空格，重命名后再次签名可以成功。
 
 4. 执行 `signtool verify` 时提示
-![makecert01]({{site.baseurl}}/assets/image/others-make-sign-26.png){: .center-image }
+![makecert01]({{site.cdn_baseurl}}/assets/image/others-make-sign-26.png){: .center-image }
 原因：这是因为公钥文件xx.cer没有被添加到受信任的根证书颁发机构。解决方法 [如上](#15)。
 
 
