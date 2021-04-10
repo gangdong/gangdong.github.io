@@ -9,9 +9,9 @@
   {%- endif -%}
     <main class="container">
       <section class="about">
-        <a href="{{site.assets_base_url}}/blog/index.html"><img src="{{site.assets_base_url}}/assets/avatar.png" alt="{{ site.rawposts.name }}"></a>
+        <a href="{{site.baseurl}}/blog/index.html"><img src="{{site.site.assets_baseurl}}/assets/avatar.png" alt="{{ site.rawposts.name }}"></a>
         <h2 id="title">
-          <a href="{{site.assets_base_url}}/blog/index.html">{{ site.rawposts.name }}</a>
+          <a href="{{site.baseurl}}/blog/index.html">{{ site.rawposts.name }}</a>
         </h2>
         <p class="tagline">{{ site.rawposts.tagline }}</p>
 		<!--add navigation -->
@@ -38,14 +38,14 @@
 			  </label>
 			</p>
 		  </ul>
-		<script type="text/javascript" src="{{site.assets_base_url}}/assets/js/darkmode.js"></script>
+		<script type="text/javascript" src="{{site.site.assets_baseurl}}/assets/js/darkmode.js"></script>
 		</div>
 		{%- endif -%}
 		<!--put rss/code link here -->
 	    <div>
           <ul class="tool">
 			{%- if site.rawposts.rss -%}
-		   <a style ="margin-right:10px; text-decoration: none" href="{{site.assets_base_url}}/rss.xml">
+		   <a style ="margin-right:10px; text-decoration: none" href="{{site.site.assets_baseurl}}/rss.xml">
               <span class="icon-rss-1 tooltip">
 				<span class="tooltiptext">Rss</span>
 			  </span>
@@ -112,8 +112,8 @@
 	</script>
     {%- endif -%} 
 {% if site.rawposts.search %}
-<script src="{{site.assets_base_url}}/assets/js/simple-jekyll-search.min.js"></script>
-<script src="{{site.assets_base_url}}/assets/js/search.js"></script>
+<script src="{{site.site.assets_baseurl}}/assets/js/simple-jekyll-search.min.js"></script>
+<script src="{{site.site.assets_baseurl}}/assets/js/search.js"></script>
 {% endif %}
 {% if site.rawposts.share_media %}
 <!-- Go to www.addthis.com/dashboard to customize your tools -->
