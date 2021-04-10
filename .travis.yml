@@ -36,6 +36,7 @@ after_success:
 
 # copy _site to tmp
 - cp -r /home/travis/build/${USER}/daviddong.github.io/_site  /tmp/
+- cp /home/travis/build/${USER}/daviddong.github.io/_site/blog/index.html /tmp/
 # create new branch
 - git checkout -b travis
 # clean 
