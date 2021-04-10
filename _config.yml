@@ -7,6 +7,8 @@ description: > # this means to ignore newlines until "show_exerpts:"
   
 show_excerpts: true # set to true to show excerpts on the homepage
 baseurl: '/daviddong.github.io'
+repository: gangdong/daviddong.github.io
+assets_base_url: https://cdn.jsdelivr.net/gh/gangdong/daviddong.github.io/
 # Minima date format
 # refer to http://shopify.github.io/liquid/filters/date/ if you want to customize this
 sass:
