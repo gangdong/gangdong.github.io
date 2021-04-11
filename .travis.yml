@@ -35,8 +35,8 @@ after_success:
 - git config user.email "${EMAIL}"
 
 # copy _site to tmp
-- cp -r /home/travis/build/${USER}/daviddong.github.io/_site  /tmp/
-- cp /home/travis/build/${USER}/daviddong.github.io/_site/blog/index.html /tmp/_site/
+- cp -r /home/travis/build/${USER}/${REPO_REF}/_site  /tmp/
+- cp /home/travis/build/${USER}/${REPO_REF}/_site/blog/index.html /tmp/_site/
 # create new branch
 - git checkout -b travis
 # clean 
@@ -55,7 +55,7 @@ branches:
   only:
   - master     # monitor master branch
   - dev        # monitor dev branch
-addons: ssh_known_hosts:daviddong.github.io
+addons: ssh_known_hosts:${REPO_REF}
 # caching bundler gem packages will speed up b
 cache: bundler
 # Optional: enable email notifications about the outcome of your builds
