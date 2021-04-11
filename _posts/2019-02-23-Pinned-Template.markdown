@@ -64,7 +64,7 @@ keywords: rawposts/模板
 ## <span id ="4">4.主题安装</span>
 1. fork [主题](https://github.com/gangdong/jekyll-theme-rawposts) 到你的github仓库。
 2. 复制该主题的仓库到本地。
-3. 如果你还没有安装Jekell，请先安装Jekyll。如果你不知道如何安装Jekyll，可以参考 [Getting started with Jekyll (1)](https://gangdong.github.io/daviddong.github.io/web/2018/03/27/Web-jekyll-installation.html)。
+3. 如果你还没有安装Jekell，请先安装Jekyll。如果你不知道如何安装Jekyll，可以参考 [Getting started with Jekyll (1)]({{site.baseurl}}/blog/2018/03/27/Web-jekyll-installation.html)。
 4. 在本地项目的根目录下运行命令 `bundle install` 来安装主题以及该主题的依赖。
 5. 运行 `bundle exec jekyll server` 构建项目并生成网站。
 6. 至此安装完成! :v: 下一步你需要通过配置 _config.yml来定制你自己的网站。

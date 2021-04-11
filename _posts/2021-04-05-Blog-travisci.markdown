@@ -29,7 +29,7 @@ One of them is
 
 I need to use plugins to extend the function of my website, e.g. for implementation of toc and markdown function enrichment.
 
-It is understandable that Github Pages doesn't allow the plugin for security reasons (*it uses the Jekyll `--safe` flag*). The workaround is to generate the site locally and then to push the generated HTML to Github (*I've interpreted how to do in my previous [article]({{site.baseurl}}/blog/github/2021/03/14/Blog-Jekyll-toc-plugin.html)*). However, I usually use the different branch for source code and output static HTMLs. The `dev` branch accommodates the source code and `gh-pages` branch, which is as a window of website visiting, stores the static website files.
+It is understandable that Github Pages doesn't allow the plugin for security reasons (*it uses the Jekyll `--safe` flag*). The workaround is to generate the site locally and then to push the generated HTML to Github (*I've interpreted how to do in my previous [article]({{site.baseurl}}/blog/github/2018/12/29/Blog-Jekyll-toc-plugin.html)*). However, I usually use the different branch for source code and output static HTMLs. The `dev` branch accommodates the source code and `gh-pages` branch, which is as a window of website visiting, stores the static website files.
 
 So my current workflow is 
 
