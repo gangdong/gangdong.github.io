@@ -93,17 +93,20 @@ layout: default
 	 {% endif %}
   </div>
   <!-- no sidebar, use flex width box! -->
-  <br><br><br>
+  <br><br>
   <div class="post-container">
   <!-- post categories box! here  -->
   {% if site.rawposts.show_category_box == false %}
   <div class="post-categories-meta">
-	{% if page.language == 'chinese' %}
-	<div class = "icon-hashtag post-categories-box-label">标签</div>
-	{% else %}
-	<div class = "icon-hashtag post-categories-box-label">TAGs</div>
-	{% endif %}
 	<div class="post-categories-box">
+	{%- for tag in page.categories -%}
+		<a href="{{site.baseurl}}/category#{{tag}}">{{ tag }}</a>
+	{%- endfor -%}
+	</div>
+  </div>
+  {% else %}
+  <div class="post-categories-meta">
+	<div class="post-categories-box-hide">
 	{%- for tag in page.categories -%}
 		<a href="{{site.baseurl}}/category#{{tag}}">{{ tag }}</a>
 	{%- endfor -%}
