@@ -45,14 +45,14 @@
 	    <div>
           <ul class="tool">
 			{%- if site.rawposts.rss -%}
-		   <a style ="margin-right:10px; text-decoration: none" href="{{site.cdn_baseurl}}/rss.xml">
+		   <a style ="margin-right:10px; text-decoration: none" href="{{site.baseurl}}/rss.xml">
               <span class="icon-rss-1 tooltip">
 				<span class="tooltiptext">Rss</span>
 			  </span>
            </a>
 			{%- endif -%}
 			{%- if site.rawposts.source_code -%}
-            <a style="text-decoration: none" href="https://github.com/gangdong/daviddong.github.io">
+            <a style="text-decoration: none" href="https://github.com/gangdong/gangdong.github.io">
               <span class="icon-file-code tooltip">
 				<span class="tooltiptext">Code</span>
 			  </span>
@@ -113,7 +113,7 @@
     {%- endif -%} 
 {% if site.rawposts.search %}
 <script async src="{{site.cdn_baseurl}}/assets/js/simple-jekyll-search.min.js"></script>
-<script async src="{{site.cdn_baseurl}}/assets/js/search.js"></script>
+<script async src="{{site.baseurl}}/assets/js/search.js"></script>
 {% endif %}
 </body>
 </html>
