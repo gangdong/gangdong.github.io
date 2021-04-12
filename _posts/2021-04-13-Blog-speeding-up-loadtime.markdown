@@ -23,7 +23,7 @@ Today, I decided to go and figure out why. The first step was to gather data on 
 
 Let’s see how much time it takes right now:
 
-![without optimizing](/assets/image/blog-loadingtime-01.PNG){: .center-image }
+![without optimizing]({{site.cdn_baseurl}}/assets/image/blog-loadingtime-01.PNG){: .center-image }
 
 approximate 25 seconds for the first time connection. Let’s try to improve that.
 
@@ -45,7 +45,7 @@ I tried to adopt two methods to fast the image loading time.
    
    Current solution is compressing the images size with the tool [imagine](https://imagine.en.softonic.com/), which can significantly compress the size of the image (up to more than 70%).
  
-   ![imagine](/assets/image/blog-loadingtime-10.PNG){: .center-image }
+   ![imagine]({{site.cdn_baseurl}}/assets/image/blog-loadingtime-10.PNG){: .center-image }
 
    The future plan is to serve images in next-gen formats. Image formats like JPEG 2000, JPEG XR, and WebP often provide better compression than PNG or JPEG, which means faster downloads and less data consumption. The only concern is browser compatibility, not all of the browser is able to support these formats so far.
 
@@ -75,7 +75,7 @@ I tried to adopt two methods to fast the image loading time.
    
    OK, Let's see the result with above optimization.
 
-   ![imagine](/assets/image/blog-loadingtime-11.PNG){: .center-image }
+   ![imagine]({{site.cdn_baseurl}}/assets/image/blog-loadingtime-11.PNG){: .center-image }
    
    Total ~ 160ms with two images loading! A good improvement I think! You may also find the image source has changed to jsdelivr CDN instead of my local Github Repos. 
    
@@ -99,7 +99,7 @@ I relocated below code snippet into the bottom of `post.html` and lazy load it.
 {% endhighlight %}
 Readers will not use the share button until they complete the reading of article. I think it have negligible negative effect for user experience. 
 
-![imagine](/assets/image/blog-loadingtime-14.PNG){: .center-image }
+![imagine]({{site.cdn_baseurl}}/assets/image/blog-loadingtime-14.PNG){: .center-image }
 
 The test result showed Addthis_widgets.js is gone in the load phase, and the time went to 2.56s now! 
 
@@ -121,7 +121,7 @@ I reviewed all of the JS/CSS that block the page rendering.
 
 ***Wow!*** After all of above works, the load time is 1.84s finally! I can live with that.
 
-![imagine](/assets/image/blog-loadingtime-12.PNG){: .center-image }
+![imagine]({{site.cdn_baseurl}}/assets/image/blog-loadingtime-12.PNG){: .center-image }
 
 ## The Last Test
 
@@ -130,25 +130,25 @@ I used some other tools to verify the final performance.
 + [dotcom-monitor](https://www.dotcom-tools.com/)
 
   I tested the load time from locations scattered on different continents worldwide. The test browser I chose Chrome.
-  ![imagine](/assets/image/blog-loadingtime-15.PNG){: .center-image }
+  ![imagine]({{site.cdn_baseurl}}/assets/image/blog-loadingtime-15.PNG){: .center-image }
 
   The result is 
-  ![imagine](/assets/image/blog-loadingtime-16.PNG){: .center-image }
+  ![imagine]({{site.cdn_baseurl}}/assets/image/blog-loadingtime-16.PNG){: .center-image }
 
   Average time is about ~3s, exclude the Buenos Aries, which is much slower (~6.7s).
 
   I am more interested in the speed of the city I live. The result is 2.6s. 
 
-  ![imagine](/assets/image/blog-loadingtime-17.PNG){: .center-image }
+  ![imagine]({{site.cdn_baseurl}}/assets/image/blog-loadingtime-17.PNG){: .center-image }
 
 + [Pingdom Website Speed Test](https://tools.pingdom.com/)
 
     + Asia-Tokyo
-     ![imagine](/assets/image/blog-loadingtime-18.PNG){: .center-image }
+     ![imagine]({{site.cdn_baseurl}}/assets/image/blog-loadingtime-18.PNG){: .center-image }
     + Europe-Frankfurt
-     ![imagine](/assets/image/blog-loadingtime-19.PNG){: .center-image }
+     ![imagine]({{site.cdn_baseurl}}/assets/image/blog-loadingtime-19.PNG){: .center-image }
     + North America - USA-Washtington D.C
-     ![imagine](/assets/image/blog-loadingtime-20.PNG){: .center-image }
+     ![imagine]({{site.cdn_baseurl}}/assets/image/blog-loadingtime-20.PNG){: .center-image }
 
 ## The Future Plan
 
@@ -158,5 +158,5 @@ Well, my further improvement plan is:
 2. Find equivalent Google Font or local load them.
 3. Use [CloudFlare CDN](https://www.cloudflare.com/) speed up my page.
    CloudFlare has several neat features. It can minify files, improve image sizes, bundle js files and so forth. By taking advantage of CloudFlare’s global network, I can utilise it's CDN service to improve my site's performance and security. 
-4. If considering the China local visiting I perhaps change the NS to [DNSPOD](https://www.dnspod.cn/)...
+4. If considering the China local visiting I perhaps change the NS to [dnspod](https://www.dnspod.cn/)...
 <div class = "separator"></div>
