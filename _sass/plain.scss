@@ -632,7 +632,7 @@ main {
   font-weight: 400;
   color: #000;
   line-height: 1.8em;
-  font-size:15px;
+  font-size:16px;
   flex-shrink: 2; /* default 1 !important guarantee the post contents width constant */
   flex-grow: 1;
   @media screen and (min-width: $mobileW + 1) {
@@ -681,7 +681,7 @@ main {
   font-weight: 400;
   color: #000;
   line-height: 1.8em;
-  font-size: 15px;
+  font-size: 16px;
   a {
     color: $linkColor;
     text-decoration: none;
