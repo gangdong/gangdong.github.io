@@ -4,9 +4,6 @@
     {%- include head.html -%}
   </head>
   <body>
-  {%- if site.rawposts.show_statistics -%}
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-  {%- endif -%}
     <main class="container">
       <section class="about">
         <a href="{{site.baseurl}}/blog/index.html"><img src="{{site.cdn_baseurl}}/assets/avatar.webp" alt="{{ site.rawposts.name }}"></a>
@@ -111,9 +108,12 @@
 		gtag('config', '{{ site.rawposts.analytics_id }}');
 	</script>
     {%- endif -%} 
-{% if site.rawposts.search %}
-<script async src="{{site.cdn_baseurl}}/assets/js/simple-jekyll-search.min.js"></script>
-<script async src="{{site.cdn_baseurl}}/assets/js/search.js"></script>
-{% endif %}
+	{% if site.rawposts.search %}
+	<script async src="{{site.cdn_baseurl}}/assets/js/simple-jekyll-search.min.js"></script>
+	<script async src="{{site.cdn_baseurl}}/assets/js/search.js"></script>
+	{% endif %}
+	{%- if site.rawposts.show_statistics -%}
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	{%- endif -%}
 </body>
 </html>
