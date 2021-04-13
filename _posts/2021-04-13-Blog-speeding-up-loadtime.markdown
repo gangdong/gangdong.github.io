@@ -155,7 +155,7 @@ I used some other tools to verify the final performance.
 Well, my further improvement plan is:
 <div class = "separator"></div>
 1. Try to use the new image format WebP/JEPEG 2000. I will get extra 0.2s savings estimated with that.
-2. Find equivalent Google Font or load them locally.
+2. Find equivalent of Google Font or load them locally.
 3. Use [CloudFlare CDN](https://www.cloudflare.com/) to speed up my page.
    CloudFlare has several neat features. It can minify files, improve image sizes, bundle js files and so forth. By taking advantage of CloudFlare’s global network, I can utilise it's CDN service to improve my site's performance and security. 
 4. If considering the China local visiting I will perhaps change the NS to [dnspod](https://www.dnspod.cn/)...
