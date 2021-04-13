@@ -12,12 +12,12 @@ permalink: /about
   </li> 
 
   <div class = "image-container">
-  <img src="{{site.baseurl}}/assets/image/home-bg-o.jpg" />
+  <img src="{{site.cdn_baseurl}}/assets/image/home-bg-o.jpg" />
   </div>
 
   {% include language-box.html %}
 
-  <div class = "footer" style="margin-top:80px">Copyright © {{ site.time | date: "%Y" }} {{ site.title }}  |  <a href = "https://github.com/gangdong/daviddong.github.io"> Github Project </a> powered by Jekyll</div>
+  {% include footer.html %}
   <br>
 </div>
   

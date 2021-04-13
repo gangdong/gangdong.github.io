@@ -12,7 +12,7 @@ title: About
   </li> 
   
   <div class = "image-container">
-  <img src="{{site.baseurl}}/assets/image/home-bg-e.jpg" />
+  <img src="{{site.cdn_baseurl}}/assets/image/home-bg-e.jpg" />
   </div>
   
     <div class = "about-page-meta">
@@ -40,12 +40,12 @@ title: About
   </div>
   <div class = "about-page">
   It is built by <a href = "https://jekyllrb.com/">Jekyll</a> and deployed on GitHub Pages, based on the <a href = "https://github.com/gangdong/jekyll-theme-rawposts">rawposts</a> theme. I wrote the theme by myself on the basis of <a href = "https://github.com/samarsault/plainwhite-jekyll">plainwhite</a>, there is a series of posts on this blog explain how the blog was created and the theme was made. You can view them if you are interested.<br><br> 
-  For more information, you can get the source code from Github repository, welcome <a href = "https://github.com/gangdong/daviddong.github.io">fork</a>, raise issues and PR.
+  For more information, you can get the source code from Github repository, welcome <a href = "https://github.com/gangdong/gangdong.github.io">fork</a>, raise issues and PR.
   </div>
   {% include travis-box.html %}
   <br><br>
   {% include comments.html %}
-  <div class = "footer" style="margin-top:80px">Copyright © {{ site.time | date: "%Y" }} {{ site.title }}  |  <a href = "https://github.com/gangdong/daviddong.github.io"> Github Project </a> powered by Jekyll</div>
+  {% include footer.html %}
   <br>
 </div>
   
