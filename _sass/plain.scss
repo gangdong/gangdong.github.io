@@ -966,6 +966,7 @@ blockquote {
   padding: 15px 15px;
   margin: 0 5px;
   position: relative;
+  box-shadow: 1px 1px 2px 1px #d8d8d8;
 }
 pre, code, tt {
   font-family:  'Roboto Mono', 'Consolas', 'Courier', 'monospace','Microsoft Yahei',sans-serif;
@@ -1005,7 +1006,7 @@ table {
   border-radius: 2px;
   border-collapse: collapse;
   border-style:hidden;
-  box-shadow: 0 0 2px 1px #d8d8d8;
+  box-shadow: 1px 1px 2px 1px #d8d8d8;
   empty-cells: show; 
   th, td {
     padding: 8px 13px;
