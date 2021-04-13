@@ -76,7 +76,7 @@ python build_all.py -b TZ.XF.5.0.1 CHIPSET=sdm845 --cbt="$(FPC_CONFIG_TZ_IMAGE_N
 {% endhighlight %}
 
 Build process
-![fingerprint-tee]({{site.cdn_baseurl}}/assets/image/fingerprint-build-ta-02.webp){: .center-image }
+![fingerprint-tee]({{site.cdn_baseurl}}/assets/image/fingerprint-build-ta-02.png){: .center-image }
 
 ### <span id ="2.4">2.4 Image </span>
 TA images are generated at path:
@@ -122,7 +122,7 @@ cd /home/david/devtools/platforms/mt6797/vendor/fingerprints/fingerprint_ta/secu
  make
 {% endhighlight %}
 Build process
-![fingerprint-tee]({{site.cdn_baseurl}}/assets/image/fingerprint-build-ta-03.webp){: .center-image }
+![fingerprint-tee]({{site.cdn_baseurl}}/assets/image/fingerprint-build-ta-03.png){: .center-image }
 ### <span id ="3.4">3.4 image </span>
 TA image is generated at path
 {% highlight ruby %}
@@ -153,7 +153,7 @@ cd /home/david/devtools/trusty_sdk
 make M="app/demo/fpctzapp:TA"
 {% endhighlight %}
 Build process
-![fingerprint-tee]({{site.cdn_baseurl}}/assets/image/fingerprint-build-ta-04.webp){: .center-image }
+![fingerprint-tee]({{site.cdn_baseurl}}/assets/image/fingerprint-build-ta-04.png){: .center-image }
 ### <span id ="4.4">4.4 image </span>
 The TA image is generated at below location after compiling completed.
 {% highlight ruby %}
