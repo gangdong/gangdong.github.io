@@ -6,7 +6,7 @@ categories: Others
 tags: Life
 Published: true
 ---
-![cover]({{site.cdn_baseurl}}/assets/image/others-covid19-cover.jpeg)    
+![cover]({{site.cdn_baseurl}}/assets/image/others-covid19-cover.webp)    
 It has been `196` days passed since the first case was reported at WUHAN city, China. During the past half year, millions of people were infected and more than `400000` died around the whole world. 😱 
 
 When will we end this pandemic? Do we have to co-exist with this virus in a long term? What is the world like after the epidemic? 
