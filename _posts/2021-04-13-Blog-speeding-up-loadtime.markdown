@@ -97,7 +97,7 @@ I relocated below code snippet into the bottom of `post.html` and lazy load it.
 <script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9&domready=1"></script>
 {% endif %}
 {% endhighlight %}
-Readers will not use the share button until they complete the reading of article. I think it have negligible negative effect for user experience. 
+Readers will not use the share button until they complete the reading of article. I think it has negligible negative effect for user experience. 
 
 ![imagine]({{site.cdn_baseurl}}/assets/image/blog-loadingtime-14.PNG){: .center-image }
 
@@ -116,7 +116,7 @@ However after some works, I haven't been able to find a good way to accelerate a
 I reviewed all of the JS/CSS that block the page rendering. 
 
 + I removed the unnecessary ones. 
-+ For the remained, I also use the jsdelivr CDN to fast the acquiring. 
++ For the remained, I also use the jsdelivr CDN to speed up the acquiring. 
 + Delivering critical JS/CSS inline and deferring all non-critical JS/styles. 
 
 ***Wow!*** After all of above works, the load time is 1.84s finally! I can live with that.
@@ -154,9 +154,9 @@ I used some other tools to verify the final performance.
 
 Well, my further improvement plan is:
 <div class = "separator"></div>
-1. Convert to WebP/JEPEG 2000 image format. I will get extra 0.2s savings estimated.
-2. Find equivalent Google Font or local load them.
-3. Use [CloudFlare CDN](https://www.cloudflare.com/) speed up my page.
+1. Try to use the new image format WebP/JEPEG 2000. I will get extra 0.2s savings estimated with that.
+2. Find equivalent Google Font or load them locally.
+3. Use [CloudFlare CDN](https://www.cloudflare.com/) to speed up my page.
    CloudFlare has several neat features. It can minify files, improve image sizes, bundle js files and so forth. By taking advantage of CloudFlare’s global network, I can utilise it's CDN service to improve my site's performance and security. 
-4. If considering the China local visiting I perhaps change the NS to [dnspod](https://www.dnspod.cn/)...
+4. If considering the China local visiting I will perhaps change the NS to [dnspod](https://www.dnspod.cn/)...
 <div class = "separator"></div>
