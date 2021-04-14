@@ -3,17 +3,28 @@
   <head>
     {%- include head.html -%}
   </head>
+
+{%- if site.rawposts.condensed_mobile contains page.layout -%}
+{% assign condensed_class = "condensed" %}
+{% else %}
+{% assign condensed_class = "" %}
+{%- endif -%}
+
   <body>
     <main class="container">
       <section class="about">
+	    <div class="about-header {{condensed_class}}">
+        <div class="about-title">
         <a href="{{site.baseurl}}/blog/index.html"><img src="{{site.cdn_baseurl}}/assets/avatar.png" alt="{{ site.rawposts.name }}"></a>
         <h2 id="title">
           <a href="{{site.baseurl}}/blog/index.html">{{ site.rawposts.name }}</a>
         </h2>
+		</div>
         <p class="tagline">{{ site.rawposts.tagline }}</p>
+		</div>
 		<!--add navigation -->
         {%- if site.rawposts.navigation -%}
-          <nav class="navigation">
+          <nav class="navigation about-footer {{condensed_class}}">
             <ul>
               {% for link in site.rawposts.navigation %}
                 <li>
@@ -25,8 +36,8 @@
         {%- endif -%}
 		<!--put dark mode button here -->
 		{%- if site.rawposts.dark_mode -%}
-		<div>
-		  <ul class = "social" >
+		<div class = "about-footer {{condensed_class}}">
+		  <ul class = "social">
 			<p style = "font-family: Raleway, sans-serif;font-size: 100%">Dark Mode
 			  <i class="icon-moon"></i>
 			  <label class="switch">
@@ -35,12 +46,11 @@
 			  </label>
 			</p>
 		  </ul>
-		<script type="text/javascript" src="{{site.cdn_baseurl}}/assets/js/darkmode.js"></script>
 		</div>
 		{%- endif -%}
 		<!--put rss/code link here -->
 	    <div>
-          <ul class="tool">
+          <ul class="tool about-footer {{condensed_class}}">
 			{%- if site.rawposts.rss -%}
 		   <a style ="margin-right:10px; text-decoration: none" href="{{site.baseurl}}/rss.xml">
               <span class="icon-rss-1 tooltip">
@@ -58,10 +68,10 @@
           </ul>
         </div>
 	    <!--show contact me -->
-	    <div class = "contact"><li>CONTACT ME</li></div>
+	    <div class = "contact about-footer {{condensed_class}}"><li>CONTACT ME</li></div>
 		<!-- put social link here -->
 		<div>
-	      <ul class="social" >
+	      <ul class="social about-footer {{condensed_class}}" >
 		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
               <li>
                 <i class="icon-picture-3"></i>
@@ -91,13 +101,18 @@
           </ul>
 		</div>
 		<!--put timestamp here -->
-		<div class ="timestamp">&copy; {{ "now" | date: "%Y" }}</div>
+		<div class ="timestamp about-footer {{condensed_class}}">&copy; {{ "now" | date: "%Y" }}</div>
 	  <!-- about box end here -->
       </section>
       <section class="content">
         {{ content }}
       </section>
     </main>
+	
+	{%- if site.rawposts.dark_mode -%}
+	<script type="text/javascript" src="{{site.cdn_baseurl}}/assets/js/darkmode.js"></script>
+	{%- endif -%}
+	
     {%- if site.rawposts.analytics_id -%}
       <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.rawposts.analytics_id }}"></script>
       <script>

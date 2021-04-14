@@ -31,6 +31,10 @@ rawposts:
  # markdown: kramdown
   search: true # set to true to enable searchbar
   dark_mode: true # set to true to add dark mode toggle
+  condensed_mobile:
+    #- home
+    - page
+    - post
   reading_time: true  # set to true to add reading time statistics
   archives: true  # set to true to generate archives page 
   categories: true  # set to true to generate categories page

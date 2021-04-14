@@ -1,7 +1,11 @@
 
-
+{%- if site.rawposts.condensed_mobile contains page.layout -%}
+{% assign condensed_class = "condensed" %}
+{% else %}
+{% assign condensed_class = "" %}
+{%- endif -%}
 <div class="post-container">
-	<div  class = "menu-meta">
+	<div  class = "menu-meta {{condensed_class}}">
 		<div  class = "menu-logo" style="margin-top: 20px">{{site.label}}</div>
 		<div  class = "menu" style = "margin-top: 20px">
 			<a class = "icon-doc-text icon_font" href="{{ site.baseurl}}/blog/index.html">Posts</a>
