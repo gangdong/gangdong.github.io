@@ -12,6 +12,7 @@ author: david.dong
 description: This is the story on how I speed up my blog load time. In this post I’ll show how I improved my blog load time in about 80%.
 keywords: jsDelivr/CDN
 ---
+![示例图片]({{site.cdn_baseurl}}/assets/image/others-blog-01.jpg "example")    
 This is the story on how I speed up my blog website load time...
 
 {% include toc.html %}

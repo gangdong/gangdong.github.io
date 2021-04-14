@@ -12,7 +12,6 @@ author: david.dong
 description: Do you want to build your personal blog on Github Pages? <br><br>Take a look at this article if you want, hope it can help you!
 keywords: Github Pages/blog
 ---
-![示例图片]({{site.cdn_baseurl}}/assets/image/others-blog-01.jpg "example")    
 I have constructed my personal blog by Jekyll on Github pages, I thought I would write a little blog post about how to make your own blog website by Jekyll on Github Pages.<br>
 
 I would separate the contents into short blogs, reading long articles are always easy to make people feel weary. 😴<br>
