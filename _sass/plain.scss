@@ -847,14 +847,15 @@ main {
   font-size: 200%;
   font-weight:900;
   color:#222;
+  margin-right: 100px;
 }
 .menu{
   display: flex;
   flex-direction:row;
   flex-wrap: wrap;
-  justify-content : space-around;
+  justify-content : flex-start;
   align-items : center;
-  align-content: space-between;
+  align-content: flex-start;
   font-family:  'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   text-decoration: none;
   font-weight:400;
@@ -862,7 +863,7 @@ main {
   
   a {
 	border-radius: 4px;
-	padding: 4px 7px;
+	padding: 4px 14px 4px 0px;
 	text-decoration: none;
 	text-align: center;
 	@media screen and (max-width: $smallMobileW) {
