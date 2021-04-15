@@ -40,7 +40,7 @@ rawposts:
   categories: true  # set to true to generate categories page
   related_posts: true #  set to true to enable related posts
   gittalk: true  # set to true to add gittalk 
-  navigation: true    # set to to add page navigation bar
+  navigation: false    # set to to add page navigation bar
   show_statistics: true  #set to true to show statistics of site visitors number
   rss: true  #set to true to add rss 
   source_code: true  #set to true to add link to source code
