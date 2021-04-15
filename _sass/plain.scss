@@ -631,14 +631,16 @@ main {
   margin: 10px 100px 0px 30px;
   padding-left: 30px;
   @media screen and (max-width: $smallMobileW) {
-    margin-left: 20px; /* !import for small device */
-    margin-right: 20px;
     max-width: $smallMobileW
   }
   @media screen and (max-width: $mobileW) {
     padding: 0 !important;
     margin-top: 0;
     max-width: $mobileW
+  }
+  @media screen and (max-width: $mobileW + 256px) {
+	margin-left: 20px; /* !import for small device */
+    margin-right: 20px;
   }
 }
 .post-fix-width {
@@ -861,14 +863,10 @@ main {
   
   a {
     transition: color 0.3s;
-	padding: 4px 9px 4px 5px;
+	padding: 4px 10px 4px 5px;
 	text-decoration: none;
 	text-align: center;
 	border-bottom: 2px solid white;
-	@media screen and (max-width: $smallMobileW) {
-	    padding: 2px;    /* important! */
-		margin-top: 10px;
-	}
 
     &:hover {
       color: $btnColor;
