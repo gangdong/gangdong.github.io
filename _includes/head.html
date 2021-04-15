@@ -14,6 +14,7 @@
 {% endif %}
 <title>{{ page.title }} | {{site.title }}</title>
 {% seo %}
-
-
+{%- if site.rawposts.dark_mode -%}
+<script type="text/javascript" src="{{site.baseurl}}/assets/js/darkmode.js"></script>
+{%- endif -%}
 
