@@ -24,18 +24,7 @@
 		</div>
         <p class="tagline">{{ site.rawposts.tagline }}</p>
 		</div>
-		<!--add navigation -->
-        {%- if site.rawposts.navigation -%}
-          <nav class="navigation about-footer {{condensed_class}}">
-            <ul>
-              {% for link in site.rawposts.navigation %}
-                <li>
-                  <a href="{{ link.url }}">{{ link.title }}</a>
-                </li>
-              {% endfor %}
-            </ul>
-          </nav>
-        {%- endif -%}
+
 		<!--put dark mode button here -->
 		{%- if site.rawposts.dark_mode -%}
 		<div class = "about-footer {{condensed_class}}">
