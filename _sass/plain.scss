@@ -527,9 +527,7 @@ main {
 	&:hover {
 	  background-color: #F8F9F9;
     }
-    @media screen and (max-width: $mobileW) {
-      margin-top: 5px;
-    }
+	margin-bottom: 3px;
     margin-right: 10px;
   }
 }
@@ -862,20 +860,19 @@ main {
   color:#222;
   
   a {
-	border-radius: 4px;
-	padding: 4px 14px 4px 0px;
+    transition: color 0.3s;
+	padding: 4px 9px 4px 5px;
 	text-decoration: none;
 	text-align: center;
+	border-bottom: 2px solid white;
 	@media screen and (max-width: $smallMobileW) {
 	    padding: 2px;    /* important! */
 		margin-top: 10px;
 	}
-	@media screen and (max-width: $mobileW) {
-		padding: 2px;    /* important! */
-		margin-top: 10px;
-	}
+
     &:hover {
       color: $btnColor;
+	  border-bottom: 2px solid $btnColor;
     }
   }
 }
@@ -1283,7 +1280,7 @@ table {
 	  margin-left: 30px;
       .about-title {
         flex-direction: row;
-        margin-bottom: 10px;
+        margin-bottom: 0px;
         img {
           max-height: 40px;
         }
@@ -1311,6 +1308,6 @@ table {
     border-top: 1px solid #eee;
   }
   .menu-meta.condensed {
-	margin-top: 0px;
+	
   }
 }
