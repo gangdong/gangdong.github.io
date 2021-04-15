@@ -80,10 +80,10 @@ main {
     padding-bottom: 5vh;
     @media screen and (max-width: $mobileW) {
       height: auto;
-      padding: 5vh 0;
+      padding: 10vh 0;
     }
 	@media screen and (max-width: $smallMobileW) {
-      padding: 5vh 20px;
+      padding: 10vh 20px;
     }
     @media screen and (min-width: $mobileW + 1) {
       position: fixed;
@@ -1273,6 +1273,9 @@ table {
 	margin-top: 40px;
 }
 @media screen and (max-width: $mobileW) {
+  .about.condensed {
+      display: none;
+    } 
   .about {
     .about-header.condensed {
       align-items: start;
