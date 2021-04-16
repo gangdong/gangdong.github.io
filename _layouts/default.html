@@ -28,7 +28,6 @@
 		<!--put dark mode button here -->
 		{%- if site.rawposts.dark_mode -%}
 		<div class = "about-footer {{condensed_class}}">
-		
 			<p style = "font-family: Raleway, sans-serif;font-size: 100%">Dark Mode
 			  <i class="icon-moon"></i>
 			  <label class="switch">
@@ -36,32 +35,28 @@
 				<span class="slider round" onclick="toggleDarkMode()"></span>
 			  </label>
 			</p>
-		  
 		</div>
 		{%- endif -%}
 		<!--put rss/code link here -->
-	    <div>
-          <ul class="tool about-footer {{condensed_class}}">
+          <ul class="social about-footer {{condensed_class}}">
 			{%- if site.rawposts.rss -%}
 		   <a style ="margin-right:10px; text-decoration: none" href="{{site.baseurl}}/rss.xml">
-              <span class="icon-rss-1 tooltip">
-				<span class="tooltiptext">Rss</span>
-			  </span>
+              <li class="icon-rss-1 tooltip" style ="font-size:22px">
+				<p class="tooltiptext">Rss</p>
+			  </li>
            </a>
 			{%- endif -%}
 			{%- if site.rawposts.source_code -%}
             <a style="text-decoration: none" href="https://github.com/gangdong/gangdong.github.io">
-              <span class="icon-file-code tooltip">
-				<span class="tooltiptext">Code</span>
-			  </span>
+              <li class="icon-file-code tooltip" style ="font-size:20px">
+				<p class="tooltiptext">Code</p>
+			  </li>
             </a>
 			{%- endif -%}
           </ul>
-        </div>
 	    <!--show contact me -->
-	    <div class = "contact about-footer {{condensed_class}}"><li>CONTACT ME</li></div>
+	    <p class = "contact about-footer {{condensed_class}}">CONTACT ME</p>
 		<!-- put social link here -->
-		<div>
 	      <ul class="social about-footer {{condensed_class}}" >
 		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
               <li>
@@ -90,17 +85,14 @@
             </a>
           {%- endif -%}
           </ul>
-		</div>
 		<!--put timestamp here -->
-		<div class ="timestamp about-footer {{condensed_class}}">&copy; {{ "now" | date: "%Y" }}</div>
+		<p class ="timestamp about-footer {{condensed_class}}">&copy; {{ "now" | date: "%Y" }}</p>
 	  <!-- about box end here -->
       </section>
       <section class="content">
         {{ content }}
       </section>
     </main>
-	
-
 	
     {%- if site.rawposts.analytics_id -%}
       <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.rawposts.analytics_id }}"></script>
