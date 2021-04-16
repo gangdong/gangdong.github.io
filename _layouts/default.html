@@ -27,7 +27,7 @@
 
 		<!--put dark mode button here -->
 		{%- if site.rawposts.dark_mode -%}
-		<div class = "about-footer {{condensed_class}}">
+		<div class = "about-footer {{condensed_class}}" style = "padding:10px">
 			<p style = "font-family: Raleway, sans-serif;font-size: 100%">Dark Mode
 			  <i class="icon-moon"></i>
 			  <label class="switch">
@@ -35,9 +35,7 @@
 				<span class="slider round" onclick="toggleDarkMode()"></span>
 			  </label>
 			</p>
-		</div>
-		{%- endif -%}
-		<!--put rss/code link here -->
+		  <!--put rss/code link here -->
           <ul class="social about-footer {{condensed_class}}">
 			{%- if site.rawposts.rss -%}
 		   <a style ="margin-right:10px; text-decoration: none" href="{{site.baseurl}}/rss.xml">
@@ -54,7 +52,11 @@
             </a>
 			{%- endif -%}
           </ul>
+		</div>
+		{%- endif -%}
+
 	    <!--show contact me -->
+		<div class = "about-footer {{condensed_class}}">
 	    <p class = "contact about-footer {{condensed_class}}">CONTACT ME</p>
 		<!-- put social link here -->
 	      <ul class="social about-footer {{condensed_class}}" >
@@ -87,6 +89,7 @@
           </ul>
 		<!--put timestamp here -->
 		<p class ="timestamp about-footer {{condensed_class}}">&copy; {{ "now" | date: "%Y" }}</p>
+		</div>
 	  <!-- about box end here -->
       </section>
       <section class="content">
