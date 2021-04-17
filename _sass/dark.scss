@@ -224,8 +224,7 @@
 		}
 	}
  	.readingtime-categories {
-		color: $dark_btn_color;
-		a {
+		li {
 			background-color: $dark_background_color;
 			color: $dark_btn_color;
 			&:hover {

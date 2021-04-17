@@ -279,25 +279,26 @@ main {
   }
 }
 .readingtime-categories {
+  font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   font-size: 14px;
-  a {
-    display: block;
-	height:100%;
-	width: 100%;
+  list-style-type: none;
+  li {
+    float: left;
 	color: $btnColor;
-    text-decoration: none;
-	padding: 5px 0 5px 5px;
-	border-radius: 4px;
+    background-color: #ffffff;
+    padding: 5px 5px;
+    border-radius: 4px;
 	text-align: right;
+	text-decoration: none;
 	&:hover {
-      color:#ffffff;
+      color:white;
 	  background-color: $btnColor;
     }
-	@media screen and (max-width: $mobileW) {
+    @media screen and (max-width: $mobileW) {
       margin-top: 5px;
     }
+    margin-right: 0px;
   }
-  
 }
 .readingtime-meta {
   display: flex;
