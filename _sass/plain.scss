@@ -190,7 +190,6 @@ main {
   margin-bottom: 1rem;
 }
 .post-categories-pin {
-  font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   list-style-type: none;
   margin-top: 0px;
   margin-bottom: 5px;
@@ -212,7 +211,6 @@ main {
   }
 }
 .readingtime{
-	font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
 	font-weight: 400;
 	font-size: 14px;
 	white-space: pre;
@@ -323,7 +321,6 @@ main {
   }
 }
 .navigation-bar-label {
-	font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
 	font-size:14px;
 	font-weight: normal;
 	display: inline;
@@ -353,20 +350,6 @@ main {
       color:white;
 	  background-color: $btnColor;
     }
-  }
-}
-.post-categories-box-label {
-  font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  font-size: 13px;
-  border-right: 2px solid #95A5A6;
-  padding: 6px 10px;
-  border-radius: 0px;
-  margin-right: 10px;
-  @media screen and (max-width: $mobileW) {
-      margin-top: 5px;
   }
 }
 .post-categories-box-hide {
