@@ -3,7 +3,7 @@
 {% assign time = post.content | strip_html | strip_newlines | remove: " " | size | divided_by: 400 | plus: 1 %}
 
 <footer>
-    <div class="readingtime-meta" style="margin-top:20px;margin-bottom:30px">
+    <div class="readingtime-meta">
 	    <div>
 		{% if post.language == 'chinese' %}
 		<span class="icon-hourglass readingtime" style="margin-right:20px">阅读时间：{{ time }} {%if time > 1 %}mins{% else %}min{% endif %}</span>
@@ -16,9 +16,9 @@
 		<div>
 		<a class="readingtime-categories" href="{{ post.url | relative_url }}">
 			{% if post.language == 'chinese' %}
-            <li class="icon-angle-double-right" style = "padding-right:0px">阅读全文&nbsp;</li>
+            <li class="icon-angle-double-right">阅读全文&nbsp;</li>
 			{% else %}
-			<li class="icon-angle-double-right" style = "padding-right:0px">Continue reading&nbsp;</li>
+			<li class="icon-angle-double-right">Continue reading&nbsp;</li>
 			{% endif %}
         </a>
 		</div>
