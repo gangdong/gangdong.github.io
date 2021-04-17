@@ -41,7 +41,7 @@ permalink: /archive
 {% endfor %}
 
 {% comment %}show navigation label here{% endcomment %}
-<div class="archive-label-meta">
+<div class="signboard-meta">
 {% assign i = 0 %}
 {% comment %} remove the separator. {% endcomment %}
 {% assign counts_year = counts | split: ', ' | reverse %}
@@ -51,15 +51,15 @@ permalink: /archive
 
 
 {% if number > 10 %}
-<div class="archive-label archive-label-darkblue">
+<div class="signboard archive-label-darkblue">
 <a href = "#{{year}}">{{ year }} ( {{counts_year[i]}} )</a>
 </div>
 {% elsif number < 5 %}
-<div class="archive-label archive-label-lightblue">
+<div class="signboard archive-label-lightblue">
 <a href = "#{{year}}">{{ year }} ( {{counts_year[i]}} )</a>
 </div>
 {% else %}
-<div class="archive-label archive-label-blue">
+<div class="signboard archive-label-blue">
 <a href = "#{{year}}">{{ year }} ( {{counts_year[i]}} )</a>
 </div>
 {% endif %}

@@ -234,7 +234,7 @@ main {
     background-color: $btnColor;
   }
 }
-.archive-label {
+.signboard {
   margin-bottom: 20px;
   margin-right: 10px;
   a {
@@ -254,78 +254,28 @@ main {
     }
   }
 }
-
-.tag-categories-least {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  font-size: 14px;
+.signboard-tag {
+    a {
+		&:hover {
+		  background-color: #e3e3e3;
+		  color: #CB4335;
+		  font-weight: bold;
+		}
+	}
+}
+.tag-label-pink {
   a {
-    float: left;
-	border-radius: 40px;
     background-color: #F1948A;
-	color: white;
-    padding: 5px 20px;
-    @media screen and (max-width: $mobileW) {
-      margin-top: 5px;
-    }
-    margin-right: 10px;
-    margin-bottom: 10px;
-    text-decoration: none;
-    &:hover {
-	  background-color: #e3e3e3;
-      color: #CB4335;
-	  font-weight: bold;
-    }
   }
 }
-.tag-categories-emphasis {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  font-size: 14px;
+.tag-label-red {
   a {
-    float: left;
-	border-radius: 40px;
     background-color: #E74C3C;
-	color: white;
-    padding: 5px 20px;
-    @media screen and (max-width: $mobileW) {
-      margin-top: 5px;
-    }
-    margin-right: 10px;
-    margin-bottom: 10px;
-    text-decoration: none;
-    &:hover {
-	  background-color: #e3e3e3;
-      color: #CB4335;
-	  font-weight: bold;
-    }
   }
 }
-.tag-categories {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  font-size: 14px;
-
+.tag-label-orange {
   a {
-    float: left;
-	border-radius: 40px;
     background-color: #F39C12;
-	color: white;
-    padding: 5px 20px;
-    @media screen and (max-width: $mobileW) {
-      margin-top: 5px;
-    }
-    margin-right: 10px;
-    margin-bottom: 10px;
-    text-decoration: none;
-    &:hover {
-	  background-color: #e3e3e3;
-      color: #CB4335;
-	  font-weight: bold;
-    }
   }
 }
 .readingtime-categories {
@@ -531,7 +481,7 @@ main {
     align-items: baseline;
   }
 }
-.archive-label-meta {
+.signboard-meta {
   display: flex;
   flex-direction:row;
   flex-wrap: wrap;
@@ -555,6 +505,7 @@ main {
 	width:180px;
 }
 .category-meta {
+  margin-left:15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
