@@ -315,7 +315,7 @@ main {
   justify-content: space-around;
   align-items: center;
   flex-wrap:wrap;
-   margin: auto;
+  margin: auto;
   @media screen and (max-width: $mobileW) {
     flex-direction: column-reverse;
     align-items: center;
@@ -329,18 +329,18 @@ main {
 	display: inline;
 }
 .navigation-bar {
-  font-family: 'Roboto', 'Arial','Microsoft Yahei', sans-serif;
   font-weight:bold;
   font-size:15px;
   list-style-type: none;
   margin: 10px 0px;
   padding: 0;
-  border:1px solid;
-  border-color:#eee;
+  border:1px solid #eee;;
   box-shadow: 2px 2px 5px #e3e3e3;
  
   a {
-    float: left;
+    display: block;
+	width: 100%;
+	height: 100%;
 	text-align:center;
     padding: 20px 20px;
     border-radius: 2px;
@@ -370,37 +370,16 @@ main {
   }
 }
 .post-categories-box-hide {
-  font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
-  list-style-type: none;
   @media screen and (min-width: $mobileW + 256px) {
 		display: none;
   }
-  a {
-    display: inline-block;
-    text-decoration: none;
-    font-size: 12px;
-    float: left;
-    background: #F2F4F4;
-	border: 1px solid #BFC9CA;
-    padding: .2em .4em;
-    border-radius: 3px;
-	&:hover {
-	  background-color: #F8F9F9;
-    }
-    @media screen and (max-width: $mobileW) {
-      margin-top: 5px;
-    }
-    margin-left: 10px;
-  }
 }
 .post-categories-box {
-  font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   list-style-type: none;
   a {
     display: inline-block;
     text-decoration: none;
     font-size: 12px;
-    float: left;
     background: #F2F4F4;
 	border: 1px solid #BFC9CA;
     padding: .2em .4em;
@@ -461,14 +440,11 @@ main {
   padding-left: 5px;
 }
 .post-categories-meta {
+  margin-bottom:80px;
+  margin-left:4px;
   display: flex;
   align-items: center;
   justify-content: flex-end; 
-  margin-bottom:80px;
-  margin-left:4px;
-  @media screen and (max-width: $mobileW) {
-    align-items: center;
-  }
 }
 .post-meta {
   display: flex;

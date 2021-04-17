@@ -106,7 +106,7 @@ layout: default
   </div>
   {% else %}
   <div class="post-categories-meta">
-	<div class="post-categories-box-hide">
+	<div class="post-categories-box post-categories-box-hide">
 	{%- for tag in page.categories -%}
 		<a href="{{site.baseurl}}/category#{{tag}}">{{ tag }}</a>
 	{%- endfor -%}
