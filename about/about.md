@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: extension
 title: About
 permalink: /about
 ---

@@ -35,6 +35,8 @@ rawposts:
     #- home
     - page
     - post
+    - extension
+    
   reading_time: true  # set to true to add reading time statistics
   archives: true  # set to true to generate archives page 
   categories: true  # set to true to generate categories page
