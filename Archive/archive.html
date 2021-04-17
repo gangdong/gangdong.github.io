@@ -41,25 +41,27 @@ permalink: /archive
 {% endfor %}
 
 {% comment %}show navigation label here{% endcomment %}
-<div class="archive-label-meta" style ="margin-top:30px">
+<div class="archive-label-meta">
 {% assign i = 0 %}
 {% comment %} remove the separator. {% endcomment %}
 {% assign counts_year = counts | split: ', ' | reverse %}
 {% assign years = years | split: ', ' %}
 {% for year in years reversed %}
 {% assign number = counts_year[i] | plus:0 %}
+
+
 {% if number > 10 %}
-<ul class="archive-categories-emphasis">       
-     <a href = "#{{year}}" style = "font-family: Raleway, Arial, sans-serif; font-size:14px">{{ year }} ( {{counts_year[i]}} )</a>
-</ul>
+<div class="archive-label archive-label-darkblue">
+<a href = "#{{year}}">{{ year }} ( {{counts_year[i]}} )</a>
+</div>
 {% elsif number < 5 %}
-<ul class="archive-categories-least">       
-     <a href = "#{{year}}" style = "font-family: Raleway, Arial, sans-serif; font-size:14px">{{ year }} ( {{counts_year[i]}} )</a>
-</ul>
+<div class="archive-label archive-label-lightblue">
+<a href = "#{{year}}">{{ year }} ( {{counts_year[i]}} )</a>
+</div>
 {% else %}
-<ul class="archive-categories">       
-     <a href = "#{{year}}" style = "font-family: Raleway, Arial, sans-serif; font-size:14px">{{ year }} ( {{counts_year[i]}} )</a>
-</ul>
+<div class="archive-label archive-label-blue">
+<a href = "#{{year}}">{{ year }} ( {{counts_year[i]}} )</a>
+</div>
 {% endif %}
 {% assign i = i | plus: 1 %}
 {% endfor %}
@@ -85,15 +87,15 @@ permalink: /archive
 		{% assign i = i | plus: 1 %}
     {% endif %}
 	{% if j == 0 %}
-	<div class="archive-meta archive-background" style="margin-left:15px">
-		<div class="post-date" style="margin-right:30px; width:180px"><i class="icon-calendar"></i>{{ post.date | date: "%b %-d, %Y" }}</div>
+	<div class="archive-meta archive-background">
+		<div class="post-date archive-post-date"><i class="icon-calendar"></i>{{ post.date | date: "%b %-d, %Y" }}</div>
 		<a class="post-link" href="{{ post.url | relative_url }}">
 			<h2 class="archive-link">{{ post.title | escape }}</h2>
 		</a>
 	</div>
    {% else %}
-   <div class="archive-meta" style="margin-left:15px">
-		<div class="post-date" style="margin-right:30px; width:180px"><i class="icon-calendar"></i>{{ post.date | date: "%b %-d, %Y" }}</div>
+   <div class="archive-meta">
+		<div class="post-date archive-post-date"><i class="icon-calendar"></i>{{ post.date | date: "%b %-d, %Y" }}</div>
 		<a class="post-link" href="{{ post.url | relative_url }}">
 			<h2 class="archive-link">{{ post.title | escape }}</h2>
 		</a>
