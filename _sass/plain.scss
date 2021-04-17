@@ -192,18 +192,21 @@ main {
 .post-categories-pin {
   font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   list-style-type: none;
-  margin: 0;
+  margin-top: 0px;
+  margin-bottom: 5px;
   padding: 0;
+  @media screen and (max-width: $mobileW) {
+      margin-top: 5px;
+  }
   a {
 	text-decoration: none;
     font-size: 13px;
-    float: left;
 	border-radius: 2px;
     background-color: #F2F4F4;
 	border: 1px solid #BFC9CA;
     padding: 4px 10px 4px 7px;
-    @media screen and (max-width: $mobileW) {
-      margin-top: 5px;
+	&:hover {
+	  background-color: #F8F9F9;
     }
 	margin-right: 10px;
   }
@@ -505,12 +508,15 @@ main {
 .post-categories {
   font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   list-style-type: none;
-  margin: 0;
+  margin-top: 0px;
+  margin-bottom: 5px;
   padding: 0;
+  @media screen and (max-width: $mobileW) {
+      margin-top: 5px;
+  }
   a {
     text-decoration: none;
     font-size: 13px;
-    float: left;
     background-color: #F2F4F4;
 	border: 1px solid #BFC9CA;
     padding: 3px 10px;
@@ -518,8 +524,7 @@ main {
 	&:hover {
 	  background-color: #F8F9F9;
     }
-	margin-bottom: 3px;
-    margin-right: 10px;
+	margin-right: 10px;
   }
 }
 .post-date-right-align {
