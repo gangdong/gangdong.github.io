@@ -504,7 +504,6 @@ main {
   font-weight: 400;
   color: #000;
   line-height: 1.8em;
-  font-size:16px;
   flex-shrink: 2; /* default 1 !important guarantee the post contents width constant */
   flex-grow: 1;
   @media screen and (min-width: $mobileW + 1) {
@@ -517,7 +516,6 @@ main {
     margin-right:0px;
     max-width: $smallMobileW;
     width: 100%;
-	font-size: 16px;
   }
   @media screen and (max-width: $mobileW) {
     padding: 0 !important;
@@ -526,7 +524,6 @@ main {
     margin-right:0px;
     max-width: $mobileW;
     width: 100%;
-	font-size: 16px;
    }
    @media screen and (max-width: $mobileW + 256px) {
 		margin-right:35px;
@@ -545,7 +542,7 @@ main {
   h4,
   h5,
   h6 {
-    
+    font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   }
 }
 .post {
@@ -553,7 +550,6 @@ main {
   font-weight: 400;
   color: #000;
   line-height: 1.8em;
-  font-size: 16px;
   a {
     color: $linkColor;
     text-decoration: none;
@@ -568,13 +564,7 @@ main {
   h4,
   h5,
   h6 {
-    
-  }
-  @media screen and (max-width: $smallMobileW) {
-		font-size: 16px;
-  }
-  @media screen and (max-width: $mobileW) {
-		font-size: 16px;
+	font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   }
 }
 .posts-labelgroup {
