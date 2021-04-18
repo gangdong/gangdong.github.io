@@ -5,7 +5,7 @@ layout: default
 {% assign time = page.content | strip_html | strip_newlines | remove: " " | size | divided_by: 400 | plus: 1 %}
 
 <!-- add menu bar here! -->
-{% include title.html %}
+{% include menu.html %}
 
 {%- assign date_format = site.rawposts.date_format | default: "%b %-d, %Y" -%}
 
