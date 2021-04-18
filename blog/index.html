@@ -31,7 +31,7 @@ title: Home
                 <h2 class="post-title">{{ post.title | escape }}</h2>
               </a>
               <div class="post-meta">
-                <ul class="post-categories-pin">
+                <ul class="post-categories post-pin-categories-padding">
                   {%- for tag in post.categories -%}
                     <a class="icon-pin" href="{{site.baseurl}}/category#{{tag}}">{{ tag }}</a>
                   {%- endfor -%}
@@ -64,7 +64,7 @@ title: Home
         </a>
 		{% if site.rawposts.show_category_box == true %}
         <div class="post-meta">
-          <ul class="post-categories">
+          <ul class="post-categories post-categories-padding">
             {%- for tag in post.categories -%}
               <a href="{{site.baseurl}}/category#{{tag}}">{{ tag }}</a>
             {%- endfor -%}

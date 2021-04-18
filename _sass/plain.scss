@@ -189,27 +189,6 @@ main {
   border-bottom: 1px solid #ececec;
   margin-bottom: 1rem;
 }
-.post-categories-pin {
-  list-style-type: none;
-  margin-top: 0px;
-  margin-bottom: 5px;
-  padding: 0;
-  @media screen and (max-width: $mobileW) {
-      margin-top: 5px;
-  }
-  a {
-	text-decoration: none;
-    font-size: 13px;
-	border-radius: 2px;
-    background-color: #F2F4F4;
-	border: 1px solid #BFC9CA;
-    padding: 4px 10px 4px 7px;
-	&:hover {
-	  background-color: #F8F9F9;
-    }
-	margin-right: 10px;
-  }
-}
 .readingtime{
 	font-weight: 400;
 	font-size: 14px;
@@ -217,66 +196,7 @@ main {
 	line-height: 1.9em;
 	color: #666;
 }
-.archive-label-lightblue {
-  a {
-    background-color: #AED6F1;
-  }
-}
-.archive-label-darkblue {
-  a {
-    background-color: #21618C;
-  }
-}
-.archive-label-blue {
-  a {
-    background-color: $btnColor;
-  }
-}
-.signboard {
-  margin-bottom: 20px;
-  margin-right: 10px;
-  a {
-    font-family: Raleway, Arial, sans-serif; 
-	font-size: 14px;
-	border-radius: 40px;
-	color: #ffffff;
-    padding: 6px 20px;
-	text-decoration: none;
-    @media screen and (max-width: $mobileW) {
-      margin-top: 5px;
-    }
-    &:hover {
-	  background-color: #e3e3e3;
-      color:$linkColor;
-	  font-weight: bold;
-    }
-  }
-}
-.signboard-tag {
-    a {
-		&:hover {
-		  color: #ffffff;
-		  background-color: #e3e3e3;
-		  color: #CB4335;
-		  font-weight: bold;
-		}
-	}
-}
-.tag-label-pink {
-  a {
-    background-color: #F1948A;
-  }
-}
-.tag-label-red {
-  a {
-    background-color: #E74C3C;
-  }
-}
-.tag-label-orange {
-  a {
-    background-color: #F39C12;
-  }
-}
+
 .readingtime-categories {
   font-size: 14px;
   list-style-type: none;
@@ -353,6 +273,46 @@ main {
     }
   }
 }
+
+/* post category style sheet */
+.post-categories {
+  list-style-type: none;
+  margin-top: 0px;
+  margin-bottom: 5px;
+  padding: 0;
+  @media screen and (max-width: $mobileW) {
+      margin-top: 5px;
+  }
+  a {
+    text-decoration: none;
+    font-size: 13px;
+    background-color: #F2F4F4;
+	border: 1px solid #BFC9CA;
+    
+    border-radius: 2px;
+	&:hover {
+	  background-color: #F8F9F9;
+    }
+	margin-right: 10px;
+  }
+}
+.post-pin-categories-padding {
+  a {
+    padding: 4px 10px 4px 7px;
+  }
+}
+.post-categories-padding {
+	a {
+		padding: 3px 10px;
+	}
+}
+.post-categories-meta {
+  margin-bottom:80px;
+  margin-left:4px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; 
+}
 .post-categories-box-hide {
   @media screen and (min-width: $mobileW + 256px) {
 		display: none;
@@ -377,30 +337,9 @@ main {
     margin-left: 10px;
   }
 }
-.post-categories {
-  
-  list-style-type: none;
-  margin-top: 0px;
-  margin-bottom: 5px;
-  padding: 0;
-  @media screen and (max-width: $mobileW) {
-      margin-top: 5px;
-  }
-  a {
-    text-decoration: none;
-    font-size: 13px;
-    background-color: #F2F4F4;
-	border: 1px solid #BFC9CA;
-    padding: 3px 10px;
-    border-radius: 2px;
-	&:hover {
-	  background-color: #F8F9F9;
-    }
-	margin-right: 10px;
-  }
-}
+
+/* post date style sheet */
 .post-date-right-align {
-  
   color: #666;
   min-width: 150px;
   font-size: 14px;
@@ -415,7 +354,6 @@ main {
   }
 }
 .post-date {
-  
   color: #666;
   min-width: 150px;
   font-size: 15px;
@@ -423,13 +361,7 @@ main {
   margin-left: 0px;
   padding-left: 5px;
 }
-.post-categories-meta {
-  margin-bottom:80px;
-  margin-left:4px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end; 
-}
+
 .post-meta {
   display: flex;
   justify-content: space-between;
@@ -439,6 +371,8 @@ main {
     align-items: baseline;
   }
 }
+
+/* archive & category style sheet */
 .signboard-meta {
   display: flex;
   flex-direction:row;
@@ -458,10 +392,6 @@ main {
 	align-content:stretch;
   }
 }
-.archive-post-date {
-	margin-right:30px; 
-	width:180px;
-}
 .category-meta {
   margin-left:15px;
   display: flex;
@@ -473,12 +403,107 @@ main {
 	align-content:stretch;
   }
 }
+.archive-post-date {
+	margin-right:30px; 
+	width:180px;
+}
+.archive{
+  margin-top: 32px;
+}
+.archive-title {
+  line-height: 1.2em;
+  font-size: 20px;
+  margin-top:40px; 
+  margin-bottom:10px; 
+  font-weight:600;
+}
+.archive-link {
+  
+  margin-left: 5px;
+  font-size:15px;
+  font-weight: 400;
+  color: #222;
+  &:hover {
+      color:$linkColor;
+	  text-decoration: underline;
+    }
+  @media screen and (max-width: $smallMobileW) {
+		font-size: 16px;
+  }
+  @media screen and (max-width: $mobileW) {
+		font-size: 16px;
+  }
+}
+.archive-background {
+	background-color: #f8f8f8;
+	border-radius: 4px;
+}
+.archive-label-lightblue {
+  a {
+    background-color: #AED6F1;
+  }
+}
+.archive-label-darkblue {
+  a {
+    background-color: #21618C;
+  }
+}
+.archive-label-blue {
+  a {
+    background-color: $btnColor;
+  }
+}
+.signboard {
+  margin-bottom: 20px;
+  margin-right: 10px;
+  a {
+    font-family: Raleway, Arial, sans-serif; 
+	font-size: 14px;
+	border-radius: 40px;
+	color: #ffffff;
+    padding: 6px 20px;
+	text-decoration: none;
+    @media screen and (max-width: $mobileW) {
+      margin-top: 5px;
+    }
+    &:hover {
+	  background-color: #e3e3e3;
+      color:$linkColor;
+	  font-weight: bold;
+    }
+  }
+}
+.signboard-tag {
+    a {
+		&:hover {
+		  color: #ffffff;
+		  background-color: #e3e3e3;
+		  color: #CB4335;
+		  font-weight: bold;
+		}
+	}
+}
+.tag-label-pink {
+  a {
+    background-color: #F1948A;
+  }
+}
+.tag-label-red {
+  a {
+    background-color: #E74C3C;
+  }
+}
+.tag-label-orange {
+  a {
+    background-color: #F39C12;
+  }
+}
+
+/* post style sheet */
 .post-link {
   text-decoration: none;
 }
-
 .post-title {
-  
   line-height: 1.2em;
   font-size: 29px;
 }
@@ -765,37 +790,7 @@ main {
 		}
 	}
 }
-.archive{
-  margin-top: 32px;
-}
-.archive-title {
-  line-height: 1.2em;
-  font-size: 20px;
-  margin-top:40px; 
-  margin-bottom:10px; 
-  font-weight:600;
-}
-.archive-link {
-  
-  margin-left: 5px;
-  font-size:15px;
-  font-weight: 400;
-  color: #222;
-  &:hover {
-      color:$linkColor;
-	  text-decoration: underline;
-    }
-  @media screen and (max-width: $smallMobileW) {
-		font-size: 16px;
-  }
-  @media screen and (max-width: $mobileW) {
-		font-size: 16px;
-  }
-}
-.archive-background {
-	background-color: #f8f8f8;
-	border-radius: 4px;
-}
+
 .footer {
     font-family: 'Raleway', 'Arial', sans-serif;
 	margin-bottom: 30px;
