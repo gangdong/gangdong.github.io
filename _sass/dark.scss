@@ -99,11 +99,11 @@
 	.separator {
 		border-bottom: 1px solid $dark_separator_color;
 	}
-	.pagination-box-select{
+	.pagination-box-hit {
 		border:2px solid $dark_btn_color;
 		background-color: $dark_btn_color;
     }
-	.pagination-box{
+	.pagination-box-idle {
 		border:2px solid #333;
 		color: $dark_btn_color
 	}

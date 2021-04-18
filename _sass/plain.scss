@@ -731,27 +731,24 @@ main {
     }
   }
 }
-.pagination-box-select{
-	font-family: 'Verdana', 'Arial', 'Microsoft Yahei', sans-serif;
+.pagination-box-idle {
+	border:2px solid #eee;
+	color: #888888;
+	
+}
+.pagination-box-hit{
+	
     border:2px solid $btnColor;
-	padding: 4px 8px;
-	border-radius: 50%;
-	text-align:center;
-	font-weight: 300;
-	font-size: 14px;
     color: #ffffff;
-	align-items: center;
 	background-color: $btnColor;
 }
 .pagination-box{
     font-family: 'Verdana', 'Arial', 'Microsoft Yahei', sans-serif;
-	border:2px solid #eee;
+	font-weight: 300;
+	font-size: 14px;
 	padding: 4px 8px;
 	border-radius: 50%;
 	text-align:center;
-	font-weight: 300;
-	font-size: 14px;
-    color: #888;
 	align-items: center;
 }
 .pagination{
@@ -880,6 +877,7 @@ table {
 }
 .web-statistics
 {
+    font-family: 'Roboto', sans-serif;
 	padding: 5px 5px;
 	color: #999;
 	font-weight: 200;
