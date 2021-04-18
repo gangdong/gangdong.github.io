@@ -172,49 +172,17 @@
 			}
 		}
 	}
-	.archive-categories {
+	.signboard {
 	    a {
-		    color: white;
+		    color: #ffffff;
 			&:hover {
 			  color: $dark_link_color;
 		    }
 		}
 	}
-	.archive-categories-least {
+	.signboard-tag {
 	    a {
-		    color: white;
-			&:hover {
-			  color: $dark_link_color;
-		    }
-		}
-	}
-	.archive-categories-emphasis {
-	    a {
-		    color: white;
-			&:hover {
-			  color: $dark_link_color;
-		    }
-		}
-	}
-	.tag-categories {
-	    a {
-		    color: white;
-			&:hover {
-			  color: #CB4335;
-		    }
-		}
-	}
-	.tag-categories-least {
-	    a {
-		    color: white;
-			&:hover {
-			  color: #CB4335;
-		    }
-		}
-	}
-	.tag-categories-emphasis {
-	    a {
-		    color: white;
+		    color: #ffffff;
 			&:hover {
 			  color: #CB4335;
 		    }

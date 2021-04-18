@@ -239,7 +239,7 @@ main {
     font-family: Raleway, Arial, sans-serif; 
 	font-size: 14px;
 	border-radius: 40px;
-	color: white;
+	color: #ffffff;
     padding: 6px 20px;
 	text-decoration: none;
     @media screen and (max-width: $mobileW) {
@@ -255,6 +255,7 @@ main {
 .signboard-tag {
     a {
 		&:hover {
+		  color: #ffffff;
 		  background-color: #e3e3e3;
 		  color: #CB4335;
 		  font-weight: bold;
@@ -500,7 +501,6 @@ main {
   }
 }
 .post-fix-width {
-  font-family:  'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   font-weight: 400;
   color: #000;
   line-height: 1.8em;
@@ -712,7 +712,6 @@ main {
   justify-content : flex-start;
   align-items : center;
   align-content: flex-start;
-  font-family:  'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   text-decoration: none;
   font-weight:400;
   color:#222;
