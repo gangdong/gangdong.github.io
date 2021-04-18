@@ -874,6 +874,7 @@ table {
   border-style:hidden;
   box-shadow: 1px 1px 2px 1px #d8d8d8;
   empty-cells: show; 
+  font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   th, td {
     padding: 8px 13px;
     border: 1px solid #d8d8d8;
@@ -883,10 +884,9 @@ table {
 	font-weight: 400;
     background-color: #272822;
 	white-space: nowrap;
-    font-family: 'Roboto', 'Arial', 'Microsoft Yahei';
   }
   td {
-	font-family: 'Roboto', 'Arial', 'Microsoft Yahei';
+	
   }
   tbody tr:nth-child(2n) {
     background: rgba(158,188,226,0.12); 
@@ -914,7 +914,6 @@ table {
 .web-statistics
 {
 	padding: 5px 5px;
-	font-family: 'Roboto', 'Arial', 'Microsoft Yahei';
 	color: #999;
 	font-weight: 200;
 }
@@ -987,10 +986,7 @@ table {
   }
 }
 .post-view {
-    font-family: 'Arial', 'Roboto', 'Microsoft Yahei', sans-serif;
 	width: inherit;
-	font-size: 16px;
-	color: #000;
 	text-transform: uppercase;
 	margin-top: 40px;
 	li {
