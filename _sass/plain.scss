@@ -526,9 +526,7 @@ main {
   }
 }
 .post-fix-width {
-  font-weight: 400;
-  color: #000;
-  line-height: 1.8em;
+  
   flex-shrink: 2; /* default 1 !important guarantee the post contents width constant */
   flex-grow: 1;
   @media screen and (min-width: $mobileW + 1) {
@@ -552,22 +550,6 @@ main {
    }
    @media screen and (max-width: $mobileW + 256px) {
 		margin-right:35px;
-  }
-  a {
-    color: $linkColor;
-    text-decoration: none;
-	transition: border-bottom 0.4s;
-    &:hover {
-		border-bottom: 0.5px solid $linkColor;
-    }
-  }
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   }
 }
 .post {
