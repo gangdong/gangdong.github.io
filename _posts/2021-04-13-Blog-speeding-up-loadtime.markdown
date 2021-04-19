@@ -69,12 +69,14 @@ I tried to adopt two methods to fast the image loading time.
    > jsDelivr has partnered up with multiple Chinese companies to provide fast and reliable file delivery in China mainland and the whole Asian continent. We have servers inside China that improve the delivery speeds and latency significantly. We also have a valid ICP license issued by the Chinese government that protects us from bans and slow downloads.<br>
    > jsDelivr works perfectly inside China!
    
-
-<div class = "post-note-info">
-  <p> For more information of jsdelivr, refer to <a href = "https://github.com/jsdelivr/jsdelivr">jsdelivr @Github</a>. </p>
-</div>
+<br>
    The usage of jsdelivr CDN is simple, I inserted the URL of jsdelivr service in the front of my local `assets/images` URL in the `_config.yml` by following [Usage](https://www.jsdelivr.com/features#gh). 
    
+<div class = "post-note-info">
+  <div class = "header">Information:</div>
+  <p> For more details of jsdelivr, refer to <a href = "https://github.com/jsdelivr/jsdelivr">jsdelivr @Github</a>. </p>
+</div>
+
    OK, Let's see the result with above optimization.
 
    ![imagine]({{site.cdn_baseurl}}/assets/image/blog-loadingtime-11.PNG){: .center-image }

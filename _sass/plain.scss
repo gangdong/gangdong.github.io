@@ -1087,33 +1087,56 @@ table {
     margin-top: 2rem;
 	margin-bottom: 30px;
 	
-	p {
+	.header {
+		padding-top: 20px;
 		border-top: 2px solid $linkColor;
-		padding-left: 2px;
-		padding-top: 1rem;
+		font-weight: bold;
 		color: $linkColor;
 	}
-	p:before {
-	    font-family: "fontello";
+	.header:before {
+		font-family: "fontello";
 		content: '\e847';
 		padding-left: 2px;
 		padding-right: 20px;
+	}
+	p {
+		margin-top: 0px;
+		padding-left: 38px;
+		color: $linkColor;
+	}
+	a {
+		text-decoration: underline;
+		&:hover {
+			text-decoration: none;
+		}
 	}
 }
 .post-note-warning {
     margin-top: 2rem;
 	margin-bottom: 30px;
-	p {
-	    border-top: 2px solid #eb0f00;
-		padding-left: 2px;
-		padding-top: 1rem;
+	
+	.header {
+		padding-top: 20px;
+		border-top: 2px solid #eb0f00;
+		font-weight: bold;
 		color: #eb0f00;
 	}
-	p:before {
-	    font-family: "fontello";
-		content: '\e881';
+	.header:before {
+		font-family: "fontello";
+		content: '\e847';
 		padding-left: 2px;
 		padding-right: 20px;
+	}
+	p {
+		margin-top: 0px;
+		padding-left: 38px;
+		color: #eb0f00;
+	}
+	a {
+		text-decoration: underline;
+		&:hover {
+			text-decoration: none;
+		}
 	}
 }
 @media screen and (max-width: $mobileW) {

@@ -256,14 +256,20 @@
 	}
 	
 	.post-note-info {
-		p {
+		.header {
 			border-top: 2px solid $dark_link_color;
+			color: $dark_link_color;
+		}
+		p {
 			color: $dark_link_color;
 		}
 	}
 	.post-note-warning {
-		p {
+		.header {
 			border-top: 2px solid $dark_btn_color;
+			color: $dark_btn_color;
+		}
+		p {
 			color: $dark_btn_color;
 		}
 	}
