@@ -70,8 +70,9 @@ I tried to adopt two methods to fast the image loading time.
    > jsDelivr works perfectly inside China!
    
 
-   For more information of jsdelivr, refer to [jsdelivr @Github](https://github.com/jsdelivr/jsdelivr). 
-
+<div class = "post-note-info">
+  <p> For more information of jsdelivr, refer to <a href = "https://github.com/jsdelivr/jsdelivr">jsdelivr @Github</a>. </p>
+</div>
    The usage of jsdelivr CDN is simple, I inserted the URL of jsdelivr service in the front of my local `assets/images` URL in the `_config.yml` by following [Usage](https://www.jsdelivr.com/features#gh). 
    
    OK, Let's see the result with above optimization.

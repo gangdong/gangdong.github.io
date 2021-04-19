@@ -1082,6 +1082,40 @@ table {
 	text-align:left; 
 	margin-top: 40px;
 }
+
+.post-note-info {
+    margin-top: 2rem;
+	margin-bottom: 30px;
+	
+	p {
+		border-top: 2px solid $linkColor;
+		padding-left: 2px;
+		padding-top: 1rem;
+		color: $linkColor;
+	}
+	p:before {
+	    font-family: "fontello";
+		content: '\e847';
+		padding-left: 2px;
+		padding-right: 20px;
+	}
+}
+.post-note-warning {
+    margin-top: 2rem;
+	margin-bottom: 30px;
+	p {
+	    border-top: 2px solid #eb0f00;
+		padding-left: 2px;
+		padding-top: 1rem;
+		color: #eb0f00;
+	}
+	p:before {
+	    font-family: "fontello";
+		content: '\e881';
+		padding-left: 2px;
+		padding-right: 20px;
+	}
+}
 @media screen and (max-width: $mobileW) {
   .about.condensed {
       display: none;

@@ -57,7 +57,12 @@ I realized immediately that this plugin wasn't in the [whitelist](https://pages.
 
 ![notification]({{site.cdn_baseurl}}/assets/image/blog-jekyll-toc-01.PNG){: .center-image }
 
-I have to use a trick way to skip the restriction. As above bulletin showed, I need to build the site locally and push the generated static files to my Github repository ( ***Don't use Github Pages generator build***).
+I have to use a trick way to skip the restriction. As above bulletin showed, I need to build the site locally and push the generated static files to my Github repository.
+
+<div class = "post-note-warning"> 
+	<p>Don't use Github Pages Generator build.</p>
+</div>
+
 
 ## Use Master branch
 

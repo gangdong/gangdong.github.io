@@ -239,8 +239,7 @@
 			color: white;
 		}
 	}
-
-
+	
 	.posts-labelgroup.focus-within {
 	
 		.search-section {
@@ -253,6 +252,19 @@
 
 		i {
 			color: white;
+		}
+	}
+	
+	.post-note-info {
+		p {
+			border-top: 2px solid $dark_link_color;
+			color: $dark_link_color;
+		}
+	}
+	.post-note-warning {
+		p {
+			border-top: 2px solid $dark_btn_color;
+			color: $dark_btn_color;
 		}
 	}
 }
