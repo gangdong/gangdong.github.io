@@ -6,16 +6,59 @@
 {%- endif -%}
 <div class="post-container">
 	<div  class = "menu-meta {{condensed_class}}">
+		<!--put top menu here, display @ big screen (> $mobileW) -->
 		<div  class = "menu-logo" style="margin-top: 20px">{{site.label}}</div>
 		<div  class = "menu" style = "margin-top: 20px">
-			<a class = "icon-home icon_font" href="{{ site.baseurl}}/blog/index.html">Home</a>
+			<a href="{{ site.baseurl}}/blog/index.html">
+				<li class="icon-home">Home</li>
+			</a>
 			{%- if site.rawposts.archives -%}
-			<a  class = "icon-archive-1 icon_font" href="{{ site.baseurl}}/archive">Archives</a>
+			<a href="{{ site.baseurl}}/archive">
+				<li class="icon-archive-1">Archives</li>
+			</a>
 			{%- endif -%}
 			{%- if site.rawposts.categories -%}
-			<a  class = "icon-tags-1 icon_font" href="{{ site.baseurl}}/category">Categories</a>
+			<a href="{{ site.baseurl}}/category">
+				<li class="icon-tags-1">Categories</li>
+			</a>
 			{%- endif -%}
-			<a  class = "icon-help-circled-3 icon_font" href="{{ site.baseurl}}/about" style = "padding-right:0px">About</a>
+			<a href="{{ site.baseurl}}/about">
+				<li class="icon-help-circled-3">About</li>
+			</a>
+		</div>
+		<!--put hide menu button here, display @ small screen (< $mobileW) -->
+		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
+		<!--put hide menu here, display @ small screen (< $mobileW) -->
+		<div class="context-menu" id="menu" >
+			<div>
+				<a href="{{ site.baseurl}}/blog/index.html">
+					<li class="icon-home">Home</li>
+				</a>
+			</div>
+			{%- if site.rawposts.archives -%}
+			<div>
+				<a href="{{ site.baseurl}}/archive">
+					<li class="icon-archive-1">Archives</li>
+				</a>
+			</div>
+			{%- endif -%}
+			{%- if site.rawposts.categories -%}
+			<div>
+				<a href="{{ site.baseurl}}/category">
+					<li class="icon-tags-1">Categories</li>
+				</a>
+			</div>
+			{%- endif -%}
+			<div class = "icon-font">
+				<a href="{{ site.baseurl}}/about" style = "padding-right:0px">
+					<li class="icon-help-circled-3 ">About</li>
+				</a>
+			</div>
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+        $('.menu-btn').on('click',function(){
+			$('.context-menu').toggleClass('context-menu-show');
+        })
+</script>
