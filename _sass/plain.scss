@@ -1030,7 +1030,6 @@ table {
 .sidebar-container {
 	margin-left:30px;
     flex-shrink: 0; /* default 1 !important guarantee the post contents width constant */
-
 	max-width: 240px;
     min-width: 10px;
     
@@ -1102,7 +1101,9 @@ table {
 	p {
 		margin-top: 0px;
 		padding-left: 38px;
+		padding-bottom: 20px;
 		color: $linkColor;
+		border-bottom: 2px solid $linkColor;
 	}
 	a {
 		text-decoration: underline;
@@ -1131,6 +1132,8 @@ table {
 		margin-top: 0px;
 		padding-left: 38px;
 		color: #eb0f00;
+		padding-bottom: 20px;
+		border-bottom: 2px solid #eb0f00;
 	}
 	a {
 		text-decoration: underline;
