@@ -18,6 +18,10 @@ layout: default
   </a>
    <div class="post-meta">
     <div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">{{ page.date | date: date_format }}</div>
+	{% if page.sidebar %}
+	<!-- sidebar button for displaying/hiding sidebar -->
+	<div class = "sidebar-btn-box"><a class="btn"></a></div>
+	{% endif %}
   </div>
   <br>
 </div>
@@ -31,7 +35,7 @@ layout: default
 	{% if page.sidebar %}
 	<div class = "sidebar-container">
 	    {% if page.about %}
-	    <div class = "sidebar-about-box">
+	    <div class = "sidebar-about-box" id = "sidebar">
 		    {% if page.language == 'chinese' %}
 				<li class = "sidebar-title">关于文章</li>
 			{% else %}
@@ -187,4 +191,13 @@ layout: default
 {% if site.rawposts.share_media %}
 <!-- Go to www.addthis.com/dashboard to customize your tools -->
 <script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9&domready=1"></script>
+{% endif %}
+{% if page.sidebar %}
+<!-- sidebar button, toggle display/hide sidebar -->
+<script type="text/javascript">
+        $('.btn').on('click',function(){
+                $('.btn').toggleClass('btnc');
+                $('.sidebar-container').toggleClass('sidebar-container-hide');
+        })
+</script>
 {% endif %}
