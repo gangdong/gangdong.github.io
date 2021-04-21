@@ -94,7 +94,7 @@
 	.context-menu-show {
 		a {
 			background-color: white;
-			color: #797D7F;
+			color: #424949;
 			&:hover {
 			  border-bottom: 1px solid #000;
 			  color: #000;
@@ -105,7 +105,6 @@
 		color: $dark_text_color;
 		&:hover {
 			color: $dark_link_color;
-			box-shadow: 0px 0px 0px 0px #d8d8d8;	
 		}
 	}
 	.about-page-box-link-none {

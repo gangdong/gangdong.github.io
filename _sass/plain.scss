@@ -324,7 +324,7 @@ main {
     display: inline-block;
     text-decoration: none;
     font-size: 12px;
-    background: #F2F4F4;
+    background: #FAFAFA;
 	border: 1px solid #BFC9CA;
     padding: .2em .4em;
     border-radius: 3px;
@@ -709,18 +709,14 @@ main {
 .menu-btn {
 	font-family: "fontello";
     padding: 8px;
-    font-size: 20px;
+    font-size: 22px;
 	background-color: #fff;
-    border: 1px solid #dadce0;
     text-decoration: none;
 	color: #222;
     cursor: pointer;
 	position: absolute;
     right: 5px;
     top: 5px;
-	&:hover {
-		border: 2px solid $linkColor;
-	}
 }
 .menu-btn:before {
     content:'\f0c9';
@@ -736,12 +732,12 @@ main {
 	cursor: pointer;
 	position: absolute;
     right: 5px;
-    top: 55px;
-	background-color:#222222;
+    top: 50px;
+	background-color:#000;
 	z-index: 999;
 	
 	a {
-		color: #D5DBDB;
+		color: #E5E7E9;
 		padding: 0.5rem 2.5rem 0.5rem 1.2rem;
 		display: block;
 		border-bottom: 1px solid #D5DBDB;
@@ -1205,7 +1201,7 @@ table {
    
 	font-family: "fontello";
     padding: 8px;
-    font-size: 20px;
+    font-size: 18px;
 	background-color: #fff;
     border: 1px solid #dadce0;
     text-decoration: none;
