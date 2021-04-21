@@ -15,7 +15,7 @@ permalink: /archive
     <!-- Put search box here -->
     <div class="search-container">
         <div class="search-section">
-          <i class="icon-search-3"></i>
+          <i class="icon-search"></i>
           <input type="text" name="search" id="searchbar" autocomplete="off" aria-label="search in posts">
         </div>
     <div class="search-results" id="search-results" data-placeholder="No Results" style="display: none;"></div>
@@ -83,7 +83,7 @@ permalink: /archive
 	   
     {% if year != nyear %}
         {% if forloop.index != 1 %}{% endif %}
-        <div id = "{{year}}" class="icon-videocam-2 archive-title">&nbsp;{{ post.date | date: '%Y' }}</div>
+        <div id = "{{year}}" class="icon-videocam archive-title">&nbsp;{{ post.date | date: '%Y' }}</div>
 		{% assign i = i | plus: 1 %}
     {% endif %}
 	{% if j == 0 %}

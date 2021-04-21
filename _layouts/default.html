@@ -29,7 +29,6 @@
 		{%- if site.rawposts.dark_mode -%}
 		<div class = "about-footer {{condensed_class}}" style = "padding:10px">
 			<p style = "font-family: Raleway, sans-serif;font-size: 100%">Dark Mode
-			  <i class="icon-moon"></i>
 			  <label class="switch">
 				<input type="checkbox" id="dark-mode-toggle">
 				<span class="slider round" onclick="toggleDarkMode()"></span>
@@ -39,7 +38,7 @@
           <ul class="social about-footer {{condensed_class}}">
 			{%- if site.rawposts.rss -%}
 		   <a style ="margin-right:10px; text-decoration: none" href="{{site.baseurl}}/rss.xml">
-              <li class="icon-rss-1 tooltip" style ="font-size:22px">
+              <li class="icon-rss tooltip" style ="font-size:22px">
 				<p class="tooltiptext">Rss</p>
 			  </li>
            </a>
@@ -62,13 +61,13 @@
 	      <ul class="social about-footer {{condensed_class}}" >
 		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
               <li>
-                <i class="icon-picture-3"></i>
+                <i class="icon-picture"></i>
               </li>
            </a>
           {%- if site.rawposts.social_links.github -%}
             <a href="https://github.com/gangdong">
               <li>
-                <i class="icon-github-circled-1"></i>
+                <i class="icon-github-circled"></i>
               </li>
             </a>
           {%- endif -%}
