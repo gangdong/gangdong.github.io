@@ -30,46 +30,32 @@
 		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
 		<!--put hide menu here, display @ small screen (< $mobileW) -->
 		<div class="context-menu">
-			<div>
-				<a class="icon-home" href="{{ site.baseurl}}/blog/index.html">Home</a>
-			</div>
+			<a class="icon-home" href="{{site.baseurl}}/blog/index.html">Home</a>
 			{%- if site.rawposts.archives -%}
-			<div>
-				<a href="{{ site.baseurl}}/archive">
-					<li class="icon-archive-1">Archives</li>
-				</a>
-			</div>
+			<a class="icon-archive-1" href="{{site.baseurl}}/archive">Archives</a>
 			{%- endif -%}
 			{%- if site.rawposts.categories -%}
-			<div>
-				<a href="{{ site.baseurl}}/category">
-					<li class="icon-tags-1">Categories</li>
-				</a>
-			</div>
+			<a class="icon-tags-1" href="{{site.baseurl}}/category">Categories</a>
 			{%- endif -%}
-			<div class = "icon-font">
-				<a href="{{ site.baseurl}}/about" style = "padding-right:0px">
-					<li class="icon-help-circled-3 ">About</li>
-				</a>
-			</div>
+			<a class="icon-help-circled-3" href="{{site.baseurl}}/about">About</a>
 		</div>
 	</div>
 </div>
 <script type="text/javascript">
-        $('.menu-btn').on('click',function(e){
+$('.menu-btn').on('click',function(e){
 		
-			e.stopPropagation();
-			var tag = $('.context-menu');
-			$(tag).toggle(200);
+	e.stopPropagation();
+	var tag = $('.context-menu');		
+	$(tag).toggleClass('context-menu-show');
 			
-			var flag = true;
-			/* hide the context-menu when other element is clicked */
-			$(document).bind('click',function(e){
-				var target = $(e.target);
-				if(target.closest(tag).length == 0 && flag == true){
-					$(tag).hide(200);
-					flag = false;
-				}
-			});
-        })
+	var flag = true;
+	/* hide the context-menu when other element is clicked */
+	$(document).bind('click',function(e){
+		var target = $(e.target);
+		if(target.closest(tag).length == 0 && flag == true){
+			$(tag).toggleClass('context-menu-show');
+			flag = false;
+		}
+	});
+})
 </script>

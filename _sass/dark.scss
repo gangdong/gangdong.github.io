@@ -91,20 +91,13 @@
 			}
         }
 	}
-	.context-menu {
-
+	.context-menu-show {
 		a {
 			background-color: white;
+			color: #797D7F;
 			&:hover {
 			  border-bottom: 1px solid #000;
 			  color: #000;
-			}
-			li {
-				background-color: white;
-				color: #aaa;
-				&:hover {
-					color: #000;
-				}
 			}
 		}
 	}

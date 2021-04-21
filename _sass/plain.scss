@@ -711,13 +711,13 @@ main {
     padding: 8px;
     font-size: 20px;
 	background-color: #fff;
-    border: 2px solid #dadce0;
+    border: 1px solid #dadce0;
     text-decoration: none;
 	color: #222;
     cursor: pointer;
 	position: absolute;
-    right: 0px;
-    top: 0px;
+    right: 5px;
+    top: 5px;
 	&:hover {
 		border: 2px solid $linkColor;
 	}
@@ -727,24 +727,31 @@ main {
 }
 .context-menu {
 	display: none;
+	@media screen and (min-width: $mobileW +1px) {
+		display: none;
+    }
+}
+.context-menu-show {
+	display: block;
 	cursor: pointer;
 	position: absolute;
     right: 5px;
-    top: 50px;
+    top: 55px;
 	background-color:#222222;
-	border-radius: 4px;
 	z-index: 999;
+	
 	a {
-	    color: rgba(255, 255, 255, .5);
-		padding: 0.5rem 1rem;
+		color: #D5DBDB;
+		padding: 0.5rem 2.5rem 0.5rem 1.2rem;
 		display: block;
-		
+		border-bottom: 1px solid #D5DBDB;
 		text-decoration: none;
 		&:hover {
-		  color: #ffffff;
-		  border-bottom: 1px solid #ffffff;
+			color: #ffffff;
+			border-bottom: 1px solid #ffffff;
 		}
 	}
+	
 	@media screen and (min-width: $mobileW +1px) {
 		display: none;
     }
@@ -968,12 +975,9 @@ table {
   left:0px;
   top: 150px;
   margin-left: 0px;
-  
   font-weight: 400;
   color: #000;
 
-  li {
-  }
   a{
 	padding: 0px 10px;
     width: 100%;
@@ -1203,7 +1207,7 @@ table {
     padding: 8px;
     font-size: 20px;
 	background-color: #fff;
-    border: 2px solid #dadce0;
+    border: 1px solid #dadce0;
     text-decoration: none;
 	color: #222;
     cursor: pointer;
