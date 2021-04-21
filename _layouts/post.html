@@ -127,7 +127,13 @@ layout: default
 	{% endif %}
 	<!-- Put post veiw statistic here! -->
 	<div class = "post-view">
-		<li class = "icon-eye">&nbsp;<span id="busuanzi_value_page_pv"></span></li>
+		<ul>
+		{% if page.language == 'chinese' %}
+			<li class = "icon-eye tooltip" style = "width:130px"><span class="tooltiptext">浏览次数</span>&nbsp;<span id="busuanzi_value_page_pv"></span></li>
+		{% else %}
+			<li class = "icon-eye tooltip" style = "width:120px"><span class="tooltiptext">Viewers</span>&nbsp;<span id="busuanzi_value_page_pv"></span></li>
+		{% endif %}
+		</ul>
 	</div>
   </div>
   {% endif %}
