@@ -111,3 +111,7 @@ title: Home
    {%- endif -%}
   </div>
 </div>
+{% if site.rawposts.search %}
+	<script async src="{{site.cdn_baseurl}}/assets/js/simple-jekyll-search.min.js"></script>
+	<script async src="{{site.cdn_baseurl}}/assets/js/search.js"></script>
+{% endif %}
