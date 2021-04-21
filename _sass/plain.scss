@@ -738,8 +738,7 @@ main {
 	    color: rgba(255, 255, 255, .5);
 		padding: 0.5rem 1rem;
 		display: block;
-		width: 100%;
-		height: 100%;
+		
 		text-decoration: none;
 		&:hover {
 		  color: #ffffff;
@@ -749,12 +748,6 @@ main {
 	@media screen and (min-width: $mobileW +1px) {
 		display: none;
     }
-}
-.context-menu-show {
-    display: block;
-	@media screen and (min-width: $mobileW +1px) {
-		display: none;
-  }
 }
 .menu{
   display: flex;
