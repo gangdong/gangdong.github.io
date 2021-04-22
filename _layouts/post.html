@@ -85,11 +85,11 @@ layout: default
 		{% if page.toc %}
 	    <div class="sidebar-toc-box">
 			{% if page.language == 'chinese' %}
-			<li class = "sidebar-title">文章目录</li>
-			<li class = "sidebar-font-medium sidebar-toc-content">{% toc %}</li>
+			<p class = "sidebar-title">文章目录</p>
+			<span class = "sidebar-font-medium sidebar-toc-content">{% toc %}</span>
 			{% else %}
-			<li class = "sidebar-title">Table of Contents</li>
-			<li class = "sidebar-font-medium sidebar-toc-content">{% toc %}</li>
+			<p class = "sidebar-title">Table of Contents</p>
+			<span class = "sidebar-font-medium sidebar-toc-content">{% toc %}</span>
 			{% endif %}
 		</div>
 		{% endif %}
@@ -127,7 +127,11 @@ layout: default
 	{% endif %}
 	<!-- Put post veiw statistic here! -->
 	<div class = "post-view">
-		<li class = "icon-eye">&nbsp;<span id="busuanzi_value_page_pv"></span></li>
+	{% if page.language == 'chinese' %}
+		<span class = "icon-eye tooltip"><p class = "tooltiptext" style = "left:0%; margin-left: 0px">阅读量</p><span id="busuanzi_value_page_pv"></span></span>
+		{% else %}
+		<span class = "icon-eye tooltip"><p class = "tooltiptext" style = "left:0%; margin-left: 0px">Viewers</p><span id="busuanzi_value_page_pv"></span></span>
+		{% endif %}
 	</div>
   </div>
   {% endif %}

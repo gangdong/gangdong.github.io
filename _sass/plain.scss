@@ -1040,10 +1040,12 @@ table {
 }
 .post-view {
 	width: inherit;
-	text-transform: uppercase;
 	margin-top: 40px;
-	li {
+	span {
 		text-align: right;
+		p {
+			width: 60px;
+		}
 	}
 }
 .tooltip {		/* tooltip style */
