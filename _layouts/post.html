@@ -10,9 +10,9 @@ layout: default
 {%- assign date_format = site.rawposts.date_format | default: "%b %-d, %Y" -%}
 
 <div class="post-container" style = "margin-bottom:1rem">
-  <span class="posts-labelgroup" id="posts-labelgroup">
+  <div class="posts-labelgroup" id="posts-labelgroup">
 	<h1 id="posts-label">POST</h1>
-  </span>  
+  </div>  
   <a class="post-link" href="{{ page.url | relative_url }}">
     <h2 class="post-title">{{ page.title | escape }}</h2>
   </a>
@@ -161,22 +161,22 @@ layout: default
   <div class = "separator"></div>
   <div class="navigation-meta">
     {%- if page.previous -%}
-    <ul class="navigation-bar">
+    <div class="navigation-bar">
 	 {% if page.language == 'chinese' %}
 	 <a href="{{ page.previous.url | relative_url }}"><span>前一章</span><br>{{page.previous.title | escape}}</a>
 	 {% else %}
 	 <a href="{{ page.previous.url | relative_url }}"><span>Previous Post</span><br>{{page.previous.title | escape}}</a>
 	 {% endif %}
-    </ul>
+    </div>
     {%- endif -%}
     {%- if page.next -%}
-    <ul class="navigation-bar"> 
+    <div class="navigation-bar"> 
 	 {% if page.language == 'chinese' %}
 	 <a href="{{ page.next.url | relative_url }}"><span>后一章</span><br>{{page.next.title | escape}}</a>
 	 {% else %}
      <a href="{{ page.next.url | relative_url }}"><span>Next Post</span><br>{{page.next.title | escape}}</a>
 	 {% endif %}
-    </ul>
+    </div>
     {%- endif -%}
   </div>
   {%- endif -%}

@@ -201,7 +201,7 @@ main {
   font-size: 14px;
   list-style-type: none;
   text-decoration: none;
-  li {
+  span {
 	color: $btnColor;
     padding: 5px 0 5px 5px;
     border-radius: 4px;
@@ -216,7 +216,7 @@ main {
   }
 }
 .readingtime-meta {
-  margin-top:20px;
+  margin-top:23px;
   margin-bottom:30px;
   display: flex;
   flex-direction:row;
@@ -235,7 +235,7 @@ main {
   align-items: center;
   flex-wrap:wrap;
   margin: auto;
-  margin-bottom:40px;
+  margin-bottom:50px;
   @media screen and (max-width: $mobileW) {
     flex-direction: column-reverse;
     align-items: center;
@@ -777,6 +777,11 @@ main {
 			color: #ffffff;
 			border-bottom: 1px solid #ffffff;
 		}
+	}
+	ul {
+		list-style: none; 
+		padding:0;
+		margin:0;
 	}
 	
 	@media screen and (min-width: $mobileW +1px) {

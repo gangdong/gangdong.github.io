@@ -5,22 +5,22 @@
 <footer>
     <div class="readingtime-meta">
 	    <div>
-		{% if post.language == 'chinese' %}
-		<span class="icon-hourglass readingtime" style="margin-right:20px">阅读时间：{{ time }} {%if time > 1 %}mins{% else %}min{% endif %}</span>
-		<span class="icon-book readingtime" >字数：{{words}}</span>
-		{% else %}
-		<span class="icon-clock readingtime" style="margin-right:20px">{{ time }} {%if time > 1 %}mins{% else %}min{% endif %} to read</span>
-		<span class="icon-book-1 readingtime" > {{words}} words</span>
-		{% endif %}
+			{% if post.language == 'chinese' %}
+			<span class="icon-hourglass readingtime" style="margin-right:20px">阅读时间：{{ time }} {%if time > 1 %}mins{% else %}min{% endif %}</span>
+			<span class="icon-book readingtime" >字数：{{words}}</span>
+			{% else %}
+			<span class="icon-clock readingtime" style="margin-right:20px">{{ time }} {%if time > 1 %}mins{% else %}min{% endif %} to read</span>
+			<span class="icon-book-1 readingtime" > {{words}} words</span>
+			{% endif %}
 		</div>
 		<div>
-		<a class="readingtime-categories" href="{{ post.url | relative_url }}">
-			{% if post.language == 'chinese' %}
-            <li class="icon-angle-double-right">阅读全文&nbsp;</li>
-			{% else %}
-			<li class="icon-angle-double-right">Continue reading&nbsp;</li>
-			{% endif %}
-        </a>
+			<a class="readingtime-categories" href="{{ post.url | relative_url }}">
+				{% if post.language == 'chinese' %}
+				<span class="icon-angle-double-right">阅读全文&nbsp;</span>
+				{% else %}
+				<span class="icon-angle-double-right">Continue reading&nbsp;</span>
+				{% endif %}
+			</a>
 		</div>
 	</div>
 </footer> 

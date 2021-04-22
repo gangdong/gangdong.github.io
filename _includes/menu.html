@@ -30,14 +30,24 @@
 		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
 		<!--put hide menu here, display @ small screen (< $mobileW) -->
 		<div class="context-menu">
-			<a class="icon-home" href="{{site.baseurl}}/blog/index.html">Home</a>
-			{%- if site.rawposts.archives -%}
-			<a class="icon-archive" href="{{site.baseurl}}/archive">Archives</a>
-			{%- endif -%}
-			{%- if site.rawposts.categories -%}
-			<a class="icon-tags" href="{{site.baseurl}}/category">Categories</a>
-			{%- endif -%}
-			<a class="icon-help-circled" href="{{site.baseurl}}/about">About</a>
+			<ul >
+				<li>
+					<a class="icon-home" href="{{site.baseurl}}/blog/index.html">Home</a>
+				</li>
+				{%- if site.rawposts.archives -%}
+				<li>
+					<a class="icon-archive" href="{{site.baseurl}}/archive">Archives</a>
+				</li>
+				{%- endif -%}
+				{%- if site.rawposts.categories -%}
+				<li>
+					<a class="icon-tags" href="{{site.baseurl}}/category">Categories</a>
+				</li>
+				{%- endif -%}
+				<li>
+					<a class="icon-help-circled" href="{{site.baseurl}}/about">About</a>
+				</li>
+			</ul>
 		</div>
 	</div>
 </div>
