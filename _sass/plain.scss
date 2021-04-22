@@ -441,61 +441,101 @@ main {
 .archive-label-lightblue {
   a {
     background-color: #AED6F1;
+	span {
+		background-color: #AED6F1;
+	}
   }
 }
 .archive-label-darkblue {
   a {
     background-color: #21618C;
+	span {
+		background-color: #21618C;
+	}
   }
 }
 .archive-label-blue {
   a {
     background-color: $btnColor;
+	span {
+		background-color: $btnColor;
+	}
   }
 }
 .signboard {
-  margin-bottom: 20px;
-  margin-right: 10px;
-  a {
-    font-family: Raleway, Arial, sans-serif; 
-	font-size: 14px;
-	border-radius: 40px;
-	color: #ffffff;
-    padding: 6px 20px;
-	text-decoration: none;
-    @media screen and (max-width: $mobileW) {
-      margin-top: 5px;
-    }
-    &:hover {
-	  background-color: #e3e3e3;
-      color:$linkColor;
-	  font-weight: bold;
-    }
-  }
+	margin-bottom: 20px;
+	margin-right: 10px;
+	a {
+		padding: 6px 20px 6px 22px;
+		font-size: 14px;
+		border-radius: 40px;
+		color: #ffffff;
+		text-decoration: none;
+		
+		span {
+			font-family: Roboto, sans-serif;
+			vertical-align:super;
+			font-size: 10px;
+			padding-left: 2px;
+		}
+		
+		@media screen and (max-width: $mobileW) {
+		  margin-top: 5px;
+		}
+		
+		&:hover {
+			background-color: #e3e3e3;
+			span {
+				background-color: #e3e3e3;
+			}
+		}
+	}
+}
+.signboard-archive {
+	a {
+		&:hover {
+			color: $linkColor;
+			span {
+				color: $linkColor;
+			}
+		}
+	}
 }
 .signboard-tag {
     a {
+		font-family: Raleway, Arial, sans-serif; 		
 		&:hover {
-		  color: #ffffff;
-		  background-color: #e3e3e3;
-		  color: #CB4335;
-		  font-weight: bold;
+			color: #CB4335;
+			font-weight: bold;
+			span {
+				color: #CB4335;
+				font-weight: bold;
+			}
 		}
 	}
 }
 .tag-label-pink {
   a {
     background-color: #F1948A;
+	span {
+		background-color: #F1948A;
+	}
   }
 }
 .tag-label-red {
   a {
     background-color: #E74C3C;
+	span {
+		 background-color: #E74C3C;
+	}
   }
 }
 .tag-label-orange {
   a {
     background-color: #F39C12;
+	span {
+		background-color: #F39C12;
+	}
   }
 }
 

@@ -51,16 +51,16 @@ permalink: /archive
 
 
 {% if number > 10 %}
-<div class="signboard archive-label-darkblue">
-<a href = "#{{year}}">{{ year }} ( {{counts_year[i]}} )</a>
+<div class="signboard signboard-archive archive-label-darkblue">
+<a href = "#{{year}}">{{ year }}<span>{{counts_year[i]}}</span></a>
 </div>
 {% elsif number < 5 %}
-<div class="signboard archive-label-lightblue">
-<a href = "#{{year}}">{{ year }} ( {{counts_year[i]}} )</a>
+<div class="signboard signboard-archive archive-label-lightblue">
+<a href = "#{{year}}">{{ year }}<span>{{counts_year[i]}}</span></a>
 </div>
 {% else %}
-<div class="signboard archive-label-blue">
-<a href = "#{{year}}">{{ year }} ( {{counts_year[i]}} )</a>
+<div class="signboard signboard-archive archive-label-blue">
+<a href = "#{{year}}">{{ year }}<span>{{counts_year[i]}}</span></a>
 </div>
 {% endif %}
 {% assign i = i | plus: 1 %}
