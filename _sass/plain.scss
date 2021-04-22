@@ -554,44 +554,33 @@ main {
   list-style-type: none;
   margin: 10px 100px 0px 30px;
   padding-left: 30px;
-  @media screen and (max-width: $smallMobileW) {
-    max-width: $smallMobileW
-  }
-  @media screen and (max-width: $mobileW) {
-    padding: 0 !important;
-    margin-top: 0;
-    max-width: $mobileW
-  }
   @media screen and (max-width: $mobileW + 256px) {
 	margin-left: 20px; /* !import for small device */
     margin-right: 20px;
   }
+   @media screen and (max-width: $mobileW) {
+    padding: 0 !important;
+    margin-top: 0;
+    max-width: $mobileW
+  }
 }
 .post-fix-width {
+  
   flex-shrink: 2; /* default 1 !important guarantee the post contents width constant */
   flex-grow: 1;
   @media screen and (min-width: $mobileW + 1) {
-      max-width: 720px; /* fix the width */
-	  min-width: 100px;
-      width: 100%;
-   }
-   @media screen and (max-width: $smallMobileW) {
-    margin-left: 0px;  /* no margin to parent */
-    margin-right:0px;
-    max-width: $smallMobileW;
-    width: 100%;
-  }
-  @media screen and (max-width: $mobileW) {
-    padding: 0 !important;
-    margin-top: 0;
-	margin-left: 0px;  /* no margin to parent */
-    margin-right:0px;
-    max-width: $mobileW;
-    width: 100%;
+       max-width: 720px; /* fix the width */
+	   min-width: 100px;
+       width: 100%;
    }
    @media screen and (max-width: $mobileW + 256px) {
-		margin-right:35px;
-  }
+		margin-right:30px;
+   }
+   @media screen and (max-width: $mobileW) {
+		padding: 0;
+		margin: 0; /* no margin to parent */
+		width: 100%;
+   }
 }
 .post {
   
@@ -993,11 +982,10 @@ table {
       	width: 100%;
   	}
 	/* should be useless since display none at small device */
-  	@media screen and (max-width: $smallMobileW) {
+    @media screen and (max-width: $mobileW + 256px) {
 		margin-left: 20px; /* !import for small device */
 		margin-right: 20px;
-		max-width: $smallMobileW
-	  }
+	}
 	@media screen and (max-width: $mobileW) {
 		padding: 0 !important;
 		margin-top: 0;
