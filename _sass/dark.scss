@@ -146,10 +146,16 @@
 		box-shadow: 0px 0px 0px $dark_background_color;
 		border: 1px solid $dark_separator_color;
 	    a {
-			color: #fff;
+			color: $dark_link_color;
+			span {
+				color: #fff;
+			}
 			&:hover {
-			    color: $dark_link_color;
-				background-color: $dark_background_color;
+				color: #fff;
+				background-color: $dark_btn_color;
+				span {
+					background-color: $dark_btn_color;
+				}
 			}
 		}
     }

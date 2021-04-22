@@ -156,22 +156,22 @@ layout: default
    <h1 id="posts-label">further reading</h1>
   {% endif %}
   <div class = "separator"></div>
-  <div class="navigation-meta" style = "margin-bottom:40px">
+  <div class="navigation-meta">
     {%- if page.previous -%}
-    <ul class="navigation-bar" style = "margin-top:40px; min-width:40%">
+    <ul class="navigation-bar">
 	 {% if page.language == 'chinese' %}
-	 <a href="{{ page.previous.url | relative_url }}"; style="width:100%"><span class = "navigation-bar-label">前一章</span><br>{{page.previous.title | escape}}</a>
+	 <a href="{{ page.previous.url | relative_url }}"><span>前一章</span><br>{{page.previous.title | escape}}</a>
 	 {% else %}
-	 <a href="{{ page.previous.url | relative_url }}"; style="width:100%"><span class = "navigation-bar-label">Previous Post</span><br>{{page.previous.title | escape}}</a>
+	 <a href="{{ page.previous.url | relative_url }}"><span>Previous Post</span><br>{{page.previous.title | escape}}</a>
 	 {% endif %}
     </ul>
     {%- endif -%}
     {%- if page.next -%}
-    <ul class="navigation-bar" style = "margin-top:40px; min-width:40%"> 
+    <ul class="navigation-bar"> 
 	 {% if page.language == 'chinese' %}
-	 <a href="{{ page.next.url | relative_url }}"; style="width:100%"><span class = "navigation-bar-label">后一章</span><br>{{page.next.title | escape}}</a>
+	 <a href="{{ page.next.url | relative_url }}"><span>后一章</span><br>{{page.next.title | escape}}</a>
 	 {% else %}
-     <a href="{{ page.next.url | relative_url }}"; style="width:100%"><span class = "navigation-bar-label">Next Post</span><br>{{page.next.title | escape}}</a>
+     <a href="{{ page.next.url | relative_url }}"><span>Next Post</span><br>{{page.next.title | escape}}</a>
 	 {% endif %}
     </ul>
     {%- endif -%}
