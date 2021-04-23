@@ -7,6 +7,7 @@ description: > # this means to ignore newlines until "show_exerpts:"
   This is DavidDong's blog. This blog recorded my life and growth track. It's one of my GitHub project. Hosted on GitHub Pages and powered by Jekyll. Welcome to visit! 
   
 show_excerpts: true # set to true to show excerpts on the homepage
+url: https://dqdongg.com
 baseurl: ''
 repository: gangdong/daviddong.github.io
 cdn_baseurl: https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev
