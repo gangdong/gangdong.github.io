@@ -83,21 +83,21 @@ permalink: /archive
 	   
     {% if year != nyear %}
         {% if forloop.index != 1 %}{% endif %}
-        <div id = "{{year}}" class="icon-videocam archive-title">&nbsp;{{ post.date | date: '%Y' }}</div>
+        <div id = "{{year}}" class="icon-videocam extension-title">&nbsp;{{ post.date | date: '%Y' }}</div>
 		{% assign i = i | plus: 1 %}
     {% endif %}
 	{% if j == 0 %}
-	<div class="archive-meta archive-background">
-		<div class="post-date archive-post-date"><i class="icon-calendar"></i>{{ post.date | date: "%b %-d, %Y" }}</div>
+	<div class="archive-meta extension-background">
+		<div class="post-date extension-post-date" style = "flex-shrink:0; margin-right:30px; width:180px;"><i class="icon-calendar"></i>{{ post.date | date: "%b %-d, %Y" }}</div>
 		<a class="post-link" href="{{ post.url | relative_url }}">
-			<h2 class="archive-link">{{ post.title | escape }}</h2>
+			<h2 class="link">{{ post.title | escape }}</h2>
 		</a>
 	</div>
    {% else %}
    <div class="archive-meta">
-		<div class="post-date archive-post-date"><i class="icon-calendar"></i>{{ post.date | date: "%b %-d, %Y" }}</div>
+		<div class="post-date extension-post-date" style = "flex-shrink:0; margin-right:30px; width:180px;"><i class="icon-calendar"></i>{{ post.date | date: "%b %-d, %Y" }}</div>
 		<a class="post-link" href="{{ post.url | relative_url }}">
-			<h2 class="archive-link">{{ post.title | escape }}</h2>
+			<h2 class="link">{{ post.title | escape }}</h2>
 		</a>
 	</div>
    {% endif %}

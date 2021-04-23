@@ -60,7 +60,7 @@ permalink: /category
 {% comment %}list post link for each category{% endcomment %}
 {% for tag in site.categories reversed %}
 <div>
-<div id = "{{tag[0]}}" class="archive-title">#&nbsp;{{tag[0]}}</div>
+<div id = "{{tag[0]}}" class="extension-title">#&nbsp;{{tag[0]}}</div>
 {% for post in tag[1] %}
 	{% if j == 0 %}
 	   {% assign j = j | plus: 1 %}
@@ -69,11 +69,11 @@ permalink: /category
 	{% endif %}
 	
 	{% if j == 0 %}
-    <div class="category-meta archive-background">
+    <div class="category-meta extension-background">
 		<a class="post-link" href="{{ post.url | relative_url }}">
-		<h2 class="archive-link" >&bull; {{ post.title | escape }}</h2>
+		<h2 class="link" >&bull; {{ post.title | escape }}</h2>
 		</a>
-        <div class="post-date">
+        <div class="post-date extension-post-date">
           <span class="icon-calendar">
             {{ post.date | date: "%b %-d, %Y" }}</span>
 		</div>
@@ -81,11 +81,10 @@ permalink: /category
 	{% else %}
 	<div class="category-meta">
 		<a class="post-link" href="{{ post.url | relative_url }}">
-		<h2 class="archive-link" >&bull; {{ post.title | escape }}</h2>
+		<h2 class="link" >&bull; {{ post.title | escape }}</h2>
 		</a>
-        <div class="post-date">
-          <span class="icon-calendar">
-            {{ post.date | date: "%b %-d, %Y" }}</span>
+        <div class="post-date extension-post-date">
+          <span class="icon-calendar">{{ post.date | date: "%b %-d, %Y" }}</span>
 		</div>
     </div>
 	{% endif %}
