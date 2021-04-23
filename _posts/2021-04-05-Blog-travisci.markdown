@@ -22,14 +22,27 @@ If you've looked at my previous article, you may know my blog was deployed on Gi
 
 Github Pages are a great approach to build websites. Using a Github repository and with the Jekyll static site generator we can build a static websites easily. It is suitable for building personal blog.
 
-Although Github Pages can automatically generate a website from a repository containing a Jekyll project (*you just need to commit your source code to Github repo and don't pay any effort on the building and deployment. Github Pages will do it for you!*), it has some limitations.     
+Although Github Pages can automatically generate a website from a repository containing a Jekyll project, it has some limitations. 
+
+<div class = "post-note-info">
+  <div class = "header">Information:</div>
+  <p>To deploy the blog on Github Pages, you just need to commit your website's source code to Github repo and don't pay any effort on the building and deployment.<br>Github Pages will do it for you! </p>
+</div>
+
 One of them is 
 
 + *we can't use jekyll plugins*
 
 I need to use plugins to extend the function of my website, e.g. for implementation of toc and markdown function enrichment.
 
-It is understandable that Github Pages doesn't allow the plugin for security reasons (*it uses the Jekyll `--safe` flag*). The workaround is to generate the site locally and then to push the generated HTML to Github (*I've interpreted how to do in my previous [article]({{site.baseurl}}/blog/github/2018/12/29/Blog-Jekyll-toc-plugin.html)*). However, I usually use the different branch for source code and output static HTMLs. The `dev` branch accommodates the source code and `gh-pages` branch, which is as a window of website visiting, stores the static website files.
+It is understandable that Github Pages doesn't allow the plugin for security reasons. 
+
+<div class = "post-note-info">
+  <div class = "header">Information:</div>
+  <p>Github Pages Generator uses the Jekyll <span style = "font-style: italic; color: #DC143C;">--safe</span> flag.</p>
+</div>
+
+The workaround is to generate the site locally and then to push the generated HTML to Github (*I've interpreted how to do in my previous [article]({{site.baseurl}}/blog/github/2018/12/29/Blog-Jekyll-toc-plugin.html)*). However, I usually use the different branch for source code and output static HTMLs. The `dev` branch accommodates the source code and `gh-pages` branch, which is as a window of website visiting, stores the static website files.
 
 So my current workflow is 
 
@@ -96,9 +109,14 @@ The main phases are:
 
 You can complete a basic work with above minimal life cycle. Besides, Travis CI affords some phases that allow users to insert custom commands. 
 
-To get to know the details and learn how to write `.travis.yml` file, please read 
-
-+ [Travis CI Job Lifecycle](https://docs.travis-ci.com/user/job-lifecycle/).
+<div class = "post-note-info">
+  <div class = "header">Information:</div>
+  <p>To get to know the details and learn how to write <span style = "color:#DC143C;">.travis.yml</span> file, please read 
+  <ul>
+	<li><a href = "https://docs.travis-ci.com/user/job-lifecycle/">Travis CI Job Lifecycle</a></li>
+  </ul>
+  </p>
+</div>
 
 ### Sensitive Data
 
@@ -300,7 +318,7 @@ The workflow is not only valid for blog project deployed on Github Pages but any
 
 The last thing is don't forget to add a Travis CI logo/link to your README.
 
-[![Build Status](https://travis-ci.com/gangdong/daviddong.github.io.svg?branch=dev)](https://travis-ci.com/gangdong/daviddong.github.io)
+[![Build Status](https://travis-ci.com/gangdong/gangdong.github.io.svg?branch=dev)](https://travis-ci.com/gangdong/gangdong.github.io)
 
 ## Troubleshooting
 

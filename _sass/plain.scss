@@ -1188,10 +1188,12 @@ table {
 .post-note-info {
     margin-top: 2rem;
 	margin-bottom: 30px;
+	padding-bottom: 20px;
+	padding-top: 20px;
+	border-bottom: 2px solid $linkColor;
+	border-top: 2px solid $linkColor;
 	
 	.header {
-		padding-top: 20px;
-		border-top: 2px solid $linkColor;
 		font-weight: bold;
 		color: $linkColor;
 	}
@@ -1202,11 +1204,14 @@ table {
 		padding-right: 20px;
 	}
 	p {
-		margin-top: 0px;
+		margin: 0;
+		padding-top: 0;
 		padding-left: 38px;
-		padding-bottom: 20px;
 		color: $linkColor;
-		border-bottom: 2px solid $linkColor;
+	}
+	ul {
+		margin-bottom: 0px;
+		margin-left: 38px;
 	}
 	a {
 		text-decoration: underline;

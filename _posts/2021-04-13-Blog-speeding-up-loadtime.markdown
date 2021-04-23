@@ -50,9 +50,16 @@ I tried to adopt two methods to fast the image loading time.
 
    The future plan is to serve images in next-gen formats. Image formats like JPEG 2000, JPEG XR, and WebP often provide better compression than PNG or JPEG, which means faster downloads and less data consumption. The only concern is browser compatibility, not all of the browser is able to support these formats so far.
 
-   - [WebP](https://caniuse.com/webp)
-   - [JPEG 2000](https://caniuse.com/jpeg2000)
-   - [JPEG XR](https://caniuse.com/jpegxr)
+<div class = "post-note-info">
+  <div class = "header">Information:</div>
+  	<p>If you want to know the detailed information about the browser compatibility, <br>please view below website: 
+	  <ul>
+		<li><a href = "https://caniuse.com/webp">WebP</a></li>
+		<li><a href = "https://caniuse.com/jpeg2000">JPEG 2000</a></li>
+		<li><a href = "https://caniuse.com/jpegxr">JPEG XR</a></li>
+	  </ul>
+  	</p>
+</div>
 
 2. Use image CDNs to optimize images:
 
