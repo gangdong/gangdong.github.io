@@ -212,14 +212,16 @@ main {
     }
     @media screen and (max-width: $mobileW) {
       margin-top: 5px;
+	  margin-left: 14px;
     }
   }
 }
 .readingtime-meta {
-  margin-top:23px;
-  margin-bottom:30px;
+  margin-top:21px;
+  margin-bottom:21px;
   display: flex;
   flex-direction:row;
+  line-height: 2rem;
   justify-content: space-between;
   align-items: center;
   flex-wrap:wrap;
