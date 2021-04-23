@@ -42,14 +42,13 @@ I will go to improve through them one by one.
 ## Image Loading Time
 I tried to adopt two methods to fast the image loading time.
 
-1. Resize images to improve page load time:
++ Resize images to improve page load time:
    
    Current solution is compressing the images size with the tool [imagine](https://imagine.en.softonic.com/), which can significantly compress the size of the image (up to more than 70%).
  
    ![imagine]({{site.cdn_baseurl}}/assets/image/blog-loadingtime-10.PNG){: .center-image }
 
    The future plan is to serve images in next-gen formats. Image formats like JPEG 2000, JPEG XR, and WebP often provide better compression than PNG or JPEG, which means faster downloads and less data consumption. The only concern is browser compatibility, not all of the browser is able to support these formats so far.
-
 <div class = "post-note info">
   <div class = "header">Information:</div>
   	<p>If you want to know the detailed information about the browser compatibility, <br>please view below website: 
@@ -60,8 +59,7 @@ I tried to adopt two methods to fast the image loading time.
 	  </ul>
   	</p>
 </div>
-
-2. Use image CDNs to optimize images:
++ Use image CDNs to optimize images:
 
    Image content delivery networks (CDNs) are excellent at optimizing images.
 

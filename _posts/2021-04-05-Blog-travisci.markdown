@@ -166,7 +166,12 @@ eval `ssh-agent -s`
 ssh-add blog_id_rsa
 {% endhighlight %}
 
-After generated the encrypted key leave it into your repo and do not forget `REMOVE YOUR PRIVATE KEY` before you commit!
+After generated the encrypted key leave it into your code repo.
+
+<div class = "post-note warning">
+  <div class = "header">Warning:</div>
+  	<p>Do not forget remove your <span style = "font-style: italic; font-weight: bold; color: #eb0f00">PRIVATE KEY</span> before you commit code to Github Repo!<br>Otherwise, you may potentially disclose your private key.</p>
+</div>
 
 #### PATs
 
