@@ -24,7 +24,7 @@ Github Pages are a great approach to build websites. Using a Github repository a
 
 Although Github Pages can automatically generate a website from a repository containing a Jekyll project, it has some limitations. 
 
-<div class = "post-note-info">
+<div class = "post-note info">
   <div class = "header">Information:</div>
   <p>To deploy the blog on Github Pages, you just need to commit your website's source code to Github repo and don't pay any effort on the building and deployment.<br>Github Pages will do it for you! </p>
 </div>
@@ -37,7 +37,7 @@ I need to use plugins to extend the function of my website, e.g. for implementat
 
 It is understandable that Github Pages doesn't allow the plugin for security reasons. 
 
-<div class = "post-note-info">
+<div class = "post-note info">
   <div class = "header">Information:</div>
   <p>Github Pages Generator uses the Jekyll <span style = "font-style: italic; color: #DC143C;">--safe</span> flag.</p>
 </div>
@@ -109,7 +109,7 @@ The main phases are:
 
 You can complete a basic work with above minimal life cycle. Besides, Travis CI affords some phases that allow users to insert custom commands. 
 
-<div class = "post-note-info">
+<div class = "post-note info">
   <div class = "header">Information:</div>
   <p>To get to know the details and learn how to write <span style = "color:#DC143C;">.travis.yml</span> file, please read 
   <ul>

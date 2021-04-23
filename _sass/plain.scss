@@ -1185,33 +1185,43 @@ table {
 	margin-top: 40px;
 }
 
-.post-note-info {
-    margin-top: 2rem;
-	margin-bottom: 30px;
-	padding-bottom: 20px;
-	padding-top: 20px;
+.info {
+
 	border-bottom: 2px solid $linkColor;
 	border-top: 2px solid $linkColor;
 	
 	.header {
-		font-weight: bold;
 		color: $linkColor;
 	}
 	.header:before {
-		font-family: "fontello";
 		content: '\e811';
+	}
+	p {
+		color: $linkColor;
+	}
+}
+.post-note {
+    margin-top: 2rem;
+	margin-bottom: 2rem;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	
+	.header {
+		font-weight: bold;
+	}
+	.header:before {
+		font-family: "fontello";
 		padding-left: 2px;
 		padding-right: 20px;
+	}
+	ul {
+		margin-bottom: 0px;
+		margin-left: 38px;
 	}
 	p {
 		margin: 0;
 		padding-top: 0;
 		padding-left: 38px;
-		color: $linkColor;
-	}
-	ul {
-		margin-bottom: 0px;
-		margin-left: 38px;
 	}
 	a {
 		text-decoration: underline;
@@ -1220,34 +1230,18 @@ table {
 		}
 	}
 }
-.post-note-warning {
-    margin-top: 2rem;
-	margin-bottom: 30px;
+.warning {
+    border-top: 2px solid #eb0f00;
+	border-bottom: 2px solid #eb0f00;
 	
 	.header {
-		padding-top: 20px;
-		border-top: 2px solid #eb0f00;
-		font-weight: bold;
 		color: #eb0f00;
 	}
 	.header:before {
-		font-family: "fontello";
 		content: '\e812';
-		padding-left: 2px;
-		padding-right: 20px;
 	}
 	p {
-		margin-top: 0px;
-		padding-left: 38px;
 		color: #eb0f00;
-		padding-bottom: 20px;
-		border-bottom: 2px solid #eb0f00;
-	}
-	a {
-		text-decoration: underline;
-		&:hover {
-			text-decoration: none;
-		}
 	}
 }
 .sidebar-btn-box {
