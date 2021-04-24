@@ -565,10 +565,6 @@ main {
 .post-title {
   line-height: 1.2em;
   font-size: 29px;
-  
-  @media screen and (max-width: $mobileW) {
-    font-size: 27px;
-  }
 }
 .posts,
 .post-container {
@@ -601,10 +597,6 @@ main {
 		padding: 0;
 		margin: 0; /* no margin to parent */
 		width: 100%;
-		
-		h2 {
-			font-size: 22px;
-		}
    }
 }
 .post {
