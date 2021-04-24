@@ -567,7 +567,7 @@ main {
   font-size: 29px;
   
   @media screen and (max-width: $mobileW) {
-    font-size: 25px;
+    font-size: 27px;
   }
 }
 .posts,
@@ -601,6 +601,10 @@ main {
 		padding: 0;
 		margin: 0; /* no margin to parent */
 		width: 100%;
+		
+		h2 {
+			font-size: 22px;
+		}
    }
 }
 .post {
@@ -910,7 +914,7 @@ pre, code, tt {
 }
 
 code, tt {
-  font-family: 'Roboto', 'Consolas', 'Courier', 'monospace', sans-serif;
+  font-family: 'Roboto', 'Arial', 'Microsoft Yahei', sans-serif;
   margin: 0 0px;
   font-size: 14px;
   padding: 4px 4px;
