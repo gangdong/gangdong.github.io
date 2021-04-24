@@ -50,14 +50,16 @@ I tried to adopt two methods to fast the image loading time.
 
    The future plan is to serve images in next-gen formats. Image formats like JPEG 2000, JPEG XR, and WebP often provide better compression than PNG or JPEG, which means faster downloads and less data consumption. The only concern is browser compatibility, not all of the browser is able to support these formats so far.
 <div class = "post-note info">
-  <div class = "header">Information:</div>
-  	<p>If you want to know the detailed information about the browser compatibility, <br>please view below website: 
-	  <ul>
-		<li><a href = "https://caniuse.com/webp">WebP</a></li>
-		<li><a href = "https://caniuse.com/jpeg2000">JPEG 2000</a></li>
-		<li><a href = "https://caniuse.com/jpegxr">JPEG XR</a></li>
-	  </ul>
-  	</p>
+  <div class = "header"></div>
+  	<div class = "body">
+		<p>If you want to know the detailed information about the browser compatibility, <br>please view below website: 
+		  <ul >
+			<li><a href = "https://caniuse.com/webp">WebP</a></li>
+			<li><a href = "https://caniuse.com/jpeg2000">JPEG 2000</a></li>
+			<li><a href = "https://caniuse.com/jpegxr">JPEG XR</a></li>
+		  </ul>
+		</p>
+  	</div>
 </div>
 + Use image CDNs to optimize images:
 
@@ -78,8 +80,10 @@ I tried to adopt two methods to fast the image loading time.
    The usage of jsdelivr CDN is simple, I inserted the URL of jsdelivr service in the front of my local `assets/images` URL in the `_config.yml` by following [Usage](https://www.jsdelivr.com/features#gh). 
    
 <div class = "post-note info">
-  <div class = "header">Information:</div>
-  <p> For more details of jsdelivr, refer to <a href = "https://github.com/jsdelivr/jsdelivr">jsdelivr @Github</a>. </p>
+  <div class = "header"></div>
+  <div class = "body">
+  	<p> For more details of jsdelivr, refer to <a href = "https://github.com/jsdelivr/jsdelivr">jsdelivr @Github</a>. </p>
+  </div>
 </div>
 
    OK, Let's see the result with above optimization.

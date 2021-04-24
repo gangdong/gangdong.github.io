@@ -25,8 +25,10 @@ Github Pages are a great approach to build websites. Using a Github repository a
 Although Github Pages can automatically generate a website from a repository containing a Jekyll project, it has some limitations. 
 
 <div class = "post-note info">
-  <div class = "header">Information:</div>
+  <div class = "header"></div>
+  <div class = "body">
   <p>To deploy the blog on Github Pages, you just need to commit your website's source code to Github repo and don't pay any effort on the building and deployment.<br>Github Pages will do it for you! </p>
+  </div>
 </div>
 
 One of them is 
@@ -38,8 +40,10 @@ I need to use plugins to extend the function of my website, e.g. for implementat
 It is understandable that Github Pages doesn't allow the plugin for security reasons. 
 
 <div class = "post-note info">
-  <div class = "header">Information:</div>
-  <p>Github Pages Generator uses the Jekyll <span style = "font-style: italic; color: #DC143C;">--safe</span> flag.</p>
+  <div class = "header"></div>
+  <div class = "body">
+  <p>Github Pages Generator uses the Jekyll <span style = "color: #c7254e;">--safe</span> flag.</p>
+  </div>
 </div>
 
 The workaround is to generate the site locally and then to push the generated HTML to Github (*I've interpreted how to do in my previous [article]({{site.baseurl}}/blog/github/2018/12/29/Blog-Jekyll-toc-plugin.html)*). However, I usually use the different branch for source code and output static HTMLs. The `dev` branch accommodates the source code and `gh-pages` branch, which is as a window of website visiting, stores the static website files.
@@ -110,12 +114,14 @@ The main phases are:
 You can complete a basic work with above minimal life cycle. Besides, Travis CI affords some phases that allow users to insert custom commands. 
 
 <div class = "post-note info">
-  <div class = "header">Information:</div>
-  <p>To get to know the details and learn how to write <span style = "color:#DC143C;">.travis.yml</span> file, please read 
-  <ul>
-	<li><a href = "https://docs.travis-ci.com/user/job-lifecycle/">Travis CI Job Lifecycle</a></li>
-  </ul>
-  </p>
+  <div class = "header"></div>
+  <div class = "body">
+    <p>To get to know the details and learn how to write <span style = "color:#c7254e;">.travis.yml</span> file, please read 
+      <ul>
+	    <li><a href = "https://docs.travis-ci.com/user/job-lifecycle/">Travis CI Job Lifecycle</a></li>
+      </ul>
+    </p>
+  </div>
 </div>
 
 ### Sensitive Data
@@ -169,8 +175,10 @@ ssh-add blog_id_rsa
 After generated the encrypted key leave it into your code repo.
 
 <div class = "post-note warning">
-  <div class = "header">Warning:</div>
+  <div class = "header"></div>
+  <div class = "body">
   	<p>Do not forget remove your <span style = "font-style: italic; font-weight: bold; color: #eb0f00">PRIVATE KEY</span> before you commit code to Github Repo!<br>Otherwise, you may potentially disclose your private key.</p>
+  </div>
 </div>
 
 #### PATs

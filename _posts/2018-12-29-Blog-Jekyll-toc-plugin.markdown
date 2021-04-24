@@ -60,8 +60,10 @@ I realized immediately that this plugin wasn't in the [whitelist](https://pages.
 I have to use a trick way to skip the restriction. As above bulletin showed, I need to build the site locally and push the generated static files to my Github repository.
 
 <div class = "post-note warning"> 
-	<div class = "header">Warning:</div>
+	<div class = "header"></div>
+	<div class = "body">
 	<p>Don't use Github Pages Generator build.</p>
+	</div>
 </div>
 
 

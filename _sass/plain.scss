@@ -1212,28 +1212,31 @@ table {
 	margin-bottom: 2rem;
 	padding-top: 20px;
 	padding-bottom: 20px;
-	
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
 	.header {
-		font-weight: bold;
+		width: 40px;
 	}
 	.header:before {
 		font-family: "fontello";
 		padding-left: 2px;
 		padding-right: 20px;
+		font-weight: bold;
 	}
-	ul {
-		margin-bottom: 0px;
-		margin-left: 38px;
-	}
-	p {
-		margin: 0;
-		padding-top: 0;
-		padding-left: 38px;
-	}
-	a {
-		text-decoration: underline;
-		&:hover {
-			text-decoration: none;
+    .body {
+		p {
+			margin: 0;
+			padding: 0;
+		}
+		ul {
+			margin-bottom: 0;
+		}
+		a {
+			text-decoration: underline;
+			&:hover {
+				text-decoration: none;
+			}
 		}
 	}
 }
