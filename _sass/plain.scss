@@ -569,6 +569,9 @@ main {
 .post-title-body {
 	line-height: 1.2em;
 	font-size: 34px;
+	@media screen and (max-width: $mobileW) {
+		font-size: 30px;
+  }
 }
 .posts,
 .post-container {
