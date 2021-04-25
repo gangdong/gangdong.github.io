@@ -1,6 +1,6 @@
 title: David Dong's Blog
 SEOTitle: David's Blog | 董刚的博客
-logo: 'assets/logo.png' 
+logo: '/assets/logo.png' 
 label: BLOG # this name will be displayed on the title name of homepage
 author: David Dong
 email: dqdongg@hotmail.com
