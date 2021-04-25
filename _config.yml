@@ -4,8 +4,8 @@ label: BLOG # this name will be displayed on the title name of homepage
 author: David Dong
 email: dqdongg@hotmail.com
 description: > # this means to ignore newlines until "show_exerpts:"
-  This is DavidDong's blog. This blog recorded my life and growth track. It's one of my GitHub project. Hosted on GitHub Pages and powered by Jekyll. Welcome to visit! 
-  
+  "This is David Dong's blog. It's about program & design, life & sharing. Let's explore more together. | David，Software，Developer.Designer | 关于程序与设计 & 生活与分享 | 这里是董刚 的个人博客，让我们一起探索更多。"
+keyword: "董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages"
 show_excerpts: true # set to true to show excerpts on the homepage
 url: https://dqdongg.com
 baseurl: ''
