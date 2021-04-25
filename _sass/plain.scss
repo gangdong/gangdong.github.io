@@ -329,7 +329,7 @@ main {
     text-decoration: none;
     font-size: 12px;
     background: #FAFAFA;
-	border: 1px solid #BFC9CA;
+	border: 1px solid #E5E7E9;
     padding: .2em .4em;
     border-radius: 3px;
 	&:hover {
@@ -417,7 +417,7 @@ main {
 
 	@media screen and (max-width: $mobileW) {
 		margin-top: 10px;
-		margin-bottom: 0;
+		margin-bottom: 2px;
   }
 }
 .archive-post-date {
