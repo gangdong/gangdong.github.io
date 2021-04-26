@@ -43,12 +43,13 @@
 [Github homepage](https://github.com/gangdong/) | [LinkedIn](https://www.linkedin.com/in/刚-董-25208ba0/)
 <br>
 
-### rawpost theme
+### rawpost 主题
 
 这个博客通过 <a href = "https://jekyllrb.com/">Jekyll</a> 生成，部署在 Github Pages，基于 <a href = "https://github.com/gangdong/jekyll-theme-rawposts">rawposts</a> 主题。<br>
 
 `rawposts` 是我自己开发的一个主题，最初来源于一个 Github 上的项目 <a href = "https://github.com/samarsault/plainwhite-jekyll">plainwhite</a>。 我在之上做了大量开发，逐渐形成了这个主题。这个博客之上留有一系列的文章介绍这个主题是如何创建生成的，并分享了这个过程中的一些知识和经验。感兴趣的可以浏览相关的帖子。<br><br>
 
+欢迎 fork 并使用, 如果对该主题模板有任何建议或改进，可以通过 Issues 或者提 PR 给我。
 
 ### [English]
 <h1 style = "margin-bottom: 0; padding:0; font-size:32px; font-weight:bold"> This is David's Blog | 董刚的博客</h1>
@@ -76,3 +77,8 @@ If you're interested in contacting me, feel free to send an <a href = "mailto:dq
 
 ### rawpost theme
 It is built by <a href = "https://jekyllrb.com/">Jekyll</a> and deployed on GitHub Pages, based on the <a href = "https://github.com/gangdong/jekyll-theme-rawposts">rawposts</a> theme. I wrote the theme by myself on the basis of <a href = "https://github.com/samarsault/plainwhite-jekyll">plainwhite</a>, there is a series of posts on this blog explain how the blog was created and the theme was made. You can view them if you are interested.<br><br> 
+
+Welcome fork and use, if you have any suggestion or improvement for this theme, please raise issues or PR to me.
+<br><br><br>
+
+Copyright © 2021 David Dong's Blog  |  Github Project  powered by Jekyll
