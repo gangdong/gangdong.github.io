@@ -1,4 +1,4 @@
-<h1 style = "margin-bottom: 0; padding:0; font-size:32px; font-weight:bold"> This is David's Blog | 董刚的博客</h1>
+# This is David's Blog | 董刚的博客
 
 [![Build Status](https://travis-ci.com/gangdong/gangdong.github.io.svg?branch=dev)](https://travis-ci.com/gangdong/gangdong.github.io)
 
@@ -8,11 +8,11 @@
     + [效果预览](#效果预览)
     + [在线预览](#在线预览)
     + [关于本站](#关于本站)
-    + [rawposts 主题](#rawposts 主题)
+    + [rawposts 主题](#rawposts-主题)
 + [[English]](#English)
-    + [Live Demo](#Live Demo)
-    + [About this site](#About this site)
-    + [rawpost theme](#rawpost theme)
+    + [Live Demo](#Live-Demo)
+    + [About this site](#About-this-site)
+    + [rawpost theme](#rawpost-theme)
 
 
 ## 中文
@@ -40,9 +40,10 @@
 相遇即是缘分，如果你恰好看到这个博客，如果你有兴趣与我建立联系，还可以通过以下方式：<br>
 
 [Github homepage](https://github.com/gangdong/) | [LinkedIn](https://www.linkedin.com/in/刚-董-25208ba0/)
-
 <br>
-### rawposts 主题
+
+### rawpost theme
+
 这个博客通过 <a href = "https://jekyllrb.com/">Jekyll</a> 生成，部署在 Github Pages，基于 <a href = "https://github.com/gangdong/jekyll-theme-rawposts">rawposts</a> 主题。<br>
 
 `rawposts` 是我自己开发的一个主题，最初来源于一个 Github 上的项目 <a href = "https://github.com/samarsault/plainwhite-jekyll">plainwhite</a>。 我在之上做了大量开发，逐渐形成了这个主题。这个博客之上留有一系列的文章介绍这个主题是如何创建生成的，并分享了这个过程中的一些知识和经验。感兴趣的可以浏览相关的帖子。<br><br>
