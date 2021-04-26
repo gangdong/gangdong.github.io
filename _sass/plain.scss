@@ -328,9 +328,10 @@ main {
     display: inline-block;
     text-decoration: none;
     font-size: 12px;
-    background: #FAFAFA;
-	border: 1px solid #E5E7E9;
-    padding: .2em .4em;
+    background: #e1ecf4;
+	color:#39739d;
+	border: 1px solid #e1ecf4;
+    padding: .4em .5em;
     border-radius: 3px;
 	&:hover {
 	  background-color: #F8F9F9;
