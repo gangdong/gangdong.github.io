@@ -81,4 +81,3 @@ It is built by <a href = "https://jekyllrb.com/">Jekyll</a> and deployed on GitH
 Welcome fork and use, if you have any suggestion or improvement for this theme, please raise issues or PR to me.
 <br><br><br>
 
-Copyright © 2021 David Dong's Blog  |  Github Project  powered by Jekyll
