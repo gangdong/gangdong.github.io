@@ -1,2 +1,0 @@
-I"3<p>上一篇博文 <a href="/daviddong.github.io/c/touch/linux/2014/06/25/Touch-driver.html">「ATMEL maXTouch IC驱动代码分析」</a> 我们讲到了 Touch 驱动代码如何读取IC内部获取到的触摸事件信息并通过<code class="language-plaintext highlighter-rouge">input_report_abs()</code>和<code class="language-plaintext highlighter-rouge">input_sync()</code>函数上报给 Linux 的 Input 子系统的过程。今天这篇文章我们就走进 Input 子系统内部来看一下事件是如何被传递到 Android 的用户空间的。</p>
-:ET

@@ -1,0 +1,89 @@
+I"O<p>The first step we should know if the hardware support SGX.<br />
+Which include:</p>
+<ul>
+  <li>BIOS support?</li>
+  <li>CPU support?</li>
+  <li>Software packages installed?</li>
+</ul>
+
+<p>Now let us go through above one by one.</p>
+
+<h2 id="cpu-query">CPU Query</h2>
+<ol>
+  <li>Get the CPU model of your hardware.
+By device manager -&gt; processors 
+<img src="/assets/image/others-sgx-01.PNG" alt="CPU" class="center_image" /></li>
+  <li>Find the corresponding model on the <a href="https://ark.intel.com/content/www/us/en/ark/products/88185/intel-core-i5-6400-processor-6m-cache-up-to-3-30-ghz.html">Intel official website</a>, which will indicate whether it supports SGX.<br />
+<img src="/assets/image/others-sgx-02.PNG" alt="CPU" class="center_image" />
+Oh! My laptop’s CPU supports but need install IME software.<br />
+Ok, remember this requirement and do it later. 😎</li>
+</ol>
+
+<h2 id="bios-query">BIOS Query</h2>
+
+<p>There are 3 kind of settings on the system BIOS for SGX.</p>
+
+<ul>
+  <li><strong>Enable</strong></li>
+  <li><strong>Software controlled</strong> - enabled through software applications. If Intel SGX is set to software controlled, Intel SGX is initially disabled. You need to make the following calls in the SDK through software application to set it to enabled state:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">sgx_enable_device</span><span class="p">()</span>
+<span class="n">sgx_cap_enable_device</span><span class="p">()</span></code></pre></figure>
+
+<p>Set softwar control mode is helpful to reduce consumption of system resources otherwise the SGX is always on and occupies a larger amount of RAMs which affects other programs and processes.</p>
+<ul>
+  <li><strong>Disable</strong></li>
+</ul>
+
+<h2 id="support-software-package">Support software package</h2>
+
+<ol>
+  <li>
+    <p>Intel SGX software package list 
+<img src="/assets/image/others-sgx-03.PNG" alt="packages" class="center_image" />
+Download SGX software packages at <a href="https://software.intel.com/content/www/us/en/develop/topics/software-guard-extensions/sdk.html">here</a>.</p>
+  </li>
+  <li>
+    <p>Install IME (Intel Management Engine)
+Download IME package at <a href="https://downloadcenter.intel.com/download/29352/Intel-Management-Engine-Interface-Driver-NUC8v7PN-NUC8v5PN">here</a>.
+Run SetupME.exe<br />
+<img src="/assets/image/others-sgx-09.PNG" alt="packages" class="center-image" /></p>
+  </li>
+  <li>
+    <p>Microsoft Visual Studio 2015/2017<br />
+Should install Microsoft Visual Studio 2015/2017 before install SGX SDK/PSW, it is important here for the installation sequence. The SGX SDK will install plug-in on Visual Studio, if SGX SDK is installed firstly, Visual Studio will lose the plug-in.<br />
+The Visual Studio install package is at <a href="https://visualstudio.microsoft.com/vs/older-downloads/">here</a>.</p>
+  </li>
+  <li>
+    <p>Install SGX SDK<br /><br />
+<img src="/assets/image/others-sgx-10.PNG" alt="packages" class="center-image" />
+Run <code class="language-plaintext highlighter-rouge">Intel(R)_SGX_Windows_SDK_2.7.101.2.exe</code>.</p>
+  </li>
+  <li>
+    <p>Install PSW<br />
+Run <code class="language-plaintext highlighter-rouge">Intel SGX PSW for Windows v2.7.101.2.exe</code> and unzip.<br />
+You will get a folder
+<img src="/assets/image/others-sgx-05.PNG" alt="psw" class="center-image" />
+Check the build number of operating system by <code class="language-plaintext highlighter-rouge">winver</code> command.<br />
+<img src="/assets/image/others-sgx-08.PNG" alt="psw" class="center-image" /></p>
+    <ul>
+      <li>If the system is <strong>windows 10 fall creators update (version 1709)</strong> or later, enter <code class="language-plaintext highlighter-rouge">PSW_INF_RS3_and_above</code> folder, run windows PowerShell as administrator to open command line window, and then enter <code class="language-plaintext highlighter-rouge">PSW_INF_RS3_and_above device</code> directory, keep going down until find <code class="language-plaintext highlighter-rouge">sgx_base.inf</code> file, input the following command:<br /></li>
+    </ul>
+  </li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">pnputil</span> <span class="sr">/add-driver sgx_base.inf  /ins</span><span class="n">tall</span></code></pre></figure>
+
+<p>Go back to <code class="language-plaintext highlighter-rouge">PSW_INF_RS3_and_above component</code> directory, go down until <code class="language-plaintext highlighter-rouge">find sgx_psw.inf</code> file, input the following command:<br /></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">pnputil</span> <span class="sr">/add-driver sgx_psw.inf  /ins</span><span class="n">tall</span></code></pre></figure>
+
+<ul>
+  <li>If it is the previous version, choose <code class="language-plaintext highlighter-rouge">PSW_EXE_RS2_and_before</code> folder and run<br />
+<code class="language-plaintext highlighter-rouge">Intel(R)_SGX_Windows_x64_PSW_2.7.101.2.exe</code> to install. <br />
+Open the Visual Studio 2015 and create a new VC++ project, if the <code class="language-plaintext highlighter-rouge">Intel SGX Enclave project</code> can be found in the template window, it means the SDK and Visual Studio plug-in has been installed successfully.
+<img src="/assets/image/others-sgx-11.PNG" alt="psw" class="center-image" /></li>
+</ul>
+
+:ET

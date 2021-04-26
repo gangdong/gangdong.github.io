@@ -1,0 +1,3 @@
+I"Z<p><img src="/assets/image/fingerprint-enroll-cover.jpeg" alt="cover" />  <br />
+When we do fingerprint enrollment in android device, it will generate a fingerprint template that contains the user’s fingerprint information in a specified directory (for example, /data/vendor_de/0/fpdata/user.db), which depends on the system configuration.</p>
+:ET

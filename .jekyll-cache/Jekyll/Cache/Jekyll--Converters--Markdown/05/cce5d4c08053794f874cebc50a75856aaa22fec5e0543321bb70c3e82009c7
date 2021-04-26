@@ -1,0 +1,49 @@
+I"6<p>For the windows driver development as what I am doing these days, Microsoft provides a log printing and log viewing mechanism, which can view the logs of specified driver files, filter the logs according to <code class="language-plaintext highlighter-rouge">LEVEL</code> and <code class="language-plaintext highlighter-rouge">FLAG</code>, or save them as files. This mechanism is WPP and  <code class="language-plaintext highlighter-rouge">TraceView.exe</code>.</p>
+
+<h2 id="how-to-use">How to use?</h2>
+<p>The usage is simple, WDF framework has built in the function and enclosed the WPP into the <code class="language-plaintext highlighter-rouge">trace.h</code>.
+The driver program imports the header file and add <code class="language-plaintext highlighter-rouge">TraceEvents()</code> method to the place where needs to print log. Use the <code class="language-plaintext highlighter-rouge">TraceView.exe</code> application to capture and view the logs when the driver program running.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">TraceEvents</span><span class="p">(</span><span class="no">TRACE_LEVEL_INFORMATION</span><span class="p">,</span> <span class="no">DBG_INIT</span><span class="p">,</span> <span class="s2">"log_name"</span><span class="p">);</span></code></pre></figure>
+
+<p>The first two parameters of this method represents the <code class="language-plaintext highlighter-rouge">LEVEL</code> and <code class="language-plaintext highlighter-rouge">FLAG</code> which will be used to control the logs output level and type.</p>
+
+<ul>
+  <li>In Windows10, the <code class="language-plaintext highlighter-rouge">TraceView.exe</code> is putted into the folder at <code class="language-plaintext highlighter-rouge">WDK install path</code>, normally the default installation path is</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">C</span><span class="p">:\</span><span class="no">Program</span> <span class="no">Files</span> <span class="p">(</span><span class="n">x86</span><span class="p">)\</span><span class="no">Windows</span> <span class="no">Kits</span><span class="p">\</span><span class="mi">10</span><span class="p">\</span><span class="no">Tools</span><span class="p">\</span><span class="n">x64</span></code></pre></figure>
+
+<ul>
+  <li>Run the <code class="language-plaintext highlighter-rouge">TraceView.exe</code> application and create a new log section.</li>
+</ul>
+
+<p><img src="/assets/image/others-traceview-01.PNG" alt="traceview" class="center-image" /></p>
+
+<ul>
+  <li>Click <code class="language-plaintext highlighter-rouge">Add Provider</code> and select the PDB file of your driver program.</li>
+</ul>
+
+<p><img src="/assets/image/others-traceview-02.PNG" alt="traceview" class="center-image" /></p>
+
+<p>The trace provider will generate trace event messages.</p>
+
+<ul>
+  <li>Click <code class="language-plaintext highlighter-rouge">Next</code> button and choose <code class="language-plaintext highlighter-rouge">Set Flag and Level</code>, in the pop window right click <code class="language-plaintext highlighter-rouge">Level</code> and select the <code class="language-plaintext highlighter-rouge">print level</code> of the log. Suggest to select <code class="language-plaintext highlighter-rouge">verbose</code> to print the logs as much as possible in the debug phase.</li>
+</ul>
+
+<p><img src="/assets/image/others-traceview-03.PNG" alt="traceview" class="center-image" /></p>
+
+<p>Click ‘OK’ button to complete the configuration.</p>
+
+<ul>
+  <li>Start running the driver program and the TraceView will output the logs that printed by TraceEvents() in the code.</li>
+</ul>
+
+<p><img src="/assets/image/others-traceview-04.PNG" alt="traceview" class="center-image" /></p>
+
+<p>Recommend some articles for the WPP/TraceView introduction.
+<a href="https://blog.csdn.net/xiangbaohui/article/details/106424665">https://blog.csdn.net/xiangbaohui/article/details/106424665</a><br />
+<a href="https://blog.csdn.net/u012308586/article/details/94429941">https://blog.csdn.net/u012308586/article/details/94429941</a><br />
+<a href="https://docs.microsoft.com/zh-cn/windows-hardware/drivers/devtest/enabling-wpp-tracing-through-windows-event-log">https://docs.microsoft.com/zh-cn/windows-hardware/drivers/devtest/enabling-wpp-tracing-through-windows-event-log</a></p>
+:ET

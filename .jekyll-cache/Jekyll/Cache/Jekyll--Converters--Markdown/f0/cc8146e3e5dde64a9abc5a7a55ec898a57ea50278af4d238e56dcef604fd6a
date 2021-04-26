@@ -1,0 +1,587 @@
+I"�P<p>上一篇博文 <a href="/c/touch/linux/2014/06/25/Touch-driver.html">「ATMEL maXTouch IC驱动代码分析」</a> 我们讲到了 Touch 驱动代码如何读取IC内部获取到的触摸事件信息并通过<code class="language-plaintext highlighter-rouge">input_report_abs()</code>和<code class="language-plaintext highlighter-rouge">input_sync()</code>函数上报给 Linux 的 Input 子系统的过程。今天这篇文章我们就走进 Input 子系统内部来看一下事件是如何被传递到 Android 的用户空间的。</p>
+
+<p>内容如下。</p>
+
+<div class="separator"></div>
+<h2 id="目录">目录</h2>
+<ol>
+  <li><a href="#1">Input 子系统框架</a></li>
+  <li><a href="#2">注册 Input 设备</a></li>
+  <li><a href="#3">数据上报过程</a>
+    <ul>
+      <li><a href="#3.1">3.1 input_handler</a></li>
+      <li><a href="#3.2">3.2 注册 input_handler</a></li>
+      <li><a href="#3.3">3.3 input_handle</a></li>
+      <li><a href="#3.4">3.4 注册 input_handle</a></li>
+      <li><a href="#3.5">3.5 由核心层 (<code class="language-plaintext highlighter-rouge">inputcore</code>) 到事件处理层 (<code class="language-plaintext highlighter-rouge">eventhandler</code>)</a></li>
+      <li><a href="#3.6">3.6 由事件处理层 (<code class="language-plaintext highlighter-rouge">eventhandler</code>) 到用户空间（<code class="language-plaintext highlighter-rouge">user space</code>)</a></li>
+      <li><a href="#3.7">3.7 用户空间读取事件</a></li>
+    </ul>
+  </li>
+  <li><a href="#4">总结</a></li>
+</ol>
+<div class="separator"></div>
+
+<h2 id="1-input-子系统框架"><span id="1">1. Input 子系统框架</span></h2>
+<p>首先我们从 Input 子系统介绍开始。Input 子系统由驱动层、输入子系统核心层（Input Core）和事件处理层（Event Handler）3部分组成。一个输入事件，如鼠标移动，触摸事件等通过驱动层-&gt;系统核心层-&gt;事件处理层-&gt;用户空间的顺序到达用户空间并传给应用程序使用。其中Input Core即输入子系统核心层由 <code class="language-plaintext highlighter-rouge">driver/input/input.c</code> 及相关头文件实现。其对下提供了设备驱动的接口，对上提供了事件处理层的编程接口。输入子系统主要设计<code class="language-plaintext highlighter-rouge">input_dev</code>、<code class="language-plaintext highlighter-rouge">input_handler</code>、<code class="language-plaintext highlighter-rouge">input_handle</code>等数据结构，它们的用途和功能如下图所示。 <br />
+<img src="/assets/image/touch-touchevent-01.png" alt="touchevent framework" /></p>
+
+<h2 id="2-注册-input-设备"><span id="2">2. 注册 Input 设备</span></h2>
+<p>我们在之前介绍驱动代码的时候讲到过，输入设备在初始化的时候都需要调用<code class="language-plaintext highlighter-rouge">input_allocate_device()</code>和<code class="language-plaintext highlighter-rouge">input_register_device()</code>进行注册。其中<code class="language-plaintext highlighter-rouge">input_allocate_device()</code>函数在内存中为输入设备结构体分配一个空间，并对其主要的成员进行了初始化。它的代码如下。</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">input_dev</span> <span class="o">*</span><span class="nf">input_allocate_device</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+ <span class="k">struct</span> <span class="n">input_dev</span> <span class="o">*</span><span class="n">dev</span><span class="p">;</span>
+ <span class="n">dev</span> <span class="o">=</span> <span class="n">kzalloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">input_dev</span><span class="p">),</span> <span class="n">GFP_KERNEL</span><span class="p">);</span>
+<span class="cm">/*分配一个input_dev结构体，并初始化为0*/</span>
+ <span class="k">if</span> <span class="p">(</span><span class="n">dev</span><span class="p">)</span> <span class="p">{</span>
+ 	<span class="n">dev</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">.</span><span class="n">type</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">input_dev_type</span><span class="p">;</span> 	<span class="cm">/*初始化设备的类型*/</span>
+	<span class="n">dev</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">.</span><span class="n">class</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">input_class</span><span class="p">;</span> 		<span class="cm">/*设置为输入设备类*/</span>
+ 	<span class="n">device_initialize</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dev</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">);</span> 		<span class="cm">/*初始化device结构*/</span>
+ 	<span class="n">mutex_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dev</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span> 			<span class="cm">/*初始化互斥锁*/</span>
+ 	<span class="n">spin_lock_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dev</span><span class="o">-&gt;</span><span class="n">event_lock</span><span class="p">);</span> 	<span class="cm">/*初始化事件自旋锁*/</span>
+ 	<span class="n">INIT_LIST_HEAD</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dev</span><span class="o">-&gt;</span><span class="n">h_list</span><span class="p">);</span> 		<span class="cm">/*初始化链表*/</span>
+ 	<span class="n">INIT_LIST_HEAD</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dev</span><span class="o">-&gt;</span><span class="n">node</span><span class="p">);</span> 		<span class="cm">/*初始化链表*/</span>
+ 	<span class="n">__module_get</span><span class="p">(</span><span class="n">THIS_MODULE</span><span class="p">);</span> 			<span class="cm">/*模块引用加1*/</span>
+ <span class="p">}</span>
+ <span class="k">return</span> <span class="n">dev</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>该函数返回一个指向<code class="language-plaintext highlighter-rouge">input_dev</code>类型的指针，该结构体是一个输入设备结构体，包含了输入设备的一些相关信息，如设备支持的按键码、设备的名称、设备支持的事件等。</p>
+
+<p>接下来调用的<code class="language-plaintext highlighter-rouge">input_register_device()</code>函数很重要，我们看一下它的具体实现。</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">input_register_device</span><span class="p">(</span><span class="k">struct</span> <span class="n">input_dev</span> <span class="o">*</span><span class="n">dev</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="k">static</span> <span class="n">atomic_t</span> <span class="n">input_no</span> <span class="o">=</span> <span class="n">ATOMIC_INIT</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+	<span class="k">struct</span> <span class="n">input_handler</span> <span class="o">*</span><span class="n">handler</span><span class="p">;</span>
+	<span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">path</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">error</span><span class="p">;</span>
+	<span class="n">__set_bit</span><span class="p">(</span><span class="n">EV_SYN</span><span class="p">,</span> <span class="n">dev</span><span class="o">-&gt;</span><span class="n">evbit</span><span class="p">);</span>
+	<span class="n">init_timer</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dev</span><span class="o">-&gt;</span><span class="n">timer</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">dev</span><span class="o">-&gt;</span><span class="n">rep</span><span class="p">[</span><span class="n">REP_DELAY</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">dev</span><span class="o">-&gt;</span><span class="n">rep</span><span class="p">[</span><span class="n">REP_PERIOD</span><span class="p">])</span> <span class="p">{</span>
+		<span class="n">dev</span><span class="o">-&gt;</span><span class="n">timer</span><span class="p">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="kt">long</span><span class="p">)</span> <span class="n">dev</span><span class="p">;</span>
+		<span class="n">dev</span><span class="o">-&gt;</span><span class="n">timer</span><span class="p">.</span><span class="n">function</span> <span class="o">=</span> <span class="n">input_repeat_key</span><span class="p">;</span>
+		<span class="n">dev</span><span class="o">-&gt;</span><span class="n">rep</span><span class="p">[</span><span class="n">REP_DELAY</span><span class="p">]</span> <span class="o">=</span> <span class="mi">250</span><span class="p">;</span>
+		<span class="n">dev</span><span class="o">-&gt;</span><span class="n">rep</span><span class="p">[</span><span class="n">REP_PERIOD</span><span class="p">]</span> <span class="o">=</span> <span class="mi">33</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">dev</span><span class="o">-&gt;</span><span class="n">getkeycode</span><span class="p">)</span>
+		<span class="n">dev</span><span class="o">-&gt;</span><span class="n">getkeycode</span> <span class="o">=</span> <span class="n">input_default_getkeycode</span><span class="p">;</span>
+	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">dev</span><span class="o">-&gt;</span><span class="n">setkeycode</span><span class="p">)</span>
+		<span class="n">dev</span><span class="o">-&gt;</span><span class="n">setkeycode</span> <span class="o">=</span> <span class="n">input_default_setkeycode</span><span class="p">;</span>
+	<span class="n">dev_set_name</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dev</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">,</span> <span class="s">"input%ld"</span><span class="p">,</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span> <span class="n">atomic_inc_return</span><span class="p">(</span><span class="o">&amp;</span><span class="n">input_no</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+	<span class="n">error</span> <span class="o">=</span> <span class="n">device_add</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dev</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">error</span><span class="p">;</span>
+	<span class="n">path</span> <span class="o">=</span> <span class="n">kobject_get_path</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dev</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">.</span><span class="n">kobj</span><span class="p">,</span> <span class="n">GFP_KERNEL</span><span class="p">);</span>
+	<span class="n">printk</span><span class="p">(</span><span class="n">KERN_INFO</span> <span class="s">"input: %s as %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">dev</span><span class="o">-&gt;</span><span class="n">name</span> <span class="o">?</span> <span class="n">dev</span><span class="o">-&gt;</span><span class="n">name</span> <span class="o">:</span> <span class="s">"Unspecified device"</span><span class="p">,</span> <span class="n">path</span> <span class="o">?</span> <span class="n">path</span> <span class="o">:</span> <span class="s">"NA"</span><span class="p">);</span>
+	<span class="n">kfree</span><span class="p">(</span><span class="n">path</span><span class="p">);</span>
+	<span class="n">error</span> <span class="o">=</span> <span class="n">mutex_lock_interruptible</span><span class="p">(</span><span class="o">&amp;</span><span class="n">input_mutex</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">device_del</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dev</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">);</span>
+		<span class="k">return</span> <span class="n">error</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="n">list_add_tail</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dev</span><span class="o">-&gt;</span><span class="n">node</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">input_dev_list</span><span class="p">);</span>
+	<span class="n">list_for_each_entry</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">input_handler_list</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
+	<span class="n">input_attach_handler</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span> <span class="n">handler</span><span class="p">);</span>
+	<span class="n">input_wakeup_procfs_readers</span><span class="p">();</span>
+	<span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">input_mutex</span><span class="p">);</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">input_register_device()</code>函数是输入子系统核心（input core）提供的函数。该函数将<code class="language-plaintext highlighter-rouge">input_dev</code>结构体注册到输入子系统核心中，<code class="language-plaintext highlighter-rouge">input_dev</code>结构体必须由前面讲的 <code class="language-plaintext highlighter-rouge">input_allocate_device()</code>函数来分配。<code class="language-plaintext highlighter-rouge">input_register_device()</code>函数如果注册失败，必须调用 <code class="language-plaintext highlighter-rouge">input_free_device()</code> 函数释放分配的空间。如果该函数注册成功，在卸载函数中应该调用 <code class="language-plaintext highlighter-rouge">input_unregister_device()</code> 函数来注销输入设备结构体。 <br />
+<code class="language-plaintext highlighter-rouge">input_register_device()</code>函数主要完成了如下的工作：</p>
+<ul>
+  <li>函数中调用<code class="language-plaintext highlighter-rouge">__set_bit()</code>函数设置<code class="language-plaintext highlighter-rouge">input_dev</code>所支持的事件类型。事件类型由<code class="language-plaintext highlighter-rouge">input_dev</code>的<code class="language-plaintext highlighter-rouge">evbit</code>成员来表示，在这里将其<code class="language-plaintext highlighter-rouge">EV_SYN</code>置位，表示设备支持所有的事件。注意，一个设备可以支持一种或者多种事件类型。常用的事件类型如下：</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">#define EV_SYN 0x00 /*表示设备支持所有的事件*/
+#define EV_KEY 0x01 /*键盘或者按键，表示一个键码*/
+#define EV_REL 0x02 /*鼠标设备，表示一个相对的光标位置结果*/
+#define EV_ABS 0x03 /*手写板产生的值，其是一个绝对整数值*/
+#define EV_MSC 0x04 /*其他类型*/
+#define EV_LED 0x11 /*LED灯设备*/
+#define EV_SND 0x12 /*蜂鸣器，输入声音*/
+#define EV_REP 0x14 /*允许重复按键类型*/
+#define EV_PWR 0x16 /*电源管理事件*/</code></pre></figure>
+
+<ul>
+  <li>调用<code class="language-plaintext highlighter-rouge">dev_set_name()</code>设置<code class="language-plaintext highlighter-rouge">input_dev</code>中的device的名字，名字以<code class="language-plaintext highlighter-rouge">input0</code>、<code class="language-plaintext highlighter-rouge">input1</code>、<code class="language-plaintext highlighter-rouge">input2</code>、<code class="language-plaintext highlighter-rouge">input3</code>、<code class="language-plaintext highlighter-rouge">input4</code>等的形式出现在sysfs文件系统中。</li>
+  <li>使用<code class="language-plaintext highlighter-rouge">device_add()</code>函数将<code class="language-plaintext highlighter-rouge">input_dev</code>包含的device结构注册到Linux设备模型中，并可以在sysfs文件系统中表现出来。</li>
+  <li>调用<code class="language-plaintext highlighter-rouge">list_add_tail()</code>函数将<code class="language-plaintext highlighter-rouge">input_dev</code>加入<code class="language-plaintext highlighter-rouge">input_dev_list</code>链表中，<code class="language-plaintext highlighter-rouge">input_dev_list</code>链表中包含了系统中所有的<code class="language-plaintext highlighter-rouge">input_dev</code>设备。</li>
+  <li>调用了<code class="language-plaintext highlighter-rouge">input_attach_handler()</code>函数，
+<code class="language-plaintext highlighter-rouge">input_attach_handler()</code>函数用来匹配<code class="language-plaintext highlighter-rouge">input_dev</code>和<code class="language-plaintext highlighter-rouge">input_handler</code>，只有匹配成功，才能进行下一步的关联操作。<br />      <code class="language-plaintext highlighter-rouge">input_attach_handler()</code>函数的代码如下：</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">static</span> <span class="kt">int</span> <span class="nf">input_attach_handler</span><span class="p">(</span><span class="k">struct</span> <span class="n">input_dev</span> <span class="o">*</span><span class="n">dev</span><span class="p">,</span> <span class="k">struct</span> <span class="n">input_handler</span> <span class="o">*</span><span class="n">handler</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="k">const</span> <span class="k">struct</span> <span class="n">input_device_id</span> <span class="o">*</span><span class="n">id</span><span class="p">;</span> <span class="cm">/*输入设备的指针*/</span>
+	<span class="kt">int</span> <span class="n">error</span><span class="p">;</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">handler</span><span class="o">-&gt;</span><span class="n">blacklist</span> <span class="o">&amp;&amp;</span> <span class="n">input_match_device</span><span class="p">(</span><span class="n">handler</span><span class="o">-&gt;</span><span class="n">blacklist</span><span class="p">,</span> <span class="n">dev</span><span class="p">))</span>
+		<span class="k">return</span> <span class="o">-</span><span class="n">ENODEV</span><span class="p">;</span> <span class="cm">/*设备和处理函数之间的匹配*/</span>
+	<span class="n">id</span> <span class="o">=</span> <span class="n">input_match_device</span><span class="p">(</span><span class="n">handler</span><span class="o">-&gt;</span><span class="n">id_table</span><span class="p">,</span> <span class="n">dev</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">id</span><span class="p">)</span>
+		<span class="k">return</span> <span class="o">-</span><span class="n">ENODEV</span><span class="p">;</span>
+	<span class="n">error</span> <span class="o">=</span> <span class="n">handler</span><span class="o">-&gt;</span><span class="n">connect</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">dev</span><span class="p">,</span> <span class="n">id</span><span class="p">);</span><span class="cm">/*连接设备和处理函数*/</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="o">&amp;&amp;</span> <span class="n">error</span> <span class="o">!=</span> <span class="o">-</span><span class="n">ENODEV</span><span class="p">)</span>
+		<span class="n">printk</span><span class="p">(</span><span class="n">KERN_ERR</span><span class="p">,</span> <span class="s">"input: failed to attach handler %s to device %s,"</span><span class="n">error</span><span class="o">:</span> <span class="o">%</span><span class="n">d</span><span class="err">\</span><span class="n">n</span><span class="s">",</span><span class="err">
+</span><span class="s">			handler-&gt;name, kobject_name(&amp;dev-&gt;dev.kobj), error);</span><span class="err">
+</span><span class="s">	return error;</span><span class="err">
+</span><span class="s">}</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">input_attach_handler()</code>主要完成的工作有：</p>
+<ul>
+  <li>首先判断<code class="language-plaintext highlighter-rouge">handle</code>的<code class="language-plaintext highlighter-rouge">blacklist</code>是否被赋值，如果被赋值，则匹配<code class="language-plaintext highlighter-rouge">blacklist</code>中的数据跟<code class="language-plaintext highlighter-rouge">dev-&gt;id</code>的数据是否匹配。<code class="language-plaintext highlighter-rouge">blacklist</code>是一个<code class="language-plaintext highlighter-rouge">input_device_id*</code>的类型，其指向<code class="language-plaintext highlighter-rouge">input_device_ids</code>的一个表，这个表中存放了驱动程序应该忽略的设备。即使在<code class="language-plaintext highlighter-rouge">id_table</code>中找到支持的项，也应该忽略这种设备。</li>
+  <li>调用<code class="language-plaintext highlighter-rouge">input_match_device()</code>函数匹配<code class="language-plaintext highlighter-rouge">handle-&gt;id_table</code>和<code class="language-plaintext highlighter-rouge">dev-&gt;id</code>中的数据。如果不成功则返回。<code class="language-plaintext highlighter-rouge">handle-&gt;id_table</code>也是一个<code class="language-plaintext highlighter-rouge">input_device_id</code>类型的指针，其表示驱动支持的设备列表。</li>
+  <li>如果匹配成功，则调用<code class="language-plaintext highlighter-rouge">handler-&gt;connect()</code>函数将<code class="language-plaintext highlighter-rouge">handler</code>与<code class="language-plaintext highlighter-rouge">input_dev</code>连接起来。 <br />
+<code class="language-plaintext highlighter-rouge">input_match_device()</code>函数 <br />
+<code class="language-plaintext highlighter-rouge">input_match_device()</code>函数用来与<code class="language-plaintext highlighter-rouge">input_dev</code>和<code class="language-plaintext highlighter-rouge">handler</code>进行匹配。<code class="language-plaintext highlighter-rouge">handler</code>的<code class="language-plaintext highlighter-rouge">id_table</code>表中定义了其支持的<code class="language-plaintext highlighter-rouge">input_dev</code>设备。<br />
+该函数的代码如下：</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">input_device_id</span> <span class="o">*</span><span class="nf">input_match_device</span><span class="p">(</span><span class="k">const</span> <span class="k">struct</span>
+<span class="n">input_device_id</span> <span class="o">*</span><span class="n">id</span><span class="p">,</span>
+<span class="k">struct</span> <span class="n">input_dev</span> <span class="o">*</span><span class="n">dev</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(;</span> <span class="n">id</span><span class="o">-&gt;</span><span class="n">flags</span> <span class="o">||</span> <span class="n">id</span><span class="o">-&gt;</span><span class="n">driver_info</span><span class="p">;</span> <span class="n">id</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">id</span><span class="o">-&gt;</span><span class="n">flags</span> <span class="o">&amp;</span> <span class="n">INPUT_DEVICE_ID_MATCH_BUS</span><span class="p">)</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">id</span><span class="o">-&gt;</span><span class="n">bustype</span> <span class="o">!=</span> <span class="n">dev</span><span class="o">-&gt;</span><span class="n">id</span><span class="p">.</span><span class="n">bustype</span><span class="p">)</span>
+				<span class="k">continue</span><span class="p">;</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">id</span><span class="o">-&gt;</span><span class="n">flags</span> <span class="o">&amp;</span> <span class="n">INPUT_DEVICE_ID_MATCH_VENDOR</span><span class="p">)</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">id</span><span class="o">-&gt;</span><span class="n">vendor</span> <span class="o">!=</span> <span class="n">dev</span><span class="o">-&gt;</span><span class="n">id</span><span class="p">.</span><span class="n">vendor</span><span class="p">)</span>
+				<span class="k">continue</span><span class="p">;</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">id</span><span class="o">-&gt;</span><span class="n">flags</span> <span class="o">&amp;</span> <span class="n">INPUT_DEVICE_ID_MATCH_PRODUCT</span><span class="p">)</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">id</span><span class="o">-&gt;</span><span class="n">product</span> <span class="o">!=</span> <span class="n">dev</span><span class="o">-&gt;</span><span class="n">id</span><span class="p">.</span><span class="n">product</span><span class="p">)</span>
+				<span class="k">continue</span><span class="p">;</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">id</span><span class="o">-&gt;</span><span class="n">flags</span> <span class="o">&amp;</span> <span class="n">INPUT_DEVICE_ID_MATCH_VERSION</span><span class="p">)</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">id</span><span class="o">-&gt;</span><span class="n">version</span> <span class="o">!=</span> <span class="n">dev</span><span class="o">-&gt;</span><span class="n">id</span><span class="p">.</span><span class="n">version</span><span class="p">)</span>
+				<span class="k">continue</span><span class="p">;</span>
+		<span class="n">MATCH_BIT</span><span class="p">(</span><span class="n">evbit</span><span class="p">,</span> <span class="n">EV_MAX</span><span class="p">);</span>
+		<span class="n">MATCH_BIT</span><span class="p">(</span><span class="n">keybit</span><span class="p">,</span> <span class="n">KEY_MAX</span><span class="p">);</span>
+		<span class="n">MATCH_BIT</span><span class="p">(</span><span class="n">relbit</span><span class="p">,</span> <span class="n">REL_MAX</span><span class="p">);</span>
+		<span class="n">MATCH_BIT</span><span class="p">(</span><span class="n">absbit</span><span class="p">,</span> <span class="n">ABS_MAX</span><span class="p">);</span>
+		<span class="n">MATCH_BIT</span><span class="p">(</span><span class="n">mscbit</span><span class="p">,</span> <span class="n">MSC_MAX</span><span class="p">);</span>
+		<span class="n">MATCH_BIT</span><span class="p">(</span><span class="n">ledbit</span><span class="p">,</span> <span class="n">LED_MAX</span><span class="p">);</span>
+		<span class="n">MATCH_BIT</span><span class="p">(</span><span class="n">sndbit</span><span class="p">,</span> <span class="n">SND_MAX</span><span class="p">);</span>
+		<span class="n">MATCH_BIT</span><span class="p">(</span><span class="n">ffbit</span><span class="p">,</span> <span class="n">FF_MAX</span><span class="p">);</span>
+		<span class="n">MATCH_BIT</span><span class="p">(</span><span class="n">swbit</span><span class="p">,</span> <span class="n">SW_MAX</span><span class="p">);</span>
+		<span class="k">return</span> <span class="n">id</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">input_match_device()</code>主要完成的工作有：</p>
+<ul>
+  <li>匹配设备的产品总线类型/vendor/版本信息。</li>
+  <li>如果<code class="language-plaintext highlighter-rouge">id-&gt;flags</code>定义的类型匹配成功，或者<code class="language-plaintext highlighter-rouge">id-&gt;flags</code>没有定义，才会进入到<code class="language-plaintext highlighter-rouge">MATCH_BIT</code>的匹配项。
+<code class="language-plaintext highlighter-rouge">MATCH_BIT</code>宏的定义如下：</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">#define MATCH_BIT(bit, max) \
+for (i = 0; i &lt; BITS_TO_LONGS(max); i++) \
+if ((id-&gt;bit[i] &amp; dev-&gt;bit[i]) != id-&gt;bit[i]) \
+break; \
+if (i != BITS_TO_LONGS(max)) \
+continue;</code></pre></figure>
+
+<p>从<code class="language-plaintext highlighter-rouge">MATCH_BIT</code>宏的定义可以看出。只有当<code class="language-plaintext highlighter-rouge">iput device</code>和<code class="language-plaintext highlighter-rouge">input handler</code>的ID成员在evbit、keybit、… swbit项相同才会匹配成功。</p>
+
+<h2 id="3-数据上报过程"><span id="3">3. 数据上报过程</span></h2>
+<p>Input 子系统各层之间通信的基本单位就是事件，任何一个输入设备的动作都可以抽像成一种事件，如键盘的按下，触摸屏的按下，鼠标的移动等。事件有三种属性：类型（type），编码(code)，值(value)，Input子系统支持的所有事件都定义在<code class="language-plaintext highlighter-rouge">input.h</code>中，包括所有支持的类型，所属类型支持的编码等。事件传送的方向是硬件驱动层–&gt;子系统核心–&gt;事件处理层–&gt;用户空间。</p>
+
+<p>在驱动代码的介绍中，我们讲到驱动最终调用到<code class="language-plaintext highlighter-rouge">input_report_abs()</code>将touchevent打包发送给Input子系统。
+<code class="language-plaintext highlighter-rouge">input_report_abs()</code>函数代码如下：</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">static</span> <span class="kr">inline</span> <span class="kt">void</span> <span class="nf">input_report_abs</span><span class="p">(</span><span class="k">struct</span> <span class="n">input_dev</span> <span class="o">*</span><span class="n">dev</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">code</span><span class="p">,</span> <span class="kt">int</span> <span class="n">value</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">input_event</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span> <span class="n">EV_ABS</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">value</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>可以看到其为内联函数, 为<code class="language-plaintext highlighter-rouge">input_event(,EV_ABS, ...)</code>的二次封装。</p>
+
+<p><img src="/assets/image/touch-touchevent-02.png" alt="touchevent framework" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">input_event()</code>的代码如下,略过无关的部分：</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">input_event</span><span class="p">(</span><span class="k">struct</span> <span class="n">input_dev</span> <span class="o">*</span><span class="n">dev</span><span class="p">,</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">type</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">code</span><span class="p">,</span> <span class="kt">int</span> <span class="n">value</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="p">....</span><span class="c1">//event是否支持, 这个和驱动里probe()时填充能力,设置参数有关,略过</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">is_event_supported</span><span class="p">(</span><span class="n">type</span><span class="p">,</span> <span class="n">dev</span><span class="o">-&gt;</span><span class="n">evbit</span><span class="p">,</span> <span class="n">EV_MAX</span><span class="p">))</span> <span class="p">{</span>
+	<span class="p">....</span>
+        <span class="n">input_handle_event</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span> <span class="n">type</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">value</span><span class="p">);</span>
+	<span class="p">...</span>
+<span class="p">}</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">input_event()</code> 调用了<code class="language-plaintext highlighter-rouge">input_handle_event()</code>函数。</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">static</span> <span class="kt">void</span> <span class="nf">input_handle_event</span><span class="p">(</span><span class="k">struct</span> <span class="n">input_dev</span> <span class="o">*</span><span class="n">dev</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">type</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">code</span><span class="p">,</span> <span class="kt">int</span> <span class="n">value</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">disposition</span> <span class="o">=</span> <span class="n">input_get_disposition</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span> <span class="n">type</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">value</span><span class="p">);</span> <span class="c1">//得到disposition</span>
+<span class="p">......</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">disposition</span> <span class="o">&amp;</span> <span class="n">INPUT_FLUSH</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">dev</span><span class="o">-&gt;</span><span class="n">num_vals</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">input_pass_values</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span> <span class="n">dev</span><span class="o">-&gt;</span><span class="n">vals</span><span class="p">,</span> <span class="n">dev</span><span class="o">-&gt;</span><span class="n">num_vals</span><span class="p">);</span>
+        <span class="n">dev</span><span class="o">-&gt;</span><span class="n">num_vals</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">dev</span><span class="o">-&gt;</span><span class="n">num_vals</span> <span class="o">&gt;=</span> <span class="n">dev</span><span class="o">-&gt;</span><span class="n">max_vals</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">dev</span><span class="o">-&gt;</span><span class="n">vals</span><span class="p">[</span><span class="n">dev</span><span class="o">-&gt;</span><span class="n">num_vals</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">input_value_sync</span><span class="p">;</span>
+        <span class="n">input_pass_values</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span> <span class="n">dev</span><span class="o">-&gt;</span><span class="n">vals</span><span class="p">,</span> <span class="n">dev</span><span class="o">-&gt;</span><span class="n">num_vals</span><span class="p">);</span>  <span class="c1">//**&lt;--&gt; 重点,</span>
+        <span class="n">dev</span><span class="o">-&gt;</span><span class="n">num_vals</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+<span class="p">}</span></code></pre></figure>
+
+<p>所以我们可以简单看下<code class="language-plaintext highlighter-rouge">input_handle_event()</code> –&gt; <code class="language-plaintext highlighter-rouge">input_get_disposition()</code> EV_SYN事件和EV_ABS的返回值。</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">static</span> <span class="kt">int</span> <span class="nf">input_get_disposition</span><span class="p">(</span><span class="k">struct</span> <span class="n">input_dev</span> <span class="o">*</span><span class="n">dev</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">type</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">code</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">pval</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">disposition</span> <span class="o">=</span> <span class="n">INPUT_IGNORE_EVENT</span><span class="p">;</span>
+	<span class="p">......</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="n">type</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="k">case</span> <span class="n">EV_SYN</span><span class="p">:</span>
+        <span class="k">switch</span> <span class="p">(</span><span class="n">code</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="n">SYN_CONFIG</span><span class="p">:</span>
+            <span class="n">disposition</span> <span class="o">=</span> <span class="n">INPUT_PASS_TO_ALL</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+
+        <span class="k">case</span> <span class="n">SYN_REPORT</span><span class="p">:</span>
+            <span class="n">disposition</span> <span class="o">=</span> <span class="n">INPUT_PASS_TO_HANDLERS</span> <span class="o">|</span> <span class="n">INPUT_FLUSH</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="n">SYN_MT_REPORT</span><span class="p">:</span>
+            <span class="n">disposition</span> <span class="o">=</span> <span class="n">INPUT_PASS_TO_HANDLERS</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">break</span><span class="p">;</span>
+	<span class="p">......</span>
+    <span class="k">case</span> <span class="n">EV_ABS</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">is_event_supported</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">dev</span><span class="o">-&gt;</span><span class="n">absbit</span><span class="p">,</span> <span class="n">ABS_MAX</span><span class="p">))</span>
+            <span class="n">disposition</span> <span class="o">=</span> <span class="n">input_handle_abs_event</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">value</span><span class="p">);</span><span class="c1">//这个可以看看,他会对相同值进行过滤,返回INPUT_IGNORE_EVENT</span>
+
+        <span class="k">break</span><span class="p">;</span>
+	<span class="p">......</span>
+    <span class="k">return</span> <span class="n">disposition</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>让我们回到<code class="language-plaintext highlighter-rouge">input_handle_event()</code> –&gt; <code class="language-plaintext highlighter-rouge">input_pass_values()</code></p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">static</span> <span class="kt">void</span> <span class="nf">input_pass_values</span><span class="p">(</span><span class="k">struct</span> <span class="n">input_dev</span> <span class="o">*</span><span class="n">dev</span><span class="p">,</span> <span class="k">struct</span> <span class="n">input_value</span> <span class="o">*</span><span class="n">vals</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">count</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="p">......</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">handle</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="n">input_to_handler</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">count</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">list_for_each_entry_rcu</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">dev</span><span class="o">-&gt;</span><span class="n">h_list</span><span class="p">,</span> <span class="n">d_node</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">handle</span><span class="o">-&gt;</span><span class="n">open</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">count</span> <span class="o">=</span> <span class="n">input_to_handler</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">count</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">count</span><span class="p">)</span>
+                    <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+    <span class="p">}</span>
+	<span class="p">......</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>其重点函数为<code class="language-plaintext highlighter-rouge">input_to_handler()</code></p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">static</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">input_to_handler</span><span class="p">(</span><span class="k">struct</span> <span class="n">input_handle</span> <span class="o">*</span><span class="n">handle</span><span class="p">,</span>
+            <span class="k">struct</span> <span class="n">input_value</span> <span class="o">*</span><span class="n">vals</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">count</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">input_handler</span> <span class="o">*</span><span class="n">handler</span> <span class="o">=</span> <span class="n">handle</span><span class="o">-&gt;</span><span class="n">handler</span><span class="p">;</span>
+	<span class="p">......</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">handler</span><span class="o">-&gt;</span><span class="n">filter</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">v</span> <span class="o">=</span> <span class="n">vals</span><span class="p">;</span> <span class="n">v</span> <span class="o">!=</span> <span class="n">vals</span> <span class="o">+</span> <span class="n">count</span><span class="p">;</span> <span class="n">v</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">handler</span><span class="o">-&gt;</span><span class="n">filter</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">v</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">,</span> <span class="n">v</span><span class="o">-&gt;</span><span class="n">code</span><span class="p">,</span> <span class="n">v</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">))</span>
+                <span class="k">continue</span><span class="p">;</span>
+	<span class="p">.......</span>
+    <span class="p">}</span>
+	<span class="p">......</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">handler</span><span class="o">-&gt;</span><span class="n">events</span><span class="p">)</span>
+        <span class="n">handler</span><span class="o">-&gt;</span><span class="n">events</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">count</span><span class="p">);</span> <span class="c1">//&lt;--handler的events.</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">handler</span><span class="o">-&gt;</span><span class="n">event</span><span class="p">)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">v</span> <span class="o">=</span> <span class="n">vals</span><span class="p">;</span> <span class="n">v</span> <span class="o">!=</span> <span class="n">vals</span> <span class="o">+</span> <span class="n">count</span><span class="p">;</span> <span class="n">v</span><span class="o">++</span><span class="p">)</span>
+            <span class="n">handler</span><span class="o">-&gt;</span><span class="n">event</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">v</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">,</span> <span class="n">v</span><span class="o">-&gt;</span><span class="n">code</span><span class="p">,</span> <span class="n">v</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="n">count</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>这里面<code class="language-plaintext highlighter-rouge">input_handle</code>结构体代表一个成功配对的<code class="language-plaintext highlighter-rouge">input_dev</code>和<code class="language-plaintext highlighter-rouge">input_handler</code>。<br /> <br />
+关于<code class="language-plaintext highlighter-rouge">input_handle</code>，<code class="language-plaintext highlighter-rouge">input_dev</code>和<code class="language-plaintext highlighter-rouge">input_handler</code>结构体的含义如下：</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">struct input_dev</code>： 物理输入设备的基本数据结构，包含设备相关的一些信息。</li>
+  <li><code class="language-plaintext highlighter-rouge">struct input_handler</code>： 事件处理结构体，定义怎么处理事件的逻辑。</li>
+  <li><code class="language-plaintext highlighter-rouge">struct input_handle</code>： 用来创建input_dev和input_handler之间关系的结构体。</li>
+</ul>
+
+<h3 id="31-input_handler"><span id="3.1">3.1 input_handler</span></h3>
+<p><code class="language-plaintext highlighter-rouge">input_handler</code>结构体的定义如下：</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">input_handler</span> <span class="p">{</span>
+
+    <span class="kt">void</span> <span class="o">*</span><span class="n">private</span><span class="p">;</span>
+
+    <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">event</span><span class="p">)(</span><span class="k">struct</span> <span class="n">input_handle</span> <span class="o">*</span><span class="n">handle</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">type</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">code</span><span class="p">,</span> <span class="kt">int</span> <span class="n">value</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">events</span><span class="p">)(</span><span class="k">struct</span> <span class="n">input_handle</span> <span class="o">*</span><span class="n">handle</span><span class="p">,</span>
+               <span class="k">const</span> <span class="k">struct</span> <span class="n">input_value</span> <span class="o">*</span><span class="n">vals</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">count</span><span class="p">);</span>
+    <span class="n">bool</span> <span class="p">(</span><span class="o">*</span><span class="n">filter</span><span class="p">)(</span><span class="k">struct</span> <span class="n">input_handle</span> <span class="o">*</span><span class="n">handle</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">type</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">code</span><span class="p">,</span> <span class="kt">int</span> <span class="n">value</span><span class="p">);</span>
+    <span class="n">bool</span> <span class="p">(</span><span class="o">*</span><span class="n">match</span><span class="p">)(</span><span class="k">struct</span> <span class="n">input_handler</span> <span class="o">*</span><span class="n">handler</span><span class="p">,</span> <span class="k">struct</span> <span class="n">input_dev</span> <span class="o">*</span><span class="n">dev</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">connect</span><span class="p">)(</span><span class="k">struct</span> <span class="n">input_handler</span> <span class="o">*</span><span class="n">handler</span><span class="p">,</span> <span class="k">struct</span> <span class="n">input_dev</span> <span class="o">*</span><span class="n">dev</span><span class="p">,</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">input_device_id</span> <span class="o">*</span><span class="n">id</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">disconnect</span><span class="p">)(</span><span class="k">struct</span> <span class="n">input_handle</span> <span class="o">*</span><span class="n">handle</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">start</span><span class="p">)(</span><span class="k">struct</span> <span class="n">input_handle</span> <span class="o">*</span><span class="n">handle</span><span class="p">);</span>
+<span class="p">......</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>
+
+    <span class="k">const</span> <span class="k">struct</span> <span class="n">input_device_id</span> <span class="o">*</span><span class="n">id_table</span><span class="p">;</span>
+
+    <span class="k">struct</span> <span class="n">list_head</span>    <span class="n">h_list</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">list_head</span>    <span class="n">node</span><span class="p">;</span>
+<span class="p">};</span></code></pre></figure>
+
+<p>该结构体主要是</p>
+<ul>
+  <li>定义了一个<code class="language-plaintext highlighter-rouge">event()</code>处理函数，这个函数将被输入子系统调用去处理发送给设备的事件。例如将发送一个事件命令LED灯点亮，实际控制硬件的点亮操作就可以放在<code class="language-plaintext highlighter-rouge">event()</code>函数中实现。</li>
+  <li>定义了一个<code class="language-plaintext highlighter-rouge">connect()</code>函数，该函数用来连接<code class="language-plaintext highlighter-rouge">handler</code>和<code class="language-plaintext highlighter-rouge">input_dev</code>。</li>
+  <li>定义了一个<code class="language-plaintext highlighter-rouge">disconnect()</code>函数，这个函数用来断开<code class="language-plaintext highlighter-rouge">handler</code>和<code class="language-plaintext highlighter-rouge">input_dev</code>之间的联系。</li>
+  <li>定义了一个name，表示handler的名字，显示在<code class="language-plaintext highlighter-rouge">/proc/bus/input/handlers</code>目录中。</li>
+  <li>定义了一个<code class="language-plaintext highlighter-rouge">id_table</code>表，表示驱动能够处理的表。</li>
+  <li>指向一个<code class="language-plaintext highlighter-rouge">input_device_id</code>表，这个表包含handler应该忽略的设备。</li>
+  <li>定义了一个链表h_list，表示与这个<code class="language-plaintext highlighter-rouge">input_handler</code>相联系的下一个handler。</li>
+  <li>定义了一个链表node，将其连接到全局的<code class="language-plaintext highlighter-rouge">input_handler_list</code>链表中，所有的<code class="language-plaintext highlighter-rouge">input_handler</code>都连接在其上。</li>
+</ul>
+
+<h3 id="32-注册-input_handler"><span id="3.2">3.2 注册 input_handler</span></h3>
+<p><code class="language-plaintext highlighter-rouge">input_register_handler()</code>函数注册一个新的<code class="language-plaintext highlighter-rouge">input handler</code>处理器。这个handler将为输入设备使用，一个handler可以添加到多个支持它的设备中，也就是一个handler可以处理多个输入设备的事件。函数的参数传入简要注册的<code class="language-plaintext highlighter-rouge">input_handler</code>指针，该函数的代码如下：</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">input_register_handler</span><span class="p">(</span><span class="k">struct</span> <span class="n">input_handler</span> <span class="o">*</span><span class="n">handler</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="p">......</span><span class="c1">//初始化h_list</span>
+    <span class="n">INIT_LIST_HEAD</span><span class="p">(</span><span class="o">&amp;</span><span class="n">handler</span><span class="o">-&gt;</span><span class="n">h_list</span><span class="p">);</span>
+    <span class="c1">//将node加到list尾部</span>
+    <span class="n">list_add_tail</span><span class="p">(</span><span class="o">&amp;</span><span class="n">handler</span><span class="o">-&gt;</span><span class="n">node</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">input_handler_list</span><span class="p">);</span>
+    <span class="c1">//在注册handler的时候也对已有设备调用一次attach()</span>
+    <span class="n">list_for_each_entry</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">input_dev_list</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
+        <span class="n">input_attach_handler</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span> <span class="n">handler</span><span class="p">);</span>
+<span class="p">......</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>完成的主要工作：</p>
+<ul>
+  <li>调用<code class="language-plaintext highlighter-rouge">list_add_tail()</code>函数，将handler加入全局的<code class="language-plaintext highlighter-rouge">input_handler_list</code>链表中，该链表包含了系统中所有的<code class="language-plaintext highlighter-rouge">input_handler</code>。</li>
+  <li>调用了<code class="language-plaintext highlighter-rouge">input_attach_handler()</code>函数。<code class="language-plaintext highlighter-rouge">input_attach_handler()</code>函数的作用是匹配 <code class="language-plaintext highlighter-rouge">input_dev_list</code>链表中的<code class="language-plaintext highlighter-rouge">input_dev</code>与handler。如果成功会将<code class="language-plaintext highlighter-rouge">input_dev</code>与handler联系起来。</li>
+</ul>
+
+<h3 id="33-input_handle"><span id="3.3">3.3 input_handle</span></h3>
+<p><code class="language-plaintext highlighter-rouge">Input_Handle</code> 结构体 <br />
+<code class="language-plaintext highlighter-rouge">input_register_handle()</code>函数用来注册一个新的handle到输入子系统中。<code class="language-plaintext highlighter-rouge">input_handle</code>的主要功能是用来连接<code class="language-plaintext highlighter-rouge">input_dev</code>和<code class="language-plaintext highlighter-rouge">input_handler</code>。</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">input_handle</span> <span class="p">{</span>
+	<span class="kt">void</span> <span class="o">*</span><span class="n">private</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">open</span><span class="p">;</span>
+	<span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>
+	<span class="k">struct</span> <span class="n">input_dev</span> <span class="o">*</span><span class="n">dev</span><span class="p">;</span>
+	<span class="k">struct</span> <span class="n">input_handler</span> <span class="o">*</span><span class="n">handler</span><span class="p">;</span>
+	<span class="k">struct</span> <span class="n">list_head</span> <span class="n">d_node</span><span class="p">;</span>
+	<span class="k">struct</span> <span class="n">list_head</span> <span class="n">h_node</span><span class="p">;</span>
+<span class="p">};</span></code></pre></figure>
+
+<h3 id="34-注册-input_handle"><span id="3.4">3.4 注册 input_handle</span></h3>
+<p><code class="language-plaintext highlighter-rouge">input_handle</code>是用来连接<code class="language-plaintext highlighter-rouge">input_dev</code>和<code class="language-plaintext highlighter-rouge">input_handler</code>的一个中间结构体。事件通过<code class="language-plaintext highlighter-rouge">input_handle</code>从 <code class="language-plaintext highlighter-rouge">input_dev</code> 发送到<code class="language-plaintext highlighter-rouge">input_handler</code>，或者从<code class="language-plaintext highlighter-rouge">input_handler</code>发送到<code class="language-plaintext highlighter-rouge">input_dev</code>进行处理。在使用<code class="language-plaintext highlighter-rouge">input_handle</code>之前，需要对其进行注册，注册函数是<code class="language-plaintext highlighter-rouge">input_register_handle()</code>。
+<code class="language-plaintext highlighter-rouge">input_register_handle()</code>函数用来注册一个新的handle到输入子系统中。该函数接收一个<code class="language-plaintext highlighter-rouge">input_handle</code>类型的指针，该变量要在注册前对其成员初始化。<br />
+<code class="language-plaintext highlighter-rouge">input_register_handle()</code>函数的代码如下：</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">input_register_handle</span><span class="p">(</span><span class="k">struct</span> <span class="n">input_handle</span> <span class="o">*</span><span class="n">handle</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="k">struct</span> <span class="n">input_handler</span> <span class="o">*</span><span class="n">handlehandler</span> <span class="o">=</span> <span class="n">handle</span><span class="o">-&gt;</span><span class="n">handler</span><span class="p">;</span>
+	<span class="k">struct</span> <span class="n">input_dev</span> <span class="o">*</span><span class="n">dev</span> <span class="o">=</span> <span class="n">handle</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">error</span><span class="p">;</span>
+	<span class="n">error</span> <span class="o">=</span> <span class="n">mutex_lock_interruptible</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dev</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">error</span><span class="p">;</span>
+	<span class="n">list_add_tail_rcu</span><span class="p">(</span><span class="o">&amp;</span><span class="n">handle</span><span class="o">-&gt;</span><span class="n">d_node</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">dev</span><span class="o">-&gt;</span><span class="n">h_list</span><span class="p">);</span>
+	<span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dev</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+	<span class="n">synchronize_rcu</span><span class="p">();</span>
+	<span class="n">list_add_tail</span><span class="p">(</span><span class="o">&amp;</span><span class="n">handle</span><span class="o">-&gt;</span><span class="n">h_node</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">handler</span><span class="o">-&gt;</span><span class="n">h_list</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">handler</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">)</span>
+		<span class="n">handler</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">(</span><span class="n">handle</span><span class="p">);</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<ul>
+  <li>调用<code class="language-plaintext highlighter-rouge">list_add_tail_rcu()</code>函数将handle加入输入设备的<code class="language-plaintext highlighter-rouge">dev-&gt;h_list</code>链表中。</li>
+  <li>调用<code class="language-plaintext highlighter-rouge">list_add_tail()</code>函数将handle加入input_handler的<code class="language-plaintext highlighter-rouge">handler-&gt;h_list</code>链表中。</li>
+</ul>
+
+<p>input_dev、input_handler和handle三者之间的关系如下：</p>
+<ul>
+  <li>input_dev 是硬件驱动层，代表一个input设备；</li>
+  <li>input_handler 是事件处理层，代表一个事件处理器；</li>
+  <li>input_handle 个人认为属于核心层，代表一个配对的input设备与input事件处理器；</li>
+  <li>input_dev 通过全局的<code class="language-plaintext highlighter-rouge">input_dev_list</code>链接在一起。设备注册的时候实现这个操作；</li>
+  <li>input_handler 通过全局的<code class="language-plaintext highlighter-rouge">input_handler_list</code>链接在一起。事件处理器注册的时候实现这个操作（事件处理器一般内核自带，一般不需要我们来写）；</li>
+  <li>input_hande 没有一个全局的链表，它注册的时候将自己分别挂在了input_dev 和input_handler 的h_list上了。通过input_dev 和input_handler就可以找到input_handle 在设备注册和事件处理器，注册的时候都要进行配对工作，配对后就会实现链接。通过input_handle也可以找到input_dev和input_handler。</li>
+</ul>
+
+<p><img src="/assets/image/touch-touchevent-03.png" alt="touchevent framework" /></p>
+
+<h3 id="35-由核心层-inputcore-到事件处理层-eventhandler"><span id="3.5">3.5 由核心层 (inputcore) 到事件处理层 (eventhandler)</span></h3>
+<p>我们看到上面的代码调用到</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">handler</span><span class="o">-&gt;</span><span class="n">events</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">v</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">,</span> <span class="n">v</span><span class="o">-&gt;</span><span class="n">code</span><span class="p">,</span> <span class="n">v</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">);</span></code></pre></figure>
+
+<p>这里handler-&gt;events则是<code class="language-plaintext highlighter-rouge">Evdev.c(drivers\input)</code>里定义的。
+events 函数是当事件处理器接收到了来自input设备传来的事件时调用的处理函数，负责处理事件。</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">static</span> <span class="k">struct</span> <span class="n">input_handler</span> <span class="n">evdev_handler</span> <span class="o">=</span> <span class="p">{</span>
+
+	<span class="p">.</span><span class="n">event</span> <span class="o">=</span> <span class="n">evdev_event</span><span class="p">,</span>
+	<span class="p">.</span><span class="n">events</span> <span class="o">=</span> <span class="n">evdev_events</span><span class="p">,</span>
+	<span class="p">...</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>我们看一下函数原型。</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">static</span> <span class="kt">void</span> <span class="nf">evdev_events</span><span class="p">(</span><span class="k">struct</span> <span class="n">input_handle</span> <span class="o">*</span><span class="n">handle</span><span class="p">,</span>
+             <span class="k">const</span> <span class="k">struct</span> <span class="n">input_value</span> <span class="o">*</span><span class="n">vals</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">count</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="p">......</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">client</span><span class="p">)</span>
+        <span class="n">evdev_pass_values</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">ev_time</span><span class="p">);</span>
+    <span class="k">else</span>
+        <span class="n">list_for_each_entry_rcu</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">evdev</span><span class="o">-&gt;</span><span class="n">client_list</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
+            <span class="n">evdev_pass_values</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">ev_time</span><span class="p">);</span>
+<span class="p">......</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>事件处理层（eventhandler）负责将事件上报，将键值、坐标等数据上报的对应的设备节点.</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">static</span> <span class="kt">void</span> <span class="nf">evdev_pass_values</span><span class="p">(</span><span class="k">struct</span> <span class="n">evdev_client</span> <span class="o">*</span><span class="n">client</span><span class="p">,</span>
+            <span class="k">const</span> <span class="k">struct</span> <span class="n">input_value</span> <span class="o">*</span><span class="n">vals</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">count</span><span class="p">,</span>
+            <span class="n">ktime_t</span> <span class="o">*</span><span class="n">ev_time</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">evdev</span> <span class="o">*</span><span class="n">evdev</span> <span class="o">=</span> <span class="n">client</span><span class="o">-&gt;</span><span class="n">evdev</span><span class="p">;</span>
+    <span class="k">const</span> <span class="k">struct</span> <span class="n">input_value</span> <span class="o">*</span><span class="n">v</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">input_event</span> <span class="n">event</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">timespec64</span> <span class="n">ts</span><span class="p">;</span>
+<span class="p">......</span><span class="c1">//时间</span>
+    <span class="n">event</span><span class="p">.</span><span class="n">input_event_sec</span> <span class="o">=</span> <span class="n">ts</span><span class="p">.</span><span class="n">tv_sec</span><span class="p">;</span>
+    <span class="n">event</span><span class="p">.</span><span class="n">input_event_usec</span> <span class="o">=</span> <span class="n">ts</span><span class="p">.</span><span class="n">tv_nsec</span> <span class="o">/</span> <span class="n">NSEC_PER_USEC</span><span class="p">;</span>
+<span class="p">......</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">v</span> <span class="o">=</span> <span class="n">vals</span><span class="p">;</span> <span class="n">v</span> <span class="o">!=</span> <span class="n">vals</span> <span class="o">+</span> <span class="n">count</span><span class="p">;</span> <span class="n">v</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">......</span><span class="c1">//事件数据填充</span>
+        <span class="n">event</span><span class="p">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">v</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">;</span>
+        <span class="n">event</span><span class="p">.</span><span class="n">code</span> <span class="o">=</span> <span class="n">v</span><span class="o">-&gt;</span><span class="n">code</span><span class="p">;</span>
+        <span class="n">event</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">v</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">;</span>
+        <span class="n">__pass_event</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">event</span><span class="p">);</span> <span class="c1">//&lt;--放到client-&gt;buffer里</span>
+    <span class="p">}</span>
+<span class="p">......</span>
+<span class="p">}</span></code></pre></figure>
+
+<h3 id="36-由事件处理层-eventhandler-到用户空间user-space"><span id="3.6">3.6 由事件处理层 (eventhandler) 到用户空间（user space）</span></h3>
+
+<p><code class="language-plaintext highlighter-rouge">__pass_event()</code>将event放到client-&gt;buffer[]里,由buffer 传入用户空间。 <br />
+<code class="language-plaintext highlighter-rouge">__pass_event()</code> 函数最终将事件传递给了用户端的client 结构中的<code class="language-plaintext highlighter-rouge">input_event</code> 数组中，只需将这个<code class="language-plaintext highlighter-rouge">input_event</code>数组复制给用户空间，进程就能收到触摸屏按下的信息了。</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">static</span> <span class="kt">void</span> <span class="nf">__pass_event</span><span class="p">(</span><span class="k">struct</span> <span class="n">evdev_client</span> <span class="o">*</span><span class="n">client</span><span class="p">,</span>
+             <span class="k">const</span> <span class="k">struct</span> <span class="n">input_event</span> <span class="o">*</span><span class="n">event</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">client</span><span class="o">-&gt;</span><span class="n">buffer</span><span class="p">[</span><span class="n">client</span><span class="o">-&gt;</span><span class="n">head</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="o">*</span><span class="n">event</span><span class="p">;</span>
+    <span class="n">client</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">&amp;=</span> <span class="n">client</span><span class="o">-&gt;</span><span class="n">bufsize</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">unlikely</span><span class="p">(</span><span class="n">client</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">==</span> <span class="n">client</span><span class="o">-&gt;</span><span class="n">tail</span><span class="p">))</span> <span class="p">{</span>
+        <span class="cm">/*
+         * This effectively "drops" all unconsumed events, leaving
+         * EV_SYN/SYN_DROPPED plus the newest event in the queue.
+         */</span>
+        <span class="n">client</span><span class="o">-&gt;</span><span class="n">tail</span> <span class="o">=</span> <span class="p">(</span><span class="n">client</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">client</span><span class="o">-&gt;</span><span class="n">bufsize</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+
+        <span class="n">client</span><span class="o">-&gt;</span><span class="n">buffer</span><span class="p">[</span><span class="n">client</span><span class="o">-&gt;</span><span class="n">tail</span><span class="p">].</span><span class="n">input_event_sec</span> <span class="o">=</span>
+                        <span class="n">event</span><span class="o">-&gt;</span><span class="n">input_event_sec</span><span class="p">;</span>
+        <span class="n">client</span><span class="o">-&gt;</span><span class="n">buffer</span><span class="p">[</span><span class="n">client</span><span class="o">-&gt;</span><span class="n">tail</span><span class="p">].</span><span class="n">input_event_usec</span> <span class="o">=</span>
+                        <span class="n">event</span><span class="o">-&gt;</span><span class="n">input_event_usec</span><span class="p">;</span>
+        <span class="n">client</span><span class="o">-&gt;</span><span class="n">buffer</span><span class="p">[</span><span class="n">client</span><span class="o">-&gt;</span><span class="n">tail</span><span class="p">].</span><span class="n">type</span> <span class="o">=</span> <span class="n">EV_SYN</span><span class="p">;</span>
+        <span class="n">client</span><span class="o">-&gt;</span><span class="n">buffer</span><span class="p">[</span><span class="n">client</span><span class="o">-&gt;</span><span class="n">tail</span><span class="p">].</span><span class="n">code</span> <span class="o">=</span> <span class="n">SYN_DROPPED</span><span class="p">;</span>
+        <span class="n">client</span><span class="o">-&gt;</span><span class="n">buffer</span><span class="p">[</span><span class="n">client</span><span class="o">-&gt;</span><span class="n">tail</span><span class="p">].</span><span class="n">value</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+        <span class="n">client</span><span class="o">-&gt;</span><span class="n">packet_head</span> <span class="o">=</span> <span class="n">client</span><span class="o">-&gt;</span><span class="n">tail</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">event</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">==</span> <span class="n">EV_SYN</span> <span class="o">&amp;&amp;</span> <span class="n">event</span><span class="o">-&gt;</span><span class="n">code</span> <span class="o">==</span> <span class="n">SYN_REPORT</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">client</span><span class="o">-&gt;</span><span class="n">packet_head</span> <span class="o">=</span> <span class="n">client</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
+        <span class="n">kill_fasync</span><span class="p">(</span><span class="o">&amp;</span><span class="n">client</span><span class="o">-&gt;</span><span class="n">fasync</span><span class="p">,</span> <span class="n">SIGIO</span><span class="p">,</span> <span class="n">POLL_IN</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">input_event</code> 结构体：</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">input_event</span>
+<span class="p">{</span>
+	<span class="k">struct</span> <span class="n">timeval</span> <span class="n">time</span><span class="p">;</span>
+	<span class="n">__u16</span> <span class="n">type</span><span class="p">;</span>
+	<span class="n">__u16</span> <span class="n">code</span><span class="p">;</span>
+	<span class="n">__s32</span> <span class="n">value</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<h3 id="37-用户空间读取事件"><span id="3.7">3.7 用户空间读取事件</span></h3>
+<p>我们从上面分析,看到数据已经放到了client-&gt;buffer[], 那读取也肯定也是从这里读。实际上，在文件evdev.c 中<code class="language-plaintext highlighter-rouge">Evdev_read()</code>函数将这个<code class="language-plaintext highlighter-rouge">input_event</code>数组复制给用户空间。</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">static</span> <span class="kt">ssize_t</span> <span class="nf">evdev_read</span><span class="p">(</span><span class="k">struct</span> <span class="n">file</span> <span class="o">*</span><span class="n">file</span><span class="p">,</span> <span class="kt">char</span> <span class="n">__user</span> <span class="o">*</span><span class="n">buffer</span><span class="p">,</span>
+              <span class="kt">size_t</span> <span class="n">count</span><span class="p">,</span> <span class="n">loff_t</span> <span class="o">*</span><span class="n">ppos</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">evdev_client</span> <span class="o">*</span><span class="n">client</span> <span class="o">=</span> <span class="n">file</span><span class="o">-&gt;</span><span class="n">private_data</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">evdev</span> <span class="o">*</span><span class="n">evdev</span> <span class="o">=</span> <span class="n">client</span><span class="o">-&gt;</span><span class="n">evdev</span><span class="p">;</span>
+<span class="p">......</span>
+    <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
+<span class="p">......</span><span class="c1">//循环读取下一个事件, 并通过input_event_to_user() --&gt; copy_to_user()给用户空间, 这样上面就读到数据了.</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">read</span> <span class="o">+</span> <span class="n">input_event_size</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="n">count</span> <span class="o">&amp;&amp;</span>
+               <span class="n">evdev_fetch_next_event</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">event</span><span class="p">))</span> <span class="p">{</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">input_event_to_user</span><span class="p">(</span><span class="n">buffer</span> <span class="o">+</span> <span class="n">read</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">event</span><span class="p">))</span>
+<span class="p">......</span>
+    <span class="k">return</span> <span class="n">read</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>调用了<code class="language-plaintext highlighter-rouge">input_event_to_user()</code>函数</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">input_event_to_user</span><span class="p">(</span><span class="kt">char</span> <span class="n">__user</span> <span class="o">*</span><span class="n">buffer</span><span class="p">,</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">input_event</span> <span class="o">*</span> <span class="n">event</span><span class="p">){</span>
+	
+	<span class="k">if</span><span class="p">(</span><span class="n">copy_to_user</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="n">event</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">input_event</span><span class="p">)))</span>
+		<span class="k">return</span> <span class="o">-</span><span class="n">EFAULT</span><span class="p">;</span>
+
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>事件读取函数调用流程</p>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">read时候 evdev_read--&gt; 从client-&gt;buffer[]循环获取事件 evdev_fetch_next_event() --&gt; input_event_to_user() --&gt; copy_to_user()</code></pre></figure>
+
+<h2 id="4-总结"><span id="4">4. 总结</span></h2>
+
+<p>最后总结一下整个数据的走向和传送的流程。</p>
+
+<p><img src="/assets/image/touch-touchevent-04.png" alt="touchevent framework" /></p>
+
+<ol>
+  <li>按照linux设备架构,驱动模型实现touchscreen driver。</li>
+  <li>模块初始化函数中将触摸屏注册到了输入子系统中，于此同时，注册函数在事件处理层链表中寻找事件处理器，这里找到的是evdev，并且将驱动与事件处理器挂载。并且在<code class="language-plaintext highlighter-rouge">/dev/input</code>中生成设备文件event0，以后我们访问这个文件就会访问到设备数据。</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">当各个handler init时 --&gt; input_register_handler() --&gt; input_attach_handler() --&gt;  handler-&gt;connect()
+或者驱动 --&gt; probe() --&gt; input_register_device() --&gt; input_attach_handler --&gt;  handler-&gt;connect()
+
+                                             +--&gt; input_register_handle() dev和handler关联
+handler-&gt;connect()--&gt;  eg:evdev.c events() --+
+                                             +--&gt;cdev_device_add() 注册字符设备</code></pre></figure>
+
+<ol>
+  <li>当点击触屏后, 进到中断处理,然后读取数据,再report,并存到client的buffer[]里。</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">input_report_abs() --&gt; input_event(, EV_ABS, , ) --&gt; input_handle_event() --&gt; input_pass_values() --&gt; input_to_handler() --&gt;
+handler-&gt;events()/event() --&gt; eg:evdev.c events() --&gt; evdev_pass_values() --&gt; 数据填充 --&gt; __pass_event() --&gt; client-&gt;buffer[]</code></pre></figure>
+
+<ol>
+  <li>上层用户空调read时, 只要有数据,不断从client-&gt;buffer[]读取并通过<code class="language-plaintext highlighter-rouge">copy_to_user()</code>拷到用户空间, 所以上层就拿到数据了。</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">read时候...--&gt; evdev_read--&gt; 从client-&gt;buffer[]循环获取事件 evdev_fetch_next_event() --&gt; 
+input_event_to_user() --&gt; copy_to_user()</code></pre></figure>
+:ET
