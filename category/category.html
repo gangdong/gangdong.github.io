@@ -1,0 +1,102 @@
+---
+layout: extension
+title: Categories
+permalink: /category
+---
+
+<!-- Begin List Posts
+================================================== -->
+
+{% include menu.html %}
+
+<div class="post-container">
+<li class="posts-labelgroup" id="posts-labelgroup">
+	<h1 id="posts-label">{{page.title}}</h1>
+    <!-- Put search box here -->
+    <div class="search-container">
+        <div class="search-section">
+          <i class="icon-search"></i>
+          <input type="text" name="search" id="searchbar" autocomplete="off" aria-label="search in posts">
+        </div>
+        <div class="search-results" id="search-results" data-placeholder="No Results" style="display: none;"></div>
+    </div>
+</li>
+<div class ="archive">	
+{% comment %}calculate the post count for each category{% endcomment %}
+{% assign count = "" %}
+{% assign counts = "" %}
+{% for tag in site.categories reversed %}
+  {% for post in tag[1] %}
+	{% assign count = count | plus: 1 %}
+  {% endfor %}
+  {% assign counts = counts | append: count | append: ', ' %}
+  {% assign count = "" %}
+{% endfor %}
+
+{% comment %}show navigation label here{% endcomment %}
+<div class="signboard-meta">
+{% assign i = 0 %}
+{% assign counts = counts | split: ', ' %}
+{% for tag in site.categories reversed  %}
+{% comment %}convert a string to number{% endcomment %}
+{% assign number = counts[i] | plus:0 %}
+{% if number > 10 %}
+<div class="signboard signboard-tag tag-label-red">       
+     <a href="#{{tag[0]}}" style = "font-family: Raleway,Arial,sans-serif; font-size:14px">{{ tag[0] }}<span>{{counts[i]}}</span></a>
+</div>
+{% elsif number < 5 %}
+<div class="signboard signboard-tag tag-label-orange">       
+     <a href="#{{tag[0]}}" style = "font-family: Raleway,Arial,sans-serif; font-size:14px">{{ tag[0] }}<span>{{counts[i]}}</span></a>
+</div>
+{% else %}
+<div class="signboard signboard-tag tag-label-pink">       
+     <a href="#{{tag[0]}}" style = "font-family: Raleway,Arial,sans-serif; font-size:14px">{{ tag[0] }}<span>{{counts[i]}}</span></a>
+</div>
+{% endif %}
+{% assign i = i | plus: 1 %}
+{% endfor %}
+</div>
+{% assign j = 0 %}
+{% comment %}list post link for each category{% endcomment %}
+{% for tag in site.categories reversed %}
+<div>
+<div id = "{{tag[0]}}" class="extension-title">#&nbsp;{{tag[0]}}</div>
+{% for post in tag[1] %}
+	{% if j == 0 %}
+	   {% assign j = j | plus: 1 %}
+	{% else %}
+	   {% assign j = j | minus: 1 %}
+	{% endif %}
+	
+	{% if j == 0 %}
+    <div class="category-meta extension-background">
+		<a class="post-link" href="{{ post.url | relative_url }}">
+		<h2 class="link" >&bull; {{ post.title | escape }}</h2>
+		</a>
+        <div class="post-date extension-post-date">
+          <span class="icon-calendar">
+            {{ post.date | date: "%b %-d, %Y" }}</span>
+		</div>
+	</div>
+	{% else %}
+	<div class="category-meta">
+		<a class="post-link" href="{{ post.url | relative_url }}">
+		<h2 class="link" >&bull; {{ post.title | escape }}</h2>
+		</a>
+        <div class="post-date extension-post-date">
+          <span class="icon-calendar">{{ post.date | date: "%b %-d, %Y" }}</span>
+		</div>
+    </div>
+	{% endif %}
+{% endfor %}
+</div>
+{% endfor %}
+</div>
+{% comment %}footer{% endcomment %}
+{% include footer.html %}
+<br>
+</div>
+{% if site.rawposts.search %}
+	<script async src="{{site.cdn_baseurl}}/assets/js/simple-jekyll-search.min.js"></script>
+	<script async src="{{site.cdn_baseurl}}/assets/js/search.js"></script>
+{% endif %}
