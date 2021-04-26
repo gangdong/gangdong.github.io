@@ -2,22 +2,23 @@
 
 [![Build Status](https://travis-ci.com/gangdong/gangdong.github.io.svg?branch=dev)](https://travis-ci.com/gangdong/gangdong.github.io)
 
+> 关于程序与设计 & 生活与分享 | 这里是 董刚 的个人博客，让我们一起发现更多。
+<br>
+
 ## 目录
 
-+ [[中文]](#中文) 
++ [[中文]](#[中文]) 
     + [效果预览](#效果预览)
     + [在线预览](#在线预览)
     + [关于本站](#关于本站)
     + [rawposts 主题](#rawposts-主题)
-+ [[English]](#English)
++ [[English]](#[English])
     + [Live Demo](#Live-Demo)
     + [About this site](#About-this-site)
     + [rawpost theme](#rawpost-theme)
 
 
-## 中文
-
-关于程序与设计 & 生活与分享 | 这里是 董刚 的个人博客，让我们一起发现更多。
+### [中文]
 
 ### 效果预览
 ![blog](https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/screenshot.png)
@@ -49,11 +50,13 @@
 `rawposts` 是我自己开发的一个主题，最初来源于一个 Github 上的项目 <a href = "https://github.com/samarsault/plainwhite-jekyll">plainwhite</a>。 我在之上做了大量开发，逐渐形成了这个主题。这个博客之上留有一系列的文章介绍这个主题是如何创建生成的，并分享了这个过程中的一些知识和经验。感兴趣的可以浏览相关的帖子。<br><br>
 
 
-## English
+### [English]
 <h1 style = "margin-bottom: 0; padding:0; font-size:32px; font-weight:bold"> This is David's Blog | 董刚的博客</h1>
 
 [![Build Status](https://travis-ci.com/gangdong/gangdong.github.io.svg?branch=dev)](https://travis-ci.com/gangdong/gangdong.github.io)
 
+> This is David Dong's blog. It's about program & design, life & sharing. Let's explore more together. | David，Software，Developer.Designer
+<br>
 
 ### Live Demo
 
