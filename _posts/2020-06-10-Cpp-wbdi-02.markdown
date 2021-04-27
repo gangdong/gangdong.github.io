@@ -9,13 +9,13 @@ Published: true
 Continue...
 
 ## <span id = "3">3. Biometric Unit</span>  
-Biometric devices are manufactured in a wide variety of types and configurations. The Windows Biometric Framework (WBF) addresses this variety by providing an extensible architecture that enables third party developers to create custom plug-in components. The primary component is a software object called a **biometric unit**. Biometric units expose the capabilities of a device to the framework through a standard interface that consists of **sensor**, **engine**, and **storage** adapters
+Biometric devices are manufactured in a wide variety of types and configurations. The Windows Biometric Framework (WBF) addresses this variety by providing an extensible architecture that enables third-party developers to create custom plug-in components. A primary component is a software object called a **biometric unit**. Biometric units expose the capabilities of a device to the framework through a standard interface that consists of **sensor**, **engine**, and **storage** adapters
 
 A single physical sensor is associated with each biometric unit. The sensor captures biometric data and may also, depending on its hardware capabilities, perform other biometric operations such as template matching and storage. Sensors that do not support onboard matching or storage require additional software modules to perform these functions.     
 
 ![framework]({{site.cdn_baseurl}}/assets/image/others-wbdi2-01.PNG){: .center-image }  
 
-Above diagram shows how data flows through a biometric unit. Essentially, the data flow forms a type of pipeline. The initial input to the pipeline is a biometric sample captured by a physical sensor. The engine attempts to match the sample to templates that already exist in the template store or, if no match is found, builds a new template from repeated physical samples and saves the template in the store.
+The above diagram shows how data flows through a biometric unit. Essentially, the data flow forms a type of pipeline. The initial input to the pipeline is a biometric sample captured by a physical sensor. The engine attempts to match the sample to templates that already exist in the template store or, if no match is found, builds a new template from repeated physical samples and saves the template in the store.
 
 
 ## <span id = "4">4. Biometric Unit Life Cycle</span>    
@@ -31,7 +31,7 @@ For each biometric device discovered it then:
 + Opens a handle to the device.
 + Queries the device capabilities by using a Windows Biometric Driver control interface.
 + Opens the device registry key and attempts to locate information about any associated adapter plug-ins.
-+ Opens the Windows Biometric Service registry key and searches for information about any global plug-ins that should override the device specific values found in the preceding step.
++ Opens the Windows Biometric Service registry key and searches for information about any global plug-ins that should override the device-specific values found in the preceding step.
 + Builds a biometric unit to represent the device and passes the unit to a biometric service provider.  
 
 ### <span id = "4.2">4.2 Configuration</span>  
@@ -51,7 +51,7 @@ Plug-in software components called adapters connect a biometric unit to its unde
 + A storage adapter manages template databases.
 Adapters can be loaded and unloaded at runtime. This enables the Windows Biometric Service to dynamically reconfigure a biometric unit by connecting it to a different set of adapters.
 
-Finally, each of the sensor, engine, and storage adapter interfaces expose two methods, `ControlUnit` and `ControlUnitPrivileged`, that enable client applications to access custom adapter capabilities defined by the vendor. This allows the vendor to define an almost unlimited set of control operations for a device. Further, by choosing which function to implement, a vendor can choose to make some control operations available to non-privileged users while restricting other operations to privileged users.
+Finally, each of the sensor, engine and storage adapter interfaces expose two methods, `ControlUnit` and `ControlUnitPrivileged`, that enable client applications to access custom adapter capabilities defined by the vendor. This allows the vendor to define an almost unlimited set of control operations for a device. Further, by choosing which function to implement, a vendor can choose to make some control operations available to non-privileged users while restricting other operations to privileged users.
 
 ### <span id = "5.1">5.1 Sensor Adapter Function</span>
 A sensor adapter wraps a biometric device and provides a standard interface that enables the Windows Biometric service to **configure the sensor, capture samples, and control the flow of biometric data to the processing engine.** The following functions must be implemented by the developer of the adapter. They are called by the Windows Biometric service.
@@ -190,6 +190,6 @@ The driver receives a pointer to a [WINBIO_SENSOR_ATTRIBUTES](https://docs.micro
 4. The driver can now expect to receive [IOCTL_BIOMETRIC_CAPTURE_DATA](https://docs.microsoft.com/zh-cn/windows-hardware/drivers/ddi/winbio_ioctl/ni-winbio_ioctl-ioctl_biometric_capture_data) requests. Because only one capture can be pending at any time, the handler for this request should first confirm that no request is pending. If a request is pending, complete the request with WINBIO_E_DATA_COLLECTION_IN_PROGRESS.<br/> 
 The WinBio service or an application can request cancellation of an outstanding capture request at any time by calling Win32 cancellation routines such as [CancelIo](https://docs.microsoft.com/zh-cn/windows/win32/fileio/cancelio), [CancelIoEx](https://docs.microsoft.com/zh-cn/windows/win32/fileio/cancelioex-func), or [CancelSynchronousIo](https://docs.microsoft.com/zh-cn/windows/win32/fileio/cancelsynchronousio-func). As such, WBDI drivers must also support cancellation.<br/> 
 The driver handles cancellation by calling [IWDFIoRequest::MarkCancelable](https://docs.microsoft.com/zh-cn/windows-hardware/drivers/ddi/wudfddi/nf-wudfddi-iwdfiorequest-markcancelable) to register an [IRequestCallbackCancel](https://docs.microsoft.com/zh-cn/windows-hardware/drivers/ddi/wudfddi/nn-wudfddi-irequestcallbackcancel) interface.<br/> 
-The handler then programs the device for capture mode and returns from the callback. The request should remain pending until canceled or the driver detects that capture is complete. After this I/O request is completed, the device can return to an idle state. A client may make an initial call to IOCTL_BIOMETRIC_CAPTURE_DATA to determine the correct buffer size for an actual capture.<br/> 
+The handler then programs the device for capture mode and returns from the callback. The request should remain pending until canceled or the driver detects that the capture is complete. After this I/O request is completed, the device can return to an idle state. A client may make an initial call to IOCTL_BIOMETRIC_CAPTURE_DATA to determine the correct buffer size for an actual capture.<br/> 
 
 5. The handler for [IOCTL_BIOMETRIC_RESET](https://docs.microsoft.com/zh-cn/windows-hardware/drivers/ddi/winbio_ioctl/ni-winbio_ioctl-ioctl_biometric_reset) should physically reset the device to a known or idle state. The handler for this request must also cancel any pending data collection I/O and fill out the [WINBIO_BLANK_PAYLOAD](https://docs.microsoft.com/zh-cn/windows-hardware/drivers/ddi/winbio_ioctl/ns-winbio_ioctl-_winbio_blank_payload) structure. The handler then completes the request. Clients do not need to call reset between calls to IOCTL_BIOMETRIC_CAPTURE_DATA.
