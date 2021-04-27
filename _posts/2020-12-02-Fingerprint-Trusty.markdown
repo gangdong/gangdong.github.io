@@ -9,10 +9,10 @@ toc: true
 sidebar: true
 about: true
 author: david.dong
-description: If you want to implement Fingerprint app on Trusty TEE, look at this article!.
+description: If you want to implement a Fingerprint app on Trusty TEE, look at this article!.
 keywords: Trusty
 ---
-I have completed a Android platform fingerprint application on Trusty TEE recently for my work. This page will try to give some useful information, which is a summary of my work and might be helpful for somebody who want to bring up fingerprint application on Trusty TEE.
+I have completed an Android platform fingerprint application on Trusty TEE recently for my work. This page will try to give some useful information, which is a summary of my work and might be helpful for somebody who wants to bring up a fingerprint application on Trusty TEE.
 
 {% if page.toc == false %}
 <div class = "separator"></div>
@@ -41,9 +41,9 @@ I have completed a Android platform fingerprint application on Trusty TEE recent
 <div class = "separator"></div>
 {% endif %}
 ## <span id ="1">1. Trusty TEE</span>
-As one of the biometric authentication on Android platform, fingerprint implementation must meet android security specifications. Android uses a separated secure Operating System (OS) to guarantee the security of biometric application - we call it TEE (Trusted Execution Environment), Which runs on the same processor as the Android OS and is isolated from the rest of the system by both hardware and software. They run parallel to each other but secure OS has access to the full power of a device’s main processor and memory but is completely isolated. 
+As one of the biometric authentication on the Android platform, fingerprint implementation must meet android security specifications. Android uses a separate secure Operating System (OS) to guarantee the security of biometric applications - we call it TEE (Trusted Execution Environment), Which runs on the same processor as the Android OS and is isolated from the rest of the system by both hardware and software. They run parallel to each other but secure OS has access to the full power of a device’s main processor and memory but is completely isolated. 
 
-There are multiple commercial TEE OS on the Android platform supported by the third-part companies, Such as QSEE, ISEE, TBase and so on. Trusty is one of them and unlike them Trusty TEE is supported by Google. Trusty TEE is trying to provide the users a reliable and free open source alternative for their Trusted Execution Environment.
+There is multiple commercial TEE OS on the Android platform supported by third-party companies, Such as QSEE, ISEE, TBase, and so on. Trusty is one of them and unlike them, Trusty TEE is supported by Google. Trusty TEE is trying to provide the users a reliable and free open source alternative for their Trusted Execution Environment.
 
 Google official documents provides more information about
 [「Trusty TEE」](https://source.android.com/security/trusty).
@@ -92,13 +92,13 @@ trusty_app_manifest_t TRUSTY_APP_MANIFEST_ATTRS trusty_app_manifest =
 
 ## <span id ="3">3. TEE Communication</span>
 + Adopt the dynamic TA mechanism which will load TA and run TA's main function when CA calls function `connect()`. When CA calls `disconnect()` the TA process exits. Therefore, in a life cycle, there is no  need to connect or disconnect each IPC communication.<br>
-+ There are many IPC communications between CA and TA. Every time IPC communication, the buffer received and sent by CA needs to be reallocated. The same buffer should not be used by IPC multiple times. In our code this method has already been implemented.<br>
++ There are many IPC communications between CA and TA. Every time IPC communication, the buffer received and sent by CA needs to be reallocated. The same buffer should not be used by IPC multiple times. In our code, this method has already been implemented.<br>
 + Trusty TEE provides 2 ports for communication, `secure port` and `non-secure port`. <br>
    **Secure port** - for other TA app access.<br>
    **Non secure port** - for CA access TA app.<br>
    For fingerprint, it needs to use `non-secure port` and if has payment requirement, needs to use `secure port`.<br>
 + Should define the same port name between CA and TA, An example that we are using "com.android.trusty.fpctzapp".<br>
-+ Should use unique uuid to differentiate with other fingerprint vendor.<br>
++ Should use unique UUID to differentiate from other fingerprint vendors.<br>
 + About IPC: the Trusty APIs use 
 {% highlight c %}
 send_msg()
@@ -106,7 +106,7 @@ get_msg()
 read_msg()
 put_msg()
 {% endhighlight %}
-to send/retrieve message between CA and TA, the calling sequence should be correct. One lesson learn in my software bring up is that the communication was failed after executed one time successful communication. The communication was hang up after then and TA wasn't able to get the message from CA. The failure was due to missing the `put_msg()` calling after executed `read_msg()`.
+to send/retrieve messages between CA and TA, the calling sequence should be correct. One lesson learned in my software bring up is that the communication was failed after executed one-time successful communication. The communication was hang up after then and TA wasn't able to get the message from CA. The failure was due to missing the `put_msg()` calling after executed `read_msg()`.
 
 {% highlight c %}
 static long handle_msg(tzapp_chan_ctx_t* ctx)
@@ -177,7 +177,7 @@ return rc;
 {% endhighlight %}
 
 ## <span id ="4">4. SPI </span>
-It is related to hardware platform, on Spreadtrum SC9863, it doesn't need to configure SPI and will only use `ioctl()` for transmission.
+It is related to the hardware platform, on Spreadtrum SC9863, it doesn't need to configure SPI and will only use `ioctl()` for transmission.
 
 ## <span id ="5">5. Others</span>
 
@@ -238,4 +238,3 @@ python signta.py --uuid {UUID} --key “privatekey.pem” --in “TA image name 
 {% highlight shell %}
  libtrusty: tipc_connect: can't connect to tipc service "com.android.trusty.fpctzapp" (err=107)
 {% endhighlight %}
-  
