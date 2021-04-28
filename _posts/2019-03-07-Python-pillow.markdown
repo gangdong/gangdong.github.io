@@ -17,15 +17,15 @@ I recently completed some image processing works by Pillow Library. Pillow provi
 {% include toc.html %}
 
 ## What is Pillow?
-We cannot say Pillow is PIL, even total from PIL. Actually Pillow is open source project of Github, it is more like a derived branch of PIL. We all know PIL (Python Image Library) is the previous third-party image processing library of python and almost regarded as the official image processing library of Python because of the powerful function. However the last PIL release is at build 1.1.7 in 2009 which can only support Python 2. PIL’s release schedule is too infrequent so that some volunteers created a open source project on Github for providing a compatible version on the basis of PIL. It's called `Pillow`. Pillow added in some features based on PIL and provided support to Python 3. With the update of version and many bug fixes from many contributors, Pillow has developed into a more dynamic image processing library than PIL itself. Pillow can be said to have replaced PIL.
+We cannot say Pillow is PIL, even total from PIL. Actually, Pillow is an open-source project of Github, it is more like a derived branch of PIL. We all know PIL (Python Image Library) is the previous third-party image processing library of python and is almost regarded as the official image processing library of Python because of the powerful function. However, the last PIL release is at build 1.1.7 in 2009 which can only support Python 2. PIL’s release schedule is too infrequent so that some volunteers created an open-source project on Github for providing a compatible version on the basis of PIL. It's called `Pillow`. Pillow added in some features based on PIL and provided support to Python 3. With the update of the version and many bug fixes from many contributors, Pillow has developed into a more dynamic image processing library than PIL itself. Pillow can be said to have replaced PIL.
 
 The source code of Pillow is at [Github repository](https://github.com/python-pillow/Pillow). <br>
 The official website is [here](https://python-pillow.org/).<br>
 
 ## What Can Pillow do? 
-Pillow provides fairly powerful image processing capabilities for Python. It can do many things related to image processing and support extensive file format.
+Pillow provides fairly powerful image processing capabilities for Python. It can do many things related to image processing and support the extensive file format.
 
-Below is official description of Pillow.
+Below is the official description of Pillow.
 
 > **Image Archives**
 The Python Imaging Library is ideal for image archival and batch processing applications. You can use the library to create thumbnails, convert between file formats, print images, etc.   
@@ -34,9 +34,9 @@ The current version identifies and reads a large number of formats. Write suppor
 The current release includes Tk PhotoImage and BitmapImage interfaces, as well as a Windows DIB interface that can be used with PythonWin and other Windows-based toolkits. Many other GUI toolkits come with some kind of PIL support.   
 For debugging, there’s also a show() method which saves an image to disk, and calls an external display utility.    
 **Image Processing**
-The library contains basic image processing functionality, including point operations, filtering with a set of built-in convolution kernels, and colour space conversions.   
-The library also supports image resizing, rotation and arbitrary affine transforms.   
-There’s a histogram method allowing you to pull some statistics out of an image. This can be used for automatic contrast enhancement, and for global statistical analysis.   
+The library contains basic image processing functionality, including point operations, filtering with a set of built-in convolution kernels, and color space conversions.   
+The library also supports image resizing, rotation, and arbitrary affine transform.   
+There’s a histogram method allowing you to pull some statistics out of an image. This can be used for automatic contrast enhancement and global statistical analysis.   
 
 ## Usage
 ### Installation
@@ -56,7 +56,7 @@ python3 -m pip install --upgrade Pillow
 
 ### Image Class
 The most important class in the Python Imaging Library is the Image class. <br>
-Before use the library, need to import it firstly.<br>
+Before use the library, need to import it first.<br>
 {% highlight python %}
 #python2 
 import Image 
@@ -67,7 +67,7 @@ from PIL import Image
 
 ### Some useful methods
 
-Here we take a example of python3.
+Here we take the example of python3.
 
 + **Open()/Show()**<br>
 To load an image from a file, use the `open()` function in the Image module. If successful, this function returns an Image object. You can now use instance attributes to examine the file contents:
@@ -79,7 +79,7 @@ print(im.size,im.mode,im.format)
 im.show()
 {% endhighlight %}
 The format attribute identifies the source of an image. If the image was not read from a file, it is set to None. The size attribute is a 2-tuple containing width and height (in pixels). The mode attribute defines the number and names of the bands in the image, and also the pixel type and depth. Common modes are `L` (luminance) for greyscale images, `RGB` for true color images, and `CMYK` for pre-press images.<br>
-Above four row codes will open and display a image on the screen. it will use the default image viewer of your computer to show the image.
+Above four-row codes will open and display an image on the screen. it will use the default image viewer of your computer to show the image.
 ![image]({{site.cdn_baseurl}}/assets/image/python-pillow-02.jpg){: .center-image }
 
 + **resize()** 
@@ -115,7 +115,7 @@ box = (100,100,200,200)
 region = im.crop(box)
 region.show()
 {% endhighlight %}
-The above code cuts out a box rectangle area on the `im` and displays it. Box is a tuple with four numbers (upper left, upper left, lower right, lower right). Each pixel represents a coordinate `unit. Crop()` still returns an image object.<br>
+The above code cuts out a box rectangle area on the `im` and displays it. The box is a tuple with four numbers (upper left, upper left, lower right, lower right). Each pixel represents a coordinate `unit. Crop()` still returns an image object.<br>
 
 ![image]({{site.cdn_baseurl}}/assets/image/python-pillow-05.JPG){: .center-image }
 
@@ -250,5 +250,4 @@ im_merge = Image.merge("RGB",[r,g,b])
 im_merge.show()
 {% endhighlight %}
 ![merge]({{site.cdn_baseurl}}/assets/image/python-pillow-23.JPG){: .center-image }<br>
-
 
