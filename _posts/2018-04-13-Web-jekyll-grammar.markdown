@@ -10,14 +10,14 @@ sidebar: true
 ---
 This page will continue to give a brief introduction of the Jekyll grammar. 
 
-After read [last article]({{site.baseurl}}/blog/2018/03/27/Web-jekyll-installation.html) you should complete the installation of Jekyll and download a Jekyll theme on your computer. 
+After reading [last article]({{site.baseurl}}/blog/2018/03/27/Web-jekyll-installation.html) you should complete the installation of Jekyll and download a Jekyll theme on your computer. 
 
 Let's start this article from the source code of the theme you downloaded. 
 
 {% include toc.html %}
 
 ## Jekyll directory structure
-Unzip the package you downloaded and check the directory structure.The Jekyll directory structure mainly includes the following directories.
+Unzip the package you downloaded and check the directory structure. The Jekyll directory structure mainly includes the following directories.
 
 ![directory]({{site.cdn_baseurl}}/assets/image/web-jekyll-2-directory.png)
 
@@ -29,13 +29,13 @@ Every file or directory beginning with the following characters: ., _ , # or ~ i
 
 ## Liquid
 Jekyll uses the Liquid templating language to process templates.
-Generally in Liquid you output content using two curly braces and perform logic statements by surrounding them in a curly brace percentage sign. 
+Generally in Liquid, you output content using two curly braces and perform logic statements by surrounding them in a curly brace percentage sign. 
 
 To learn more about Liquid, check out the [official Liquid Documentation](https://shopify.github.io/liquid/).
 
 ## Variables
 
-Jekyll traverses your site looking for files to process. Any files with front matter are subject to processing. For each of these files, Jekyll makes a variety of data available via Liquid. The following is a reference of the available data.
+Jekyll traverses your site looking for files to process. Any files with front matter are subject to processing. For each of these files, Jekyll makes a variety of data available via Liquid. The following is a reference to the available data.
 
 ### global variables
 ![directory]({{site.cdn_baseurl}}/assets/image/web-jekyll-2-variables-global.png)
@@ -68,21 +68,21 @@ This site's url is {{site.url}}
 ### Jekyll command
 Jekyll has below commands
 
-`Jekyll new PATH:` Create a new site in the specified directory using the gem based default theme. <br>
+`Jekyll new PATH:` Create a new site in the specified directory using the gem-based default theme. <br>
 `Jekyll new PATH --blank:`Create a new blank site in the specified directory.<br>
 `Jekyll build or Jekyll b:`Perform a build and output the generated site to the. / site (default) directory.<br>
 `Jekyll serve or Jekyll s:`Build site and provide local access service when source file changes.<br>
 `Jekyll doctor:`Output any deprecated features or configuration issues.<br>
-`Jekyll clean:`Delete all generated files: destination folder, metadata file, sass and Jekyll caches.<br>
-`Jekyll help:`Display help information, or display help information for specific subcommands, such as Jekyll help build.<br>
+`Jekyll clean:`Delete all generated files: destination folder, metadata file, sass, and Jekyll caches.<br>
+`Jekyll help:`Display help information or display help information for specific subcommands, such as Jekyll help build.<br>
 `Jekyll new-theme:`Creates a new Jekyll theme scaffold.<br>
 
-above contents are not include all of the Jekyll's grammar, there are some other part, such as 
-+ Jekyll configuraiton
+above contents are not include all of Jekyll's grammar, there are some other parts, such as 
++ Jekyll configuration
 + Includes
 + Layouts
 + Permalinks
 + Themes
 + Pagination 
 
-Due to the blog's length limitation, I cannot list all of the contents, if you are interesing in the other part, please find more details at below website [Jekyll Tutorial](https://jekyll.zcopy.site/docs/).
+Due to the blog's length limitation, I cannot list all of the contents, if you are interested in the other part, please find more details at the below website [Jekyll Tutorial](https://jekyll.zcopy.site/docs/).
