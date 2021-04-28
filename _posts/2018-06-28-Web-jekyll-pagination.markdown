@@ -7,11 +7,11 @@ tags: Blog
 toc: true
 sidebar: true
 ---
-If you don't have pagination for your personal blog and you want to do it, this page is probably helpful to you.
+If you don't have pagination for your blog and you want to do it, this page is probably helpful to you.
 
-My personal blog is constructed by Jekyll, so I will only write down how to paginate the blog that powered by Jekyll. Actually below part are some experiences when I paginated my blog. 
+My blog is constructed by Jekyll, so I will only write down how to paginate the blog powered by Jekyll. Actually below part are some experiences when I paginated my blog. 
 
-When you have a long post list, to break them into smaller lists and display them over multiple pages will become a common requirements. 
+When you have a long post list, breaking them into smaller lists and display them over multiple pages will become a common requirement. 
 Fortunately, Jekyll offers a pagination plugin, which can automatically generate the appropriate files and folders you need for paginated listings.
 
 {% include toc.html %}
@@ -33,16 +33,24 @@ Add a line to the `_config.yml` file that specifies how many items should be dis
 {% highlight yaml %}
 paginate: 12
 {% endhighlight %}
-The number should be the maximum number of posts you’d like to be displayed per-page in the generated site.
+The number should be the maximum number of posts you’d like to be displayed per page in the generated site.
 
-Because Jekyll can only support pagination for HTML file so far, do not work from within Markdown files from your Jekyll site. Pagination works when called from the HTML file, named `index.html`, which optionally may reside in and produce pagination from within a subdirectory, via the paginate_path configuration value. <br>
+Because Jekyll can only support pagination for HTML files so far, do not work from within Markdown files from your Jekyll site. Pagination works when called from the HTML file, named `index.html`, which optionally may reside in and produce pagination from within a subdirectory, via the paginate_path configuration value. <br>
 You can specify the destination of the pagination pages:
 {% highlight yaml %}
 paginate_path: "/blog/page:num/"
 {% endhighlight %}
-Jekyll will search the /blog/ directory and read in `blog/index.html`, send it each pagination page and write the output to `blog/page:num/`, where `:num` is the pagination page number, starting with 2. For example, if you output 3 pages, if you look at the _site directory, you will find a /blog folder with two subfolders /page2 and /page3 in it. Each folder has a `index.html` file, which contains the contents that need to be displayed.
+Jekyll will search the /blog/ directory and read in `blog/index.html`, send it to each pagination page, and write the output to `blog/page:num/`, where `:num` is the pagination page number, starting with 2. For example, if you output 3 pages, if you look at the _site directory, you will find a /blog folder with two subfolders /page2 and /page3 in it. Each folder has an `index.html` file, which contains the contents that need to be displayed.
 
-**Note:** because the pages starts with 2, which means no page1 exists. That will require a special handling for the first page when rendering the pages. Actually the page1 contents is displayed on the `index.html` of /blog directory. 
+<div class = "post-note info">
+  <div class = "header"></div>
+  	<div class = "body">
+		<p>because the pages start with 2, which means no page1 exists.That will require special handling for the first page when rendering the pages. Actually, page1 contents are displayed on the <span>index.html</span> of <span>/blog</span> directory.
+		</p>
+  	</div>
+</div>
+
+ 
 
 For me, I tried to set the path as below firstly, but failed to load the `index.html`. After I change to `/blog/page:num`, it started to work. Who can tell what the reason is here?
 {% highlight yaml %}
