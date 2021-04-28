@@ -7,7 +7,7 @@ tags: Blog
 toc: true
 sidebar: true
 ---
-After setting up the pagination, the next thing I wanted to add to my blog was a 'proper' archive by both date and category rather than just the reverse chronological list of posts. Although this wasn't as straightforward as setting up pagination, a bit of searching turned up some sites that helped me get everything running.
+After setting up the pagination, the next thing I wanted to add to my blog was a 'proper' archive by both date and category rather than just the reverse-chronological list of posts. Although this wasn't as straightforward as setting up pagination, a bit of searching turned up some sites that helped me get everything running.
 
 {% include toc.html %}
 
@@ -70,21 +70,21 @@ I used below code to group my archives by year.
 {% endfor %}
 {% endraw %}
 {% endhighlight %}
-I added a group of tags for statistics the posts count of every year and afforded the navigation to the the posts group.
+I added a group of tags for statistics on the posts count of every year and afforded the navigation to the posts group.
 So the first loop will calculate the post count of every year and return two arrays. One is for recording the year index and the other gets the count of the year. With these two arrays, I can add the tags in front of the lists grouped by years. 
 
 The second loop uses the{% raw %} `{% capture %}` {% endraw %}tag to get the year of each post and the one that follows it before comparing them. If they're different, the year is inserted before a link to the post while if they're the same, the post is simply added to the list for that year. 
 
 ## Archive by category
-Jekyll provides variable on the front matter for user grouping the posts by category or tags.
+Jekyll provides variables on the front matter for users grouping the posts by category or tags.
 
 The variable `site.categories.CATEGORY` and `site.tags.TAG` return the list of all posts in category CATEGORY or tag TAG. What we do is reading the categories field of each article in the post directory and listing the articles under each category.
 
-I used category attribute to group my posts so I took `site.categories.CATEGORY` as a example for interpretation.
+I used the category attribute to group my posts so I took `site.categories.CATEGORY` as an example for interpretation.
 
-`site.categories` returns a array of object. Every object of this array contains a CATEGORY name in your front matter and all the posts belong to this CATEGORY. For every element, the index[0] stores the CATEGORY name and index[1] is a list or array we can also consider as which is a collection of posts that is attached to this CATEGORY. 
+`site.categories` returns an array of objects. Every object of this array contains a CATEGORY name in your front matter and all the posts belong to this CATEGORY. For every element, the index[0] stores the CATEGORY name, and index[1] is a list or array we can also consider as which is a collection of posts that are attached to this CATEGORY. 
 
-So the method is simple, we can loop the index[1] of every CATEGORY to get every post and group them by index[0], that is the name of CATEGORY.
+So the method is simple, we can loop the index[1] of every CATEGORY to get every post and group them by the index[0], which is the name of CATEGORY.
 
 Use below code, I grouped the posts by the CATEGORY of theirs. Similar to archive by date, I added the tags for every CATEGORY to statistic the count of them and navigation.
 {% highlight liquid %}
@@ -134,6 +134,6 @@ Use below code, I grouped the posts by the CATEGORY of theirs. Similar to archiv
 {% endraw %}
 {% endhighlight %}
 
-The last work is to create archive.html and category.html files to well organize the codes and display with desired layout, add a hyperlink to the HTML files on the website homepage.
+The last work is to create archive.html and category.html files to well organize the codes and display them with the desired layout, add a hyperlink to the HTML files on the website homepage.
 
-That's about it! Hopefully this is a useful reference for anyone that's looking to make their Jekyll archives a bit more accessible. The code is in my [github repository](https://github.com/gangdong/daviddong.github.io), if you are interesting, you can fork it. 🙂
+That's about it! Hopefully, this is a useful reference for anyone that's looking to make their Jekyll archives a bit more accessible. The code is in my [github repository](https://github.com/gangdong/daviddong.github.io), if you are interesting, you can fork it. 🙂
