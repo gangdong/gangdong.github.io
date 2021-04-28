@@ -12,30 +12,30 @@ author: david.dong
 description: Fingerprint framework of Android 8.0 introduction.
 keywords: Fingerprint framework/Android 8.0
 ---
-Since Android 8.0, Android has fully introduced HIDL layer into the framework. The purpose is to separate vendor partition from system partition, so that Android is capable to upgrade framework through OTA without recompiling HAL. Correspondingly, the framework of fingerprint has also been reconstructed. 
-This page will give a introduction about the difference of the fingerprint framework between android 7.0 (and early version) and android 8.0 (and later version).
+Since Android 8.0, Android has fully introduced the HIDL layer into the framework. The purpose is to separate vendor partition from system partition so that Android is capable to upgrade the framework through OTA without recompiling HAL. Correspondingly, the framework of fingerprint has also been reconstructed. 
+This page will give an introduction about the difference in the fingerprint framework between android 7.0 (and early version) and android 8.0 (and later version).
 
 After the study of the previous three articles, <br>
 [Android Fingerprint Framework (1)]({{site.baseurl}}/android/fingerprint/2019/10/03/Fingerprint-frmk1.html)<br>
 [Android Fingerprint Framework (2)]({{site.baseurl}}/android/fingerprint/2019/12/07/Fingerprint-frmk2.html)<br>
 [Android Fingerprint Framework (3)]({{site.baseurl}}/android/fingerprint/2019/12/21/Fingerprint-frmk3.html)<br>
 
-we have had a discussion of the fingerprint framework on the android 7.0 in previous blogs, here give a short summary for anyone who has not read these articles yet. <br>
+we have discussed the fingerprint framework on android 7.0 in previous blogs, here give a summary for anyone who has not read these articles yet. <br>
 
 {% include toc.html %}
 
 ## fingerprint framework in Android 7.0
-This diagram is the fingerprint framework on the android platform, I have presented in other article and copied here.        
+This diagram is the fingerprint framework on the android platform, which I have presented in another article and copied here.        
 
 
 ![framework]({{site.cdn_baseurl}}/assets/image/android-fingerprint-framework-framework.png){: .center-image }
 
 
 
-From the top layer, the fingerprint application will start the work flow and this is the fingerprint management entry defined by Android system layer.
-In the framework internal, some tasks will be done to handle the request from application.
+From the top layer, the fingerprint application will start the workflow and this is the fingerprint management entry defined by the Android system layer.
+In the framework internal, some tasks will be done to handle the request from the application.
 
-1. `init.rc` starts up the `Fingerprintd` process during the system boot up. `Fingerpringd` then register `IFingerprintDaemon` remote service to `ServiceManager`.
+1. `init.rc` starts up the `Fingerprintd` process during the system boot-up. `Fingerpringd` then register `IFingerprintDaemon` remote service to `ServiceManager`.
 
 2. System Server will start fingerprint system service `FingerprintService`.<br>
 **SystemServer.java**
@@ -136,7 +136,7 @@ I drew a flow chart to help understand the whole flow more clearly.
 
 ![workflow]({{site.cdn_baseurl}}/assets/image/android-fingerprint-android8-workflow.png)
 
-The related source code and android path can be found at below table. Android 7.0 (NOUGAT)<br>
+The related source code and android path can be found in the below table. Android 7.0 (NOUGAT)<br>
 
 File|Android Path|
 :--:|:--:|
@@ -150,13 +150,13 @@ File|Android Path|
 [hardware.c](https://www.androidos.net.cn/android/7.0.0_r31/xref/hardware/libhardware/hardware.c)|root/hardware/libhardware/hardware.c
 
 ## fingerprint framework in Android 8.0
-Above is the fingerprint framework of Android 7.0, however in Android 8.0 and later versions, Android has updated the framework and introduced a set of language called HIDL to define the interface between framework and HAL.
+Above is the fingerprint framework of Android 7.0, however in Android 8.0 and later versions, Android has updated the framework and introduced a set of languages called HIDL to define the interface between framework and HAL.
 
 Let's see the difference.
 
 ![hidl]({{site.cdn_baseurl}}/assets/image/android-fingerprint-framework-android8-diff.png){: .center-image }
 
-Android 8.0 add a sub-directory `/interface` in the `/hardware` directory, which includes all HIDL files for hardware module. 
+Android 8.0 adds a sub-directory `/interface` in the `/hardware` directory, which includes all HIDL files for the hardware module. 
 
 Android 8.0 removed `Fingerprintd`, instead, `FingerprintService` accesses HAL by calling HIDL.
 
@@ -174,9 +174,9 @@ While in Android 8.0, mDaemon is achieved from the service of `IBiometricsFinger
 mDaemon = IBiometricsFingerprint.getService();
 {% endhighlight %}
 
-`IBiometricsFingerprint` is a new fingerprint HIDL interface which was introduced at Android 8.0. <br>
+`IBiometricsFingerprint` is a new fingerprint HIDL interface that was introduced on Android 8.0. <br>
 [IBiometricsFingerprint.hal](https://www.androidos.net.cn/android/8.0.0_r4/xref/hardware/interfaces/biometrics/fingerprint/2.1/IBiometricsFingerprint.hal)
-use HIDL language format defined a series standard fingerprint operation interfaces. 
+use HIDL language format defined a series of standard fingerprint operation interfaces. 
 And [biometricsfingerprint.cpp](https://www.androidos.net.cn/android/8.0.0_r4/xref/hardware/interfaces/biometrics/fingerprint/2.1/default/BiometricsFingerprint.cpp) class realized the `IBiometricsFingerprint` interface.
 
 We may notice that the `IBiometricsFingerprint` returns a service for caller, actually there is a  file in the HIDL sub-directory: <br>
@@ -273,15 +273,15 @@ fingerprint_device_t* BiometricsFingerprint::openHal() {
     return fp_device;
 }
 {% endhighlight %}
-Have you found that the function realization is similiar to the `FingerprintDaemonProxy::openHal()`? The native method is called and HAL module is opened here. After access to the HAL, others are all same under the HAL layer.
+Have you found that the function realization is similar to the `FingerprintDaemonProxy::openHal()`? The native method is called and the HAL module is opened here. After access to the HAL, others are all same under the HAL layer.
 
 So far, we can change the fingerprint framework of Android 8.0 as below.
 
 ![fingerprint framework android8.0]({{site.cdn_baseurl}}/assets/image/android-fingerprint-android8-workflow2.png){: .center-image }
 
-Compare this flowchart carefully with last flowchart above, we can find the difference clearly.
+Compare this flowchart carefully with the last flowchart above, we can find the difference.
 
-The related source code and android path can be found at below table<br>
+The related source code and android path can be found in the below table<br>
 
 File|Android Path|
 :--:|:--:|
@@ -292,4 +292,4 @@ File|Android Path|
 [IBiometricsFingerprint.hal](https://www.androidos.net.cn/android/8.0.0_r4/xref/hardware/interfaces/biometrics/fingerprint/2.1/IBiometricsFingerprint.hal)|root/hardware/interfaces/biometrics/fingerprint/2.1|
 [IBiometricsFingerprintClientCallback.hal](https://www.androidos.net.cn/android/8.0.0_r4/xref/hardware/interfaces/biometrics/fingerprint/2.1/IBiometricsFingerprintClientCallback.hal)|root/hardware/interfaces/biometrics/fingerprint/2.1|
 
-Now, I think the main difference of the fingerprint framework on Android 8.0 has been introduced and if you have further questions, you can ask at comment box, I will reply to you as soon as I can.  
+Now, I think the main difference of the fingerprint framework on Android 8.0 has been introduced and if you have further questions, you can ask in the comment box, I will reply to you as soon as I can.  
