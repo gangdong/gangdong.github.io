@@ -42,7 +42,7 @@ Understandably,Github Pages doesn't allow the plugin for security reasons.
 <div class = "post-note info">
   <div class = "header"></div>
   <div class = "body">
-  <p>Github Pages Generator uses the Jekyll <span style = "color: #c7254e;">--safe</span> flag.</p>
+  <p>Github Pages Generator uses the Jekyll <span>--safe</span> flag.</p>
   </div>
 </div>
 
