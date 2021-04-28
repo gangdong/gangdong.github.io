@@ -9,15 +9,15 @@ toc: false
 sidebar: true
 about: true
 author: david.dong
-description: This article introduced Android ADB command Getevent command usage .
+description: This article introduced Android ADB command Getevent command usage.
 keywords: Android, Getevent
 ---
-Android provides an ADB command `getevent` to obtain input events, such as obtaining key reporting event, obtaining touch screen reporting event, etc.
+Android provides an ADB command `getevent` to obtain input events, such as obtaining key reporting events, obtaining touch screen reporting events, etc.
 
-User can use this command under adb console. 
+Users can use this command under the ADB console. 
 
 ## Usage
-The usage of this command is 
+The usage of this command is: 
 {% highlight shell %}
 adb shell getevent [options] [device]
 {% endhighlight %}
@@ -62,7 +62,7 @@ add device 6: /dev/input/event0
 add device 7: /dev/input/event1
   name:     "gpio-keys"
 {% endhighlight %}
-Below are some examples, we can find the touchscreen input event is registered at /dev/input/event2, so we use touchscreen as a input device for the interpretion.
+Below are some examples, we can find the touchscreen input event is registered at /dev/input/event2, so we use the touchscreen as an input device for the interpretation.
 
 + non-parameter: 
 {% highlight shell %}
