@@ -9,13 +9,13 @@ toc: false
 sidebar: true
 about: true
 author: david.dong
-description: Some knowledge for Fingerprint enrollment process in Android platform.
+description: Some knowledge of the Fingerprint enrollment process in the Android platform.
 keywords: Fingerprint enrollment/Android
 ---
 ![cover]({{site.cdn_baseurl}}/assets/image/fingerprint-enroll-cover.jpeg)    
-When we do fingerprint enrollment in android device, it will generate a fingerprint template that contains the user's fingerprint information in a specified directory (for example, /data/vendor_de/0/fpdata/user.db), which depends on the system configuration.
+When we do fingerprint enrollment in an android device, it will generate a fingerprint template that contains the user's fingerprint information in a specified directory (for example, /data/vendor_de/0/fpdata/user.db), which depends on the system configuration.
 
-During the template is being generated, there is a series of APIs calling in android system internally. Let's have a look at this process. 
+During the template is being generated, there is a series of APIs calling in the android system internally. Let's have a look at this process. 
 
 {% include toc.html %}
 
@@ -37,12 +37,12 @@ Return<RequestStatus> authenticate(uint64_t operationId, uint32_t gid) override;
 
 ## preEnroll()
 
-When user starts to enroll the fingerprint, the method `preEnroll()` will be called firstly, the fingerprint IC vendor needs to override this method to complete below task. 
+When a user starts to enroll the fingerprint, the method `preEnroll()` will be called firstly, the fingerprint IC vendor needs to override this method to complete the below task. 
 
-+ generates and saves a 64 bit random number (challenge) in the fingerprint TA. 
++ generates and saves a 64-bit random number (challenge) in the fingerprint TA. 
 This random number has two uses:
-1. Return to the REE upper layer to fill in the authenticated token challenge in the enroll.
-2. TA will use it to preliminarily verify the next enroll to ensure that the enroll has not been tampered by a third party.
+1. Return to the REE upper layer to fill in the authenticated token challenge in the enrollment.
+2. TA will use it to preliminarily verify the next enrollment to ensure that the enrollment has not been tampered with by a third party.
 
 ## enroll()
 If the `preEnroll()` is proper returned, `enroll()` will be following called.<br> 
@@ -77,26 +77,26 @@ typedef struct __attribute__((__packed__))
 **timestamp**: last boot time stamp.<br>
 **hmac**: a special key and SHA-256 algorithm are used to calculate the previous batch of parameters, and a HMAC value is obtained to ensure the legitimacy and security of the previous parameters.<br>
 
-+ gid: Indicate which user enroll fingerprint (Anroid supports multiple users). The gid is used to set the store path of the fingerprint template in REE side.
++ gid: Indicate which user enroll fingerprint (Android supports multiple users). The gid is used to set the store path of the fingerprint template on REE side.
 + timeout_sec: timeout /second.
 
-The upper layer calls `enroll()` method and pass the parameters to fingerprint TA, fingerprint TA receives the token and authorize the token. There will be some works.
+The upper layer calls `enroll()` method and passes the parameters to fingerprint TA, fingerprint TA receives the token and authorizes the token. There will be some works.
 
-1. check if the received token->challenge same with the previous preEnroll phase challenge.
-2. check if the token version is same.
-3. check if authenticator_type is same.
-4. retrieve the data of hw_auth_token_t struct and calucate the HMAC, check if the calculated value is same with original.
+1. check if the received token->challenge same as the previous preEnroll phase challenge.
+2. check if the token version is the same.
+3. check if authenticator_type is the same.
+4. retrieve the data of hw_auth_token_t struct and calculate the HMAC, check if the calculated value is the same as the original.
 
-Once the token is authorized then the fingerprint TA switches the fingerprint sensor status to ready for enrollment and the fingerprint sensor will wait for the finger down event.
+Once the token is authorized then the fingerprint TA switches the fingerprint sensor status to ready for enrollment and the fingerprint sensor will wait for the finger-down event.
 
-If the fingerprint sensor detects the finger down occurs, it will trigger the interrupt to inform the fingerprint TA capture the image. Fingerprint TA will capture the image and do a verification to check if the image is qualified. Uses `on_acquired()` callback method to notify the REE upper layer the result. If the image is not good, it will repeat the image capture for a pre-setted times. If the image is qualified, then fingerprint TA will start the enrollment in ALGO and call `on_enroll_result()` to notify the upper layer the remained sample times. Waiting for the finger up and do the next round image capture. This loop will be repeated until the required count of images are all achieved. 
+If the fingerprint sensor detects the finger down occurs, it will trigger the interrupt to inform the fingerprint TA to capture the image. Fingerprint TA will capture the image and do verification to check if the image is qualified. Uses `on_acquired()` callback method to notify the REE upper layer of the result. If the image is not good, it will repeat the image capture for a pre-setted time. If the image is qualified, then fingerprint TA will start the enrollment in ALGO and call `on_enroll_result()` to notify the upper layer of the remained sample times. Waiting for the finger up and do the next round of image capture. This loop will be repeated until the required count of images is achieved. 
 
 ## postEnroll()
 
-Once the enroll() is returned, `postEnroll()` will be called to finish one time enroll process.
+Once the enroll() is returned, `postEnroll()` will be called to finish one-time enrollment process.
 the work of `postEnroll()` is to update the challenge of TA.
 
-A simplest diagram of the whole enrollment process is 
+The simplest diagram of the whole enrollment process is 
 
 enrollment APIs calling.
 {% highlight ruby %}
