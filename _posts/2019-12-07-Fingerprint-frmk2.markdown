@@ -5,14 +5,16 @@ date:   2019-12-07 23:52:01 +0800
 categories: Android Fingerprint
 tags: Android Fingerprint
 Published: true
+toc: true
+sidebar: true
+about: true
+author: david.dong
+description: Android Fingerprint framework introduction.
+keywords: Fingerprint framework/Android 
 ---
-This page will follow the [last article]({{site.baseurl}}/android/fingerprint/2019/10/03/Fingerprint-frmk1.html) to continue introducing the android fingerprint framework knowledge. The content is focus on android source code inspecting and analysis.
+This page will follow the [last article]({{site.baseurl}}/android/fingerprint/2019/10/03/Fingerprint-frmk1.html) to continue introducing the android fingerprint framework knowledge. The content is focused on android source code inspecting and analysis.
 
-<div class = "separator"></div>
-<h2 class="no_toc">Table of content</h2> 
-* TOC
-{:toc}
-<div class = "separator"></div>
+{% include toc.html %}
 
 ## Step one - startup fingerprintd service
 Looking at the `init.rc` file, a task is assigned at `init.rc` when the android system boots up - start the fingerprint daemon service.
@@ -155,15 +157,15 @@ class FingerprintDaemonProxy : public BnFingerprintDaemon {
 #endif // FINGERPRINT_DAEMON_PROXY_H_
 {% endhighlight %}
 ## Step two - Startup FingerprintService
-Next, we will move to framework layer to find how the Fingerprint Service start up. 
+Next, we will move to the framework layer to find how the Fingerprint Service starts up. 
 open the 
 [SystemServer.java](https://www.androidos.net.cn/android/7.1.1_r28/xref/frameworks/base/services/java/com/android/server/SystemServer.java)<br>
 {% highlight ruby %}
 android path: root/frameworks/base/services/java/com/android/server/
 {% endhighlight %}  
 SystemServer.java  <br>
-This class is in charge of the system service managerment, include start up the necessary service.
-When Android system loads system server, starts Fingerprint Service.
+This class is in charge of system service management, include start-up the necessary service.
+When the Android system loads the system server, starts Fingerprint Service.
 
 {% highlight cpp %}
 import com.android.server.fingerprint.FingerprintService;
@@ -226,8 +228,8 @@ IHwBinder.DeathRecipient {
 
 }
 {% endhighlight %}
-Let's see the mehtod `getFingerprintDaemon()`, this method will acquire the fingerprint remote service object, that is, the object of fingerprint daemon `(system/core/fingerprintd)`, which has been registered in the init.rc. Then initialize the remote service `fingerprintdaemon` and set the callback `mDaemonCallback`.
+Let's see the method `getFingerprintDaemon()`, this method will acquire the fingerprint remote service object, that is, the object of fingerprint daemon `(system/core/fingerprintd)`, which has been registered in the init.rc. Then initialize the remote service `fingerprintdaemon` and set the callback `mDaemonCallback`.
 
 It can be seen from the above that the fingerprint service in the framework calls the fingerprint remote service of the native layer fingerprint daemon (related to the hardware), which can be regarded as the client of the fingerprint remote service fingerprint daemon.
 
-Ok, we have already went through the working process of framework layer and how they register the system service and access the HAL code by calling the remote Fingerprint Service through Binder. Let's move to native layer in next article.
+Ok, we have already gone through the working process of the framework layer and how they register the system service and access the HAL code by calling the remote Fingerprint Service through Binder. Let's move to the native layer in the next article.
