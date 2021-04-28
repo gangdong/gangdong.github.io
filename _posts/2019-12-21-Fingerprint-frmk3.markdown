@@ -6,20 +6,20 @@ categories: Android Fingerprint
 tags: Android Fingerprint
 Published: true
 ---
-Following the last two articles, this article will have a discussion on the remain part of the fingerprint framework on android. This article will end this topic.
+Following the last two articles, this article will discuss the remaining part of the fingerprint framework on android. This article will end this topic.
 
-In last article,<br>
+In the last article,<br>
 [Android Fingerprint Framework (2)]({{site.baseurl}}/android/fingerprint/2019/12/07/Fingerprint-frmk2.html)<br>
-We have had a overview on the android fingerprint work flow as below.
-1. `Init.rc`, starts `Fingerprintd` and register the remote service `FingerprintDaemon` with `ServiceManager`.
+We have had an overview of the android fingerprint workflow as below.
+1. `Init.rc`, starts `Fingerprintd` and registers the remote service `FingerprintDaemon` with `ServiceManager`.
 2. The system loads `SystemServer` and starts `fingerservice`.
 3. `FingerService` gets the object of the remote service `FingerprintDaemon`, and calls the methods to access the HAL.
 `FingerprintDaemoProxy::openHal()` will open the native library `xx.So` to access hardware.  
 
 ### About HAL
-The hardware abstract layer (HAL) of Android system runs in user space. It shields the implementation details of hardware driver module downward and provides hardware access service (JNI or binder) upward. Through the hardware abstraction layer, Android system is divided into two layers to support hardware devices, one layer is implemented in user space, the other is implemented in kernel space. In traditional Linux system, the support for hardware is completely implemented in kernel space, that is, the support for hardware is completely implemented in hardware driver module.
+The hardware abstract layer (HAL) of the Android system runs in userspace. It shields the implementation details of the hardware driver module downward and provides hardware access service (JNI or binder) upward. Through the hardware abstraction layer, the Android system is divided into two layers to support hardware devices, one layer is implemented in user space, the other is implemented in kernel space. In a traditional Linux system, the hardware support is completely implemented in kernel space, that is, the hardware support is completely implemented in the hardware driver module.
 
-The hardware abstraction layer of Android system manages various hardware access interfaces in the form of modules. Each hardware module has a dynamic link library `xx.So` file. The compilation of these dynamic link libraries needs to conform to certain specifications. In Android system, each hardware abstraction layer module is described by `hw_module_t`, and the hardware device is described by `hw_device_t`.
+The hardware abstraction layer of the Android system manages various hardware access interfaces in the form of modules. Each hardware module has a dynamic link library `xx.So` file. The compilation of these dynamic link libraries needs to conform to certain specifications. In the Android system, each hardware abstraction layer module is described by `hw_module_t`, and the hardware device is described by `hw_device_t`.
 
 These definition of these two struct is defined at <br>
 [hardware.h](https://www.androidos.net.cn/android/7.0.0_r31/xref/hardware/libhardware/include/hardware/hardware.h)<br>
@@ -100,7 +100,7 @@ typedef struct hw_module_t {
 
 /**
  * Every device data structure must begin with hw_device_t
- * followed by module specific public methods and attributes.
+ * followed by module-specific public methods and attributes.
  */
 typedef struct hw_device_t {
     /** tag must be initialized to HARDWARE_DEVICE_TAG */
@@ -115,7 +115,7 @@ typedef struct hw_device_t {
      * communicating with the specific module implementation.
      *
      * One module can support multiple devices with different versions. This
-     * can be useful when a device interface changes in an incompatible way
+     * Can be useful when a device interface changes in an incompatible way
      * but it is still necessary to support older implementations at the same
      * time. One such example is the Camera 2.0 API.
      *
@@ -158,7 +158,7 @@ int hw_get_module(const char *id, const struct hw_module_t **module);
  * Get the module info associated with a module instance by class 'class_id'
  * and instance 'inst'.
  *
- * Some modules types necessitate multiple instances. For example audio supports
+ * Some module types necessitate multiple instances. For example audio supports
  * multiple concurrent interfaces and thus 'audio' is the module class
  * and 'primary' or 'a2dp' are module interfaces. This implies that the files
  * providing these modules would be named audio.primary.<variant>.so and
@@ -264,8 +264,8 @@ static int load(const char *id,
 }
 
 /*
- * Check if a HAL with given name and subname exists, if so return 0, otherwise
- * otherwise return negative.  On success path will contain the path to the HAL.
+ * Check if a HAL with the given name and surname exists, if so return 0, otherwise
+ * otherwise return negative.  On success, the path will contain the path to the HAL.
  */
 static int hw_module_exists(char *path, size_t path_len, const char *name,
                             const char *subname)
@@ -410,6 +410,6 @@ For now, we have gone over the whole process of the fingerprint working. we can 
 
 ServiceManager->FingerprintService.java->FingerprintDaemonProxy.cpp->fingerprint.c<br/>->vendorHal.cpp->vendorCA.cpp--------TEE->TA.c 
 
-However, from Android 8.0, Android has made some change for the HAL access method, and introduced the HIDL concept. Therefore the contents we introduced is for the Android early version before 8.0.
+However, from Android 8.0, Android has made some changes to the HAL access method and introduced the HIDL concept. Therefore the contents we introduced are for the Android early version before 8.0.
 
-Next, I will write a article to introduce the difference of the fingerprint framework on Android 8.0 version. 
+Next, I will write an article to introduce the difference of the fingerprint framework on the Android 8.0 version. 
