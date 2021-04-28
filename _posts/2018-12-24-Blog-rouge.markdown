@@ -9,21 +9,21 @@ toc: true
 sidebar: true
 about: true
 author: david.dong
-description: Do you want to add syntax highlighting function into your code block? <br><br>You can get help from this article.
+description: Do you want to add a syntax highlighting function into your code block? <br><br>You can get help from this article.
 keywords: Rouge/Syntax highlighting
 ---
 Syntax highlighting is important (*especially for programming blogs*) because it improves the readability of posts. This article will introduce a syntax highlighter - [Rouge](https://rubygems.org/gems/rouge).
 
 {% include toc.html %}
 
-I think maybe someone who attach a code snippet into the blog wants to get a beautiful syntax highlighting style, just like we see in some popular IDEs, Visual Code, Eceplise, Atom... 
+I think maybe someone who attaches a code snippet into the blog wants to get a beautiful syntax highlighting style, just like we see in some popular IDEs, Visual Code, Eceplise, Atom... 
 
-I also like that, so I decide to add syntax highlighter into my blog.
+I also like that, so I decided to add a syntax highlighter to my blog.
 
-My blog was constructed by Jekyll, Jekyll has built in support for syntax highlighting and Rouge is the default highlighter in Jekyll 3 and above. It's also supported by Github Pages, you can use it when you deploy your site on Github Pages.
+My blog was constructed by Jekyll, Jekyll has built-in support for syntax highlighting and Rouge is the default highlighter in Jekyll 3 and above. It's also supported by Github Pages, you can use it when you deploy your site on Github Pages.
 
 ## Install Rouge
-There is nothing special about the installation, like a ordinary Jekyll plugin installation.
+There is nothing special about the installation, like an ordinary Jekyll plugin installation.
 
 {% highlight ruby %}
 gem install rouge
