@@ -7,9 +7,9 @@ tags: Blog
 ---
 I believe it is a good idea to estimate the reading time of every post and display it to readers following the post excerpts. 
 
-There are plenty of Jekyll plugins that support realizing this feature, but I don't suggest to use them if you want to deploy your blog on Github pages. (GitHub may block the working of these plugins by running with the `--safe` flag).
+There are plenty of Jekyll plugins that support realizing this feature, but I don't suggest using them if you want to deploy your blog on Github pages. (GitHub may block the working of these plugins by running with the `--safe` flag).
 
-So I tried to write below trick code to realize this feature. 
+So I tried to write the below trick code to realize this feature. 
 
 {% highlight liquid %}
 {% raw %}
@@ -36,11 +36,11 @@ The method is straightforward,
 {% assign words = content | number_of_words %}
 {% endraw %}
 {% endhighlight %}
-But Jekyll built-in filter `number_of_words` cannot accurately count the number of Chinese words. If you have Chinese words to calculate, you can use Liquid's size filter to avoid this problem. In order to make statistics more accurate, it is better to ignore all HTML tags and blank lines before calculation.
-+ Get a number of WPM (word per minute), by google the WPM value, an person can read 300-500 words per minute in a computer monitor. I read fast and I think it can be a bigger value, but I set an median 400 here for my blog. 
-+ The rest work is easy, we only need calculating the reading time by dividing words count with WPM.
+But Jekyll's built-in filter `number_of_words` cannot accurately count the number of Chinese words. If you have Chinese words to calculate, you can use Liquid's size filter to avoid this problem. In order to make statistics more accurate, it is better to ignore all HTML tags and blank lines before calculation.
++ Get a value of WPM (word per minute), by google the WPM value, a person can read 300-500 words per minute on a computer monitor. I read fast and I think it can be a bigger value, but I set a median of 400 here for my blog. 
++ The rest work is easy, we only need to calculate the reading time by dividing word count with WPM.
 
-Next, I create a **read_time.html** in my _includes folder and put all this code into it to well orgianze them. 
+Next, I create a **read_time.html** in my _includes folder and put all this code into it to well organize them. 
 
 I just include the **read_time.html** in my post layout.
 
