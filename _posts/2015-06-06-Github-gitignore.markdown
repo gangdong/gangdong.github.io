@@ -13,7 +13,7 @@ description: This article addressed the issue that gitignore doesn't work and gi
 keywords: gitignore/
 ---
 You may have run into situations where `.gitignore` doesn't work.😕    
-During the project development, you want to add some directors or files into the ignore rule and you specified them at the `.gitignore`. You committed and checked the status, unfortunately you found they were still being tracked. 
+During the project development, you want to add some directors or files into the ignore rule and you specified them at the `.gitignore`. You committed and checked the status, unfortunately, you found they were still being tracked. 
 
 That is because the `.gitignore` can only ignore those files that were not originally tracked. If some files have been submitted before and have been included in version management, modifying `.gitignore` is invalid. The solution is to delete the local cache (change it to untrack) and resubmit `.gitignore` file.
 
