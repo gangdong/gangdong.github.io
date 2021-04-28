@@ -13,13 +13,13 @@ description: This article introduced the usage of bcdedit binary in Windows.
 keywords: bcdedit/
 ---
 **BCDEDIT** - Boot Configuration Data Store Editor.  
-`Bcdedit.exe` is a command line tool for managing boot configuration data (BCD). To use this tool, it needs the administrator permission to start a command line window.
+`Bcdedit.exe` is a command-line tool for managing boot configuration data (BCD). To use this tool needs the administrator permission to start a command-line window.
 
 The Bcdedit.exe command-line tool modifies the boot configuration data store. The boot configuration data store contains boot configuration parameters and controls how the operating system is booted. These parameters were previously in the Boot.ini file (in BIOS-based operating systems) or in the nonvolatile RAM entries (in Extensible Firmware Interface-based operating systems). You can use Bcdedit.exe to add, delete, edit, and append entries in the boot configuration data store.  
   
 In the command line, enter the command `bcdedit /?` to view all bcdedit related operations.
 
-The command parameters is as below.  
+The command parameters are as below.  
 {% highlight plaintext %}
 Commands that operate on a store
 ================================
