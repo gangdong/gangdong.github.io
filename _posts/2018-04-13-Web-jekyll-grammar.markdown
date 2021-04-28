@@ -49,8 +49,11 @@ Jekyll traverses your site looking for files to process. Any files with front ma
 ### paginator variables
 ![directory]({{site.cdn_baseurl}}/assets/image/web-jekyll-2-variables-paginator.png)
 
-above is the description from the official docs. talk is always easy, next I will write some code to demonstrate the usage. 
-below shows the variables value of my blog.
+Above content is the description from the official documents.
+ 
+*Talk is always easy*, next, I will write some codes to demonstrate the usage. 
+
+Below content shows the variables value of my blog.
 {% highlight console %}
 This page's title is {{page.title}}
 This page's name is {{page.name}}
@@ -77,7 +80,7 @@ Jekyll has below commands
 `Jekyll help:`Display help information or display help information for specific subcommands, such as Jekyll help build.<br>
 `Jekyll new-theme:`Creates a new Jekyll theme scaffold.<br>
 
-above contents are not include all of Jekyll's grammar, there are some other parts, such as 
+Above contents are not include all of Jekyll's grammar, there are some other parts, such as 
 + Jekyll configuration
 + Includes
 + Layouts
