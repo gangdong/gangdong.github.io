@@ -12,7 +12,7 @@ author: david.dong
 description: This article introduced what MathJax is and how to use MathJax.
 keywords: MathJax/Jekyll
 ---
-When writing posts, I need to display mathematics formula sometimes. I write posts with Markdown, I don't want to save the formula into an image and load the image in markdown. It is better write the Latex formula in markdown file directly. MathJax helped me do it. This article will introduce what MathJax is and how to use MathJax.
+When writing posts, I need to display mathematics formulas sometimes. I write posts with Markdown, I don't want to save the formula into an image and load the image in markdown. It is better to write the Latex formula in the markdown file directly. MathJax helped me do it. This article will introduce what MathJax is and how to use MathJax.
 
 {% include toc.html %}
 
@@ -22,28 +22,28 @@ When writing posts, I need to display mathematics formula sometimes. I write pos
 
 This is the definition of the MathJax in [MathJax official website](https://www.mathjax.org/), more information can be found from there.
 
-To me, it brought some benefits when writing blog.
+To me, it brought some benefits when writing a blog.
 
-- No need plugin support in Jekyll. I don't have to worry about that it cannot be implemented when deploying the site at Github Pages for security checking (*Github Pages uses the Jekyll `--safe` flag*). 
+- No need for plugin support in Jekyll. I don't have to worry that it cannot be implemented when deploying the site at Github Pages for security checking (*Github Pages uses the Jekyll `--safe` flag*). 
 - Unlike using bitmaps image to display, it is text editing and transforms the mathematics formula to HTML or SVG, so it is workable for zoom scale and is suitable to display under different size screen.
 - I can write the mathematics formula in markdown with plain text just by following the syntax of LaTex/TeX.
-- Friendly to new user, you can quickly use it even you have no any knowledge about it. 
+- Friendly to the new user, you can quickly use it even you do not have knowledge about it. 
 
-Moreover, looks MathJax has become into the most popular solution for rendering the Latex mathematics formula in the web application. 
+Moreover, looks MathJax has become into the most popular solution for rendering the Latex mathematics formula in web applications. 
 
 At least, I think so.
 
 ## How to implement?
 
 ### Including MathJax in a web page
-As I said, one of the benefit of MathJax is that you don't need to install any plugin to implement it, just introduce a piece of JavaScript code into your page's HTML.
+As I said, one of the benefits of MathJax is that you don't need to install any plugin to implement it, just introduce a piece of JavaScript code into your page's HTML.
 
 {% highlight html %}
 <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 {% endhighlight %}
 
-I added above snippet into my `default.html`, you can insert it into `head.html` or any page's HTML where you want to use MathJax.
+I added the above snippet into my `default.html`, you can insert it into `head.html` or any page's HTML where you want to use MathJax.
 
 
 ### Configuration
@@ -53,11 +53,11 @@ For more configuration, can find at [here](https://docs.mathjax.org/en/latest/we
 
 MathJax offers a global object named MathJax that contains configuration data for the various components of MathJax.
 
-For TeX or LaTeX input component , it has two types. One is `in-line mathematics`(*display in paragraph*) and the other is `displayed mathematics`(*display as a single paragraph*).
+For TeX or LaTeX input component, it has two types. One is `in-line mathematics`(*display in paragraph*) and the other is `displayed mathematics`(*display as a single paragraph*).
 
-It uses double dollar sign `$$` as the default math delimiters for `displayed mathematics`, uses the `(\...\)` as the math delimiters for `in-line mathematics`.
+It uses the double dollar sign `$$` as the default math delimiters for `displayed mathematics`, uses the `(\...\)` as the math delimiters for `in-line mathematics`.
 
-Here as an example, I inserted below code snippet to add single dollar `$` signs as in-line math delimiters.
+Here is an example, I inserted below code snippet to add single dollar `$` signs as in-line math delimiters.
 
 {% highlight html %}
 <script type="text/x-mathjax-config">
@@ -65,7 +65,7 @@ Here as an example, I inserted below code snippet to add single dollar `$` signs
 </script>
 {% endhighlight %}
 
-It is better place the MathJax object in a `<script>` tag just before the script that loads MathJax itself. 
+It is better to place the MathJax object in a `<script>` tag just before the script that loads MathJax itself. 
 
 So my last code is 
 
@@ -80,7 +80,7 @@ So my last code is
 
 ### Mathematics expression with MathJax
 
-I wrote below words as startup.
+I wrote the below words as a startup.
 
 > Hi, there,     
 > This is my first MathJax equation.    
