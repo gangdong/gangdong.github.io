@@ -7,9 +7,9 @@ tags: Python
 published: true
 ---
 Today I spent some time installing the python3.6 on my ubuntu16.04.
-Here is a short note for the process, which might be useful for anyone who want to do the same thing.
+Here is a short note for the process, which might be useful for anyone who wants to do the same thing.
 
-The first thing before you start to install the python3.6 is that you need to know which version of pythons are on your system. On ubuntu16.04 you can use below command to check your python version.
+The first thing before you start to install the python3.6 is that you need to know which version of python is on your system. On ubuntu16.04 you can use the below command to check your python version.
 {% highlight shell %}
 ls /usr/local/lib/
 {% endhighlight %}
@@ -23,7 +23,7 @@ then input `python --version` to check which version python is your default pyth
 {% highlight shell %}
 python --version
 {% endhighlight %}
-If you want to switch to another python version, input below command
+If you want to switch to another python version, input the below command
 
 {% highlight shell %}
 echo alias python=python3 >> ~/.bashrc
@@ -37,7 +37,7 @@ sudo add-apt-repository ppa:jonathonf/python-3.6
 sudo apt-get update
 sudo apt-get install python3.6
 {% endhighlight %}
-Unfortunately it doesn't work on my installation for the PPA has been removed. Therefore I turned to the second way to download the source code and compile, install.
+Unfortunately, it doesn't work on my installation for the PPA has been removed. Therefore I turned to the second way to download the source code and compile, install it.
 The command as below.
 {% highlight shell %}
 wget https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tar.xz
@@ -48,7 +48,7 @@ cd Python-3.6.0
 make
 sudo make install
 {% endhighlight %}
-Waiting for the installation complete. Then check the python version, if you see the "Python 3.6.x", python3.6 has been installed successfully on your ubuntu16.04.
+Waiting for the installation to complete. Then check the python version, if you see the "Python 3.6.x", python3.6 has been installed successfully on your ubuntu16.04.
 {% highlight shell %}
 david@david-VirtualBox:~$ python --version
 Python 3.6.0
@@ -82,7 +82,7 @@ Then switch to root user and execute the last command to choose which python you
 sudo su
 update-alternatives --config python
 {% endhighlight %}
-If you see below menu, congratulations, just select the one you want.
+If you see the below menu, congratulations, just select the one you want.
 {% highlight shell %}
 有 3 个候选项可用于替换 python (提供 /usr/bin/python)。
 
@@ -95,6 +95,6 @@ If you see below menu, congratulations, just select the one you want.
 
 要维持当前值[*]请按<回车键>，或者键入选择的编号：
 {% endhighlight %}
-We have done all the job for now. Hope this short article is able to give you help if you have the same requirement as me. 
-If you have any question, please ask at below comment box.
+We have done all the job for now. Hope this short article can give you help if you have the same requirement as me. 
+If you have any questions, please ask in below comment box.
 <br>
