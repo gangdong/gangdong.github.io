@@ -63,15 +63,15 @@ Including the `linenos` argument will force the highlighted code to include line
 ## Stylesheet
 
 There are some syntax highlighting style themes available in Rouge, you can look for them at     
-[Rouge Themes Doc](https://rouge-ruby.github.io/docs/Rouge/Themes.html) / [Rouge themes](https://github.com/mzlogin/rouge-themes)
++ [Rouge Themes Doc](https://rouge-ruby.github.io/docs/Rouge/Themes.html) / [Rouge themes](https://github.com/mzlogin/rouge-themes)
 
-Rouge comes built-in with `rougify`, a command-line tool that converts a style theme to a CSS file.
+Rouge comes built-in with `rougify`, a command-line tool that converts a style theme to a `CSS` file.
 
 Use below command to view the themes that Rouge supports.
 {% highlight ruby %}
 rougify help style
 {% endhighlight %}
-As of rouge 1.11.1, the available themes are:  
+As of Rouge 1.11.1, the available themes are:  
 {% highlight ruby %}
 base16, 
 base16.dark, 
@@ -89,12 +89,12 @@ monokai.sublime,
 thankful_eyes
 {% endhighlight %}
 
-Use below command to generate CSS file for the syntax highlighting style you want.
+Use below command to generate `CSS` file for the syntax highlighting style you want.
 {% highlight ruby %}
 rougify style monokai.sublime > syntax_monokai.css
 {% endhighlight %}
 
-Copy the generated style CSS file to your site's style folder and don't forget to include the stylesheet file into your head.html.
+Copy the generated style CSS file to your site's style folder and don't forget to include the stylesheet file into your `head.html`.
 
 {% highlight ruby %}
 <link href="{{site.cdn_baseurl}}/assets/css/syntax_monokai.css" rel="stylesheet"/>

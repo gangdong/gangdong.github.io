@@ -12,7 +12,7 @@ author: david.dong
 description: This article introduced how to use jekyll-toc plugin on Github Pages.
 keywords: jekyll-toc/Github Pages
 ---
-Today I want to add an auto TOC function to my blog. I used to write TOC manually and it is really boring. I found a good plugin [jekyll-toc](https://Github.com/toshimaru/jekyll-toc) in Github, which can fully meet my requirement. 
+Today I want to add an auto TOC (*Table of Contents*) function to my blog. I used to write TOC manually and it is really boring. I found a good plugin [jekyll-toc](https://Github.com/toshimaru/jekyll-toc) in Github, which can fully meet my requirement. 
 
 {% include toc.html %}
 
@@ -47,7 +47,7 @@ The TOC appeared, this was exactly what I want!
 
 Things are going well so far, it is so easy?
 
-No, I got into trouble when I committed the change to the Github repository. The site was built failed by the Github Pages generator. 
+No, I got into trouble when I committed the change to the Github repository. The site was built failed by the Github Pages Generator. 
 
 {% highlight shell %}
 The tag `toc` on line 32 in `/_layouts/post.html` is not a recognized Liquid tag.
@@ -69,7 +69,7 @@ I have to use a trick way to skip the restriction. As the above bulletin showed,
 
 ## Use Master branch
 
-Followed the above information I checked the root path in my Github Pages, it was `master` branch. 
+Followed the above information I checked the root path of my blog project in Github, it was `master` branch. 
 
 So I added the site file `_site/` to the master branch and pushed it to the origin repository. 
 
@@ -95,7 +95,7 @@ Thanks to these two articles[^2].
 
 [^2]:[https://www.it1352.com/798173.html](https://www.it1352.com/798173.html) [https://www.cnblogs.com/pengshuo/p/5368035.html](https://www.it1352.com/798173.html), 
 
-I made it clear when I build the website by Github Pages generator, it actually creates a new branch `gh-pages` under master branch, where it stores the static site files for access. Therefore I need to create the `gh-pages` branch and place the generated static HTML there.
+I made it clear when I build the website by Github Pages Generator, it actually creates a new branch `gh-pages` under master branch, where it stores the static site files for access. Therefore I need to create the `gh-pages` branch and place the generated static HTML there.
 
 I changed the command as below.
 
@@ -117,6 +117,6 @@ git push origin gh-pages
 
 ## Conclusion
 
-If you want to deploy your website on Github Pages with the unsupported plugins, you will need to build your site locally and create `gh-pages` branch and upload your site file to this branch. One important point is that you should use the branch as the root, which means placing the site file into the directory directly instead of a sub-directory.
+If you want to deploy your website on Github Pages with the unsupported plugins, you will need to build your site locally and create `gh-pages` branch and upload your site file to this branch. One important point is that you should use the branch as the `root`, which means placing the site file into the directory directly instead of a sub-directory.
 
 ![master-root]({{site.cdn_baseurl}}/assets/image/blog-jekyll-toc-03.PNG)
