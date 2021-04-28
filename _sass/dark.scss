@@ -287,7 +287,10 @@
 			color: white;
 		}
 	}
-	
+	.post-note .body span{
+		color: #DC143C;
+		background-color: #272727;
+	}
 	.info {
 		border-top: 2px solid $dark_link_color;
 		border-bottom: 2px solid $dark_link_color;

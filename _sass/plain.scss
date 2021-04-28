@@ -1239,6 +1239,15 @@ table {
 				text-decoration: none;
 			}
 		}
+		span {
+			margin: 0 0px;
+			font-size: 14px;
+			padding: 4px 4px;
+			white-space: nowrap;
+			color: #c7254e;
+			background-color: #f9f2f4;
+			border-radius: 4px;
+		}
 	}
 }
 .warning {
