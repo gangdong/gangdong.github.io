@@ -35,31 +35,35 @@ keywords: rawposts/模板
 + 社交媒体分享 （Linkedin, Facebook, Twitter, Weixin...,180+）
 + 中英文双语支持
 + 分页功能
-+ 归档
-+ 文章分类
++ 侧边栏集成文章目录自动生成
++ 文章归档
++ 文章分类索引
 + 摘要
 + 优化Github风格的代码样式
++ 全站关键字搜索
 + Rouge 语法高亮
++ 相似文章归类索引
 + 评论模块：Gittalk / Disqus    
   中国大陆用户推荐使用 Gittalk.
-+ 阅读量统计：busuanzi
-+ 站点统计：busuanzi / google analytics   
-  中国大陆用户推荐使用 busuanzi analytics
-+ RSS
-+ Sitemap
++ 文章阅读量统计：busuanzi / google analytics
++ 站点访问统计：busuanzi / google analytics   
+  中国大陆用户推荐使用 busuanzi
++ RSS/Sitemap
++ SEO 优化
++ 集成 Travis CI 自动生成部署网站
 + jemoji emoji表情支持
 + 两种皮肤可切换：浅色/深色
 + 文章字数统计
 + 阅读时间统计
 
 ## <span id ="3">3.应用插件</span>
-+ jekyll-seo-tag
-+ jemoji
-+ kramdown
-+ jekyll-archives
-+ jekyll-paginate
-+ jekyll-toc
-+ rouge
++ [jekyll-seo-tag](https://github.com/jekyll/jekyll-seo-tag)
++ [jemoji](https://openmoji.org)
++ [kramdown](https://kramdown.gettalong.org)
++ [jekyll-paginate](https://jekyll.zcopy.site/docs/pagination)
++ [jekyll-toc](https://github.com/toshimaru/jekyll-toc)
++ [rouge](https://jekyllrb.com/docs/liquid/tags/#code-snippet-highlighting)
++ [jekyll-tagging-related_posts](https://github.com/toshimaru/jekyll-tagging-related_posts)
 
 ## <span id ="4">4.主题安装</span>
 1. fork [主题](https://github.com/gangdong/jekyll-theme-rawposts) 到你的github仓库。
@@ -77,12 +81,19 @@ keywords: rawposts/模板
 当前此主题的模板中的默认配置为我个人的信息，将该部分替换为你自己的信息。
 #### `show_excerpts`
 _config.yml中设置该字段为 `true` 将会启用目录的摘要功能。
+#### `search`
+_config.yml中设置该字段为 `true` 将会启用全站关键字搜索功能。
 #### `paginate`
 _config.yml中通过设置该字段来设定每页最大的文章数量。
 #### `paginate_path`
 _config.yml中设置该字段为你需要放置子页的路径。
 #### `sitemap`
 _config.yml中设置该字段为 `true` 将生成 sitemap.html 文件。
+#### `syntax`
+_config.yml中设置该字段，可以选择代码高亮的主题，目前支持的主题有23种。<br>
+详见 [Rouge Theme](https://github.com/mzlogin/rouge-themes)
+#### `related_posts`
+_config.yml中设置该字段为 `true` 将会启用相似文章归类索引。
 #### `dark_mode`
 _config.yml中设置该字段为 `true` 将会启用网站的深色模式切换功能。
 #### `reading_time`
@@ -91,6 +102,8 @@ _config.yml中设置该字段为 `true` 将会增加文章的阅读时间和字�
 _config.yml中设置该字段为 `true` 将会启用文章的时间归档功能。 
 #### `categories`
 _config.yml中设置该字段为 `true` 将会启用文章的归类功能。
+#### `analytics_id`
+_config.yml中设置该字段为 Google Analytics 的用户 ID，如果填写正确则启用 Google Analytics 分析。
 #### `gittalk`
 _config.yml中设置该字段为 `true` 将会增加gittalk评论模块。 
 #### `show_statistics`
@@ -98,7 +111,10 @@ _config.yml中设置该字段为 `true` 将会启用网站访客统计功能，�
 #### `rss`
 _config.yml中设置该字段为 `true` 将会启用rss生成功能。 
 #### `source_code` 
-_config.yml中设置该字段为 `true` 将会增加源代码导引。
+_config.yml中设置该字段为 `true` 将会增加源代码索引。
+#### `share_media`
+_config.yml中设置该字段为 `true` 将会启用文章的社交媒体分析，默认媒体有 Twitter/Facebook/微信/linkin。
+
 
 ### <span id ="5.2">5.2 包含文件</span>
 该主题有一些必要的 「.html」文件来实现网站的功能，它们位于不同的文件夹中。
@@ -121,8 +137,11 @@ pagination.html 实现网站的分页功能，存放在根目录 `_includes` 文
 #### `reading_time.html`
 reading_time.html 统计文章的字数和阅读时间并显示. 存放在根目录 `_includes` 文件夹中。
 
-#### `title.html`
+#### `menu.html`
 生成主页的功能菜单项, 存放在根目录 `_includes` 文件夹中。
+
+#### `toc.html`
+自动生成文章的目录, 存放在根目录 `_includes` 文件夹中。
 
 ## <span id ="6">6.开发</span>
 ### <span id = "6.1">6.1 搭建开发环境</span>
