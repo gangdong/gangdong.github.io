@@ -173,3 +173,11 @@ Well, my further improvement plan is:
    Cloudflare has several neat features. It can minify files, improve image sizes, bundle js files, and so forth. By taking advantage of CloudFlare’s global network, I can utilize its CDN service to improve my site's performance and security. 
 4. If considering the China local visiting I will perhaps change the NS to [dnspod](https://www.dnspod.cn/)...
 <div class = "separator"></div>
+
+## Reference
+
+I would recommend some articles which are helpful for website load time optimization. I read and referred them during my optimization.
+
++ [4 ways to improve your website load time and performance in 2020](https://www.impactplus.com/blog/website-load-time)
++ [How to Speed Up Your Website: 20+ Practical Tips for a Faster Site](https://websitesetup.org/how-to-speed-up-your-website/)
++ [12 Techniques of Website Speed Optimization: Performance Testing and Improvement Practices](https://www.altexsoft.com/blog/engineering/12-techniques-of-website-speed-optimization-performance-testing-and-improvement-practices/)
