@@ -14,7 +14,7 @@ My blog website was constructed by Jekyll, Jekyll uses Liquid as its template la
 
 I do not know this language previously, so I spent some time learning it. 
 
-The Liquid code consists of **objects**, **tags**, and **filters**.
+The Liquid code consists of `objects`, `tags`, and `filters`.
 
 {% include toc.html %}
 
