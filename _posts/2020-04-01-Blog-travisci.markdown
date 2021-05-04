@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Use Travis CI to build and deploy project automatically on Github"
-date:   2021-04-01 13:02:34 +0800
+date:   2020-04-01 13:02:34 +0800
 categories: Blog Github
 tags: Blog Github
 Published: true
