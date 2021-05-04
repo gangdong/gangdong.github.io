@@ -38,5 +38,5 @@ jobs:
         cp -r /tmp/_site/* ./
         ls -la
         git add -A
-        git commit -m "github_ci update gh-pages dev -> 3edc0943 release: v2.1"
+        git commit -m "github_ci update gh-pages dev -> 2f3f1699 add github action for build and deploy"
         git push --force "https://${{ secrets.DEPLOY_TOKEN }}@github.com/gangdong/gangdong.github.io.git" deploy:gh-pages
