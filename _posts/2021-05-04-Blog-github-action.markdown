@@ -9,7 +9,7 @@ toc: true
 sidebar: true
 about: true
 author: david.dong
-description: GitHub Actions provides a flexible CI function and can be a good substitute of Travis CI. This article will show how I migrate my projects from Travis CI to Github Actions. 
+description: GitHub Actions provides a flexible CI function and can be a good substitute for Travis CI. This article will show how I migrate my projects from Travis CI to Github Actions. 
 keywords: GitHub Actions/Travis CI
 ---
 I've used Travis CI to build and deploy my projects for some years. The performance of Travis CI can meet my requirements. However, recently I found Travis CI stopped working for me. ☹️
@@ -85,6 +85,7 @@ I finally picked this action [build-jekyll-toolbox](https://github.com/marketpla
 After the build, I ported some of the deploy codes in Travis CI to GitHub Actions. Since both of them use Linux OS on the virtual machine, the shell commands are identical, I finished it quickly. The changes are to replace the `GH_TOKEN` environment variable with the `DEPLOY_TOKEN` in GitHub Actions (*They are the same token just with the different name*). 
 
 The last code in my `ci.yml` file: 
+
 {% highlight yml %}
 name: CI
 
@@ -125,10 +126,8 @@ jobs:
         ls -la
         git add -A
         git commit -m "github_ci update gh-pages dev -> 2f3f1699 add Github Actions for build and deploy"
-        git push --force "https://${{ secrets.DEPLOY_TOKEN }}@github.com/gangdong/gangdong.github.io.git" deploy:gh-pages
+        git push --force "https://{% raw %}${{ secrets.DEPLOY_TOKEN }}{% endraw %}@github.com/gangdong/gangdong.github.io.git" deploy:gh-pages
 {% endhighlight %}
-
-
 
 ## My feeling
 With the above works, GitHub Actions starts to build and deploy my blog website for me. After the trial, my first feeling is that GitHub Actions is fast build and simple to use.
