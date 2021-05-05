@@ -88,7 +88,7 @@ Because I need to do some extra works before deploying the static website files 
 
 I finally picked this action [build-jekyll-toolbox](https://github.com/marketplace/actions/build-jekyll-toolbox) to help me build the website. 
 
-After the build, I ported some of the deploy codes in Travis CI to GitHub Actions. Since both of them use Linux OS on the virtual machine, the shell commands are identical, I finished it quickly. The changes was to replace the `GH_TOKEN` environment variable with the `DEPLOY_TOKEN` in GitHub Actions (*They are the same token just with the different name*). 
+After the build, I ported some of the deploy codes in Travis CI to GitHub Actions. Since both of them use Linux OS on the virtual machine, the shell commands are identical, I finished it quickly. The change was to replace the `GH_TOKEN` environment variable with the `DEPLOY_TOKEN` in GitHub Actions (*They are the same token just with the different name*). 
 
 The last code in my `ci.yml` file: 
 
