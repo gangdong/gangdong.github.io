@@ -1,6 +1,10 @@
 # This is David's Blog | 董刚的博客
 
-[![Build Status](https://travis-ci.com/gangdong/gangdong.github.io.svg?branch=dev)](https://travis-ci.com/gangdong/gangdong.github.io)
+<div class = "travis-building-box">
+	<a href = "https://travis-ci.com/gangdong/gangdong.github.io" ><img src = "https://travis-ci.com/gangdong/gangdong.github.io.svg?branch=dev" alt = "Build Status"></a>
+	<img src = "https://github.com/gangdong/gangdong.github.io/actions/workflows/ci.yml/badge.svg?branch=dev" alt = "Build Status" />
+</div> 
+<br>
 
 > 关于程序与设计 & 生活与分享 | 这里是 董刚 的个人博客，让我们一起发现更多。
 <br>
@@ -26,7 +30,7 @@
 
 ### 在线预览
 
-[在线预览->](https://dqdongg.com)
+[在线预览 -> dqdongg.com](https://dqdongg.com)
 <br>
 
 ### 关于本站
@@ -61,7 +65,7 @@
 
 ### Live Demo
 
-[Demo->](https://dqdongg.com)
+[Demo -> dqdongg.com](https://dqdongg.com)
 <br>
 
 ### About this site
