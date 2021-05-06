@@ -147,7 +147,7 @@ If you look at the above screenshot, you will find each step of the process is c
 ## Easter egg
 Like Travis CI, GitHub Actions supports status badges, which let you indicate whether a build is passing or failing. 
 
-![status badge](https://github.com/gangdong/gangdong.github.io/actions/workflows/ci.yml/badge.svg)
+![status badge](https://github.com/gangdong/gangdong.github.io/actions/workflows/ci.yml/badge.svg?branch=dev)
 
 For more information, see 
 
