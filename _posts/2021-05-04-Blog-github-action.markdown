@@ -144,7 +144,7 @@ You can see from the above source code, I used 2 actions `checkout@v2` and `jeky
 
 If you look at the above screenshot, you will find each step of the process is clear and the whole construction costs `~ 1` minute to complete. It is a great improvement than running in Travis CI, which took 3 ~ 4 minutes for the whole process. Although I haven't know what caused the promotion internally yet, It did improve a lot.  
 
-## Easter egg
+## Badges
 Like Travis CI, GitHub Actions supports status badges, which let you indicate whether a build is passing or failing. 
 
 ![status badge](https://github.com/gangdong/gangdong.github.io/actions/workflows/ci.yml/badge.svg?branch=dev)
