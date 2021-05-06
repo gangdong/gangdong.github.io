@@ -60,7 +60,7 @@ Based on these features, many actions are developed by third-party developers fo
 
 If you want to start your CI, you don't have to write complex actions by yourself. The quickest way is searching the `GitHub Marketplace` to find the actions that can fulfill the function you want and written by other contributors. You can construct the whole continuous integration process by combining actions.
 
-## Migrating process
+## Migrating to GitHub Actions
 
 I decided to start the migration from my blog project. As I said above, both Travis CI and GitHub Actions are used `YAML` file format to write the configuration files, so the syntax is similar. What I do was rewriting the control flow with the GitHub Actions' syntax and replaced the environment variables used in Travis CI.
 
