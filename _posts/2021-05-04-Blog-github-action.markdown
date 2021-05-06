@@ -20,7 +20,7 @@ The service of Travis CI provided convenience and did help me a lot with my deve
 
 Until one day a couple of weeks ago, I received the notification from Travis CI, ***"My builds have been temporarily disabled for public repositories due to a negative credit balance"***. I realized that the time for free use is over. I need to pay for the service now. 
 
-From the beginning, Travis CI was built to integrate with GitHub repositories and offer free open source CI. It was popular since then around the open-source developer. I think it is not only because of the powerful functionality but the free model of service. I knew Travis CI was purchased by Idera in Jan 2019. There should be some change in the pricing strategy. But when the new pricing strategy comes, I still feel a little bit unacceptable. 
+From the beginning, Travis CI was built to integrate with GitHub repositories and offer free open source CI. It was popular since then around the open-source developer. I think it is not only because of the powerful functionality but the free model of service. I knew Travis CI was purchased by Idera in Jan 2019. There should be some change in the pricing strategy. But when the new pricing strategy comes, I still feel a little bit frustrated. 
 
 > A `Free` Plan, assigned automatically to every new sign up, is a Usage based plan with an unlimited amount of users which comes with a trial pool of credits to be used. Once these credits are used they are not replenished.  
 
@@ -52,15 +52,15 @@ There are plenty of articles to teach how to make your own GitHub Actions in the
 		</p>
   	</div>
 </div>
-Basically, Travis CI and GitHub Actions are similar in terms of usage. They are all based on `YAML` file format to write configuration files. The difference is GitHub Actions introduced the `jobs` concept in the workflows. Each job can be separated into some `steps`, the step can use different sub-actions to complete the function. So the users can set different actions according to different scenarios to reduce the complexity of development and speed up writing the configuration file.
+Basically, Travis CI and GitHub Actions are similar in terms of usage. They are all based on `YAML` file format to write configuration files. The difference is GitHub Actions introduced the `jobs` concept in the workflows. Each job can be separated into some `steps`, the step can use different actions to complete the function. So the users can set different actions according to different scenarios to reduce the complexity of development and speed up writing the configuration file.
 
 This will provide great flexibility, I think that's the most special thing about GitHub Actions.
 
 Based on these features, many actions are developed by third-party developers for some common applications, such as grabbing code, running tests, logging on the remote server, publishing to third-party services, and so on. You can find them in the [GitHub Marketplace](https://github.com/marketplace?type=actions). 
 
-If you want to start your CI, you don't have to write complex actions by yourself. The quickest way is searching the `GitHub Marketplace` to find the actions that can realize the function you want and written by other contributors. You can construct the whole continuous integration process by combining actions.
+If you want to start your CI, you don't have to write complex actions by yourself. The quickest way is searching the `GitHub Marketplace` to find the actions that can fulfill the function you want and written by other contributors. You can construct the whole continuous integration process by combining actions.
 
-## Migrate Process
+## Migrating process
 
 I decided to start the migration from my blog project. As I said above, both Travis CI and GitHub Actions are used `YAML` file format to write the configuration files, so the syntax is similar. What I do was rewriting the control flow with the GitHub Actions' syntax and replaced the environment variables used in Travis CI.
 
@@ -138,11 +138,20 @@ jobs:
 ## My feeling
 With the above works, GitHub Actions started to build and deploy my blog website for me. After the trial, my first reflection is that GitHub Actions is fast build and simple to use.
 
-You can see from above the source code, I used 2 actions `checkout@v2` and `jekyll-build-action@v1` to fetch the code and build them on the virtual machine. It does simplify the writing of configuration file compare to writing them in Travis CI. 
+You can see from the above source code, I used 2 actions `checkout@v2` and `jekyll-build-action@v1` to fetch the code and build them on the virtual machine. It does simplify the writing of configuration file compare to writing them in Travis CI. 
 
 ![result]({{site.cdn_baseurl}}/assets/image/blog-github-action-02.PNG)
 
-If you look at the above screenshot, you will find each step of the process is clear and the whole construction costs ~ 1 minute to complete. It is a great improvement than running in Travis CI, which took 3 ~ 4 minutes for the whole process. Although I haven't know what caused the promotion internally yet, It did improve a lot.  
+If you look at the above screenshot, you will find each step of the process is clear and the whole construction costs `~ 1` minute to complete. It is a great improvement than running in Travis CI, which took 3 ~ 4 minutes for the whole process. Although I haven't know what caused the promotion internally yet, It did improve a lot.  
+
+## Easter egg
+Like Travis CI, GitHub Actions supports status badges, which let you indicate whether a build is passing or failing. 
+
+![status badge](https://github.com/gangdong/gangdong.github.io/actions/workflows/ci.yml/badge.svg)
+
+For more information, see 
+
++ [Adding a workflow status badge to your repository.](https://docs.github.com/en/actions/managing-workflow-runs/adding-a-workflow-status-badge)
 
 I think GitHub Actions is an alternative option if you are looking for another CI to replace Travis CI. 
 
