@@ -9,12 +9,12 @@ toc: true
 sidebar: true
 about: true
 author: david.dong
-description: This article introduced Python struct.pack() method.
+description: This article introduced the Python struct.pack() method.
 keywords: Python/
 ---
 Python uses `struct.pack()` to pack python data type into binary data (byte stream), which means convert a value to a string based on the format. 
 
-Because there is no byte type in Python, here the string is actually equivalent to byte stream, or byte array.
+Because there is no byte type in Python, where the string is equivalent to a byte stream, or byte array.
 
 {% include toc.html %}
 
@@ -25,7 +25,7 @@ The function prototype:
 struck.pack(format, data1, data2,...)
 {% endhighlight %}
 
-format: define the convert format.
+format: define the converted format.
 data1,data2,...: the data needs to be packed.
 
 The format includes
@@ -52,7 +52,7 @@ s|char[]|string||
 p|char[]string||
 P|void *|integer|
 
-In order to exchange data with the structure in C, it is also necessary to consider that some C or C + + compilers use byte alignment, usually a 32-bit system with 4 bytes as the unit. Therefore, struct can be converted according to the byte order of the local machine. The alignment can be changed by the first character in the format. The definition is as follows:
+To exchange data with the structure in C, it is also necessary to consider that some C or C + + compilers use byte alignment, usually a 32-bit system with 4 bytes as the unit. Therefore, a struct can be converted according to the byte order of the local machine. The alignment can be changed by the first character in the format. The definition is as follows:
 
 **Format**|**Byte Order**|**Size**|**alignment**|
 :---:|:--:|:---:|:---:|

@@ -9,14 +9,14 @@ toc: false
 sidebar: true
 about: true
 author: david.dong
-description: This article presents a effective way to achieve system property in the Android APP development. Which uses the Java reflect mechanism to access the method of class Systemproperties.
+description: This article presents an effective way to achieve system property in the Android APP development. Which uses the Java reflect mechanism to access the method of class Systemproperties.
 keywords: Android APP, Systemproperties
 ---
-Recently I need to read system property in my Android apk development. I checked the Android documents and found that Android has a `Systemproperties` class to handle this kind of requirement. However `Systemproperties` class isn't a public class of SDK, which means it is invisible to the apk developer. My understanding is that google wants this class to be used for Android source developer rather than application developer.
+Recently I need to read system property in my Android app development. I checked the Android documents and found that Android has a `Systemproperties` class to handle this kind of requirement. However, `Systemproperties` class isn't a public class of SDK, which means it is invisible to the app developer. My understanding is that Google wants this class to be used for Android source developers rather than application developers.
 
 If I use this class as a source developer, I have to raise my program with root permission and re-build the whole system. 
 
-So I applied a trick way to access the `Systemproperties` method with the help of Java reflect mechanism.
+So I applied a trick way to access the `Systemproperties` method with the help of the Java reflect mechanism.
 
 I studied the source code of [SystemProperties.java](https://www.androidos.net.cn/android/9.0.0_r8/xref/frameworks/base/core/java/android/os/SystemProperties.java) and found the methods it implemented.
 
@@ -31,9 +31,9 @@ private static native void native_set(String key, String def);
 private static native void native_add_change_callback();
 private static native void native_report_sysprop_change();
 {% endhighlight %}
-This class defined the set/get methods for different data type. What I need is the get() method of return a String type.
+This class defined the `set/get` methods for the different data types. What I need is the `get()` method of return a String type.
 
-The rest work is straightforward, I wrote below codes and inserted into my class.
+The rest work is straightforward, I wrote the below codes and inserted them into my class.
 
 {% highlight java %}
 ...

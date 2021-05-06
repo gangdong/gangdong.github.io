@@ -9,7 +9,7 @@ toc: false
 sidebar: true
 about: true
 author: david.dong
-description: Some knowledge for Fingerprint driver development.
+description: Some knowledge of Fingerprint driver development.
 keywords: Fingerprint driver/Windows
 ---
 Following the last two articles...
@@ -73,7 +73,7 @@ AddReg=Biometric_Device_AddReg
 AddReg=DriverPlugInAddReg, DatabaseAddReg
 {% endhighlight %}
 
-+ Provide the named sections referred to in the .HW section. The `[Biometric_Device_AddReg]` section sets values for the biometric device, including the exclusive flag and system wake/device idle. To be recognized by Windows Biometric Framework, UMDF-based WBDI drivers must set the "Exclusive" value to 1. The first two lines of the `[Biometric_Device_AddReg]` section specify access control list (ACL) rights so that the device can only be opened by an administrator or the local system account. When you specify these ACL rights, third-party applications cannot open the device and capture fingerprint data when the WinBio service is not running. For example:
++ Provide the named sections referred to in the.HW section. The `[Biometric_Device_AddReg]` section sets values for the biometric device, including the exclusive flag and system wake/device idle. To be recognized by Windows Biometric Framework, UMDF-based WBDI drivers must set the "Exclusive" value to 1. The first two lines of the `[Biometric_Device_AddReg]` section specify access control list (ACL) rights so that the device can only be opened by an administrator or the local system account. When you specify these ACL rights, third-party applications cannot open the device and capture fingerprint data when the WinBio service is not running. For example:
 {% highlight ruby %}
 [Biometric_Device_AddReg]
 HKR,,"DeviceCharacteristics",0x10001,0x0100     ; Use same security checks on relative opens

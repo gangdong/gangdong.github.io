@@ -9,13 +9,13 @@ layout: null
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
         <url>
-            <loc>{{ site.url }}</loc>
-            <lastmod>2019-06-07T00:00:00+00:00</lastmod>
+            <loc>https://dqdongg.com</loc>
+            <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
             <priority>1.00</priority>
         </url>
         {%- for post in site.posts -%}
             <url>
-                <loc>{{ site.url }}{{ post.url }}</loc>
+                <loc>https://dqdongg.com{{ post.url }}</loc>
                 <lastmod>{{ post.date | date_to_xmlschema }}</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>

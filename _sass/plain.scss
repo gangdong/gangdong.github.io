@@ -328,9 +328,10 @@ main {
     display: inline-block;
     text-decoration: none;
     font-size: 12px;
-    background: #FAFAFA;
-	border: 1px solid #E5E7E9;
-    padding: .2em .4em;
+    background: #e1ecf4;
+	color:#39739d;
+	border: 1px solid #e1ecf4;
+    padding: .4em .5em;
     border-radius: 3px;
 	&:hover {
 	  background-color: #F8F9F9;
@@ -593,7 +594,7 @@ main {
   flex-shrink: 2; /* default 1 !important guarantee the post contents width constant */
   flex-grow: 1;
   @media screen and (min-width: $mobileW + 1) {
-       max-width: 720px; /* fix the width */
+       max-width: 80%; /* fix the width */
 	   min-width: 100px;
        width: 100%;
    }
@@ -1237,6 +1238,15 @@ table {
 			&:hover {
 				text-decoration: none;
 			}
+		}
+		span {
+			margin: 0 0px;
+			font-size: 14px;
+			padding: 4px 4px;
+			white-space: nowrap;
+			color: #c7254e;
+			background-color: #f9f2f4;
+			border-radius: 4px;
 		}
 	}
 }

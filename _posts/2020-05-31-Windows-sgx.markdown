@@ -18,7 +18,7 @@ Which include:
 + CPU support?
 + Software packages installed?
 
-Now let us go through above one by one.
+Now let us go through the above one by one.
 
 {% if page.sidebar == false %}
 <div class = "separator"></div>
@@ -39,15 +39,15 @@ Ok, remember this requirement and do it later. 😎
 
 ## BIOS Query
 
-There are 3 kind of settings on the system BIOS for SGX.
+There is 3 kind of settings on the system BIOS for SGX.
 
 + **Enable**
-+ **Software controlled** - enabled through software applications. If Intel SGX is set to software controlled, Intel SGX is initially disabled. You need to make the following calls in the SDK through software application to set it to enabled state:
++ **Software controlled** - enabled through software applications. If Intel SGX is set to software-controlled, Intel SGX is initially disabled. You need to make the following calls in the SDK through software application to set it to enabled state:
 {% highlight ruby %}
 sgx_enable_device()
 sgx_cap_enable_device()
 {% endhighlight %}
-Set softwar control mode is helpful to reduce consumption of system resources otherwise the SGX is always on and occupies a larger amount of RAMs which affects other programs and processes.
+Set software control mode is helpful to reduce consumption of system resources otherwise the SGX is always on and occupies a larger amount of RAMs which affects other programs and processes.
 + **Disable** 
 
 ## Support software package
@@ -62,7 +62,7 @@ Run SetupME.exe<br>
 ![packages]({{site.cdn_baseurl}}/assets/image/others-sgx-09.PNG){: .center-image }  
 
 3. Microsoft Visual Studio 2015/2017<br>
-Should install Microsoft Visual Studio 2015/2017 before install SGX SDK/PSW, it is important here for the installation sequence. The SGX SDK will install plug-in on Visual Studio, if SGX SDK is installed firstly, Visual Studio will lose the plug-in.<br>
+Should install Microsoft Visual Studio 2015/2017 before install SGX SDK/PSW, it is important here for the installation sequence. The SGX SDK will install the plug-in on Visual Studio, if SGX SDK is installed firstly, Visual Studio will lose the plug-in.<br>
 The Visual Studio install package is at [here](https://visualstudio.microsoft.com/vs/older-downloads/).  
 
 4. Install SGX SDK<br><br>
@@ -87,4 +87,3 @@ pnputil /add-driver sgx_psw.inf  /install
 `Intel(R)_SGX_Windows_x64_PSW_2.7.101.2.exe` to install.   
 Open the Visual Studio 2015 and create a new VC++ project, if the `Intel SGX Enclave project` can be found in the template window, it means the SDK and Visual Studio plug-in has been installed successfully.
 ![psw]({{site.cdn_baseurl}}/assets/image/others-sgx-11.PNG){: .center-image }
-

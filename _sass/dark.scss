@@ -82,7 +82,7 @@
 			border-bottom: 2px solid $dark_background_color;
 			li {
 				padding: 3px 4px 3px 0px;
-				color: #B3B6B7;
+				color: #c1c1c1;
 				border-bottom: 2px solid $dark_background_color;
 				&:hover {
 					color: $dark_text_color;
@@ -287,7 +287,10 @@
 			color: white;
 		}
 	}
-	
+	.post-note .body span{
+		color: #DC143C;
+		background-color: #272727;
+	}
 	.info {
 		border-top: 2px solid $dark_link_color;
 		border-bottom: 2px solid $dark_link_color;

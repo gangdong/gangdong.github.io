@@ -9,7 +9,7 @@ toc: false
 sidebar: true
 about: true
 author: david.dong
-description: Some knowledge for Fingerprint driver development.
+description: Some knowledge of Fingerprint driver development.
 keywords: Fingerprint driver/Windows
 ---
 Windows 7 and later implements support for Biometric devices. The Windows Biometric Framework (WBF) is a generic biometric architecture in Windows 7 and later versions of Windows.
@@ -74,7 +74,7 @@ A WBDI biometric driver must also support the WBDI driver interface GUID and all
 ### KMDF:
   Kernel-Mode Driver Framework.  
 ### Wudfhost(exe):
-  Windows User-mode Driver Framework Driver host process. The driver host process loads the DLL of the UMDF driver and framework provided by the vendor, and provides the execution environment for routing messages between the driver in the user mode driver and the driver in the user mode stack.
+  Windows User-mode Driver Framework Driver host process. The driver host process loads the DLL of the UMDF driver and framework provided by the vendor and provides the execution environment for routing messages between the driver in the user-mode driver and the driver in the user-mode stack.
 ### WDM:
   Windows Driver Manager. The driver manager is a Windows service that manages all instances of the wudfhost driver host process. The driver manager starts and tracks information about each driver host process. Each host is a child of the driver manager.
 ### Biometric Unit:  
@@ -86,7 +86,7 @@ The following figure shows how the UMDF based windows biometric driver interface
 ![framework]({{site.cdn_baseurl}}/assets/image/others-wbdi-01.PNG){: .center-image }
 
 ## <span id = "2">2. UMDF</span>
-UMDF is a Framework for creating user mode drivers. Like the kernel mode driver framework (KMDF), UMDF provides an abstraction layer from WDM that handles a large number of plug and play (PNP) and power management functions, and allows the driver to choose to enable specific functions and event handling. UMDF driver abstracts hardware functions, runs in user mode environment, and can access various services.
+UMDF is a Framework for creating user-mode drivers. Like the kernel-mode driver framework (KMDF), UMDF provides an abstraction layer from WDM that handles a large number of plug and play (PNP) and power management functions and allows the driver to choose to enable specific functions and event handling. UMDF driver abstracts hardware functions, runs in user mode environment, and can access various services.
 
 The UMDF driver interacts with the following components provided by the system.
 + Wudfhost(exe)
@@ -97,14 +97,14 @@ The UMDF driver interacts with the following components provided by the system.
 ![framework]({{site.cdn_baseurl}}/assets/image/others-wbdi-02.PNG){: .center-image }
 
 ### <span id = "2.1">2.1 UMDF advantages</span>   
-+ Because UMDF driver running on the user space, which result in the stability of operating systems because they only have access to the address space in which they run the process.
-+ Because the localservice account runs under the UMDF driver, it has limited access to user data or system files.
++ Because UMDF driver running on the user space, which results in the stability of operating systems because they only have access to the address space in which they run the process.
++ Because the local service account runs under the UMDF driver, it has limited access to user data or system files.
 + User-mode drivers run in a simpler environment than KMDF.
-+ UMDF-V2 provides most of the function of KMDF.
++ UMDF-V2 provides most of the functions of KMDF.
 + UMDF version 2 facilitates conversion between KMDF and UMDF.
 
 ### <span id = "2.2">2.2 When to use UMDF?</span>   
-In most of occasions, Microsoft recommends to write UMDF driver instead of KMDF, since the two frameworks share multiple interfaces, you can  also later convert the driver to KMDF if necessary.  
+On most occasions, Microsoft recommends writing UMDF driver instead of KMDF, since the two frameworks share multiple interfaces, you can also later convert the driver to KMDF if necessary.  
 However, the following features are only available for KMDF drivers. If the driver requires one of these features, you must write a KMDF driver.  
 + DMA
 + Bus Enumeration
@@ -120,9 +120,9 @@ However, the following features are only available for KMDF drivers. If the driv
 ![framework]({{site.cdn_baseurl}}/assets/image/others-wbdi-03.PNG){: .center-image }  
 
 
-Above diagram shows how the driver manager builds a user-mode device stack, and how the host process, reflector, and driver manager process an I/O request that an application sends to a User-Mode Driver Framework (UMDF) driver.  
+The above diagram shows how the driver manager builds a user-mode device stack, and how the host process, reflector, and driver manager to process an I/O request that an application sends to a User-Mode Driver Framework (UMDF) driver.  
 
-Similar to a kernel-mode stack, the construction and tear down of a user-mode stack is driven by Plug and Play (PnP) events. After the kernel-mode stack has been built, the reflector notifies the driver manager to start construction of the user-mode stack. The driver manager launches the driver host process and provides sufficient information to the launched process to build the user-mode stack. 
+Similar to a kernel-mode stack, the construction and tear down of a user-mode stack is driven by Plug and Play (PnP) events. After the kernel-mode stack has been built, the reflector notifies the driver manager to start the construction of the user-mode stack. The driver manager launches the driver host process and provides sufficient information to the launched process to build the user-mode stack. 
  
 The driver host process provides the execution environment for user-mode drivers and routes messages between drivers in the user-mode stack. The reflector uses a message-based interprocess communication mechanism to communicate with the driver manager and host process.    
 
@@ -132,4 +132,4 @@ The request is either completed by one of the drivers in the user-mode stack or 
 
 
 
-If no special requirements, fingerprint driver normally uses the UMDF model to develop.
+If no special requirements, the fingerprint driver normally uses the UMDF model to develop.

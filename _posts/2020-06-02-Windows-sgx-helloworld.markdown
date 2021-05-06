@@ -6,14 +6,14 @@ categories: Windows
 tags: Windows
 Published: true
 ---
-A simple sample code to get start with the SGX application development.
+A simple sample code to get started with the SGX application development.
 
 1. New create VC++ `Win32 Console Application`.
 ![project]({{site.cdn_baseurl}}/assets/image/others-sgx-start-01.PNG){: .center-image }
-The project name is 'HelloWorld'.
+The project name is `HelloWorld`.
 2. Create new VC++ `Intel SGX Enclave project`.
 ![psw]({{site.cdn_baseurl}}/assets/image/others-sgx-11.PNG){: .center-image }
-Use default project name 'Enclave1'.  
+Use default project name `Enclave1`.  
 3. Edit `Enclave1.edl` file with below code.
 ![project]({{site.cdn_baseurl}}/assets/image/others-sgx-start-02.PNG){: .center-image }
 This piece of code declares the `foo()` method as a trusted method and executes at trusted zone.  
@@ -47,11 +47,11 @@ void foo(char *buf, size_t len)
 	}
 }
 {% endhighlight %}
-4. Set the 'Enclave1' project configuration as below.
+4. Set the `Enclave1` project configuration as below.
 ![project]({{site.cdn_baseurl}}/assets/image/others-sgx-start-03.PNG){: .center-image }
-5. Build the 'Enclave1' project.
+5. Build the `Enclave1` project.
 ![project]({{site.cdn_baseurl}}/assets/image/others-sgx-start-04.PNG){: .center-image }
-Above result shows the 'Enclave1' project has been build successfully. Next I need to add it into the 'HelloWorld' project and call the `foo()` methods.
+Above result shows the `Enclave1` project has been build successfully. Next I need to add it into the `HelloWorld` project and call the `foo()` methods.
 6. Edit the `main()` method of `HelloWorld.cpp` file. 
 {% highlight ruby %}
 #include "stdafx.h"
@@ -89,18 +89,18 @@ int main()
 	return 0;
 }
 {% endhighlight %}
-7. Set the 'HelloWorld' project configuration.
+7. Set the `HelloWorld` project configuration.
 ![project]({{site.cdn_baseurl}}/assets/image/others-sgx-start-06.PNG){: .center-image }
-8. Add 'Enclave1' project into the 'HelloWorld' project.
-Right click 'Solution HelloWorld' -> add -> existing project and select 'Enclave1' project. Now there are two projects under the 'Solution HelloWorld'.
+8. Add the `Enclave1` project into the `HelloWorld` project.
+Right click 'Solution HelloWorld' -> add -> existing project and select `Enclave1` project. Now there are two projects under the 'Solution HelloWorld'.
 ![project]({{site.cdn_baseurl}}/assets/image/others-sgx-start-15.PNG){: .center-image }
-right click 'HelloWorld' project -> Intel SGX Configuration -> Import Enclave
+right click `HelloWorld` project -> Intel SGX Configuration -> Import Enclave
 ![project]({{site.cdn_baseurl}}/assets/image/others-sgx-start-07.PNG){: .center-image }
 Select `Enclave1.edl`.
 ![project]({{site.cdn_baseurl}}/assets/image/others-sgx-start-08.PNG){: .center-image }<br>{: .center-image }
-The `Enclave1.edl` file will be envoloved into the source of 'HelloWorld' project.
+The `Enclave1.edl` file will be envoloved into the source of `HelloWorld` project.
 ![project]({{site.cdn_baseurl}}/assets/image/others-sgx-start-09.PNG){: .center-image }
-9. Since the 'HelloWorld' project is the main project, I need to add the dependency of 'Enclave1' project.
+9. Since the `HelloWorld` project is the main project, I need to add the dependency of `Enclave1` project.
 Set the main project.
 ![project]({{site.cdn_baseurl}}/assets/image/others-sgx-start-10.PNG){: .center-image }
 Set the dependency.

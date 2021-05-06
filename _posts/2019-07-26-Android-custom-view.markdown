@@ -6,7 +6,7 @@ categories: Android
 tags: Android
 tags: Android
 ---
-Today I met a error when I was trying to customize the android.widget.Button Class.😕 <br>The error information is 
+Today I met an error when I was trying to customize the android.widget.Button Class.😕 <br>The error information is 
 {% highlight plaintext %}
 "This custom view should extend android.support.v7.widget.AppCompatButton instead."
 {% endhighlight %}
@@ -21,7 +21,7 @@ Besides, I had met
 {% highlight plaintext %}
 "I/hwservicemanager: getTransport: Cannot find entry" 
 {% endhighlight %}
-when running application. That's because the application used HIDL interface which should register at the vintf/manifest.xml but hasn't done. This feature is introduced at Android O. Obviously, the solution is registering all of the HIDL interfaces that will be used at manifest.xml.
+when running the application. That's because the application used the HIDL interface which should register at the vintf/manifest.xml but hasn't been done. This feature is introduced at Android O. Obviously, the solution is registering all of the HIDL interfaces that will be used at manifest.xml.
 
 Another issue is 
 {% highlight plaintext %}

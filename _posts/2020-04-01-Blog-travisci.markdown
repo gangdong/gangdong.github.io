@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Use Travis CI to build and deploy project automatically on Github"
-date:   2021-04-01 13:02:34 +0800
+date:   2020-04-01 13:02:34 +0800
 categories: Blog Github
 tags: Blog Github
 Published: true
@@ -12,7 +12,7 @@ author: david.dong
 description: This article is about Travis CI. <br><br>Travis CI is a Continuous Integration (CI) tool that can help you build, test and deploy your software project automatically. <br><br>This article will introduce how to use Travis CI.
 keywords: Travis CI/Github
 ---
-This article will introduce how to use Travis CI to build, test and deploy Github project automatically. I will take my personal blog project on Github as an example to explain.
+This article will introduce how to use Travis CI to build, test and deploy the Github project automatically. I will take my blog project on Github as an example to explain.
 
 {% include toc.html %}
 
@@ -20,53 +20,53 @@ This article will introduce how to use Travis CI to build, test and deploy Githu
 
 If you've looked at my previous article, you may know my blog was deployed on Github Pages and was built by Jekyll static site generator.
 
-Github Pages are a great approach to build websites. Using a Github repository and with the Jekyll static site generator we can build a static websites easily. It is suitable for building personal blog.
+Github Pages are a great approach to build websites. Using a Github repository and with the Jekyll static site generator, we can build static websites easily. It is suitable for building a personal blog.
 
 Although Github Pages can automatically generate a website from a repository containing a Jekyll project, it has some limitations. 
 
 <div class = "post-note info">
   <div class = "header"></div>
   <div class = "body">
-  <p>To deploy the blog on Github Pages, you just need to commit your website's source code to Github repo and don't pay any effort on the building and deployment.<br>Github Pages will do it for you! </p>
+  <p>To deploy the blog on Github Pages, you just need to commit your website's source code to the Github Repo and don't pay any effort on the building and deployment.<br>Github Pages will do it for you! </p>
   </div>
 </div>
 
 One of them is 
 
-+ *we can't use jekyll plugins*
++ *we can't use Jekyll plugins*
 
-I need to use plugins to extend the function of my website, e.g. for implementation of toc and markdown function enrichment.
+I need to use plugins to extend the functionality of my website, e.g. for implementation of toc and markdown function enrichment.
 
-It is understandable that Github Pages doesn't allow the plugin for security reasons. 
+Understandably,Github Pages doesn't allow the plugin for security reasons. 
 
 <div class = "post-note info">
   <div class = "header"></div>
   <div class = "body">
-  <p>Github Pages Generator uses the Jekyll <span style = "color: #c7254e;">--safe</span> flag.</p>
+  <p>Github Pages Generator uses the Jekyll <span>--safe</span> flag.</p>
   </div>
 </div>
 
-The workaround is to generate the site locally and then to push the generated HTML to Github (*I've interpreted how to do in my previous [article]({{site.baseurl}}/blog/github/2018/12/29/Blog-Jekyll-toc-plugin.html)*). However, I usually use the different branch for source code and output static HTMLs. The `dev` branch accommodates the source code and `gh-pages` branch, which is as a window of website visiting, stores the static website files.
+The workaround is to generate the site locally and then to push the generated HTML to Github (*I've interpreted how to do in my previous [article]({{site.baseurl}}/blog/github/2018/12/29/Blog-Jekyll-toc-plugin.html)*). However, I usually use different branches for source code and output static HTML. The `dev` branch accommodates the source code and the `gh-pages` branch, which is as a window of website visiting, stores the static website files.
 
 So my current workflow is 
 
-+ modify the source code at dev branch and use jekyll build locally.
-+ commit the change to dev branch.
-+ copy the output static website files which is in `_site` folder to \tmp folder.
-+ switch to local gh-pages branch.
-+ add copied static website file in `_site` folder to gh_pages branch.
++ modify the source code at the dev branch and use Jekyll build locally.
++ commit the change to the dev branch.
++ copy the output static website files which are in the `_site` folder to \tmp folder.
++ switch to the local gh-pages branch.
++ add copied static website file in `_site` folder to the gh_pages branch.
 + git add & commit.
-+ push to remote gh-pages branch.
++ push to the remote gh-pages branch.
 
-or I can push the files in `_site` to remote gh-pages branch forcely from dev branch although it is not a ideal way of routine operation.
+or I can push the files in `_site` to the remote gh-pages branch forcibly from the dev branch although it is not an ideal way of routine operation.
 
 You see it! ☹️ Really tedious, isn't it? 
 
 I think it is a poor efficiency and should be improved. 
 
-The main motivation for me is to be able to get a tool that help me do above works automatically. What I want to do is just committing the code to remote dev branch (*this is the necessary work*) and others leave to tool. 
+The main motivation for me is to be able to get a tool that helps me do the above works automatically. What I want to do is just committing the code to the remote dev branch (*this is the necessary work*) and others leave to the tool. 
 
-The basic idea is to use the [Travis CI continuous integration (CI)](https://docs.travis-ci.com/user/for-beginners/) service. The function of Travis CI service fully meets my expectation. And the most important point is that it is *FREE* for open source project in Github. 
+The basic idea is to use the [Travis CI continuous integration (CI)](https://docs.travis-ci.com/user/for-beginners/) service. The function of Travis CI service fully meets my expectation. And the most important point is that it is *FREE* for open-source projects in Github. 
 
 ## Prerequisites 
 To start using Travis CI, make sure you have:
@@ -77,7 +77,7 @@ To start using Travis CI, make sure you have:
 	+ [Creating a personal access token (PATs)](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)    
 	+ [Connecting to GitHub with SSH](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh)    
 	<br>
-+ Travis CI account and [sign up](https://docs.travis-ci.com/user/migrate/open-source-on-travis-ci-com/), you can use your Github account ID to login directly.
++ Travis CI account and [sign up](https://docs.travis-ci.com/user/migrate/open-source-on-travis-ci-com/), you can use your Github account ID to log in directly.
 + Authorize the Travis CI (*you will be requested to do it when you sign in to Travis CI for the first time*), active your Github repositories that you want to use Travis CI service. Please refer to 
 
 	+ [To get started with Travis CI using GitHub](https://docs.travis-ci.com/user/tutorial#travis-ci-github-oauth-app-access-rights)    
@@ -90,18 +90,18 @@ The workflow of Travis CI building and deployment is as follows:
 
 + git push to the Github repo triggers Travis CI
 + Travis CI starts up a virtual machine and installs all required software (*mostly Ruby gems*)
-+ I use a custom rake task to tell travis CI how to build the Jekyll site and push the updated content back to Github
++ I use a custom rake task to tell Travis CI how to build the Jekyll site and push the updated content back to Github
 + Travis CI clones a different branch (*either dev or master, depending on the kind of Github repo*) that holds the website's source code.
-+ Travis CI runs jekyll build with the destination in the other branch (*gh-pages*)
++ Travis CI runs Jekyll build with the destination in the other branch (*gh-pages*)
 + Travis CI does a git push of the other branch (*gh-pages*)
 + Github Pages starts serving the updates site
 
 Depending on the required software that needs to be installed, the whole process takes anywhere between 1 and 5 min and is fully automated.
 
 ### .travis.yml
-Basically, Travis CI uses the .travis.yml file to describes the build process. Create a .travis.yml into your project's repo and edit it.
+Travis CI uses the .travis.yml file to describes the build process. Create a .travis.yml into your project's repo and edit it.
 
-Don't forget commit it and push to the remote repo once you finished editing!
+Don't forget to commit it and push it to the remote repo once you finished editing!
 
 ### Lifecycle
 The whole job's life cycle can be divided into several phases.
@@ -111,7 +111,7 @@ The main phases are:
 1. `install` - install any dependencies required
 2. `script` - run the build script
 
-You can complete a basic work with above minimal life cycle. Besides, Travis CI affords some phases that allow users to insert custom commands. 
+You can complete basic work with the above minimal life cycle. Besides, Travis CI affords some phases that allow users to insert custom commands. 
 
 <div class = "post-note info">
   <div class = "header"></div>
@@ -126,32 +126,32 @@ You can complete a basic work with above minimal life cycle. Besides, Travis CI 
 
 ### Sensitive Data
 
-It is inevitable that Travis CI will use the sensitive data (*for example, SSH private key or Github personal access token*) to access the Github. Of course we cannot expose the data without any  protection. Travis CI provides [encryption scheme](https://docs.travis-ci.com/user/encryption-keys/) to protect your secret information.
+Travis CI will inevitably use the sensitive data (*for example, SSH private key or Github personal access token*) to access the Github. Of course, we cannot expose the data without any protection. Travis CI provides [encryption scheme](https://docs.travis-ci.com/user/encryption-keys/) to protect your secret information.
 
-Travis CI offers commands that is able to encrypt the private key or any files. You can also save your sensitive data to [environment variables](https://docs.travis-ci.com/user/environment-variables/), in where the data is invisible and can be accessed from any stage in your build process.
+Travis CI offers commands that can encrypt the private key or any files. You can also save your sensitive data to [environment variables](https://docs.travis-ci.com/user/environment-variables/), where the data is invisible and can be accessed from any stage in your build process.
 
-To my project, I've tried two methods as below:
+For my project, I've tried two methods as below:
 
 + use SSH scheme access Github with RSA key pairs
 + access with encrypted Github PATs (*personal access tokens*)
 
 #### SSH
 
-For SSH accessing, I assume you have create a SSH key pairs and it is workable for your Github. If you don't have, do it by following 
+For SSH access, I assume you have created SSH key pairs and it is workable for your Github. If you don't have, do it by following 
 
 + [Generating a new SSH key and adding it to the ssh-agent](https://docs.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key)
 
-you can test the connection status by inputting command.
+you can test the connection status by inputting the command.
 {% highlight shell %}
 ssh -T git@github.com
 {% endhighlight %}
 
-If you get message like this, you are accessing the Github successfully.
+If you get a message like this, you are accessing Github successfully.
 {% highlight shell %}
 "Hi [secure]/your repo name ! You have successfully authenticated, but GitHub does not provide shell access."
 {% endhighlight %}
 
-Then use below command that Travis CI provides to encrypt the private key. 
+Then use the below command that Travis CI provides to encrypt the private key. 
 {% highlight shell %}
 # Sign in travis-ci.com
 travis login --com  --github-token "your github personal access keys (*PATs*)" 
@@ -159,7 +159,7 @@ travis login --com  --github-token "your github personal access keys (*PATs*)"
 travis encrypt-file "your private key" --add
 {% endhighlight %}
 
-Above commands sign in travis CI (*for applying the APIs*), encrypt the private key and generate a code snippet (*as below*) into your `.travis.yml` file to decrypt the private key during building process.
+Above commands sign in Travis CI (*for applying the APIs*), encrypt the private key, and generate a code snippet (*as below*) into your `.travis.yml` file to decrypt the private key during the building process.
 
 {% highlight shell %}
 openssl aes-256-cbc -K $encrypted_70fbe34e406c_key -iv $encrypted_70fbe34e406c_iv -in blog_id_rsa.enc -out blog_id_rsa -d
@@ -177,7 +177,7 @@ After generated the encrypted key leave it into your code repo.
 <div class = "post-note warning">
   <div class = "header"></div>
   <div class = "body">
-  	<p>Do not forget remove your <span style = "font-style: italic; font-weight: bold; color: #eb0f00">PRIVATE KEY</span> before you commit code to Github Repo!<br>Otherwise, you may potentially disclose your private key.</p>
+  	<p>Do not forget to remove your <span style = "font-style: italic; font-weight: bold; color: #eb0f00">PRIVATE KEY</span> before you commit code to Github Repo!<br>Otherwise, you may potentially disclose your private key.</p>
   </div>
 </div>
 
@@ -185,17 +185,17 @@ After generated the encrypted key leave it into your code repo.
 
 If using PATs, you should follow below steps:
 
-+ acquire a PATs, refer to 
++ acquire a PAT, refer to 
 
 	+ [Creating a personal access token (PATs)](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)  
 	
 	remember to keep this token's value carefully since it is only visible for the first time generated.
-+ encrypt the PATs by inputting command
++ encrypt the PAT by inputting the command
 {% highlight shell %}
 travis encrypt -r <user name>/<repo name> GH_TOKEN= "value of PATs"
 {% endhighlight %}
 
-This will output a string looking something like:
+This will output a string looking something like this:
 {% highlight shell %}
 secure: ".... encrypted data ...."
 {% endhighlight %}
@@ -212,15 +212,15 @@ travis encrypt -r <user name>/<repo name> GH_TOKEN=PAT --add
 
 `GH_REF` environment variable can be set to "github.com/`user-name`/`repo-name`.git".
 
-Please note that the name of the environment variable and its value are both encoded in the string produced by “travis encrypt.” You must add the entry to your `.travis.yml` with key `secure` (*underneath the `env` key*). This makes the environment variable `GH_TOKEN` with value of PATs available to your program.
+Please note that the name of the environment variable and its value are both encoded in the string produced by “travis encrypt.” You must add the entry to your `.travis.yml` with key `secure` (*underneath the `env` key*). This makes the environment variable `GH_TOKEN` with the value of PATs available to your program.
 
-Once you got the personal access token and encrypted, you can access the Github repo by below method:
+Once you got the personal access token and encrypted, you can access the Github repo by the below method:
 
 {% highlight shell %}
 https://${GH_TOKEN}@${GH_REF}" travis:gh-pages
 {% endhighlight %}
 
-With this method, you are able to avoid being request passphrase when accessing.
+With this method, you can avoid being request passphrase when accessing.
 
 ### Example
 I attached my blog project's [.travis.yml](https://github.com/gangdong/daviddong.github.io/blob/master/.travis.yml) file here as an example.
@@ -295,9 +295,9 @@ OK, everything is done here!
 
 Let's see what happens!
 
-I modify code and push to remote dev branch, open my Travis CI web page to view the building process.
+I modify code and push to the remote dev branch, open my Travis CI web page to view the building process.
 
-Yes, my commit event to `dev` branch triggers Travis CI to work for building.
+Yes, my commit event to the `dev` branch triggers Travis CI to work for the building.
 
 ![startup]({{site.cdn_baseurl}}/assets/image/blog-travisci-01.PNG){: .center-image }
 
@@ -317,7 +317,7 @@ Installation completed, building now...
 Building succeed! The last step, deploy...
 ![startup]({{site.cdn_baseurl}}/assets/image/blog-travisci-06.PNG){: .center-image }
 
-It's done! Looks the whole process completed successfully! 👍
+It's done! Looks like the whole process was completed successfully! 👍
 
 Let me go to the Github gh-pages repo to check the result.
 
@@ -325,9 +325,9 @@ GREAT! 😄
 
 The repo was updated successfully with the new contents. 
 
-The Travis CI works well, which means I can get back to the normal workflow to develop my personal blog without extra git operation between different branch. 
+The Travis CI works well, which means I can get back to the normal workflow to develop my blog without extra git operation between different branches. 
 
-The workflow is not only valid for blog project deployed on Github Pages but any open source projects on Github.  
+The workflow is not only valid for blog projects deployed on Github Pages but any open source projects on Github.  
 
 The last thing is don't forget to add a Travis CI logo/link to your README.
 
@@ -340,28 +340,28 @@ Building Errors:
 + Error: `iv undefined` when executing `openssl` command.<br><br>
 Possible Reason:
 	+ check the Travis CI website address, it should be `https://travis-ci.com` rather than `https://travis-ci.org`.
-	+ run `travis login --com` instead of `travis login --org` to login Travis CI.
-	+ check the config file `~/.travis/config.yml`, the value of endpoint should be `https://api.travis-ci.com/`.
+	+ run `travis login --com` instead of `travis login --org` to log in Travis CI.
+	+ check the configuration file `~/.travis/config.yml`, the value of endpoint should be `https://api.travis-ci.com/`.
 {% highlight yml %}
 repos:
 	endpoint: https://api.travis-ci.com/
 {% endhighlight %}
 
 
-+ Error: Being asked for entering passphrase for key '/root/.ssh/id_rsa' when executing `openssl` command to do decryption of the SSH private key.<br>  
-It is because you set the passphrase when generating the SSH key, use `ssh-keygen -p` command to reset the passphrase to none.
++ Error: Being asked for entering passphrase for key `/root/.ssh/id_rsa` when executing `openssl` command to do decryption of the SSH private key.<br>  
+It is because you set the passphrase when generating the SSH key, use `ssh-keygen -p` command to reset the passphrase to `none`.
 Then replace the private key with the new one and re-encrypt the private key.
 
 + Error: report `the encrypted_xxx file size is incorrect` when decryption. <br><br>
-Probably you are using the wrong format encryption file, the Travis CI host are running on Ubuntu OS. So the file format should be UNIX, if you generate encryption file with DOS format, you will encounter this issue. <br><br>
+Probably you are using the wrong format encryption file, the Travis CI host is running on Ubuntu OS. So the file format should be UNIX, if you generate an encryption file with DOS format, you will encounter this issue. <br><br>
 The solution is to use `dos2unix` or `fromdos` command to convert the format to UNIX.
 
-+ Error: you got ***repository not known to https://api.travis-ci.org/: user-name/repo-name*** when you execute command
++ Error: you got ***repository not known to https://api.travis-ci.org/: user-name/repo-name*** when you execute the command
 {% highlight yml %}
 travis encrypt -r 'user-name'/'repo-name' DEPLOY_TOKEN = 'your PATs'
 {% endhighlight %}
 
-It is because your current repo is not in the Repos list in the config.yml, add your repos name into the config.yml and indicate the endpoint to `https://api.travis-ci.com/` manually.
+It is because your current repo is not in the repo's list in the config.yml, add your repo's name into the config.yml and indicate the endpoint to `https://api.travis-ci.com/` manually.
 {% highlight yml %}
 repos:
   gangdong/daviddong.github.io:
