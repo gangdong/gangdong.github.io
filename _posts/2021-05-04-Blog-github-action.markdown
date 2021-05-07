@@ -62,7 +62,7 @@ If you want to start your CI, you don't have to write complex actions by yoursel
 
 ## Migrating to GitHub Actions
 
-I decided to start the migration from my blog project. As I said above, both Travis CI and GitHub Actions are used the `YAML` file format to write the configuration files, so the syntax is similar. What I do was rewriting the control flow with the GitHub Actions' syntax and replaced the environment variables used in Travis CI.
+I decided to start the migration from my blog project. As I said above, both Travis CI and GitHub Actions use the `YAML` file format to write the configuration files, so the syntax is similar. What I do was rewriting the control flow with the GitHub Actions' syntax and replaced the environment variables used in Travis CI.
 
 The first thing was creating a `.github/workflow` folder in my blog's repository then adding a YAML file. 
 
