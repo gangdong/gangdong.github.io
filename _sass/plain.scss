@@ -828,7 +828,7 @@ main {
 		display: none;
   }
   a {
-    transition: color 0.3s;
+    transition: color 0.2s, border-bottom 0.2s;
 	text-decoration: none;
 	text-align: center;
 	border-bottom: 2px solid #ffffff;
