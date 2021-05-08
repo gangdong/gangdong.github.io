@@ -195,6 +195,7 @@ main {
 	white-space: pre;
 	line-height: 1.9em;
 	color: #666;
+	width: 170px;
 }
 
 .readingtime-categories {
@@ -230,6 +231,11 @@ main {
     align-items: baseline;
 	align-content:stretch;
   }
+}
+.readingtime-box {
+	display: flex;
+	flex-direction:row;
+	justify-content: flex-start;
 }
 .navigation-meta {
   display: flex;
