@@ -101,16 +101,16 @@ I decided to lazy load it at first, make sure a load of Addthis_widgets resource
 
 The total load time reduced up to ~10s, but still, it takes too much time! Can I improve it even more?
 
-After analysis, I found I introduced the `Addthis_widgets.js` in the `default.html`, which lead the `Addthis_widgets.js` is loaded at the first paint of the `index` page. However, the widgets weren't used on the `index` page. If I move the calling of the JavaScript file to `post.html` where it displays the share button for the post, I will be able to eliminate the load time of `Addthis_widgets.js` completely! It will not affect the function.
+After analysis, I found I introduced the `Addthis_widgets.js` in the `default.html`, which lead the `Addthis_widgets.js` was loaded at the first paint of the `index` page. However, the widgets weren't used on the `index` page. If I move the loading of the JavaScript file to `post.html` where it displays the share button for the post, I will be able to eliminate the load time of `Addthis_widgets.js` completely! It will not affect the function.
 
-I relocated the below code snippet into the bottom of `post.html` and lazy load it. 
+I relocated the below code snippet into the bottom of `post.html` to load it. 
 {% highlight html %}
 {% if site.rawposts.share_media %}
 <!-- Go to www.addthis.com/dashboard to customize your tools -->
 <script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9&domready=1"></script>
 {% endif %}
 {% endhighlight %}
-Readers will not use the share button until they complete the reading of the article. I think it has a negligible negative effect on user experience. 
+Readers will not use the share button until they finish the reading of the article. I think it has a negligible negative effect on user experience. 
 
 ![imagine]({{site.cdn_baseurl}}/assets/image/blog-loadingtime-14.PNG){: .center-image }
 
@@ -120,7 +120,7 @@ That improved a lot. But I wanted more.
 
 ## Google Fonts
 
-Google Fonts is beautiful! I was using four fonts in my blog. I introduced them in the `head.html`, the load of fonts slows the page speed more or less.
+Google Fonts are beautiful! I was using four fonts in my blog. I introduced them in the `head.html`, the load of fonts slows the page speed more or less.
 
 However, after some works, I haven't been able to find a good way to accelerate the acquisition of the fonts. I will keep my eyes on it!
 
@@ -176,7 +176,7 @@ Well, my further improvement plan is:
 
 ## Reference
 
-I would recommend some articles which are helpful for website load time optimization. I read and referred them during my optimization.
+I would recommend some articles which are helpful for website load time optimization. I've read and referred them during the optimization of my blog website.
 
 + [4 ways to improve your website load time and performance in 2020](https://www.impactplus.com/blog/website-load-time)
 + [How to Speed Up Your Website: 20+ Practical Tips for a Faster Site](https://websitesetup.org/how-to-speed-up-your-website/)
