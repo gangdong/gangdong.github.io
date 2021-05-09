@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Fixing the error : Communication error with Jack server (35) when building AOSP"
+title:  "Fixing the error: Communication error with Jack server (35) when building AOSP"
 date:   2021-05-09 07:14:11 +0800
 categories: Android Linux
 tags: Android Linux
