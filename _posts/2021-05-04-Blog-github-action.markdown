@@ -28,7 +28,7 @@ The new pricing plan offers 10000 credits for users to use freely and the credit
 
 I checked the price of renewal, to be honest, it isn't an attractive price. I think at least in China it isn't.   
 
-![price]({{site.cdn_baseurl}}/assets/image/blog-github-action-01.PNG)
+![price]({{site.cdn_baseurl}}/assets/image/blog-github-action-01.PNG){: .center-image }
 
 To me, the reason for using Travis CI was because of the free model, and considering most of my projects on GitHub are non-commercial projects, I decided to abandon Travis CI and migrate my projects to another CI platform.  
 
@@ -140,7 +140,7 @@ With the above works, GitHub Actions started to build and deploy my blog website
 
 You can see from the above source code, I used 2 actions `checkout@v2` and `jekyll-build-action@v1` to fetch the code and build them on the virtual machine. It does simplify the writing of configuration file compare to writing them in Travis CI. 
 
-![result]({{site.cdn_baseurl}}/assets/image/blog-github-action-02.PNG)
+![result]({{site.cdn_baseurl}}/assets/image/blog-github-action-02.PNG){: .center-image }
 
 As the above screenshot showed, each step of the process is clear and the whole construction costs `~ 1` minute to complete. It is a great improvement than running in Travis CI, which took 3 ~ 4 minutes for the whole process. Although I haven't know what caused the promotion internally yet, It did improve a lot.  
 
