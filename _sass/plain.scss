@@ -166,6 +166,25 @@ main {
 		}
 	}
 }
+.togglemode {
+	font-family: "fontello";
+	font-size: 18px;
+	span {
+		font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;
+		text-transform: uppercase;
+		font-size: 12px;
+		padding-left: 10px;
+		display: inline;
+	}
+}
+.dark-mode:before {
+	content:'\e80e';
+	margin-right: 7px;
+}
+.light-mode:before {
+	content:'\e80b';
+	margin-right: 7px;
+}
 .social-container {
 	padding-top: 15px;
 	padding-bottom: 15px;

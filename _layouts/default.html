@@ -45,11 +45,11 @@
 				{%- endif -%}
 				{%- if site.rawposts.dark_mode -%}
 				<div class = "icon-box" style = "padding-right:0px">
-					<a id="dark-mode-toggle" class="icon-adjust-1" onclick="toggleDarkMode()">
-						<span>Dark Mode</span>
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id = "mode">Dark Mode</span>
 					</a>
 				</div>
-			{%- endif -%}
+				{%- endif -%}
 			</div>
 		</div>
 		
@@ -109,6 +109,19 @@
 	
 	{%- if site.rawposts.show_statistics -%}
 	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	{%- endif -%}
+	
+	{%- if site.rawposts.dark_mode -%}
+	<!-- toggle dark/light display mode -->
+	<script type="text/javascript">
+        $('.dark-mode').on('click',function(){
+            $('.dark-mode').toggleClass('light-mode');
+			if (document.getElementById("mode").innerHTML=="light mode")
+				document.getElementById("mode").innerHTML="dark mode";
+			else 
+				document.getElementById("mode").innerHTML="light mode";
+        })
+	</script>
 	{%- endif -%}
 </body>
 </html>
