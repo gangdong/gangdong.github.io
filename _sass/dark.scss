@@ -1,6 +1,7 @@
 .dark,
 .dark * {
-	$dark_text_color: #f6f6f6;
+	$dark_text_color: hsl(0, 0%, 85%);
+	$dark_body_color: #f6f6f6;
 	$dark_link_color: #4da3ff;
 	$dark_btn_color: #E74C3C;
 	$dark_background_color:  #171717;
@@ -81,10 +82,10 @@
 			border-bottom: 2px solid $dark_background_color;
 			li {
 				padding: 3px 4px 3px 0px;
-				color: #c1c1c1;
+				color: $dark_text_color;
 				border-bottom: 2px solid $dark_background_color;
 				&:hover {
-					color: $dark_text_color;
+					color: $dark_body_color;
 					border-bottom: 2px solid $dark_text_color;
 				}
 			}
@@ -230,6 +231,7 @@
 		}
 	}
 	.post-title {
+		color: $dark_body_color;
 		&:hover {
 			color: $dark_link_color;
 		}
