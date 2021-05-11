@@ -10,23 +10,22 @@ layout: default
 {%- assign date_format = site.rawposts.date_format | default: "%b %-d, %Y" -%}
 
 <div class="post-container" style = "margin-bottom:1rem">
-  <div class="posts-labelgroup" id="posts-labelgroup">
-	<h1 id="posts-label">POST</h1>
-  </div>  
-  <a class="post-link" href="{{ page.url | relative_url }}">
-    <h2 class="post-title-body">{{ page.title | escape }}</h2>
-  </a>
-   <div class="post-meta">
-    <div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">{{ page.date | date: date_format }}</div>
-	{% if page.sidebar %}
-	<!-- sidebar button for displaying/hiding sidebar -->
-	<div class = "sidebar-btn-box"><a class="btn"></a></div>
-	{% endif %}
-  </div>
+	<div class="posts-labelgroup" id="posts-labelgroup">
+		<h1 id="posts-label">POST</h1>
+	</div>  
+	<!-- post title -->
+	<h2 class="post-title-body">{{ page.title | escape }}</h2>
+	<div class="post-meta">
+		<div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">{{ page.date | date: date_format }}</div>
+		{% if page.sidebar %}
+		<!-- sidebar button for displaying/hiding sidebar -->
+		<div class = "sidebar-btn-box"><a class="btn"></a></div>
+		{% endif %}
+	</div>
 </div>
   <!-- post content here! -->
   <!-- set fix width box to put content! -->
-  <div class="post-viewer-container">
+<div class="post-viewer-container">
 	<div class="post post-fix-width">
 		{{ content }}
 	</div>
@@ -94,27 +93,27 @@ layout: default
 		{% endif %}
 	</div>
 	 {% endif %}
-  </div>
-  <!-- no sidebar, use flex width box! -->
-  <br>
-  <div class="post-container">
-  <!-- post categories box! here  -->
-  {% if site.rawposts.show_category_box == false %}
-  <div class="post-categories-meta">
-	<div class="post-categories-box">
-	{%- for tag in page.categories -%}
-		<a href="{{site.baseurl}}/category#{{tag}}">{{ tag }}</a>
-	{%- endfor -%}
+</div>
+<!-- no sidebar, use flex width box! -->
+<br>
+<div class="post-container">
+    <!-- post categories box! here  -->
+    {% if site.rawposts.show_category_box == false %}
+    <div class="post-categories-meta">
+		<div class="post-categories-box">
+			{%- for tag in page.categories -%}
+			<a href="{{site.baseurl}}/category#{{tag}}">{{ tag }}</a>
+			{%- endfor -%}
+		</div>
 	</div>
-  </div>
-  {% else %}
-  <div class="post-categories-meta">
-	<div class="post-categories-box post-categories-box-hide">
-	{%- for tag in page.categories -%}
-		<a href="{{site.baseurl}}/category#{{tag}}">{{ tag }}</a>
-	{%- endfor -%}
+   {% else %}
+   <div class="post-categories-meta">
+		<div class="post-categories-box post-categories-box-hide">
+		{%- for tag in page.categories -%}
+			<a href="{{site.baseurl}}/category#{{tag}}">{{ tag }}</a>
+		{%- endfor -%}
+		</div>
 	</div>
-  </div>
   {% endif %}
   {% if site.rawposts.share_media %}
   <div class = "share-box-meta">
