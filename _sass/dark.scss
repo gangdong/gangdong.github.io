@@ -15,7 +15,6 @@
 			color: $dark_link_color;
 		}
 	}
-
     #posts-labelgroup {
   
        border-bottom: 1px solid $dark_separator_color;
@@ -309,6 +308,18 @@
 		}
 		p {
 			color: $dark_btn_color;
+		}
+	}
+	.icon-box {
+		border-bottom: 1px solid $dark_separator_color;
+		a {
+			color: $dark_text_color;
+			&:hover {
+				color: $dark_link_color;
+				span {
+					color: $dark_link_color;
+				}
+			}
 		}
 	}
 }

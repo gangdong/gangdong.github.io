@@ -77,7 +77,7 @@ main {
     display: flex;
     height: 100vh;
 	padding-top: 10vh;
-    padding-bottom: 5vh;
+    padding-bottom: 0vh;
     @media screen and (max-width: $mobileW) {
       height: auto;
       padding: 10vh 0;
@@ -141,6 +141,34 @@ main {
   font-size: 10px;
   color: #222;
   text-align: center;
+}
+.icon-box-container {
+	  width: 140px;
+	  margin: 10px 0;
+}
+.icon-box {
+	padding: 7px 5px;
+	border-bottom: 1px solid #ececec;
+	font-family: 'Raleway', 'Arial', 'Microsoft Yahei', sans-serif;
+	text-transform: uppercase;
+	a {
+		text-decoration: none;
+		font-size: 18px;
+		color: #000;
+		span {
+			font-size: 12px;
+			padding-left: 10px;
+			display: inline;
+		}
+		&:hover {
+			color: $linkColor;
+			cursor: pointer;
+		}
+	}
+}
+.social-container {
+	padding-top: 15px;
+	padding-bottom: 15px;
 }
 .social {
   list-style-type: none;

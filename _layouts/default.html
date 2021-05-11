@@ -26,36 +26,35 @@
 		</div>
 
 		<!--put dark mode button here -->
-		{%- if site.rawposts.dark_mode -%}
-		<div class = "about-footer {{condensed_class}}" style = "padding:10px">
-			<p style = "font-family: Raleway, sans-serif;font-size: 100%">Dark Mode
-			  <label class="switch">
-				<input type="checkbox" id="dark-mode-toggle">
-				<span class="slider round" onclick="toggleDarkMode()"></span>
-			  </label>
-			</p>
-		  <!--put rss/code link here -->
-          <ul class="social about-footer {{condensed_class}}">
-			{%- if site.rawposts.rss -%}
-		   <a style ="margin-right:10px; text-decoration: none" href="{{site.baseurl}}/rss.xml">
-              <li class="icon-rss tooltip" style ="font-size:22px">
-				<p class="tooltiptext">Rss</p>
-			  </li>
-           </a>
-			{%- endif -%}
-			{%- if site.rawposts.source_code -%}
-            <a style="text-decoration: none" href="https://github.com/gangdong/gangdong.github.io">
-              <li class="icon-file-code tooltip" style ="font-size:20px">
-				<p class="tooltiptext">Code</p>
-			  </li>
-            </a>
-			{%- endif -%}
-          </ul>
-		</div>
-		{%- endif -%}
-
-	    <!--show contact me -->
 		<div class = "about-footer {{condensed_class}}">
+		  <!--put rss/code link here -->
+			<div class="icon-box-container about-footer {{condensed_class}}">
+				{%- if site.rawposts.rss -%}
+				<div class = "icon-box">
+					<a class="icon-rss" href="{{site.baseurl}}/rss.xml">
+						<span>Subscribe</span>
+					</a>
+				</div>
+				{%- endif -%}
+				{%- if site.rawposts.source_code -%}
+				<div class = "icon-box">
+					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
+						<span>Source Code</span>
+					</a>
+				</div>
+				{%- endif -%}
+				{%- if site.rawposts.dark_mode -%}
+				<div class = "icon-box" style = "padding-right:0px">
+					<a id="dark-mode-toggle" class="icon-adjust-1" onclick="toggleDarkMode()">
+						<span>Dark Mode</span>
+					</a>
+				</div>
+			{%- endif -%}
+			</div>
+		</div>
+		
+	    <!--show contact me -->
+		<div class = "about-footer {{condensed_class}} social-container">
 	    <p class = "contact about-footer {{condensed_class}}">CONTACT ME</p>
 		<!-- put social link here -->
 	      <ul class="social about-footer {{condensed_class}}" >
@@ -91,6 +90,7 @@
 		</div>
 	  <!-- about box end here -->
       </section>
+	  
       <section class="content">
         {{ content }}
       </section>
