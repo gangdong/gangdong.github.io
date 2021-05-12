@@ -20,7 +20,7 @@ I think maybe someone who attaches a code snippet into the blog wants to get a b
 
 I also like that, so I decided to add a syntax highlighter to my blog.
 
-My blog was constructed by Jekyll, Jekyll has built-in support for syntax highlighting and Rouge is the default highlighter in Jekyll 3 and above. It's also supported by Github Pages, you can use it when you deploy your site on Github Pages.
+My blog was constructed by Jekyll, Jekyll also has built-in support for syntax highlighting of code snippets using either Rouge or Pygments, and Rouge is the default syntax highlighter in Jekyll 3 and above. It's also supported by Github Pages, which means the website that using Rouge can be deployed on Github Pages.
 
 ## Install Rouge
 There is nothing special about the installation, like an ordinary Jekyll plugin installation.
