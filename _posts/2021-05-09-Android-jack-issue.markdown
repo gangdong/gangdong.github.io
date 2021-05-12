@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Fixing the error: Communication error with Jack server (35) when building AOSP"
+title:  "Fixing the issue: Communication error with Jack server (35) when building AOSP"
 date:   2021-05-09 07:14:11 +0800
 categories: Android Linux
 tags: Android Linux
@@ -9,10 +9,10 @@ toc: true
 sidebar: true
 about: true
 author: david.dong
-description: This article may help you fix the jack server issue when you build AOSP and encounter the issue "SSL error when connecting to the Jack server". 
+description: This article may help you when you build AOSP and encounter the jack server issue "SSL error when connecting to the Jack server". 
 keywords: Android/jack/SSL error
 ---
-I met an error `Communication error with Jack server (35)` when built the AOSP yesterday. I can build the AOSP successfully before this issue popped up. I spent hours figuring out why and solving the problem.
+I met an issue `Communication error with Jack server (35)` when built the AOSP yesterday. I can build the AOSP successfully before this issue popped up. I spent hours figuring out why and solving the problem.
 
 ## Issue 
 My build environment of the AOSP is
