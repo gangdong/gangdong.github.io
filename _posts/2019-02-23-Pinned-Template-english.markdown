@@ -12,18 +12,15 @@ author: david.dong
 description: About RawPost theme.
 keywords: rawposts/Jekyll Theme 
 ---
-RawPost is a simple, elegant, and beautiful Jekyll theme. It is born from the creation of my blog website. It is designed with a fully responsive feature and can be deployed on Github Pages. I open-sourced this theme on Github with an MIT license, so it is free for use.
+[RawPost](https://github.com/gangdong/jekyll-theme-rawposts/) is a simple, elegant, and beautiful Jekyll theme. It is born from the creation of my blog website. It is designed with a fully responsive feature and can be deployed on Github Pages. I open-sourced this theme on Github with an MIT license, so it is free for use.
 
-It is two columns layout with portfolio-style, I tried to make this theme with minimal size and easy to customize. It is suitable for creating blogs or is built as a foundation for building more meaningful themes.
+After a while using [WordPress](https://wordpress.com/), I just realized that it was so much bloated. So, I decided to work on my own layout, and then, RawPost was born. It is two columns layout with portfolio-style, I tried to make this theme with minimal size and easy to customize. It is suitable for creating blogs or is built as a foundation for building more meaningful themes.
 
 The latest release is [v2.0](https://github.com/gangdong/jekyll-theme-rawposts/releases), I will keep developing the theme. I've pinned this post, if any update is available I will update it here.
 
 
 ## Preview
 ![screenshot](https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/screenshot.png)
-
-## Demonstration Site
-[dqdongg.com](https://dqdongg.com)  
 
 ## Features List
 + Fully responsive
@@ -159,6 +156,6 @@ Welcome raise issues if you have any questions about this theme, not limited for
 The theme is generated based on [plainwhite](https://github.com/samarsault/plainwhite-jekyll), with a lot of modifications.
 
 ## License
-The theme is available as open source under the terms of the MIT License. 
+The theme is available as open source under the terms of the `MIT` License. 
 <br><br>
 [中文](https://dqdongg.com/blog/web/github/2019/02/22/Blog-Template.html)
