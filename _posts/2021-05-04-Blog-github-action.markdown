@@ -12,7 +12,7 @@ author: david.dong
 description: GitHub Actions provides a flexible CI function and can be a good substitute for Travis CI. This article will show how I migrate my projects from Travis CI to Github Actions. 
 keywords: GitHub Actions/Travis CI
 ---
-I've used Travis CI to build and deploy my projects for some years. The performance of Travis CI can meet my requirements. However, recently I found Travis CI stopped working for me. ☹️
+I've used [Travis CI](https://www.travis-ci.com/) to build and deploy my projects for some years. The performance of Travis CI can meet my requirements. However, recently I found Travis CI stopped working for me. ☹️
 
 ## The motivation of migrating
 

@@ -12,7 +12,7 @@ author: david.dong
 description: This article is about Travis CI. <br><br>Travis CI is a Continuous Integration (CI) tool that can help you build, test and deploy your software project automatically. <br><br>This article will introduce how to use Travis CI.
 keywords: Travis CI/Github
 ---
-This article will introduce how to use Travis CI to build, test and deploy the Github project automatically. I will take my blog project on Github as an example to explain.
+This article will introduce how to use [Travis CI](https://www.travis-ci.com/) to build, test and deploy the Github project automatically. I will take my blog project on Github as an example to explain.
 
 {% include toc.html %}
 
