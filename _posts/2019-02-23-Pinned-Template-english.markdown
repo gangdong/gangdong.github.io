@@ -16,7 +16,7 @@ RawPost is a simple, elegant, and beautiful Jekyll theme. It is born from the cr
 
 It is two columns layout with portfolio-style, I tried to make this theme with minimal size and easy to customize. It is suitable for creating blogs or is built as a foundation for building more meaningful themes.
 
-Now the latest release is [v2.0](), I will keep developing the theme and refreshing this post for any update.
+The latest release is [v2.0](https://github.com/gangdong/jekyll-theme-rawposts/releases), I will keep developing the theme. I've pinned this post, if any update is available I will update it here.
 
 
 ## Preview
