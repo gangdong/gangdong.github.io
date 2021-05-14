@@ -313,7 +313,7 @@
 		}
 	}
 	.icon-box {
-		border-bottom: 1px solid $dark_separator_color;
+		border-bottom: 1px dashed $dark_separator_color;
 		a {
 			color: $dark_text_color;
 			&:hover {

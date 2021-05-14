@@ -29,6 +29,13 @@
 		<div class = "about-footer {{condensed_class}}">
 		  <!--put rss/code link here -->
 			<div class="icon-box-container about-footer {{condensed_class}}">
+				{%- if site.rawposts.dark_mode -%}
+				<div class = "icon-box" style = "padding-right:0px">
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id = "mode">Dark Mode</span>
+					</a>
+				</div>
+				{%- endif -%}
 				{%- if site.rawposts.rss -%}
 				<div class = "icon-box">
 					<a class="icon-rss" href="{{site.baseurl}}/rss.xml">
@@ -40,13 +47,6 @@
 				<div class = "icon-box">
 					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
 						<span>Source Code</span>
-					</a>
-				</div>
-				{%- endif -%}
-				{%- if site.rawposts.dark_mode -%}
-				<div class = "icon-box" style = "padding-right:0px">
-					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
-						<span id = "mode">Dark Mode</span>
 					</a>
 				</div>
 				{%- endif -%}
