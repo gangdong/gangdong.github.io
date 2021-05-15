@@ -647,7 +647,7 @@ main {
   flex-shrink: 2; /* default 1 !important guarantee the post contents width constant */
   flex-grow: 1;
   @media screen and (min-width: $mobileW + 1) {
-       max-width: 80%; /* fix the width */
+       max-width: 85%; /* fix the width */
 	   min-width: 100px;
        width: 100%;
    }
