@@ -639,7 +639,7 @@ main {
    @media screen and (max-width: $mobileW) {
     padding: 0 !important;
     margin-top: 0;
-    max-width: $mobileW
+    max-width: $mobileW;
   }
 }
 .post-fix-width {
@@ -802,6 +802,9 @@ main {
   margin-bottom: 36px;
   text-decoration: none;
   min-width: 100px;
+  @media screen and (max-width: $mobileW) {
+		margin: 0px;
+  }
 }
 .menu-logo {
   font-family: 'Poppins', 'Arial', 'Microsoft Yahei', sans-serif;
@@ -809,6 +812,10 @@ main {
   font-weight:900;
   color:#222;
   margin-right: 100px;
+  margin-top: 20px;
+  @media screen and (max-width: $mobileW) {
+		display: none;
+  }
 }
 .menu-btn-box {
   @media screen and (min-width: $mobileW +1px) {
@@ -877,6 +884,7 @@ main {
   width: 340px;
   font-weight:400;
   color:#222;
+  margin-top: 20px;
   @media screen and (max-width: $mobileW) {
 		display: none;
   }
@@ -1351,14 +1359,18 @@ table {
 
 
 @media screen and (max-width: $mobileW) {
+	
   .about.condensed {
-      display: none;
+      margin:30px 0;
+	  padding:0;
     } 
   .about {
     .about-header.condensed {
       align-items: start;
       align-self: start;
-	  margin-left: 30px;
+	  margin-left: 19px;
+	  margin-bottom: 0;
+	  padding-bottom:0;
       .about-title {
         flex-direction: row;
         margin-bottom: 0px;
