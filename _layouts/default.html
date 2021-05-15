@@ -14,17 +14,19 @@
     <main class="container">
       <section class="about {{condensed_class}}">
 	    <div class="about-header {{condensed_class}}">
-        <div class="about-title">
-        <a href="{{site.baseurl}}/blog/index.html">
-		  <img src="{{site.cdn_baseurl}}/assets/avatar.png" alt="{{ site.rawposts.name }}"/>
-		</a>
-        <h2 id="title">
-          <a href="{{site.baseurl}}/blog/index.html">{{ site.rawposts.name }}</a>
-        </h2>
+			<div class="about-title">
+				<a href="{{site.baseurl}}/blog/index.html">
+				  <img src="{{site.cdn_baseurl}}/assets/avatar.png" alt="{{ site.rawposts.name }}"/>
+				</a>
+				<div class = "title-meta">
+					<h2 id="title">
+					  <a href="{{site.baseurl}}/blog/index.html">{{ site.rawposts.name }}</a>
+					</h2>
+					<p class = "tagline-small">{{ site.rawposts.tagline }}</p>
+				</div>
+			</div>
+			<p class="tagline">{{ site.rawposts.tagline }}</p>
 		</div>
-        <p class="tagline">{{ site.rawposts.tagline }}</p>
-		</div>
-
 		<!--put dark mode button here -->
 		<div class = "about-footer {{condensed_class}}">
 		  <!--put rss/code link here -->
