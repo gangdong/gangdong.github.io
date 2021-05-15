@@ -37,6 +37,17 @@
 						<span id = "mode">Dark Mode</span>
 					</a>
 				</div>
+				<!-- toggle dark/light display mode, should loading darkmode.js here for avoiding flicker when switching -->
+				<script type="text/javascript">
+				$('.dark-mode').on('click',function(){
+					$('.dark-mode').toggleClass('light-mode');
+					if (document.getElementById("mode").innerHTML=="Light mode")
+						document.getElementById("mode").innerHTML="Dark mode";
+					else 
+						document.getElementById("mode").innerHTML="Light mode";
+				})
+				</script>
+				<script type="text/javascript" src="{{site.cdn_baseurl}}/assets/js/darkmode.js"></script>
 				{%- endif -%}
 				{%- if site.rawposts.rss -%}
 				<div class = "icon-box">
@@ -111,20 +122,6 @@
 	
 	{%- if site.rawposts.show_statistics -%}
 	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-	{%- endif -%}
-	
-	{%- if site.rawposts.dark_mode -%}
-	<!-- toggle dark/light display mode -->
-	<script type="text/javascript">
-        $('.dark-mode').on('click',function(){
-            $('.dark-mode').toggleClass('light-mode');
-			if (document.getElementById("mode").innerHTML=="Light mode")
-				document.getElementById("mode").innerHTML="Dark mode";
-			else 
-				document.getElementById("mode").innerHTML="Light mode";
-        })
-	</script>
-    <script type="text/javascript" src="{{site.cdn_baseurl}}/assets/js/darkmode.js"></script>
 	{%- endif -%}
 </body>
 </html>
