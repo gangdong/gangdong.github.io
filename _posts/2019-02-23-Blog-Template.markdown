@@ -20,12 +20,8 @@ keywords: rawposts/模板
 ## <span id ="1">1.关于该主题</span>
 `rawposts` 是一款轻量级,风格简洁清新的Jekyll主题。 该主题配置简单并支持丰富的特性,你可以将它用于Jekeyll网站或者个人博客的构建。该主题可以被用于部署在`Github Pages`上。
 
-[作者]：[DavidDong](https://github.com/gangdong)       
-[协议]：MIT 
-
-
 ### 预览
-![screenshot]({{site.cdn_baseurl}}/assets/screenshot.png)
+![screenshot]({{site.cdn_baseurl}}/assets/screenshot.png){: .center-image }
 
 ## <span id ="2">2.功能</span>
 + 响应式设计
@@ -168,10 +164,7 @@ reading_time.html 统计文章的字数和阅读时间并显示. 存放在根目
 ### <span id = "7.1">7.1 版本</span>
 1.0.0
 
-### <span id = "7.2">7.2 贡献</span>
-主题起始于 [plainwhite](https://github.com/samarsault/plainwhite-jekyll) 模板，在此基础上做了大量的修改，添加了功能。
-
-### <span id = "7.3">7.3 协议</span>
+### <span id = "7.3">7.2 协议</span>
 该主题为开源软件，基于`MIT`协议。
 
 ## <span id = "8">8.问题和回答 (Q&A)</span>

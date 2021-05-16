@@ -20,7 +20,7 @@ The latest release is [v2.0](https://github.com/gangdong/jekyll-theme-rawposts/r
 
 
 ## Preview
-![screenshot](https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/screenshot.png)
+![screenshot](https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/screenshot.png){: .center-image }
 
 ## Features List
 + Fully responsive
@@ -147,15 +147,12 @@ When submitting a pull request:
 Welcome to submitting pull requests to me, for each request, I will review as soon as possible and merge any good submits.
 
 ## Version
-1.0.0
+2.0.0
 
 ## Q & A
 Welcome raise issues if you have any questions about this theme, not limited for any usage, bug fix, new features requirements... :smile:   
 
-## Contribution
-The theme is generated based on [plainwhite](https://github.com/samarsault/plainwhite-jekyll), with a lot of modifications.
-
 ## License
 The theme is available as open source under the terms of the `MIT` License. 
 <br><br>
-[中文](https://dqdongg.com/blog/web/github/2019/02/22/Blog-Template.html)
+[中文 ->](https://dqdongg.com/blog/web/github/2019/02/22/Blog-Template.html)
