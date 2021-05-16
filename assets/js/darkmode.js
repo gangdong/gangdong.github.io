@@ -31,6 +31,10 @@ if ( (theme === null && userPrefersDark) || theme === 'dark') {
         if (!checkDarkDone) {
             toggleDarkMode();
 			$('.dark-mode').toggleClass('light-mode');
+			if (document.getElementById("mode").innerHTML=="Light Mode")
+				document.getElementById("mode").innerHTML="Dark Mode";
+			else 
+				document.getElementById("mode").innerHTML="Light Mode";
         }
         checkDarkDone = true;
     };
@@ -48,9 +52,4 @@ if ( (theme === null && userPrefersDark) || theme === 'dark') {
 	// Remove toggleSwitch but reserve for future use. 
     //if (window.requestAnimationFrame) window.requestAnimationFrame(toggleSwitch);
     //window.addEventListener('DOMContentLoaded', toggleSwitch);
-	
-	if (document.getElementById("mode").innerHTML=="Light mode")
-		document.getElementById("mode").innerHTML="Dark mode";
-	else 
-		document.getElementById("mode").innerHTML="Light mode";
 }
