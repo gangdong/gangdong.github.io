@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "RawPost - A theme for Jekyll"
+title:  "RawPosts - A theme for Jekyll"
 date:   2019-02-23 12:21:47 +0800
 categories: Pinned
 tags: Pinned
@@ -9,12 +9,12 @@ toc: true
 sidebar: true
 about: true
 author: david.dong
-description: About RawPost theme.
-keywords: rawposts/Jekyll Theme 
+description: About RawPosts theme.
+keywords: RawPosts/Jekyll Theme 
 ---
-[RawPost](https://github.com/gangdong/jekyll-theme-rawposts/) is a simple, elegant, and beautiful Jekyll theme. It is born from the creation of my blog website. It is designed with a fully responsive feature and can be deployed on Github Pages. I open-sourced this theme on Github with an MIT license, so it is free for use.
+[RawPosts](https://github.com/gangdong/jekyll-theme-rawposts/) is a simple, elegant, and beautiful Jekyll theme. It is born from the creation of my blog website. It is designed with a fully responsive feature and can be deployed on Github Pages. I open-sourced this theme on Github with an MIT license, so it is free for use.
 
-After a while using [WordPress](https://wordpress.com/), I just realized that it was so much bloated. So, I decided to work on my own layout, and then, RawPost was born. It is two columns layout with portfolio-style, I tried to make this theme with minimal size and easy to customize. It is suitable for creating blogs or is built as a foundation for building more meaningful themes.
+After a while using [WordPress](https://wordpress.com/), I just realized that it was so much bloated. So, I decided to work on my own layout, and then, RawPosts was born. It is two columns layout with portfolio-style, I tried to make this theme with minimal size and easy to customize. It is suitable for creating blogs or is built as a foundation for building more meaningful themes.
 
 The latest release is [v2.0](https://github.com/gangdong/jekyll-theme-rawposts/releases), I will keep developing the theme. I've pinned this post, if any update is available I will update it here.
 
