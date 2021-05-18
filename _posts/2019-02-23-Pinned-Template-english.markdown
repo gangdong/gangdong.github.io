@@ -12,7 +12,7 @@ author: david.dong
 description: About RawPosts theme.
 keywords: RawPosts/Jekyll Theme 
 ---
-[RawPosts](https://github.com/gangdong/jekyll-theme-rawposts/) is a simple, elegant, and beautiful Jekyll theme. It is born from the creation of my blog website. It is designed with a fully responsive feature and can be deployed on Github Pages. I open-sourced this theme on Github with an MIT license, so it is free for use.
+[RawPosts](https://github.com/gangdong/jekyll-theme-rawposts/) is a simple, elegant, and beautiful [Jekyll](https://jekyllrb.com/) theme. It is born from the creation of my blog website. It is designed with a fully responsive feature and can be deployed on Github Pages. I open-sourced this theme on Github with an MIT license, so it is free for use.
 
 After a while using [WordPress](https://wordpress.com/), I just realized that it was so much bloated. So, I decided to work on my own layout, and then, RawPosts was born. It is two columns layout with portfolio-style, I tried to make this theme with minimal size and easy to customize. It is suitable for creating blogs or is built as a foundation for building more meaningful themes.
 
@@ -63,40 +63,28 @@ You can use the `_config.yml` file to configure the theme with your preferences.
 + `site personal settings:`
 You'll need to change the `description`, `title` and `url` to match with your personal information. You'll also need to replace the `logo`, default `social` and default offline `images` in the /assets/ directory with your owns.The email needs to be changed to the email you want to receive contact form enquirers with. 
 The default configuration of this theme is my personal information and just replace with yours.
-
 + `show_excerpts:`
 set to *true* to show excerpts on the homepage.
-
 + `paginate:`
 set the number of posts of each pages.
-
 + `paginate_path:`
 set the path of pages in your site.
-
 + `sitemap:`
 set to *true* to generate sitemap.xml content.
-
 + `dark_mode:`
 set to *true* to add dark mode toggle.
-
 + `reading_time:`
 set to *true* to add reading time statistics.
-
 + `archives:`
 set to *true* to generate archives page. 
-
 + `categories:`
 set to *true* to generate categories page.
-
 + `gittalk:`
 set to *true* to add gittalk. 
-
 + `show_statistics:`
 set to *true* to show statistics of site visitors number.
-
 + `rss:`
 set to *true* to add rss.
-
 + `source_code:` 
 set to *true* to add link to source code.
 
@@ -105,22 +93,16 @@ There are some necessary `.html` files for implementing the site's features and 
 
 + `index.html:`
 index.html is the entry of homepage and is in the `/blog` folder.
-
 + `archive.html:`
 archive.html is for the archives function and is in the `/archive` folder.
-
 + `category.html:`
 category.html is used for category of the posts and is in the `/category` folder.
-
 + `about.html:`
 For *about* page contents display and is in the `/about` folder.
-
 + `pagination.html:`
 For paginate the pages and is in the `_includes` folder.
-
 + `reading_time.html:`
 reading_time.html is used for statistic the reading time of posts and display. It is in `_includes` folder.
-
 + `menu.html:`
 Used for setting the menu bar of the homepage, is in the `_includes` folder.
 
