@@ -14,31 +14,33 @@ keywords: RawPosts/Jekyll Theme
 ---
 [RawPosts](https://github.com/gangdong/jekyll-theme-rawposts/) is a simple, elegant, and beautiful [Jekyll](https://jekyllrb.com/) theme. It is born from the creation of my blog website. It is designed with a fully responsive feature and can be deployed on Github Pages. I open-sourced this theme on Github with an MIT license, so it is free for use.
 
-After a while using [WordPress](https://wordpress.com/), I just realized that it was so much bloated. So, I decided to work on my own layout, and then, RawPosts was born. It is two columns layout with portfolio-style, I tried to make this theme with minimal size and easy to customize. It is suitable for creating blogs or is built as a foundation for building more meaningful themes.
+After a while using [WordPress](https://wordpress.com/), I just realized that it was so much bloated. So, I decided to work on my layout, and then, RawPosts was born. It is two columns layout with portfolio-style, I tried to make this theme with minimal size and easy to customize. It is suitable for creating blog website or is built as a foundation for building more meaningful themes.
 
-The latest release is [v2.0](https://github.com/gangdong/jekyll-theme-rawposts/releases), I will keep developing the theme. I've pinned this post, if any update is available I will update it here.
+The latest release is [v2.1](https://github.com/gangdong/jekyll-theme-rawposts/releases), I will keep developing this theme. I've pinned this post, if any update is available I will update it here.
 
 
 ## Preview
 ![screenshot](https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/screenshot.png){: .center-image }
 
 ## Features List
-+ Fully responsive
-+ Optimized for tablets & mobiles
-+ portfolio style
++ Fully responsive, optimized for tablets & mobiles
++ Portfolio style
++ Sidebar for auto TOC
 + Customized social link (Github,facebook,twitter,linkedin...)
-+ Optimized Github code style
++ Social Media sharing for posts
++ Chinese/English support
++ Rouge syntax highlighter
 + Pagination
-+ Archive by date
-+ Archive by category
-+ Excerpts
-+ Navigation
++ Search for all site keywords 
++ Archive by date/category
++ Post Excerpts
++ Related Posts 
++ CI support: Travis CI / Github Actions
 + Comments: Gittalk / Disqus
 + Statistics: Google analytics / busuanzi 
-+ RSS
-+ sitemap
++ SEO optimization
 + jemoji for emoji
-+ dark skin selectable
++ Light/Dark mode selectable
 + Reading time statistics
 + post words count statistics
 
@@ -48,20 +50,22 @@ The latest release is [v2.0](https://github.com/gangdong/jekyll-theme-rawposts/r
 + kramdown
 + jekyll-archives
 + jekyll-paginate
++ jekyll-toc
++ rouge
++ jekyll-tagging-related_posts
 
 ## Installation
 1. Fork the theme at [here](https://github.com/gangdong/jekyll-theme-rawposts).
-2. Clone the repository to your local machine.
-3. If you don't have Jekyll installed, install it on your machine. If you don't know how to install, please refer to [Getting started with Jekyll (1)](https://gangdong.github.io/daviddong.github.io/web/2018/03/27/Web-jekyll-installation.html).
-4. Run the command `bundle install` in the root of project to install the theme and its dependencies.
-5. Run `bundle exec jekyll server` to build and serve your site.
-6. Done! :v:  Next you can customize your own website through the `_config.yml`
+2. If you don't have Jekyll installed, install it on your local machine. If you don't know how to install, please refer to [Getting started with Jekyll (1)](https://gangdong.github.io/daviddong.github.io/web/2018/03/27/Web-jekyll-installation.html).
+3. Run the command `bundle install` in the root of the theme's folder to install the theme and its dependencies.
+4. Run `bundle exec jekyll server` to build and serve your site.
+5. The theme is installed successfully here, next you can customize your own website through the `_config.yml`
 
 ## Customization & Configuration
 You can use the `_config.yml` file to configure the theme with your preferences.
 
 + `site personal settings:`
-You'll need to change the `description`, `title` and `url` to match with your personal information. You'll also need to replace the `logo`, default `social` and default offline `images` in the /assets/ directory with your owns.The email needs to be changed to the email you want to receive contact form enquirers with. 
+You'll need to change the `description`, `title` and `url` to match with your personal information. You'll also need to replace the `logo`, default `social link` and default offline `images` in the `/assets/` directory with your owns.The email needs to be changed to the email you want to receive contact form enquirers with. 
 The default configuration of this theme is my personal information and just replace with yours.
 + `show_excerpts:`
 set to *true* to show excerpts on the homepage.
@@ -89,7 +93,7 @@ set to *true* to add rss.
 set to *true* to add link to source code.
 
 ## Include Files
-There are some necessary `.html` files for implementing the site's features and they are in the different folders.
+There are some necessary `.html` files for utilizing the site's features and they are in different folders.
 
 + `index.html:`
 index.html is the entry of homepage and is in the `/blog` folder.
@@ -129,7 +133,7 @@ When submitting a pull request:
 Welcome to submitting pull requests to me, for each request, I will review as soon as possible and merge any good submits.
 
 ## Version
-2.0.0
+2.1.0
 
 ## Q & A
 Welcome raise issues if you have any questions about this theme, not limited for any usage, bug fix, new features requirements... :smile:   
