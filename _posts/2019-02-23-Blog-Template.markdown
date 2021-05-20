@@ -24,8 +24,7 @@ keywords: rawposts/模板
 ![screenshot]({{site.cdn_baseurl}}/assets/screenshot.png){: .center-image }
 
 ## <span id ="2">2.功能</span>
-+ 响应式设计
-+ 针对平板&手机屏幕设计优化
++ 响应式设计, 针对平板&手机屏幕设计优化
 + portfolio 主题图片设置
 + 个性化社交链接（支持电子邮件，Github，Facebook，Twitter，领英等）
 + 社交媒体分享 （Linkedin, Facebook, Twitter, Weixin...,180+）
@@ -44,9 +43,8 @@ keywords: rawposts/模板
 + 文章阅读量统计：busuanzi / google analytics
 + 站点访问统计：busuanzi / google analytics   
   中国大陆用户推荐使用 busuanzi
-+ RSS/Sitemap
 + SEO 优化
-+ 集成 Travis CI 自动生成部署网站
++ 集成 Travis CI / Github Actions 自动生成部署网站
 + jemoji emoji表情支持
 + 两种皮肤可切换：浅色/深色
 + 文章字数统计
@@ -75,70 +73,61 @@ keywords: rawposts/模板
 ### <span id ="5.1">5.1 客制化设定</span>
 你需要更改`描述`、`标题`和`url`以便与个人信息匹配。你还需要将/assets/目录中的`logo`、`默认社交链接`和`默认avatar图像`替换为您自己的图片，并需要将`电子邮件`更改为您要接收的联系人表单查询的电子邮件。
 当前此主题的模板中的默认配置为我个人的信息，将该部分替换为你自己的信息。
-#### `show_excerpts`
++ `show_excerpts`
 _config.yml中设置该字段为 `true` 将会启用目录的摘要功能。
-#### `search`
++ `search`
 _config.yml中设置该字段为 `true` 将会启用全站关键字搜索功能。
-#### `paginate`
++ `paginate`
 _config.yml中通过设置该字段来设定每页最大的文章数量。
-#### `paginate_path`
++ `paginate_path`
 _config.yml中设置该字段为你需要放置子页的路径。
-#### `sitemap`
++ `sitemap`
 _config.yml中设置该字段为 `true` 将生成 sitemap.html 文件。
-#### `syntax`
-_config.yml中设置该字段，可以选择代码高亮的主题，目前支持的主题有23种。<br>
++ `syntax`
+_config.yml中设置该字段，可以选择代码高亮的主题，目前支持的主题有23种。
 详见 [Rouge Theme](https://github.com/mzlogin/rouge-themes)
-#### `related_posts`
++ `related_posts`
 _config.yml中设置该字段为 `true` 将会启用相似文章归类索引。
-#### `dark_mode`
++ `dark_mode`
 _config.yml中设置该字段为 `true` 将会启用网站的深色模式切换功能。
-#### `reading_time`
++ `reading_time`
 _config.yml中设置该字段为 `true` 将会增加文章的阅读时间和字数统计，并显示。
-#### `archives`
++ `archives`
 _config.yml中设置该字段为 `true` 将会启用文章的时间归档功能。 
-#### `categories`
++ `categories`
 _config.yml中设置该字段为 `true` 将会启用文章的归类功能。
-#### `analytics_id`
++ `analytics_id`
 _config.yml中设置该字段为 Google Analytics 的用户 ID，如果填写正确则启用 Google Analytics 分析。
-#### `gittalk`
++ `gittalk`
 _config.yml中设置该字段为 `true` 将会增加gittalk评论模块。 
-#### `show_statistics`
++ `show_statistics`
 _config.yml中设置该字段为 `true` 将会启用网站访客统计功能，默认busuanzi引擎。
-#### `rss`
++ `rss`
 _config.yml中设置该字段为 `true` 将会启用rss生成功能。 
-#### `source_code` 
++ `source_code` 
 _config.yml中设置该字段为 `true` 将会增加源代码索引。
-#### `share_media`
++ `share_media`
 _config.yml中设置该字段为 `true` 将会启用文章的社交媒体分析，默认媒体有 Twitter/Facebook/微信/linkin。
 
 
 ### <span id ="5.2">5.2 包含文件</span>
-该主题有一些必要的 「.html」文件来实现网站的功能，它们位于不同的文件夹中。
-
-#### `index.html`
+该主题有一些必要的 `.html` 文件来实现网站的功能，它们位于不同的文件夹中。
++ `index.html`
 index.html 是主页的入口文件，生成在项目根目录 `/blog` 文件夹中。
-
-#### `archive.html`
++ `archive.html`
 archive.html 实现文章的归档功能，生成在根目录 `/archive` 文件夹中。
-
-#### `category.html`
++ `category.html`
 category.html 实现文章的分类功能，生成在根目录 `/category` 文件夹中。
-
-#### `about.html`
++ `about.html`
 about.html 文件内容对应网站的「关于」页面，里面的内容多为个人相关，将它们替换成你自己的信息，存在于根目录 `/about` 文件夹中。
-
-#### `pagination.html`
++ `pagination.html`
 pagination.html 实现网站的分页功能，存放在根目录 `_includes` 文件夹中。
-
-#### `reading_time.html`
++ `reading_time.html`
 reading_time.html 统计文章的字数和阅读时间并显示. 存放在根目录 `_includes` 文件夹中。
-
-#### `menu.html`
++ `menu.html`
 生成主页的功能菜单项, 存放在根目录 `_includes` 文件夹中。
-
-#### `toc.html`
++ `toc.html`
 自动生成文章的目录, 存放在根目录 `_includes` 文件夹中。
-
 ## <span id ="6">6.开发</span>
 ### <span id = "6.1">6.1 搭建开发环境</span>
 以下用于配置该主题的开发环境:
