@@ -12,7 +12,7 @@ author: david.dong
 description: About RawPosts theme.
 keywords: RawPosts/Jekyll Theme 
 ---
-[RawPosts](https://github.com/gangdong/jekyll-theme-rawposts/) is a simple, elegant, and beautiful [Jekyll](https://jekyllrb.com/) theme. It is born from the creation of my blog website. It is designed with a fully responsive feature and can be deployed on Github Pages. I open-sourced this theme on Github with an MIT license, so it is free for use.
+[RawPosts](https://github.com/gangdong/jekyll-theme-rawposts/) is a simple, elegant, and clean [Jekyll](https://jekyllrb.com/) theme. It is born from the creation of my blog website. It is designed with a fully responsive feature and can be deployed on Github Pages. I open-sourced this theme on Github with an MIT license, so it is free for use.
 
 After a while using [WordPress](https://wordpress.com/), I just realized that it was so much bloated. So, I decided to work on my layout, and then, RawPosts was born. It is two columns layout with portfolio-style, I tried to make this theme with minimal size and easy to customize. It is suitable for creating blog website or is built as a foundation for building more meaningful themes.
 
