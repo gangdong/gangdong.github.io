@@ -13,18 +13,18 @@ author: david.dong
 description: 有关 rawpost 模板的介绍, 使用方法及 (Q & A)。
 keywords: rawposts/模板 
 ---
-本博客使用了 [rawposts](https://github.com/gangdong/jekyll-theme-rawposts) 主题模板，不时有网友在 fork 使用该主题的时候提出了一些问题，这里我将该主题的使用方法汇总成一篇帖子，方便大家参考。
+本博客使用了 [RawPosts](https://github.com/gangdong/jekyll-theme-rawposts) 主题模板，不时有网友在 fork 使用该主题的时候提出了一些问题，这里我将该主题的使用方法汇总成一篇帖子，方便大家参考。
 
 {% include toc.html %}
 
 ## <span id ="1">1.关于该主题</span>
-`rawposts` 是一款轻量级,风格简洁清新的Jekyll主题。 该主题配置简单并支持丰富的特性,你可以将它用于Jekeyll网站或者个人博客的构建。该主题可以被用于部署在`Github Pages`上。
+`RawPosts` 是一款轻量级,风格简洁清新的 [Jekyll](https://jekyllrb.com/) 主题。 该主题配置简单并支持丰富的特性,你可以将它用于Jekeyll网站或者个人博客的构建。该主题可以被用于部署在`Github Pages`上。
 
 ### 预览
 ![screenshot]({{site.cdn_baseurl}}/assets/screenshot.png){: .center-image }
 
 ## <span id ="2">2.功能</span>
-+ 响应式设计, 针对平板&手机屏幕设计优化
++ 响应式设计, 针对平板 & 手机屏幕设计优化
 + portfolio 主题图片设置
 + 个性化社交链接（支持电子邮件，Github，Facebook，Twitter，领英等）
 + 社交媒体分享 （Linkedin, Facebook, Twitter, Weixin...,180+）
@@ -60,18 +60,18 @@ keywords: rawposts/模板
 + [jekyll-tagging-related_posts](https://github.com/toshimaru/jekyll-tagging-related_posts)
 
 ## <span id ="4">4.主题安装</span>
-1. fork [主题](https://github.com/gangdong/jekyll-theme-rawposts) 到你的github仓库。
+1. fork [主题](https://github.com/gangdong/jekyll-theme-rawposts) 到你的 Github 仓库。
 2. 复制该主题的仓库到本地。
-3. 如果你还没有安装Jekell，请先安装Jekyll。如果你不知道如何安装Jekyll，可以参考 [Getting started with Jekyll (1)]({{site.baseurl}}/blog/2018/03/27/Web-jekyll-installation.html)。
+3. 如果你还没有安装 Jekyll，请先安装 Jekyll。如果你不知道如何安装 Jekyll，可以参考 [Getting started with Jekyll (1)]({{site.baseurl}}/blog/2018/03/27/Web-jekyll-installation.html)。
 4. 在本地项目的根目录下运行命令 `bundle install` 来安装主题以及该主题的依赖。
 5. 运行 `bundle exec jekyll server` 构建项目并生成网站。
 6. 至此安装完成! :v: 下一步你需要通过配置 _config.yml来定制你自己的网站。
 
 ## <span id ="5">5.客制化 & 配置</span>
-你可以通过配置 _config.yml 文件来客制化该主题。
+你可以通过配置 `_config.yml` 文件来客制化该主题。
 
 ### <span id ="5.1">5.1 客制化设定</span>
-你需要更改`描述`、`标题`和`url`以便与个人信息匹配。你还需要将/assets/目录中的`logo`、`默认社交链接`和`默认avatar图像`替换为您自己的图片，并需要将`电子邮件`更改为您要接收的联系人表单查询的电子邮件。
+你需要更改`描述`、`标题`和`url`以便与个人信息匹配。你还需要将/assets/目录中的 `logo`、`默认社交链接`和`默认avatar图像`替换为您自己的图片，并需要将`电子邮件`更改为您要接收的联系人表单查询的电子邮件。
 当前此主题的模板中的默认配置为我个人的信息，将该部分替换为你自己的信息。
 + `show_excerpts`
 _config.yml中设置该字段为 `true` 将会启用目录的摘要功能。
@@ -137,7 +137,7 @@ reading_time.html 统计文章的字数和阅读时间并显示. 存放在根目
 
 在你对该主题做了修改后可以在本地测试然后再推送到远端:
 
-1. 进入到该主题本地的根目录 (比如 jekyll-theme-rawposts)；
+1. 进入到该主题本地的根目录 (*比如 jekyll-theme-rawposts*)；
 2. 运行 `jekyll server` 构建该项目并生成网站，在浏览器中打开http://localhost:4000/你设定的baseurl 来预览网站。再度修改后可以通过刷新网页来预览效果。
 
 ### <span id = "6.2">6.2 Pull Requests</span>
@@ -151,7 +151,7 @@ reading_time.html 统计文章的字数和阅读时间并显示. 存放在根目
 
 ## <span id = "7">7.其他信息</span>
 ### <span id = "7.1">7.1 版本</span>
-2.0.0
+2.1.0
 
 ### <span id = "7.3">7.2 协议</span>
 该主题为开源软件，基于`MIT`协议。
