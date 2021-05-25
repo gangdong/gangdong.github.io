@@ -24,25 +24,33 @@ The latest release is [v2.1](https://github.com/gangdong/jekyll-theme-rawposts/r
 
 ## Features List
 + Fully responsive, optimized for tablets & mobiles
-+ Portfolio style
-+ Sidebar for auto TOC
-+ Customized social link (Github,facebook,twitter,linkedin...)
-+ Social Media sharing for posts
-+ Chinese/English support
-+ Rouge syntax highlighter
-+ Pagination
-+ Search for all site keywords 
++ Portfolio style 
++ Sidebar with auto TOC generating
++ Social link (Github,facebook,twitter,linkedin...)
++ Social media sharing for posts
++ Markdown and HTML text formatting
++ Syntax highlighting with Rouge
++ Pagination of posts
++ Keywords search 
++ Sticky posts
 + Archive by date/category
-+ Post Excerpts
++ Excerpt management
 + Related Posts 
-+ CI support: Travis CI / Github Actions
-+ Comments: Gittalk / Disqus
-+ Statistics: Google analytics / busuanzi 
++ Comments: 
+  + Gittalk 
+  + Disqus
++ Statistics: 
+  - Google analytics
+  - busuanzi 
 + SEO optimization
 + jemoji for emoji
-+ Light/Dark mode selectable
-+ Reading time statistics
-+ post words count statistics
++ Light/Dark mode 
++ Chinese/English support
++ Reading time / post words count statistics
++ Compatible with GitHub Pages
++ CI support: 
+  + Travis CI 
+  + Github Actions
 
 ## Plugins
 + jekyll-seo-tag
