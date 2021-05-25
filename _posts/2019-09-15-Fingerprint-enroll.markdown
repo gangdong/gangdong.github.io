@@ -13,7 +13,7 @@ description: Some knowledge of the Fingerprint enrollment process in the Android
 keywords: Fingerprint enrollment/Android
 ---
 ![cover]({{site.cdn_baseurl}}/assets/image/fingerprint-enroll-cover.jpeg)    
-When we do fingerprint enrollment in an android device, it will generate a fingerprint template that contains the user's fingerprint information in a specified directory (for example, /data/vendor_de/0/fpdata/user.db), which depends on the system configuration.
+When we do fingerprint enrollment in an android device, it will generate a fingerprint template that contains the user's fingerprint information in a specified directory (*for example, /data/vendor_de/0/fpdata/user.db*), which depends on the system configuration.
 
 During the template is being generated, there is a series of APIs calling in the android system internally. Let's have a look at this process. 
 

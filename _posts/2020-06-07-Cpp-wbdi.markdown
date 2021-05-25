@@ -12,11 +12,11 @@ author: david.dong
 description: Some knowledge of Fingerprint driver development.
 keywords: Fingerprint driver/Windows
 ---
-Windows 7 and later implements support for Biometric devices. The Windows Biometric Framework (WBF) is a generic biometric architecture in Windows 7 and later versions of Windows.
+Windows 7 and later implements support for Biometric devices. The Windows Biometric Framework (*WBF*) is a generic biometric architecture in Windows 7 and later versions of Windows.
 
-WBF includes an IOCTL-based driver interface known as the Windows Biometric Driver Interface (WBDI) as well as a Windows service called the Windows Biometric Framework API (Windows) (WBS). 
+WBF includes an IOCTL-based driver interface known as the Windows Biometric Driver Interface (*WBDI*) as well as a Windows service called the Windows Biometric Framework API (Windows) (*WBS*). 
 
-WBDI drivers respond to requests from the WBS(WinBio) service. WBF also includes Windows log-in support.
+WBDI drivers respond to requests from the WBS(*WinBio*) service. WBF also includes Windows log-in support.
 
 {% if page.toc == false %}
 <div class = "separator"></div>
@@ -49,14 +49,14 @@ Starting with some concepts.
 
 ## <span id = "1">1. Basic Concepts</span>
 ### WBF:
-Windows Biometric Framework. WBF is a generic biometric architecture in Windows 7 and later versions of Windows. WBF includes an IOCTL-based driver interface known as the Windows Biometric Driver Interface (WBDI) as well as a Windows service called the Windows Biometric Service (WBS). 
+Windows Biometric Framework. WBF is a generic biometric architecture in Windows 7 and later versions of Windows. WBF includes an IOCTL-based driver interface known as the Windows Biometric Driver Interface (*WBDI*) as well as a Windows service called the Windows Biometric Service (*WBS*). 
 ### WBDI:  
-Windows Biometric Driver Interface. WBDI is a programming interface that a biometric driver can use to expose the biometric device through the Windows Biometric Service (WBS). The developer can implement a WBDI driver by using any supported driver technology, including the following.
-+ User Mode Driver Framework (UMDF)
-+ Kernel Mode Driver Framework (KMDF)
-+ Windows Driver Model (WDM)
+Windows Biometric Driver Interface. WBDI is a programming interface that a biometric driver can use to expose the biometric device through the Windows Biometric Service (*WBS*). The developer can implement a WBDI driver by using any supported driver technology, including the following.
++ User Mode Driver Framework (*UMDF*)
++ Kernel Mode Driver Framework (*KMDF*)
++ Windows Driver Model (*WDM*)
   
-A WBDI biometric driver must also support the WBDI driver interface GUID and all mandatory I/O controls (IOCTLs).  
+A WBDI biometric driver must also support the WBDI driver interface GUID and all mandatory I/O controls (*IOCTLs*).  
 ### WBS:  
   Windows Biometric Service. The Windows Biometric Service manages installed biometric drivers and supports the Windows Biometric Framework API to provide device access to client applications.  
 ### Adapters:   
@@ -80,16 +80,16 @@ A WBDI biometric driver must also support the WBDI driver interface GUID and all
 ### Biometric Unit:  
   The central component of the Windows Biometric Framework plug-in architecture, a software object that exposes the capabilities of a biometric device to the framework through a standard interface.
 ### Overview
-The following figure shows how the UMDF based windows biometric driver interface (WBDI) driver can be used for windows biometric framework (WBF) biometric support in Windows 7. All biometric operations rely on client applications to windows biometric services (WBS). The WBS sends the request to the biometric device driver that exposes the WBDI interface.    
+The following figure shows how the UMDF based windows biometric driver interface (*WBDI*) driver can be used for windows biometric framework (*WBF*) biometric support in Windows 7. All biometric operations rely on client applications to windows biometric services (*WBS*). The WBS sends the request to the biometric device driver that exposes the WBDI interface.    
     
 
 ![framework]({{site.cdn_baseurl}}/assets/image/others-wbdi-01.PNG){: .center-image }
 
 ## <span id = "2">2. UMDF</span>
-UMDF is a Framework for creating user-mode drivers. Like the kernel-mode driver framework (KMDF), UMDF provides an abstraction layer from WDM that handles a large number of plug and play (PNP) and power management functions and allows the driver to choose to enable specific functions and event handling. UMDF driver abstracts hardware functions, runs in user mode environment, and can access various services.
+UMDF is a Framework for creating user-mode drivers. Like the kernel-mode driver framework (*KMDF*), UMDF provides an abstraction layer from WDM that handles a large number of plug and play (*PNP*) and power management functions and allows the driver to choose to enable specific functions and event handling. UMDF driver abstracts hardware functions, runs in user mode environment, and can access various services.
 
 The UMDF driver interacts with the following components provided by the system.
-+ Wudfhost(exe)
++ Wudfhost(*exe*)
 + WDM
 + Reflector    
 
@@ -108,7 +108,7 @@ On most occasions, Microsoft recommends writing UMDF driver instead of KMDF, sin
 However, the following features are only available for KMDF drivers. If the driver requires one of these features, you must write a KMDF driver.  
 + DMA
 + Bus Enumeration
-+ Power control (only limited support in UMDF)
++ Power control (*only limited support in UMDF*)
 + Access WDM object and lrp
 + non-cache I/O access
 + WMI
@@ -120,9 +120,9 @@ However, the following features are only available for KMDF drivers. If the driv
 ![framework]({{site.cdn_baseurl}}/assets/image/others-wbdi-03.PNG){: .center-image }  
 
 
-The above diagram shows how the driver manager builds a user-mode device stack, and how the host process, reflector, and driver manager to process an I/O request that an application sends to a User-Mode Driver Framework (UMDF) driver.  
+The above diagram shows how the driver manager builds a user-mode device stack, and how the host process, reflector, and driver manager to process an I/O request that an application sends to a User-Mode Driver Framework (*UMDF*) driver.  
 
-Similar to a kernel-mode stack, the construction and tear down of a user-mode stack is driven by Plug and Play (PnP) events. After the kernel-mode stack has been built, the reflector notifies the driver manager to start the construction of the user-mode stack. The driver manager launches the driver host process and provides sufficient information to the launched process to build the user-mode stack. 
+Similar to a kernel-mode stack, the construction and tear down of a user-mode stack is driven by Plug and Play (*PnP*) events. After the kernel-mode stack has been built, the reflector notifies the driver manager to start the construction of the user-mode stack. The driver manager launches the driver host process and provides sufficient information to the launched process to build the user-mode stack. 
  
 The driver host process provides the execution environment for user-mode drivers and routes messages between drivers in the user-mode stack. The reflector uses a message-based interprocess communication mechanism to communicate with the driver manager and host process.    
 

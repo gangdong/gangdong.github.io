@@ -12,7 +12,7 @@ author: david.dong
 description: This article introduced the Python struct.pack() method.
 keywords: Python/
 ---
-Python uses `struct.pack()` to pack python data type into binary data (byte stream), which means convert a value to a string based on the format. 
+Python uses `struct.pack()` to pack python data type into binary data (*Byte Stream*), which means convert a value to a string based on the format. 
 
 Because there is no byte type in Python, where the string is equivalent to a byte stream, or byte array.
 

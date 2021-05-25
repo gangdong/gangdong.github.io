@@ -12,7 +12,7 @@ author: david.dong
 description: WSL knowledge.
 keywords: WSL
 ---
-Recently I'm using WSL(Window Subsystem for Linux) for program development. This article presents some short notes for the WSL installation and usage.
+Recently I'm using WSL(*Window Subsystem for Linux*) for program development. This article presents some short notes for the WSL installation and usage.
 
 {% if page.sidebar == false %}
 <div class = "separator"></div>

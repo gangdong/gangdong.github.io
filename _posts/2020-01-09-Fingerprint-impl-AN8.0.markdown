@@ -13,7 +13,7 @@ description: Fingerprint framework of Android 8.0 introduction.
 keywords: Fingerprint framework/Android 8.0
 ---
 Since Android 8.0, Android has fully introduced the HIDL layer into the framework. The purpose is to separate vendor partition from system partition so that Android is capable to upgrade the framework through OTA without recompiling HAL. Correspondingly, the framework of fingerprint has also been reconstructed. 
-This page will give an introduction about the difference in the fingerprint framework between android 7.0 (and early version) and android 8.0 (and later version).
+This page will give an introduction about the difference in the fingerprint framework between android 7.0 (*and early version*) and android 8.0 (*and later version*).
 
 After the study of the previous three articles, <br>
 [Android Fingerprint Framework (1)]({{site.baseurl}}/android/fingerprint/2019/10/03/Fingerprint-frmk1.html)<br>

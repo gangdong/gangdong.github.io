@@ -56,7 +56,7 @@ Set software control mode is helpful to reduce consumption of system resources o
 ![packages]({{site.cdn_baseurl}}/assets/image/others-sgx-03.PNG){: .center_image}
 Download SGX software packages at [here](https://software.intel.com/content/www/us/en/develop/topics/software-guard-extensions/sdk.html).
 
-2. Install IME (Intel Management Engine)
+2. Install IME (*Intel Management Engine*)
 Download IME package at [here](https://downloadcenter.intel.com/download/29352/Intel-Management-Engine-Interface-Driver-NUC8v7PN-NUC8v5PN).
 Run SetupME.exe<br>
 ![packages]({{site.cdn_baseurl}}/assets/image/others-sgx-09.PNG){: .center-image }  
