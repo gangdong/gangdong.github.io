@@ -70,12 +70,12 @@ main {
       background-color: transparent;
 
       &:hover {
-        color: black;
-        background-color: #eee;
+        color: #0366d6;
+        background-color: #e1ecf4;
       }
 
       &::before {
-        content: '\e805';
+        content: '\f0f6';
         font-family: "fontello";
         font-style: normal;
         speak: none;
@@ -88,7 +88,6 @@ main {
         font-feature-settings: 'liga';
         margin-right: 14px;
         padding: 0 3px;
-        color: #9aa0a6;
       }
     }
   }

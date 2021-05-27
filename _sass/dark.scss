@@ -250,10 +250,11 @@
 			background-color: #333;
 
 			a {
-				color: white;
+				color: $dark_text_color;
 
 				&:hover {
 					background-color: $dark_background_color;
+					color: $dark_link_color;
 				}
 			}
 		}
