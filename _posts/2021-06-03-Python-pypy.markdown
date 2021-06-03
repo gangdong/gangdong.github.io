@@ -31,11 +31,12 @@ Python is a dynamic programming language, as we all know, unlike the static prog
 
 Here are some common Python interpreters:
 
-+ **CPython** - implemented by C language
-+ **Jython** - implemented by Java language
-+ **IronPython** - implemented by .Net 
-+ **Pypy** - interpreter implemented by RPython - a subset of Python
-
+|Interpreter|Description|
+|---|---|
+|CPython |interpreter implemented by C language|
+|Jython |interpreter implemented by Java language|
+|IronPython |interpreter implemented by .Net|
+|Pypy|interpreter implemented by RPython - a subset of Python|
 
 ## What is Pypy?
 We can think Pypy is a Python interpreter implemented in Python. Pypy is a very compatible Python interpreter, which is an alternative to CPython 2.7, 3.6, and the upcoming 3.7. It can significantly increase the speed when running an application with it.
@@ -60,7 +61,9 @@ However, JIT isn't all-powerful for everything. There are some limitations when 
 + It does not perform precompilation. Pypy is not a fully compiled Python implementation. It compiles Python code, but it's not a compiler for Python code. Python cannot be compiled into a separate binary and reused because of some inherent features of Python. 
 
 ## Use Pypy
-The Pypy needs to be installed before using it. The [http://Pypy.org/](http://Pypy.org/) offered the installation ZIPs for running on the different platforms. It can be downloaded and installed.
+The Pypy needs to be installed before using it. 
+
+The [http://Pypy.org/](http://Pypy.org/) offered the installation ZIPs for running on the different platforms. It can be downloaded and installed.
 
 To install Pypy under Ubuntu, another method is using the command line. 
 
@@ -73,7 +76,7 @@ If the installation is successful, open the terminal and enter Pypy, there will 
 ![installation]({{site.cdn_baseurl}}/assets/image/python-Pypy-01.PNG){: .center-image }
 
 ## Performance  
-To check the performance, I did a experiment, I wrote below code and ran it with the Pypy and CPython. 
+To check the performance, I did an experiment, I wrote the below code and ran it with Pypy and CPython. 
 
 {% highlight python %}
 import time
