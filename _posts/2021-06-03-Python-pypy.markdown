@@ -73,7 +73,7 @@ sudo apt-get update
 sudo apt-get install Pypy Pypy-dev
 {% endhighlight %}
 If the installation is successful, open the terminal and enter Pypy, there will be the following similar prompts.
-![installation]({{site.cdn_baseurl}}/assets/image/python-Pypy-01.PNG){: .center-image }
+![installation]({{site.cdn_baseurl}}/assets/image/python-pypy-01.PNG){: .center-image }
 
 ## Performance  
 To check the performance, I did an experiment, I wrote the below code and ran it with Pypy and CPython. 
