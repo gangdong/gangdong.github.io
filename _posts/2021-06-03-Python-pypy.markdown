@@ -17,7 +17,7 @@ keywords: Python/Pypy
 To understand why Pypy is faster, we should know what makes Python slower.<!--more-->
 
 ## What does make Python slower? 
-Python is a dynamic programming language, as we all know, unlike the static programming language *(C/C++/Ruby/...) - which are usually compiled ahead of time (AOT compilation)*, the dynamic programming language uses the interpreter to translate the source code line by line and runs it when executing. Therefore, The performance of the program interpreter determines the execution speed of Python.
+Python is a dynamic programming language, as we all know, unlike the static programming language *(C/C++/Rust...) - which are usually compiled ahead of time (AOT compilation)*, the dynamic programming language uses the interpreter to translate the source code line by line and runs it when executing. Therefore, The performance of the program interpreter determines the execution speed of Python.
 
 <div class = "post-note info">
   <div class = "header"></div>
