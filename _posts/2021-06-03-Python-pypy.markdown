@@ -24,7 +24,7 @@ Python is a dynamic programming language, as we all know, unlike the static prog
   	<div class = "body">
 		<p>For static programming language, the compiler will convert the source code into machine code readable by a specific computer architecture. In other words, when executing the program, the execution is not the source code, but the machine code.<br>
 
-		Because of the lack of translation process, the static programming language is usually faster than a dynamic programming language.
+		Because of the lack of translation process, the execution of the static programming language is usually faster than a dynamic programming language.
 		</p>
   	</div>
 </div>
@@ -36,17 +36,17 @@ Here are some common Python interpreters:
 |CPython |interpreter implemented by C language|
 |Jython |interpreter implemented by Java language|
 |IronPython |interpreter implemented by .Net|
-|Pypy|interpreter implemented by RPython - a subset of Python|
+|Pypy|interpreter implemented by `RPython` - *a subset of Python*|
 
 ## What is Pypy?
 We can think Pypy is a Python interpreter implemented in Python. Pypy is a very compatible Python interpreter, which is an alternative to CPython 2.7, 3.6, and the upcoming 3.7. It can significantly increase the speed when running an application with it.
 
 > Historically, Pypy has been used to mean two things. The first is the RPython translation toolchain for generating interpreters for dynamic programming languages. And the second is one particular implementation of Python produced with it. Because RPython uses the same syntax as Python, this generated version became known as Python interpreter written in Python. It is designed to be flexible and easy to experiment with.
 
-Above is the introduction of the Pypy in the [Pypy Documents website](https://doc.Pypy.org/en/latest/introduction.html), this website presents a lot of technical details of the Pypy. 
+Above is the introduction of the Pypy in the [Pypy Documents website](https://doc.Pypy.org/en/latest/introduction.html), this website offers a lot of technical details and introduction of the Pypy. 
 
 ## Why is Pypy faster?
-The secret that the Pypy runs fast is that it uses JIT (Just-In-Time) compilation. JIT compilation is a combination of interpretation and pre-compilation. It can improve performance by using pre-compiling and improve the flexibility and cross-platform availability of interpretative language. That's why Pypy can make Python perform so fast.
+The secret that the Pypy runs fast is that it uses `JIT` (Just-In-Time) compilation. JIT compilation is a combination of interpretation and pre-compilation. It can improve performance by using pre-compiling and improve the flexibility and cross-platform availability of interpretative language. That's why Pypy can make Python perform so fast.
 
 Here are the steps JIT compilation takes to provide faster performance:
 1. Identify the most common components in code, such as functions in loops.
@@ -92,7 +92,7 @@ david@david-VirtualBox:~/Study/python$ Pypy test.py
 0.148446083069
 {% endhighlight %}
 
-when using CPython to run the code.
+The result of using CPython to run the code.
 {% highlight python %}
 david@david-VirtualBox:~/Study/python$ python3 test.py
 19.179446935653687
