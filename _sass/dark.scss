@@ -211,8 +211,7 @@
 			background-color: $dark_background_color;
 			color: $dark_btn_color;
 			&:hover {
-				color: white;
-				background-color: $dark_btn_color;
+				text-decoration: underline;
 			}
 		}
 	}   
