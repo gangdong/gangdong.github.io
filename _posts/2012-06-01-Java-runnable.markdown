@@ -49,7 +49,7 @@ public class App
     {
         ArrayList<MyThreadClass> lists = new ArrayList<MyThreadClass>();
         for(int i=0; i<10; i++){
-            MyThreadClass tmp = new MyThreadClass(mR);
+            MyThreadClass tmp = new MyThreadClass();
             lists.add(tmp);
         }
         for(MyThreadClass tmp:lists){
