@@ -52,7 +52,7 @@ The key points are:
 1. App's entry activity is declared to be started by receiving implicit intent, so the icon will not be displayed naturally.
 2. For the `data` property declaring, the `android: scheme` must have been defined explicitly. 
 3. Property value needs to start with a lowercase letter.
-4. To call the app, need to use URI, the formate is `scheme://host: port/path`.</br>
+4. To call the app, need to use URI, the formate is `scheme://host: port/path`.     
 Therefore, for above example, the URI is `com.example.hideapplication02://mainactivity`.
 5. The caller needs to add below code: 
 {% highlight java %}
