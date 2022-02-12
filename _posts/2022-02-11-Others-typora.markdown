@@ -8,9 +8,10 @@ Published: true
 excerpt_separator: <!--more-->
 toc: true
 sidebar: true
+language: chinese
 about: true
 author: david.dong
-description: 记录 Typora 使用的感想. 
+description: 记录 Typora 的使用感受. 
 keywords: Typora
 ---
 <img src="{{site.baseurl}}\assets\image\others-typora-01.jpeg" alt="others-typora-01" style="zoom:100%;" />
