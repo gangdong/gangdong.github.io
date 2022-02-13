@@ -14,7 +14,7 @@ author: david.dong
 description: 记录 Typora 的使用感受. 
 keywords: Typora
 ---
-<img src="{{site.baseurl}}\assets\image\others-typora-01.jpeg" alt="others-typora-01" style="zoom:100%;" />
+<img src="{{site.cdn_baseurl}}\assets\image\others-typora-01.jpeg" alt="others-typora-01" style="zoom:100%;" />
 
 一直以来我都是用 MarkdownPad2 撰写自己的博客文章，也没有觉得哪里不好。关注到 typora 这个软件是因为最近网上讨论的比较热烈的这个软件要收费的消息，于是上网 Google 了一下这个软件才发现很多人对这个软件的评价很高，这就引起了我的兴趣，于是我决定下载这个软件亲自试用一下。😉 <!--more-->
 
@@ -72,7 +72,7 @@ typora 有很多主题可以选择，如果你不喜欢现在的 UI， 可以很
 
 好消息是目前的收费只针对不久前正式发布的 **V1.0** 版本，之前的发布的 beta 版本还可以继续免费使用。目前我自己在用的 0.11.18 也还是免费使用的。
 
-![]({{site.baseurl}}\assets\image\others-typora-02.jpeg)
+![]({{site.cdn_baseurl}}\assets\image\others-typora-02.jpeg)
 
 
 
@@ -82,7 +82,7 @@ typora 有很多主题可以选择，如果你不喜欢现在的 UI， 可以很
 
 最后贴一张和 MarkdownPad2 对比图，看起来 MarkdownPad2 就显得有那么一点笨重和陈旧了。typora 符合了我对文本编辑器的大多数的需求，后面我会切换到 typora 来作为文本编辑器使用，MarkdownPad2 可以卸载掉了~~
 
-![]({{site.baseurl}}\assets\image\others-typora-03.png)
+![]({{site.cdn_baseurl}}\assets\image\others-typora-03.png)
 
 
 
