@@ -278,10 +278,6 @@ keywords: online tools
 
 + **AdGuard** - 广告拦截器，当前的网络环境下，相信每一个上网的人都会安装一款广告拦截程序，**AdGuard** 号称世界上最好的广告拦截程序，网上评价很高，除了屏蔽广告，**AdGuard** 还提供了许多其他工具，其中最重要的是网络钓鱼筛选器。**AdGuard** 可以很方便的通过 Edge 插件市场直接安装。
 
-![others-online-tools-13]({{site.cdn_baseurl}}\assets\image\others-online-tools-13.png)
-
-
-
 + **oneTag** - 当我们同时打开很多网页的时候，只需要点一下 **OneTag** 按钮，即可把 **Tag** 页变成列表的形式，当需要再次访问这些标签页时，可以单独或全部恢复它们。通过简书浏览器中打开的标签数量，OneTag 可以大量的节省内存。
 
   ![others-online-tools-14]({{site.cdn_baseurl}}\assets\image\others-online-tools-14.png)
