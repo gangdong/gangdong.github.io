@@ -6,3 +6,5 @@ Gemfile.lock
 .DS_Store
 vendor
 .jekyll-cache
+Desktop.ini
+sync.ffs_db
