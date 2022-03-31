@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Git 命令及使用技巧总结"
+title:  "Git commands and usage tips"
 date:   2022-03-29 23:17:03 +0800
 categories: Github
 tags: Git
@@ -119,7 +119,7 @@ git checkout -b tempbarch --track origin/testdevelop
 
 ### 1. 删除本地分支
 {% highlight c %}
-git branch -b newbranch
+git branch -d newbranch
 {% endhighlight %}
 
 ### 2. 强制删除本地分支
@@ -440,3 +440,44 @@ git archive --format tar.gz --output "linux.5.9.tar.gz" 856deb866d16e29bd659
 git show 856deb866d16e29bd659
 {% endhighlight %}
 
+
+
+## 重设分支
+
+### ### 1. reset --hard
+
+{% highlight c %}
+
+git reset --hard 856deb866
+
+{% endhighlight %}
+
+### 2. reset --soft
+
+{% highlight c %}
+
+git reset --soft 856deb866
+
+{% endhighlight %}
+
+区别：reset --hard 执行后之前的提交全部清除，reset --soft 执行后之前的提交会保留到暂存区，相当于staged.
+
+
+
+## 撤消提交
+
+{% highlight c %}
+
+git revert 856deb866
+
+{% endhighlight %}
+
+
+
+## 查看全部操作历史
+
+{% highlight c %}
+
+git reflog
+
+{% endhighlight %}
