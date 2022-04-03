@@ -345,13 +345,23 @@ git log --since="3 weeks ago" --until="2 days ago"
 {% endhighlight %}
 ### 10. 限定查找 path/filename 的提交
 {% highlight c %}
-git log -p --path/filename
+git log -p -- path/filename
 {% endhighlight %}
-{% highlight c %}
-git log --author="david" --pretty=oneline -- my_interface
+
 查找 david 对 fpc_bio_interface 的提交
-git log --author="Andy" -- my_db.c
+
+{% highlight c %}
+git log --author="david" --pretty=oneline -- my_interface 
 {% endhighlight %}
+
+或者查找 Andy 对 my_db.c 的修改提交记录
+
+{% highlight c %}
+
+git log --author="Andy" -- my_db.c
+
+{% endhighlight %}
+
 ### 11. 查找提交说明中包含指定字符串的提交
 {% highlight c %}
 git log --grep 
@@ -378,9 +388,10 @@ git log cd50063c9a625..ad3d6ae40d271778ae6
 {% endhighlight %}
 ### 16. 显示某一个分支的提交记录
 #### 1. 显示 远程 dev 分支记录中有关 README.md 的提交
-{% highlight bash%}
+{% highlight c %}
 git log --pretty=oneline origin/dev -- README.md
 {% endhighlight %}
+
 #### 2. 显示 master 分支记录
 {% highlight c %}
 git log --pretty=oneline master
@@ -396,14 +407,29 @@ git log --pretty=oneline --left-only --no-merges --cherry-pick my_dev...master
 {% endhighlight %}
 查看只在 master 有， my_dev 没有的提交记录
 {% highlight c %}
-git log master ^my_dev --pretty=oneline    或者
+git log master ^my_dev --pretty=oneline
+
+{% endhighlight %}
+
+或者
+
+{% highlight c %}
+
 git log my_dev..master --pretty=oneline
 {% endhighlight %}
 查看只在 my_dev 有， master 没有的提交记录
 {% highlight c %}
-git log my_dev ^master --pretty=oneline    或者
+git log my_dev ^master --pretty=oneline 
+
+{% endhighlight %}   
+
+或者
+
+{% highlight c %}
+
 git log master..my_dev --pretty=oneline
 {% endhighlight %}
+
 <div class = "post-note info">
   <div class = "header"></div>
   	<div class = "body">
@@ -444,7 +470,7 @@ git show 856deb866d16e29bd659
 
 ## 重设分支
 
-### ### 1. reset --hard
+### 1. reset --hard
 
 {% highlight c %}
 
