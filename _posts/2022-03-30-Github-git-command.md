@@ -396,7 +396,8 @@ git log --pretty=oneline origin/dev -- README.md
 {% highlight c %}
 git log --pretty=oneline master
 {% endhighlight %}
-### 16. 查看只在一个分支中的提交 
+
+### 17. 查看只在一个分支中的提交 
 查看只在 master 中的提交记录
 {% highlight c %}
 git log --pretty=oneline --right-only --no-merges --cherry-pick my_dev...master
@@ -443,7 +444,7 @@ git log --pretty=oneline --right-only --no-merges --cherry-pick my_dev...master 
 		</p>
   	</div>
 </div>
-### 17. 不显示 cherry-pick 的提交
+### 18. 不显示 cherry-pick 的提交
 {% highlight c %}
 git log --cherry-pick 
 {% endhighlight %}
