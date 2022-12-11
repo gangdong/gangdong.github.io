@@ -30,6 +30,7 @@ jobs:
       run: |
         git config user.name "gangdong"
         git config user.email "dqdongg@hotmail.com"
+        git config --global --add safe.directory /github/workspace
         chmod 777 .
         cp -r ./_site  /tmp/
         cp ./_site/blog/index.html /tmp/_site/

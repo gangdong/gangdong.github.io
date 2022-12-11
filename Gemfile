@@ -13,6 +13,7 @@ group :jekyll_plugins do
     gem 'kramdown'
 	gem 'jemoji'
     gem 'rouge'
+	gem 'jekyll-tagging'
 	gem 'jekyll-toc'
 	gem 'jekyll-tagging-related_posts'
 end
