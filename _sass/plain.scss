@@ -1080,7 +1080,7 @@ table {
 	margin: 0px 0px 0px 30px;
 	padding-left: 30px;
 	@media screen and (min-width: $mobileW + 1) {
-      	max-width: calc(100% +1px); /* !important, widen the area to accormadate the sidebar */
+      	max-width: calc(100% + 1px); /* !important, widen the area to accormadate the sidebar */
       	width: 100%;
   	}
 	/* should be useless since display none at small device */
