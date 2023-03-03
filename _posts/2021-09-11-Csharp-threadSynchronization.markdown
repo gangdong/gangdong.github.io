@@ -7,6 +7,7 @@ categories: C#
 tags: C#
 Published: true
 toc: true
+language: chinese
 sidebar: true
 about: true
 author: david.dong
@@ -15,10 +16,8 @@ keywords: Thread Synchronization
 
 ---
 
-{% include toc.html %}
-
-线程间同步是指在多线程环境下，保证共享资源的安全和一致性的机制。C# 中提供了多种方式实现线程间同步，例如：
-
+线程间同步是指在多线程环境下，保证共享资源的安全和一致性的机制。
+C# 中提供了多种方式实现线程间同步。例如：
 - lock 语句：使用一个对象作为锁，保证一次只有一个线程可以进入临界区；
 - Interlocked 类：提供了原子操作，如递增、递减、交换和读取值；
 - Monitor 类：提供了锁定对象、等待信号和通知信号的方法；
