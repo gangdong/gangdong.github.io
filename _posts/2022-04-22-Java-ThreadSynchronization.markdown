@@ -18,7 +18,7 @@ keywords: Thread Synchronization
 
 Java 里实现线程间的同步有多种方法，比如使用 `synchronized` 关键字，`wait` 和 `notify`，`volatile` 变量，重入锁，局部变量，阻塞队列或者原子类型变量等。
 
-### synchronized
+## synchronized
 
 使用 `synchronized` 关键字：这是最常用的一种方法，它可以修饰代码块或者方法，使得同一时刻只有一个线程能够访问被修饰的代码。例如 ：
 
@@ -60,7 +60,7 @@ public class SynchronizedDemo {
 }
 ```
 
-### wait 和 notify
+## wait 和 notify
 
 使用 `wait` 和 `notify` ：这是一种基于对象监视器的机制，它可以让一个线程等待另一个线程的通知，从而实现协作。例如：
 
@@ -114,7 +114,7 @@ public class WaitNotifyDemo {
 }
 ```
 
-### volatile
+## volatile
 
 `Volatile` 变量是一种特殊的变量，它可以保证变量在多个线程之间的可见性，也就是说当一个线程修改了 `volatile` 变量的值后，其他线程能够立即看到最新的值。` Volatile ` 变量还可以防止编译器或者运行时对其进行重排序，从而保证其操作的顺序性。
 
@@ -152,7 +152,7 @@ public class VolatileExample {
 
 但是如果使用了 `volatile` 修饰 `stop` 变量，那么就可以保证当主线程修改了 stop 的值后，其他线程能够立即看到最新的值，并根据最新的值来执行相应的操作。这是因为 volatile 关键字可以强制让编译器每次都从主内存中读取共享变量的值，并且禁止对其进行重排序。
 
-### 重入锁
+## 重入锁
 
 重入锁是一种可以被同一个线程多次获取的锁，也就是说当一个线程已经持有了锁，它可以再次请求获取锁而不会被阻塞。重入锁可以避免死锁的发生，也可以提高代码的可读性和可维护性。
 
@@ -190,7 +190,7 @@ public class Account {
 
 但是如果使用了 `ReentrantLock` 来对 `transfer ()` 方法进行同步控制，那么就可以保证当一个线程执行转账操作时，其他线程不能同时执行该操作，并且该操作能够完整地执行而不会被打断。这是因为 `ReentrantLock` 可以实现互斥访问共享资源，并且保证操作的顺序性和原子性。
 
-### 原子类型变量
+## 原子类型变量
 
 Java 里的原子类型变量是一种可以在多线程环境下保证原子性操作的变量类，它们使用了 CAS（Compare And Swap）算法来实现无锁的并发控制。
 
