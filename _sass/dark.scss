@@ -38,6 +38,11 @@
 		color: #93a1a1;
 	}
 
+	pre.highlight {
+		margin-top: 0px;
+		margin-bottom: 0px;
+	}
+
 	div.highlight-dark {
 		padding: 5px 20px;
 	}
@@ -353,4 +358,4 @@
 .dark pre>code {
   background: transparent;
 }
-.dark .highlight pre { border: 1px solid #555555; }
+.dark .highlight pre { border: 1px solid #00080a; }
