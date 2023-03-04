@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Windows10 生产力工具（1）"
+title:  "Windows10 生产力工具"
 date:   2022-02-15 23:11:10 +0800
 categories: Others
 tags: Typora
