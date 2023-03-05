@@ -141,12 +141,12 @@ public class App {
 
 反序列化读取的代码如下。<br>
 {% highlight java %}
-            /* 首先声明一个FileInputStream的对象，用于操作要写入的文件 */
-            FileInputStream fis = new FileInputStream("example_Serializable.txt");
-            /* 声明一个ObjectInputStream 对象，将要读入的文件流与要存的对象关联 */
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            demoReadObj = (DemoInstance) ois.readObject();
-            ois.close();   
+    /* 首先声明一个FileInputStream的对象，用于操作要写入的文件 */
+    FileInputStream fis = new FileInputStream("example_Serializable.txt");
+    /* 声明一个ObjectInputStream 对象，将要读入的文件流与要存的对象关联 */
+    ObjectInputStream ois = new ObjectInputStream(fis);
+    demoReadObj = (DemoInstance) ois.readObject();
+    ois.close();   
 {% endhighlight %}
 结果如下所示。<br>
 {% highlight java %}
@@ -227,36 +227,36 @@ public class ClassWithoutSerial {
 实现序列化和发序列化的代码。 <br>
 
 {% highlight java %}
-            SubDemoInstance subDemoInstance = new SubDemoInstance();
+    SubDemoInstance subDemoInstance = new SubDemoInstance();
 
-            subDemoInstance.setA("I am private member in subclass.");
-            subDemoInstance.setB("I am protected member in subclass.");
-            subDemoInstance.setC("I am public member in subclass.");
-            subDemoInstance.setDeclare("I am member in subclass");
-            subDemoInstance.setPara(cws,"I am be called by subclass.");
-            
-            /*Serialize
-             首先声明一个FileOutputStream的对象，用于操作要写入的文件 */
-            FileOutputStream fosi = new FileOutputStream("example_Serializable.txt");
-            /* 声明一个ObjectOutputStream 对象，将要写入的文件流与要存的对象关联 */
-            ObjectOutputStream oosi = new ObjectOutputStream(fosi);
-            /* 写入要保存的对象 */
-            oosi.writeObject(subDemoInstance);
-            oosi.close();
+    subDemoInstance.setA("I am private member in subclass.");
+    subDemoInstance.setB("I am protected member in subclass.");
+    subDemoInstance.setC("I am public member in subclass.");
+    subDemoInstance.setDeclare("I am member in subclass");
+    subDemoInstance.setPara(cws,"I am be called by subclass.");
+    
+    /*Serialize
+     首先声明一个FileOutputStream的对象，用于操作要写入的文件 */
+    FileOutputStream fosi = new FileOutputStream("example_Serializable.txt");
+    /* 声明一个ObjectOutputStream 对象，将要写入的文件流与要存的对象关联 */
+    ObjectOutputStream oosi = new ObjectOutputStream(fosi);
+    /* 写入要保存的对象 */
+    oosi.writeObject(subDemoInstance);
+    oosi.close();
 
-            /*de-serialize
-              首先声明一个FileInputStream的对象，用于操作要写入的文件 */
-            FileInputStream fisi = new FileInputStream("example_Serializable.txt");
-            /* 声明一个ObjectInputStream 对象，将要读入的文件流与要存的对象关联 */
-            ObjectInputStream oisi = new ObjectInputStream(fisi);
-            SubDemoInstance readSubDemo =  new SubDemoInstance();
-            readSubDemo = (SubDemoInstance) oisi.readObject();
-            oisi.close();
+    /*de-serialize
+      首先声明一个FileInputStream的对象，用于操作要写入的文件 */
+    FileInputStream fisi = new FileInputStream("example_Serializable.txt");
+    /* 声明一个ObjectInputStream 对象，将要读入的文件流与要存的对象关联 */
+    ObjectInputStream oisi = new ObjectInputStream(fisi);
+    SubDemoInstance readSubDemo =  new SubDemoInstance();
+    readSubDemo = (SubDemoInstance) oisi.readObject();
+    oisi.close();
 
-            System.out.println("A:" + readSubDemo.getA() + "\nB:" + 
-            readSubDemo.getB() + "\nC:" + readSubDemo.getC()
-            +"\nSubClass:"+readSubDemo.getDeclare()
-            +"others:"+readSubDemo.getObj().getState());
+    System.out.println("A:" + readSubDemo.getA() + "\nB:" + 
+    readSubDemo.getB() + "\nC:" + readSubDemo.getC()
+    +"\nSubClass:"+readSubDemo.getDeclare()
+    +"others:"+readSubDemo.getObj().getState());
 {% endhighlight %}
 执行后会出现如下错误。<br>
 
