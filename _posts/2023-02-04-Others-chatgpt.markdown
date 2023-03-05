@@ -16,7 +16,7 @@ keywords: ChatGPT
 
 ---
 
-ChatGPT is very hot recently, I also registered an account and experienced it myself。😉 <!--more-->
+ChatGPT is very hot recently, I also registered an account and experienced it myself. 😉 <!--more-->
 
 After registration, I login to ChatGPT's URL and start testing.
 I asked a few random professional questions to see how it answered. Here's how it performed. 
