@@ -14,8 +14,7 @@ author: david.dong
 description: 好用的在线工具. 
 keywords: online tools
 ---
-<img src="{{site.cdn_baseurl}}\assets\image\others-online-tools-01.jpg" alt="others-typora-01" style="zoom:100%;" />
-
+![others-online-tools-01]({{site.cdn_baseurl}}/assets/image/others-online-tools-01.jpg){: .center-image }
 "工欲善其事，必先利其器"，使用一款好的工具，能帮助我们工作中事半功倍，提升效率。这篇文章里我准备推荐几款我认为不错的工具，同时也算是做个总结，方便查找。 <!--more-->
 
 
