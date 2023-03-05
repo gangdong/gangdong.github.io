@@ -1,9 +1,10 @@
 ---
+
 layout: post
 title:  "关于本博客模板使用上的一些问题"
 date:   2019-02-23 12:21:47 +0800
-categories: Blog Web Github
-tags: Blog Web Github
+categories: Blog Web
+tags: Blog Web
 Published: true
 toc: true
 sidebar: true
@@ -12,18 +13,23 @@ about: true
 author: david.dong
 description: 有关 rawpost 模板的介绍, 使用方法及 (Q & A)。
 keywords: rawposts/模板 
+
 ---
+
 本博客使用了 [RawPosts](https://github.com/gangdong/jekyll-theme-rawposts) 主题模板，不时有网友在 fork 使用该主题的时候提出了一些问题，这里我将该主题的使用方法汇总成一篇帖子，方便大家参考。
 
 {% include toc.html %}
 
 ## <span id ="1">1.关于该主题</span>
+
 `RawPosts` 是一款轻量级,风格简洁清新的 [Jekyll](https://jekyllrb.com/) 主题。 该主题配置简单并支持丰富的特性,你可以将它用于Jekeyll网站或者个人博客的构建。该主题可以被用于部署在`Github Pages`上。
 
 ### 预览
+
 ![screenshot]({{site.cdn_baseurl}}/assets/screenshot.png){: .center-image }
 
 ## <span id ="2">2.功能列表</span>
+
 + 响应式设计, 针对平板 & 手机屏幕设计优化
 + portfolio 主题图片设置
 + 个性化社交链接（支持电子邮件，Github，Facebook，Twitter，领英等）
@@ -40,14 +46,14 @@ keywords: rawposts/模板
 + 评论模块：
   + [Gittalk](https://www.devdoc.cn/gitalk-guide.html) 
   + [Disqus](https://disqus.com/)    
-  （*中国大陆用户推荐使用 Gittalk*).
+    （*中国大陆用户推荐使用 Gittalk*).
 + 文章阅读量统计：
   + [busuanzi](http://ibruce.info/2015/04/04/busuanzi/) 
   + google analytics
 + 站点访问统计：
   + busuanzi 
   + google analytics   
-  （*中国大陆用户推荐使用 busuanzi*).
+    （*中国大陆用户推荐使用 busuanzi*).
 + SEO 优化
 + 自动构建集成：
   + [Travis CI](https://www.travis-ci.com/) 
@@ -59,6 +65,7 @@ keywords: rawposts/模板
 + 文章置顶
 
 ## <span id ="3">3.应用插件</span>
+
 + [jekyll-seo-tag](https://github.com/jekyll/jekyll-seo-tag)
 + [jemoji](https://openmoji.org)
 + [kramdown](https://kramdown.gettalong.org)
@@ -68,6 +75,7 @@ keywords: rawposts/模板
 + [jekyll-tagging-related_posts](https://github.com/toshimaru/jekyll-tagging-related_posts)
 
 ## <span id ="4">4.主题安装</span>
+
 1. fork [主题](https://github.com/gangdong/jekyll-theme-rawposts) 到你的 Github 仓库。
 2. 复制该主题的仓库到本地。
 3. 如果你还没有安装 Jekyll，请先安装 Jekyll。如果你不知道如何安装 Jekyll，可以参考 [Getting started with Jekyll (1)]({{site.baseurl}}/blog/2018/03/27/Web-jekyll-installation.html)。
@@ -76,69 +84,75 @@ keywords: rawposts/模板
 6. 至此安装完成! :v: 下一步你需要通过配置 _config.yml来定制你自己的网站。
 
 ## <span id ="5">5.客制化 & 配置</span>
+
 你可以通过配置 `_config.yml` 文件来客制化该主题。
 
 ### <span id ="5.1">5.1 客制化设定</span>
+
 你需要更改`描述`、`标题`和`url`以便与个人信息匹配。你还需要将/assets/目录中的 `logo`、`默认社交链接`和`默认avatar图像`替换为您自己的图片，并需要将`电子邮件`更改为您要接收的联系人表单查询的电子邮件。
 当前此主题的模板中的默认配置为我个人的信息，将该部分替换为你自己的信息。
-+ **show_excerpts:**
-_config.yml中设置该字段为 *true* 将会启用目录的摘要功能。
-+ **search:**
-_config.yml中设置该字段为 *true* 将会启用全站关键字搜索功能。
-+ **paginate:**
-_config.yml中通过设置该字段来设定每页最大的文章数量。
-+ **paginate_path:**
-_config.yml中设置该字段为你需要放置子页的路径。
-+ **sitemap:**
-_config.yml中设置该字段为 *true* 将生成 sitemap.html 文件。
-+ **syntax:**
-_config.yml中设置该字段，可以选择代码高亮的主题，目前支持的主题有23种。
-详见 [Rouge Theme](https://github.com/mzlogin/rouge-themes)
-+ **related_posts:**
-_config.yml中设置该字段为 *true* 将会启用相似文章归类索引。
-+ **dark_mode:**
-_config.yml中设置该字段为 *true* 将会启用网站的深色模式切换功能。
-+ **reading_time:**
-_config.yml中设置该字段为 *true* 将会增加文章的阅读时间和字数统计并显示。
-+ **archives:**
-_config.yml中设置该字段为 *true* 将会启用文章的时间归档功能。 
-+ **categories:**
-_config.yml中设置该字段为 *true* 将会启用文章的归类功能。
-+ **analytics_id:**
-_config.yml中设置该字段为 Google Analytics 的用户 ID，如果填写正确则启用 Google Analytics 分析。
-+ **gittalk:**
-_config.yml中设置该字段为 *true* 将会增加gittalk评论模块。 
-+ **show_statistics:**
-_config.yml中设置该字段为 *true* 将会启用网站访客统计功能，默认busuanzi引擎。
-+ **rss:**
-_config.yml中设置该字段为 *true* 将会启用rss生成功能。 
-+ **source_code:** 
-_config.yml中设置该字段为 *true* 将会增加源代码索引。
-+ **share_media:**
-_config.yml中设置该字段为 *true* 将会启用文章的社交媒体分析，默认媒体有 Twitter/Facebook/微信/linkin。
 
++ **show_excerpts:**
+  _config.yml中设置该字段为 *true* 将会启用目录的摘要功能。
++ **search:**
+  _config.yml中设置该字段为 *true* 将会启用全站关键字搜索功能。
++ **paginate:**
+  _config.yml中通过设置该字段来设定每页最大的文章数量。
++ **paginate_path:**
+  _config.yml中设置该字段为你需要放置子页的路径。
++ **sitemap:**
+  _config.yml中设置该字段为 *true* 将生成 sitemap.html 文件。
++ **syntax:**
+  _config.yml中设置该字段，可以选择代码高亮的主题，目前支持的主题有23种。
+  详见 [Rouge Theme](https://github.com/mzlogin/rouge-themes)
++ **related_posts:**
+  _config.yml中设置该字段为 *true* 将会启用相似文章归类索引。
++ **dark_mode:**
+  _config.yml中设置该字段为 *true* 将会启用网站的深色模式切换功能。
++ **reading_time:**
+  _config.yml中设置该字段为 *true* 将会增加文章的阅读时间和字数统计并显示。
++ **archives:**
+  _config.yml中设置该字段为 *true* 将会启用文章的时间归档功能。 
++ **categories:**
+  _config.yml中设置该字段为 *true* 将会启用文章的归类功能。
++ **analytics_id:**
+  _config.yml中设置该字段为 Google Analytics 的用户 ID，如果填写正确则启用 Google Analytics 分析。
++ **gittalk:**
+  _config.yml中设置该字段为 *true* 将会增加gittalk评论模块。 
++ **show_statistics:**
+  _config.yml中设置该字段为 *true* 将会启用网站访客统计功能，默认busuanzi引擎。
++ **rss:**
+  _config.yml中设置该字段为 *true* 将会启用rss生成功能。 
++ **source_code:** 
+  _config.yml中设置该字段为 *true* 将会增加源代码索引。
++ **share_media:**
+  _config.yml中设置该字段为 *true* 将会启用文章的社交媒体分析，默认媒体有 Twitter/Facebook/微信/linkin。
 
 ### <span id ="5.2">5.2 包含文件</span>
+
 该主题有一些必要的 `.html` 文件来实现网站的功能，它们位于不同的文件夹中。
+
 + **index.html:**
-index.html 是主页的入口文件，生成在项目根目录 `/blog` 文件夹中。
+  index.html 是主页的入口文件，生成在项目根目录 `/blog` 文件夹中。
 + **archive.html:**
-archive.html 实现文章的归档功能，生成在根目录 `/archive` 文件夹中。
+  archive.html 实现文章的归档功能，生成在根目录 `/archive` 文件夹中。
 + **category.html:**
-category.html 实现文章的分类功能，生成在根目录 `/category` 文件夹中。
+  category.html 实现文章的分类功能，生成在根目录 `/category` 文件夹中。
 + **about.html:**
-about.html 文件内容对应网站的「关于」页面，里面的内容多为个人相关，将它们替换成你自己的信息，存在于根目录 `/about` 文件夹中。
+  about.html 文件内容对应网站的「关于」页面，里面的内容多为个人相关，将它们替换成你自己的信息，存在于根目录 `/about` 文件夹中。
 + **pagination.html:**
-pagination.html 实现网站的分页功能，存放在根目录 `_includes` 文件夹中。
+  pagination.html 实现网站的分页功能，存放在根目录 `_includes` 文件夹中。
 + **reading_time.html:**
-reading_time.html 统计文章的字数和阅读时间并显示. 存放在根目录 `_includes` 文件夹中。
+  reading_time.html 统计文章的字数和阅读时间并显示. 存放在根目录 `_includes` 文件夹中。
 + **menu.html:**
-生成主页的功能菜单项, 存放在根目录 `_includes` 文件夹中。
+  生成主页的功能菜单项, 存放在根目录 `_includes` 文件夹中。
 + **toc.html:**
-自动生成文章的目录, 存放在根目录 `_includes` 文件夹中。
+  自动生成文章的目录, 存放在根目录 `_includes` 文件夹中。
 
 ## <span id ="6">6.开发</span>
+
 ### <span id = "6.1">6.1 搭建开发环境</span>
+
 以下用于配置该主题的开发环境:
 
 1. 复制该主题的仓库到本地；
@@ -150,6 +164,7 @@ reading_time.html 统计文章的字数和阅读时间并显示. 存放在根目
 2. 运行 `jekyll server` 构建该项目并生成网站，在浏览器中打开http://localhost:4000/你设定的baseurl 来预览网站。再度修改后可以通过刷新网页来预览效果。
 
 ### <span id = "6.2">6.2 Pull Requests</span>
+
 当你需要提交一个 pull request时，可以：
 
 1. 复制该项目；
@@ -159,11 +174,15 @@ reading_time.html 统计文章的字数和阅读时间并显示. 存放在根目
 我平时的编程主要应用在移动端和嵌入式设备上面，偶尔写写前端，纯属个人爱好。因此该主题模板目前看写的还比较粗糙，需要持续改进。欢迎大家提 pull requests 给我, 对于每一个pull request, 我都会尽快review，对于好的建议我都会merge进该主题的代码中，包括但不限于提交问题或需求，修复代码等。
 
 ## <span id = "7">7.其他信息</span>
+
 ### <span id = "7.1">7.1 版本</span>
+
 2.1.0
 
 ### <span id = "7.3">7.2 协议</span>
+
 该主题为开源软件，基于`MIT`协议。
 
 ## <span id = "8">8.问题和回答 (Q&A)</span>
+
 如果你有针对该主题的任何问题，欢迎在下面评论区留言，每个问题我都会认真回复。:smile: 

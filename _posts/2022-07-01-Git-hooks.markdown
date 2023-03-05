@@ -1,14 +1,4 @@
 ---
-Title: Git hook 配置与使用
-Create-date: 2023-01-03 星期二 20:22
-Categories: 编程 
-Aliases: 编程知识笔记
-Tags: [timeline, Git]
-Author: david.dong
-Keywords: [git hooks]
-Rating:
-From:
-Url:
 layout: post
 title:  "Git hook 配置与使用"
 date:   2022-07-01 22:10:09 +0800
@@ -59,4 +49,5 @@ PS：完整钩子说明，请参考 [@官网链接](https://git-scm.com/docs/git
 - ……
 
 ## --no-verify 的使用
+
 `git commit --amend --no-verify` 命令是一条 Git 命令，它允许你修改最近的提交信息或内容，而不触发 `pre-commit` 和 `commit-msg` 钩子。`git commit --amend` 命令与此类似，但它会在钩子存在的情况下运行这些钩子。这两个命令都会用包含你的修改的新提交来替换之前的提交。
