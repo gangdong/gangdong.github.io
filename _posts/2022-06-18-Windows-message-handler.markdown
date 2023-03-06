@@ -16,14 +16,14 @@ keywords: Windows message processing
 
 Windows32 程序是由消息事件驱动的。一个消息，是系统定义的一个 32 位的值，它唯一的定义了一个事件，向 Windows 发出一个通知，告诉应用程序某个事情发生了。
 
-### 消息队列
+## 消息队列
 
 - Windows 有两种消息队列，**系统消息队列**和**应用程序消息队列**。消息在队列中先入先出。
 - **系统消息队列**-由系统维护的消息队列，处理系统事件。例如鼠标、键盘等。
 - **程序消息队列**-属于每一个应用程序（线程）的消息队列。由应用程序（线程）维护。系统都会为每个 GUI 线程创建一个消息队列，这个消息队列用来存放该应用程序所创建的窗口的消息。
 - 应用程序则通过一个消息循环（消息泵）不断的从消息队列中读取消息，并做出响应。
 
-### 流程如下
+## 流程如下
 
 - 当鼠标、键盘事件被触发后，相应的鼠标或键盘驱动程序就会把这些事件转换成相应的消息，然后发送到**系统消息队列**，由 Windows 系统去进行处理。
 
@@ -73,7 +73,7 @@ Windows32 程序是由消息事件驱动的。一个消息，是系统定义的�
 
 ![windows-message-handling]({{site.cdn_baseurl}}/assets/image/windows-message-handling-01.png){: .center-image }
 
-### 消息结构体
+## 消息结构体
 
 ```csharp
 typedef struct tagMsg {
@@ -86,13 +86,13 @@ typedef struct tagMsg {
 }MSG;
 ```
 
-### 发送消息函数 SendMessage () 和 PostMessage () 的区别
+## 发送消息函数 SendMessage () 和 PostMessage () 的区别
 
 - `SendMessage` 这个函数主要是向一个或多个窗口发送一条消息，**这个函数是异步函数。一直等到消息被处理之后才会返回**。
 - `PostMessage` 该函数把一条消息放置到创建 hWnd 窗口的线程的消息队列中，**该函数不等消息被处理就马上将控制返回**。
 - 被**发送**的消息（`SendMessage`）会被立即处理，处理完毕后函数才会返回；被**寄送**的 (`PostMessage`) 消息不会被立即处理，他被放到一个先进先出的队列中，一直等到应用程序空线的时候才会被处理，不过函数放置消息后立即返回。
 
-### 读取消息函数 GetMessage () 和 WaitMessage (), PeekMessage ()
+## 读取消息函数 GetMessage () 和 WaitMessage (), PeekMessage ()
 
 - 都是读取消息的函数
 - `GetMessage` 会一直等到接收到消息才返回。

@@ -165,6 +165,12 @@
 			}
 		}
     }
+	.post {
+		h2 {
+			padding-bottom: 10px;
+			border-bottom: 1px solid #333333;
+  }
+	}
 	.post-categories-box-hide {
 		a {
 		    border: 1px solid $dark_btn_color;
