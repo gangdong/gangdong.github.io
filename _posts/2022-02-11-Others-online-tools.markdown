@@ -1,5 +1,4 @@
 ---
-
 layout: post
 title:  "生产力工具"
 date:   2022-02-15 23:11:10 +0800
@@ -52,7 +51,7 @@ keywords: online tools
 
 程序员会经常需要在Github上查找有用的项目，推荐使用 **git:logs**，可以在 **Github** 上方便的查找到你感兴趣的项目。
 
-网址：https://www.gitlogs.com/
+网址：[https://www.gitlogs.com/](https://www.gitlogs.com/)
 
 ![others-online-tools-03]({{site.cdn_baseurl}}\assets\image\others-online-tools-03.png)
 
@@ -141,7 +140,7 @@ keywords: online tools
 
 通常对应一般的轻量化的需求，都可以满足。
 
-网址：https://www.online-convert.com/
+网址：[https://www.online-convert.com/](https://www.online-convert.com/)
 
 #### PDF 转换
 
@@ -171,7 +170,7 @@ keywords: online tools
 
 **Squoosh** 是谷歌推出的一款在线图像压缩工具，可帮助网站开发人员快速压缩图片，在保持图片质量的同时，提升网站访问速度。
 
-网址：https://squoosh.app/
+网址：[https://squoosh.app/](https://squoosh.app/)
 
 ![others-online-tools-008]({{site.cdn_baseurl}}\assets\image\others-online-tools-08.jpg)
 
@@ -185,13 +184,13 @@ keywords: online tools
 
 ![others-online-tools-10]({{site.cdn_baseurl}}\assets\image\others-online-tools-10.png)
 
-网址：https://photokit.com/?lang=zh
+网址：[PhotoKit.com](https://photokit.com/?lang=zh)
 
 另外如果专门针对去水印的话也可以使用 **Inpaint** ，可以很方便的一键去除去除图片上的水印。不需要任何技术门槛。
 
 ![others-online-tools-11]({{site.cdn_baseurl}}\assets\image\others-online-tools-11.png)
 
-网址：https://theinpaint.com/
+网址：[https://theinpaint.com/](https://theinpaint.com/)
 
 ### 网络素材
 
@@ -475,7 +474,3 @@ Windows 下的文件管理软件有很多，比如有名的 `Total Commander`, `
 ### 博客
 
 - jekyll
-
-
-
-
