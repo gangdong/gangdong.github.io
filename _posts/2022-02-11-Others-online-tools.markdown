@@ -25,8 +25,8 @@ keywords: online tools
 
 使用在线版工具有这么几个优势：
 
-+ 选择多，现在是2020年代了，网上的工具实在是太多了，只要你能想到的各种功能，网上都能找到相应的工具，大部分还都有免费的版本可用。不同的网站提供的工具各有特色，可以根据自己的项目需要选择一个最适合的。
-+ 轻量级，基于Web，不用安装一大推软件到本地，占用计算机的资源，拖累计算机的运行速度。
++ 选择多，现在是 2020 年代了，网上的工具实在是太多了，只要你能想到的各种功能，网上都能找到相应的工具，大部分还都有免费的版本可用。不同的网站提供的工具各有特色，可以根据自己的项目需要选择一个最适合的。
++ 轻量级，基于 Web，不用安装一大推软件到本地，占用计算机的资源，拖累计算机的运行速度。
 + 安全，浏览器的运行环境比桌面应用程序更安全，不会有安装软件时强制捆绑安装一些垃圾软件（比如国内某些 xx 全家桶）。也不会有强制弹窗，偷偷修改浏览器配置等问题。
 
 其实目前来说，大多数的软件都有在线版可以使用，性能也不错。所以这篇文章我先以介绍在线版的工具为主，当然还有些工具，比如支持本地快速搜索，网络资源下载工具，专业软件开发调试工具等还是需要运行在本地的，这些我会在下一篇博客里介绍。
@@ -43,13 +43,13 @@ keywords: online tools
 
 ![others-online-tools-2]({{site.cdn_baseurl}}\assets\image\others-online-tools-02.png)
 
-另外下面这个在线调试网站 **ideone** 也可以使用，亲测感觉编译的速度比上面的网站要稍微慢一些。
+另外下面这个在线调试网站 `ideone` 也可以使用，亲测感觉编译的速度比上面的网站要稍微慢一些。
 
 网址：[https://ideone.com/](https://ideone.com/)
 
 ### GITHUB 资源查找
 
-程序员会经常需要在Github上查找有用的项目，推荐使用 **git:logs**，可以在 **Github** 上方便的查找到你感兴趣的项目。
+程序员会经常需要在Github上查找有用的项目，推荐使用 `gitlogs`，可以在 `GitHub` 上方便的查找到你感兴趣的项目。
 
 网址：[https://www.gitlogs.com/](https://www.gitlogs.com/)
 
@@ -57,7 +57,7 @@ keywords: online tools
 
 ### 流程图工具
 
-我推荐 **draw.io**, 
+我推荐 `draw.io`, 
 
 网址：[https://app.diagrams.net/](https://app.diagrams.net/)
 
@@ -75,7 +75,7 @@ keywords: online tools
 
 网址：
 
-+ https://tool.lu/ 
++ [https://tool.lu/](https://tool.lu/)
 + [https://www.zxgj.cn/m/chengxuyuan](https://www.zxgj.cn/m/chengxuyuan)
 
 ![others-online-tools-06]({{site.cdn_baseurl}}\assets\image\others-online-tools-06.png)
@@ -98,7 +98,7 @@ keywords: online tools
 
 ### OCR 工具
 
-推荐 **OCR.Space** , 
+推荐 `OCR.Space` , 
 
 网址：[https://ocr.space/](https://ocr.space/)
 
@@ -108,22 +108,22 @@ keywords: online tools
 - **支持语言多**：支持英语、中文、法语、德语等**20+**种语言。
 - **免费**：ocr.space的免费是**不限次数**的免费。
 
-**ocr.space**的**使用方法**非常简单，只需要可以直接上传 **PDF** 和图片，也可以粘贴它们的链接，然后选择要识别的语言，其它选项默认，点击**Star OCR!**即可。
+`ocr.space` 的**使用方法**非常简单，只需要可以直接上传 **PDF** 和图片，也可以粘贴它们的链接，然后选择要识别的语言，其它选项默认，点击 `Star OCR`! 即可。
 
 ![others-online-tools-05]({{site.cdn_baseurl}}\assets\image\others-online-tools-05.png)
 
-另外还有 **极客OCR** 也可以选择。
+另外还有 `极客OCR` 也可以选择。
 
 网址：[http://www.gkocr.com/web/index.html](http://www.gkocr.com/web/index.html)
 
-相对于 **OCR.Space**, **极客OCR** 有以下不足：
+相对于 `OCR.Space`, `极客OCR` 有以下不足：
 
 + 免费用户，每天限制上传**10张**图像
 + 只支持**图片**格式**不支持PDF**
 
 ### 格式转换
 
-**Online converter** 提供了各种转换工具，包括 
+`Online converter` 提供了各种转换工具，包括 
 
 + 视频转换
 + 音频转换
@@ -144,12 +144,12 @@ keywords: online tools
 
 #### PDF 转换
 
-针对 **PDF** 转换， 推荐 **smallpdf** 和 **speedpdf** 
+针对 **PDF** 转换， 推荐 `smallpdf` 和 `speedpdf` 
 
 网址：
 
-+ https://smallpdf.com/cn/pdf-tools
-+ https://speedpdf.com/zh-cn/
++ [https://smallpdf.com/cn/pdf-tools](https://smallpdf.com/cn/pdf-tools)
++ [https://speedpdf.com/zh-cn/](https://speedpdf.com/zh-cn/)
 
 这两个网站提供了丰富的 pdf 处理能力，易于操作，其中包括：
 
@@ -168,21 +168,19 @@ keywords: online tools
 
 ### 图片压缩
 
-**Squoosh** 是谷歌推出的一款在线图像压缩工具，可帮助网站开发人员快速压缩图片，在保持图片质量的同时，提升网站访问速度。
+`Squoosh` 是谷歌推出的一款在线图像压缩工具，可帮助网站开发人员快速压缩图片，在保持图片质量的同时，提升网站访问速度。
 
 网址：[https://squoosh.app/](https://squoosh.app/)
 
 ![others-online-tools-008]({{site.cdn_baseurl}}\assets\image\others-online-tools-08.jpg)
 
-
-
-**TinyPNG** 也是可以的。
+`TinyPNG` 也是可以的。
 
 [TinyPNG – Compress WebP, PNG and JPEG images intelligently](https://tinypng.com/)
 
 ### 图片编辑处理
 
-**PhotoKit.com** 是免费的在线 P 图编辑器，可以完成在线抠图、改图、修图、美图等。方便易用。一键轻松抠图、改图、修图和美图应用，包含图片裁剪、调整大小、旋转等基本编辑。对于轻量级的编辑需求完全可以满足，没有必要去用 photoshop 等专业性很强的软件。
+`PhotoKit.com` 是免费的在线 P 图编辑器，可以完成在线抠图、改图、修图、美图等。方便易用。一键轻松抠图、改图、修图和美图应用，包含图片裁剪、调整大小、旋转等基本编辑。对于轻量级的编辑需求完全可以满足，没有必要去用 photoshop 等专业性很强的软件。
 
 ![others-online-tools-09]({{site.cdn_baseurl}}\assets\image\others-online-tools-09.png)
 
@@ -192,7 +190,7 @@ keywords: online tools
 
 网址：[PhotoKit.com](https://photokit.com/?lang=zh)
 
-另外如果专门针对去水印的话也可以使用 **Inpaint** ，可以很方便的一键去除去除图片上的水印。不需要任何技术门槛。
+另外如果专门针对去水印的话也可以使用 `Inpaint` ，可以很方便的一键去除去除图片上的水印。不需要任何技术门槛。
 
 ![others-online-tools-11]({{site.cdn_baseurl}}\assets\image\others-online-tools-11.png)
 
@@ -222,7 +220,7 @@ keywords: online tools
 
 #### Emoji 表情，ICON 图标
 
-这两个网站提供了大量的在线图标和**Emoji**，可以免费下载使用。
+这两个网站提供了大量的在线图标和 **Emoji**，可以免费下载使用。
 
 [Icons - Iconfinder.com](https://www.iconfinder.com/search)
 
@@ -230,7 +228,7 @@ keywords: online tools
 
 #### 文档搜索
 
-推荐**鸠摩搜索**，鸠摩搜索是一个文档类搜索的引擎，本身不存储文档，通过AI算法检索网上第三方资源，自动生成到第三方网站的链接。
+推荐`鸠摩搜索`，鸠摩搜索是一个文档类搜索的引擎，本身不存储文档，通过 AI 算法检索网上第三方资源，自动生成到第三方网站的链接。
 
 [Jiumo Search 鸠摩搜索 - 文档搜索引擎 (jiumodiary.com)](https://www.jiumodiary.com/)
 
@@ -242,7 +240,7 @@ keywords: online tools
 
 ### 在线翻译
 
-除了大家都知道的 **Google Translate** 外，我还常用 **DeepL**， 号称全球最准确的翻译。翻译出来的质量确实不错，也可以直接翻译整篇文章，不过免费用户在字数和文章数量上有限制，如果不是大量的文章需要翻译的话，使用起来还是不错的。
+除了大家都知道的 `Google Translate` 外，我还常用 `DeepL`， 号称全球最准确的翻译。翻译出来的质量确实不错，也可以直接翻译整篇文章，不过免费用户在字数和文章数量上有限制，如果不是大量的文章需要翻译的话，使用起来还是不错的。
 
 ![others-online-tools-12]({{site.cdn_baseurl}}\assets\image\others-online-tools-12.png)
 
@@ -250,19 +248,19 @@ keywords: online tools
 
 最后再推荐几个 Edge 浏览器的插件：
 
-+ **AdGuard** - 广告拦截器，当前的网络环境下，相信每一个上网的人都会安装一款广告拦截程序，**AdGuard** 号称世界上最好的广告拦截程序，网上评价很高，除了屏蔽广告，**AdGuard** 还提供了许多其他工具，其中最重要的是网络钓鱼筛选器。**AdGuard** 可以很方便的通过 Edge 插件市场直接安装。
++ `AdGuard` - 广告拦截器，当前的网络环境下，相信每一个上网的人都会安装一款广告拦截程序，**AdGuard** 号称世界上最好的广告拦截程序，网上评价很高，除了屏蔽广告，**AdGuard** 还提供了许多其他工具，其中最重要的是网络钓鱼筛选器。**AdGuard** 可以很方便的通过 Edge 插件市场直接安装。
 
-+ **oneTag** - 当我们同时打开很多网页的时候，只需要点一下 **OneTag** 按钮，即可把 **Tag** 页变成列表的形式，当需要再次访问这些标签页时，可以单独或全部恢复它们。通过简书浏览器中打开的标签数量，OneTag 可以大量的节省内存。
++ `oneTag` - 当我们同时打开很多网页的时候，只需要点一下 **OneTag** 按钮，即可把 **Tag** 页变成列表的形式，当需要再次访问这些标签页时，可以单独或全部恢复它们。通过简书浏览器中打开的标签数量，OneTag 可以大量的节省内存。
   
   ![others-online-tools-14]({{site.cdn_baseurl}}\assets\image\others-online-tools-14.png)
 
-+ **TamperMonkey** - 大名鼎鼎的“油猴”，相信很多人听说过或者正在用，它可以让你再网页上执行任何的脚本，总之装上它就对了。
++ `TamperMonkey` - 大名鼎鼎的“油猴”，相信很多人听说过或者正在用，它可以让你再网页上执行任何的脚本，总之装上它就对了。
 
-+ **沙拉查词** - 沙拉查词是浏览器插件形式的翻译软件，功能强大，最值得一提的是它在使用的设计上非常人性化，充分考虑了人们阅读的习惯，让人阅读时不会感受到它的存在，在需要翻译时又能瞬间调出，轻松快速的完成翻译。是不可多得的一款翻译软件。
++ `沙拉查词` - 沙拉查词是浏览器插件形式的翻译软件，功能强大，最值得一提的是它在使用的设计上非常人性化，充分考虑了人们阅读的习惯，让人阅读时不会感受到它的存在，在需要翻译时又能瞬间调出，轻松快速的完成翻译。是不可多得的一款翻译软件。
 
-+ **Grammarly for Microsoft Edge** - 语法错误检查和标注插件。
++ `Grammarly for Microsoft Edge` - 语法错误检查和标注插件。
 
-+ **IDM integration Module** - **IDM** 大家一定都听说过了，这款插件需要配合 **IDM desktop** 软件使用，好处是在安装完 **IDM desktop**, 第一次运行时，软件会自动安装插件到浏览器，从此就可以用 **IDM** 从网上直接下载资源了。😜
++ `IDM integration Module` - IDM 大家一定都听说过了，这款插件需要配合 **IDM desktop** 软件使用，好处是在安装完 **IDM desktop**, 第一次运行时，软件会自动安装插件到浏览器，从此就可以用 **IDM** 从网上直接下载资源了。😜
 
 ## Desktop 工具
 
@@ -293,8 +291,8 @@ keywords: online tools
 - 坚果云
 - Logitech Flow
 - LANDrop：多台电脑，手机之间通过 LANDrop 互传文件。需要设备上安装 LANDrop 应用。
-- SnapDrop：局域网云共享，同一个局域网内多台设备通过登录 snapdrop 网站点对点传送文件，无需安装应用。网址：[Snapdrop](https://snapdrop.net/)
-- 奶牛快传：[奶牛快传](https://cowtransfer.com/)
+- SnapDrop：局域网云共享，同一个局域网内多台设备通过登录 snapdrop 网站点对点传送文件，无需安装应用。网址：[https://snapdrop.net/](https://snapdrop.net/)
+- 奶牛快传：[https://cowtransfer.com/](https://cowtransfer.com/)
 
 ### 流程图
 
