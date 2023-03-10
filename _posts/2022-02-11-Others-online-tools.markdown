@@ -17,7 +17,7 @@ keywords: online tools
 ---
 
 ![others-online-tools-01]({{site.cdn_baseurl}}/assets/image/others-online-tools-01.jpg){: .center-image }
-"工欲善其事，必先利其器"，使用一款好的工具，能帮助我们工作中事半功倍，提升效率。这篇文章里我准备推荐几款我认为不错的工具，同时也算是做个总结，方便查找。 <!--more-->
+"工欲善其事，必先利其器"，使用一款好的工具，能帮助我们工作中事半功倍，提升效率。这篇文章记录了我日常使用的一些我认为相当不错的工具和软件。 <!--more-->
 
 ## 在线版工具
 
@@ -144,7 +144,7 @@ keywords: online tools
 
 #### PDF 转换
 
-针对 **PDF** 转换， 推荐 **smallpdf** 和 **Speedpdf** 
+针对 **PDF** 转换， 推荐 **smallpdf** 和 **speedpdf** 
 
 网址：
 
@@ -173,6 +173,12 @@ keywords: online tools
 网址：[https://squoosh.app/](https://squoosh.app/)
 
 ![others-online-tools-008]({{site.cdn_baseurl}}\assets\image\others-online-tools-08.jpg)
+
+
+
+**TinyPNG** 也是可以的。
+
+[TinyPNG – Compress WebP, PNG and JPEG images intelligently](https://tinypng.com/)
 
 ### 图片编辑处理
 
@@ -262,11 +268,11 @@ keywords: online tools
 
 ### 本地文件搜索
 
-我目前在用的是 `Everything` + `AnyTxt Searcher`, `Everything` 用于文件搜索，`AnyTxt Searcher`用于字符串的搜索。这两个工具和 Linux 下的 `find` + `grep`的作用类似，区别是带有 GUI，而 `find` + `grep`是命令行工具。`find` + `grep` 也有针对 Windows 平台的 .exe 版本，我有时在终端下也会使用，体验上和在 Linux 下没有区别。另外在 Linux 下还会使用 `fsearch` 这个工具。
+我目前在用的是 `Everything` + `AnyTxt Searcher`, `Everything` 用于文件搜索，`AnyTxt Searcher`用于字符串的搜索。这两个工具和 Linux 下的 `find` + `grep`的作用类似，区别是前者是带有 GUI 工具，而 `find` + `grep`是命令行工具。`find` + `grep` 也有针对 Windows 平台的 .exe 版本，我有时在终端下也会使用，体验上和在 Linux 下没有区别。另外在 Linux 下还会使用 `fsearch` 这个工具。
 
 ### 快速启动和文件搜索
 
-用过一段时间的 `WOX`和 `uTools`，最后还是切回了 `Listary`, 快速启动之类的功能都基本类似，`Listary`最大的优点是可以自动记录并定位到上次资源管理器打开的路径，这在 win 里简直是个神器。
+用过一段时间的 `WOX`和 `uTools`，最后还是换回了 `Listary`, 快速启动之类的功能都基本类似，`Listary`最大的优点是可以自动记录并定位到上次资源管理器打开的路径，这在 win 里简直是个神器。
 
 ### 工具插件聚合
 
@@ -310,7 +316,7 @@ keywords: online tools
 - marktext
 - 坚果云轻应用
 
-之前用的比较多的是 `typroa`，自从它变成收费的后，就改用 `marktext`替代。`typroa`和 `marktext`都有一个缺点，那就是对于单个 markdown  文件的编辑都没得说，但是在文件的组织管理和查找上都功能缺失。直到最近体验了 `obsidian` 以后，完美的弥补了上述的缺点，而且还提供了大量的插件可以增强功能，简直是 Perfect，现在已经完全转到 `obsidian`来了。
+之前用的比较多的是 `typroa`，自从它变成收费的后，就改用 `marktext`替代。`typroa`和 `marktext`都有一个缺点，那就是对于单个 markdown  文件的编辑都没得说，但是在文件的组织管理和查找上都功能缺失。直到最近体验了 `obsidian` 以后，完美的弥补了上述的缺点，而且还提供了大量的插件可以增强功能，简直是 perfect，现在已经完全转到 `obsidian`来了。
 
 ### 笔记软件
 
@@ -324,23 +330,25 @@ keywords: online tools
 
 - WizTree64
 
+一个字，快。
+
 ### Git GUI
 
 - sublime merge (Linux)
 - source tree
 - gitkraken
-- Github desktop
+- GitHub desktop
 - tig
 - gitui
 
-Git GUI的工具有很多，但是平时用的最多的还是命令行，😊！偶尔需要用 GUI 的时候，Linux 下用 `sublime merge`多一些，Windows 下是 `Github Desktop` 和 `source tree`。
+Git GUI 的工具有很多，但是平时用的最多的还是命令行，😊！偶尔需要用 GUI 的时候，Linux 下用 `sublime merge`多一些，Windows 下是 `Github Desktop` 和 `source tree`。
 
 ### 文档比对
 
 - meld
 - beyond compare
 
-Linux 下使用 `meld`, Windows 下使用 `beyond compare`
+Linux 下使用 `meld`, Windows 下使用 `beyond compare`。
 
 ### 磁盘划分
 
@@ -367,7 +375,7 @@ Linux 下的工具。
 - terminator (Linux)
 - gnome terminal (Linux)
 
-目前主力在用的是 `cmder` + `terminator`。
+终端的选择太多了，目前主力在用的是 `cmder` + `terminator`。
 
 ### 多媒体
 
@@ -389,7 +397,7 @@ Linux 下的工具。
 - geany (Linux)
 - gedit
 
-Windows 下推荐 `EmEditor`，Linux 下 `geany`非常好用。
+Windows 下推荐 `EmEditor`，超大文件秒开，搜索功能使用起来很方便。Linux 下 `geany`非常好用。
 
 ### IDE & 代码编辑器
 
@@ -401,7 +409,7 @@ Windows 下推荐 `EmEditor`，Linux 下 `geany`非常好用。
 - visual studio 2022 
 - sublime
 
-这个就不多说了，每个程序员对以上的软件都很熟悉，针对不同的编程语言，每个人都会有自己喜爱的编辑器和 IDE。萝卜青菜，各有所爱吧。
+这个就不多说了，程序员对以上的软件都很熟悉，针对不同的编程语言，每个人都会有自己喜爱的编辑器和 IDE。萝卜青菜，各有所爱吧。
 
 ### 密码管理
 
@@ -437,12 +445,14 @@ Windows 下推荐 `EmEditor`，Linux 下 `geany`非常好用。
 - VMware
 - VirtualBox
 
+这个就不多说了，二者二选一个即可。
+
 ### 下载工具
 
 - IDM
 - NDM
 
-区别是 `IDM` 收费软件，`NDM` 免费使用。速度上差不多。
+区别是 `IDM` 收费软件，`NDM` 免费使用，速度上差不多。
 
 ### 文件管理
 
@@ -454,13 +464,13 @@ Windows 下推荐 `EmEditor`，Linux 下 `geany`非常好用。
 - Folder Painter
 - folder-color （Linux）
 
-Windows 下的文件管理软件有很多，比如有名的 `Total Commander`, `Free Commander`, `Directory Opus`等，`XYplorer` 也是其中之一，不多说。Linux 下就推荐 `double commander`,功能和 `total commander`类似，因为 `total commander` 没有 Linux 的版本。剩下的几款都是增强型软件，比如增加 TAB 页，窗口置顶，文件夹着色等等。
+Windows 下的文件管理软件有很多，比如有名的 `Total Commander`, `Free Commander`, `Directory Opus`等，`XYplorer` 也是其中之一，不多说。Linux 下就推荐 `double commander`,功能和 `total commander`类似，因为 `total commander` 没有 Linux 的版本。剩下的几款都是增强型软件，比如增加文件浏览器的 TAB 页，窗口置顶，文件夹着色等等。
 
 ### 文件格式转换
 
 - pandoc
 
-不多说了，命令行使用，功能强大。
+文档格式转换利器，命令行使用，功能强大。
 
 ### 文件同步
 
