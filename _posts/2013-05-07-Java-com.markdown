@@ -1,6 +1,7 @@
 ---
+
 layout: post
-title:  "Java 调用COM组件的方法"
+title:  "Java 调用 COM 组件的方法"
 date:   2013-05-07 19:11:17 +0800
 categories: Java
 tags: Java
@@ -11,25 +12,27 @@ about: true
 author: david.dong
 description: 作者以自己编写的代码为例，讲解了如何借助 Jacob 类包在 JAVA 平台下使用 COM 组件。
 keywords: COM/Jacob
+
 ---
-最近项目中需要用JavaSE来调用Windows的下的程序代码。如Java编写的GUI需要操作Windows平台下自己开发的代码。这里总结一下相关的技术内容。<br>
 
-因为考虑到要跨语言的程序调用，就要用到COM组件。COM组件是为了实现代码的跨平台/语言复用，提供一种独立于平台与编程语言之外的，共享二进制代码的方法。其实就是一种规范化的接口，基于DLL(动态链接库)的形式存在。因为是以二进制的形式传播的，因此在统一的规范接口下可以在不同的编程语言之间调用。微软为其Windows的一系列服务都提供了COM的接口，供第三方编程调用。当然，用户也可以定义编写自己的COM组件，实现代码的跨平台/语言的复用。基于COM的技术细节很多，这里不过多阐述。本文的目的是主要总结一下Java对于COM的调用方法及注意事项。<br>
+最近项目中需要用 JavaSE 来调用 Windows 的下的程序代码。如 Java 编写的 GUI 需要操作 Windows 平台下自己开发的代码。这里总结一下相关的技术内容。<br>
 
-目前有一些Java库可以支持Java来调用COM的方案，包括一些第三方的商业的库和开源的库。因为Java编程，基于开源的精神，当然使用开源的库了。我选择用Jacob库来实现。<br>
+因为考虑到要跨语言的程序调用，就要用到 COM 组件。COM 组件是为了实现代码的跨平台/语言复用，提供一种独立于平台与编程语言之外的，共享二进制代码的方法。其实就是一种规范化的接口，基于DLL(动态链接库)的形式存在。因为是以二进制的形式传播的，因此在统一的规范接口下可以在不同的编程语言之间调用。微软为其 Windows 的一系列服务都提供了 COM 的接口，供第三方编程调用。当然，用户也可以定义编写自己的 COM 组件，实现代码的跨平台/语言的复用。基于 COM 的技术细节很多，这里不过多阐述。本文的目的是主要总结一下 Java 对于 COM 的调用方法及注意事项。<br>
 
-以下是Jacob的介绍，来源于官方文档。
+目前有一些 Java 库可以支持 Java 来调用 COM 的方案，包括一些第三方的商业的库和开源的库。因为Java 编程，基于开源的精神，当然使用开源的库了。我选择用 Jacob 库来实现。<br>
+
+以下是 Jacob 的介绍，来源于官方文档。
 
 > JACOB is a JAVA-COM Bridge that allows you to call COM Automation components from Java.    
-It uses JNI to make native calls into the COM and Win32 libraries.    
-The JACOB project started in 1999 and is being actively used by thousands of developers worldwide.   
-As an open-source project, it has benefited from the combined experience of these users, many of whom have made modifications to the code and submitted them back for inclusion in the project.
+> It uses JNI to make native calls into the COM and Win32 libraries.    
+> The JACOB project started in 1999 and is being actively used by thousands of developers worldwide.   
+> As an open-source project, it has benefited from the combined experience of these users, many of whom have made modifications to the code and submitted them back for inclusion in the project.
 
-Jacob通过Jni来实现对COM组件和WIN32库的调用。Jacob提供了一系列的编程接口，编程者编程时只需要面对Jacob的接口来编程即可，无需关注底层的实现细节。
+Jacob 通过 Jni 来实现对 COM 组件和 WIN32 库的调用。Jacob 提供了一系列的编程接口，编程者编程时只需要面对 Jacob 的接口来编程即可，无需关注底层的实现细节。
 
-Jacob的下载地址 [官方下载](https://sourceforge.net/projects/jacob-project/files/latest/download)<br>
+Jacob 的下载地址 [官方下载](https://sourceforge.net/projects/jacob-project/files/latest/download)<br>
 
-下载下来的package里包含一个`Jacob.jar`的jar包和`jacob-1.15-M4-x64.dll(64 bits)`以及`jacob-1.15-M4-x86.dll(32 bits)`的两个DLL文件。分别定义了Java的接口和32位以及64位的native接口。
+下载下来的 package 里包含一个`Jacob.jar`的jar包和`jacob-1.15-M4-x64.dll(64 bits)`以及`jacob-1.15-M4-x86.dll(32 bits)`的两个 DLL 文件。分别定义了 Java 的接口和 32 位以及 64 位的 native 接口。
 
 {% highlight java %}
 Jacob.jar
@@ -37,16 +40,18 @@ jacob-1.15-M4-x64.dll
 jacob-1.15-M4-x86.dll
 {% endhighlight %}
 
-使用Jacob的步骤如下。<br>
-1. 拷贝 `jacob-1.15-M4-x64.dll (64 bits)` and `jacob-1.15-M4-x86.dll (32 bits)` 到 `windows/system32/` 目录下。 
-或者拷贝到Java 的类路径下 `Program Files/Java/jdk1.6.0_14/jre/bin/`（推荐使用）
-2. 把 `jacob.jar` 导入项目的classpath `Program Files/Java/jdk1.6.0_14/jre/lib/ext/`     
-(*注： 导入外部 jar 都用类似方法，例如调用 串口支持包 `Comm.jar win32com.dll`*)
+使用 Jacob 的步骤如下。<br>
 
-3. 把要使用的Dll 进行注册，<br>
-C:\Windows\Microsoft.NET\Framework\v4.0.30319\regsvcs.exe [需要调用的dll文件路径]<br>
-C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\RegAsm.exe [需要调用的dll文件路径]   
-注意这里要先`regasm xxx.dll`，再`regasm xxx.dll` `/tlb:xxx.tlb /codebase`，要注册两个。
+1. 拷贝 `jacob-1.15-M4-x64.dll (64 bits)` and `jacob-1.15-M4-x86.dll (32 bits)` 到 `windows/system32/` 目录下。 
+   或者拷贝到Java 的类路径下 `Program Files/Java/jdk1.6.0_14/jre/bin/`（推荐使用）
+
+2. 把 `jacob.jar` 导入项目的classpath `Program Files/Java/jdk1.6.0_14/jre/lib/ext/`     
+   (*注： 导入外部 jar 都用类似方法，例如调用 串口支持包 `Comm.jar win32com.dll`*)
+
+3. 把要使用的 Dll 进行注册，<br>
+   C:\Windows\Microsoft.NET\Framework\v4.0.30319\regsvcs.exe [需要调用的dll文件路径]<br>
+   C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\RegAsm.exe [需要调用的dll文件路径]   
+   注意这里要先`regasm xxx.dll`，再`regasm xxx.dll` `/tlb:xxx.tlb /codebase`，要注册两个。
 
 具体可以参考如下的网页。<br>
 [http://msdn.microsoft.com/zh-cn/library/h627s4zy.aspx](http://msdn.microsoft.com/zh-cn/library/h627s4zy.aspx)
@@ -59,30 +64,33 @@ C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\RegAsm.exe [需要调用的dll文�
 ServiceComInterface.java (定义接口)
 {% highlight java %}
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package org.dong.service.com;
+
+* To change this template, choose Tools | Templates
+* and open the template in the editor.
+  */
+  package org.dong.service.com;
 
 import com.jacob.activeX.ActiveXComponent;
 
 /**
  *
- * @author Dong Gang
- */
-public interface ServiceComInterface {
-    public ActiveXComponent getAXC(String dllname);
-    public String executeMethod(String methodname, String param);
-    
+
+* @author Dong Gang
+  */
+  public interface ServiceComInterface {
+   public ActiveXComponent getAXC(String dllname);
+   public String executeMethod(String methodname, String param);
+
 }
 {% endhighlight %}
 ServiceCom.java (具体的实现类)
 {% highlight java %}
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package org.dong.service.com;
+
+* To change this template, choose Tools | Templates
+* and open the template in the editor.
+  */
+  package org.dong.service.com;
 
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.ComException;
@@ -93,110 +101,125 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Dong Gang
- */
-public class ServiceCom implements ServiceComInterface {
 
-    private static ServiceCom serviceComInstance = null;
-    //private static ActiveXComponent axc = null;
-    private ActiveXComponent axc = null;
-    private ServiceCom() {
-    }
-
-    private ServiceCom(String dllname) {
-        getAXC(dllname);
-    }
-
-    public static ServiceCom getInstance() {
-
-        if (serviceComInstance == null) {
-            serviceComInstance = new ServiceCom();
-        }
-        return serviceComInstance;
-    }
-
-    public static ServiceCom getInstance(String dllname) {
-        //if (serviceComInstance == null) {
-        serviceComInstance = new ServiceCom(dllname);
-        //}
-        return serviceComInstance;
-    }
-
-    public void clear() {
-        serviceComInstance = null;
-    }
-
-    @Override
-    public ActiveXComponent getAXC(String dllname) {
-
-        try {
-            axc = new ActiveXComponent(dllname);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "load com error!",
-            "Error!", JOptionPane.ERROR_MESSAGE);
-            ComThread.Release();
-        } finally {
-        }
-        return axc;
-    }
-
-    @Override
-    public String executeMethod(String methodname, String param) {
-        try {
-            ActiveXComponent axc1 = axc;
-            String msg = Dispatch.call(axc1, methodname, param).toString();
-            // ComThread.Release();
-            return msg;
-        } catch (ComException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    // @SuppressWarnings("CallToThreadDumpStack")
-    public String executeMethod(String methodname) {
-
-        try {
-            ActiveXComponent axc1 = axc;
-           
-            //Variant v = Dispatch.call(axc1, methodname);
-            //String msg = v.toString();
-            
-            String msg = Dispatch.call(axc1, methodname).toString();
-            // ComThread.Release();
-            return msg;
-        } catch (ComException e) {
-            JOptionPane.showMessageDialog(null, "com execute error!",
-            "Error", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public String executeMethod(String methodname, Object[] params) {
-        try {
-
-            ActiveXComponent axc1 = axc;
-            String abc = Dispatch.callN(axc1, methodname, params).toString();
-            // ComThread.Release();
-            return abc;
-        } catch (ComException e) {
-            e.printStackTrace();
-        }
-        return null;
-
-    }
-
-    public String executeMethod(String methodname, String param1, String param2) {
-        try {
-            ActiveXComponent axc1 = axc;
-            String msg = Dispatch.call(axc1, methodname, param1, param2).toString();
-            // ComThread.Release();
-            return msg;
-        } catch (ComException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-}
-{% endhighlight %}
+* @author Dong Gang
+  */
+  public class ServiceCom implements ServiceComInterface {
+  
+   private static ServiceCom serviceComInstance = null;
+   //private static ActiveXComponent axc = null;
+   private ActiveXComponent axc = null;
+   private ServiceCom() {
+   }
+  
+   private ServiceCom(String dllname) {
+  
+       getAXC(dllname);
+  
+   }
+  
+   public static ServiceCom getInstance() {
+  
+       if (serviceComInstance == null) {
+           serviceComInstance = new ServiceCom();
+       }
+       return serviceComInstance;
+  
+   }
+  
+   public static ServiceCom getInstance(String dllname) {
+  
+       //if (serviceComInstance == null) {
+       serviceComInstance = new ServiceCom(dllname);
+       //}
+       return serviceComInstance;
+  
+   }
+  
+   public void clear() {
+  
+       serviceComInstance = null;
+  
+   }
+  
+   @Override
+   public ActiveXComponent getAXC(String dllname) {
+  
+       try {
+           axc = new ActiveXComponent(dllname);
+       } catch (Exception e) {
+           JOptionPane.showMessageDialog(null, "load com error!",
+           "Error!", JOptionPane.ERROR_MESSAGE);
+           ComThread.Release();
+       } finally {
+       }
+       return axc;
+  
+   }
+  
+   @Override
+   public String executeMethod(String methodname, String param) {
+  
+       try {
+           ActiveXComponent axc1 = axc;
+           String msg = Dispatch.call(axc1, methodname, param).toString();
+           // ComThread.Release();
+           return msg;
+       } catch (ComException e) {
+           e.printStackTrace();
+       }
+       return null;
+  
+   }
+  
+   // @SuppressWarnings("CallToThreadDumpStack")
+   public String executeMethod(String methodname) {
+  
+       try {
+           ActiveXComponent axc1 = axc;
+      
+           //Variant v = Dispatch.call(axc1, methodname);
+           //String msg = v.toString();
+      
+           String msg = Dispatch.call(axc1, methodname).toString();
+           // ComThread.Release();
+           return msg;
+       } catch (ComException e) {
+           JOptionPane.showMessageDialog(null, "com execute error!",
+           "Error", JOptionPane.ERROR_MESSAGE);
+           e.printStackTrace();
+       }
+       return null;
+  
+   }
+  
+   public String executeMethod(String methodname, Object[] params) {
+  
+       try {
+      
+           ActiveXComponent axc1 = axc;
+           String abc = Dispatch.callN(axc1, methodname, params).toString();
+           // ComThread.Release();
+           return abc;
+       } catch (ComException e) {
+           e.printStackTrace();
+       }
+       return null;
+  
+   }
+  
+   public String executeMethod(String methodname, String param1, String param2) {
+  
+       try {
+           ActiveXComponent axc1 = axc;
+           String msg = Dispatch.call(axc1, methodname, param1, param2).toString();
+           // ComThread.Release();
+           return msg;
+       } catch (ComException e) {
+           e.printStackTrace();
+       }
+       return null;
+  
+   }
+  }
+  {% endhighlight %}
