@@ -1,4 +1,5 @@
 ---
+
 layout: post
 title:  "从 MarkdownPad2 到 Typora - 使用 Typora 的直观感受"
 date:   2022-02-11 09:24:16 +0800
@@ -13,20 +14,18 @@ about: true
 author: david.dong
 description: 记录 Typora 的使用感受. 
 keywords: Typora
+
 ---
+
 <img src="{{site.cdn_baseurl}}\assets\image\others-typora-01.jpeg" alt="others-typora-01" style="zoom:100%;" />
 
 一直以来我都是用 MarkdownPad2 撰写自己的博客文章，也没有觉得哪里不好。关注到 typora 这个软件是因为最近网上讨论的比较热烈的这个软件要收费的消息，于是上网 Google 了一下这个软件才发现很多人对这个软件的评价很高，这就引起了我的兴趣，于是我决定下载这个软件亲自试用一下。😉 <!--more-->
 
-
-
-## 第一眼感觉  
+## 第一眼感觉
 
 下载安装后，打开这款文本编辑器，第一眼感觉着实有些惊艳到我，整个 UI 给人的感觉是 “干净，简洁”，没有任何多余的东西。这个设计的 style 还是比较符合我的审美。对比一下 MarkdownPad2 感受会更明显。
 
 MarkdownPad2 看上去就是比较传统的 UI 设计，典型的 windows 窗口的布局，编辑区，工具栏，菜单... 和其他的 windows 软件没有多大的区别，当然好处是这样比较符合大多数人的使用习惯，但是也使人提不起多大的使用兴趣。
-
-
 
 ## 文本输入
 
@@ -36,8 +35,6 @@ typora 对 Markdown 语法的支持也非常的好，我用它敲写 Markdown �
 
 typora 还提供了 【打字机模式】和 【专注模式】这两种独有的编辑模式，用过以后效果非常不错！
 
-
-
 ## 功能性
 
 功能性上 typora 也有其独到的地方，比如 typora 可以很方便的把 markdown 文件导出为其他文件格式，比如 pdf, 图像格式(.jpg, .png)，甚至在 pandoc 的帮助下生成更多的格式，像 docx, Latex, Epub 都是可以的。这点我在 MarkdownPad2 上是没有看到。
@@ -46,15 +43,11 @@ typora 还提供了 【打字机模式】和 【专注模式】这两种独有�
 
 另外 typora 还有其他一些人性化的特性，比如快速插入 Emoji 图标，很方便的使用 Latex 编写数学公式，还可以编写流程图，也支持代码块高亮，Typora 原生支持许多编程语言代码块的语法高亮，基本日常常用的编程语言它都能很好地支持。 有了这些特性，就可以像写代码一样编写文档了，简直是程序猿们的最爱啊~~
 
-
-
 ## 扩展性
 
 typora 有很多主题可以选择，如果你不喜欢现在的 UI， 可以很方便的从网上找到一款喜欢的主题，瞬间完成自己想要的风格。不像 MarkdownPad2，百年不变的外观，没有可玩性。
 
 以上是我使用下来最直观的感受，因为使用时间不长，有很多功能应该说还有待发掘。
-
-
 
 ## 其他
 
@@ -74,8 +67,6 @@ typora 有很多主题可以选择，如果你不喜欢现在的 UI， 可以很
 
 ![]({{site.cdn_baseurl}}\assets\image\others-typora-02.jpeg)
 
-
-
 ## 写在最后
 
 总结一下我自己对这款编辑器的体会就是 “快速，简洁，外观漂亮和功能强大”，它 【极简】 的设计，【实时预览】的特性和对 Markdown 良好的支持，让我感觉用它来写作非常舒服，细枝末节处的人性化增加了写作的欲望，用现在比较流行的说法就是提高了生产力。
@@ -83,6 +74,3 @@ typora 有很多主题可以选择，如果你不喜欢现在的 UI， 可以很
 最后贴一张和 MarkdownPad2 对比图，看起来 MarkdownPad2 就显得有那么一点笨重和陈旧了。typora 符合了我对文本编辑器的大多数的需求，后面我会切换到 typora 来作为文本编辑器使用，MarkdownPad2 可以卸载掉了~~
 
 ![]({{site.cdn_baseurl}}\assets\image\others-typora-03.png)
-
-
-
