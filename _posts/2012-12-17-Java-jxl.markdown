@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Java 使用JXL库编辑Excel文档"
+title:  "Java 使用 JXL 库编辑 Excel 文档"
 date:   2012-12-17 17:25:19 +0800
 categories: Java
 tags: Java
@@ -24,6 +24,7 @@ JXL 的官方下载地址 [官方地址](http://maven.ibiblio.org/maven2/net/sou
 直接讲用法不如看代码，以下是一些使用 JXL 库的简单操作。
 
 #### 导入jxl的类库
+
 {% highlight java %}
 import jxl.Cell;
 import jxl.Sheet;
@@ -33,6 +34,7 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 
 {% endhighlight %}
+
 #### 打开读取Excel表格的方法
 
 {% highlight java %}
@@ -57,7 +59,9 @@ catch(Exception e){
   e.printStackTrace();
 }
 {% endhighlight %}
+
 #### 创建一个Excel workbook的方法
+
 {% highlight java %}
 try {
   // 建立文件
@@ -81,4 +85,3 @@ try {
   }
 {% endhighlight %}
 具体的使用案例可以参考我的 [Github project](https://github.com/gangdong/BLDC)。 
-
