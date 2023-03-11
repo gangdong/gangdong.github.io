@@ -1,6 +1,7 @@
 ---
+
 layout: post
-title:  "Java 的Iterable接口使用"
+title:  "Java 的 Iterable 接口使用"
 date:   2012-03-18 13:27:23 +0800
 categories: Java
 tags: Java
@@ -12,16 +13,18 @@ about: true
 author: david.dong
 description: Iterable 是 Java 的一个接口，本文主要对 Iterable 接口及其使用方法做了说明，给出了应用举例。
 keywords: Java/Iterable
+
 ---
+
 `Iterable<>` 是 `Java.lang` 包中定义的一个接口, 
-根据Java文档的介绍该接口主要声明了一个`Iterator()`方法，该方法返回一个`Iterator<>`接口。   
+根据 Java 文档的介绍该接口主要声明了一个`Iterator()`方法，该方法返回一个`Iterator<>`接口。   
 
 [Java 文档 - Iterable](https://docs.oracle.com/javase/8/docs/api/)<br>
 
 ![Iterable]({{site.cdn_baseurl}}/assets/image/java-iterable-function.png){: .center-image }
 <br>
 
-那我们接下来看一看`Iterator<>`接口主要内容，`Iterator<>`接口的Java 文档里说明
+那我们接下来看一看`Iterator<>`接口主要内容，`Iterator<>`接口的 Java 文档里说明
 `Iterator<>`接口主要声明了三个方法。   
 
 [Java 文档 - Iterator](https://docs.oracle.com/javase/8/docs/api/)
@@ -42,43 +45,43 @@ public class Student {
     private String name;
     private int age;
     private String gender;
-
+    
     public Student(String name, int age, String male) {
         this.name = name;
         this.age = age;
         this.gender = male;
     }
-
+    
     public Student() {
-        
+    
         try {
-            
+    
         } catch (Exception e) { 
             //TODO: handle exception
         }
-
+    
     }
-
+    
     public String getName() {
         return name;
     }
-
+    
     public void setName(String name) {
         this.name = name;
     }
-
+    
     public int getAge() {
         return age;
     }
-
+    
     public void setAge(int age) {
         this.age = age;
     }
-
+    
     public String getGender() {
         return gender;
     }
-
+    
     public void setGender(String gender) {
         this.gender = gender;
     }
@@ -96,7 +99,7 @@ public class MyIterableClass implements Iterator {
     private ArrayList<Student> am = new ArrayList<>();
     private int length;
     private int index;
-
+    
     @Override
     public boolean hasNext() {
         // TODO Auto-generated method stub
@@ -105,13 +108,13 @@ public class MyIterableClass implements Iterator {
         }
         return false;
     }
-
+    
     @Override
     public Student next() {
         // TODO Auto-generated method stub
         return am.get(index++);
     }
-
+    
     public MyIterableClass(ArrayList<Student> am, int length, int index) {
         this.am = am;
         this.length = length;
@@ -128,9 +131,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class App {
-    
-    public static void main(String[] args) {
 
+    public static void main(String[] args) {
+    
         ArrayList<Student> list = new ArrayList<Student>();
         ArrayList<String> names = new ArrayList<String>();
         names.add("男");
@@ -142,14 +145,15 @@ public class App {
             Student student = new Student("学生—" +i, (int)(Math.random()*10)+10, gender);
             list.add(student);
         }
-
+    
         MyIterableClass myClass = new MyIterableClass(list, list.size(), 0);
-
+    
         while (myClass.hasNext()) {
             Student stu = myClass.next();
             System.out.println(stu.getName() + " 年龄:" + stu.getAge() + " 性别:" + stu.getGender());
         }
     }
+
 }
 {% endhighlight %}
 运行结果如下。
@@ -167,5 +171,5 @@ public class App {
 {% endhighlight %}
 有人可能会问，为什么不直接将`hasNext()`，`next()`方法放在Iterable接口中，其他类直接实现就可以了？
 
-原因是有些集合类可能不止一种遍历方式，实现了Iterable的类可以再实现多个Iterator内部类，通过返回不同的Iterator实现不同的遍历方式，这样更加灵活。如果把两个接口合并，就没法返回不同的Iterator实现类了。
+原因是有些集合类可能不止一种遍历方式，实现了 Iterable 的类可以再实现多个 Iterator 内部类，通过返回不同的 Iterator 实现不同的遍历方式，这样更加灵活。如果把两个接口合并，就没法返回不同的 Iterator 实现类了。
 <br>
