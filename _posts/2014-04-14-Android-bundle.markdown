@@ -1,6 +1,7 @@
 ---
+
 layout: post
-title:  "Bundle 在android中的应用"
+title:  "Bundle 在 android 中的应用"
 date:   2014-04-14 21:03:36 +0800
 categories: Android
 tags: Android
@@ -11,7 +12,9 @@ about: true
 author: david.dong
 description: 这篇文章主要讨论了 Bundle 类在 Android 中的作用.
 keywords: Bundle/Android
+
 ---
+
 Android中Bundle类的作用，根据google [官方文档](http://developer.android.com/reference/android/os/Bundle.html)<br>Bundle类用作携带数据，它类似于Map，用于存放key-value名值对形式的值。<br>
 
 Bundle经常使用在Activity之间或者线程间传递数据，传递的数据可以是 **boolean、byte、int、long、float、double、string** 等基本类型或它们对应的数组，也可以是对象或对象数组。
@@ -34,7 +37,7 @@ Intent intent = new Intent(MainActivity.this,DisplayActivity.class);
 
 //通过intent发送bundle到目标activity中，实现activity之间的对象传递
 intent.putExtras(bundle);
-                
+
 startActivityForResult(intent,2);
 
 {% endhighlight %}
