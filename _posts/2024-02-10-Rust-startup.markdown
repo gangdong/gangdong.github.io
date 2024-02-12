@@ -11,7 +11,7 @@ sidebar: true
 language: english
 about: true
 author: david.dong
-description: To record how to build up dev environment of rust .
+description: To record how to set up environment of Rust development.
 keywords: Rust
 
 ---
@@ -110,7 +110,7 @@ The rust toolchain management tool rustup, the package manager cargo, and the co
   rustup self uninstall
   ```
 
-### VSCODE configuration development Rust
+### Vscode configuration for development of Rust
 
 Install the following plug-ins
 
@@ -147,11 +147,11 @@ Install the following plug-ins
   ```
 
 - run `cargo run` to debug the code
-
-```c
-& david @ ubuntu in ~/code/rust/first_proj/greeting (master …4) 0 [19:07:19]
-~ cargo run
-    Finished dev [unoptimized + debuginfo] target(s) in 0.00s
-     Running `target/debug/greeting`
-Hello, world!
-```
+  
+  ```c
+  & david @ ubuntu in ~/code/rust/first_proj/greeting (master …4) 0 [19:07:19]
+  ~ cargo run
+      Finished dev [unoptimized + debuginfo] target(s) in 0.00s
+       Running `target/debug/greeting`
+  Hello, world!
+  ```
