@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Linux 系统下的多点触摸协议 | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Linux 系统下的多点触摸协议" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="这篇文章主要对 Linux 下的多点触控协议进行了说明，比较了协议 A 和协议 B 的不同，最后给出了一段示例代码." />
+<meta property="og:description" content="这篇文章主要对 Linux 下的多点触控协议进行了说明，比较了协议 A 和协议 B 的不同，最后给出了一段示例代码." />
+<link rel="canonical" href="http://localhost:4000/touch/linux/2014/02/12/Touch-protocol.html" />
+<meta property="og:url" content="http://localhost:4000/touch/linux/2014/02/12/Touch-protocol.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2014-02-12T21:33:10+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Linux 系统下的多点触摸协议" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"david.dong"},"dateModified":"2014-02-12T21:33:10+08:00","datePublished":"2014-02-12T21:33:10+08:00","description":"这篇文章主要对 Linux 下的多点触控协议进行了说明，比较了协议 A 和协议 B 的不同，最后给出了一段示例代码.","headline":"Linux 系统下的多点触摸协议","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/touch/linux/2014/02/12/Touch-protocol.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/logo.png"},"name":"david.dong"},"url":"http://localhost:4000/touch/linux/2014/02/12/Touch-protocol.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+<meta property="article:tag" content="Touch">
+
+<meta property="article:tag" content="Linux">
+
+
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
+
+</head><body>
+    <main class="container">
+      <section class="about condensed">
+	    <div class="about-header condensed">
+			<div class="about-title">
+				<a href="/blog/index.html">
+				  <img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/avatar-11.png" alt="David Dong"/>
+				</a>
+				<div class = "title-meta">
+					<h2 id="title">
+					  <a href="/blog/index.html">David Dong</a>
+					</h2>
+					<p class = "tagline-small">Java/C/C#/Python</p>
+				</div>
+			</div>
+			<p class="tagline">Java/C/C#/Python</p>
+		</div>
+		<!--put dark mode button here -->
+		<div class = "about-footer condensed">
+		  <!--put rss/code link here -->
+			<div class="icon-box-container about-footer condensed"><div class = "icon-box" style = "padding-right:0px">
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id = "mode">Dark Mode</span>
+					</a>
+				</div>
+				<!-- toggle dark/light display mode, should loading darkmode.js here for avoiding flicker when switching -->
+				<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/darkmode.js"></script>
+				<script type="text/javascript">
+				$('.dark-mode').on('click',function(){
+					$('.dark-mode').toggleClass('light-mode');
+					if (document.getElementById("mode").innerHTML=="Light Mode")
+						document.getElementById("mode").innerHTML="Dark Mode";
+					else 
+						document.getElementById("mode").innerHTML="Light Mode";
+				})
+				</script><div class = "icon-box">
+					<a class="icon-rss" href="/rss.xml">
+						<span>Subscribe</span>
+					</a>
+				</div><div class = "icon-box">
+					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
+						<span>Source Code</span>
+					</a>
+				</div></div>
+		</div>
+		
+	    <!--show contact me -->
+		<div class = "about-footer condensed social-container">
+	    <p class = "contact about-footer condensed">CONTACT ME</p>
+		<!-- put social link here -->
+	      <ul class="social about-footer condensed" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		<!--put timestamp here -->
+		<p class ="timestamp about-footer condensed">&copy; 2024</p>
+		</div>
+	  <!-- about box end here -->
+      </section>
+	  
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+<div class="post-container">
+	<div  class = "menu-meta condensed">
+		<!--put top menu here, display @ big screen (> $mobileW) -->
+		<div  class = "menu-logo">BLOG</div>
+		<div  class = "menu">
+			<a href="/blog/index.html">
+				<li class="icon-home">Home</li>
+			</a><a href="/archive">
+				<li class="icon-archive">Archives</li>
+			</a><a href="/category">
+				<li class="icon-tags">Categories</li>
+			</a><a href="/about">
+				<li class="icon-help-circled">About</li>
+			</a>
+		</div>
+		<!--put hide menu button here, display @ small screen (< $mobileW) -->
+		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
+		<!--put hide menu here, display @ small screen (< $mobileW) -->
+		<div class="context-menu">
+			<ul >
+				<li>
+					<a class="icon-home" href="/blog/index.html">Home</a>
+				</li><li>
+					<a class="icon-archive" href="/archive">Archives</a>
+				</li><li>
+					<a class="icon-tags" href="/category">Categories</a>
+				</li><li>
+					<a class="icon-help-circled" href="/about">About</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('.menu-btn').on('click',function(e){
+		
+	e.stopPropagation();
+	var tag = $('.context-menu');		
+	$(tag).toggleClass('context-menu-show');
+			
+	var flag = true;
+	/* hide the context-menu when other element is clicked */
+	$(document).bind('click',function(e){
+		var target = $(e.target);
+		if(target.closest(tag).length == 0 && flag == true){
+			$(tag).toggleClass('context-menu-show');
+			flag = false;
+		}
+	});
+})
+</script><div class="post-container" style = "margin-bottom:1rem">
+	<div class="posts-labelgroup" id="posts-labelgroup">
+		<h1 id="posts-label">POST</h1>
+	</div>  
+	<!-- post title -->
+	<h2 class="post-title-body">Linux 系统下的多点触摸协议</h2>
+	<div class="post-meta">
+		<div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">Feb 12, 2014</div>
+		
+		<!-- sidebar button for displaying/hiding sidebar -->
+		<div class = "sidebar-btn-box"><a class="btn"></a></div>
+		
+	</div>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+<div class="post-viewer-container">
+	<div class="post post-fix-width">
+		<p>这篇文章讲一下Linux下的多点触控的协议。</p>
+
+<p>为了支持多点触控的设备，Linux制定了多点触摸协议（multi-touch，MT）。</p>
+
+<p>Linux 下的触摸协议分为协议A(protocol A)和协议B(protocol B)。</p>
+
+<p>作为都支持多点触摸的协议，那么协议A和协议B有什么区别？我们以下的篇幅里会做详细的说明。</p>
+
+<h2 id="协议a"><span id="1">协议A</span></h2>
+<p>主要应用于早期处理触点的设备，该类设备无法跟踪并识别每个触摸点，因此协议A里无法区分上报的信息都是由哪些触摸点触发的。内核驱动应该根据设备表面上全部有效触控进行列举并生成事件。每个触控点数据包在这次事件流中的顺序并不重要。事件过滤和手指跟踪的工作留给用户空间来实现。
+内核的代码上主要是用<code class="language-plaintext highlighter-rouge">input_mt_sync()</code>函数在每个数据包的结尾对多个触控包进行分割，每一个<code class="language-plaintext highlighter-rouge">input_mt_sync()</code>都在内核引入一个SYN_MT_REPORT事件。这个事件通常表示该组数据包的结束。<code class="language-plaintext highlighter-rouge">input_sync()</code>函数表示这次传送数据帧的结束（会有多包数据），上层接收到<code class="language-plaintext highlighter-rouge">input_sync()</code>的通知后，会将之前接收的多包数据（由SYN_MT_REPORT分割）一起处理。用户层在接收到全部的数据后，根据和先前同步的触点的数据对比，运行相关的算法来进行数据触摸点的识别和追踪。<br />
+一个典型的协议A的数据传输过程如下。</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">    <span class="no">ABS_MT_POSITION_X</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="no">ABS_MT_POSITION_Y</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="no">SYN_MT_REPORT</span>
+    <span class="no">ABS_MT_POSITION_X</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="no">ABS_MT_POSITION_Y</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="no">SYN_MT_REPORT</span>
+    <span class="no">SYN_REPORT</span></code></pre></figure>
+
+<p>其中SYN_MT_REPORT表示一包数据的结束，SYN_REPORT代表这次传输的结束，在SYN_REPORT之前的数据会被上层统一处理。</p>
+
+<h2 id="协议b"><span id="2">协议B</span></h2>
+<p>协议B针对的设备有能力鉴别并追踪触摸点。因此在上报每个点的坐标信息以外会附带上触摸点的信息（例如代表是由哪个手指触摸）。
+比如ATMEL mxTouch IC 的上报信息格式。<br />
+<img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/touch-protocol-b-reportid.png" alt="maXTouch message" /></p>
+
+<p>这就要求协议B里需要能够上报触摸点的信息，并能够根据不同的触摸点来打包发送数据。这样做的好处是大量的工作由底层的硬件来完成，无需上层运行算法来过滤和追踪触摸点的轨迹。
+与协议A不同，协议B在每个数据包的开头以slot为参数调用<code class="language-plaintext highlighter-rouge">input_mt_slot()</code>来分离触点数据包。这会产生一个ABS_MT_SLOT事件，从而通知接收者准备所给的slot的更新。而在传送的结尾和协议A相同，都是由<code class="language-plaintext highlighter-rouge">input_sync()</code>来通知本次传送的结束。
+一次协议B的数据传送过程如下。</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">   <span class="no">ABS_MT_SLOT</span> <span class="mi">0</span>
+   <span class="no">ABS_MT_TRACKING_ID</span> <span class="mi">45</span>
+   <span class="no">ABS_MT_POSITION_X</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+   <span class="no">ABS_MT_POSITION_Y</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+   <span class="no">ABS_MT_SLOT</span> <span class="mi">1</span>
+   <span class="no">ABS_MT_TRACKING_ID</span> <span class="mi">46</span>
+   <span class="no">ABS_MT_POSITION_X</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+   <span class="no">ABS_MT_POSITION_Y</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+   <span class="no">SYN_REPORT</span></code></pre></figure>
+
+<p>可以看到这次传输有两个触摸点的数据，每包数据以ABS_MT_SLOT起始，每个slot都会被分配一个ABS_MT_TRACKING_ID，不同的可识别的触摸点被打包成不同的slot数据。利用这个slot来传递对应触点的变化，触点的创建、替换和销毁是通过修改相关联slot的ABS_MT_TRACTKING_ID完成的。一个无符号的追踪id代表一个触点，值-1表示一个未使用的slot。一个未出现的过的追踪id被认为是新的，而一个不在出现的追踪id考虑被移除。因为只传递了变化的信息，每个触点的全部信息需要保存在接收端。当接收到MT事件时，简单地更新当前slot的对应属性。
+当移动其中一个触摸点时，会看到如下的数据被传输。</p>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">   ABS_MT_SLOT 0
+   ABS_MT_POSITION_X x[0]
+   SYN_REPORT</code></pre></figure>
+
+<p>可见只有变化的数据被传输，而不像协议A那样，每次传输需要发送所有的数据给上层。这就显著的减少了数据的传送量。</p>
+
+<p>因此协议A和协议B的区别在于协议B可以支持由硬件设备来识别和追踪触摸点并提供ABS_MT_TRACKING_ID，这样可以减少数据传输量以及上层的运算量。</p>
+
+<p>此外协议还定义了触摸事件的属性，一个触摸事件最少应该包括</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>事件类型</th>
+      <th>含义</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ABS_MT_POSITION_X</td>
+      <td>接触面的形心的Ｘ坐标值</td>
+    </tr>
+    <tr>
+      <td>ABS_MT_POSITION_Y</td>
+      <td>接触面的形心的Ｙ坐标值</td>
+    </tr>
+    <tr>
+      <td>ABS_MT_TOUCH_MAJOR</td>
+      <td>触点主轴长度</td>
+    </tr>
+    <tr>
+      <td>ABS_MT_TOUCH_MINOR</td>
+      <td>触点的短轴长度</td>
+    </tr>
+    <tr>
+      <td>ABS_MT_PRESSURE</td>
+      <td>接触区域上的压力</td>
+    </tr>
+    <tr>
+      <td>ABS_MT_TOOL_TYPE</td>
+      <td>接触工具类型（比如手指和笔）</td>
+    </tr>
+    <tr>
+      <td>ABS_MT_TRACKING_ID</td>
+      <td>为接触点分配的ID</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>以上为多点触摸协议的基本内容，目前触控设备大多具备硬件识别并区分触摸点的能力，因此协议A基本上已经很少使用了。
+基于协议B的驱动代码应该是基于如下的传输步骤。</p>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">//设定slot
+input_mt_slot(para = ABS_MT_TRACKING_ID); 
+//设定slot的状态，slot 由input_mt_slot()函数指定
+input_mt_report_slot_state(para = ABS_MT_TOOL_TYPE, para = STATUS)
+//发送坐标信息 
+input_report_abs(para = ABS_MT_POSITION_X) 
+input_report_abs(para = ABS_MT_POSITION_Y)
+//传输结束
+input_sync(input_dev) </code></pre></figure>
+
+<p>以下是ATMEL maXTouch IC 驱动的数据发送部分代码。</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">static</span> <span class="kt">void</span> <span class="nf">mxt_input_report</span><span class="p">(</span><span class="k">struct</span> <span class="n">mxt_data</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="kt">int</span> <span class="n">single_id</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="k">struct</span> <span class="n">mxt_finger</span> <span class="o">*</span><span class="n">finger</span> <span class="o">=</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">finger</span><span class="p">;</span>
+	<span class="k">struct</span> <span class="n">input_dev</span> <span class="o">*</span><span class="n">input_dev</span> <span class="o">=</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">input_dev</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">status</span> <span class="o">=</span> <span class="n">finger</span><span class="p">[</span><span class="n">single_id</span><span class="p">].</span><span class="n">status</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">finger_num</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">id</span><span class="p">;</span>
+
+	<span class="k">for</span> <span class="p">(</span><span class="n">id</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">id</span> <span class="o">&lt;</span> <span class="n">MXT_MAX_FINGER</span><span class="p">;</span> <span class="n">id</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">finger</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">status</span><span class="p">)</span>
+			<span class="k">continue</span><span class="p">;</span>
+		<span class="n">input_mt_slot</span><span class="p">(</span><span class="n">input_dev</span><span class="p">,</span> <span class="n">id</span><span class="p">);</span>
+		<span class="n">input_mt_report_slot_state</span><span class="p">(</span><span class="n">input_dev</span><span class="p">,</span> <span class="n">MT_TOOL_FINGER</span><span class="p">,</span>
+				<span class="n">finger</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">status</span> <span class="o">!=</span> <span class="n">MXT_RELEASE</span><span class="p">);</span>
+
+		<span class="k">if</span> <span class="p">(</span><span class="n">finger</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">status</span> <span class="o">!=</span> <span class="n">MXT_RELEASE</span><span class="p">)</span> <span class="p">{</span>
+			<span class="n">finger_num</span><span class="o">++</span><span class="p">;</span>
+			<span class="n">input_report_abs</span><span class="p">(</span><span class="n">input_dev</span><span class="p">,</span> <span class="n">ABS_MT_TOUCH_MAJOR</span><span class="p">,</span>
+					<span class="n">finger</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">area</span><span class="p">);</span>
+			<span class="n">input_report_abs</span><span class="p">(</span><span class="n">input_dev</span><span class="p">,</span> <span class="n">ABS_MT_POSITION_X</span><span class="p">,</span>
+					<span class="n">finger</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">x</span><span class="p">);</span>
+			<span class="n">input_report_abs</span><span class="p">(</span><span class="n">input_dev</span><span class="p">,</span> <span class="n">ABS_MT_POSITION_Y</span><span class="p">,</span>
+					<span class="n">finger</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">y</span><span class="p">);</span>
+			<span class="n">input_report_abs</span><span class="p">(</span><span class="n">input_dev</span><span class="p">,</span> <span class="n">ABS_MT_PRESSURE</span><span class="p">,</span>
+					<span class="n">finger</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">pressure</span><span class="p">);</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+			<span class="n">finger</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">status</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="n">input_report_key</span><span class="p">(</span><span class="n">input_dev</span><span class="p">,</span> <span class="n">BTN_TOUCH</span><span class="p">,</span> <span class="n">finger_num</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">);</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="n">status</span> <span class="o">!=</span> <span class="n">MXT_RELEASE</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">input_report_abs</span><span class="p">(</span><span class="n">input_dev</span><span class="p">,</span> <span class="n">ABS_X</span><span class="p">,</span> <span class="n">finger</span><span class="p">[</span><span class="n">single_id</span><span class="p">].</span><span class="n">x</span><span class="p">);</span>
+		<span class="n">input_report_abs</span><span class="p">(</span><span class="n">input_dev</span><span class="p">,</span> <span class="n">ABS_Y</span><span class="p">,</span> <span class="n">finger</span><span class="p">[</span><span class="n">single_id</span><span class="p">].</span><span class="n">y</span><span class="p">);</span>
+		<span class="n">input_report_abs</span><span class="p">(</span><span class="n">input_dev</span><span class="p">,</span>
+				 <span class="n">ABS_PRESSURE</span><span class="p">,</span> <span class="n">finger</span><span class="p">[</span><span class="n">single_id</span><span class="p">].</span><span class="n">pressure</span><span class="p">);</span>
+	<span class="p">}</span>
+
+	<span class="n">input_sync</span><span class="p">(</span><span class="n">input_dev</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>以上代码很好的示范了我们这篇文章所讲的内容。</p>
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box" id = "sidebar">
+		    
+				<p class = "sidebar-title">关于文章</p>
+			
+			
+				
+				<p class = "sidebar-about-content sidebar-font-big">这篇文章主要对 Linux 下的多点触控协议进行了说明，比较了协议 A 和协议 B 的不同，最后给出了一段示例代码.</p>
+				
+				
+				<p class = "icon-link sidebar-about-content sidebar-font-medium" style = "margin-top:40px">文章作者: <a href="https://github.com/gangdong">david.dong</a></p>
+				
+				<p class = "icon-hourglass sidebar-about-content sidebar-font-medium">阅读时间：9 mins</p>
+				<p class = "icon-book sidebar-about-content sidebar-font-medium">全文字数：3372</p>
+				
+					<p class = "icon-th-list sidebar-about-content sidebar-font-medium">关键字: 多点触控协议/</p>
+				
+				
+					<p class = "icon-hashtag sidebar-about-content sidebar-font-medium">标签: 
+					
+					<a href="/category#Touch">Touch&nbsp;</a>
+					
+					<a href="/category#Linux">Linux&nbsp;</a>
+					
+					</p>
+				
+			
+		</div>
+		
+		
+	    <div class="sidebar-toc-box">
+			
+			<p class = "sidebar-title">文章目录</p>
+			<span class = "sidebar-font-medium sidebar-toc-content"><ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#协议a">协议A</a></li>
+<li class="toc-entry toc-h2"><a href="#协议b">协议B</a></li>
+</ul></span>
+			
+		</div>
+		
+	</div>
+	 
+</div>
+<!-- no sidebar, use flex width box! -->
+<br>
+<div class="post-container">
+    <!-- post categories box! here  -->
+    
+   <div class="post-categories-meta">
+		<div class="post-categories-box post-categories-box-hide"><a href="/category#Touch">Touch</a><a href="/category#Linux">Linux</a></div>
+	</div>
+  
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">分享:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+	
+		<span class = "icon-eye tooltip"><p class = "tooltiptext" style = "left:0%; margin-left: 0px">阅读量</p><span id="busuanzi_value_page_pv"></span></span>
+		
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">相关文章</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/c/touch/android/2014/07/10/Touch-inputevent.html">Android 如何上报 Touchevent 给应用层</a></li>
+			
+			<li><a href="/c/touch/linux/2014/06/25/Touch-driver.html">ATMEL maXTouch IC 驱动代码分析</a></li>
+			
+			<li><a href="/android/touch/2014/10/02/Android-touchevent-02.html">How does Android dispatch Touchevent?</a></li>
+			
+			<li><a href="/touch/2014/04/11/Touch-princple.html">电容式触摸检测技术原理</a></li>
+			
+			<li><a href="/touch/2013/12/15/Touch-noise.html">浅谈触摸屏充电器噪声要求及测量方法</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">继续阅读</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta"><div class="navigation-bar">
+	 
+	 <a href="/linux/2014/01/09/Linux-interrupt.html"><span>前一章</span><br>Linux 添加中断处理</a>
+	 
+    </div><div class="navigation-bar"> 
+	 
+	 <a href="/touch/2014/04/11/Touch-princple.html"><span>后一章</span><br>电容式触摸检测技术原理</a>
+	 
+    </div></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'gangdong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9&domready=1"></script>
+
+
+<!-- sidebar button, toggle display/hide sidebar -->
+<script type="text/javascript">
+        $('.btn').on('click',function(){
+            $('.btn').toggleClass('btnc');
+            $('.sidebar-container').toggleClass('sidebar-container-hide');
+        })
+</script>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=G-3MXGF3F8QN"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-3MXGF3F8QN');
+	</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></body>
+</html>

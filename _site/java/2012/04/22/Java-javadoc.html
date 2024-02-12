@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Javadoc 使用 | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Javadoc 使用" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="本文内容是基于作者对 Javadoc 的学习笔记，文中对 javadoc 使用做了详细说明。" />
+<meta property="og:description" content="本文内容是基于作者对 Javadoc 的学习笔记，文中对 javadoc 使用做了详细说明。" />
+<link rel="canonical" href="http://localhost:4000/java/2012/04/22/Java-javadoc.html" />
+<meta property="og:url" content="http://localhost:4000/java/2012/04/22/Java-javadoc.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2012-04-22T22:44:19+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Javadoc 使用" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"david.dong"},"dateModified":"2012-04-22T22:44:19+08:00","datePublished":"2012-04-22T22:44:19+08:00","description":"本文内容是基于作者对 Javadoc 的学习笔记，文中对 javadoc 使用做了详细说明。","headline":"Javadoc 使用","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/java/2012/04/22/Java-javadoc.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/logo.png"},"name":"david.dong"},"url":"http://localhost:4000/java/2012/04/22/Java-javadoc.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+<meta property="article:tag" content="Java">
+
+
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
+
+</head><body>
+    <main class="container">
+      <section class="about condensed">
+	    <div class="about-header condensed">
+			<div class="about-title">
+				<a href="/blog/index.html">
+				  <img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/avatar-11.png" alt="David Dong"/>
+				</a>
+				<div class = "title-meta">
+					<h2 id="title">
+					  <a href="/blog/index.html">David Dong</a>
+					</h2>
+					<p class = "tagline-small">Java/C/C#/Python</p>
+				</div>
+			</div>
+			<p class="tagline">Java/C/C#/Python</p>
+		</div>
+		<!--put dark mode button here -->
+		<div class = "about-footer condensed">
+		  <!--put rss/code link here -->
+			<div class="icon-box-container about-footer condensed"><div class = "icon-box" style = "padding-right:0px">
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id = "mode">Dark Mode</span>
+					</a>
+				</div>
+				<!-- toggle dark/light display mode, should loading darkmode.js here for avoiding flicker when switching -->
+				<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/darkmode.js"></script>
+				<script type="text/javascript">
+				$('.dark-mode').on('click',function(){
+					$('.dark-mode').toggleClass('light-mode');
+					if (document.getElementById("mode").innerHTML=="Light Mode")
+						document.getElementById("mode").innerHTML="Dark Mode";
+					else 
+						document.getElementById("mode").innerHTML="Light Mode";
+				})
+				</script><div class = "icon-box">
+					<a class="icon-rss" href="/rss.xml">
+						<span>Subscribe</span>
+					</a>
+				</div><div class = "icon-box">
+					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
+						<span>Source Code</span>
+					</a>
+				</div></div>
+		</div>
+		
+	    <!--show contact me -->
+		<div class = "about-footer condensed social-container">
+	    <p class = "contact about-footer condensed">CONTACT ME</p>
+		<!-- put social link here -->
+	      <ul class="social about-footer condensed" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		<!--put timestamp here -->
+		<p class ="timestamp about-footer condensed">&copy; 2024</p>
+		</div>
+	  <!-- about box end here -->
+      </section>
+	  
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+<div class="post-container">
+	<div  class = "menu-meta condensed">
+		<!--put top menu here, display @ big screen (> $mobileW) -->
+		<div  class = "menu-logo">BLOG</div>
+		<div  class = "menu">
+			<a href="/blog/index.html">
+				<li class="icon-home">Home</li>
+			</a><a href="/archive">
+				<li class="icon-archive">Archives</li>
+			</a><a href="/category">
+				<li class="icon-tags">Categories</li>
+			</a><a href="/about">
+				<li class="icon-help-circled">About</li>
+			</a>
+		</div>
+		<!--put hide menu button here, display @ small screen (< $mobileW) -->
+		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
+		<!--put hide menu here, display @ small screen (< $mobileW) -->
+		<div class="context-menu">
+			<ul >
+				<li>
+					<a class="icon-home" href="/blog/index.html">Home</a>
+				</li><li>
+					<a class="icon-archive" href="/archive">Archives</a>
+				</li><li>
+					<a class="icon-tags" href="/category">Categories</a>
+				</li><li>
+					<a class="icon-help-circled" href="/about">About</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('.menu-btn').on('click',function(e){
+		
+	e.stopPropagation();
+	var tag = $('.context-menu');		
+	$(tag).toggleClass('context-menu-show');
+			
+	var flag = true;
+	/* hide the context-menu when other element is clicked */
+	$(document).bind('click',function(e){
+		var target = $(e.target);
+		if(target.closest(tag).length == 0 && flag == true){
+			$(tag).toggleClass('context-menu-show');
+			flag = false;
+		}
+	});
+})
+</script><div class="post-container" style = "margin-bottom:1rem">
+	<div class="posts-labelgroup" id="posts-labelgroup">
+		<h1 id="posts-label">POST</h1>
+	</div>  
+	<!-- post title -->
+	<h2 class="post-title-body">Javadoc 使用</h2>
+	<div class="post-meta">
+		<div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">Apr 22, 2012</div>
+		
+		<!-- sidebar button for displaying/hiding sidebar -->
+		<div class = "sidebar-btn-box"><a class="btn"></a></div>
+		
+	</div>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+<div class="post-viewer-container">
+	<div class="post post-fix-width">
+		<p>相信很多有经验的程序员都知道写注释的重要性，程序注释不仅仅是对代码进行说明，它其实也是代码本身组成的一部分。对于Java程序的开发者来说，更是如此。</p>
+
+<p>注释已经变成了代码API接口文档的一部分。这是因为Java提供了一个工具Javadoc，能够从注释中抽取信息，直接生成API的帮助文档。文档的格式就同Java SDK官方API文档保持一致。这对于善于写代码却头疼写API文档的人来说简直是一款神器。</p>
+
+<p>下面就简单的对Javadoc的使用做一个说明。使用Javadoc工具生成API文档时需要按照Java SDK的规定使用一系列的标签来完成，需要使用标签的地方有，</p>
+
+<ul>
+  <li>类（接口）的注释</li>
+  <li>构造函数的注释</li>
+  <li>方法的注释</li>
+  <li>全局变量的注释</li>
+  <li>字段/属性的注释</li>
+  <li>对外提供的接口注释</li>
+  <li>在循环和逻辑分支组成的代码中的注释</li>
+  <li>需要特殊说明的地方的注释</li>
+</ul>
+
+<h2 id="标签">标签</h2>
+<p>Java SDK规定按照如下的顺序添加标签。</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vi">@author</span> <span class="p">(</span><span class="n">classes</span> <span class="n">and</span> <span class="n">interfaces</span> <span class="n">only</span><span class="p">,</span> <span class="n">required</span><span class="p">)</span>
+<span class="vi">@version</span> <span class="p">(</span><span class="n">classes</span> <span class="n">and</span> <span class="n">interfaces</span> <span class="n">only</span><span class="p">,</span> <span class="n">required</span><span class="o">.</span> <span class="no">See</span> <span class="n">footnote</span> <span class="mi">1</span><span class="p">)</span>
+<span class="vi">@param</span> <span class="p">(</span><span class="nb">methods</span> <span class="n">and</span> <span class="n">constructors</span> <span class="n">only</span><span class="p">)</span>
+<span class="vi">@return</span> <span class="p">(</span><span class="nb">methods</span> <span class="n">only</span><span class="p">)</span>
+<span class="vi">@exception</span> <span class="p">(</span><span class="vi">@throws</span> <span class="n">is</span> <span class="n">a</span> <span class="n">synonym</span> <span class="n">added</span> <span class="k">in</span> <span class="no">Javadoc</span> <span class="mf">1.2</span><span class="p">)</span>
+<span class="vi">@see</span>
+<span class="vi">@since</span>
+<span class="vi">@serial</span> <span class="p">(</span><span class="n">or</span> <span class="vi">@serialField</span> <span class="n">or</span> <span class="vi">@serialData</span><span class="p">)</span>
+<span class="vi">@deprecated</span> <span class="p">(</span><span class="n">see</span> <span class="no">How</span> <span class="n">and</span> <span class="no">When</span> <span class="no">To</span> <span class="no">Deprecate</span> <span class="no">APIs</span><span class="p">)</span></code></pre></figure>
+
+<p>其中，</p>
+
+<h4 id="author-name-text">@author name-text</h4>
+<p>使用@Author选项时，将具有指定名称文本的<code class="language-plaintext highlighter-rouge">Author</code>条目添加到生成的文档中。文档注释可以包含多个@author标记。可以为每个@author标记指定一个名称，也可以为每个标记指定多个名称。</p>
+<h4 id="deprecated-deprecated-text">@deprecated deprecated-text</h4>
+<p>从JDK 5.0开始，可以使用@Deprecated指示不应再使用此API（即使它可能继续工作）。Javadoc工具将不推荐的文本移到主描述前面，将其放在斜体中，并在其前面加上一个粗体警告：“不推荐”。此标记在所有文档注释中都有效：<code class="language-plaintext highlighter-rouge">overview</code>、<code class="language-plaintext highlighter-rouge">package</code>、<code class="language-plaintext highlighter-rouge">class</code>、<code class="language-plaintext highlighter-rouge">interface</code>、<code class="language-plaintext highlighter-rouge">constructor</code>、<code class="language-plaintext highlighter-rouge">method</code>和<code class="language-plaintext highlighter-rouge">field</code>。</p>
+<h4 id="version">@version</h4>
+<p>对类的说明 ，标明该类模块的版本。默认为1.0</p>
+<h4 id="code--text">{@code  text}</h4>
+<p>等同于<code>{@literal}</code>. 将文本标记为代码样式的文本，一般在Javadoc中只要涉及到类名或者方法名，都需要使用@code进行标记。</p>
+<h4 id="docroot">{@docRoot}</h4>
+<p>表示从任何生成的页到生成的文档（目标）根目录的相对路径。</p>
+<h4 id="exception--class-name--description">@exception  class-name  description</h4>
+<p>按照官方文档解释：是@throws同义词，没有任何区分。具体说明在@throws里再讲。</p>
+<h4 id="link--packageclassmember--label">{@link  package.class#member  label}</h4>
+<p>插入带有可见文本标签的内联链接，该链接指向引用类的指定包、类或成员名称的文档。此标记在所有文档注释中都有效。这个标记非常类似于@see–两者都需要相同的引用，并且接受完全相同的语法包类成员和标签。主要的区别是{@link}生成一个内联链接，而不是将链接放在“See Also”部分。</p>
+<h4 id="value-value-text">@value value-text</h4>
+<p>用于标注在常量上，{@value} 用于表示常量的值。</p>
+<h4 id="param--parameter-name-description">@param  parameter-name description</h4>
+<p>后面跟参数名，再跟参数描述，对方法参数的描述。只对方法的注释有效。</p>
+<h4 id="return--description">@return  description</h4>
+<p>该标签标记方法的返回值，只对方法的注释有效。</p>
+<h4 id="see--reference">@see  reference</h4>
+<p>@see 一般用于标记该类相关联的类,@see即可以用在类上，也可以用在方法上。</p>
+<h4 id="serial--field-description--include--exclude">@serial  field-description | include | exclude</h4>
+<p>用于默认可序列化字段的文档注释中。可选字段描述应解释字段的含义并列出可接受的值。</p>
+<h4 id="serialdata--data-description">@serialData  data-description</h4>
+<p>data-description数据描述以序列化形式记录数据的类型和顺序。这个标签很少使用，目前我基本上没有用到过。</p>
+<h4 id="since--since-text">@since  since-text</h4>
+<p>根据官方文档解释，@since 表达的是被标记元素是哪个发布版本引入的，一般后面跟版本号，也可以跟是一个时间，表示文件当前创建的时间。该标签对所有Javadoc注释类型有效。</p>
+<h4 id="throws--class-name--description">@throws  class-name  description</h4>
+<p>异常描述 , 用于描述方法内部可能抛出的异常。@throws和@exception标记是同义词。在生成的文档中添加一个<code class="language-plaintext highlighter-rouge">Throws</code>标签，其中包含类名和说明文本。类名是该方法可能引发的异常的名称。此标签仅在方法或构造函数的文档注释中有效。对于相同或不同的异常，可以在给定的文档注释中使用多个@throws标记。
+为了确保记录所有选中的异常，如果throws子句中的异常不存在@throws标记，Javadoc工具会自动将该异常添加到HTML输出中（没有描述），就好像它是用@throws标记记录的一样。</p>
+
+<p>更多详情可以参考</p>
+
+<p><a href="https://www.oracle.com/technical-resources/articles/java/javadoc-tool.html">How to Write Doc Comments for the Javadoc Tool</a></p>
+
+<p>和 <a href="https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javadoc.html#author">The Java API Documentation Generator</a>.</p>
+
+<h2 id="命令">命令</h2>
+<p>Javadoc的命令行语法如下：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">    <span class="n">javadoc</span> <span class="p">[</span> <span class="n">options</span> <span class="p">]</span> <span class="p">[</span> <span class="n">packagenames</span> <span class="p">]</span> <span class="p">[</span> <span class="n">sourcefiles</span> <span class="p">]</span> <span class="p">[</span> <span class="vi">@files</span> <span class="p">]</span></code></pre></figure>
+
+<p>参数可以按照任意顺序排列。下面分别就这些参数和相关的一些内容进行说明：</p>
+<ul>
+  <li>Packagenames 包列表。这个选项可以是一系列的包名（用空格隔开），例如<code class="language-plaintext highlighter-rouge">java.lang java.lang.reflect java.awt</code>。不过，因为javadoc不递归作用于子包，不允许对包名使用通配符；所以你必须显示地列出希望建立文档的每一个包。</li>
+  <li>Sourcefiles 源文件列表。这个选项可以是一系列的源文件名（用空格隔开），可以使用通配符。javadoc允许四种源文件：类源代码文件、包描述文件、总体概述文件、其他杂文件。</li>
+  <li>类源代码文件：类或者接口的源代码文件。</li>
+  <li>包描述文件：每一个包都可以有自己的包描述文件。包描述文件的名称必须是<code class="language-plaintext highlighter-rouge">package.html</code>，与包的.java文件放置在一起。包描述文件的内 容通常是使用HTML标记写的文档。javadoc执行时将自动寻找包描述文件。如果找到，javadoc将首先对描述文件中&lt;body&gt; &lt;/body&gt;之间的内容进行处理，然后把处理结果放到该包的Package Summary页面中，最后把包描述文件的第一句（紧靠&lt;body&gt;）放到输出的Overview summary页面中，并在语句前面加上该包的包名。</li>
+  <li>总体概述文件：javadoc可以创建一个总体概述文件描述整个应用或者所有包。总体概述文件可以被任意命名，也可以放置到任意位置。</li>
+  <li>其他文件：这些文件通常是指与javadoc输出的HTML文件相关的一些图片文件、Java源代码文件（.java）、Java程序 （.class）、Java小程序（Applets）、HTML文件。这些文件必须放在<code class="language-plaintext highlighter-rouge">doc-file</code>目录中。</li>
+</ul>
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box" id = "sidebar">
+		    
+				<p class = "sidebar-title">关于文章</p>
+			
+			
+				
+				<p class = "sidebar-about-content sidebar-font-big">本文内容是基于作者对 Javadoc 的学习笔记，文中对 javadoc 使用做了详细说明。</p>
+				
+				
+				<p class = "icon-link sidebar-about-content sidebar-font-medium" style = "margin-top:40px">文章作者: <a href="https://github.com/gangdong">david.dong</a></p>
+				
+				<p class = "icon-hourglass sidebar-about-content sidebar-font-medium">阅读时间：8 mins</p>
+				<p class = "icon-book sidebar-about-content sidebar-font-medium">全文字数：2965</p>
+				
+					<p class = "icon-th-list sidebar-about-content sidebar-font-medium">关键字: Javadoc</p>
+				
+				
+					<p class = "icon-hashtag sidebar-about-content sidebar-font-medium">标签: 
+					
+					<a href="/category#Java">Java&nbsp;</a>
+					
+					</p>
+				
+			
+		</div>
+		
+		
+	    <div class="sidebar-toc-box">
+			
+			<p class = "sidebar-title">文章目录</p>
+			<span class = "sidebar-font-medium sidebar-toc-content"><ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#标签">标签</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#author-name-text">@author name-text</a></li>
+<li class="toc-entry toc-h4"><a href="#deprecated-deprecated-text">@deprecated deprecated-text</a></li>
+<li class="toc-entry toc-h4"><a href="#version">@version</a></li>
+<li class="toc-entry toc-h4"><a href="#code--text">{@code  text}</a></li>
+<li class="toc-entry toc-h4"><a href="#docroot">{@docRoot}</a></li>
+<li class="toc-entry toc-h4"><a href="#exception--class-name--description">@exception  class-name  description</a></li>
+<li class="toc-entry toc-h4"><a href="#link--packageclassmember--label">{@link  package.class#member  label}</a></li>
+<li class="toc-entry toc-h4"><a href="#value-value-text">@value value-text</a></li>
+<li class="toc-entry toc-h4"><a href="#param--parameter-name-description">@param  parameter-name description</a></li>
+<li class="toc-entry toc-h4"><a href="#return--description">@return  description</a></li>
+<li class="toc-entry toc-h4"><a href="#see--reference">@see  reference</a></li>
+<li class="toc-entry toc-h4"><a href="#serial--field-description--include--exclude">@serial  field-description | include | exclude</a></li>
+<li class="toc-entry toc-h4"><a href="#serialdata--data-description">@serialData  data-description</a></li>
+<li class="toc-entry toc-h4"><a href="#since--since-text">@since  since-text</a></li>
+<li class="toc-entry toc-h4"><a href="#throws--class-name--description">@throws  class-name  description</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#命令">命令</a></li>
+</ul></span>
+			
+		</div>
+		
+	</div>
+	 
+</div>
+<!-- no sidebar, use flex width box! -->
+<br>
+<div class="post-container">
+    <!-- post categories box! here  -->
+    
+   <div class="post-categories-meta">
+		<div class="post-categories-box post-categories-box-hide"><a href="/category#Java">Java</a></div>
+	</div>
+  
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">分享:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+	
+		<span class = "icon-eye tooltip"><p class = "tooltiptext" style = "left:0%; margin-left: 0px">阅读量</p><span id="busuanzi_value_page_pv"></span></span>
+		
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">相关文章</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/java/2022/04/22/Java-threadSynchronization.html">浅谈 Java 线程同步技术</a></li>
+			
+			<li><a href="/java/2013/05/07/Java-com.html">Java 调用 COM 组件的方法</a></li>
+			
+			<li><a href="/java/2013/03/01/Java-jdom.html">Java JDOM 库的使用</a></li>
+			
+			<li><a href="/java/2012/12/17/Java-jxl.html">Java 使用 JXL 库编辑 Excel 文档</a></li>
+			
+			<li><a href="/java/2012/10/21/Java-serialcom.html">Java 串口编程</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">继续阅读</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta"><div class="navigation-bar">
+	 
+	 <a href="/java/2012/03/18/Java-Iterable.html"><span>前一章</span><br>Java 的 Iterable 接口使用</a>
+	 
+    </div><div class="navigation-bar"> 
+	 
+	 <a href="/java/2012/06/01/Java-runnable.html"><span>后一章</span><br>Java 的线程和 Runnable 接口</a>
+	 
+    </div></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'gangdong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9&domready=1"></script>
+
+
+<!-- sidebar button, toggle display/hide sidebar -->
+<script type="text/javascript">
+        $('.btn').on('click',function(){
+            $('.btn').toggleClass('btnc');
+            $('.sidebar-container').toggleClass('sidebar-container-hide');
+        })
+</script>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=G-3MXGF3F8QN"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-3MXGF3F8QN');
+	</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></body>
+</html>

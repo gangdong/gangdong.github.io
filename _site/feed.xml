@@ -1,0 +1,1687 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-02-12T11:28:13+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">David Dong’s Blog</title><subtitle>This is David Dong's blog. It's about program and design, life and sharing. Let's explore more together. | David，Software，Developer.Designer | 关于程序与设计 - 生活与分享 | 这里是董刚 的个人博客，让我们一起探索更多。</subtitle><author><name>David Dong</name></author><entry><title type="html">Rust startup - environment setup</title><link href="http://localhost:4000/rust/2024/02/10/Rust-startup.html" rel="alternate" type="text/html" title="Rust startup - environment setup" /><published>2024-02-10T17:24:55+08:00</published><updated>2024-02-10T17:24:55+08:00</updated><id>http://localhost:4000/rust/2024/02/10/Rust-startup</id><content type="html" xml:base="http://localhost:4000/rust/2024/02/10/Rust-startup.html"><![CDATA[<p>Rust is hot, I’ve heard a lot of people talking about the Rust language, and it’s powered me enough to learn more about it!   <!--more--></p>
+
+<p>This is the first note to document the process of setting up the development environment, mainly choosing to develop under Linux.</p>
+
+<h2 id="environments">Environments</h2>
+
+<ul>
+  <li>OS - ubuntu 16.04</li>
+  <li>C Compiler - x86_64-unknown-linux-gnu</li>
+  <li>IDE - VS Code</li>
+</ul>
+
+<h2 id="setup">Setup</h2>
+
+<h3 id="rust-compile-environment-and-related-tools-installation">Rust Compile environment and related tools installation</h3>
+
+<p>The rust development environment consists of rustup (toolchain management tool), cargo (package manager and build system) and rustc (compiler).</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span> <span class="n">export</span> <span class="n">RUSTUP_DIST_SERVER</span><span class="o">=</span><span class="n">https</span><span class="o">:</span><span class="c1">//mirrors.ustc.edu.cn/rust-static</span>
+<span class="err">$</span> <span class="n">export</span> <span class="n">RUSTUP_UPDATE_ROOT</span><span class="o">=</span><span class="n">https</span><span class="o">:</span><span class="c1">//mirrors.ustc.edu.cn/rust-static/rustup</span>
+<span class="err">$</span> <span class="n">sudo</span> <span class="n">curl</span> <span class="n">https</span><span class="o">:</span><span class="c1">//sh.rustup.rs -sSf | sh</span>
+</code></pre></div></div>
+
+<p>choose option 1</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&amp;</span> <span class="n">david</span> <span class="err">@</span> <span class="n">david</span><span class="o">-</span><span class="n">VirtualBox</span> <span class="n">in</span> <span class="o">~</span> <span class="mi">0</span> <span class="p">[</span><span class="mi">15</span><span class="o">:</span><span class="mi">51</span><span class="o">:</span><span class="mi">08</span><span class="p">]</span>
+<span class="o">~</span> <span class="n">curl</span> <span class="o">--</span><span class="n">proto</span> <span class="err">'</span><span class="o">=</span><span class="n">https</span><span class="err">'</span> <span class="o">--</span><span class="n">tlsv1</span><span class="p">.</span><span class="mi">2</span> <span class="o">-</span><span class="n">sSf</span> <span class="n">https</span><span class="o">:</span><span class="c1">//sh.rustup.rs | sh                                                                 0 [15:51:08]</span>
+<span class="n">info</span><span class="o">:</span> <span class="n">downloading</span> <span class="n">installer</span>
+
+<span class="n">Welcome</span> <span class="n">to</span> <span class="n">Rust</span><span class="o">!</span>
+
+<span class="n">This</span> <span class="n">will</span> <span class="n">download</span> <span class="n">and</span> <span class="n">install</span> <span class="n">the</span> <span class="n">official</span> <span class="n">compiler</span> <span class="k">for</span> <span class="n">the</span> <span class="n">Rust</span>
+<span class="n">programming</span> <span class="n">language</span><span class="p">,</span> <span class="n">and</span> <span class="n">its</span> <span class="n">package</span> <span class="n">manager</span><span class="p">,</span> <span class="n">Cargo</span><span class="p">.</span>
+
+<span class="n">Rustup</span> <span class="n">metadata</span> <span class="n">and</span> <span class="n">toolchains</span> <span class="n">will</span> <span class="n">be</span> <span class="n">installed</span> <span class="n">into</span> <span class="n">the</span> <span class="n">Rustup</span>
+<span class="n">home</span> <span class="n">directory</span><span class="p">,</span> <span class="n">located</span> <span class="n">at</span><span class="o">:</span>
+
+  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">david</span><span class="o">/</span><span class="p">.</span><span class="n">rustup</span>
+
+<span class="n">This</span> <span class="n">can</span> <span class="n">be</span> <span class="n">modified</span> <span class="n">with</span> <span class="n">the</span> <span class="n">RUSTUP_HOME</span> <span class="n">environment</span> <span class="n">variable</span><span class="p">.</span>
+
+<span class="n">The</span> <span class="n">Cargo</span> <span class="n">home</span> <span class="n">directory</span> <span class="n">is</span> <span class="n">located</span> <span class="n">at</span><span class="o">:</span>
+
+  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">david</span><span class="o">/</span><span class="p">.</span><span class="n">cargo</span>
+
+<span class="n">This</span> <span class="n">can</span> <span class="n">be</span> <span class="n">modified</span> <span class="n">with</span> <span class="n">the</span> <span class="n">CARGO_HOME</span> <span class="n">environment</span> <span class="n">variable</span><span class="p">.</span>
+
+<span class="n">The</span> <span class="n">cargo</span><span class="p">,</span> <span class="n">rustc</span><span class="p">,</span> <span class="n">rustup</span> <span class="n">and</span> <span class="n">other</span> <span class="n">commands</span> <span class="n">will</span> <span class="n">be</span> <span class="n">added</span> <span class="n">to</span>
+<span class="n">Cargo</span><span class="err">'</span><span class="n">s</span> <span class="n">bin</span> <span class="n">directory</span><span class="p">,</span> <span class="n">located</span> <span class="n">at</span><span class="o">:</span>  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">david</span><span class="o">/</span><span class="p">.</span><span class="n">cargo</span><span class="o">/</span><span class="n">binThis</span> <span class="n">path</span> <span class="n">will</span> <span class="n">then</span> <span class="n">be</span> <span class="n">added</span> <span class="n">to</span> <span class="n">your</span> <span class="n">PATH</span> <span class="n">environment</span> <span class="n">variable</span> <span class="n">bymodifying</span> <span class="n">the</span> <span class="n">profile</span> <span class="n">files</span> <span class="n">located</span> <span class="n">at</span><span class="o">:</span>  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">david</span><span class="o">/</span><span class="p">.</span><span class="n">profile</span>  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">david</span><span class="o">/</span><span class="p">.</span><span class="n">bashrcYou</span> <span class="n">can</span> <span class="n">uninstall</span> <span class="n">at</span> <span class="n">any</span> <span class="n">time</span> <span class="n">with</span> <span class="n">rustup</span> <span class="n">self</span> <span class="n">uninstall</span> <span class="n">andthese</span> <span class="n">changes</span> <span class="n">will</span> <span class="n">be</span> <span class="n">reverted</span><span class="p">.</span><span class="n">Current</span> <span class="n">installation</span> <span class="n">options</span><span class="o">:</span>   <span class="k">default</span> <span class="n">host</span> <span class="n">triple</span><span class="o">:</span> <span class="n">x86_64</span><span class="o">-</span><span class="n">unknown</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span>     <span class="k">default</span> <span class="n">toolchain</span><span class="o">:</span> <span class="n">stable</span> <span class="p">(</span><span class="k">default</span><span class="p">)</span>               <span class="n">profile</span><span class="o">:</span> <span class="k">default</span>  <span class="n">modify</span> <span class="n">PATH</span> <span class="n">variable</span><span class="o">:</span> <span class="n">yes1</span><span class="p">)</span> <span class="n">Proceed</span> <span class="n">with</span> <span class="n">installation</span> <span class="p">(</span><span class="k">default</span><span class="p">)</span><span class="mi">2</span><span class="p">)</span> <span class="n">Customize</span> <span class="n">installation3</span><span class="p">)</span> <span class="n">Cancel</span> <span class="n">installation</span><span class="o">&gt;</span><span class="mi">1</span><span class="n">info</span><span class="o">:</span> <span class="n">profile</span> <span class="n">set</span> <span class="n">to</span> <span class="err">'</span><span class="k">default</span><span class="err">'</span><span class="n">info</span><span class="o">:</span> <span class="k">default</span> <span class="n">host</span> <span class="n">triple</span> <span class="n">is</span> <span class="n">x86_64</span><span class="o">-</span><span class="n">unknown</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnuinfo</span><span class="o">:</span> <span class="n">syncing</span> <span class="n">channel</span> <span class="n">updates</span> <span class="k">for</span> <span class="err">'</span><span class="n">stable</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">unknown</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span><span class="err">'</span><span class="mi">712</span><span class="p">.</span><span class="mi">1</span> <span class="n">KiB</span> <span class="o">/</span> <span class="mi">712</span><span class="p">.</span><span class="mi">1</span> <span class="n">KiB</span> <span class="p">(</span><span class="mi">100</span> <span class="o">%</span><span class="p">)</span>  <span class="mi">78</span><span class="p">.</span><span class="mi">6</span> <span class="n">KiB</span><span class="o">/</span><span class="n">s</span> <span class="n">in</span>  <span class="mi">7</span><span class="n">s</span> <span class="n">ETA</span><span class="o">:</span>  <span class="mi">0</span><span class="n">sinfo</span><span class="o">:</span> <span class="n">latest</span> <span class="n">update</span> <span class="n">on</span> <span class="mi">2024</span><span class="o">-</span><span class="mo">02</span><span class="o">-</span><span class="mi">08</span><span class="p">,</span> <span class="n">rust</span> <span class="n">version</span> <span class="mi">1</span><span class="p">.</span><span class="mi">76</span><span class="p">.</span><span class="mi">0</span> <span class="p">(</span><span class="mo">07</span><span class="n">dca489a</span> <span class="mi">2024</span><span class="o">-</span><span class="mo">02</span><span class="o">-</span><span class="mo">04</span><span class="p">)</span><span class="n">info</span><span class="o">:</span> <span class="n">downloading</span> <span class="n">component</span> <span class="err">'</span><span class="n">cargo</span><span class="err">'</span>  <span class="mi">8</span><span class="p">.</span><span class="mi">5</span> <span class="n">MiB</span> <span class="o">/</span>   <span class="mi">8</span><span class="p">.</span><span class="mi">5</span> <span class="n">MiB</span> <span class="p">(</span><span class="mi">100</span> <span class="o">%</span><span class="p">)</span>  <span class="mi">80</span><span class="p">.</span><span class="mi">0</span> <span class="n">KiB</span><span class="o">/</span><span class="n">s</span> <span class="n">in</span>  <span class="mi">1</span><span class="n">m</span> <span class="mi">44</span><span class="n">s</span> <span class="n">ETA</span><span class="o">:</span>  <span class="mi">0</span><span class="n">sinfo</span><span class="o">:</span> <span class="n">downloading</span> <span class="n">component</span> <span class="err">'</span><span class="n">clippy</span><span class="err">'</span>  <span class="mi">2</span><span class="p">.</span><span class="mi">1</span> <span class="n">MiB</span> <span class="o">/</span>   <span class="mi">2</span><span class="p">.</span><span class="mi">1</span> <span class="n">MiB</span> <span class="p">(</span><span class="mi">100</span> <span class="o">%</span><span class="p">)</span>  <span class="mi">95</span><span class="p">.</span><span class="mi">0</span> <span class="n">KiB</span><span class="o">/</span><span class="n">s</span> <span class="n">in</span> <span class="mi">23</span><span class="n">s</span> <span class="n">ETA</span><span class="o">:</span>  <span class="mi">0</span><span class="n">sinfo</span><span class="o">:</span> <span class="n">downloading</span> <span class="n">component</span> <span class="err">'</span><span class="n">rust</span><span class="o">-</span><span class="n">docs</span><span class="err">'</span> <span class="mi">14</span><span class="p">.</span><span class="mi">7</span> <span class="n">MiB</span> <span class="o">/</span>  <span class="mi">14</span><span class="p">.</span><span class="mi">7</span> <span class="n">MiB</span> <span class="p">(</span><span class="mi">100</span> <span class="o">%</span><span class="p">)</span> <span class="mi">117</span><span class="p">.</span><span class="mi">4</span> <span class="n">KiB</span><span class="o">/</span><span class="n">s</span> <span class="n">in</span>  <span class="mi">2</span><span class="n">m</span> <span class="mi">45</span><span class="n">s</span> <span class="n">ETA</span><span class="o">:</span>  <span class="mi">0</span><span class="n">s</span>    <span class="n">info</span><span class="o">:</span> <span class="n">downloading</span> <span class="n">component</span> <span class="err">'</span><span class="n">rust</span><span class="o">-</span><span class="n">std</span><span class="err">'</span> <span class="mi">23</span><span class="p">.</span><span class="mi">9</span> <span class="n">MiB</span> <span class="o">/</span>  <span class="mi">23</span><span class="p">.</span><span class="mi">9</span> <span class="n">MiB</span> <span class="p">(</span><span class="mi">100</span> <span class="o">%</span><span class="p">)</span>  <span class="mi">98</span><span class="p">.</span><span class="mi">2</span> <span class="n">KiB</span><span class="o">/</span><span class="n">s</span> <span class="n">in</span>  <span class="mi">4</span><span class="n">m</span> <span class="mi">21</span><span class="n">s</span> <span class="n">ETA</span><span class="o">:</span>  <span class="mi">0</span><span class="n">s</span>    <span class="n">info</span><span class="o">:</span> <span class="n">downloading</span> <span class="n">component</span> <span class="err">'</span><span class="n">rustc</span><span class="err">'</span> <span class="mi">62</span><span class="p">.</span><span class="mi">3</span> <span class="n">MiB</span> <span class="o">/</span>  <span class="mi">62</span><span class="p">.</span><span class="mi">3</span> <span class="n">MiB</span> <span class="p">(</span><span class="mi">100</span> <span class="o">%</span><span class="p">)</span> <span class="mi">135</span><span class="p">.</span><span class="mi">4</span> <span class="n">KiB</span><span class="o">/</span><span class="n">s</span> <span class="n">in</span> <span class="mi">12</span><span class="n">m</span> <span class="mi">15</span><span class="n">s</span> <span class="n">ETA</span><span class="o">:</span>  <span class="mi">0</span><span class="n">s</span>    <span class="n">info</span><span class="o">:</span> <span class="n">downloading</span> <span class="n">component</span> <span class="err">'</span><span class="n">rustfmt</span><span class="err">'</span>  <span class="mi">2</span><span class="p">.</span><span class="mi">3</span> <span class="n">MiB</span> <span class="o">/</span>   <span class="mi">2</span><span class="p">.</span><span class="mi">3</span> <span class="n">MiB</span> <span class="p">(</span><span class="mi">100</span> <span class="o">%</span><span class="p">)</span>  <span class="mi">86</span><span class="p">.</span><span class="mi">2</span> <span class="n">KiB</span><span class="o">/</span><span class="n">s</span> <span class="n">in</span> <span class="mi">30</span><span class="n">s</span> <span class="n">ETA</span><span class="o">:</span>  <span class="mi">0</span><span class="n">s</span> <span class="n">info</span><span class="o">:</span> <span class="n">installing</span> <span class="n">component</span> <span class="err">'</span><span class="n">cargo</span><span class="err">'</span><span class="n">info</span><span class="o">:</span> <span class="n">installing</span> <span class="n">component</span> <span class="err">'</span><span class="n">clippy</span><span class="err">'</span><span class="n">info</span><span class="o">:</span> <span class="n">installing</span> <span class="n">component</span> <span class="err">'</span><span class="n">rust</span><span class="o">-</span><span class="n">docs</span><span class="err">'</span> <span class="mi">14</span><span class="p">.</span><span class="mi">7</span> <span class="n">MiB</span> <span class="o">/</span>  <span class="mi">14</span><span class="p">.</span><span class="mi">7</span> <span class="n">MiB</span> <span class="p">(</span><span class="mi">100</span> <span class="o">%</span><span class="p">)</span>   <span class="mi">5</span><span class="p">.</span><span class="mi">0</span> <span class="n">MiB</span><span class="o">/</span><span class="n">s</span> <span class="n">in</span>  <span class="mi">2</span><span class="n">s</span> <span class="n">ETA</span><span class="o">:</span>  <span class="mi">0</span><span class="n">sinfo</span><span class="o">:</span> <span class="n">installing</span> <span class="n">component</span> <span class="err">'</span><span class="n">rust</span><span class="o">-</span><span class="n">std</span><span class="err">'</span> <span class="mi">23</span><span class="p">.</span><span class="mi">9</span> <span class="n">MiB</span> <span class="o">/</span>  <span class="mi">23</span><span class="p">.</span><span class="mi">9</span> <span class="n">MiB</span> <span class="p">(</span><span class="mi">100</span> <span class="o">%</span><span class="p">)</span>  <span class="mi">13</span><span class="p">.</span><span class="mi">2</span> <span class="n">MiB</span><span class="o">/</span><span class="n">s</span> <span class="n">in</span>  <span class="mi">1</span><span class="n">s</span> <span class="n">ETA</span><span class="o">:</span>  <span class="mi">0</span><span class="n">sinfo</span><span class="o">:</span> <span class="n">installing</span> <span class="n">component</span> <span class="err">'</span><span class="n">rustc</span><span class="err">'</span> <span class="mi">62</span><span class="p">.</span><span class="mi">3</span> <span class="n">MiB</span> <span class="o">/</span>  <span class="mi">62</span><span class="p">.</span><span class="mi">3</span> <span class="n">MiB</span> <span class="p">(</span><span class="mi">100</span> <span class="o">%</span><span class="p">)</span>  <span class="mi">14</span><span class="p">.</span><span class="mi">9</span> <span class="n">MiB</span><span class="o">/</span><span class="n">s</span> <span class="n">in</span>  <span class="mi">4</span><span class="n">s</span> <span class="n">ETA</span><span class="o">:</span>  <span class="mi">0</span><span class="n">sinfo</span><span class="o">:</span> <span class="n">installing</span> <span class="n">component</span> <span class="err">'</span><span class="n">rustfmt</span><span class="err">'</span><span class="n">info</span><span class="o">:</span> <span class="k">default</span> <span class="n">toolchain</span> <span class="n">set</span> <span class="n">to</span> <span class="err">'</span><span class="n">stable</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">unknown</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span><span class="err">'</span>  <span class="n">stable</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">unknown</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span> <span class="n">installed</span> <span class="o">-</span> <span class="n">rustc</span> <span class="mi">1</span><span class="p">.</span><span class="mi">76</span><span class="p">.</span><span class="mi">0</span> <span class="p">(</span><span class="mo">07</span><span class="n">dca489a</span> <span class="mi">2024</span><span class="o">-</span><span class="mo">02</span><span class="o">-</span><span class="mo">04</span><span class="p">)</span><span class="n">Rust</span> <span class="n">is</span> <span class="n">installed</span> <span class="n">now</span><span class="p">.</span> <span class="n">Great</span><span class="o">!</span><span class="n">To</span> <span class="n">get</span> <span class="n">started</span> <span class="n">you</span> <span class="n">may</span> <span class="n">need</span> <span class="n">to</span> <span class="n">restart</span> <span class="n">your</span> <span class="n">current</span> <span class="n">shell</span><span class="p">.</span><span class="n">This</span> <span class="n">would</span> <span class="n">reload</span> <span class="n">your</span> <span class="n">PATH</span> <span class="n">environment</span> <span class="n">variable</span> <span class="n">to</span> <span class="n">includeCargo</span><span class="err">'</span><span class="n">s</span> <span class="n">bin</span> <span class="n">directory</span> <span class="p">(</span><span class="err">$</span><span class="n">HOME</span><span class="o">/</span><span class="p">.</span><span class="n">cargo</span><span class="o">/</span><span class="n">bin</span><span class="p">).</span>
+
+<span class="n">To</span> <span class="n">configure</span> <span class="n">your</span> <span class="n">current</span> <span class="n">shell</span><span class="p">,</span> <span class="n">run</span><span class="o">:</span>
+<span class="n">source</span> <span class="s">"$HOME/.cargo/env"</span>
+
+<span class="o">&amp;</span> <span class="n">david</span> <span class="err">@</span> <span class="n">david</span><span class="o">-</span><span class="n">VirtualBox</span> <span class="n">in</span> <span class="o">~</span> <span class="mi">0</span> <span class="p">[</span><span class="mi">16</span><span class="o">:</span><span class="mi">20</span><span class="o">:</span><span class="mi">53</span><span class="p">]</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>The Rustup metadata and toolchain will be installed in the Rustup home directory located at /home/david/.rustup, which can be modified using the RUSTUP_HOME environment variable.</p>
+  </li>
+  <li>
+    <p>Cargo’s home directory is located at /home/david/.cargo which can be modified via the CARGO_HOME environment variable.</p>
+  </li>
+  <li>
+    <p>cargo, rustc, rustup and other commands will be added to cargo’s bin directory, which is located in /home/david/.cargo/bin</p>
+  </li>
+  <li>
+    <p>add this path to the PATH environment variable /home/david/.profile or /home/david/. bashrc</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.cargo/bin:</span><span class="nv">$PATH</span><span class="s2">
+</span></code></pre></div>    </div>
+  </li>
+  <li>
+    <p>I used fish shell, so need to add environment variable PATH in ~/.config/fish/config.fish</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">set</span> <span class="nt">-x</span> PATH ~/.cargo/bin <span class="nv">$PATH</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Verify the installation</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> <span class="n">rustc</span> <span class="o">-</span><span class="n">V</span>
+<span class="n">rustc</span> <span class="mi">1</span><span class="p">.</span><span class="mi">76</span><span class="p">.</span><span class="mi">0</span> <span class="p">(</span><span class="mo">07</span><span class="n">dca489a</span> <span class="mi">2024</span><span class="o">-</span><span class="mo">02</span><span class="o">-</span><span class="mo">04</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="n">cargo</span> <span class="o">-</span><span class="n">V</span>
+<span class="n">cargo</span> <span class="mi">1</span><span class="p">.</span><span class="mi">76</span><span class="p">.</span><span class="mi">0</span> <span class="p">(</span><span class="n">c84b36747</span> <span class="mi">2024</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">18</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="n">rustup</span> <span class="o">-</span><span class="n">V</span>
+<span class="n">rustup</span> <span class="mi">1</span><span class="p">.</span><span class="mi">26</span><span class="p">.</span><span class="mi">0</span> <span class="p">(</span><span class="mi">5</span><span class="n">af9b9484</span> <span class="mi">2023</span><span class="o">-</span><span class="mo">04</span><span class="o">-</span><span class="mo">05</span><span class="p">)</span>
+<span class="n">info</span><span class="o">:</span> <span class="n">This</span> <span class="n">is</span> <span class="n">the</span> <span class="n">version</span> <span class="k">for</span> <span class="n">the</span> <span class="n">rustup</span> <span class="n">toolchain</span> <span class="n">manager</span><span class="p">,</span> <span class="n">not</span> <span class="n">the</span> <span class="n">rustc</span> <span class="n">compiler</span><span class="p">.</span>
+<span class="n">info</span><span class="o">:</span> <span class="n">The</span> <span class="n">currently</span> <span class="n">active</span> <span class="err">`</span><span class="n">rustc</span><span class="err">`</span> <span class="n">version</span> <span class="n">is</span> <span class="err">`</span><span class="n">rustc</span> <span class="mi">1</span><span class="p">.</span><span class="mi">76</span><span class="p">.</span><span class="mi">0</span> <span class="p">(</span><span class="mo">07</span><span class="n">dca489a</span> <span class="mi">2024</span><span class="o">-</span><span class="mo">02</span><span class="o">-</span><span class="mo">04</span><span class="p">)</span><span class="err">`</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>The rust toolchain management tool rustup, the package manager cargo, and the compiler rustc are now installed!</p>
+
+<ul>
+  <li>
+    <p>unstallation command</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rustup</span> <span class="n">self</span> <span class="n">uninstall</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="vscode-configuration-development-rust">VSCODE configuration development Rust</h3>
+
+<p>Install the following plug-ins</p>
+
+<ul>
+  <li>rust-analyzer</li>
+  <li>CodeLLDB</li>
+  <li>Code Runner</li>
+</ul>
+
+<h3 id="vscode-debugging-rust-code">Vscode debugging Rust code</h3>
+
+<ul>
+  <li>
+    <p>Create a project directory like first_prj</p>
+  </li>
+  <li>
+    <p>Go to first_prj</p>
+  </li>
+  <li>
+    <p>Run <code class="language-plaintext highlighter-rouge">cargo new first_prj_name</code> in terminal, it will create project first_prj_name directory and src/main. rs</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Welcome</span> <span class="n">to</span> <span class="n">fish</span><span class="p">,</span> <span class="n">the</span> <span class="n">friendly</span> <span class="n">interactive</span> <span class="n">shell</span>
+<span class="n">Type</span> <span class="n">help</span> <span class="k">for</span> <span class="n">instructions</span> <span class="n">on</span> <span class="n">how</span> <span class="n">to</span> <span class="n">use</span> <span class="n">fish</span>
+  
+<span class="o">&amp;</span> <span class="n">david</span> <span class="err">@</span> <span class="n">ubuntu</span> <span class="n">in</span> <span class="o">~/</span><span class="n">code</span><span class="o">/</span><span class="n">rust</span><span class="o">/</span><span class="n">first_proj</span> <span class="mi">0</span> <span class="p">[</span><span class="mi">19</span><span class="o">:</span><span class="mo">06</span><span class="o">:</span><span class="mi">14</span><span class="p">]</span>
+<span class="o">~</span> <span class="n">cargo</span> <span class="n">new</span> <span class="n">greeting</span>
+     <span class="n">Created</span> <span class="n">binary</span> <span class="p">(</span><span class="n">application</span><span class="p">)</span> <span class="err">`</span><span class="n">greeting</span><span class="err">`</span> <span class="n">package</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>cd . /first_prj_name</p>
+  </li>
+  <li>
+    <p>run <code class="language-plaintext highlighter-rouge">cargo build</code> to compile the code</p>
+
+    <div class="language-cs highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">&amp;</span> <span class="n">david</span> <span class="err">@</span> <span class="n">ubuntu</span> <span class="k">in</span> <span class="p">~/</span><span class="n">code</span><span class="p">/</span><span class="n">rust</span><span class="p">/</span><span class="n">first_proj</span><span class="p">/</span><span class="nf">greeting</span> <span class="p">(</span><span class="n">master</span> <span class="err">…</span><span class="m">3</span><span class="p">)</span> <span class="m">0</span> <span class="p">[</span><span class="m">19</span><span class="p">:</span><span class="m">07</span><span class="p">:</span><span class="m">15</span><span class="p">]</span>
+<span class="p">~</span> <span class="n">cargo</span> <span class="n">build</span>
+   <span class="n">Compiling</span> <span class="n">greeting</span> <span class="n">v0</span><span class="p">.</span><span class="m">1.0</span> <span class="p">(/</span><span class="n">home</span><span class="p">/</span><span class="n">david</span><span class="p">/</span><span class="n">code</span><span class="p">/</span><span class="n">rust</span><span class="p">/</span><span class="n">first_proj</span><span class="p">/</span><span class="n">greeting</span><span class="p">)</span>
+    <span class="n">Finished</span> <span class="n">dev</span> <span class="p">[</span><span class="n">unoptimized</span> <span class="p">+</span> <span class="n">debuginfo</span><span class="p">]</span> <span class="nf">target</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">in</span> <span class="m">0.18</span><span class="n">s</span> <span class="m">0.</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>run <code class="language-plaintext highlighter-rouge">cargo run</code> to debug the code</p>
+  </li>
+</ul>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&amp;</span> <span class="n">david</span> <span class="err">@</span> <span class="n">ubuntu</span> <span class="n">in</span> <span class="o">~/</span><span class="n">code</span><span class="o">/</span><span class="n">rust</span><span class="o">/</span><span class="n">first_proj</span><span class="o">/</span><span class="n">greeting</span> <span class="p">(</span><span class="n">master</span> <span class="err">…</span><span class="mi">4</span><span class="p">)</span> <span class="mi">0</span> <span class="p">[</span><span class="mi">19</span><span class="o">:</span><span class="mo">07</span><span class="o">:</span><span class="mi">19</span><span class="p">]</span>
+<span class="o">~</span> <span class="n">cargo</span> <span class="n">run</span>
+    <span class="n">Finished</span> <span class="n">dev</span> <span class="p">[</span><span class="n">unoptimized</span> <span class="o">+</span> <span class="n">debuginfo</span><span class="p">]</span> <span class="n">target</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">in</span> <span class="mi">0</span><span class="p">.</span><span class="mo">00</span><span class="n">s</span>
+     <span class="n">Running</span> <span class="err">`</span><span class="n">target</span><span class="o">/</span><span class="n">debug</span><span class="o">/</span><span class="n">greeting</span><span class="err">`</span>
+<span class="n">Hello</span><span class="p">,</span> <span class="n">world</span><span class="o">!</span>
+</code></pre></div></div>]]></content><author><name>david.dong</name></author><category term="Rust" /><category term="Rust" /><summary type="html"><![CDATA[To record how to build up dev environment of rust .]]></summary></entry><entry><title type="html">What it’s like to use ChatGPT</title><link href="http://localhost:4000/others/2023/02/04/Others-chatgpt.html" rel="alternate" type="text/html" title="What it’s like to use ChatGPT" /><published>2023-02-04T19:43:17+08:00</published><updated>2023-02-04T19:43:17+08:00</updated><id>http://localhost:4000/others/2023/02/04/Others-chatgpt</id><content type="html" xml:base="http://localhost:4000/others/2023/02/04/Others-chatgpt.html"><![CDATA[<p>ChatGPT is very hot recently, I also registered an account and experienced it myself. 😉 <!--more--></p>
+
+<p>After registration, I login to ChatGPT’s URL and start testing.
+I asked a few random professional questions to see how it answered. Here’s how it performed.</p>
+
+<p>❓ <strong>Question:</strong> How to use DllImport in C#?</p>
+
+<hr />
+
+<p><strong>ChatGPT:</strong> To use <code class="language-plaintext highlighter-rouge">DllImport</code> in C#, you need to do the following:</p>
+
+<ul>
+  <li>Add a <code class="language-plaintext highlighter-rouge">using</code> statement for the <code class="language-plaintext highlighter-rouge">System.Runtime.InteropServices</code> namespace at the top of your code file:</li>
+</ul>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Runtime.InteropServices</span><span class="p">;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>Use the <code class="language-plaintext highlighter-rouge">DllImport</code> attribute to specify the name of the DLL containing the unmanaged code you want to call and the name of the function within that DLL.</p>
+
+    <p>For example:</p>
+  </li>
+</ul>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="nf">DllImport</span><span class="p">(</span><span class="s">"mydll.dll"</span><span class="p">)]</span> 
+<span class="k">private</span> <span class="k">static</span> <span class="k">extern</span> <span class="kt">int</span> <span class="nf">MyFunction</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">);</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Call the unmanaged function from your C# code, just like you would call any other C# method:</li>
+</ul>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">result</span> <span class="p">=</span> <span class="nf">MyFunction</span><span class="p">(</span><span class="m">10</span><span class="p">,</span> <span class="m">20</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">DllImport</code> attribute allows you to call functions in unmanaged DLLs from your C# code. It is used to provide the necessary information for the CLR (Common Language Runtime) to be able to locate and call the function in the DLL at runtime.</p>
+
+<p>❓ <strong>Question:</strong> Could you introduce the DllImport usage?</p>
+
+<hr />
+
+<p><strong>ChatGPT:</strong> Sure, the <code class="language-plaintext highlighter-rouge">DllImport</code> attribute is a way to call functions in unmanaged DLLs (Dynamic Link Libraries) From managed code, such as C#. <strong>Unmanaged DLLs are libraries written in languages such as C or C++, which do not run under the .NET runtime.</strong> Because of this, you cannot call functions in these DLLs directly From your C# code.</p>
+
+<p>To use <code class="language-plaintext highlighter-rouge">DllImport</code>, you need to add a <code class="language-plaintext highlighter-rouge">using</code> statement for the <code class="language-plaintext highlighter-rouge">System.Runtime.InteropServices</code> namespace at the top of your code file. Then, use the <code class="language-plaintext highlighter-rouge">DllImport</code> attribute to specify the name of the DLL containing the unmanaged code you want to call and the name of the function within that DLL.</p>
+
+<p>For example:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Runtime.InteropServices</span><span class="p">;</span>  
+<span class="p">[</span><span class="nf">DllImport</span><span class="p">(</span><span class="s">"mydll.dll"</span><span class="p">)]</span> 
+<span class="k">private</span> <span class="k">static</span> <span class="k">extern</span> <span class="kt">int</span> <span class="nf">MyFunction</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Once you’ve done this, you can call the unmanaged function From your C# code, just like you would call any other C# method:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">result</span> <span class="p">=</span> <span class="nf">MyFunction</span><span class="p">(</span><span class="m">10</span><span class="p">,</span> <span class="m">20</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">DllImport</code> attribute provides the necessary information for the CLR (Common Language Runtime) to be able to locate and call the function in the DLL at runtime. This allows you to use functions in unmanaged DLLs From your C# code.</p>
+
+<p>Following its answer, I went on to ask…</p>
+
+<p>❓ <strong>Question:</strong> What does that mean of the parameters <code class="language-plaintext highlighter-rouge">EntryPoint</code> and <code class="language-plaintext highlighter-rouge">CallingConvention</code> in the calling of DllImport with the C#?</p>
+
+<hr />
+
+<p><strong>ChatGPT:</strong> The <code class="language-plaintext highlighter-rouge">EntryPoint</code> parameter of the <code class="language-plaintext highlighter-rouge">DllImport</code> attribute is used to specify the name of the function within the DLL that you want to call.</p>
+
+<p>For example:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="nf">DllImport</span><span class="p">(</span><span class="s">"mydll.dll"</span><span class="p">,</span> <span class="n">EntryPoint</span> <span class="p">=</span> <span class="s">"MyFunction"</span><span class="p">)]</span> 
+<span class="k">private</span> <span class="k">static</span> <span class="k">extern</span> 
+<span class="kt">int</span> <span class="nf">MyFunction</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>In this case, the <code class="language-plaintext highlighter-rouge">EntryPoint</code> is set to <code class="language-plaintext highlighter-rouge">"MyFunction"</code>, which is the name of the function in the DLL that will be called when <code class="language-plaintext highlighter-rouge">MyFunction</code> is called From C# code.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">CallingConvention</code> parameter is used to specify the calling convention of the function being imported. The calling convention determines the order in which parameters are passed to the function, and how the return value is passed back to the caller. The possible values for the <code class="language-plaintext highlighter-rouge">CallingConvention</code> parameter are <code class="language-plaintext highlighter-rouge">StdCall</code>, <code class="language-plaintext highlighter-rouge">Cdecl</code>, and <code class="language-plaintext highlighter-rouge">Winapi</code> (the default).</p>
+
+<p>For example:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="nf">DllImport</span><span class="p">(</span><span class="s">"mydll.dll"</span><span class="p">,</span> <span class="n">EntryPoint</span> <span class="p">=</span> <span class="s">"MyFunction"</span><span class="p">,</span> <span class="n">CallingConvention</span> <span class="p">=</span> <span class="n">CallingConvention</span><span class="p">.</span><span class="n">StdCall</span><span class="p">)]</span> 
+<span class="k">private</span> <span class="k">static</span> <span class="k">extern</span> <span class="kt">int</span> <span class="nf">MyFunction</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>In this case, the <code class="language-plaintext highlighter-rouge">CallingConvention</code> is set to <code class="language-plaintext highlighter-rouge">CallingConvention.StdCall</code>, which specifies that the function uses the standard calling convention. The standard calling convention is the default for most functions in Windows DLLs, so you don’t usually need to specify it explicitly.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">EntryPoint</code> and <code class="language-plaintext highlighter-rouge">CallingConvention</code> parameters are optional when using <code class="language-plaintext highlighter-rouge">DllImport</code>. If you omit them, the default values will be used. For the <code class="language-plaintext highlighter-rouge">EntryPoint</code> parameter, the default value is the name of the method in your C# code, and for the <code class="language-plaintext highlighter-rouge">CallingConvention</code> parameter, the default is <code class="language-plaintext highlighter-rouge">Winapi</code>. However, it’s a good idea to always specify both of these parameters explicitly to avoid any confusion or potential problems.</p>
+
+<p>And the last question,</p>
+
+<p>❓ <strong>Question:</strong> What is the <code class="language-plaintext highlighter-rouge">CallingConvention.Cdecl</code> and what is the difference with <code class="language-plaintext highlighter-rouge">CallingConvention.Cdecl</code> and <code class="language-plaintext highlighter-rouge">CallingConvention.StdCall</code>?</p>
+
+<hr />
+
+<p><strong>ChatGPT:</strong> The <code class="language-plaintext highlighter-rouge">CallingConvention.Cdecl</code> value specifies that the <strong>C calling convention</strong> is used for the function being imported. In the C calling convention, parameters are passed on the stack From right to left, and the caller is responsible for cleaning up the stack. This is the default calling convention for functions in C and C++.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">CallingConvention.StdCall</code> value specifies that the <strong>standard calling convention</strong> is used for the function being imported. In the standard calling convention, parameters are also passed on the stack, but the callee (the function being called) is responsible for cleaning up the stack. This is the default calling convention for most functions in Windows DLLs.</p>
+
+<p><strong>The main difference between these two calling conventions is who is responsible for cleaning up the stack after the function call</strong>. In the C calling convention, the caller is responsible for this, while in the standard calling convention, the callee is responsible. This means that if you use the C calling convention and forget to clean up the stack, you will get a stack overflow error. On the other hand, if you use the standard calling convention and forget to clean up the stack, the DLL will crash.</p>
+
+<p>In general, it’s best to use the standard calling convention unless you have a specific reason to use the C calling convention. This is because the standard calling convention is more robust and less error-prone than the C calling convention.</p>
+
+<p>Well done! So far it has performed very well, at least it has answered as precisely as I wanted.</p>
+
+<p>To sum up my own experience, the first impression is “fast, accurate, efficient and powerful”. I feel comfortable using it and unlike traditional search engines, it summarizes and extracts the amount of information available on the internet and presents it to me in a very concise and easy to understand format, which can really improve productivity.</p>]]></content><author><name>david.dong</name></author><category term="Others" /><category term="ChatGPT" /><summary type="html"><![CDATA[To record my first experience with ChatGPT.]]></summary></entry><entry><title type="html">About gerrit.createChangeId</title><link href="http://localhost:4000/git/2022/08/11/gerrit.createchangeid.html" rel="alternate" type="text/html" title="About gerrit.createChangeId" /><published>2022-08-11T22:10:09+08:00</published><updated>2022-08-11T22:10:09+08:00</updated><id>http://localhost:4000/git/2022/08/11/gerrit.createchangeid</id><content type="html" xml:base="http://localhost:4000/git/2022/08/11/gerrit.createchangeid.html"><![CDATA[<p><code class="language-plaintext highlighter-rouge">git config --bool --get gerrit.createChangeId</code> is a command used in the Git version control system to retrieve the value of the configuration option <code class="language-plaintext highlighter-rouge">gerrit.createChangeId</code>. <!--more-->This option determines whether a change-id should be created for each commit message when pushing to a Gerrit server.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">--bool</code> flag specifies that the value being retrieved is a <em>boolean</em>, which means it can be either <code class="language-plaintext highlighter-rouge">true</code> or <code class="language-plaintext highlighter-rouge">false</code>. The <code class="language-plaintext highlighter-rouge">--get</code> flag specifies that the command should retrieve the value of the specified configuration option.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">gerrit.createChangeId</code> option is used in conjunction with Gerrit, which is a web-based code review tool that integrates with Git. When this option is set to <code class="language-plaintext highlighter-rouge">true</code>, a change-id will be automatically added to the commit message when pushing to a Gerrit server. <strong>This change-id is used by Gerrit to identify a particular change and to track its progress through the code review process.</strong></p>
+
+<p>To set the value of the <code class="language-plaintext highlighter-rouge">gerrit.createChangeId</code> option, you can use the command <code class="language-plaintext highlighter-rouge">git config --bool --add gerrit.createChangeId true</code> or <code class="language-plaintext highlighter-rouge">git config --bool --add gerrit.createChangeId false</code>, depending on the desired value.</p>]]></content><author><name>david.dong</name></author><category term="Git" /><category term="Git" /><summary type="html"><![CDATA[Git Hook 的学习分享.]]></summary></entry><entry><title type="html">Keep old change-id when do git commit</title><link href="http://localhost:4000/git/2022/07/22/git-change-id.html" rel="alternate" type="text/html" title="Keep old change-id when do git commit" /><published>2022-07-22T22:45:56+08:00</published><updated>2022-07-22T22:45:56+08:00</updated><id>http://localhost:4000/git/2022/07/22/git-change-id</id><content type="html" xml:base="http://localhost:4000/git/2022/07/22/git-change-id.html"><![CDATA[<p>When I use <code class="language-plaintext highlighter-rouge">git commit --amend</code> command, it will generate a new change-id. But I want to use the previous change-id and don’t want to generate a new one. How should I keep the old change-id and keep only one change-id?<!--more--></p>
+
+<p>When you use <code class="language-plaintext highlighter-rouge">git commit --amend</code>, it creates a new commit that replaces the previous commit. <strong>This new commit will have a new commit hash and will be treated as a completely separate commit by Git</strong>, even though it may contain the same changes as the previous commit.</p>
+
+<p>To keep the old change-id and have only one change-id, you can use the <code class="language-plaintext highlighter-rouge">git commit --amend --no-edit</code> command. This will allow you to amend the previous commit without creating a new commit or changing the commit message. The change-id will remain the same and you will only have one change-id for that commit.</p>
+
+<p>It’s important to note that using <code class="language-plaintext highlighter-rouge">git commit --amend</code> can be a powerful tool, but it should be used with caution, as it can cause confusion if used improperly. If you have already pushed the commit to a remote repository, you should be careful when using <code class="language-plaintext highlighter-rouge">git commit --amend</code>, as it can cause problems when working with other collaborators. It’s generally a good idea to communicate with your team before using <code class="language-plaintext highlighter-rouge">git commit --amend</code> on a commit that has been pushed to a remote repository.</p>]]></content><author><name>david.dong</name></author><category term="Git" /><category term="Git" /><summary type="html"><![CDATA[Learn how to keep old change-id when git commit.]]></summary></entry><entry><title type="html">Git hook 配置与使用</title><link href="http://localhost:4000/git/2022/07/01/Git-hooks.html" rel="alternate" type="text/html" title="Git hook 配置与使用" /><published>2022-07-01T22:10:09+08:00</published><updated>2022-07-01T22:10:09+08:00</updated><id>http://localhost:4000/git/2022/07/01/Git-hooks</id><content type="html" xml:base="http://localhost:4000/git/2022/07/01/Git-hooks.html"><![CDATA[<p>Hook 就是在执行某个事件之前或之后进行一些其他额外的操作。在 Git 中也有许多的事件（commit、push 等等），每个事件也是对应了有不同的钩子的（如 commit 前，commit 后），那么我们就可以在这些钩子这里配置一些自己需要执行的操作来实现各种各样的需求。<!--more--></p>
+
+<h2 id="git-hooks-介绍">Git Hooks 介绍</h2>
+
+<p><em>Git Hooks</em> 的实现其实非常简单，就是就 <code class="language-plaintext highlighter-rouge">.git/hooks</code> 文件下，保存了一些 shell 脚本，然后在对应的钩子中执行这些脚本就行了。比如下图中，这是一个还没有配置 <em>Git Hooks</em> 的仓库，默认会有很多 <code class="language-plaintext highlighter-rouge">.sample</code> 结尾的文件，这些都是示例文件。</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/git-hooks-01.png" alt="git-hook-01" class="center-image" /></p>
+
+<p>我们打开 <code class="language-plaintext highlighter-rouge">pre-commit.sample</code> 文件看一下其中的内容，大致意思是说这是一个示例，做了一些格式方面的检测，这个脚本默认是不生效的，如果要生效，把文件名改为 <code class="language-plaintext highlighter-rouge">pre-commit</code> 即可。</p>
+
+<p><img src="https://pic3.zhimg.com/v2-fa71d169ef288ed2ca7bd660930036f6_r.jpg" alt="" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">pre-commit</code> 这个钩子是在 <code class="language-plaintext highlighter-rouge">git commit</code> 命令执行之前触发。</p>
+
+<p>Git 支持的所有钩子见下表（<em>加粗的为常用钩子</em>）：</p>
+
+<p><img src="https://pic4.zhimg.com/v2-161c0a131454d4b24f16a9a3125d947f_r.jpg" alt="" /></p>
+
+<p>PS：完整钩子说明，请参考 <a href="https://git-scm.com/docs/githooks">@官网链接</a></p>
+
+<h2 id="husky-配置">Husky 配置</h2>
+
+<p>从上面的介绍中，我们知道 Git Hook 保存在 <code class="language-plaintext highlighter-rouge">.git</code> 文件夹中。不知你有没有发现这会有一个问题？可能细心的同学已经知道了，Git 是一个多人协作工具，那按理说 Git 仓库中的所有文件都应该被跟踪并且上传至远程仓库的。但是有个例外，<code class="language-plaintext highlighter-rouge">.git </code> 文件夹不会，这就导致一个问题，我们在本地配置好 <em>Git Hook</em> 后，怎么分享给其他小伙伴儿呢？copy 吗？那未免太 low 了，都用 Git 了，还 copy，也太不优雅了。这时候，就轮到 <a href="https://github.com/typicode/husky">Husky</a> 出场了。</p>
+
+<p><em>Husky</em> 是一个让配置 Git 钩子变得更简单的工具（题外话：Husky 是哈士奇的意思，我猜可能是作者养了条二哈）</p>
+
+<p>下面这些流行的项目都在使用 <em>Husky</em>，可见它确实是一个非常好用的工具：</p>
+
+<ul>
+  <li><a href="https://github.com/webpack/webpack">webpack</a></li>
+  <li><a href="https://github.com/babel/babel">babel</a></li>
+  <li><a href="https://github.com/facebookincubator/create-react-app">create-react-app</a></li>
+  <li>……</li>
+</ul>
+
+<h2 id="no-verify-的使用">–no-verify 的使用</h2>
+
+<p><code class="language-plaintext highlighter-rouge">git commit --amend --no-verify</code> 命令是一条 Git 命令，它允许你修改最近的提交信息或内容，而不触发 <code class="language-plaintext highlighter-rouge">pre-commit</code> 和 <code class="language-plaintext highlighter-rouge">commit-msg</code> 钩子。<code class="language-plaintext highlighter-rouge">git commit --amend</code> 命令与此类似，但它会在钩子存在的情况下运行这些钩子。这两个命令都会用包含你的修改的新提交来替换之前的提交。</p>]]></content><author><name>david.dong</name></author><category term="Git" /><category term="Git" /><summary type="html"><![CDATA[Git Hook 的学习分享.]]></summary></entry><entry><title type="html">Windows 消息处理机制</title><link href="http://localhost:4000/windows/2022/06/18/Windows-message-handler.html" rel="alternate" type="text/html" title="Windows 消息处理机制" /><published>2022-06-18T19:43:52+08:00</published><updated>2022-06-18T19:43:52+08:00</updated><id>http://localhost:4000/windows/2022/06/18/Windows-message-handler</id><content type="html" xml:base="http://localhost:4000/windows/2022/06/18/Windows-message-handler.html"><![CDATA[<p>Windows32 程序是由消息事件驱动的。一个消息，是系统定义的一个 32 位的值，它唯一的定义了一个事件，向 Windows 发出一个通知，告诉应用程序某个事情发生了。</p>
+
+<h2 id="消息队列">消息队列</h2>
+
+<ul>
+  <li>Windows 有两种消息队列，<strong>系统消息队列</strong>和<strong>应用程序消息队列</strong>。消息在队列中先入先出。</li>
+  <li><strong>系统消息队列</strong>-由系统维护的消息队列，处理系统事件。例如鼠标、键盘等。</li>
+  <li><strong>程序消息队列</strong>-属于每一个应用程序（线程）的消息队列。由应用程序（线程）维护。系统都会为每个 GUI 线程创建一个消息队列，这个消息队列用来存放该应用程序所创建的窗口的消息。</li>
+  <li>应用程序则通过一个消息循环（消息泵）不断的从消息队列中读取消息，并做出响应。</li>
+</ul>
+
+<h2 id="流程如下">流程如下</h2>
+
+<ul>
+  <li>
+    <p>当鼠标、键盘事件被触发后，相应的鼠标或键盘驱动程序就会把这些事件转换成相应的消息，然后发送到<strong>系统消息队列</strong>，由 Windows 系统去进行处理。</p>
+  </li>
+  <li>
+    <p>Windows 从系统消息队列中取出一个消息，根据 MSG 消息结构（消息结构体中的窗口句柄 <code class="language-plaintext highlighter-rouge">hwnd</code>）确定消息是要被送往那个窗口，然后把取出的消息送往<strong>创建窗口的线程的相应队列</strong>（Windows 会为每个 GUI 线程创建一个消息队列，该线程中的所有窗体共享这个消息队列）。</p>
+  </li>
+  <li>
+    <p>线程看到自己的消息队列中有消息，就从队列中取出来，通过操作系统发送到合适的窗口过程去处理。</p>
+  </li>
+  <li>
+    <p>线程的消息队列的读取和处理消息的部分如下</p>
+
+    <div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while</span><span class="p">(</span><span class="nf">GetMessage</span><span class="p">(&amp;</span><span class="n">msg</span><span class="p">,</span><span class="n">NULL</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">)){</span>
+<span class="err">    </span><span class="k">if</span><span class="p">(!</span><span class="nf">TranslateAccelerator</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">hWnd</span><span class="p">,</span><span class="n">hAccelTable</span><span class="p">,&amp;</span><span class="n">msg</span><span class="p">))</span>
+  <span class="err">    </span><span class="p">{</span>
+      <span class="err">    </span><span class="nf">TranslateMessage</span><span class="p">(&amp;</span><span class="n">msg</span><span class="p">);</span>
+      <span class="err">    </span><span class="nf">DispatchMessage</span><span class="p">(&amp;</span><span class="n">msg</span><span class="p">);</span>
+  <span class="err">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+
+    <p>说明：首先，<code class="language-plaintext highlighter-rouge">GetMessage</code> 从进程的主线程的消息队列中获取一个消息并将它复制到 MSG 结构，如果队列中没有消息，则 <code class="language-plaintext highlighter-rouge">GetMessage</code> 函数将等待一个消息的到来以后才返回。</p>
+  </li>
+</ul>
+
+<blockquote>
+  <p>注意:
+<code class="language-plaintext highlighter-rouge">GetMessage</code> 会一直等待，直到有接收到消息才返回。</p>
+</blockquote>
+
+<p><code class="language-plaintext highlighter-rouge">DispatchMessage</code> 函数将把此消息发送给该消息指定的窗口中已设定的回调函数。即用户自定义的处理函数 <code class="language-plaintext highlighter-rouge">WndProc</code>。</p>
+
+<ul>
+  <li>
+    <p>用户自定义的消息处理函数 <code class="language-plaintext highlighter-rouge">WndProc</code> 处理消息。处理消息代码如下。</p>
+
+    <div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">LRESULT</span> <span class="n">CALLBACK</span> <span class="nf">WndProc</span><span class="p">(</span><span class="n">HWND</span> <span class="n">hWnd</span><span class="p">,</span> <span class="n">UINT</span> <span class="n">message</span><span class="p">,</span> <span class="n">WPARAM</span> <span class="n">wParam</span><span class="p">,</span> <span class="n">LPARAM</span> <span class="n">lParam</span><span class="p">){</span>
+      <span class="k">switch</span> <span class="p">(</span><span class="n">message</span><span class="p">)</span> 
+      <span class="p">{</span>
+            <span class="k">case</span> <span class="n">WM_COMMAND</span><span class="p">:</span>
+              <span class="p">...</span>
+            <span class="k">case</span> <span class="k">case</span> <span class="n">IDM_EXIT</span><span class="p">:</span>
+              <span class="p">...</span>
+              <span class="p">...</span>
+            <span class="k">default</span><span class="p">:</span>
+              <span class="k">return</span> <span class="nf">DefWindowProc</span><span class="p">(</span><span class="n">hWnd</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">wParam</span><span class="p">,</span> <span class="n">lParam</span><span class="p">);</span>
+      <span class="p">}</span>
+  <span class="k">return</span> <span class="m">0</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>说明：
+用户自定义的窗体处理函数也即 <code class="language-plaintext highlighter-rouge">"窗口过程"</code>, 窗口过程是一个用于处理所有发送到这个窗口的消息的函数。任何一个窗口类都有一个窗口过程。<strong>同一个类的窗口使用同样的窗口过程来响应消息</strong>。系统发送消息给窗口过程将消息数据作为参数传递给他，消息到来之后，按照消息类型排序进行处理，其中的参数则用来区分不同的消息，窗口过程使用参数产生合适行为。</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/windows-message-handling-01.png" alt="windows-message-handling" class="center-image" /></p>
+
+<h2 id="消息结构体">消息结构体</h2>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">typedef</span> <span class="k">struct</span> <span class="nc">tagMsg</span> <span class="p">{</span>
+    <span class="n">HWND</span> <span class="n">hwnd</span><span class="p">;</span> <span class="c1">//接受该消息的窗口句柄</span>
+    <span class="n">UINT</span> <span class="n">message</span><span class="p">;</span> <span class="c1">//消息常量标识符，也就是我们通常所说的消息号</span>
+    <span class="n">WPARAM</span> <span class="n">wParam</span><span class="p">;</span> <span class="c1">//32位消息的特定附加信息，确切含义依赖于消息值</span>
+    <span class="n">LPARAM</span> <span class="n">lParam</span><span class="p">;</span> <span class="c1">//32位消息的特定附加信息，确切含义依赖于消息值</span>
+    <span class="n">DWORD</span> <span class="n">time</span><span class="p">;</span> <span class="c1">//消息创建时的时间</span>
+    <span class="n">POINT</span> <span class="n">pt</span><span class="p">;</span> <span class="c1">//消息创建时的鼠标/光标在屏幕坐标系中的位置</span>
+<span class="p">}</span><span class="n">MSG</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="发送消息函数-sendmessage--和-postmessage--的区别">发送消息函数 SendMessage () 和 PostMessage () 的区别</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">SendMessage</code> 这个函数主要是向一个或多个窗口发送一条消息，<strong>这个函数是异步函数。一直等到消息被处理之后才会返回</strong>。</li>
+  <li><code class="language-plaintext highlighter-rouge">PostMessage</code> 该函数把一条消息放置到创建 hWnd 窗口的线程的消息队列中，<strong>该函数不等消息被处理就马上将控制返回</strong>。</li>
+  <li>被<strong>发送</strong>的消息（<code class="language-plaintext highlighter-rouge">SendMessage</code>）会被立即处理，处理完毕后函数才会返回；被<strong>寄送</strong>的 (<code class="language-plaintext highlighter-rouge">PostMessage</code>) 消息不会被立即处理，他被放到一个先进先出的队列中，一直等到应用程序空线的时候才会被处理，不过函数放置消息后立即返回。</li>
+</ul>
+
+<h2 id="读取消息函数-getmessage--和-waitmessage--peekmessage-">读取消息函数 GetMessage () 和 WaitMessage (), PeekMessage ()</h2>
+
+<ul>
+  <li>都是读取消息的函数</li>
+  <li><code class="language-plaintext highlighter-rouge">GetMessage</code> 会一直等到接收到消息才返回。</li>
+  <li><code class="language-plaintext highlighter-rouge">PeekMessage</code> 函数不会等到有消息放入队列时才返回.</li>
+  <li><code class="language-plaintext highlighter-rouge">WaitMessage</code> 当一个应用程序无事可做时，该函数就将控制权交给另外的应用程序，同时将该应用程序挂起，直到一个新的消息被放入应用程序的队列之中才返回。</li>
+</ul>]]></content><author><name>david.dong</name></author><category term="Windows" /><category term="Windows" /><summary type="html"><![CDATA[记录 Windows 消息处理原理的学习内容]]></summary></entry><entry><title type="html">浅谈 Java 线程同步技术</title><link href="http://localhost:4000/java/2022/04/22/Java-threadSynchronization.html" rel="alternate" type="text/html" title="浅谈 Java 线程同步技术" /><published>2022-04-22T22:44:19+08:00</published><updated>2022-04-22T22:44:19+08:00</updated><id>http://localhost:4000/java/2022/04/22/Java-threadSynchronization</id><content type="html" xml:base="http://localhost:4000/java/2022/04/22/Java-threadSynchronization.html"><![CDATA[<p>Java 里实现线程间的同步有多种方法，比如使用 <code class="language-plaintext highlighter-rouge">synchronized</code> 关键字，<code class="language-plaintext highlighter-rouge">wait</code> 和 <code class="language-plaintext highlighter-rouge">notify</code>，<code class="language-plaintext highlighter-rouge">volatile</code> 变量，重入锁，局部变量，阻塞队列或者原子类型变量等。</p>
+
+<h2 id="synchronized">synchronized</h2>
+
+<p>使用 <code class="language-plaintext highlighter-rouge">synchronized</code> 关键字：这是最常用的一种方法，它可以修饰代码块或者方法，使得同一时刻只有一个线程能够访问被修饰的代码。例如 ：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SynchronizedDemo</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//创建两个线程</span>
+        <span class="nc">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nc">Runnable</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+                <span class="c1">//调用同步方法</span>
+                <span class="n">syncMethod</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">},</span> <span class="s">"t1"</span><span class="o">);</span>
+
+        <span class="nc">Thread</span> <span class="n">t2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nc">Runnable</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+                <span class="c1">//调用同步方法</span>
+                <span class="n">syncMethod</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">},</span> <span class="s">"t2"</span><span class="o">);</span>
+
+        <span class="c1">//启动两个线程</span>
+        <span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="n">t2</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="c1">//定义一个同步方法</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">syncMethod</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">"开始执行"</span><span class="o">);</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">"结束执行"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="wait-和-notify">wait 和 notify</h2>
+
+<p>使用 <code class="language-plaintext highlighter-rouge">wait</code> 和 <code class="language-plaintext highlighter-rouge">notify</code> ：这是一种基于对象监视器的机制，它可以让一个线程等待另一个线程的通知，从而实现协作。例如：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">WaitNotifyDemo</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="nc">Object</span> <span class="n">lock</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Object</span><span class="o">();</span> <span class="c1">//定义一个锁对象</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="c1">//创建两个线程</span>
+        <span class="nc">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nc">Runnable</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+                <span class="kd">synchronized</span> <span class="o">(</span><span class="n">lock</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//获取锁对象</span>
+                    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"t1开始执行"</span><span class="o">);</span>
+                    <span class="k">try</span> <span class="o">{</span>
+                        <span class="n">lock</span><span class="o">.</span><span class="na">wait</span><span class="o">();</span> <span class="c1">//释放锁并等待通知</span>
+                    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+                    <span class="o">}</span>
+                    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"t1收到通知"</span><span class="o">);</span>
+                    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"t1结束执行"</span><span class="o">);</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">},</span> <span class="s">"t1"</span><span class="o">);</span>
+
+        <span class="nc">Thread</span> <span class="n">t2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nc">Runnable</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+                <span class="kd">synchronized</span> <span class="o">(</span><span class="n">lock</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//获取锁对象</span>
+                    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"t2开始执行"</span><span class="o">);</span>
+                    <span class="k">try</span> <span class="o">{</span>
+                        <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">2000</span><span class="o">);</span> <span class="c1">//模拟耗时操作</span>
+                    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+                    <span class="o">}</span>
+                    <span class="n">lock</span><span class="o">.</span><span class="na">notify</span><span class="o">();</span> <span class="c1">//唤醒等待的线程</span>
+                    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"t2发送通知"</span><span class="o">);</span>
+                    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"t2结束执行"</span><span class="o">);</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">},</span> <span class="s">"t2"</span><span class="o">);</span>
+
+        <span class="c1">//启动两个线程</span>
+        <span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="n">t2</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="volatile">volatile</h2>
+
+<p><code class="language-plaintext highlighter-rouge">volatile</code> 变量是一种特殊的变量，它可以保证变量在多个线程之间的可见性，也就是说当一个线程修改了 <code class="language-plaintext highlighter-rouge">volatile</code> 变量的值后，其他线程能够立即看到最新的值。<code class="language-plaintext highlighter-rouge"> volatile </code> 变量还可以防止编译器或者运行时对其进行重排序，从而保证其操作的顺序性。</p>
+
+<p><code class="language-plaintext highlighter-rouge">volatile</code> 变量适合用于以下几种场景：</p>
+
+<p>状态标志：例如一个开关变量，用来控制其他线程的执行流程。
+单例模式：例如双重检查锁定（double-checked locking）模式，用来保证对象的唯一性和及时性。
+原子操作：例如 long 或 double 类型的赋值操作，在 Java 中不是原子性的，但是定义为 volatile 后可以保证原子性。</p>
+
+<p>假设有一个 <code class="language-plaintext highlighter-rouge">volatile</code> 变量叫做 stop，它用来控制一个线程的执行流程。当 stop 为 false 时，线程继续运行；当 stop 为 true 时，线程停止运行。代码如下:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">VolatileExample</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">volatile</span> <span class="kt">boolean</span> <span class="n">stop</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">InterruptedException</span> <span class="o">{</span>
+        <span class="nc">Thread</span> <span class="n">thread</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nc">Runnable</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+                <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+                <span class="k">while</span> <span class="o">(!</span><span class="n">stop</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 如果stop为true，跳出循环</span>
+                    <span class="n">i</span><span class="o">++;</span>
+                <span class="o">}</span>
+                <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"i="</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+        <span class="n">thread</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span> <span class="c1">// 主线程休眠1秒</span>
+        <span class="n">stop</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span> <span class="c1">// 修改stop的值为true</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>这个例子中，如果不使用 <code class="language-plaintext highlighter-rouge">volatile</code> 修饰 <code class="language-plaintext highlighter-rouge">stop</code> 变量，那么可能会出现这样的情况：主线程修改了 stop 的值为 true，但是子线程没有看到最新的值，仍然认为 stop 是 false，导致子线程无法停止。这是因为每个线程都有自己的工作内存（缓存），它们会从主内存中复制共享变量的值，并在工作内存中操作共享变量。如果不使用 <code class="language-plaintext highlighter-rouge">volatile</code> 修饰共享变量，那么就不能保证其他线程能够及时看到最新的值。</p>
+
+<p>但是如果使用了 <code class="language-plaintext highlighter-rouge">volatile</code> 修饰 <code class="language-plaintext highlighter-rouge">stop</code> 变量，那么就可以保证当主线程修改了 stop 的值后，其他线程能够立即看到最新的值，并根据最新的值来执行相应的操作。这是因为 volatile 关键字可以强制让编译器每次都从主内存中读取共享变量的值，并且禁止对其进行重排序。</p>
+
+<h2 id="重入锁">重入锁</h2>
+
+<p>重入锁是一种可以被同一个线程多次获取的锁，也就是说当一个线程已经持有了锁，它可以再次请求获取锁而不会被阻塞。重入锁可以避免死锁的发生，也可以提高代码的可读性和可维护性。</p>
+
+<p>Java 中提供了一个重入锁的实现类：<code class="language-plaintext highlighter-rouge">ReentrantLock</code>，它实现了 <code class="language-plaintext highlighter-rouge">Lock</code> 接口，提供了加锁和释放锁的方法。使用 <code class="language-plaintext highlighter-rouge">ReentrantLock</code> 时，需要在 try-finally 块中手动调用 <code class="language-plaintext highlighter-rouge">lock ()</code> 和 <code class="language-plaintext highlighter-rouge">unlock ()</code> 方法来保证锁的正确获取和释放。</p>
+
+<p>举个例子吧，假设有一个银行账户类 Account，它有一个余额属性 balance 和一个转账方法 transfer ()，为了保证转账操作的原子性和线程安全性，我们可以使用 <code class="language-plaintext highlighter-rouge">ReentrantLock</code> 来对 <code class="language-plaintext highlighter-rouge">transfer ()</code> 方法进行同步控制。
+代码如下：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.concurrent.locks.ReentrantLock</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Account</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">balance</span><span class="o">;</span> <span class="c1">// 余额</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">ReentrantLock</span> <span class="n">lock</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ReentrantLock</span><span class="o">();</span> <span class="c1">// 重入锁</span>
+
+    <span class="kd">public</span> <span class="nf">Account</span><span class="o">(</span><span class="kt">int</span> <span class="n">balance</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">balance</span> <span class="o">=</span> <span class="n">balance</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">transfer</span><span class="o">(</span><span class="nc">Account</span> <span class="n">target</span><span class="o">,</span> <span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">lock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span> <span class="c1">// 获取锁</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">balance</span> <span class="o">&gt;=</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 如果余额足够</span>
+                <span class="n">balance</span> <span class="o">-=</span> <span class="n">amount</span><span class="o">;</span> <span class="c1">// 扣除转出金额</span>
+                <span class="n">target</span><span class="o">.</span><span class="na">balance</span> <span class="o">+=</span> <span class="n">amount</span><span class="o">;</span> <span class="c1">// 增加转入金额</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="n">lock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span> <span class="c1">// 释放锁</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>这个例子中，如果不使用 <code class="language-plaintext highlighter-rouge">ReentrantLock</code> 来对 <code class="language-plaintext highlighter-rouge">transfer ()</code> 方法进行同步控制，那么可能会出现这样的情况：当两个线程同时对同一个账户对象执行转账操作时，可能会导致余额不正确或者数据不一致的问题。这是因为转账操作涉及到多个共享变量（balance 和 target.balance）的读写操作，并且这些操作不是原子性的。</p>
+
+<p>但是如果使用了 <code class="language-plaintext highlighter-rouge">ReentrantLock</code> 来对 <code class="language-plaintext highlighter-rouge">transfer ()</code> 方法进行同步控制，那么就可以保证当一个线程执行转账操作时，其他线程不能同时执行该操作，并且该操作能够完整地执行而不会被打断。这是因为 <code class="language-plaintext highlighter-rouge">ReentrantLock</code> 可以实现互斥访问共享资源，并且保证操作的顺序性和原子性。</p>
+
+<h2 id="原子类型变量">原子类型变量</h2>
+
+<p>Java 里的原子类型变量是一种可以在多线程环境下保证原子性操作的变量类，它们使用了 CAS（Compare And Swap）算法来实现无锁的并发控制。</p>
+
+<p>原子类型变量有以下几种分类：</p>
+
+<ul>
+  <li>标量原子变量类：支持对 int，long 和 boolean 等基本数据类型的操作，例如 AtomicInteger，AtomicLong 和 AtomicBoolean。</li>
+  <li>原子数组类：支持对 int，long 和引用类型的数组元素进行原子性更新，例如 AtomicIntegerArray，AtomicLongArray 和 AtomicReferenceArray。</li>
+  <li>原子字段更新程序类：支持使用反射以原子方式更新类的易失性字段，例如 AtomicLongFieldUpdater，AtomicIntegerFieldUpdater 和 AtomicReferenceFieldUpdater。</li>
+  <li>原子复合变量类：支持对多个变量进行原子性更新，例如 AtomicStampedReference 和 AtomicMarkableReference。
+下面是一个使用 AtomicInteger 的例子：</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.concurrent.atomic.AtomicInteger</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AtomicCounter</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">AtomicInteger</span> <span class="n">value</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AtomicInteger</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">increment</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="na">incrementAndGet</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">decrement</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="na">decrementAndGet</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">get</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>]]></content><author><name>david.dong</name></author><category term="Java" /><category term="Java" /><summary type="html"><![CDATA[本文内容对 Java 中用到的线程间同步的技术做了些讨论和总结。]]></summary></entry><entry><title type="html">Git commands and usage tips</title><link href="http://localhost:4000/git/2022/03/29/Github-git-command.html" rel="alternate" type="text/html" title="Git commands and usage tips" /><published>2022-03-29T23:17:03+08:00</published><updated>2022-03-29T23:17:03+08:00</updated><id>http://localhost:4000/git/2022/03/29/Github-git-command</id><content type="html" xml:base="http://localhost:4000/git/2022/03/29/Github-git-command.html"><![CDATA[<p><img src="\assets\image\github-git-command-01.jpg" alt="git-command-01" style="zoom:100%;" /></p>
+
+<p>Git is a powerful version control tool. I would even say it’s one of the best. However, being powerful sometimes means being complex in terms of functionality. Git has a lot of commands. The good thing is that you can do everything you want with them, the bad thing is that you need to remember them. Here, I’ll write down the commands that I’ll use often to keep better track of them and make them easier to search.😉 <!--more--></p>
+
+<h2 id="推送到远程分支">推送到远程分支</h2>
+
+<h3 id="用法git-push--">用法：git push <远程主机名> <本地分支名>:<远程分支名></远程分支名></本地分支名></远程主机名></h3>
+
+<h4 id="1-将本地的-master-分支推送到远程-master-分支">1. 将本地的 master 分支推送到远程 master 分支</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">master</span></code></pre></figure>
+
+<h4 id="2-将本地的-dev-分支推送到远程-master-分支">2. 将本地的 dev 分支推送到远程 master 分支</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">dev</span><span class="o">:</span><span class="n">master</span></code></pre></figure>
+
+<h4 id="3-删除远程-master-分支">3. 删除远程 master 分支</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="o">:</span><span class="n">master</span>
+<span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="o">--</span><span class="n">delete</span> <span class="n">master</span></code></pre></figure>
+
+<h4 id="4-添加远程主分支和本地-master-分支的绑定关系">4. 添加远程主分支和本地 master 分支的绑定关系</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">push</span> <span class="o">-</span><span class="n">u</span> <span class="n">origin</span> <span class="n">master</span></code></pre></figure>
+
+<p>绑定后可以直接将当前分支推送到origin主机的对应分支</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span></code></pre></figure>
+
+<h4 id="5-强制推送本地dev分支到远程master分支">5. 强制推送本地dev分支到远程master分支</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">push</span> <span class="o">--</span><span class="n">force</span> <span class="n">origin</span> <span class="n">dev</span><span class="o">:</span><span class="n">master</span></code></pre></figure>
+
+<h4 id="6-推送本地当前分支到远程-master分支">6. 推送本地当前分支到远程 master分支</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">HEAD</span><span class="o">:</span><span class="n">master</span></code></pre></figure>
+
+<h2 id="拉取远程分支到本地">拉取远程分支到本地</h2>
+
+<h3 id="用法git-pull--">用法：git pull <远程主机名> <远程分支名>:<本地分支名></本地分支名></远程分支名></远程主机名></h3>
+
+<h4 id="1-拉取远程-master-分支到本地-dev-分支">1. 拉取远程 master 分支到本地 dev 分支</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">pull</span> <span class="n">origin</span> <span class="n">master</span><span class="o">:</span><span class="n">dev</span></code></pre></figure>
+
+<h4 id="2-拉取远程-master-分支到本地当前分支">2. 拉取远程 master 分支到本地当前分支</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">pull</span> <span class="n">origin</span> <span class="n">master</span></code></pre></figure>
+
+<h4 id="3-建立本地分支与远程分支的追踪关系">3. 建立本地分支与远程分支的追踪关系</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">branch</span> <span class="o">--</span><span class="n">set</span><span class="o">-</span><span class="n">upstream</span> <span class="n">master</span> <span class="n">origin</span><span class="o">/</span><span class="n">next</span></code></pre></figure>
+
+<p>建立追踪后可以直接省略远程分支名</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">pull</span> <span class="n">origin</span></code></pre></figure>
+
+<h4 id="4-git-pull-origin-masterdev-等于">4. git pull origin master:dev 等于</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">fetch</span> <span class="n">origin</span> <span class="n">master</span><span class="o">:</span><span class="n">dev</span>
+<span class="n">git</span> <span class="n">diff</span> <span class="n">dev</span>
+<span class="n">git</span> <span class="n">merge</span> <span class="n">dev</span></code></pre></figure>
+
+<h4 id="5-采用-rebase-的方式合并本地分支">5. 采用 rebase 的方式合并本地分支</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">pull</span> <span class="o">--</span><span class="n">rebase</span> <span class="n">origin</span> <span class="n">master</span><span class="o">:</span><span class="n">dev</span></code></pre></figure>
+
+<h2 id="创建新分支">创建新分支</h2>
+
+<h3 id="1-创建-newbranch-分支">1. 创建 newbranch 分支</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">newbranch</span></code></pre></figure>
+
+<p>或者</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">branch</span> <span class="n">newbranch</span>
+<span class="n">git</span> <span class="n">checkout</span> <span class="n">newbranch</span></code></pre></figure>
+
+<h3 id="2-创建新分支并与远程分支关联">2. 创建新分支并与远程分支关联</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">tempbarch</span> <span class="o">--</span><span class="n">track</span> <span class="n">origin</span><span class="o">/</span><span class="n">testdevelop</span></code></pre></figure>
+
+<h2 id="删除分支">删除分支</h2>
+
+<h3 id="1-删除本地分支">1. 删除本地分支</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">branch</span> <span class="o">-</span><span class="n">d</span> <span class="n">newbranch</span></code></pre></figure>
+
+<h3 id="2-强制删除本地分支">2. 强制删除本地分支</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">branch</span> <span class="o">-</span><span class="n">D</span> <span class="n">newbranch</span></code></pre></figure>
+
+<h3 id="3-删除远程-master-分支-1">3. 删除远程 master 分支</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="o">:</span><span class="n">master</span>
+<span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="o">--</span><span class="n">delete</span> <span class="n">master</span></code></pre></figure>
+
+<h2 id="重命名分支">重命名分支</h2>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">branch</span> <span class="o">-</span><span class="n">m</span> <span class="n">oldbranch</span> <span class="n">newbranch</span>
+<span class="n">git</span> <span class="n">branch</span> <span class="o">-</span><span class="n">M</span> <span class="n">oldbranch</span> <span class="n">newbranch</span></code></pre></figure>
+
+<h2 id="添加远程分支">添加远程分支</h2>
+
+<h3 id="git-remote-add">git remote add</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">origin</span> <span class="n">https</span><span class="o">:</span><span class="c1">//github.com/gangdong/git_learn.git</span></code></pre></figure>
+
+<h2 id="克隆远程分支">克隆远程分支</h2>
+
+<h3 id="git-clone">git clone</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="o">:</span><span class="c1">//github.com/gangdong/git_learn.git</span></code></pre></figure>
+
+<h2 id="查看远程提交记录">查看远程提交记录</h2>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="n">remotes</span><span class="o">/</span><span class="n">origin</span><span class="o">/</span><span class="n">dev</span></code></pre></figure>
+
+<h2 id="添加-github-token-到本地仓库">添加 Github Token 到本地仓库</h2>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">remote</span> <span class="n">set</span><span class="o">-</span><span class="n">url</span> <span class="n">origin</span> <span class="n">https</span><span class="o">:</span><span class="c1">//&lt;your_token&gt;@github.com/&lt;USERNAME&gt;/&lt;REPO&gt;.git</span>
+<span class="n">git</span> <span class="n">remote</span> <span class="n">set</span><span class="o">-</span><span class="n">url</span> <span class="n">origin</span> <span class="n">https</span><span class="o">:</span><span class="c1">//ghp_YIKL6G9C5oWxxxxxxssssKsoYg@github.com/gangdong/git_learn.git</span></code></pre></figure>
+
+<h2 id="git-stash">git stash</h2>
+
+<h3 id="应用场景">应用场景</h3>
+
+<ul>
+  <li>当正在dev分支上开发某个项目，这时项目中出现一个bug，需要紧急修复，但是正在开发的内容只是完成一半，还不想提交，这时可以用git stash命令将修改的内容保存至堆栈区，然后顺利切换到hotfix分支进行bug修复，修复完成后，再次切回到dev分支，从堆栈中恢复刚刚保存的内容。</li>
+  <li>本应该在dev分支开发的内容，却在master上进行了开发，需要重新切回到dev分支上进行开发，可以用git stash将内容保存至堆栈中，切回到dev分支后，再次恢复内容即可。</li>
+  <li>git stash命令的作用就是将目前还不想提交的但是已经修改的内容进行保存至堆栈中，后续可以在某个分支上恢复出堆栈中的内容。这也就是说，stash中的内容不仅仅可以恢复到原先开发的分支，也可以恢复到其他任意指定的分支上</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c">  <span class="n">git</span> <span class="n">stash</span>
+  <span class="n">git</span> <span class="n">stash</span> <span class="n">save</span> <span class="s">"stash 01"</span>
+  
+  <span class="cp"># 恢复
+</span>  
+  <span class="n">git</span> <span class="n">stash</span> <span class="n">pop</span> 
+  
+  <span class="cp"># 不自动删除堆栈内的内容
+</span>  
+  <span class="n">git</span> <span class="n">stash</span> <span class="n">apply</span> <span class="n">stash</span><span class="err">@</span><span class="p">{</span><span class="n">n</span><span class="p">}</span>
+  
+  <span class="cp"># 堆栈中移除某个指定记录
+</span>  
+  <span class="n">git</span> <span class="n">stash</span> <span class="n">drop</span>
+  <span class="n">git</span> <span class="n">stash</span> <span class="n">clear</span>
+  <span class="n">git</span> <span class="n">stash</span> <span class="n">list</span>
+  
+  <span class="cp"># 查看某条 stash 的更改
+</span>  
+  <span class="n">git</span> <span class="n">stash</span> <span class="n">show</span> <span class="n">stash</span><span class="err">@</span><span class="p">{</span><span class="n">n</span><span class="p">}</span>
+  </code></pre></figure>
+
+<h2 id="合并分支">合并分支</h2>
+
+<h3 id="git-merge">git merge</h3>
+
+<h4 id="1-merge-dev-分支和-dev2-分支">1. merge dev 分支和 dev2 分支</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">checkout</span> <span class="n">dev</span>
+<span class="n">git</span> <span class="n">merge</span> <span class="n">dev2</span>
+<span class="n">git</span> <span class="n">mergetool</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">checkout</span> <span class="n">dev</span>
+<span class="n">git</span> <span class="n">fetch</span> <span class="n">origin</span> <span class="n">dev2</span>
+<span class="n">git</span> <span class="n">diff</span> <span class="n">origin</span><span class="o">/</span><span class="n">dev2</span>
+<span class="n">git</span> <span class="n">merge</span> <span class="n">origin</span><span class="o">/</span><span class="n">dev2</span></code></pre></figure>
+
+<h4 id="2-手动提交">2. 手动提交</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">checkout</span> <span class="n">dev</span>
+<span class="n">git</span> <span class="n">merge</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">commit</span> <span class="n">dev2</span></code></pre></figure>
+
+<h4 id="3-如果有冲突处理冲突">3. 如果有冲突，处理冲突</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">checkout</span> <span class="n">dev</span>
+<span class="n">git</span> <span class="n">merge</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">commit</span> <span class="n">dev2</span>
+<span class="n">git</span> <span class="n">ls</span><span class="o">-</span><span class="n">files</span> <span class="o">-</span><span class="n">s</span>
+<span class="n">git</span> <span class="n">show</span> <span class="o">:</span><span class="mi">1</span><span class="o">:</span><span class="n">filename</span>
+<span class="n">git</span> <span class="n">mergetool</span>
+<span class="n">git</span> <span class="n">add</span> <span class="p">.</span>
+<span class="n">git</span> <span class="n">commit</span></code></pre></figure>
+
+<h2 id="git-cherry-pick">git cherry-pick</h2>
+
+<h3 id="1-复制-dev2-的-aa3b6ca2--b821c4f7e1c-提交到-dev-分支">1. 复制 dev2 的 aa3b6ca2  b821c4f7e1c 提交到 dev 分支</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">checkout</span> <span class="n">dev</span>
+<span class="n">git</span> <span class="n">cherry</span><span class="o">-</span><span class="n">pick</span> <span class="n">aa3b6ca2</span> <span class="n">b821c4f7e1c</span></code></pre></figure>
+
+<p>注意cherry-pick 多个提交时注意顺序，否则会出现冲突。</p>
+
+<p>git-cherry-pick 只是复制其他分支提交的内容到本地分支，复制后的commit id 和之前 pick的不同。这一点和 git merge/git rebase 有区别。git merge/git rebase 合并的是分支，之前原分支的commit id会带到本地分支。</p>
+
+<h2 id="git-rebase">git rebase</h2>
+
+<h3 id="用法">用法：</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">rebase</span>   <span class="p">[</span><span class="n">startpoint</span><span class="p">]</span>   <span class="p">[</span><span class="n">endpoint</span><span class="p">]</span>  <span class="o">--</span><span class="n">onto</span>  <span class="p">[</span><span class="n">branchName</span><span class="p">]</span>
+<span class="n">git</span> <span class="n">rebase</span> <span class="o">-</span><span class="n">i</span>  <span class="p">[</span><span class="n">startpoint</span><span class="p">]</span>  <span class="p">[</span><span class="n">endpoint</span><span class="p">]</span></code></pre></figure>
+
+<p>注意：[startpoint] [endpoint]指定了一个编辑区间，如果不指定[endpoint]，则该区间的终点默认是当前分支HEAD所指向的commit (注：该区间指定的是一个前开后闭的区间)。</p>
+
+<h3 id="1-合并当前分支的多个提交记录">1. 合并当前分支的多个提交记录</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="mi">7</span><span class="n">f66117d96ac6db8661c66c55c5476c9be82622e</span> <span class="n">modify</span> <span class="n">readme</span><span class="p">.</span><span class="n">md</span>
+<span class="mi">6</span><span class="n">af9edd695f3f51120b888d724eea4d254fe5bb3</span> <span class="n">master</span> <span class="n">commit</span> <span class="mo">02</span>
+<span class="mi">3</span><span class="n">ce944b8cf3b35121936ae0fe59ca7ff76ed81d3</span> <span class="n">master</span> <span class="n">commit</span> <span class="mo">01</span>
+<span class="mi">3</span><span class="n">f901ec367853b7852b30f0023af4398ee48235d</span> <span class="n">my_dev</span> <span class="n">work</span> <span class="n">done</span><span class="p">.</span>
+<span class="mi">86624</span><span class="n">b76ac8a6f16334605e0ee44f64305c4d8c3</span> <span class="n">my_dev</span> <span class="n">first</span> <span class="n">commit</span></code></pre></figure>
+
+<h4 id="合并3ce944b8c7f66117d96ac6-三条提交记录">合并3ce944b8c..7f66117d96ac6 三条提交记录</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">rebase</span> <span class="o">-</span><span class="n">i</span> <span class="mi">3</span><span class="n">f901ec367853</span> <span class="mi">7</span><span class="n">f66117d96ac6db</span></code></pre></figure>
+
+<p>或者</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">rebase</span> <span class="o">-</span><span class="n">i</span> <span class="n">HEAD</span><span class="o">~</span><span class="mi">3</span></code></pre></figure>
+
+<h3 id="2-复制一段提交记录到dev2分支">2. 复制一段提交记录到dev2分支</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">rebase</span> <span class="o">-</span><span class="n">i</span> <span class="mi">3</span><span class="n">f901ec367853</span> <span class="mi">7</span><span class="n">f66117d96ac6db</span> <span class="n">onto</span> <span class="n">dev2</span>
+<span class="n">git</span> <span class="n">checkout</span> <span class="n">dev2</span>
+<span class="n">git</span> <span class="n">reset</span> <span class="o">--</span><span class="n">hard</span>  <span class="n">HEAD</span></code></pre></figure>
+
+<h3 id="3-合并分支">3. 合并分支</h3>
+
+<p>dev 分支rebase master 分支</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">checkout</span> <span class="n">dev</span>
+<span class="n">git</span> <span class="n">rebase</span> <span class="n">master</span></code></pre></figure>
+
+<h3 id="4-冲突处理">4. 冲突处理</h3>
+
+<p>如果有冲突，解决掉冲突后，执行</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">add</span> <span class="p">.</span>
+<span class="n">git</span> <span class="n">rebase</span> <span class="o">--</span><span class="k">continue</span></code></pre></figure>
+
+<div class="post-note warning">
+  <div class="header"></div>
+      <div class="body">
+        <p>rebase会改变原来的commit ID, 一旦对历史提交做出改变，那么从变基开始的那个提交往后所有的提交的commit ID 都会发生改变。<br />
+        因此rebase命令使用要遵循以下原则:<br />
+        1. “从来不要对任何已经提交到公共分支的提交记录做rebase操作，rebase操作会使得公共分支的提交记录变更，导致其他共用该分支的人的代码产生冲突。<br />
+        2. 不基于rebase分支切换新分支。<br />
+        3. 不对已经合入远程分支的本地分支做rebase。
+        </p>
+      </div>
+</div>
+
+<h2 id="git-fetch">git fetch</h2>
+
+<h3 id="1-fetch-远程-dev-分支并merge">1. fetch 远程 dev 分支并merge</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">fetch</span> <span class="n">origin</span> <span class="n">dev</span>
+<span class="n">git</span> <span class="n">diff</span> <span class="n">origin</span><span class="o">/</span><span class="n">dev</span>
+<span class="n">git</span> <span class="n">merge</span> <span class="n">origin</span><span class="o">/</span><span class="n">dev</span></code></pre></figure>
+
+<h2 id="git-log">Git log</h2>
+
+<h3 id="1-显示提交的差异">1. 显示提交的差异</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">-</span><span class="n">p</span> </code></pre></figure>
+
+<h3 id="2--显示-2-个提交信息">2.  显示 2 个提交信息</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">-</span><span class="mi">2</span></code></pre></figure>
+
+<h3 id="3-显示统计信息包括哪些文件被改动">3. 显示统计信息，包括哪些文件被改动</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">stat</span></code></pre></figure>
+
+<h3 id="4-显示格式一行显示">4. 显示格式，一行显示</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span></code></pre></figure>
+
+<h3 id="5-格式化输出">5. 格式化输出</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">format</span><span class="o">:</span><span class="s">"%h - %an, %ar-%cr : %s"</span></code></pre></figure>
+
+<p>按照 <strong>哈希值-作者，修改时间-提交时间：提交说明</strong> 显示</p>
+
+<h3 id="6-图形化输出">6. 图形化输出</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">graph</span></code></pre></figure>
+
+<p>通常比较有用的是</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">formate</span><span class="o">:</span><span class="s">"%h - %an, %ar:%s"</span> <span class="o">--</span><span class="n">graph</span>
+<span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">format</span><span class="o">:</span><span class="s">"%Cred%h%Creset -%C(yellow)%d%Cblue %s %Cgreen(%cd) %C(cyan)%ar %C(bold blue)&lt;%an&gt;"</span></code></pre></figure>
+
+<h3 id="7-按照作者查找提交">7. 按照作者查找提交</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">author</span><span class="o">=</span><span class="s">"david.dong"</span> </code></pre></figure>
+
+<p>通常比较常用</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">author</span><span class="o">=</span><span class="s">"david.dong"</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span></code></pre></figure>
+
+<h3 id="8-按照内容匹配指定字符串的提交">8. 按照内容匹配指定字符串的提交</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">-</span><span class="n">S</span></code></pre></figure>
+
+<p>通常比较常用</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">-</span><span class="n">S</span> <span class="s">"function_name"</span> <span class="o">-</span><span class="n">p</span></code></pre></figure>
+
+<h3 id="9--按照时间范围查找提交">9.  按照时间范围查找提交</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">since</span> <span class="o">--</span><span class="n">until</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">since</span><span class="o">=</span><span class="s">"2020-01-01"</span> <span class="o">--</span><span class="n">until</span><span class="o">=</span><span class="s">"2020-02-01"</span>
+<span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">since</span><span class="o">=</span><span class="s">"3 weeks ago"</span> <span class="o">--</span><span class="n">until</span><span class="o">=</span><span class="s">"2 days ago"</span></code></pre></figure>
+
+<h3 id="10-限定查找-pathfilename-的提交">10. 限定查找 path/filename 的提交</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">-</span><span class="n">p</span> <span class="o">--</span> <span class="n">path</span><span class="o">/</span><span class="n">filename</span></code></pre></figure>
+
+<p>查找 david 对 fpc_bio_interface 的提交</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">author</span><span class="o">=</span><span class="s">"david"</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span> <span class="o">--</span> <span class="n">my_interface</span> </code></pre></figure>
+
+<p>或者查找 Andy 对 my_db.c 的修改提交记录</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">author</span><span class="o">=</span><span class="s">"Andy"</span> <span class="o">--</span> <span class="n">my_db</span><span class="p">.</span><span class="n">c</span></code></pre></figure>
+
+<h3 id="11-查找提交说明中包含指定字符串的提交">11. 查找提交说明中包含指定字符串的提交</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">grep</span> </code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span> <span class="o">--</span><span class="n">grep</span><span class="o">=</span><span class="s">"Minor refinement"</span>
+<span class="n">git</span> <span class="n">log</span> <span class="o">-</span><span class="n">p</span> <span class="o">--</span><span class="n">grep</span><span class="o">=</span><span class="s">"ISEE"</span></code></pre></figure>
+
+<h3 id="12-仅显示merge的提交">12. 仅显示merge的提交</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">merges</span> </code></pre></figure>
+
+<h3 id="13-不显示merge-提交">13. 不显示merge 提交</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">merges</span> </code></pre></figure>
+
+<h3 id="14-只打印主线提交">14. 只打印主线提交</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">first</span><span class="o">-</span><span class="n">parent</span> </code></pre></figure>
+
+<h3 id="15-只打印某两个提交之间的记录">15. 只打印某两个提交之间的记录</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="n">cd50063c9a625</span><span class="p">..</span><span class="n">ad3d6ae40d271778ae6</span></code></pre></figure>
+
+<h3 id="16-显示某一个分支的提交记录">16. 显示某一个分支的提交记录</h3>
+
+<h4 id="1-显示-远程-dev-分支记录中有关-readmemd-的提交">1. 显示 远程 dev 分支记录中有关 README.md 的提交</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span> <span class="n">origin</span><span class="o">/</span><span class="n">dev</span> <span class="o">--</span> <span class="n">README</span><span class="p">.</span><span class="n">md</span></code></pre></figure>
+
+<h4 id="2-显示-master-分支记录">2. 显示 master 分支记录</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span> <span class="n">master</span></code></pre></figure>
+
+<h3 id="17-查看只在一个分支中的提交">17. 查看只在一个分支中的提交</h3>
+
+<p>查看只在 master 中的提交记录</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span> <span class="o">--</span><span class="n">right</span><span class="o">-</span><span class="n">only</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">merges</span> <span class="o">--</span><span class="n">cherry</span><span class="o">-</span><span class="n">pick</span> <span class="n">my_dev</span><span class="p">...</span><span class="n">master</span></code></pre></figure>
+
+<p>查看只在 my_dev 中的提交记录</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span> <span class="o">--</span><span class="n">left</span><span class="o">-</span><span class="n">only</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">merges</span> <span class="o">--</span><span class="n">cherry</span><span class="o">-</span><span class="n">pick</span> <span class="n">my_dev</span><span class="p">...</span><span class="n">master</span></code></pre></figure>
+
+<p>查看只在 master 有， my_dev 没有的提交记录</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="n">master</span> <span class="o">^</span><span class="n">my_dev</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span></code></pre></figure>
+
+<p>或者</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="n">my_dev</span><span class="p">..</span><span class="n">master</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span></code></pre></figure>
+
+<p>查看只在 my_dev 有， master 没有的提交记录</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="n">my_dev</span> <span class="o">^</span><span class="n">master</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span> </code></pre></figure>
+
+<p>或者</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="n">master</span><span class="p">..</span><span class="n">my_dev</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span></code></pre></figure>
+
+<div class="post-note info">
+  <div class="header"></div>
+      <div class="body">
+        <p>说明：<br />
+... 是列出两个分支不同的提交，等于 master..dev + dev..master, 如果加上 --left-only/--right-only 就等于 .. <br />
+.. 是列出一个分支有，另一个分支没有的提交。 <br />
+因此：<br />
+git log --pretty=oneline --right-only --no-merges --cherry-pick my_dev...master <br />
+相当于 git log --pretty=oneline master ^my_dev <br />
+和 git log --pretty=oneline my_dev..master 
+        </p>
+      </div>
+</div>
+<h3 id="18-不显示-cherry-pick-的提交">18. 不显示 cherry-pick 的提交</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">cherry</span><span class="o">-</span><span class="n">pick</span> </code></pre></figure>
+
+<h2 id="git-grep">git grep</h2>
+
+<h3 id="在某个提交中查找字符串">在某个提交中查找字符串</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">grep</span> <span class="s">"ISEE"</span> <span class="n">cd5000634</span><span class="o">:</span> </code></pre></figure>
+
+<h2 id="git-archive">git archive</h2>
+
+<h3 id="打包某个提交的代码">打包某个提交的代码</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">archive</span> <span class="o">--</span><span class="n">format</span> <span class="n">tar</span><span class="p">.</span><span class="n">gz</span> <span class="o">--</span><span class="n">output</span> <span class="s">"linux.5.9.tar.gz"</span> <span class="mi">856</span><span class="n">deb866d16e29bd659</span></code></pre></figure>
+
+<h2 id="git-show">git show</h2>
+
+<h3 id="查看某个提交的内容">查看某个提交的内容</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">show</span> <span class="mi">856</span><span class="n">deb866d16e29bd659</span></code></pre></figure>
+
+<h2 id="重设分支">重设分支</h2>
+
+<h3 id="1-reset-hard">1. reset –hard</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">reset</span> <span class="o">--</span><span class="n">hard</span> <span class="mi">856</span><span class="n">deb866</span></code></pre></figure>
+
+<h3 id="2-reset-soft">2. reset –soft</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">reset</span> <span class="o">--</span><span class="n">soft</span> <span class="mi">856</span><span class="n">deb866</span></code></pre></figure>
+
+<p>区别：reset –hard 执行后之前的提交全部清除，reset –soft 执行后之前的提交会保留到暂存区，相当于staged.</p>
+
+<h2 id="撤消提交">撤消提交</h2>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">revert</span> <span class="mi">856</span><span class="n">deb866</span></code></pre></figure>
+
+<h2 id="查看全部操作历史">查看全部操作历史</h2>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">reflog</span></code></pre></figure>]]></content><author><name>david.dong</name></author><category term="Git" /><category term="Git" /><summary type="html"><![CDATA[记录 Git 的常用命令和使用技巧.]]></summary></entry><entry><title type="html">生产力工具</title><link href="http://localhost:4000/others/2022/02/15/Others-online-tools.html" rel="alternate" type="text/html" title="生产力工具" /><published>2022-02-15T23:11:10+08:00</published><updated>2022-02-15T23:11:10+08:00</updated><id>http://localhost:4000/others/2022/02/15/Others-online-tools</id><content type="html" xml:base="http://localhost:4000/others/2022/02/15/Others-online-tools.html"><![CDATA[<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/others-online-tools-01.jpg" alt="others-online-tools-01" class="center-image" />
+“工欲善其事，必先利其器”，使用一款好的工具，能帮助我们工作中事半功倍，提升效率。这篇文章记录了我日常使用的一些我认为相当不错的工具和软件。 <!--more--></p>
+
+<h2 id="在线版工具">在线版工具</h2>
+
+<p>在生产力工具的选择上我的原则是如果有在线版的工具可以用的话尽量用在线版的，如果有免费的尽量使用免费的，因此除了和工作专业相关的工具外，大部分的工具软件大多数时候都是轻量使用，偶尔或者临时使用一下，没有必要购买许可证或者安装到本地。</p>
+
+<p>使用在线版工具有这么几个优势：</p>
+
+<ul>
+  <li>选择多，现在是 2020 年代了，网上的工具实在是太多了，只要你能想到的各种功能，网上都能找到相应的工具，大部分还都有免费的版本可用。不同的网站提供的工具各有特色，可以根据自己的项目需要选择一个最适合的。</li>
+  <li>轻量级，基于 Web，不用安装一大推软件到本地，占用计算机的资源，拖累计算机的运行速度。</li>
+  <li>安全，浏览器的运行环境比桌面应用程序更安全，不会有安装软件时强制捆绑安装一些垃圾软件（比如国内某些 xx 全家桶）。也不会有强制弹窗，偷偷修改浏览器配置等问题。</li>
+</ul>
+
+<p>其实目前来说，大多数的软件都有在线版可以使用，性能也不错。所以这篇文章我先以介绍在线版的工具为主，当然还有些工具，比如支持本地快速搜索，网络资源下载工具，专业软件开发调试工具等还是需要运行在本地的，这些我会在下一篇博客里介绍。</p>
+
+<p>这篇文章里提到的工具，大部分是免费使用的，有的是免注册直接就可以使用，有些需要注册后免费使用。针对每个需求，我尽量推荐2个在线工具，可以方便大家选择使用。</p>
+
+<h3 id="在线编译调试">在线编译调试</h3>
+
+<p>作为一名程序开发人员，首先推荐下面这个网站</p>
+
+<p>网址：<a href="https://www.onlinegdb.com/">https://www.onlinegdb.com/</a></p>
+
+<p>它可以支持在线编译调试代码，直接可以省掉配置本地开发环境这个环节，支持的编程语言还很多，基本上常见的编程语言都可以在里面找到。特别适合支持一些需要快速验证代码的场合，比如在本地没有安装可开发的环境或者在其他临时使用的计算机上没有可运行的环境，当场安装又来不及，这时可以通过这个网站，直接从你的网上代码仓里远程拉下代码在线调试。是不是很方便？</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev\assets\image\others-online-tools-02.png" alt="others-online-tools-2" /></p>
+
+<p>另外下面这个在线调试网站 <code class="language-plaintext highlighter-rouge">ideone</code> 也可以使用，亲测感觉编译的速度比上面的网站要稍微慢一些。</p>
+
+<p>网址：<a href="https://ideone.com/">https://ideone.com/</a></p>
+
+<h3 id="github-资源查找">GITHUB 资源查找</h3>
+
+<p>程序员会经常需要在Github上查找有用的项目，推荐使用 <code class="language-plaintext highlighter-rouge">gitlogs</code>，可以在 <code class="language-plaintext highlighter-rouge">GitHub</code> 上方便的查找到你感兴趣的项目。</p>
+
+<p>网址：<a href="https://www.gitlogs.com/">https://www.gitlogs.com/</a></p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev\assets\image\others-online-tools-03.png" alt="others-online-tools-03" /></p>
+
+<h3 id="流程图工具">流程图工具</h3>
+
+<p>我推荐 <code class="language-plaintext highlighter-rouge">draw.io</code>,</p>
+
+<p>网址：<a href="https://app.diagrams.net/">https://app.diagrams.net/</a></p>
+
+<p>理由是</p>
+
+<ul>
+  <li>功能强大，不仅仅能画流程图，还包括其他各种图表。</li>
+  <li>操作简单，不需要花费很多时间学习就可以快速的完成绘制。</li>
+  <li>易用性好，提供了很多模板，很方便使用。</li>
+</ul>
+
+<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev\assets\image\others-online-tools-07.png" alt="others-online-tools-07" /></p>
+
+<h3 id="综合工具箱">综合工具箱</h3>
+
+<p>有的时候工作中会用到一些不常见的工具，下面的这两个网站提供了各种各样的小工具，基本上能够涵盖了大多数的需要了。</p>
+
+<p>网址：</p>
+
+<ul>
+  <li><a href="https://tool.lu/">https://tool.lu/</a></li>
+  <li><a href="https://www.zxgj.cn/m/chengxuyuan">https://www.zxgj.cn/m/chengxuyuan</a></li>
+</ul>
+
+<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev\assets\image\others-online-tools-06.png" alt="others-online-tools-06" /></p>
+
+<p>功能可以说很齐全，比如包括：</p>
+
+<ul>
+  <li>字符串编解码工具</li>
+  <li>进制转换工具</li>
+  <li>Jason/XML 格式转换</li>
+  <li>代码比对</li>
+  <li>随机数生成器</li>
+  <li>MD5/AES 加密</li>
+  <li>正则表达式</li>
+  <li>ascii 码编辑器</li>
+  <li>Unix 时间戳转换</li>
+</ul>
+
+<p>等等。</p>
+
+<p>以上的网站相当于是一个各类工具的合集，如果有此类需要的时候可以去里面找一下，说不定就能找到适合的工具。</p>
+
+<h3 id="ocr-工具">OCR 工具</h3>
+
+<p>推荐 <code class="language-plaintext highlighter-rouge">OCR.Space</code> ,</p>
+
+<p>网址：<a href="https://ocr.space/">https://ocr.space/</a></p>
+
+<p><strong>OCR.Space</strong> 有如下的优点：</p>
+
+<ul>
+  <li><strong>支持格式多</strong>：支持JPG、PNG、GIF、PDF、URL等作为输入。</li>
+  <li><strong>支持语言多</strong>：支持英语、中文、法语、德语等<strong>20+</strong>种语言。</li>
+  <li><strong>免费</strong>：ocr.space的免费是<strong>不限次数</strong>的免费。</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">ocr.space</code> 的<strong>使用方法</strong>非常简单，只需要可以直接上传 <strong>PDF</strong> 和图片，也可以粘贴它们的链接，然后选择要识别的语言，其它选项默认，点击 <code class="language-plaintext highlighter-rouge">Star OCR</code>! 即可。</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev\assets\image\others-online-tools-05.png" alt="others-online-tools-05" /></p>
+
+<p>另外还有 <code class="language-plaintext highlighter-rouge">极客OCR</code> 也可以选择。</p>
+
+<p>网址：<a href="http://www.gkocr.com/web/index.html">http://www.gkocr.com/web/index.html</a></p>
+
+<p>相对于 <code class="language-plaintext highlighter-rouge">OCR.Space</code>, <code class="language-plaintext highlighter-rouge">极客OCR</code> 有以下不足：</p>
+
+<ul>
+  <li>免费用户，每天限制上传<strong>10张</strong>图像</li>
+  <li>只支持<strong>图片</strong>格式<strong>不支持PDF</strong></li>
+</ul>
+
+<h3 id="格式转换">格式转换</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Online converter</code> 提供了各种转换工具，包括</p>
+
+<ul>
+  <li>视频转换</li>
+  <li>音频转换</li>
+  <li>PDF 转换</li>
+  <li>Office 文档格式转换等</li>
+</ul>
+
+<p>是一个综合的转换工具集合。</p>
+
+<p>免费用户可以</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">每天转换次数</th>
+      <th style="text-align: center">每次转换文件数量</th>
+      <th style="text-align: center">每个转换的文件大小</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">20</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">100MB</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>通常对应一般的轻量化的需求，都可以满足。</p>
+
+<p>网址：<a href="https://www.online-convert.com/">https://www.online-convert.com/</a></p>
+
+<h4 id="pdf-转换">PDF 转换</h4>
+
+<p>针对 <strong>PDF</strong> 转换， 推荐 <code class="language-plaintext highlighter-rouge">smallpdf</code> 和 <code class="language-plaintext highlighter-rouge">speedpdf</code></p>
+
+<p>网址：</p>
+
+<ul>
+  <li><a href="https://smallpdf.com/cn/pdf-tools">https://smallpdf.com/cn/pdf-tools</a></li>
+  <li><a href="https://speedpdf.com/zh-cn/">https://speedpdf.com/zh-cn/</a></li>
+</ul>
+
+<p>这两个网站提供了丰富的 pdf 处理能力，易于操作，其中包括：</p>
+
+<ul>
+  <li>合并PDF/拆分PDF/压缩PDF</li>
+  <li>PDF转换至Word/PowerPoint/Excel</li>
+  <li>Word/PowerPoint/Excel 转换至PDF文件</li>
+  <li>PDF转JPG、JPG转PDF</li>
+  <li>页码、水印、旋转PDF</li>
+  <li>HTML转换PDF</li>
+  <li>PDF解密、PDF加密</li>
+  <li>排版PDF文件、修复PDF 等</li>
+</ul>
+
+<p>免费用户也完全可以使用。</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev\assets\image\others-online-tools-04.png" alt="others-online-tools-04" /></p>
+
+<h3 id="图片压缩">图片压缩</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Squoosh</code> 是谷歌推出的一款在线图像压缩工具，可帮助网站开发人员快速压缩图片，在保持图片质量的同时，提升网站访问速度。</p>
+
+<p>网址：<a href="https://squoosh.app/">https://squoosh.app/</a></p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev\assets\image\others-online-tools-08.jpg" alt="others-online-tools-008" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">TinyPNG</code> 也是可以的。</p>
+
+<p><a href="https://tinypng.com/">TinyPNG – Compress WebP, PNG and JPEG images intelligently</a></p>
+
+<h3 id="图片编辑处理">图片编辑处理</h3>
+
+<p><code class="language-plaintext highlighter-rouge">PhotoKit.com</code> 是免费的在线 P 图编辑器，可以完成在线抠图、改图、修图、美图等。方便易用。一键轻松抠图、改图、修图和美图应用，包含图片裁剪、调整大小、旋转等基本编辑。对于轻量级的编辑需求完全可以满足，没有必要去用 photoshop 等专业性很强的软件。</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev\assets\image\others-online-tools-09.png" alt="others-online-tools-09" /></p>
+
+<p>免费用户可以使用所以的处理工具，导出时需要额外的等待时间。</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev\assets\image\others-online-tools-10.png" alt="others-online-tools-10" /></p>
+
+<p>网址：<a href="https://photokit.com/?lang=zh">PhotoKit.com</a></p>
+
+<p>另外如果专门针对去水印的话也可以使用 <code class="language-plaintext highlighter-rouge">Inpaint</code> ，可以很方便的一键去除去除图片上的水印。不需要任何技术门槛。</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev\assets\image\others-online-tools-11.png" alt="others-online-tools-11" /></p>
+
+<p>网址：<a href="https://theinpaint.com/">https://theinpaint.com/</a></p>
+
+<h3 id="网络素材">网络素材</h3>
+
+<p>下面几个网站提供了大量精美的图片，有需要贴图找图的时候可以去浏览一下。</p>
+
+<p>网址：</p>
+
+<ul>
+  <li>
+    <p><a href="https://www.stockio.com/">Stockio.com - Download Free Vectors, Photos, Icons, Fonts and Videos</a></p>
+  </li>
+  <li>
+    <p><a href="https://pixabay.com/zh/">免费正版高清图片素材库 (pixabay.com)</a></p>
+  </li>
+  <li>
+    <p><a href="https://www.pexels.com/zh-cn/">免费素材图片 · Pexels.com</a></p>
+  </li>
+  <li>
+    <p><a href="https://unsplash.com/">Beautiful Free Images &amp; Pictures (unsplash.com)</a></p>
+  </li>
+  <li>
+    <p><a href="https://www.librestock.com/">Librestock Photos - Free Stock Photo Search Engine (librestock.com)</a></p>
+  </li>
+</ul>
+
+<h4 id="壁纸">壁纸</h4>
+
+<p>专门提供免费壁纸的网站，从里面可以下载大量精美的壁纸。</p>
+
+<p>网址：<a href="https://wall.alphacoders.com/">Wallpaper Abyss - HD Wallpapers, Background Images (alphacoders.com)</a></p>
+
+<h4 id="emoji-表情icon-图标">Emoji 表情，ICON 图标</h4>
+
+<p>这两个网站提供了大量的在线图标和 <strong>Emoji</strong>，可以免费下载使用。</p>
+
+<p><a href="https://www.iconfinder.com/search">Icons - Iconfinder.com</a></p>
+
+<p><a href="https://emojiisland.com/">Download Emoji Images For Free! - emojiisland.com</a></p>
+
+<h4 id="文档搜索">文档搜索</h4>
+
+<p>推荐<code class="language-plaintext highlighter-rouge">鸠摩搜索</code>，鸠摩搜索是一个文档类搜索的引擎，本身不存储文档，通过 AI 算法检索网上第三方资源，自动生成到第三方网站的链接。</p>
+
+<p><a href="https://www.jiumodiary.com/">Jiumo Search 鸠摩搜索 - 文档搜索引擎 (jiumodiary.com)</a></p>
+
+<h3 id="在线制作图标logo艺术字">在线制作图标，Logo，艺术字</h3>
+
+<p><a href="https://www.qt86.com/">艺术字体在线生成器 艺术字转换器 字体转换器 免费书法字体设计大全-找字体网 (qt86.com)</a></p>
+
+<p><a href="https://www.uugai.com/">免费logo在线制作-字体logo-logo设计-U钙网 (uugai.com)</a></p>
+
+<h3 id="在线翻译">在线翻译</h3>
+
+<p>除了大家都知道的 <code class="language-plaintext highlighter-rouge">Google Translate</code> 外，我还常用 <code class="language-plaintext highlighter-rouge">DeepL</code>， 号称全球最准确的翻译。翻译出来的质量确实不错，也可以直接翻译整篇文章，不过免费用户在字数和文章数量上有限制，如果不是大量的文章需要翻译的话，使用起来还是不错的。</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev\assets\image\others-online-tools-12.png" alt="others-online-tools-12" /></p>
+
+<h3 id="edge-插件">Edge 插件</h3>
+
+<p>最后再推荐几个 Edge 浏览器的插件：</p>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">AdGuard</code> - 广告拦截器，当前的网络环境下，相信每一个上网的人都会安装一款广告拦截程序，<strong>AdGuard</strong> 号称世界上最好的广告拦截程序，网上评价很高，除了屏蔽广告，<strong>AdGuard</strong> 还提供了许多其他工具，其中最重要的是网络钓鱼筛选器。<strong>AdGuard</strong> 可以很方便的通过 Edge 插件市场直接安装。</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">oneTag</code> - 当我们同时打开很多网页的时候，只需要点一下 <strong>OneTag</strong> 按钮，即可把 <strong>Tag</strong> 页变成列表的形式，当需要再次访问这些标签页时，可以单独或全部恢复它们。通过简书浏览器中打开的标签数量，OneTag 可以大量的节省内存。</p>
+
+    <p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev\assets\image\others-online-tools-14.png" alt="others-online-tools-14" /></p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">TamperMonkey</code> - 大名鼎鼎的“油猴”，相信很多人听说过或者正在用，它可以让你再网页上执行任何的脚本，总之装上它就对了。</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">沙拉查词</code> - 沙拉查词是浏览器插件形式的翻译软件，功能强大，最值得一提的是它在使用的设计上非常人性化，充分考虑了人们阅读的习惯，让人阅读时不会感受到它的存在，在需要翻译时又能瞬间调出，轻松快速的完成翻译。是不可多得的一款翻译软件。</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">Grammarly for Microsoft Edge</code> - 语法错误检查和标注插件。</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">IDM integration Module</code> - IDM 大家一定都听说过了，这款插件需要配合 <strong>IDM desktop</strong> 软件使用，好处是在安装完 <strong>IDM desktop</strong>, 第一次运行时，软件会自动安装插件到浏览器，从此就可以用 <strong>IDM</strong> 从网上直接下载资源了。😜</p>
+  </li>
+</ul>
+
+<h2 id="desktop-工具">Desktop 工具</h2>
+
+<h3 id="本地文件搜索">本地文件搜索</h3>
+
+<p>我目前在用的是 <code class="language-plaintext highlighter-rouge">Everything</code> + <code class="language-plaintext highlighter-rouge">AnyTxt Searcher</code>, <code class="language-plaintext highlighter-rouge">Everything</code> 用于文件搜索，<code class="language-plaintext highlighter-rouge">AnyTxt Searcher</code>用于字符串的搜索。这两个工具和 Linux 下的 <code class="language-plaintext highlighter-rouge">find</code> + <code class="language-plaintext highlighter-rouge">grep</code>的作用类似，区别是前者是带有 GUI 工具，而 <code class="language-plaintext highlighter-rouge">find</code> + <code class="language-plaintext highlighter-rouge">grep</code>是命令行工具。<code class="language-plaintext highlighter-rouge">find</code> + <code class="language-plaintext highlighter-rouge">grep</code> 也有针对 Windows 平台的 .exe 版本，我有时在终端下也会使用，体验上和在 Linux 下没有区别。另外在 Linux 下还会使用 <code class="language-plaintext highlighter-rouge">fsearch</code> 这个工具。</p>
+
+<h3 id="快速启动和文件搜索">快速启动和文件搜索</h3>
+
+<p>用过一段时间的 <code class="language-plaintext highlighter-rouge">WOX</code>和 <code class="language-plaintext highlighter-rouge">uTools</code>，最后还是换回了 <code class="language-plaintext highlighter-rouge">Listary</code>, 快速启动之类的功能都基本类似，<code class="language-plaintext highlighter-rouge">Listary</code>最大的优点是可以自动记录并定位到上次资源管理器打开的路径，这在 win 里简直是个神器。</p>
+
+<h3 id="工具插件聚合">工具插件聚合</h3>
+
+<p>我目前用的是 <code class="language-plaintext highlighter-rouge">quicker</code>, 原因无它，<code class="language-plaintext highlighter-rouge">quicker</code>提供了海量的动作库，一键式添加。比如 OCR，文件处理，批量重命名，大小写转换，使用录屏功能自动输入密码等。而且针对不同的软件，有专有的动作库，比如 EXCEL 的处理等，使用好了可以大大的提高效率。</p>
+
+<h3 id="编程文档库">编程文档库</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Velocity</code> 配合 <code class="language-plaintext highlighter-rouge">zeal</code> 一起使用。</p>
+
+<h3 id="人工智能辅助">人工智能辅助</h3>
+
+<ul>
+  <li>ChatGPT：一个由 OpenAI 发布的 ChatGPT，知识检索、创作文章、编写代码、聊天、AI 绘图。链接：<a href="https://chat.openai.com/chat">ChatGPT (openai.com)</a></li>
+  <li>cht.sh：增强 cheat 和 tldr，提供编程建议，语法解释。</li>
+  <li>Copilot: AI 辅助编程插件。链接： <a href="https://docs.github.com/cn/copilot">GitHub Copilot - GitHub Docs</a></li>
+</ul>
+
+<h3 id="设备互传">设备互传</h3>
+
+<ul>
+  <li>坚果云</li>
+  <li>Logitech Flow</li>
+  <li>LANDrop：多台电脑，手机之间通过 LANDrop 互传文件。需要设备上安装 LANDrop 应用。</li>
+  <li>SnapDrop：局域网云共享，同一个局域网内多台设备通过登录 snapdrop 网站点对点传送文件，无需安装应用。网址：<a href="https://snapdrop.net/">https://snapdrop.net/</a></li>
+  <li>奶牛快传：<a href="https://cowtransfer.com/">https://cowtransfer.com/</a></li>
+</ul>
+
+<h3 id="流程图">流程图</h3>
+
+<ul>
+  <li>drawio</li>
+  <li>坚果云轻应用</li>
+</ul>
+
+<h3 id="拼图">拼图</h3>
+
+<ul>
+  <li>ShareX</li>
+</ul>
+
+<h3 id="长截图">长截图</h3>
+
+<ul>
+  <li>faststone capture</li>
+  <li>ShareX</li>
+</ul>
+
+<h3 id="markdown-编辑">Markdown 编辑</h3>
+
+<ul>
+  <li>obsidian</li>
+  <li>marktext</li>
+  <li>坚果云轻应用</li>
+</ul>
+
+<p>之前用的比较多的是 <code class="language-plaintext highlighter-rouge">typroa</code>，自从它变成收费的后，就改用 <code class="language-plaintext highlighter-rouge">marktext</code>替代。<code class="language-plaintext highlighter-rouge">typroa</code>和 <code class="language-plaintext highlighter-rouge">marktext</code>都有一个缺点，那就是对于单个 markdown  文件的编辑都没得说，但是在文件的组织管理和查找上都功能缺失。直到最近体验了 <code class="language-plaintext highlighter-rouge">obsidian</code> 以后，完美的弥补了上述的缺点，而且还提供了大量的插件可以增强功能，简直是 perfect，现在已经完全转到 <code class="language-plaintext highlighter-rouge">obsidian</code>来了。</p>
+
+<h3 id="笔记软件">笔记软件</h3>
+
+<ul>
+  <li>obsidian</li>
+</ul>
+
+<h3 id="文件恢复">文件恢复</h3>
+
+<ul>
+  <li>Recuva</li>
+</ul>
+
+<h3 id="大文件查找清理">大文件查找清理</h3>
+
+<ul>
+  <li>WizTree64</li>
+</ul>
+
+<p>一个字，快。</p>
+
+<h3 id="git-gui">Git GUI</h3>
+
+<ul>
+  <li>sublime merge (Linux)</li>
+  <li>source tree</li>
+  <li>gitkraken</li>
+  <li>GitHub desktop</li>
+  <li>tig</li>
+  <li>gitui</li>
+</ul>
+
+<p>Git GUI 的工具有很多，但是平时用的最多的还是命令行，😊！偶尔需要用 GUI 的时候，Linux 下用 <code class="language-plaintext highlighter-rouge">sublime merge</code>多一些，Windows 下是 <code class="language-plaintext highlighter-rouge">Github Desktop</code> 和 <code class="language-plaintext highlighter-rouge">source tree</code>。</p>
+
+<h3 id="文档比对">文档比对</h3>
+
+<ul>
+  <li>meld</li>
+  <li>beyond compare</li>
+</ul>
+
+<p>Linux 下使用 <code class="language-plaintext highlighter-rouge">meld</code>, Windows 下使用 <code class="language-plaintext highlighter-rouge">beyond compare</code>。</p>
+
+<h3 id="磁盘划分">磁盘划分</h3>
+
+<ul>
+  <li>gparted (Linux)</li>
+</ul>
+
+<p>Linux 下的工具。</p>
+
+<h3 id="文件预览">文件预览</h3>
+
+<ul>
+  <li>quicklook</li>
+  <li>gnome-sushi (Linux)</li>
+</ul>
+
+<h3 id="剪切板增强">剪切板增强</h3>
+
+<ul>
+  <li>ditto</li>
+  <li>copyq (Linux)</li>
+</ul>
+
+<h3 id="终端">终端</h3>
+
+<ul>
+  <li>cmder</li>
+  <li>windows terminal</li>
+  <li>tabby</li>
+  <li>mobaXterm (远程 SSH)</li>
+  <li>terminator (Linux)</li>
+  <li>gnome terminal (Linux)</li>
+</ul>
+
+<p>终端的选择太多了，目前主力在用的是 <code class="language-plaintext highlighter-rouge">cmder</code> + <code class="language-plaintext highlighter-rouge">terminator</code>。</p>
+
+<h3 id="多媒体">多媒体</h3>
+
+<ul>
+  <li>potplayer</li>
+  <li>honeyview</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">potplayer</code>看视频， <code class="language-plaintext highlighter-rouge">honeyview</code>看图。这两个软件都是小巧，功能多，占用资源少，运行快。</p>
+
+<h3 id="计算机管理">计算机管理</h3>
+
+<ul>
+  <li>ccleaner</li>
+  <li>geek</li>
+</ul>
+
+<h3 id="文本编辑器">文本编辑器</h3>
+
+<ul>
+  <li>EmEditor</li>
+  <li>notepad++</li>
+  <li>Notepad 3</li>
+  <li>geany (Linux)</li>
+  <li>gedit</li>
+</ul>
+
+<p>Windows 下推荐 <code class="language-plaintext highlighter-rouge">EmEditor</code>，超大文件秒开，搜索功能使用起来很方便。Linux 下 <code class="language-plaintext highlighter-rouge">geany</code>非常好用。</p>
+
+<h3 id="ide--代码编辑器">IDE &amp; 代码编辑器</h3>
+
+<ul>
+  <li>source insight</li>
+  <li>vscode</li>
+  <li>idea</li>
+  <li>pycharm</li>
+  <li>android studio</li>
+  <li>visual studio 2022</li>
+  <li>sublime</li>
+</ul>
+
+<p>这个就不多说了，程序员对以上的软件都很熟悉，针对不同的编程语言，每个人都会有自己喜爱的编辑器和 IDE。萝卜青菜，各有所爱吧。</p>
+
+<h3 id="密码管理">密码管理</h3>
+
+<ul>
+  <li>keepass</li>
+</ul>
+
+<p>优点是密码本地存储，安全，开源免费，功能强大，有插件支持。</p>
+
+<h3 id="笔记管理">笔记管理</h3>
+
+<ul>
+  <li>obsidian</li>
+  <li>onenote</li>
+  <li>masscode (Linux)</li>
+</ul>
+
+<p>之前使用 <code class="language-plaintext highlighter-rouge">onenote</code>, 也十分好用，现在转到 <code class="language-plaintext highlighter-rouge">obsidian</code>，原因有二：</p>
+
+<ol>
+  <li>
+    <p>onenote 的文档不是通用的格式</p>
+  </li>
+  <li>
+    <p>onenote 不支持 markdown 语言，需要安装 <code class="language-plaintext highlighter-rouge">onemark</code>插件</p>
+  </li>
+</ol>
+
+<p>以上两点 <code class="language-plaintext highlighter-rouge">obsidan</code>都完美解决，本地存储的 markdown 文件。任何文本编辑器都可以浏览编辑。</p>
+
+<h3 id="截图--录屏">截图 &amp; 录屏</h3>
+
+<ul>
+  <li>Snipaste</li>
+  <li>Captura</li>
+  <li>ScreenToGif</li>
+  <li>ShareX</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">Snipaste</code> 截图用，<code class="language-plaintext highlighter-rouge">Captura</code> 录屏工具。</p>
+
+<h3 id="虚拟机">虚拟机</h3>
+
+<ul>
+  <li>VMware</li>
+  <li>VirtualBox</li>
+</ul>
+
+<p>这个就不多说了，二者二选一个即可。</p>
+
+<h3 id="下载工具">下载工具</h3>
+
+<ul>
+  <li>IDM</li>
+  <li>NDM</li>
+</ul>
+
+<p>区别是 <code class="language-plaintext highlighter-rouge">IDM</code> 收费软件，<code class="language-plaintext highlighter-rouge">NDM</code> 免费使用，速度上差不多。</p>
+
+<h3 id="文件管理">文件管理</h3>
+
+<ul>
+  <li>XYplorer</li>
+  <li>double-commander (Linux)</li>
+  <li>groupy</li>
+  <li>windowTop</li>
+  <li>DropIt</li>
+  <li>Folder Painter</li>
+  <li>folder-color （Linux）</li>
+</ul>
+
+<p>Windows 下的文件管理软件有很多，比如有名的 <code class="language-plaintext highlighter-rouge">Total Commander</code>, <code class="language-plaintext highlighter-rouge">Free Commander</code>, <code class="language-plaintext highlighter-rouge">Directory Opus</code>等，<code class="language-plaintext highlighter-rouge">XYplorer</code> 也是其中之一，不多说。Linux 下就推荐 <code class="language-plaintext highlighter-rouge">double commander</code>,功能和 <code class="language-plaintext highlighter-rouge">total commander</code>类似，因为 <code class="language-plaintext highlighter-rouge">total commander</code> 没有 Linux 的版本。剩下的几款都是增强型软件，比如增加文件浏览器的 TAB 页，窗口置顶，文件夹着色等等。</p>
+
+<h3 id="文件格式转换">文件格式转换</h3>
+
+<ul>
+  <li>pandoc</li>
+</ul>
+
+<p>文档格式转换利器，命令行使用，功能强大。</p>
+
+<h3 id="文件同步">文件同步</h3>
+
+<ul>
+  <li>freefilesync</li>
+</ul>
+
+<h3 id="压缩解压缩">压缩/解压缩</h3>
+
+<ul>
+  <li>7zip</li>
+  <li>peazip</li>
+</ul>
+
+<h3 id="博客">博客</h3>
+
+<ul>
+  <li>jekyll</li>
+</ul>]]></content><author><name>david.dong</name></author><category term="Others" /><category term="Typora" /><summary type="html"><![CDATA[好用的在线工具.]]></summary></entry><entry><title type="html">从 MarkdownPad2 到 Typora - 使用 Typora 的直观感受</title><link href="http://localhost:4000/others/2022/02/11/Others-typora.html" rel="alternate" type="text/html" title="从 MarkdownPad2 到 Typora - 使用 Typora 的直观感受" /><published>2022-02-11T09:24:16+08:00</published><updated>2022-02-11T09:24:16+08:00</updated><id>http://localhost:4000/others/2022/02/11/Others-typora</id><content type="html" xml:base="http://localhost:4000/others/2022/02/11/Others-typora.html"><![CDATA[<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev\assets\image\others-typora-01.jpeg" alt="others-typora-01" style="zoom:100%;" /></p>
+
+<p>一直以来我都是用 MarkdownPad2 撰写自己的博客文章，也没有觉得哪里不好。关注到 typora 这个软件是因为最近网上讨论的比较热烈的这个软件要收费的消息，于是上网 Google 了一下这个软件才发现很多人对这个软件的评价很高，这就引起了我的兴趣，于是我决定下载这个软件亲自试用一下。😉 <!--more--></p>
+
+<h2 id="第一眼感觉">第一眼感觉</h2>
+
+<p>下载安装后，打开这款文本编辑器，第一眼感觉着实有些惊艳到我，整个 UI 给人的感觉是 “干净，简洁”，没有任何多余的东西。这个设计的 style 还是比较符合我的审美。对比一下 MarkdownPad2 感受会更明显。</p>
+
+<p>MarkdownPad2 看上去就是比较传统的 UI 设计，典型的 windows 窗口的布局，编辑区，工具栏，菜单… 和其他的 windows 软件没有多大的区别，当然好处是这样比较符合大多数人的使用习惯，但是也使人提不起多大的使用兴趣。</p>
+
+<h2 id="文本输入">文本输入</h2>
+
+<p>不得不说 typora 在文本的输入方式上和其他的编辑软件还是有显著不同，这个不同就是 typora 采用实时预览，也就是【所见即所得】，不像其他的 Markdown 编辑器那样分栏显示，分为编辑区和预览区，占用屏幕空间。typora 甚至连 Markdown 语法的标记都在实时预览中消去了。当你离开正在编辑的有格式的文本段后，Typora 会自动隐藏 Markdown 标记。一开始还有些不太习惯，但是简简单单的敲入字符，编写完几行内容后，几分钟的时间我就彻底喜欢上这种方式，感觉再也回不去过去那种模式。</p>
+
+<p>typora 对 Markdown 语法的支持也非常的好，我用它敲写 Markdown 语句完全没有违和感。感觉从 MarkdownPad2 切换到 typora 几乎没有花费多少时间成本，除了前几分钟用来适应【所见即所得】以外，其他的都非常顺畅。</p>
+
+<p>typora 还提供了 【打字机模式】和 【专注模式】这两种独有的编辑模式，用过以后效果非常不错！</p>
+
+<h2 id="功能性">功能性</h2>
+
+<p>功能性上 typora 也有其独到的地方，比如 typora 可以很方便的把 markdown 文件导出为其他文件格式，比如 pdf, 图像格式(.jpg, .png)，甚至在 pandoc 的帮助下生成更多的格式，像 docx, Latex, Epub 都是可以的。这点我在 MarkdownPad2 上是没有看到。</p>
+
+<p>另外 typora 还支持很多的快捷键，常用操作用都可以用快捷键完成，可以大大提高效率。</p>
+
+<p>另外 typora 还有其他一些人性化的特性，比如快速插入 Emoji 图标，很方便的使用 Latex 编写数学公式，还可以编写流程图，也支持代码块高亮，Typora 原生支持许多编程语言代码块的语法高亮，基本日常常用的编程语言它都能很好地支持。 有了这些特性，就可以像写代码一样编写文档了，简直是程序猿们的最爱啊~~</p>
+
+<h2 id="扩展性">扩展性</h2>
+
+<p>typora 有很多主题可以选择，如果你不喜欢现在的 UI， 可以很方便的从网上找到一款喜欢的主题，瞬间完成自己想要的风格。不像 MarkdownPad2，百年不变的外观，没有可玩性。</p>
+
+<p>以上是我使用下来最直观的感受，因为使用时间不长，有很多功能应该说还有待发掘。</p>
+
+<h2 id="其他">其他</h2>
+
+<p>关于 typora, 用 typora 官方对自己的介绍来说就是：</p>
+
+<ul>
+  <li>简洁美观</li>
+  <li>实时预览</li>
+  <li>扩展语法</li>
+  <li>跨平台</li>
+  <li><del>免费</del></li>
+</ul>
+
+<p>实际上我自己使用下来的感受也是差不多的，跨平台的特性我还没有在其他平台上使用过，有机会会在其他系统平台用一下。</p>
+
+<p>这款软件之前是完全免费使用的，最近已经开始收费了，价格倒是不贵，根据官网的消息，目前Typora的收费方式为买断式消费，价格为 <strong>89元 RMB</strong>，最多可以在 3 台设备上使用。</p>
+
+<p>好消息是目前的收费只针对不久前正式发布的 <strong>V1.0</strong> 版本，之前的发布的 beta 版本还可以继续免费使用。目前我自己在用的 0.11.18 也还是免费使用的。</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev\assets\image\others-typora-02.jpeg" alt="" /></p>
+
+<h2 id="写在最后">写在最后</h2>
+
+<p>总结一下我自己对这款编辑器的体会就是 “快速，简洁，外观漂亮和功能强大”，它 【极简】 的设计，【实时预览】的特性和对 Markdown 良好的支持，让我感觉用它来写作非常舒服，细枝末节处的人性化增加了写作的欲望，用现在比较流行的说法就是提高了生产力。</p>
+
+<p>最后贴一张和 MarkdownPad2 对比图，看起来 MarkdownPad2 就显得有那么一点笨重和陈旧了。typora 符合了我对文本编辑器的大多数的需求，后面我会切换到 typora 来作为文本编辑器使用，MarkdownPad2 可以卸载掉了~~</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev\assets\image\others-typora-03.png" alt="" /></p>]]></content><author><name>david.dong</name></author><category term="Others" /><category term="Typora" /><summary type="html"><![CDATA[记录 Typora 的使用感受.]]></summary></entry></feed>

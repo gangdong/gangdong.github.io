@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Syntax Highlighting your code in Jekyll with Rouge | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Syntax Highlighting your code in Jekyll with Rouge" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Do you want to add a syntax highlighting function into your code block? You can get help from this article." />
+<meta property="og:description" content="Do you want to add a syntax highlighting function into your code block? You can get help from this article." />
+<link rel="canonical" href="http://localhost:4000/blog/2018/12/22/Blog-rouge.html" />
+<meta property="og:url" content="http://localhost:4000/blog/2018/12/22/Blog-rouge.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-12-22T23:09:12+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Syntax Highlighting your code in Jekyll with Rouge" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"david.dong"},"dateModified":"2018-12-22T23:09:12+08:00","datePublished":"2018-12-22T23:09:12+08:00","description":"Do you want to add a syntax highlighting function into your code block? You can get help from this article.","headline":"Syntax Highlighting your code in Jekyll with Rouge","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/blog/2018/12/22/Blog-rouge.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/logo.png"},"name":"david.dong"},"url":"http://localhost:4000/blog/2018/12/22/Blog-rouge.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+<meta property="article:tag" content="Blog">
+
+
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
+
+</head><body>
+    <main class="container">
+      <section class="about condensed">
+	    <div class="about-header condensed">
+			<div class="about-title">
+				<a href="/blog/index.html">
+				  <img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/avatar-11.png" alt="David Dong"/>
+				</a>
+				<div class = "title-meta">
+					<h2 id="title">
+					  <a href="/blog/index.html">David Dong</a>
+					</h2>
+					<p class = "tagline-small">Java/C/C#/Python</p>
+				</div>
+			</div>
+			<p class="tagline">Java/C/C#/Python</p>
+		</div>
+		<!--put dark mode button here -->
+		<div class = "about-footer condensed">
+		  <!--put rss/code link here -->
+			<div class="icon-box-container about-footer condensed"><div class = "icon-box" style = "padding-right:0px">
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id = "mode">Dark Mode</span>
+					</a>
+				</div>
+				<!-- toggle dark/light display mode, should loading darkmode.js here for avoiding flicker when switching -->
+				<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/darkmode.js"></script>
+				<script type="text/javascript">
+				$('.dark-mode').on('click',function(){
+					$('.dark-mode').toggleClass('light-mode');
+					if (document.getElementById("mode").innerHTML=="Light Mode")
+						document.getElementById("mode").innerHTML="Dark Mode";
+					else 
+						document.getElementById("mode").innerHTML="Light Mode";
+				})
+				</script><div class = "icon-box">
+					<a class="icon-rss" href="/rss.xml">
+						<span>Subscribe</span>
+					</a>
+				</div><div class = "icon-box">
+					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
+						<span>Source Code</span>
+					</a>
+				</div></div>
+		</div>
+		
+	    <!--show contact me -->
+		<div class = "about-footer condensed social-container">
+	    <p class = "contact about-footer condensed">CONTACT ME</p>
+		<!-- put social link here -->
+	      <ul class="social about-footer condensed" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		<!--put timestamp here -->
+		<p class ="timestamp about-footer condensed">&copy; 2024</p>
+		</div>
+	  <!-- about box end here -->
+      </section>
+	  
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+<div class="post-container">
+	<div  class = "menu-meta condensed">
+		<!--put top menu here, display @ big screen (> $mobileW) -->
+		<div  class = "menu-logo">BLOG</div>
+		<div  class = "menu">
+			<a href="/blog/index.html">
+				<li class="icon-home">Home</li>
+			</a><a href="/archive">
+				<li class="icon-archive">Archives</li>
+			</a><a href="/category">
+				<li class="icon-tags">Categories</li>
+			</a><a href="/about">
+				<li class="icon-help-circled">About</li>
+			</a>
+		</div>
+		<!--put hide menu button here, display @ small screen (< $mobileW) -->
+		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
+		<!--put hide menu here, display @ small screen (< $mobileW) -->
+		<div class="context-menu">
+			<ul >
+				<li>
+					<a class="icon-home" href="/blog/index.html">Home</a>
+				</li><li>
+					<a class="icon-archive" href="/archive">Archives</a>
+				</li><li>
+					<a class="icon-tags" href="/category">Categories</a>
+				</li><li>
+					<a class="icon-help-circled" href="/about">About</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('.menu-btn').on('click',function(e){
+		
+	e.stopPropagation();
+	var tag = $('.context-menu');		
+	$(tag).toggleClass('context-menu-show');
+			
+	var flag = true;
+	/* hide the context-menu when other element is clicked */
+	$(document).bind('click',function(e){
+		var target = $(e.target);
+		if(target.closest(tag).length == 0 && flag == true){
+			$(tag).toggleClass('context-menu-show');
+			flag = false;
+		}
+	});
+})
+</script><div class="post-container" style = "margin-bottom:1rem">
+	<div class="posts-labelgroup" id="posts-labelgroup">
+		<h1 id="posts-label">POST</h1>
+	</div>  
+	<!-- post title -->
+	<h2 class="post-title-body">Syntax Highlighting your code in Jekyll with Rouge</h2>
+	<div class="post-meta">
+		<div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">Dec 22, 2018</div>
+		
+		<!-- sidebar button for displaying/hiding sidebar -->
+		<div class = "sidebar-btn-box"><a class="btn"></a></div>
+		
+	</div>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+<div class="post-viewer-container">
+	<div class="post post-fix-width">
+		<p>Syntax highlighting is important (<em>especially for programming blogs</em>) because it improves the readability of posts. This article will introduce a syntax highlighter - <a href="https://rubygems.org/gems/rouge">Rouge</a>.</p>
+
+<p>I think maybe someone who attaches a code snippet into the blog wants to get a beautiful syntax highlighting style, just like we see in some popular IDEs, Visual Code, Eceplise, Atom…</p>
+
+<p>I also like that, so I decided to add a syntax highlighter to my blog.</p>
+
+<p>My blog was constructed by Jekyll, Jekyll also has built-in support for syntax highlighting of code snippets using either Rouge or Pygments, and Rouge is the default syntax highlighter in Jekyll 3 and above. It’s also supported by Github Pages, which means the website that using Rouge can be deployed on Github Pages.</p>
+
+<h2 id="install-rouge">Install Rouge</h2>
+<p>There is nothing special about the installation, like an ordinary Jekyll plugin installation.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">gem</span> <span class="n">install</span> <span class="n">rouge</span></code></pre></figure>
+
+<p>and declare in the <code class="language-plaintext highlighter-rouge">_config.yml</code></p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">highlighter</span><span class="pi">:</span> <span class="s">rouge</span></code></pre></figure>
+
+<p>If you use <code class="language-plaintext highlighter-rouge">kramdown</code>, add this</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">markdown</span><span class="pi">:</span> <span class="s">kramdown</span>
+<span class="na">kramdown</span><span class="pi">:</span>
+<span class="na">input</span><span class="pi">:</span> <span class="s">GFM</span>
+<span class="na">syntax_highlighter</span><span class="pi">:</span> <span class="s">rouge</span></code></pre></figure>
+
+<h2 id="syntax-highlighting-with-rouge">Syntax highlighting with Rouge</h2>
+
+<p>Rouge can support syntax highlighting of over 100 languages, find them <a href="https://github.com/rouge-ruby/rouge/wiki/List-of-supported-languages-and-lexers">here</a>.</p>
+
+<p>To render a code block with syntax highlighting, surround your code as</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="p">{</span><span class="sx">% highlight </span><span class="n">ruby</span> <span class="sx">%}
+def foo
+  puts 'foo'
+end
+{% endhighlight %}</span></code></pre></figure>
+
+<p>Including the <code class="language-plaintext highlighter-rouge">linenos</code> argument will force the highlighted code to include line numbers.</p>
+
+<h2 id="stylesheet">Stylesheet</h2>
+
+<p>There are some syntax highlighting style themes available in Rouge, you can look for them at</p>
+<ul>
+  <li><a href="https://rouge-ruby.github.io/docs/Rouge/Themes.html">Rouge Themes Doc</a> / <a href="https://github.com/mzlogin/rouge-themes">Rouge themes</a></li>
+</ul>
+
+<p>Rouge comes built-in with <code class="language-plaintext highlighter-rouge">rougify</code>, a command-line tool that converts a style theme to a <code class="language-plaintext highlighter-rouge">CSS</code> file.</p>
+
+<p>Use below command to view the themes that Rouge supports.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">rougify</span> <span class="n">help</span> <span class="n">style</span></code></pre></figure>
+
+<p>As of Rouge 1.11.1, the available themes are:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">base16</span><span class="p">,</span> 
+<span class="n">base16</span><span class="p">.</span><span class="nf">dark</span><span class="p">,</span> 
+<span class="n">base16</span><span class="p">.</span><span class="nf">monokai</span><span class="p">,</span> 
+<span class="n">base16</span><span class="p">.</span><span class="nf">monokai</span><span class="p">.</span><span class="nf">light</span><span class="p">,</span> 
+<span class="n">base16</span><span class="p">.</span><span class="nf">solarized</span><span class="p">,</span> 
+<span class="n">base16</span><span class="p">.</span><span class="nf">solarized</span><span class="p">.</span><span class="nf">dark</span><span class="p">,</span> 
+<span class="n">colorful</span><span class="p">,</span> 
+<span class="n">github</span><span class="p">,</span> 
+<span class="n">gruvbox</span><span class="p">,</span> 
+<span class="n">gruvbox</span><span class="p">.</span><span class="nf">light</span><span class="p">,</span> 
+<span class="n">molokai</span><span class="p">,</span> 
+<span class="n">monokai</span><span class="p">,</span> 
+<span class="n">monokai</span><span class="p">.</span><span class="nf">sublime</span><span class="p">,</span> 
+<span class="n">thankful_eyes</span></code></pre></figure>
+
+<p>Use below command to generate <code class="language-plaintext highlighter-rouge">CSS</code> file for the syntax highlighting style you want.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">rougify</span> <span class="n">style</span> <span class="n">monokai</span><span class="p">.</span><span class="nf">sublime</span> <span class="o">&gt;</span> <span class="n">syntax_monokai</span><span class="p">.</span><span class="nf">css</span></code></pre></figure>
+
+<p>Copy the generated style CSS file to your site’s style folder and don’t forget to include the stylesheet file into your <code class="language-plaintext highlighter-rouge">head.html</code>.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">&lt;</span><span class="n">link</span> <span class="n">href</span><span class="o">=</span><span class="s2">"https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/css/syntax_monokai.css"</span> <span class="n">rel</span><span class="o">=</span><span class="s2">"stylesheet"</span><span class="o">/&gt;</span></code></pre></figure>
+
+<p>And that’s all you need to start having syntax highlighting on your Jekyll site using Rouge.</p>
+
+<p>Hope that’s somehow useful for you! 🙂</p>
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box" id = "sidebar">
+		    
+				<p class = "sidebar-title">About This Article</p>
+			
+			
+				
+					<P class = "sidebar-about-content sidebar-font-big">Do you want to add a syntax highlighting function into your code block? <br><br>You can get help from this article.</P>
+				
+				
+					<P class = "icon-link sidebar-about-content sidebar-font-medium" style = "margin-top:30px">Author: <a href="https://github.com/gangdong">david.dong</a></P>
+				
+					<P class = "icon-clock sidebar-about-content sidebar-font-medium">6 mins to read</P>
+					<P class = "icon-book-1 sidebar-about-content sidebar-font-medium">2066 words</P>
+				
+					<P class = "icon-th-list sidebar-about-content sidebar-font-medium">Key Words: Rouge/Syntax highlighting</P>
+				
+				
+				    <P class = "icon-hashtag sidebar-about-content sidebar-font-medium">Tags: 
+					
+					<a href="/category#Blog">Blog&nbsp;</a>
+					
+					</P>
+				
+			
+		</div>
+		
+		
+	    <div class="sidebar-toc-box">
+			
+			<p class = "sidebar-title">Table of Contents</p>
+			<span class = "sidebar-font-medium sidebar-toc-content"><ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#install-rouge">Install Rouge</a></li>
+<li class="toc-entry toc-h2"><a href="#syntax-highlighting-with-rouge">Syntax highlighting with Rouge</a></li>
+<li class="toc-entry toc-h2"><a href="#stylesheet">Stylesheet</a></li>
+</ul></span>
+			
+		</div>
+		
+	</div>
+	 
+</div>
+<!-- no sidebar, use flex width box! -->
+<br>
+<div class="post-container">
+    <!-- post categories box! here  -->
+    
+   <div class="post-categories-meta">
+		<div class="post-categories-box post-categories-box-hide"><a href="/category#Blog">Blog</a></div>
+	</div>
+  
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">Share:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+	
+		<span class = "icon-eye tooltip"><p class = "tooltiptext" style = "left:0%; margin-left: 0px">Viewers</p><span id="busuanzi_value_page_pv"></span></span>
+		
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">You may also like</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/blog/github/web/2021/05/04/Blog-github-action.html">CI platform migration: from Travis CI to GitHub Actions</a></li>
+			
+			<li><a href="/blog/web/2021/04/10/Blog-speeding-up-loadtime.html">Speeding up my blog loadtime</a></li>
+			
+			<li><a href="/blog/2021/03/08/Web-gitalk-fixing.html">A quick way to fix the Gitalk Error: Validation Failed</a></li>
+			
+			<li><a href="/blog/github/2020/04/01/Blog-travisci.html">Use Travis CI to build and deploy project automatically on Github</a></li>
+			
+			<li><a href="/blog/2019/03/20/Blog-mathjax.html">Display mathematics formula in blog with MathJax</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">further reading</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta"><div class="navigation-bar">
+	 
+	 <a href="/blog/2018/11/14/Blog-related-posts.html"><span>Previous Post</span><br>How did I implement related posts function in my blog</a>
+	 
+    </div><div class="navigation-bar"> 
+	 
+     <a href="/blog/github/2018/12/29/Blog-Jekyll-toc-plugin.html"><span>Next Post</span><br>Use jekyll-toc plugin on Github Pages</a>
+	 
+    </div></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'gangdong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9&domready=1"></script>
+
+
+<!-- sidebar button, toggle display/hide sidebar -->
+<script type="text/javascript">
+        $('.btn').on('click',function(){
+            $('.btn').toggleClass('btnc');
+            $('.sidebar-container').toggleClass('sidebar-container-hide');
+        })
+</script>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=G-3MXGF3F8QN"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-3MXGF3F8QN');
+	</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></body>
+</html>

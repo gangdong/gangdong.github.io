@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Java 的 finalize() 方法总结 | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Java 的 finalize() 方法总结" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="本文主要介绍了 Java 里的 finalize 方法，对 Java 语言里的垃圾回收机制对于资源释放方面展开一些讨论。" />
+<meta property="og:description" content="本文主要介绍了 Java 里的 finalize 方法，对 Java 语言里的垃圾回收机制对于资源释放方面展开一些讨论。" />
+<link rel="canonical" href="http://localhost:4000/java/2011/12/04/Java-finalize.html" />
+<meta property="og:url" content="http://localhost:4000/java/2011/12/04/Java-finalize.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2011-12-04T23:42:04+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Java 的 finalize() 方法总结" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"david.dong"},"dateModified":"2011-12-04T23:42:04+08:00","datePublished":"2011-12-04T23:42:04+08:00","description":"本文主要介绍了 Java 里的 finalize 方法，对 Java 语言里的垃圾回收机制对于资源释放方面展开一些讨论。","headline":"Java 的 finalize() 方法总结","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/java/2011/12/04/Java-finalize.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/logo.png"},"name":"david.dong"},"url":"http://localhost:4000/java/2011/12/04/Java-finalize.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+<meta property="article:tag" content="Java">
+
+
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
+
+</head><body>
+    <main class="container">
+      <section class="about condensed">
+	    <div class="about-header condensed">
+			<div class="about-title">
+				<a href="/blog/index.html">
+				  <img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/avatar-11.png" alt="David Dong"/>
+				</a>
+				<div class = "title-meta">
+					<h2 id="title">
+					  <a href="/blog/index.html">David Dong</a>
+					</h2>
+					<p class = "tagline-small">Java/C/C#/Python</p>
+				</div>
+			</div>
+			<p class="tagline">Java/C/C#/Python</p>
+		</div>
+		<!--put dark mode button here -->
+		<div class = "about-footer condensed">
+		  <!--put rss/code link here -->
+			<div class="icon-box-container about-footer condensed"><div class = "icon-box" style = "padding-right:0px">
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id = "mode">Dark Mode</span>
+					</a>
+				</div>
+				<!-- toggle dark/light display mode, should loading darkmode.js here for avoiding flicker when switching -->
+				<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/darkmode.js"></script>
+				<script type="text/javascript">
+				$('.dark-mode').on('click',function(){
+					$('.dark-mode').toggleClass('light-mode');
+					if (document.getElementById("mode").innerHTML=="Light Mode")
+						document.getElementById("mode").innerHTML="Dark Mode";
+					else 
+						document.getElementById("mode").innerHTML="Light Mode";
+				})
+				</script><div class = "icon-box">
+					<a class="icon-rss" href="/rss.xml">
+						<span>Subscribe</span>
+					</a>
+				</div><div class = "icon-box">
+					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
+						<span>Source Code</span>
+					</a>
+				</div></div>
+		</div>
+		
+	    <!--show contact me -->
+		<div class = "about-footer condensed social-container">
+	    <p class = "contact about-footer condensed">CONTACT ME</p>
+		<!-- put social link here -->
+	      <ul class="social about-footer condensed" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		<!--put timestamp here -->
+		<p class ="timestamp about-footer condensed">&copy; 2024</p>
+		</div>
+	  <!-- about box end here -->
+      </section>
+	  
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+<div class="post-container">
+	<div  class = "menu-meta condensed">
+		<!--put top menu here, display @ big screen (> $mobileW) -->
+		<div  class = "menu-logo">BLOG</div>
+		<div  class = "menu">
+			<a href="/blog/index.html">
+				<li class="icon-home">Home</li>
+			</a><a href="/archive">
+				<li class="icon-archive">Archives</li>
+			</a><a href="/category">
+				<li class="icon-tags">Categories</li>
+			</a><a href="/about">
+				<li class="icon-help-circled">About</li>
+			</a>
+		</div>
+		<!--put hide menu button here, display @ small screen (< $mobileW) -->
+		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
+		<!--put hide menu here, display @ small screen (< $mobileW) -->
+		<div class="context-menu">
+			<ul >
+				<li>
+					<a class="icon-home" href="/blog/index.html">Home</a>
+				</li><li>
+					<a class="icon-archive" href="/archive">Archives</a>
+				</li><li>
+					<a class="icon-tags" href="/category">Categories</a>
+				</li><li>
+					<a class="icon-help-circled" href="/about">About</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('.menu-btn').on('click',function(e){
+		
+	e.stopPropagation();
+	var tag = $('.context-menu');		
+	$(tag).toggleClass('context-menu-show');
+			
+	var flag = true;
+	/* hide the context-menu when other element is clicked */
+	$(document).bind('click',function(e){
+		var target = $(e.target);
+		if(target.closest(tag).length == 0 && flag == true){
+			$(tag).toggleClass('context-menu-show');
+			flag = false;
+		}
+	});
+})
+</script><div class="post-container" style = "margin-bottom:1rem">
+	<div class="posts-labelgroup" id="posts-labelgroup">
+		<h1 id="posts-label">POST</h1>
+	</div>  
+	<!-- post title -->
+	<h2 class="post-title-body">Java 的 finalize() 方法总结</h2>
+	<div class="post-meta">
+		<div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">Dec 4, 2011</div>
+		
+		<!-- sidebar button for displaying/hiding sidebar -->
+		<div class = "sidebar-btn-box"><a class="btn"></a></div>
+		
+	</div>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+<div class="post-viewer-container">
+	<div class="post post-fix-width">
+		<p>Java 提供的<code class="language-plaintext highlighter-rouge">finalize()</code>方法是定义 JObject 类中的方法。作用是帮助我们进行资源释放，类似于 C++ 中的析构函数。但是需要注意的是该方法根本上和 C++ 中的析构函数是不同的。</p>
+
+<p>我们都知道 Java 是运行在 JVM 上的，JVM 的垃圾回收机制承担了系统资源释放的任务，因此在编写Java 程序的时候是不用考虑显式的调用方法进行资源释放的。这是因为 Java 是完全面向对象的语言，所有对象都驻留在堆内存，因此局部对象就不存在。而与 Java 不同，C++ 支持局部对象（基于栈）和全局对象（基于堆）。因此在 C++ 语言中引入了析构函数用来处理资源的释放。析构函数的执行时机是确定的，在对象的作用域结束或者显式调用的时候会被执行。一般在 C++ 编程中，子类的析构函数都会重写父类的析构函数用于本类的资源的释放。<br /></p>
+
+<p>而 Java 的<code class="language-plaintext highlighter-rouge">finalize()</code>方法则不同，<strong>finalize()虽然也会被用来进行资源的释放，但是 finalize() 方法的执行时机确是不确定的。</strong>原因是因为<code class="language-plaintext highlighter-rouge">finalize()</code>是在垃圾回收时被调用的，而何时进行垃圾回收是由JVM 根据当前的资源状况来决定，因此这个时间是无法保证的。</p>
+
+<p>通常 JVM 会对当前的内存状况进行评估，只有当资源快耗尽或者有进程因为资源不足退出和排队等待的时候，JVM 会进行垃圾的回收。这个时候<code class="language-plaintext highlighter-rouge">finalize()</code>会被执行。因此如果我们想在确定的时间点用<code class="language-plaintext highlighter-rouge">finalize()</code>来释放有关的资源是十分不可靠的。</p>
+
+<p>有意思的一点，Java 的垃圾回收机制虽然简化了编程，程序员无需考虑资源的释放导致的内容泄漏问题，但是却无法知道申请的对象何时被系统撤销，即使该对象的作用域是可以预知的（不再被运行状态引用或间接地通过其他对象引用时）。</p>
+
+<p>当然，Java 也提供了<code class="language-plaintext highlighter-rouge">System.gc()</code>方法，<code class="language-plaintext highlighter-rouge">System.gc()</code>会强制要求系统进行垃圾回收，从而可以增加<code class="language-plaintext highlighter-rouge">finalize()</code>的调用几率，缺点是强制进行垃圾回收会影响系统的性能。</p>
+
+<p>下面对<code class="language-plaintext highlighter-rouge">finalize()</code>方法来做一个总结：<br /></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">finalize()</code>方法可以被用来进行系统资源的释放;</li>
+  <li>系统在进行垃圾回收，准备释放对象所占用的内存空间之前会调用对象的<code class="language-plaintext highlighter-rouge">finalize()</code>方法;</li>
+  <li>因为系统进行垃圾回收的时机不确定，所以<code class="language-plaintext highlighter-rouge">finalize()</code>的执行时间是不确定的;</li>
+  <li><code class="language-plaintext highlighter-rouge">finalize()</code>只会在对象内存回收前被调用一次。</li>
+</ul>
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box" id = "sidebar">
+		    
+				<p class = "sidebar-title">关于文章</p>
+			
+			
+				
+				<p class = "sidebar-about-content sidebar-font-big">本文主要介绍了 Java 里的 finalize 方法，对 Java 语言里的垃圾回收机制对于资源释放方面展开一些讨论。</p>
+				
+				
+				<p class = "icon-link sidebar-about-content sidebar-font-medium" style = "margin-top:40px">文章作者: <a href="https://github.com/gangdong">david.dong</a></p>
+				
+				<p class = "icon-hourglass sidebar-about-content sidebar-font-medium">阅读时间：3 mins</p>
+				<p class = "icon-book sidebar-about-content sidebar-font-medium">全文字数：966</p>
+				
+					<p class = "icon-th-list sidebar-about-content sidebar-font-medium">关键字: Java/finalize</p>
+				
+				
+					<p class = "icon-hashtag sidebar-about-content sidebar-font-medium">标签: 
+					
+					<a href="/category#Java">Java&nbsp;</a>
+					
+					</p>
+				
+			
+		</div>
+		
+		
+	</div>
+	 
+</div>
+<!-- no sidebar, use flex width box! -->
+<br>
+<div class="post-container">
+    <!-- post categories box! here  -->
+    
+   <div class="post-categories-meta">
+		<div class="post-categories-box post-categories-box-hide"><a href="/category#Java">Java</a></div>
+	</div>
+  
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">分享:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+	
+		<span class = "icon-eye tooltip"><p class = "tooltiptext" style = "left:0%; margin-left: 0px">阅读量</p><span id="busuanzi_value_page_pv"></span></span>
+		
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">相关文章</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/java/2022/04/22/Java-threadSynchronization.html">浅谈 Java 线程同步技术</a></li>
+			
+			<li><a href="/java/2013/05/07/Java-com.html">Java 调用 COM 组件的方法</a></li>
+			
+			<li><a href="/java/2013/03/01/Java-jdom.html">Java JDOM 库的使用</a></li>
+			
+			<li><a href="/java/2012/12/17/Java-jxl.html">Java 使用 JXL 库编辑 Excel 文档</a></li>
+			
+			<li><a href="/java/2012/10/21/Java-serialcom.html">Java 串口编程</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">继续阅读</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta"><div class="navigation-bar">
+	 
+	 <a href="/java/2011/07/27/Java-abnormal.html"><span>前一章</span><br>Java 的异常处理</a>
+	 
+    </div><div class="navigation-bar"> 
+	 
+	 <a href="/java/2012/03/18/Java-Iterable.html"><span>后一章</span><br>Java 的 Iterable 接口使用</a>
+	 
+    </div></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'gangdong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9&domready=1"></script>
+
+
+<!-- sidebar button, toggle display/hide sidebar -->
+<script type="text/javascript">
+        $('.btn').on('click',function(){
+            $('.btn').toggleClass('btnc');
+            $('.sidebar-container').toggleClass('sidebar-container-hide');
+        })
+</script>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=G-3MXGF3F8QN"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-3MXGF3F8QN');
+	</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></body>
+</html>

@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Java 调用 COM 组件的方法 | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Java 调用 COM 组件的方法" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="作者以自己编写的代码为例，讲解了如何借助 Jacob 类包在 JAVA 平台下使用 COM 组件。" />
+<meta property="og:description" content="作者以自己编写的代码为例，讲解了如何借助 Jacob 类包在 JAVA 平台下使用 COM 组件。" />
+<link rel="canonical" href="http://localhost:4000/java/2013/05/07/Java-com.html" />
+<meta property="og:url" content="http://localhost:4000/java/2013/05/07/Java-com.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-05-07T19:11:17+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Java 调用 COM 组件的方法" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"david.dong"},"dateModified":"2013-05-07T19:11:17+08:00","datePublished":"2013-05-07T19:11:17+08:00","description":"作者以自己编写的代码为例，讲解了如何借助 Jacob 类包在 JAVA 平台下使用 COM 组件。","headline":"Java 调用 COM 组件的方法","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/java/2013/05/07/Java-com.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/logo.png"},"name":"david.dong"},"url":"http://localhost:4000/java/2013/05/07/Java-com.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+<meta property="article:tag" content="Java">
+
+
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
+
+</head><body>
+    <main class="container">
+      <section class="about condensed">
+	    <div class="about-header condensed">
+			<div class="about-title">
+				<a href="/blog/index.html">
+				  <img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/avatar-11.png" alt="David Dong"/>
+				</a>
+				<div class = "title-meta">
+					<h2 id="title">
+					  <a href="/blog/index.html">David Dong</a>
+					</h2>
+					<p class = "tagline-small">Java/C/C#/Python</p>
+				</div>
+			</div>
+			<p class="tagline">Java/C/C#/Python</p>
+		</div>
+		<!--put dark mode button here -->
+		<div class = "about-footer condensed">
+		  <!--put rss/code link here -->
+			<div class="icon-box-container about-footer condensed"><div class = "icon-box" style = "padding-right:0px">
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id = "mode">Dark Mode</span>
+					</a>
+				</div>
+				<!-- toggle dark/light display mode, should loading darkmode.js here for avoiding flicker when switching -->
+				<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/darkmode.js"></script>
+				<script type="text/javascript">
+				$('.dark-mode').on('click',function(){
+					$('.dark-mode').toggleClass('light-mode');
+					if (document.getElementById("mode").innerHTML=="Light Mode")
+						document.getElementById("mode").innerHTML="Dark Mode";
+					else 
+						document.getElementById("mode").innerHTML="Light Mode";
+				})
+				</script><div class = "icon-box">
+					<a class="icon-rss" href="/rss.xml">
+						<span>Subscribe</span>
+					</a>
+				</div><div class = "icon-box">
+					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
+						<span>Source Code</span>
+					</a>
+				</div></div>
+		</div>
+		
+	    <!--show contact me -->
+		<div class = "about-footer condensed social-container">
+	    <p class = "contact about-footer condensed">CONTACT ME</p>
+		<!-- put social link here -->
+	      <ul class="social about-footer condensed" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		<!--put timestamp here -->
+		<p class ="timestamp about-footer condensed">&copy; 2024</p>
+		</div>
+	  <!-- about box end here -->
+      </section>
+	  
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+<div class="post-container">
+	<div  class = "menu-meta condensed">
+		<!--put top menu here, display @ big screen (> $mobileW) -->
+		<div  class = "menu-logo">BLOG</div>
+		<div  class = "menu">
+			<a href="/blog/index.html">
+				<li class="icon-home">Home</li>
+			</a><a href="/archive">
+				<li class="icon-archive">Archives</li>
+			</a><a href="/category">
+				<li class="icon-tags">Categories</li>
+			</a><a href="/about">
+				<li class="icon-help-circled">About</li>
+			</a>
+		</div>
+		<!--put hide menu button here, display @ small screen (< $mobileW) -->
+		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
+		<!--put hide menu here, display @ small screen (< $mobileW) -->
+		<div class="context-menu">
+			<ul >
+				<li>
+					<a class="icon-home" href="/blog/index.html">Home</a>
+				</li><li>
+					<a class="icon-archive" href="/archive">Archives</a>
+				</li><li>
+					<a class="icon-tags" href="/category">Categories</a>
+				</li><li>
+					<a class="icon-help-circled" href="/about">About</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('.menu-btn').on('click',function(e){
+		
+	e.stopPropagation();
+	var tag = $('.context-menu');		
+	$(tag).toggleClass('context-menu-show');
+			
+	var flag = true;
+	/* hide the context-menu when other element is clicked */
+	$(document).bind('click',function(e){
+		var target = $(e.target);
+		if(target.closest(tag).length == 0 && flag == true){
+			$(tag).toggleClass('context-menu-show');
+			flag = false;
+		}
+	});
+})
+</script><div class="post-container" style = "margin-bottom:1rem">
+	<div class="posts-labelgroup" id="posts-labelgroup">
+		<h1 id="posts-label">POST</h1>
+	</div>  
+	<!-- post title -->
+	<h2 class="post-title-body">Java 调用 COM 组件的方法</h2>
+	<div class="post-meta">
+		<div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">May 7, 2013</div>
+		
+		<!-- sidebar button for displaying/hiding sidebar -->
+		<div class = "sidebar-btn-box"><a class="btn"></a></div>
+		
+	</div>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+<div class="post-viewer-container">
+	<div class="post post-fix-width">
+		<p>最近项目中需要用 JavaSE 来调用 Windows 的下的程序代码。如 Java 编写的 GUI 需要操作 Windows 平台下自己开发的代码。这里总结一下相关的技术内容。<br /></p>
+
+<p>因为考虑到要跨语言的程序调用，就要用到 COM 组件。COM 组件是为了实现代码的跨平台/语言复用，提供一种独立于平台与编程语言之外的，共享二进制代码的方法。其实就是一种规范化的接口，基于DLL(动态链接库)的形式存在。因为是以二进制的形式传播的，因此在统一的规范接口下可以在不同的编程语言之间调用。微软为其 Windows 的一系列服务都提供了 COM 的接口，供第三方编程调用。当然，用户也可以定义编写自己的 COM 组件，实现代码的跨平台/语言的复用。基于 COM 的技术细节很多，这里不过多阐述。本文的目的是主要总结一下 Java 对于 COM 的调用方法及注意事项。<br /></p>
+
+<p>目前有一些 Java 库可以支持 Java 来调用 COM 的方案，包括一些第三方的商业的库和开源的库。因为Java 编程，基于开源的精神，当然使用开源的库了。我选择用 Jacob 库来实现。<br /></p>
+
+<p>以下是 Jacob 的介绍，来源于官方文档。</p>
+
+<blockquote>
+  <p>JACOB is a JAVA-COM Bridge that allows you to call COM Automation components from Java.  <br />
+It uses JNI to make native calls into the COM and Win32 libraries.  <br />
+The JACOB project started in 1999 and is being actively used by thousands of developers worldwide. <br />
+As an open-source project, it has benefited from the combined experience of these users, many of whom have made modifications to the code and submitted them back for inclusion in the project.</p>
+</blockquote>
+
+<p>Jacob 通过 Jni 来实现对 COM 组件和 WIN32 库的调用。Jacob 提供了一系列的编程接口，编程者编程时只需要面对 Jacob 的接口来编程即可，无需关注底层的实现细节。</p>
+
+<p>Jacob 的下载地址 <a href="https://sourceforge.net/projects/jacob-project/files/latest/download">官方下载</a><br /></p>
+
+<p>下载下来的 package 里包含一个<code class="language-plaintext highlighter-rouge">Jacob.jar</code>的jar包和<code class="language-plaintext highlighter-rouge">jacob-1.15-M4-x64.dll(64 bits)</code>以及<code class="language-plaintext highlighter-rouge">jacob-1.15-M4-x86.dll(32 bits)</code>的两个 DLL 文件。分别定义了 Java 的接口和 32 位以及 64 位的 native 接口。</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Jacob</span><span class="o">.</span><span class="na">jar</span>
+<span class="n">jacob</span><span class="o">-</span><span class="mf">1.15</span><span class="o">-</span><span class="no">M4</span><span class="o">-</span><span class="n">x64</span><span class="o">.</span><span class="na">dll</span>
+<span class="n">jacob</span><span class="o">-</span><span class="mf">1.15</span><span class="o">-</span><span class="no">M4</span><span class="o">-</span><span class="n">x86</span><span class="o">.</span><span class="na">dll</span></code></pre></figure>
+
+<p>使用 Jacob 的步骤如下。<br /></p>
+
+<ol>
+  <li>
+    <p>拷贝 <code class="language-plaintext highlighter-rouge">jacob-1.15-M4-x64.dll (64 bits)</code> and <code class="language-plaintext highlighter-rouge">jacob-1.15-M4-x86.dll (32 bits)</code> 到 <code class="language-plaintext highlighter-rouge">windows/system32/</code> 目录下。 
+或者拷贝到Java 的类路径下 <code class="language-plaintext highlighter-rouge">Program Files/Java/jdk1.6.0_14/jre/bin/</code>（推荐使用）</p>
+  </li>
+  <li>
+    <p>把 <code class="language-plaintext highlighter-rouge">jacob.jar</code> 导入项目的classpath <code class="language-plaintext highlighter-rouge">Program Files/Java/jdk1.6.0_14/jre/lib/ext/</code>   <br />
+(<em>注： 导入外部 jar 都用类似方法，例如调用 串口支持包 <code class="language-plaintext highlighter-rouge">Comm.jar win32com.dll</code></em>)</p>
+  </li>
+  <li>
+    <p>把要使用的 Dll 进行注册，<br />
+C:\Windows\Microsoft.NET\Framework\v4.0.30319\regsvcs.exe [需要调用的dll文件路径]<br />
+C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\RegAsm.exe [需要调用的dll文件路径] <br />
+注意这里要先<code class="language-plaintext highlighter-rouge">regasm xxx.dll</code>，再<code class="language-plaintext highlighter-rouge">regasm xxx.dll</code> <code class="language-plaintext highlighter-rouge">/tlb:xxx.tlb /codebase</code>，要注册两个。</p>
+  </li>
+</ol>
+
+<p>具体可以参考如下的网页。<br />
+<a href="http://msdn.microsoft.com/zh-cn/library/h627s4zy.aspx">http://msdn.microsoft.com/zh-cn/library/h627s4zy.aspx</a>
+<br />
+<a href="http://www.haogongju.net/art/130918">http://www.haogongju.net/art/130918</a>
+<br /></p>
+
+<p>调用的代码如下，我自己实现的操作类，有兴趣的可以自己下载使用。<br /></p>
+
+<p>ServiceComInterface.java (定义接口)</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="cm">/*
+
+* To change this template, choose Tools | Templates
+* and open the template in the editor.
+  */</span>
+  <span class="kn">package</span> <span class="nn">org.dong.service.com</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.jacob.activeX.ActiveXComponent</span><span class="o">;</span>
+
+<span class="cm">/**
+ *
+
+* @author Dong Gang
+  */</span>
+  <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ServiceComInterface</span> <span class="o">{</span>
+   <span class="kd">public</span> <span class="nc">ActiveXComponent</span> <span class="nf">getAXC</span><span class="o">(</span><span class="nc">String</span> <span class="n">dllname</span><span class="o">);</span>
+   <span class="kd">public</span> <span class="nc">String</span> <span class="nf">executeMethod</span><span class="o">(</span><span class="nc">String</span> <span class="n">methodname</span><span class="o">,</span> <span class="nc">String</span> <span class="n">param</span><span class="o">);</span>
+
+<span class="o">}</span></code></pre></figure>
+
+<p>ServiceCom.java (具体的实现类)</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="cm">/*
+
+* To change this template, choose Tools | Templates
+* and open the template in the editor.
+  */</span>
+  <span class="kn">package</span> <span class="nn">org.dong.service.com</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.jacob.activeX.ActiveXComponent</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.jacob.com.ComException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.jacob.com.ComThread</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.jacob.com.Dispatch</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.jacob.com.Variant</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.swing.JOptionPane</span><span class="o">;</span>
+
+<span class="cm">/**
+ *
+
+* @author Dong Gang
+  */</span>
+  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ServiceCom</span> <span class="kd">implements</span> <span class="nc">ServiceComInterface</span> <span class="o">{</span>
+  
+   <span class="kd">private</span> <span class="kd">static</span> <span class="nc">ServiceCom</span> <span class="n">serviceComInstance</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+   <span class="c1">//private static ActiveXComponent axc = null;</span>
+   <span class="kd">private</span> <span class="nc">ActiveXComponent</span> <span class="n">axc</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+   <span class="kd">private</span> <span class="nf">ServiceCom</span><span class="o">()</span> <span class="o">{</span>
+   <span class="o">}</span>
+  
+   <span class="kd">private</span> <span class="nf">ServiceCom</span><span class="o">(</span><span class="nc">String</span> <span class="n">dllname</span><span class="o">)</span> <span class="o">{</span>
+  
+       <span class="n">getAXC</span><span class="o">(</span><span class="n">dllname</span><span class="o">);</span>
+  
+   <span class="o">}</span>
+  
+   <span class="kd">public</span> <span class="kd">static</span> <span class="nc">ServiceCom</span> <span class="nf">getInstance</span><span class="o">()</span> <span class="o">{</span>
+  
+       <span class="k">if</span> <span class="o">(</span><span class="n">serviceComInstance</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+           <span class="n">serviceComInstance</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ServiceCom</span><span class="o">();</span>
+       <span class="o">}</span>
+       <span class="k">return</span> <span class="n">serviceComInstance</span><span class="o">;</span>
+  
+   <span class="o">}</span>
+  
+   <span class="kd">public</span> <span class="kd">static</span> <span class="nc">ServiceCom</span> <span class="nf">getInstance</span><span class="o">(</span><span class="nc">String</span> <span class="n">dllname</span><span class="o">)</span> <span class="o">{</span>
+  
+       <span class="c1">//if (serviceComInstance == null) {</span>
+       <span class="n">serviceComInstance</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ServiceCom</span><span class="o">(</span><span class="n">dllname</span><span class="o">);</span>
+       <span class="c1">//}</span>
+       <span class="k">return</span> <span class="n">serviceComInstance</span><span class="o">;</span>
+  
+   <span class="o">}</span>
+  
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">clear</span><span class="o">()</span> <span class="o">{</span>
+  
+       <span class="n">serviceComInstance</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+  
+   <span class="o">}</span>
+  
+   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="nc">ActiveXComponent</span> <span class="nf">getAXC</span><span class="o">(</span><span class="nc">String</span> <span class="n">dllname</span><span class="o">)</span> <span class="o">{</span>
+  
+       <span class="k">try</span> <span class="o">{</span>
+           <span class="n">axc</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ActiveXComponent</span><span class="o">(</span><span class="n">dllname</span><span class="o">);</span>
+       <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+           <span class="nc">JOptionPane</span><span class="o">.</span><span class="na">showMessageDialog</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="s">"load com error!"</span><span class="o">,</span>
+           <span class="s">"Error!"</span><span class="o">,</span> <span class="nc">JOptionPane</span><span class="o">.</span><span class="na">ERROR_MESSAGE</span><span class="o">);</span>
+           <span class="nc">ComThread</span><span class="o">.</span><span class="na">Release</span><span class="o">();</span>
+       <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+       <span class="o">}</span>
+       <span class="k">return</span> <span class="n">axc</span><span class="o">;</span>
+  
+   <span class="o">}</span>
+  
+   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="nc">String</span> <span class="nf">executeMethod</span><span class="o">(</span><span class="nc">String</span> <span class="n">methodname</span><span class="o">,</span> <span class="nc">String</span> <span class="n">param</span><span class="o">)</span> <span class="o">{</span>
+  
+       <span class="k">try</span> <span class="o">{</span>
+           <span class="nc">ActiveXComponent</span> <span class="n">axc1</span> <span class="o">=</span> <span class="n">axc</span><span class="o">;</span>
+           <span class="nc">String</span> <span class="n">msg</span> <span class="o">=</span> <span class="nc">Dispatch</span><span class="o">.</span><span class="na">call</span><span class="o">(</span><span class="n">axc1</span><span class="o">,</span> <span class="n">methodname</span><span class="o">,</span> <span class="n">param</span><span class="o">).</span><span class="na">toString</span><span class="o">();</span>
+           <span class="c1">// ComThread.Release();</span>
+           <span class="k">return</span> <span class="n">msg</span><span class="o">;</span>
+       <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">ComException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+           <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+       <span class="o">}</span>
+       <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+  
+   <span class="o">}</span>
+  
+   <span class="c1">// @SuppressWarnings("CallToThreadDumpStack")</span>
+   <span class="kd">public</span> <span class="nc">String</span> <span class="nf">executeMethod</span><span class="o">(</span><span class="nc">String</span> <span class="n">methodname</span><span class="o">)</span> <span class="o">{</span>
+  
+       <span class="k">try</span> <span class="o">{</span>
+           <span class="nc">ActiveXComponent</span> <span class="n">axc1</span> <span class="o">=</span> <span class="n">axc</span><span class="o">;</span>
+      
+           <span class="c1">//Variant v = Dispatch.call(axc1, methodname);</span>
+           <span class="c1">//String msg = v.toString();</span>
+      
+           <span class="nc">String</span> <span class="n">msg</span> <span class="o">=</span> <span class="nc">Dispatch</span><span class="o">.</span><span class="na">call</span><span class="o">(</span><span class="n">axc1</span><span class="o">,</span> <span class="n">methodname</span><span class="o">).</span><span class="na">toString</span><span class="o">();</span>
+           <span class="c1">// ComThread.Release();</span>
+           <span class="k">return</span> <span class="n">msg</span><span class="o">;</span>
+       <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">ComException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+           <span class="nc">JOptionPane</span><span class="o">.</span><span class="na">showMessageDialog</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="s">"com execute error!"</span><span class="o">,</span>
+           <span class="s">"Error"</span><span class="o">,</span> <span class="nc">JOptionPane</span><span class="o">.</span><span class="na">ERROR_MESSAGE</span><span class="o">);</span>
+           <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+       <span class="o">}</span>
+       <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+  
+   <span class="o">}</span>
+  
+   <span class="kd">public</span> <span class="nc">String</span> <span class="nf">executeMethod</span><span class="o">(</span><span class="nc">String</span> <span class="n">methodname</span><span class="o">,</span> <span class="nc">Object</span><span class="o">[]</span> <span class="n">params</span><span class="o">)</span> <span class="o">{</span>
+  
+       <span class="k">try</span> <span class="o">{</span>
+      
+           <span class="nc">ActiveXComponent</span> <span class="n">axc1</span> <span class="o">=</span> <span class="n">axc</span><span class="o">;</span>
+           <span class="nc">String</span> <span class="n">abc</span> <span class="o">=</span> <span class="nc">Dispatch</span><span class="o">.</span><span class="na">callN</span><span class="o">(</span><span class="n">axc1</span><span class="o">,</span> <span class="n">methodname</span><span class="o">,</span> <span class="n">params</span><span class="o">).</span><span class="na">toString</span><span class="o">();</span>
+           <span class="c1">// ComThread.Release();</span>
+           <span class="k">return</span> <span class="n">abc</span><span class="o">;</span>
+       <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">ComException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+           <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+       <span class="o">}</span>
+       <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+  
+   <span class="o">}</span>
+  
+   <span class="kd">public</span> <span class="nc">String</span> <span class="nf">executeMethod</span><span class="o">(</span><span class="nc">String</span> <span class="n">methodname</span><span class="o">,</span> <span class="nc">String</span> <span class="n">param1</span><span class="o">,</span> <span class="nc">String</span> <span class="n">param2</span><span class="o">)</span> <span class="o">{</span>
+  
+       <span class="k">try</span> <span class="o">{</span>
+           <span class="nc">ActiveXComponent</span> <span class="n">axc1</span> <span class="o">=</span> <span class="n">axc</span><span class="o">;</span>
+           <span class="nc">String</span> <span class="n">msg</span> <span class="o">=</span> <span class="nc">Dispatch</span><span class="o">.</span><span class="na">call</span><span class="o">(</span><span class="n">axc1</span><span class="o">,</span> <span class="n">methodname</span><span class="o">,</span> <span class="n">param1</span><span class="o">,</span> <span class="n">param2</span><span class="o">).</span><span class="na">toString</span><span class="o">();</span>
+           <span class="c1">// ComThread.Release();</span>
+           <span class="k">return</span> <span class="n">msg</span><span class="o">;</span>
+       <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">ComException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+           <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+       <span class="o">}</span>
+       <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+  
+   <span class="o">}</span>
+  <span class="o">}</span>
+  </code></pre></figure>
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box" id = "sidebar">
+		    
+				<p class = "sidebar-title">关于文章</p>
+			
+			
+				
+				<p class = "sidebar-about-content sidebar-font-big">作者以自己编写的代码为例，讲解了如何借助 Jacob 类包在 JAVA 平台下使用 COM 组件。</p>
+				
+				
+				<p class = "icon-link sidebar-about-content sidebar-font-medium" style = "margin-top:40px">文章作者: <a href="https://github.com/gangdong">david.dong</a></p>
+				
+				<p class = "icon-hourglass sidebar-about-content sidebar-font-medium">阅读时间：11 mins</p>
+				<p class = "icon-book sidebar-about-content sidebar-font-medium">全文字数：4341</p>
+				
+					<p class = "icon-th-list sidebar-about-content sidebar-font-medium">关键字: COM/Jacob</p>
+				
+				
+					<p class = "icon-hashtag sidebar-about-content sidebar-font-medium">标签: 
+					
+					<a href="/category#Java">Java&nbsp;</a>
+					
+					</p>
+				
+			
+		</div>
+		
+		
+	</div>
+	 
+</div>
+<!-- no sidebar, use flex width box! -->
+<br>
+<div class="post-container">
+    <!-- post categories box! here  -->
+    
+   <div class="post-categories-meta">
+		<div class="post-categories-box post-categories-box-hide"><a href="/category#Java">Java</a></div>
+	</div>
+  
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">分享:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+	
+		<span class = "icon-eye tooltip"><p class = "tooltiptext" style = "left:0%; margin-left: 0px">阅读量</p><span id="busuanzi_value_page_pv"></span></span>
+		
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">相关文章</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/java/2022/04/22/Java-threadSynchronization.html">浅谈 Java 线程同步技术</a></li>
+			
+			<li><a href="/java/2013/03/01/Java-jdom.html">Java JDOM 库的使用</a></li>
+			
+			<li><a href="/java/2012/12/17/Java-jxl.html">Java 使用 JXL 库编辑 Excel 文档</a></li>
+			
+			<li><a href="/java/2012/10/21/Java-serialcom.html">Java 串口编程</a></li>
+			
+			<li><a href="/java/2012/06/01/Java-runnable.html">Java 的线程和 Runnable 接口</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">继续阅读</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta"><div class="navigation-bar">
+	 
+	 <a href="/java/2013/03/01/Java-jdom.html"><span>前一章</span><br>Java JDOM 库的使用</a>
+	 
+    </div><div class="navigation-bar"> 
+	 
+	 <a href="/c/2013/06/13/C-MISRAC.html"><span>后一章</span><br>MISRA C 规则</a>
+	 
+    </div></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'gangdong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9&domready=1"></script>
+
+
+<!-- sidebar button, toggle display/hide sidebar -->
+<script type="text/javascript">
+        $('.btn').on('click',function(){
+            $('.btn').toggleClass('btnc');
+            $('.sidebar-container').toggleClass('sidebar-container-hide');
+        })
+</script>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=G-3MXGF3F8QN"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-3MXGF3F8QN');
+	</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>How to build your personal blog on Github Pages | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="How to build your personal blog on Github Pages" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Do you want to build your blog on Github Pages? Take a look at this article if you want, hope it can help you!" />
+<meta property="og:description" content="Do you want to build your blog on Github Pages? Take a look at this article if you want, hope it can help you!" />
+<link rel="canonical" href="http://localhost:4000/blog/github/2018/03/23/Github-github-blog.html" />
+<meta property="og:url" content="http://localhost:4000/blog/github/2018/03/23/Github-github-blog.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-03-23T21:03:36+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="How to build your personal blog on Github Pages" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"david.dong"},"dateModified":"2018-03-23T21:03:36+08:00","datePublished":"2018-03-23T21:03:36+08:00","description":"Do you want to build your blog on Github Pages? Take a look at this article if you want, hope it can help you!","headline":"How to build your personal blog on Github Pages","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/blog/github/2018/03/23/Github-github-blog.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/logo.png"},"name":"david.dong"},"url":"http://localhost:4000/blog/github/2018/03/23/Github-github-blog.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+<meta property="article:tag" content="Blog">
+
+<meta property="article:tag" content="Github">
+
+
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
+
+</head><body>
+    <main class="container">
+      <section class="about condensed">
+	    <div class="about-header condensed">
+			<div class="about-title">
+				<a href="/blog/index.html">
+				  <img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/avatar-11.png" alt="David Dong"/>
+				</a>
+				<div class = "title-meta">
+					<h2 id="title">
+					  <a href="/blog/index.html">David Dong</a>
+					</h2>
+					<p class = "tagline-small">Java/C/C#/Python</p>
+				</div>
+			</div>
+			<p class="tagline">Java/C/C#/Python</p>
+		</div>
+		<!--put dark mode button here -->
+		<div class = "about-footer condensed">
+		  <!--put rss/code link here -->
+			<div class="icon-box-container about-footer condensed"><div class = "icon-box" style = "padding-right:0px">
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id = "mode">Dark Mode</span>
+					</a>
+				</div>
+				<!-- toggle dark/light display mode, should loading darkmode.js here for avoiding flicker when switching -->
+				<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/darkmode.js"></script>
+				<script type="text/javascript">
+				$('.dark-mode').on('click',function(){
+					$('.dark-mode').toggleClass('light-mode');
+					if (document.getElementById("mode").innerHTML=="Light Mode")
+						document.getElementById("mode").innerHTML="Dark Mode";
+					else 
+						document.getElementById("mode").innerHTML="Light Mode";
+				})
+				</script><div class = "icon-box">
+					<a class="icon-rss" href="/rss.xml">
+						<span>Subscribe</span>
+					</a>
+				</div><div class = "icon-box">
+					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
+						<span>Source Code</span>
+					</a>
+				</div></div>
+		</div>
+		
+	    <!--show contact me -->
+		<div class = "about-footer condensed social-container">
+	    <p class = "contact about-footer condensed">CONTACT ME</p>
+		<!-- put social link here -->
+	      <ul class="social about-footer condensed" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		<!--put timestamp here -->
+		<p class ="timestamp about-footer condensed">&copy; 2024</p>
+		</div>
+	  <!-- about box end here -->
+      </section>
+	  
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+<div class="post-container">
+	<div  class = "menu-meta condensed">
+		<!--put top menu here, display @ big screen (> $mobileW) -->
+		<div  class = "menu-logo">BLOG</div>
+		<div  class = "menu">
+			<a href="/blog/index.html">
+				<li class="icon-home">Home</li>
+			</a><a href="/archive">
+				<li class="icon-archive">Archives</li>
+			</a><a href="/category">
+				<li class="icon-tags">Categories</li>
+			</a><a href="/about">
+				<li class="icon-help-circled">About</li>
+			</a>
+		</div>
+		<!--put hide menu button here, display @ small screen (< $mobileW) -->
+		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
+		<!--put hide menu here, display @ small screen (< $mobileW) -->
+		<div class="context-menu">
+			<ul >
+				<li>
+					<a class="icon-home" href="/blog/index.html">Home</a>
+				</li><li>
+					<a class="icon-archive" href="/archive">Archives</a>
+				</li><li>
+					<a class="icon-tags" href="/category">Categories</a>
+				</li><li>
+					<a class="icon-help-circled" href="/about">About</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('.menu-btn').on('click',function(e){
+		
+	e.stopPropagation();
+	var tag = $('.context-menu');		
+	$(tag).toggleClass('context-menu-show');
+			
+	var flag = true;
+	/* hide the context-menu when other element is clicked */
+	$(document).bind('click',function(e){
+		var target = $(e.target);
+		if(target.closest(tag).length == 0 && flag == true){
+			$(tag).toggleClass('context-menu-show');
+			flag = false;
+		}
+	});
+})
+</script><div class="post-container" style = "margin-bottom:1rem">
+	<div class="posts-labelgroup" id="posts-labelgroup">
+		<h1 id="posts-label">POST</h1>
+	</div>  
+	<!-- post title -->
+	<h2 class="post-title-body">How to build your personal blog on Github Pages</h2>
+	<div class="post-meta">
+		<div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">Mar 23, 2018</div>
+		
+		<!-- sidebar button for displaying/hiding sidebar -->
+		<div class = "sidebar-btn-box"><a class="btn"></a></div>
+		
+	</div>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+<div class="post-viewer-container">
+	<div class="post post-fix-width">
+		<p>I have constructed my blog by Jekyll on Github Pages, I thought I should write an article to introduce how to make your own blog website by Jekyll on Github Pages.<br /></p>
+
+<p>I would separate the contents into short blogs, reading long article is always easy to make people feel weary. 😴<br /></p>
+
+<p>This article will introduce how to create your blog based on Github Pages. Next article I will introduce Jekyll and how to use it to enrich your blog.<br /></p>
+
+<h2 id="why-is-github-pages">Why is Github Pages?</h2>
+
+<p>As an open-source code platform and worldwide developer community, Github has more than millions of users now. As one of them, I have much time spent on Github and Github also provides the personal homepage service (<em>Github Pages</em>). It is possible to build your blog on it. To me, it is a good idea to move my blog to Github Pages with the benefit of saving lots of time on the maintenance of the blogs on different websites. That’s why I’d like to do this thing.</p>
+
+<h2 id="how-to-do">How to do?</h2>
+
+<p>The way of hosting your website on Github Pages is static access, but it can fully meet my needs. So here comes the question, how do we build blog on Github Pages? Fortunately, the procedure is simple, just need to create a new repository and upload your website code onto it. After then you can access it at any time and anywhere.</p>
+
+<div class="post-note info">
+  <div class="header"></div>
+  <div class="body">
+  <p>To learn how to build your website on Github, a quick way is to refer to the official help document.
+	<ul>
+	  <li><a href="https://pages.Github.com">Github Pages</a></li>
+	</ul>
+  </p>
+  </div>
+</div>
+
+<p>Here is a short summary:<br /></p>
+<ol>
+  <li>apply for a Github account, you can skip this step if you already have.<br /></li>
+  <li>create a new repository as below. <br />
+<img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/others-blog-create-repository.png" alt="create" class="center-image" />
+fill the name of repository，please note the name must be your website’s <code class="language-plaintext highlighter-rouge">URL</code> and ending with <code class="language-plaintext highlighter-rouge">Github.io</code>!
+<img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/others-blog-create-repository2.png" alt="create2" class="center-image" /></li>
+  <li>click create repository button，the repository will be created.<br /></li>
+  <li>open the settings page of your new repository, find your website URL, and record it. Input your website URL into the web browser and then you will see your website’s homepage. It is an empty page at the beginning. To add content, you need to create an <code class="language-plaintext highlighter-rouge">index.html</code> file in your repository directory. Write what you want into it and submit the modification, you will see the contents you added.<br />
+<img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/others-blog-create-repository4.png" alt="create3" class="center-image" /></li>
+</ol>
+
+<p>For now, all work is done! you’ve got your website with some simple elements. If you want to enrich your website, You need to do some extra works. A fast way is to use the Github Pages theme. Github Pages provides many beautiful theme templates. You can use them directly to create your own. The theme templates on Github are mostly built based on <code class="language-plaintext highlighter-rouge">Jekyll</code>, so it is necessary to understand Jekyll. However, the introduction of Jekyll is not discussed in this paper. I’ll write another article for the introduction of Jekyll.<br /></p>
+
+<p>See you soon. 🙂 <br /></p>
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box" id = "sidebar">
+		    
+				<p class = "sidebar-title">About This Article</p>
+			
+			
+				
+					<P class = "sidebar-about-content sidebar-font-big">Do you want to build your blog on Github Pages? <br><br>Take a look at this article if you want, hope it can help you!</P>
+				
+				
+					<P class = "icon-link sidebar-about-content sidebar-font-medium" style = "margin-top:30px">Author: <a href="https://github.com/gangdong">david.dong</a></P>
+				
+					<P class = "icon-clock sidebar-about-content sidebar-font-medium">6 mins to read</P>
+					<P class = "icon-book-1 sidebar-about-content sidebar-font-medium">2128 words</P>
+				
+					<P class = "icon-th-list sidebar-about-content sidebar-font-medium">Key Words: Github Pages/blog</P>
+				
+				
+				    <P class = "icon-hashtag sidebar-about-content sidebar-font-medium">Tags: 
+					
+					<a href="/category#Blog">Blog&nbsp;</a>
+					
+					<a href="/category#Github">Github&nbsp;</a>
+					
+					</P>
+				
+			
+		</div>
+		
+		
+	    <div class="sidebar-toc-box">
+			
+			<p class = "sidebar-title">Table of Contents</p>
+			<span class = "sidebar-font-medium sidebar-toc-content"><ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#why-is-github-pages">Why is Github Pages?</a></li>
+<li class="toc-entry toc-h2"><a href="#how-to-do">How to do?</a></li>
+</ul></span>
+			
+		</div>
+		
+	</div>
+	 
+</div>
+<!-- no sidebar, use flex width box! -->
+<br>
+<div class="post-container">
+    <!-- post categories box! here  -->
+    
+   <div class="post-categories-meta">
+		<div class="post-categories-box post-categories-box-hide"><a href="/category#Blog">Blog</a><a href="/category#Github">Github</a></div>
+	</div>
+  
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">Share:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+	
+		<span class = "icon-eye tooltip"><p class = "tooltiptext" style = "left:0%; margin-left: 0px">Viewers</p><span id="busuanzi_value_page_pv"></span></span>
+		
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">You may also like</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/blog/github/web/2021/05/04/Blog-github-action.html">CI platform migration: from Travis CI to GitHub Actions</a></li>
+			
+			<li><a href="/blog/github/2020/04/01/Blog-travisci.html">Use Travis CI to build and deploy project automatically on Github</a></li>
+			
+			<li><a href="/blog/github/2018/12/29/Blog-Jekyll-toc-plugin.html">Use jekyll-toc plugin on Github Pages</a></li>
+			
+			<li><a href="/github/2015/06/06/Github-gitignore.html">A way to fix .gitignore doesn&#39;t work</a></li>
+			
+			<li><a href="/blog/web/2021/04/10/Blog-speeding-up-loadtime.html">Speeding up my blog loadtime</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">further reading</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta"><div class="navigation-bar">
+	 
+	 <a href="/windows/2017/12/09/Windows-powershell.html"><span>Previous Post</span><br>Powershell and CMD</a>
+	 
+    </div><div class="navigation-bar"> 
+	 
+     <a href="/blog/2018/03/27/Web-jekyll-installation.html"><span>Next Post</span><br>Getting started with Jekyll (1)</a>
+	 
+    </div></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'gangdong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9&domready=1"></script>
+
+
+<!-- sidebar button, toggle display/hide sidebar -->
+<script type="text/javascript">
+        $('.btn').on('click',function(){
+            $('.btn').toggleClass('btnc');
+            $('.sidebar-container').toggleClass('sidebar-container-hide');
+        })
+</script>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=G-3MXGF3F8QN"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-3MXGF3F8QN');
+	</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></body>
+</html>

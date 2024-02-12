@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Java 串口编程 | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Java 串口编程" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="有关 Java 串口编程的内容。作者给出了实现的代码。" />
+<meta property="og:description" content="有关 Java 串口编程的内容。作者给出了实现的代码。" />
+<link rel="canonical" href="http://localhost:4000/java/2012/10/21/Java-serialcom.html" />
+<meta property="og:url" content="http://localhost:4000/java/2012/10/21/Java-serialcom.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2012-10-21T18:55:59+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Java 串口编程" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"david.dong"},"dateModified":"2012-10-21T18:55:59+08:00","datePublished":"2012-10-21T18:55:59+08:00","description":"有关 Java 串口编程的内容。作者给出了实现的代码。","headline":"Java 串口编程","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/java/2012/10/21/Java-serialcom.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/logo.png"},"name":"david.dong"},"url":"http://localhost:4000/java/2012/10/21/Java-serialcom.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+<meta property="article:tag" content="Java">
+
+
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
+
+</head><body>
+    <main class="container">
+      <section class="about condensed">
+	    <div class="about-header condensed">
+			<div class="about-title">
+				<a href="/blog/index.html">
+				  <img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/avatar-11.png" alt="David Dong"/>
+				</a>
+				<div class = "title-meta">
+					<h2 id="title">
+					  <a href="/blog/index.html">David Dong</a>
+					</h2>
+					<p class = "tagline-small">Java/C/C#/Python</p>
+				</div>
+			</div>
+			<p class="tagline">Java/C/C#/Python</p>
+		</div>
+		<!--put dark mode button here -->
+		<div class = "about-footer condensed">
+		  <!--put rss/code link here -->
+			<div class="icon-box-container about-footer condensed"><div class = "icon-box" style = "padding-right:0px">
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id = "mode">Dark Mode</span>
+					</a>
+				</div>
+				<!-- toggle dark/light display mode, should loading darkmode.js here for avoiding flicker when switching -->
+				<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/darkmode.js"></script>
+				<script type="text/javascript">
+				$('.dark-mode').on('click',function(){
+					$('.dark-mode').toggleClass('light-mode');
+					if (document.getElementById("mode").innerHTML=="Light Mode")
+						document.getElementById("mode").innerHTML="Dark Mode";
+					else 
+						document.getElementById("mode").innerHTML="Light Mode";
+				})
+				</script><div class = "icon-box">
+					<a class="icon-rss" href="/rss.xml">
+						<span>Subscribe</span>
+					</a>
+				</div><div class = "icon-box">
+					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
+						<span>Source Code</span>
+					</a>
+				</div></div>
+		</div>
+		
+	    <!--show contact me -->
+		<div class = "about-footer condensed social-container">
+	    <p class = "contact about-footer condensed">CONTACT ME</p>
+		<!-- put social link here -->
+	      <ul class="social about-footer condensed" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		<!--put timestamp here -->
+		<p class ="timestamp about-footer condensed">&copy; 2024</p>
+		</div>
+	  <!-- about box end here -->
+      </section>
+	  
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+<div class="post-container">
+	<div  class = "menu-meta condensed">
+		<!--put top menu here, display @ big screen (> $mobileW) -->
+		<div  class = "menu-logo">BLOG</div>
+		<div  class = "menu">
+			<a href="/blog/index.html">
+				<li class="icon-home">Home</li>
+			</a><a href="/archive">
+				<li class="icon-archive">Archives</li>
+			</a><a href="/category">
+				<li class="icon-tags">Categories</li>
+			</a><a href="/about">
+				<li class="icon-help-circled">About</li>
+			</a>
+		</div>
+		<!--put hide menu button here, display @ small screen (< $mobileW) -->
+		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
+		<!--put hide menu here, display @ small screen (< $mobileW) -->
+		<div class="context-menu">
+			<ul >
+				<li>
+					<a class="icon-home" href="/blog/index.html">Home</a>
+				</li><li>
+					<a class="icon-archive" href="/archive">Archives</a>
+				</li><li>
+					<a class="icon-tags" href="/category">Categories</a>
+				</li><li>
+					<a class="icon-help-circled" href="/about">About</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('.menu-btn').on('click',function(e){
+		
+	e.stopPropagation();
+	var tag = $('.context-menu');		
+	$(tag).toggleClass('context-menu-show');
+			
+	var flag = true;
+	/* hide the context-menu when other element is clicked */
+	$(document).bind('click',function(e){
+		var target = $(e.target);
+		if(target.closest(tag).length == 0 && flag == true){
+			$(tag).toggleClass('context-menu-show');
+			flag = false;
+		}
+	});
+})
+</script><div class="post-container" style = "margin-bottom:1rem">
+	<div class="posts-labelgroup" id="posts-labelgroup">
+		<h1 id="posts-label">POST</h1>
+	</div>  
+	<!-- post title -->
+	<h2 class="post-title-body">Java 串口编程</h2>
+	<div class="post-meta">
+		<div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">Oct 21, 2012</div>
+		
+		<!-- sidebar button for displaying/hiding sidebar -->
+		<div class = "sidebar-btn-box"><a class="btn"></a></div>
+		
+	</div>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+<div class="post-viewer-container">
+	<div class="post post-fix-width">
+		<p>前些天工作中用到了串口编程。Java 上位机 UI 需要通过串行端口访问外部的设备，Java 对串口设备的访问有提供库支持，使用起来比较容易，这里简单总结一下。</p>
+
+<p>首先先下载<code class="language-plaintext highlighter-rouge">javacomm20-win32</code>的package。</p>
+
+<p><a href="http://code.google.com/p/smslib/downloads/detail?name=javacomm20-win32.zip&amp;can=2&amp;q=">下载链接</a></p>
+
+<p>从解压包中有三个重要的文件,</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>文件</th>
+      <th style="text-align: center">说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>comm.jar</td>
+      <td style="text-align: center">提供了通讯用的java API</td>
+    </tr>
+    <tr>
+      <td>win32com.dll</td>
+      <td style="text-align: center">提供了供comm.jar调用的本地驱动接口</td>
+    </tr>
+    <tr>
+      <td>javax.comm.properties</td>
+      <td style="text-align: center">是这个驱动的类配置文件</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>然后把这三个文件放到如下目录中：<br /></p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">comm.jar</code>可以放在JDK中的<code class="language-plaintext highlighter-rouge">jre\lib\ext</code>目录下,比如JAVA SDK装在C:\jdk1.6中，COMM.JAR放到C:\jdk1.6\jre\lib\ext;</li>
+  <li><code class="language-plaintext highlighter-rouge">win32com.dll</code>可以直接放在JDK中的bin目录下，C:\jdk1.6\bin;</li>
+  <li><code class="language-plaintext highlighter-rouge">javax.comm.properties</code>放在JDK中的<code class="language-plaintext highlighter-rouge">jre\lib</code>目录下，C:\jdk1.6\jre\lib;</li>
+</ol>
+
+<p>使用上可以参考我写的如下代码。<br />
+<code class="language-plaintext highlighter-rouge">CommBean.java</code> 实现了一个针对串口的通用操作类，封装了串口设备的打开,配置,关闭，读写操作。</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="cm">/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */</span>
+<span class="kn">package</span> <span class="nn">com.dong.serialcom</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.dong.factory.ConstantFactory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.DataInputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.InputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.OutputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Enumeration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.TooManyListenersException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Vector</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.comm.CommPortIdentifier</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.comm.NoSuchPortException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.comm.PortInUseException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.comm.SerialPort</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.comm.SerialPortEvent</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.comm.SerialPortEventListener</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.comm.UnsupportedCommOperationException</span><span class="o">;</span>
+<span class="cm">/**
+ *
+ * @author Dong Gang
+ */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ComBean</span> <span class="kd">implements</span> <span class="nc">SerialPortEventListener</span> <span class="o">{</span>
+
+    <span class="kd">static</span> <span class="nc">String</span> <span class="n">portName</span><span class="o">;</span>
+    <span class="kd">static</span> <span class="kt">int</span> <span class="n">baudrate</span><span class="o">;</span>
+    <span class="kd">static</span> <span class="kt">int</span> <span class="n">dataBit</span><span class="o">;</span>
+    <span class="kd">static</span> <span class="kt">int</span> <span class="n">stopBit</span><span class="o">;</span>
+    <span class="kd">static</span> <span class="kt">int</span> <span class="n">parityBit</span><span class="o">;</span>
+    <span class="nc">CommPortIdentifier</span> <span class="n">portId</span><span class="o">;</span>
+    <span class="nc">SerialPort</span> <span class="n">serialPort</span><span class="o">;</span>
+    <span class="kd">static</span> <span class="nc">OutputStream</span> <span class="n">out</span><span class="o">;</span>
+    <span class="kd">static</span> <span class="nc">InputStream</span> <span class="n">in</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="nc">ComBean</span> <span class="n">serialComInstance</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ComBean</span><span class="o">();</span>
+    <span class="nc">ReadThread</span> <span class="n">readThread</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ReadThread</span><span class="o">();</span>
+    <span class="kd">private</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">dataPool</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">1024</span><span class="o">];</span>
+    <span class="kd">private</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">10240</span><span class="o">];</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">readBufferIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">readDataEnd</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="nc">SerialBuffer</span> <span class="no">RB</span><span class="o">;</span>
+    <span class="nc">ReadSerial</span> <span class="no">RT</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">isComProOver</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">isConfigureAndStart</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">isComTestOk</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">isComOpen</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="nf">ComBean</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="n">portName</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span>
+        <span class="n">baudrate</span> <span class="o">=</span> <span class="mi">2000000</span><span class="o">;</span>
+        <span class="n">dataBit</span> <span class="o">=</span> <span class="nc">SerialPort</span><span class="o">.</span><span class="na">DATABITS_8</span><span class="o">;</span>
+        <span class="n">parityBit</span> <span class="o">=</span> <span class="nc">SerialPort</span><span class="o">.</span><span class="na">PARITY_NONE</span><span class="o">;</span>
+        <span class="n">stopBit</span> <span class="o">=</span> <span class="nc">SerialPort</span><span class="o">.</span><span class="na">STOPBITS_1</span><span class="o">;</span>
+
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">ComBean</span> <span class="nf">getInstances</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">serialComInstance</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">closePort</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kt">boolean</span> <span class="n">rst</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="nc">String</span> <span class="n">infoStr</span> <span class="o">=</span> <span class="s">"端口关闭"</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">isComOpen</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+                <span class="n">out</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+                <span class="no">RT</span><span class="o">.</span><span class="na">stop</span><span class="o">();</span>
+                <span class="n">serialPort</span><span class="o">.</span><span class="na">notifyOnDataAvailable</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+                <span class="n">serialPort</span><span class="o">.</span><span class="na">removeEventListener</span><span class="o">();</span>
+                <span class="n">serialPort</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+                <span class="n">isComProOver</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+                <span class="n">isConfigureAndStart</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+                <span class="n">isComTestOk</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+
+                <span class="k">if</span> <span class="o">(</span><span class="nc">ConstantFactory</span><span class="o">.</span><span class="na">timerRun</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="nc">ConstantFactory</span><span class="o">.</span><span class="na">timerRun</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="mi">0</span><span class="o">;</span>
+                    <span class="nc">ConstantFactory</span><span class="o">.</span><span class="na">timer</span><span class="o">.</span><span class="na">cancel</span><span class="o">();</span>
+                <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="o">}</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">rst</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">rst</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="n">rst</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getPortName</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">portName</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setPortName</span><span class="o">(</span><span class="nc">String</span> <span class="n">portName</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">ComBean</span><span class="o">.</span><span class="na">portName</span> <span class="o">=</span> <span class="n">portName</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getBaudrate</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">baudrate</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setBaudrate</span><span class="o">(</span><span class="kt">int</span> <span class="n">baudrate</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">switch</span> <span class="o">(</span><span class="n">baudrate</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
+                <span class="nc">ComBean</span><span class="o">.</span><span class="na">baudrate</span> <span class="o">=</span> <span class="mi">300</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+                <span class="nc">ComBean</span><span class="o">.</span><span class="na">baudrate</span> <span class="o">=</span> <span class="mi">600</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+                <span class="nc">ComBean</span><span class="o">.</span><span class="na">baudrate</span> <span class="o">=</span> <span class="mi">1200</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">case</span> <span class="mi">3</span><span class="o">:</span>
+                <span class="nc">ComBean</span><span class="o">.</span><span class="na">baudrate</span> <span class="o">=</span> <span class="mi">2400</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">case</span> <span class="mi">4</span><span class="o">:</span>
+                <span class="nc">ComBean</span><span class="o">.</span><span class="na">baudrate</span> <span class="o">=</span> <span class="mi">4800</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">case</span> <span class="mi">5</span><span class="o">:</span>
+                <span class="nc">ComBean</span><span class="o">.</span><span class="na">baudrate</span> <span class="o">=</span> <span class="mi">9600</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">case</span> <span class="mi">6</span><span class="o">:</span>
+                <span class="nc">ComBean</span><span class="o">.</span><span class="na">baudrate</span> <span class="o">=</span> <span class="mi">19200</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">case</span> <span class="mi">7</span><span class="o">:</span>
+                <span class="nc">ComBean</span><span class="o">.</span><span class="na">baudrate</span> <span class="o">=</span> <span class="mi">38400</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">case</span> <span class="mi">8</span><span class="o">:</span>
+                <span class="nc">ComBean</span><span class="o">.</span><span class="na">baudrate</span> <span class="o">=</span> <span class="mi">43000</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">case</span> <span class="mi">9</span><span class="o">:</span>
+                <span class="nc">ComBean</span><span class="o">.</span><span class="na">baudrate</span> <span class="o">=</span> <span class="mi">56000</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">case</span> <span class="mi">10</span><span class="o">:</span>
+                <span class="nc">ComBean</span><span class="o">.</span><span class="na">baudrate</span> <span class="o">=</span> <span class="mi">57600</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">case</span> <span class="mi">11</span><span class="o">:</span>
+                <span class="nc">ComBean</span><span class="o">.</span><span class="na">baudrate</span> <span class="o">=</span> <span class="mi">115200</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">case</span> <span class="mi">12</span><span class="o">:</span>
+                <span class="nc">ComBean</span><span class="o">.</span><span class="na">baudrate</span> <span class="o">=</span> <span class="mi">2000000</span><span class="o">;</span>
+            <span class="k">default</span><span class="o">:</span>
+                <span class="k">break</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getDataBit</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">dataBit</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setDataBit</span><span class="o">(</span><span class="kt">int</span> <span class="n">dataBit</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">switch</span> <span class="o">(</span><span class="n">dataBit</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
+                <span class="nc">ComBean</span><span class="o">.</span><span class="na">dataBit</span> <span class="o">=</span> <span class="nc">SerialPort</span><span class="o">.</span><span class="na">DATABITS_5</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+                <span class="nc">ComBean</span><span class="o">.</span><span class="na">dataBit</span> <span class="o">=</span> <span class="nc">SerialPort</span><span class="o">.</span><span class="na">DATABITS_6</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+                <span class="nc">ComBean</span><span class="o">.</span><span class="na">dataBit</span> <span class="o">=</span> <span class="nc">SerialPort</span><span class="o">.</span><span class="na">DATABITS_7</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">case</span> <span class="mi">3</span><span class="o">:</span>
+                <span class="nc">ComBean</span><span class="o">.</span><span class="na">dataBit</span> <span class="o">=</span> <span class="nc">SerialPort</span><span class="o">.</span><span class="na">DATABITS_8</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">default</span><span class="o">:</span>
+                <span class="k">break</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getParityBit</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">parityBit</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setParityBit</span><span class="o">(</span><span class="kt">int</span> <span class="n">parityBit</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">switch</span> <span class="o">(</span><span class="n">parityBit</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
+                <span class="nc">ComBean</span><span class="o">.</span><span class="na">parityBit</span> <span class="o">=</span> <span class="nc">SerialPort</span><span class="o">.</span><span class="na">PARITY_NONE</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+                <span class="nc">ComBean</span><span class="o">.</span><span class="na">parityBit</span> <span class="o">=</span> <span class="nc">SerialPort</span><span class="o">.</span><span class="na">PARITY_ODD</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+                <span class="nc">ComBean</span><span class="o">.</span><span class="na">parityBit</span> <span class="o">=</span> <span class="nc">SerialPort</span><span class="o">.</span><span class="na">PARITY_EVEN</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">default</span><span class="o">:</span>
+                <span class="k">break</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getStopBit</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">stopBit</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setStopBit</span><span class="o">(</span><span class="kt">int</span> <span class="n">stopBit</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">switch</span> <span class="o">(</span><span class="n">stopBit</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
+                <span class="nc">ComBean</span><span class="o">.</span><span class="na">stopBit</span> <span class="o">=</span> <span class="nc">SerialPort</span><span class="o">.</span><span class="na">STOPBITS_1</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+                <span class="nc">ComBean</span><span class="o">.</span><span class="na">stopBit</span> <span class="o">=</span> <span class="nc">SerialPort</span><span class="o">.</span><span class="na">STOPBITS_1_5</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+                <span class="nc">ComBean</span><span class="o">.</span><span class="na">stopBit</span> <span class="o">=</span> <span class="nc">SerialPort</span><span class="o">.</span><span class="na">STOPBITS_2</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">default</span><span class="o">:</span>
+                <span class="k">break</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">Vector</span> <span class="nf">getComId</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="nc">Vector</span> <span class="n">comIdList</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Vector</span><span class="o">();</span>
+        <span class="nc">Enumeration</span> <span class="n">commId</span> <span class="o">=</span> <span class="nc">CommPortIdentifier</span><span class="o">.</span><span class="na">getPortIdentifiers</span><span class="o">();</span>
+        <span class="nc">CommPortIdentifier</span> <span class="n">portId</span><span class="o">;</span>
+
+        <span class="k">while</span> <span class="o">(</span><span class="n">commId</span><span class="o">.</span><span class="na">hasMoreElements</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">portId</span> <span class="o">=</span> <span class="o">(</span><span class="nc">CommPortIdentifier</span><span class="o">)</span> <span class="n">commId</span><span class="o">.</span><span class="na">nextElement</span><span class="o">();</span>
+
+            <span class="k">if</span> <span class="o">(</span><span class="n">portId</span><span class="o">.</span><span class="na">getPortType</span><span class="o">()</span> <span class="o">==</span> <span class="nc">CommPortIdentifier</span><span class="o">.</span><span class="na">PORT_SERIAL</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">comIdList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">portId</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">comIdList</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">initCom</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="nc">ConstantFactory</span><span class="o">.</span><span class="na">infoStr</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span>
+        <span class="nc">ConstantFactory</span><span class="o">.</span><span class="na">comProRun</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="n">isComOpen</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">portId</span> <span class="o">=</span> <span class="nc">CommPortIdentifier</span><span class="o">.</span><span class="na">getPortIdentifier</span><span class="o">(</span><span class="n">portName</span><span class="o">);</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="n">serialPort</span> <span class="o">=</span> <span class="o">(</span><span class="nc">SerialPort</span><span class="o">)</span> <span class="n">portId</span><span class="o">.</span><span class="na">open</span><span class="o">(</span><span class="s">"Serial_Communication"</span><span class="o">,</span> <span class="mi">2000</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">PortInUseException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="nc">ConstantFactory</span><span class="o">.</span><span class="na">infoStr</span> <span class="o">=</span> <span class="s">"端口已经被占用！"</span><span class="o">;</span>
+                <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DataInputStream</span><span class="o">(</span><span class="n">serialPort</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">());</span>
+                <span class="n">out</span> <span class="o">=</span> <span class="n">serialPort</span><span class="o">.</span><span class="na">getOutputStream</span><span class="o">();</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="nc">ConstantFactory</span><span class="o">.</span><span class="na">infoStr</span> <span class="o">=</span> <span class="s">"IO 错误！"</span><span class="o">;</span>
+                <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="n">serialPort</span><span class="o">.</span><span class="na">setSerialPortParams</span><span class="o">(</span><span class="n">baudrate</span><span class="o">,</span> <span class="n">dataBit</span><span class="o">,</span> <span class="n">stopBit</span><span class="o">,</span> <span class="n">parityBit</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">UnsupportedCommOperationException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="nc">ConstantFactory</span><span class="o">.</span><span class="na">infoStr</span> <span class="o">=</span> <span class="s">"参数设置错误！"</span><span class="o">;</span>
+                <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+            <span class="o">}</span>
+
+            <span class="k">if</span> <span class="o">(</span><span class="kc">false</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">try</span> <span class="o">{</span>
+                    <span class="n">serialPort</span><span class="o">.</span><span class="na">addEventListener</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+                <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">TooManyListenersException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">serialPort</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+                    <span class="nc">ConstantFactory</span><span class="o">.</span><span class="na">infoStr</span> <span class="o">=</span> <span class="s">"监听错误！"</span><span class="o">;</span>
+                    <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="n">serialPort</span><span class="o">.</span><span class="na">notifyOnDataAvailable</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+            <span class="o">}</span>
+
+            <span class="no">RB</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SerialBuffer</span><span class="o">(</span><span class="n">serialComInstance</span><span class="o">);</span>
+            <span class="no">RT</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ReadSerial</span><span class="o">(</span><span class="n">in</span><span class="o">,</span> <span class="no">RB</span><span class="o">);</span>
+            <span class="no">RT</span><span class="o">.</span><span class="na">setPriority</span><span class="o">(</span><span class="nc">Thread</span><span class="o">.</span><span class="na">MAX_PRIORITY</span><span class="o">);</span>
+            <span class="no">RT</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">NoSuchPortException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">ConstantFactory</span><span class="o">.</span><span class="na">infoStr</span> <span class="o">=</span> <span class="s">"端口未找到！"</span><span class="o">;</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">isComOpen</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">isComOpen</span><span class="o">;</span>
+        
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">serialEvent</span><span class="o">(</span><span class="nc">SerialPortEvent</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">switch</span> <span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getEventType</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">case</span> <span class="nc">SerialPortEvent</span><span class="o">.</span><span class="na">BI</span><span class="o">:</span>
+            <span class="k">case</span> <span class="nc">SerialPortEvent</span><span class="o">.</span><span class="na">OE</span><span class="o">:</span>
+            <span class="k">case</span> <span class="nc">SerialPortEvent</span><span class="o">.</span><span class="na">FE</span><span class="o">:</span>
+            <span class="k">case</span> <span class="nc">SerialPortEvent</span><span class="o">.</span><span class="na">PE</span><span class="o">:</span>
+            <span class="k">case</span> <span class="nc">SerialPortEvent</span><span class="o">.</span><span class="na">CD</span><span class="o">:</span>
+            <span class="k">case</span> <span class="nc">SerialPortEvent</span><span class="o">.</span><span class="na">CTS</span><span class="o">:</span>
+            <span class="k">case</span> <span class="nc">SerialPortEvent</span><span class="o">.</span><span class="na">DSR</span><span class="o">:</span>
+            <span class="k">case</span> <span class="nc">SerialPortEvent</span><span class="o">.</span><span class="na">RI</span><span class="o">:</span>
+            <span class="k">case</span> <span class="nc">SerialPortEvent</span><span class="o">.</span><span class="na">OUTPUT_BUFFER_EMPTY</span><span class="o">:</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">case</span> <span class="nc">SerialPortEvent</span><span class="o">.</span><span class="na">DATA_AVAILABLE</span><span class="o">:</span>
+                <span class="n">readComm</span><span class="o">();</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">default</span><span class="o">:</span>
+                <span class="k">break</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kt">void</span> <span class="nf">readComm</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">dataAnalysis</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">receiveData</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="o">,</span> <span class="n">f</span> <span class="o">=</span> <span class="mi">0</span><span class="o">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span><span class="o">,</span> <span class="n">l</span> <span class="o">=</span> <span class="mi">0</span><span class="o">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="n">readDataEnd</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">b</span><span class="o">[</span><span class="n">readBufferIndex</span><span class="o">]</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">read</span><span class="o">();</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">b</span><span class="o">[</span><span class="n">readBufferIndex</span><span class="o">]</span> <span class="o">==</span> <span class="mi">170</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">readBufferIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+                <span class="n">readDataEnd</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="n">readBufferIndex</span><span class="o">++;</span>
+            <span class="o">}</span>
+  <span class="o">}</span>
+           
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">dataAnalysis</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">c</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">read</span><span class="o">();</span>
+            <span class="n">b</span><span class="o">[</span><span class="n">readBufferIndex</span><span class="o">]</span> <span class="o">=</span> <span class="n">c</span><span class="o">;</span>
+            <span class="n">readBufferIndex</span><span class="o">++;</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">c</span> <span class="o">==</span> <span class="mi">170</span><span class="o">)</span> <span class="o">{</span>
+                <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">readBufferIndex</span> <span class="o">==</span> <span class="mi">6</span><span class="o">)</span> <span class="o">{</span>
+                <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">class</span> <span class="nc">ReadThread</span> <span class="kd">extends</span> <span class="nc">Thread</span> <span class="o">{</span>
+
+        <span class="kd">public</span> <span class="nf">ReadThread</span><span class="o">()</span> <span class="o">{</span>
+        <span class="o">}</span>
+
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+            <span class="k">while</span> <span class="o">(!</span><span class="nc">ConstantFactory</span><span class="o">.</span><span class="na">comProRun</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">readCom</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">stopRun</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nc">ConstantFactory</span><span class="o">.</span><span class="na">comProRun</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">readCom</span><span class="o">()</span> <span class="o">{</span>
+            <span class="kt">byte</span><span class="o">[]</span> <span class="n">dataByte</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">1024</span><span class="o">];</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="k">while</span> <span class="o">(</span><span class="n">in</span><span class="o">.</span><span class="na">available</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="kt">int</span> <span class="n">readnum</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">dataByte</span><span class="o">);</span>
+                <span class="o">}</span>
+
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">writeCom</span><span class="o">(</span><span class="nc">String</span> <span class="n">wrtStr</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">wrtStr</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="n">out</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">wrtStr</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span><span class="o">));</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">writeCom</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span> <span class="n">wrtByte</span><span class="o">,</span> <span class="kt">int</span> <span class="n">length</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="n">out</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">wrtByte</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">writeCom</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">out</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">b</span><span class="o">);</span>
+
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">getIsComProOver</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">isComProOver</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setIsComProOver</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">isComProOver</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">isComProOver</span> <span class="o">=</span> <span class="n">isComProOver</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">getIsConfigureAndStart</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">isConfigureAndStart</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setIsConfigureAndStart</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">isConfigureAndStart</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">isConfigureAndStart</span> <span class="o">=</span> <span class="n">isConfigureAndStart</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">getIsComTestOk</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">isComTestOk</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setIsComTestOk</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">isComTestOk</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">isComTestOk</span> <span class="o">=</span> <span class="n">isComTestOk</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">ReadSerial.java</code> 读取类，使用 CommBean 的对象进行串口的数据读取。<br /></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="cm">/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */</span>
+<span class="kn">package</span> <span class="nn">com.dong.serialcom</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.InputStream</span><span class="o">;</span>
+
+<span class="cm">/**
+ *
+ * @author Dong Gang
+ */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ReadSerial</span> <span class="kd">extends</span> <span class="nc">Thread</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="nc">InputStream</span> <span class="nc">ComPort</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">SerialBuffer</span> <span class="nc">Buffer</span><span class="o">;</span>
+ 
+
+    <span class="kd">public</span> <span class="nf">ReadSerial</span><span class="o">(</span><span class="nc">InputStream</span> <span class="nc">ComPort</span><span class="o">,</span><span class="nc">SerialBuffer</span> <span class="n">buffer</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">ComPort</span> <span class="o">=</span> <span class="nc">ComPort</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">Buffer</span> <span class="o">=</span> <span class="n">buffer</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">c</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+               <span class="k">if</span><span class="o">(</span><span class="mi">0</span><span class="o">&lt;</span><span class="nc">ComPort</span><span class="o">.</span><span class="na">available</span><span class="o">()){</span>
+                     <span class="n">c</span> <span class="o">=</span> <span class="nc">ComPort</span><span class="o">.</span><span class="na">read</span><span class="o">();</span>
+                     <span class="nc">Buffer</span><span class="o">.</span><span class="na">putByte</span><span class="o">(</span><span class="n">c</span><span class="o">);</span>
+                <span class="o">}</span>
+               
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>我的Github上的项目链接如下
+<a href="https://github.com/gangdong/BLDC">Github 项目</a>。</p>
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box" id = "sidebar">
+		    
+				<p class = "sidebar-title">关于文章</p>
+			
+			
+				
+				<p class = "sidebar-about-content sidebar-font-big">有关 Java 串口编程的内容。作者给出了实现的代码。</p>
+				
+				
+				<p class = "icon-link sidebar-about-content sidebar-font-medium" style = "margin-top:40px">文章作者: <a href="https://github.com/gangdong">david.dong</a></p>
+				
+				<p class = "icon-hourglass sidebar-about-content sidebar-font-medium">阅读时间：19 mins</p>
+				<p class = "icon-book sidebar-about-content sidebar-font-medium">全文字数：7543</p>
+				
+					<p class = "icon-th-list sidebar-about-content sidebar-font-medium">关键字: 串口/Java/comm.jar</p>
+				
+				
+					<p class = "icon-hashtag sidebar-about-content sidebar-font-medium">标签: 
+					
+					<a href="/category#Java">Java&nbsp;</a>
+					
+					</p>
+				
+			
+		</div>
+		
+		
+	</div>
+	 
+</div>
+<!-- no sidebar, use flex width box! -->
+<br>
+<div class="post-container">
+    <!-- post categories box! here  -->
+    
+   <div class="post-categories-meta">
+		<div class="post-categories-box post-categories-box-hide"><a href="/category#Java">Java</a></div>
+	</div>
+  
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">分享:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+	
+		<span class = "icon-eye tooltip"><p class = "tooltiptext" style = "left:0%; margin-left: 0px">阅读量</p><span id="busuanzi_value_page_pv"></span></span>
+		
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">相关文章</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/java/2022/04/22/Java-threadSynchronization.html">浅谈 Java 线程同步技术</a></li>
+			
+			<li><a href="/java/2013/05/07/Java-com.html">Java 调用 COM 组件的方法</a></li>
+			
+			<li><a href="/java/2013/03/01/Java-jdom.html">Java JDOM 库的使用</a></li>
+			
+			<li><a href="/java/2012/12/17/Java-jxl.html">Java 使用 JXL 库编辑 Excel 文档</a></li>
+			
+			<li><a href="/java/2012/06/01/Java-runnable.html">Java 的线程和 Runnable 接口</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">继续阅读</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta"><div class="navigation-bar">
+	 
+	 <a href="/java/2012/06/01/Java-runnable.html"><span>前一章</span><br>Java 的线程和 Runnable 接口</a>
+	 
+    </div><div class="navigation-bar"> 
+	 
+	 <a href="/java/2012/12/17/Java-jxl.html"><span>后一章</span><br>Java 使用 JXL 库编辑 Excel 文档</a>
+	 
+    </div></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'gangdong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9&domready=1"></script>
+
+
+<!-- sidebar button, toggle display/hide sidebar -->
+<script type="text/javascript">
+        $('.btn').on('click',function(){
+            $('.btn').toggleClass('btnc');
+            $('.sidebar-container').toggleClass('sidebar-container-hide');
+        })
+</script>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=G-3MXGF3F8QN"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-3MXGF3F8QN');
+	</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></body>
+</html>

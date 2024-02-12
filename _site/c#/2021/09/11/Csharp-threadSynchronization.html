@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>浅析 C# 中的线程同步 | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="浅析 C# 中的线程同步" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="文章对 C# 中的线程同步技术做了些总结和讨论。" />
+<meta property="og:description" content="文章对 C# 中的线程同步技术做了些总结和讨论。" />
+<link rel="canonical" href="http://localhost:4000/c%23/2021/09/11/Csharp-threadSynchronization.html" />
+<meta property="og:url" content="http://localhost:4000/c%23/2021/09/11/Csharp-threadSynchronization.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-09-11T22:14:11+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="浅析 C# 中的线程同步" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"david.dong"},"dateModified":"2021-09-11T22:14:11+08:00","datePublished":"2021-09-11T22:14:11+08:00","description":"文章对 C# 中的线程同步技术做了些总结和讨论。","headline":"浅析 C# 中的线程同步","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/c%23/2021/09/11/Csharp-threadSynchronization.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/logo.png"},"name":"david.dong"},"url":"http://localhost:4000/c%23/2021/09/11/Csharp-threadSynchronization.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+<meta property="article:tag" content="C#">
+
+
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
+
+</head><body>
+    <main class="container">
+      <section class="about condensed">
+	    <div class="about-header condensed">
+			<div class="about-title">
+				<a href="/blog/index.html">
+				  <img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/avatar-11.png" alt="David Dong"/>
+				</a>
+				<div class = "title-meta">
+					<h2 id="title">
+					  <a href="/blog/index.html">David Dong</a>
+					</h2>
+					<p class = "tagline-small">Java/C/C#/Python</p>
+				</div>
+			</div>
+			<p class="tagline">Java/C/C#/Python</p>
+		</div>
+		<!--put dark mode button here -->
+		<div class = "about-footer condensed">
+		  <!--put rss/code link here -->
+			<div class="icon-box-container about-footer condensed"><div class = "icon-box" style = "padding-right:0px">
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id = "mode">Dark Mode</span>
+					</a>
+				</div>
+				<!-- toggle dark/light display mode, should loading darkmode.js here for avoiding flicker when switching -->
+				<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/darkmode.js"></script>
+				<script type="text/javascript">
+				$('.dark-mode').on('click',function(){
+					$('.dark-mode').toggleClass('light-mode');
+					if (document.getElementById("mode").innerHTML=="Light Mode")
+						document.getElementById("mode").innerHTML="Dark Mode";
+					else 
+						document.getElementById("mode").innerHTML="Light Mode";
+				})
+				</script><div class = "icon-box">
+					<a class="icon-rss" href="/rss.xml">
+						<span>Subscribe</span>
+					</a>
+				</div><div class = "icon-box">
+					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
+						<span>Source Code</span>
+					</a>
+				</div></div>
+		</div>
+		
+	    <!--show contact me -->
+		<div class = "about-footer condensed social-container">
+	    <p class = "contact about-footer condensed">CONTACT ME</p>
+		<!-- put social link here -->
+	      <ul class="social about-footer condensed" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		<!--put timestamp here -->
+		<p class ="timestamp about-footer condensed">&copy; 2024</p>
+		</div>
+	  <!-- about box end here -->
+      </section>
+	  
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+<div class="post-container">
+	<div  class = "menu-meta condensed">
+		<!--put top menu here, display @ big screen (> $mobileW) -->
+		<div  class = "menu-logo">BLOG</div>
+		<div  class = "menu">
+			<a href="/blog/index.html">
+				<li class="icon-home">Home</li>
+			</a><a href="/archive">
+				<li class="icon-archive">Archives</li>
+			</a><a href="/category">
+				<li class="icon-tags">Categories</li>
+			</a><a href="/about">
+				<li class="icon-help-circled">About</li>
+			</a>
+		</div>
+		<!--put hide menu button here, display @ small screen (< $mobileW) -->
+		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
+		<!--put hide menu here, display @ small screen (< $mobileW) -->
+		<div class="context-menu">
+			<ul >
+				<li>
+					<a class="icon-home" href="/blog/index.html">Home</a>
+				</li><li>
+					<a class="icon-archive" href="/archive">Archives</a>
+				</li><li>
+					<a class="icon-tags" href="/category">Categories</a>
+				</li><li>
+					<a class="icon-help-circled" href="/about">About</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('.menu-btn').on('click',function(e){
+		
+	e.stopPropagation();
+	var tag = $('.context-menu');		
+	$(tag).toggleClass('context-menu-show');
+			
+	var flag = true;
+	/* hide the context-menu when other element is clicked */
+	$(document).bind('click',function(e){
+		var target = $(e.target);
+		if(target.closest(tag).length == 0 && flag == true){
+			$(tag).toggleClass('context-menu-show');
+			flag = false;
+		}
+	});
+})
+</script><div class="post-container" style = "margin-bottom:1rem">
+	<div class="posts-labelgroup" id="posts-labelgroup">
+		<h1 id="posts-label">POST</h1>
+	</div>  
+	<!-- post title -->
+	<h2 class="post-title-body">浅析 C# 中的线程同步 </h2>
+	<div class="post-meta">
+		<div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">Sep 11, 2021</div>
+		
+		<!-- sidebar button for displaying/hiding sidebar -->
+		<div class = "sidebar-btn-box"><a class="btn"></a></div>
+		
+	</div>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+<div class="post-viewer-container">
+	<div class="post post-fix-width">
+		<p>线程间同步是指在多线程环境下，保证共享资源的安全和一致性的机制。
+C# 中提供了多种方式实现线程间同步。例如：</p>
+<ul>
+  <li>lock 语句：使用一个对象作为锁，保证一次只有一个线程可以进入临界区；</li>
+  <li>Interlocked 类：提供了原子操作，如递增、递减、交换和读取值；</li>
+  <li>Monitor 类：提供了锁定对象、等待信号和通知信号的方法；</li>
+  <li>Mutex 类：提供了<strong>跨进程</strong>的互斥锁，可以用来同步<strong>不同进程中</strong>的线程；</li>
+  <li>Semaphore 类：提供了一个计数器，限制同时访问共享资源的线程数；</li>
+  <li>AutoResetEvent 和 ManualResetEvent 类：提供了信号量，可以用来通知或等待其他线程的状态变化；</li>
+</ul>
+
+<h2 id="lock-语句">lock 语句</h2>
+
+<p>C# 中的 <code class="language-plaintext highlighter-rouge">lock</code> 语句是用来同步多个线程对共享资源的访问的。<code class="language-plaintext highlighter-rouge">lock</code> 语句需要一个对象作为锁，当一个线程进入 <code class="language-plaintext highlighter-rouge">lock</code> 语句块时，它会获取该对象的互斥锁，执行语句块，然后释放锁。在持有锁的期间，其他线程无法获取该锁，只能等待释放。</p>
+
+<p><code class="language-plaintext highlighter-rouge">lock</code> 语句的一般用法如下：</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Threading</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Program</span>
+<span class="p">{</span>
+    <span class="k">static</span> <span class="kt">int</span> <span class="n">counter</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+    <span class="k">static</span> <span class="kt">object</span> <span class="n">locker</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">object</span><span class="p">();</span>
+
+    <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Thread</span> <span class="n">t1</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Thread</span><span class="p">(</span><span class="n">Increment</span><span class="p">);</span>
+        <span class="n">Thread</span> <span class="n">t2</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Thread</span><span class="p">(</span><span class="n">Increment</span><span class="p">);</span>
+
+        <span class="n">t1</span><span class="p">.</span><span class="nf">Start</span><span class="p">();</span>
+        <span class="n">t2</span><span class="p">.</span><span class="nf">Start</span><span class="p">();</span>
+
+        <span class="n">t1</span><span class="p">.</span><span class="nf">Join</span><span class="p">();</span>
+        <span class="n">t2</span><span class="p">.</span><span class="nf">Join</span><span class="p">();</span>
+
+        <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"Counter: "</span> <span class="p">+</span> <span class="n">counter</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">static</span> <span class="k">void</span> <span class="nf">Increment</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">100000</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+        <span class="p">{</span>
+            <span class="k">lock</span> <span class="p">(</span><span class="n">locker</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">counter</span><span class="p">++;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="interlocked-类">interlocked 类</h2>
+
+<p>C# 中的 <code class="language-plaintext highlighter-rouge">Interlocked</code> 类是用来提供原子操作的，即一次只能有一个线程执行的操作。<code class="language-plaintext highlighter-rouge">Interlocked</code> 类可以保证对共享变量的读取、修改和写入是线程安全的。<code class="language-plaintext highlighter-rouge"> Interlocked </code> 类提供了一些静态方法，如：</p>
+
+<ul>
+  <li>Increment：将一个整数变量递增并返回新值。</li>
+  <li>Decrement：将一个整数变量递减并返回新值。</li>
+  <li>Add：将一个整数变量增加指定的值并返回新值。</li>
+  <li>Exchange：将两个变量交换并返回原始值。</li>
+  <li>CompareExchange：比较两个变量是否相等，如果相等则交换它们，并返回原始值。</li>
+</ul>
+
+<p>下面是一个使用 Interlocked 类实现线程间同步的例子：</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Threading</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Program</span>
+<span class="p">{</span>
+    <span class="k">static</span> <span class="kt">int</span> <span class="n">counter</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+
+    <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Thread</span> <span class="n">t1</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Thread</span><span class="p">(</span><span class="n">Increment</span><span class="p">);</span>
+        <span class="n">Thread</span> <span class="n">t2</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Thread</span><span class="p">(</span><span class="n">Increment</span><span class="p">);</span>
+
+        <span class="n">t1</span><span class="p">.</span><span class="nf">Start</span><span class="p">();</span>
+        <span class="n">t2</span><span class="p">.</span><span class="nf">Start</span><span class="p">();</span>
+
+        <span class="n">t1</span><span class="p">.</span><span class="nf">Join</span><span class="p">();</span>
+        <span class="n">t2</span><span class="p">.</span><span class="nf">Join</span><span class="p">();</span>
+
+        <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"Counter: "</span> <span class="p">+</span> <span class="n">counter</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">static</span> <span class="k">void</span> <span class="nf">Increment</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">100000</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+        <span class="p">{</span>
+            <span class="n">Interlocked</span><span class="p">.</span><span class="nf">Increment</span><span class="p">(</span><span class="k">ref</span> <span class="n">counter</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="monitor-类">Monitor 类</h2>
+
+<p>Monitor 类是 C# 中用于提供多线程环境下的线程安全的一个类。它可以确保一次只有一个线程能够访问临界区代码，避免线程之间的<strong>竞争条件</strong>。Monitor 类包含了一些静态方法，它们操作一个控制对临界区访问的对象。<code class="language-plaintext highlighter-rouge">Monitor.Enter</code> 和 <code class="language-plaintext highlighter-rouge">Monitor.Exit</code> 方法用于锁定和释放对象或资源。
+这里有一个简单的例子，它演示了如何使用 Monitor 类来保护一个共享资源（一个计数器）免受并发访问的影响。请注意，<strong>我们需要在 <code class="language-plaintext highlighter-rouge">try</code> 和 <code class="language-plaintext highlighter-rouge">finally</code> 块中使用 <code class="language-plaintext highlighter-rouge">Monitor.Enter</code> 和 <code class="language-plaintext highlighter-rouge">Monitor.Exit</code> 方法</strong>。</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Threading</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">MonitorExample</span>
+<span class="p">{</span>
+    <span class="k">class</span> <span class="nc">Program</span>
+    <span class="p">{</span>
+        <span class="k">static</span> <span class="kt">int</span> <span class="n">counter</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="c1">//shared resource</span>
+        <span class="k">static</span> <span class="kt">object</span> <span class="n">lockObject</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">object</span><span class="p">();</span> <span class="c1">//object to lock</span>
+
+        <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">Thread</span> <span class="n">t1</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Thread</span><span class="p">(</span><span class="n">IncrementCounter</span><span class="p">);</span>
+            <span class="n">Thread</span> <span class="n">t2</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Thread</span><span class="p">(</span><span class="n">IncrementCounter</span><span class="p">);</span>
+
+            <span class="n">t1</span><span class="p">.</span><span class="nf">Start</span><span class="p">();</span>
+            <span class="n">t2</span><span class="p">.</span><span class="nf">Start</span><span class="p">();</span>
+
+            <span class="n">t1</span><span class="p">.</span><span class="nf">Join</span><span class="p">();</span>
+            <span class="n">t2</span><span class="p">.</span><span class="nf">Join</span><span class="p">();</span>
+
+            <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"Final Counter Value: "</span> <span class="p">+</span> <span class="n">counter</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">static</span> <span class="k">void</span> <span class="nf">IncrementCounter</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="kt">bool</span> <span class="n">isLockTaken</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+            <span class="k">try</span>
+            <span class="p">{</span>
+                <span class="n">Monitor</span><span class="p">.</span><span class="nf">Enter</span><span class="p">(</span><span class="n">lockObject</span><span class="p">,</span> <span class="k">ref</span> <span class="n">isLockTaken</span><span class="p">);</span> <span class="c1">//lock</span>
+                <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">100000</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+                <span class="p">{</span>
+                    <span class="n">counter</span><span class="p">++;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="k">finally</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">isLockTaken</span><span class="p">)</span>
+                    <span class="n">Monitor</span><span class="p">.</span><span class="nf">Exit</span><span class="p">(</span><span class="n">lockObject</span><span class="p">);</span> <span class="c1">//release</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>这个例子程序的目的是演示如何使用 Monitor 类来保护一个共享资源（一个计数器）免受并发访问的影响。程序中创建了两个线程 t1 和 t2，它们都调用了同一个方法 <code class="language-plaintext highlighter-rouge">IncrementCounter</code>，该方法用于对计数器进行递增操作。为了避免两个线程同时修改计数器的值，造成数据不一致的问题，我们需要使用 Monitor 类来锁定一个对象（lockObject），这样一次只有一个线程能够进入临界区（for 循环）。在 try 块中，我们使用 <code class="language-plaintext highlighter-rouge">Monitor.Enter</code> 方法来尝试获取锁，并将 <code class="language-plaintext highlighter-rouge">isLockTaken</code> 参数设置为 true。如果获取成功，我们就可以对计数器进行递增操作。在 finally 块中，我们检查 <code class="language-plaintext highlighter-rouge">isLockTaken</code> 参数是否为 true，如果是，则说明我们已经获取了锁，那么我们就需要使用 <code class="language-plaintext highlighter-rouge">Monitor.Exit</code> 方法来释放锁，以便其他线程可以访问临界区。最后，在主线程中，我们等待两个子线程执行完毕，并打印出最终的计数器值。</p>
+
+<p>[参考]：</p>
+
+<ul>
+  <li><a href="https://www.shekhali.com/c-monitor-class-in-multithreading-with-examples/">C# Monitor class in multithreading with examples - Shekh Ali’s Blog</a></li>
+  <li><a href="https://learn.microsoft.com/en-us/dotnet/api/system.threading.monitor?view=net-7.0">Monitor Class (System.Threading) | Microsoft Learn</a></li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">Monitor.Enter ()</code> 方法是用于锁定一个对象或资源，以便一次只有一个线程能够访问临界区。它有两个重载版本，一个只接受一个 object 参数，另一个接受一个 object 参数和一个 ref bool 参数。第一个版本会尝试获取锁，如果成功，则返回，如果失败，则阻塞当前线程，直到获取锁为止。第二个版本会尝试获取锁，并将 <code class="language-plaintext highlighter-rouge">ref bool</code> 参数设置为 true 或 false，<strong>表示是否获取成功</strong>。这个版本可以指定超时时间或取消令牌。</p>
+
+<p>[参考]：</p>
+
+<ul>
+  <li><a href="https://learn.microsoft.com/en-us/dotnet/api/system.threading.monitor.enter?view=net-7.0">Monitor.Enter Method (System.Threading) | Microsoft Learn</a></li>
+</ul>
+
+<h2 id="mutex-类">Mutex 类</h2>
+
+<p>Mutex 类是一个同步原语，用于在多线程环境中保护共享资源的访问。Mutex 类提供了 <code class="language-plaintext highlighter-rouge">WaitOne</code> 和 <code class="language-plaintext highlighter-rouge">ReleaseMutex</code> 方法，分别用于请求和释放互斥锁的所有权。Mutex 类具有线程关联性，即只有拥有互斥锁的线程才能释放它。</p>
+
+<p>一个简单的例子是，假设有两个线程 A 和 B，需要对一个共享变量 count 进行增加操作。为了避免数据竞争，可以使用一个 Mutex 对象来同步对 count 的访问，如下所示：</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Threading</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">MySharedMutexCounter</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="kt">int</span> <span class="n">count</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="n">Mutex</span> <span class="n">ObjMutex</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Mutex</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">MyThreadA</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="n">Thread</span> <span class="n">Thrd</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="nf">MyThreadA</span><span class="p">(</span><span class="kt">string</span> <span class="n">name</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Thrd</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Thread</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">Run</span><span class="p">);</span>
+        <span class="n">Thrd</span><span class="p">.</span><span class="n">Name</span> <span class="p">=</span> <span class="n">name</span><span class="p">;</span>
+        <span class="n">Thrd</span><span class="p">.</span><span class="nf">Start</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">Run</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">5</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+        <span class="p">{</span>
+            <span class="c1">// Request ownership of the mutex.</span>
+            <span class="n">MySharedMutexCounter</span><span class="p">.</span><span class="n">ObjMutex</span><span class="p">.</span><span class="nf">WaitOne</span><span class="p">();</span>
+
+            <span class="c1">// Increment the shared variable.</span>
+            <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">Thrd</span><span class="p">.</span><span class="n">Name</span> <span class="p">+</span> <span class="s">" is incrementing count."</span><span class="p">);</span>
+            <span class="n">MySharedMutexCounter</span><span class="p">.</span><span class="n">count</span><span class="p">++;</span>
+            <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"Count is now "</span> <span class="p">+</span> <span class="n">MySharedMutexCounter</span><span class="p">.</span><span class="n">count</span><span class="p">);</span>
+
+            <span class="c1">// Release ownership of the mutex.</span>
+            <span class="n">MySharedMutexCounter</span><span class="p">.</span><span class="n">ObjMutex</span><span class="p">.</span><span class="nf">ReleaseMutex</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">MyThreadB</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="n">Thread</span> <span class="n">Thrd</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="nf">MyThreadB</span><span class="p">(</span><span class="kt">string</span> <span class="n">name</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Thrd</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Thread</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">Run</span><span class="p">);</span>
+        <span class="n">Thrd</span><span class="p">.</span><span class="n">Name</span> <span class="p">=</span> <span class="n">name</span><span class="p">;</span>
+        <span class="n">Thrd</span><span class="p">.</span><span class="nf">Start</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">Run</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">5</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+        <span class="p">{</span>
+            <span class="c1">// Request ownership of the mutex.</span>
+            <span class="n">MySharedMutexCounter</span><span class="p">.</span><span class="n">ObjMutex</span><span class="p">.</span><span class="nf">WaitOne</span><span class="p">();</span>
+
+            <span class="c1">// Increment the shared variable.</span>
+            <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">Thrd</span><span class="p">.</span><span class="n">Name</span> <span class="p">+</span> <span class="s">" is incrementing count."</span><span class="p">);</span>
+            <span class="n">MySharedMutexCounter</span><span class="p">.</span><span class="n">count</span><span class="p">++;</span>
+            <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"Count is now "</span> <span class="p">+</span> <span class="n">MySharedMutexCounter</span><span class="p">.</span><span class="n">count</span><span class="p">);</span>
+
+            <span class="c1">// Release ownership of the mutex.</span>
+            <span class="n">MySharedMutexCounter</span><span class="p">.</span><span class="n">ObjMutex</span><span class="p">.</span><span class="nf">ReleaseMutex</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">Program</span>
+<span class="p">{</span>
+   <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">()</span>
+   <span class="p">{</span>
+      <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"Main thread starting."</span><span class="p">);</span>
+
+      <span class="c1">// Construct two threads.</span>
+      <span class="kt">var</span> <span class="n">mt1</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">MyThreadA</span><span class="p">(</span><span class="s">"Child #1"</span><span class="p">);</span>
+      <span class="kt">var</span> <span class="n">mt2</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">MyThreadB</span><span class="p">(</span><span class="s">"Child #2"</span><span class="p">);</span>
+
+      <span class="n">mt1</span><span class="p">.</span><span class="n">Thrd</span><span class="p">.</span><span class="nf">Join</span><span class="p">();</span>
+      <span class="n">mt2</span><span class="p">.</span><span class="n">Thrd</span><span class="p">.</span><span class="nf">Join</span><span class="p">();</span>
+
+      <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"Main thread ending."</span><span class="p">);</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>[参考]：</p>
+
+<ul>
+  <li><a href="https://learn.microsoft.com/en-us/dotnet/standard/threading/mutexes">Mutexes | Microsoft Learn</a></li>
+  <li><a href="https://learn.microsoft.com/en-us/dotnet/api/system.threading.mutex?view=net-7.0">Mutex Class (System.Threading) | Microsoft Learn</a></li>
+  <li><a href="https://www.chubbydeveloper.com/csharp-mutex/">How to use C# Mutex for Thread Lock Synchronization - Chubby Developer</a></li>
+</ul>
+
+<h2 id="semaphore-类">Semaphore 类</h2>
+
+<p>Semaphore 类是一个同步原语，用于控制对一组资源的并发访问。Semaphore 类可以表示一个命名的（系统范围的）或本地的信号量。它是对 Win32 信号量对象的一个薄封装。Win32 信号量是计数信号量，可以用于控制对一个资源池的访问。</p>
+
+<p>Semaphore 类提供了构造函数，用于指定初始和最大的并发访问数，以及可选的系统信号量对象的名称。它还提供了 <code class="language-plaintext highlighter-rouge">WaitOne</code> 和 <code class="language-plaintext highlighter-rouge">Release</code> 方法，分别用于请求和释放信号量的计数。</p>
+
+<p>一个简单的例子是，假设有三个线程 A、B、C，需要对三个共享资源 X、Y、Z 进行操作。为了避免同时有多个线程操作同一个资源，可以使用一个 Semaphore 对象来限制最多只能有三个线程同时访问资源池，如下所示：</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Threading</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">MySharedResource</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="kt">string</span><span class="p">[]</span> <span class="n">resources</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">string</span><span class="p">[]</span> <span class="p">{</span> <span class="s">"X"</span><span class="p">,</span> <span class="s">"Y"</span><span class="p">,</span> <span class="s">"Z"</span> <span class="p">};</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="n">Semaphore</span> <span class="n">ObjSemaphore</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Semaphore</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">MyThread</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="n">Thread</span> <span class="n">Thrd</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="nf">MyThread</span><span class="p">(</span><span class="kt">string</span> <span class="n">name</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Thrd</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Thread</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">Run</span><span class="p">);</span>
+        <span class="n">Thrd</span><span class="p">.</span><span class="n">Name</span> <span class="p">=</span> <span class="n">name</span><span class="p">;</span>
+        <span class="n">Thrd</span><span class="p">.</span><span class="nf">Start</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">Run</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">5</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+        <span class="p">{</span>
+            <span class="c1">// Request a resource from the pool.</span>
+            <span class="n">MySharedResource</span><span class="p">.</span><span class="n">ObjSemaphore</span><span class="p">.</span><span class="nf">WaitOne</span><span class="p">();</span>
+
+            <span class="c1">// Get a random resource index.</span>
+            <span class="n">Random</span> <span class="n">rnd</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Random</span><span class="p">();</span>
+            <span class="kt">int</span> <span class="n">index</span> <span class="p">=</span> <span class="n">rnd</span><span class="p">.</span><span class="nf">Next</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+
+            <span class="c1">// Operate on the resource.</span>
+            <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">Thrd</span><span class="p">.</span><span class="n">Name</span> <span class="p">+</span> <span class="s">" is operating on resource "</span> <span class="p">+</span> <span class="n">MySharedResource</span><span class="p">.</span><span class="n">resources</span><span class="p">[</span><span class="n">index</span><span class="p">]);</span>
+            <span class="n">Thread</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="m">1000</span><span class="p">);</span>
+
+            <span class="c1">// Release the resource to the pool.</span>
+            <span class="n">MySharedResource</span><span class="p">.</span><span class="n">ObjSemaphore</span><span class="p">.</span><span class="nf">Release</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">Program</span>
+<span class="p">{</span>
+   <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">()</span>
+   <span class="p">{</span>
+      <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"Main thread starting."</span><span class="p">);</span>
+
+      <span class="c1">// Construct three threads.</span>
+      <span class="kt">var</span> <span class="n">mt1</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">MyThread</span><span class="p">(</span><span class="s">"Child #1"</span><span class="p">);</span>
+      <span class="kt">var</span> <span class="n">mt2</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">MyThread</span><span class="p">(</span><span class="s">"Child #2"</span><span class="p">);</span>
+      <span class="kt">var</span> <span class="n">mt3</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">MyThread</span><span class="p">(</span><span class="s">"Child #3"</span><span class="p">);</span>
+
+      <span class="n">mt1</span><span class="p">.</span><span class="n">Thrd</span><span class="p">.</span><span class="nf">Join</span><span class="p">();</span>
+      <span class="n">mt2</span><span class="p">.</span><span class="n">Thrd</span><span class="p">.</span><span class="nf">Join</span><span class="p">();</span>
+      <span class="n">mt3</span><span class="p">.</span><span class="n">Thrd</span><span class="p">.</span><span class="nf">Join</span><span class="p">();</span>
+
+      <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"Main thread ending."</span><span class="p">);</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>[参考]：</p>
+
+<ul>
+  <li><a href="https://learn.microsoft.com/en-us/dotnet/api/system.threading.semaphore?view=net-7.0">Semaphore Class (System.Threading) | Microsoft Learn</a></li>
+  <li><a href="https://learn.microsoft.com/en-us/dotnet/standard/threading/semaphore-and-semaphoreslim">Semaphore and SemaphoreSlim | Microsoft Learn</a></li>
+  <li><a href="https://www.cnblogs.com/legion/p/6934363.html">C# semaphore的使用 - legion - 博客园 (cnblogs.com)</a></li>
+</ul>
+
+<h2 id="autoresetevent-和-manualresetevent-类">AutoResetEvent 和 ManualResetEvent 类</h2>
+
+<p>AutoResetEvent 和 ManualResetEvent 类是两种同步原语，用于通过信号来管理线程之间的同步。它们
+都继承自 <code class="language-plaintext highlighter-rouge">EventWaitHandle</code> 类，表示一个事件对象。</p>
+
+<ul>
+  <li>AutoResetEvent 类的特点是，当一个线程调用 <code class="language-plaintext highlighter-rouge">WaitOne</code> 方法等待信号时，如果信号量为终止状态
+(true)，则该线程被允许继续执行，并且信号量自动重置为非终止状态 (false)。这样，每次只能有一个线程通过 WaitOne 方法。</li>
+  <li>ManualResetEvent 类的特点是，当一个线程调用 <code class="language-plaintext highlighter-rouge">WaitOne</code> 方法等待信号时，如果信号量为终止状态
+(true)，则该线程被允许继续执行，并且信号量不会自动重置为非终止状态 (false)。这样，除非手动调用 <code class="language-plaintext highlighter-rouge">Reset</code> 方法将信号量设置为非终止状态 (false), 否则所有等待的线程都可以通过 <code class="language-plaintext highlighter-rouge">WaitOne</code> 方法。</li>
+</ul>
+
+<p>一个简单的例子是，假设有三个工作线程 A、B、C 和一个主线程 M。主线程 M 需要在所有工作线程完成后才能结束。为了实现这个目的，可以使用一个 AutoResetEvent 对象和一个 ManualResetEvent 对象来同步主线程和工作线程之间的通知，如下所示：</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Threading</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">MyWorkerThread</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="n">Thread</span> <span class="n">Thrd</span><span class="p">;</span>
+    <span class="k">public</span> <span class="n">AutoResetEvent</span> <span class="n">ObjAuto</span><span class="p">;</span>
+    <span class="k">public</span> <span class="n">ManualResetEvent</span> <span class="n">ObjManual</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="nf">MyWorkerThread</span><span class="p">(</span><span class="kt">string</span> <span class="n">name</span><span class="p">,</span> <span class="n">AutoResetEvent</span> <span class="n">are</span><span class="p">,</span> <span class="n">ManualResetEvent</span> <span class="n">mre</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Thrd</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Thread</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">Run</span><span class="p">);</span>
+        <span class="n">Thrd</span><span class="p">.</span><span class="n">Name</span> <span class="p">=</span> <span class="n">name</span><span class="p">;</span>
+        <span class="n">ObjAuto</span> <span class="p">=</span> <span class="n">are</span><span class="p">;</span>
+        <span class="n">ObjManual</span> <span class="p">=</span> <span class="n">mre</span><span class="p">;</span>
+        <span class="n">Thrd</span><span class="p">.</span><span class="nf">Start</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">Run</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"Inside thread "</span> <span class="p">+</span> <span class="n">Thrd</span><span class="p">.</span><span class="n">Name</span><span class="p">);</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">5</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+        <span class="p">{</span>
+            <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">Thrd</span><span class="p">.</span><span class="n">Name</span> <span class="p">+</span> <span class="s">" is doing some work."</span><span class="p">);</span>
+            <span class="n">Thread</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="m">1000</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">Thrd</span><span class="p">.</span><span class="n">Name</span> <span class="p">+</span> <span class="s">" is signaling the main thread."</span><span class="p">);</span>
+
+        <span class="c1">// Signal the main thread that this thread is done.</span>
+        <span class="n">ObjAuto</span><span class="p">.</span><span class="nf">Set</span><span class="p">();</span>
+
+        <span class="c1">// Wait for a signal from the main thread to continue.</span>
+        <span class="n">ObjManual</span><span class="p">.</span><span class="nf">WaitOne</span><span class="p">();</span>
+
+        <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"Resuming thread "</span> <span class="p">+</span> <span class="n">Thrd</span><span class="p">.</span><span class="n">Name</span><span class="p">);</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">5</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+        <span class="p">{</span>
+            <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">Thrd</span><span class="p">.</span><span class="n">Name</span> <span class="p">+</span> <span class="s">" is doing some more work."</span><span class="p">);</span>
+            <span class="n">Thread</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="m">1000</span><span class="p">);</span>
+        <span class="p">}</span>
+
+         <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">Thrd</span><span class="p">.</span><span class="n">Name</span> <span class="p">+</span> <span class="s">" is finished."</span><span class="p">);</span>
+
+         <span class="c1">// Signal the main thread that this thread is done.</span>
+         <span class="n">ObjAuto</span><span class="p">.</span><span class="nf">Set</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">Program</span>
+<span class="p">{</span>
+   <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">()</span>
+   <span class="p">{</span>
+      <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"Main thread starting."</span><span class="p">);</span>
+
+      <span class="c1">// Construct an AutoResetEvent object and a ManualResetEvent object.</span>
+      <span class="kt">var</span> <span class="n">autoEvt</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">AutoResetEvent</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+      <span class="kt">var</span> <span class="n">manualEvt</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ManualResetEvent</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+
+      <span class="c1">// Construct three worker threads.</span>
+      <span class="kt">var</span> <span class="n">mt1</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">MyWorkerThread</span><span class="p">(</span><span class="s">"Child #1"</span><span class="p">,</span> <span class="n">autoEvt</span><span class="p">,</span> <span class="n">manualEvt</span><span class="p">);</span>
+      <span class="kt">var</span> <span class="n">mt2</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">MyWorkerThread</span><span class="p">(</span><span class="s">"Child #2"</span><span class="p">,</span> <span class="n">autoEvt</span><span class="p">,</span> <span class="n">manualEvt</span><span class="p">);</span>
+      <span class="kt">var</span> <span class="n">mt3</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">MyWorkerThread</span><span class="p">(</span><span class="s">"Child #3"</span><span class="p">,</span> <span class="n">autoEvt</span><span class="p">,</span> <span class="n">manualEvt</span><span class="p">);</span>
+
+      <span class="c1">// Wait for all worker threads to finish their first phase of work.</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">3</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+      <span class="p">{</span>
+          <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"Main thread waiting for a signal."</span><span class="p">);</span>
+          <span class="n">autoEvt</span><span class="p">.</span><span class="nf">WaitOne</span><span class="p">();</span>
+          <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"Main thread received a signal."</span><span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="c1">// Signal all worker threads to resume their second phase of work.</span>
+      <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"Main thread signaling all worker threads to continue."</span><span class="p">);</span>
+      <span class="n">manualEvt</span><span class="p">.</span><span class="nf">Set</span><span class="p">();</span>
+
+       <span class="c1">// Wait for all worker threads to finish their second phase of work.</span>
+       <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">3</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+       <span class="p">{</span>
+           <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"Main thread waiting for another signal."</span><span class="p">);</span>
+           <span class="n">autoEvt</span><span class="p">.</span><span class="nf">WaitOne</span><span class="p">();</span>
+           <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"Main thread received another signal."</span><span class="p">);</span>
+       <span class="p">}</span>
+
+       <span class="c1">//</span>
+</code></pre></div></div>
+
+<p>[参考]：</p>
+
+<ul>
+  <li><a href="https://www.c-sharpcorner.com/UploadFile/ff0d0f/autoresetevent-and-manualresetevent-in-C-Sharp/">AutoResetEvent and ManualResetEvent in C# (c-sharpcorner.com)</a></li>
+  <li><a href="https://learn.microsoft.com/en-us/dotnet/api/system.threading.autoresetevent?view=net-7.0">AutoResetEvent Class (System.Threading) | Microsoft Learn</a></li>
+  <li><a href="https://stackoverflow.com/questions/153877/what-is-the-difference-between-manualresetevent-and-autoresetevent-in-net">c# - What is the difference between ManualResetEvent and AutoResetEvent in .NET? - Stack Overflow</a></li>
+</ul>
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box" id = "sidebar">
+		    
+				<p class = "sidebar-title">关于文章</p>
+			
+			
+				
+				<p class = "sidebar-about-content sidebar-font-big">文章对 C# 中的线程同步技术做了些总结和讨论。</p>
+				
+				
+				<p class = "icon-link sidebar-about-content sidebar-font-medium" style = "margin-top:40px">文章作者: <a href="https://github.com/gangdong">david.dong</a></p>
+				
+				<p class = "icon-hourglass sidebar-about-content sidebar-font-medium">阅读时间：22 mins</p>
+				<p class = "icon-book sidebar-about-content sidebar-font-medium">全文字数：8472</p>
+				
+					<p class = "icon-th-list sidebar-about-content sidebar-font-medium">关键字: Thread Synchronization</p>
+				
+				
+					<p class = "icon-hashtag sidebar-about-content sidebar-font-medium">标签: 
+					
+					<a href="/category#C#">C#&nbsp;</a>
+					
+					</p>
+				
+			
+		</div>
+		
+		
+	    <div class="sidebar-toc-box">
+			
+			<p class = "sidebar-title">文章目录</p>
+			<span class = "sidebar-font-medium sidebar-toc-content"><ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#lock-语句">lock 语句</a></li>
+<li class="toc-entry toc-h2"><a href="#interlocked-类">interlocked 类</a></li>
+<li class="toc-entry toc-h2"><a href="#monitor-类">Monitor 类</a></li>
+<li class="toc-entry toc-h2"><a href="#mutex-类">Mutex 类</a></li>
+<li class="toc-entry toc-h2"><a href="#semaphore-类">Semaphore 类</a></li>
+<li class="toc-entry toc-h2"><a href="#autoresetevent-和-manualresetevent-类">AutoResetEvent 和 ManualResetEvent 类</a></li>
+</ul></span>
+			
+		</div>
+		
+	</div>
+	 
+</div>
+<!-- no sidebar, use flex width box! -->
+<br>
+<div class="post-container">
+    <!-- post categories box! here  -->
+    
+   <div class="post-categories-meta">
+		<div class="post-categories-box post-categories-box-hide"><a href="/category#C#">C#</a></div>
+	</div>
+  
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">分享:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+	
+		<span class = "icon-eye tooltip"><p class = "tooltiptext" style = "left:0%; margin-left: 0px">阅读量</p><span id="busuanzi_value_page_pv"></span></span>
+		
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">相关文章</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/c%23/2021/12/10/Csharp-Intptr.html">C# 的 IntPtr 类型</a></li>
+			
+			<li><a href="/c%23/2021/03/09/Csharp-thread.html">C# 线程</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">继续阅读</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta"><div class="navigation-bar">
+	 
+	 <a href="/python/2021/06/03/Python-pypy.html"><span>前一章</span><br>Use Pypy to make Python run faster</a>
+	 
+    </div><div class="navigation-bar"> 
+	 
+	 <a href="/c%23/2021/12/10/Csharp-Intptr.html"><span>后一章</span><br>C# 的 IntPtr 类型</a>
+	 
+    </div></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'gangdong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9&domready=1"></script>
+
+
+<!-- sidebar button, toggle display/hide sidebar -->
+<script type="text/javascript">
+        $('.btn').on('click',function(){
+            $('.btn').toggleClass('btnc');
+            $('.sidebar-container').toggleClass('sidebar-container-hide');
+        })
+</script>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=G-3MXGF3F8QN"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-3MXGF3F8QN');
+	</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></body>
+</html>

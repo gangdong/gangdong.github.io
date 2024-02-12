@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>C# 线程 | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="C# 线程" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="文章简单总结了 C# 中的线程用法。" />
+<meta property="og:description" content="文章简单总结了 C# 中的线程用法。" />
+<link rel="canonical" href="http://localhost:4000/c%23/2021/03/09/Csharp-thread.html" />
+<meta property="og:url" content="http://localhost:4000/c%23/2021/03/09/Csharp-thread.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-03-09T21:55:22+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="C# 线程" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"david.dong"},"dateModified":"2021-03-09T21:55:22+08:00","datePublished":"2021-03-09T21:55:22+08:00","description":"文章简单总结了 C# 中的线程用法。","headline":"C# 线程","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/c%23/2021/03/09/Csharp-thread.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/logo.png"},"name":"david.dong"},"url":"http://localhost:4000/c%23/2021/03/09/Csharp-thread.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+<meta property="article:tag" content="C#">
+
+
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
+
+</head><body>
+    <main class="container">
+      <section class="about condensed">
+	    <div class="about-header condensed">
+			<div class="about-title">
+				<a href="/blog/index.html">
+				  <img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/avatar-11.png" alt="David Dong"/>
+				</a>
+				<div class = "title-meta">
+					<h2 id="title">
+					  <a href="/blog/index.html">David Dong</a>
+					</h2>
+					<p class = "tagline-small">Java/C/C#/Python</p>
+				</div>
+			</div>
+			<p class="tagline">Java/C/C#/Python</p>
+		</div>
+		<!--put dark mode button here -->
+		<div class = "about-footer condensed">
+		  <!--put rss/code link here -->
+			<div class="icon-box-container about-footer condensed"><div class = "icon-box" style = "padding-right:0px">
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id = "mode">Dark Mode</span>
+					</a>
+				</div>
+				<!-- toggle dark/light display mode, should loading darkmode.js here for avoiding flicker when switching -->
+				<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/darkmode.js"></script>
+				<script type="text/javascript">
+				$('.dark-mode').on('click',function(){
+					$('.dark-mode').toggleClass('light-mode');
+					if (document.getElementById("mode").innerHTML=="Light Mode")
+						document.getElementById("mode").innerHTML="Dark Mode";
+					else 
+						document.getElementById("mode").innerHTML="Light Mode";
+				})
+				</script><div class = "icon-box">
+					<a class="icon-rss" href="/rss.xml">
+						<span>Subscribe</span>
+					</a>
+				</div><div class = "icon-box">
+					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
+						<span>Source Code</span>
+					</a>
+				</div></div>
+		</div>
+		
+	    <!--show contact me -->
+		<div class = "about-footer condensed social-container">
+	    <p class = "contact about-footer condensed">CONTACT ME</p>
+		<!-- put social link here -->
+	      <ul class="social about-footer condensed" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		<!--put timestamp here -->
+		<p class ="timestamp about-footer condensed">&copy; 2024</p>
+		</div>
+	  <!-- about box end here -->
+      </section>
+	  
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+<div class="post-container">
+	<div  class = "menu-meta condensed">
+		<!--put top menu here, display @ big screen (> $mobileW) -->
+		<div  class = "menu-logo">BLOG</div>
+		<div  class = "menu">
+			<a href="/blog/index.html">
+				<li class="icon-home">Home</li>
+			</a><a href="/archive">
+				<li class="icon-archive">Archives</li>
+			</a><a href="/category">
+				<li class="icon-tags">Categories</li>
+			</a><a href="/about">
+				<li class="icon-help-circled">About</li>
+			</a>
+		</div>
+		<!--put hide menu button here, display @ small screen (< $mobileW) -->
+		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
+		<!--put hide menu here, display @ small screen (< $mobileW) -->
+		<div class="context-menu">
+			<ul >
+				<li>
+					<a class="icon-home" href="/blog/index.html">Home</a>
+				</li><li>
+					<a class="icon-archive" href="/archive">Archives</a>
+				</li><li>
+					<a class="icon-tags" href="/category">Categories</a>
+				</li><li>
+					<a class="icon-help-circled" href="/about">About</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('.menu-btn').on('click',function(e){
+		
+	e.stopPropagation();
+	var tag = $('.context-menu');		
+	$(tag).toggleClass('context-menu-show');
+			
+	var flag = true;
+	/* hide the context-menu when other element is clicked */
+	$(document).bind('click',function(e){
+		var target = $(e.target);
+		if(target.closest(tag).length == 0 && flag == true){
+			$(tag).toggleClass('context-menu-show');
+			flag = false;
+		}
+	});
+})
+</script><div class="post-container" style = "margin-bottom:1rem">
+	<div class="posts-labelgroup" id="posts-labelgroup">
+		<h1 id="posts-label">POST</h1>
+	</div>  
+	<!-- post title -->
+	<h2 class="post-title-body">C# 线程</h2>
+	<div class="post-meta">
+		<div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">Mar 9, 2021</div>
+		
+		<!-- sidebar button for displaying/hiding sidebar -->
+		<div class = "sidebar-btn-box"><a class="btn"></a></div>
+		
+	</div>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+<div class="post-viewer-container">
+	<div class="post post-fix-width">
+		<p>在.NET 应用程序中，都是以 <code class="language-plaintext highlighter-rouge">Main ()</code> 方法作为入口的，<strong>当调用此方法时系统就会自动创建一个主线程</strong>。</p>
+
+<p>线程主要是由 CPU 寄存器、调用栈和线程本地存储器（Thread Local Storage，TLS）组成的。CPU 寄存器主要记录当前所执行线程的状态，调用栈主要用于维护线程所调用到的内存与数据，TLS 主要用于存放线程的状态信息。
+多线程的优点：可以同时完成多个任务；可以使程序的响应速度更快；可以让占用大量处理时间的任务或当前没有进行处理的任务定期将处理时间让给别的任务；可以随时停止任务；</p>
+
+<p>可以设置每个任务的优先级以优化程序性能。那么可能有人会问：为什么可以多线程执行呢？总结起来有下面两方面的原因：</p>
+
+<ul>
+  <li>
+    <p>CPU 运行速度太快，硬件处理速度跟不上，所以操作系统进行分时间片管理。这样，从宏观角度来说是多线程并发的，因为 CPU 速度太快，察觉不到，看起来是同一时刻执行了不同的操作。
+但是从微观角度来讲，同一时刻只能有一个线程在处理。</p>
+  </li>
+  <li>
+    <p>目前电脑都是多核多 CPU 的，一个 CPU 在同一时刻只能运行一个线程，但是多个 CPU 在同一时刻就可以运行多个线程。</p>
+  </li>
+</ul>
+
+<p>然而，多线程虽然有很多优点，但是也必须认识到多线程可能存在影响系统性能的不利方面，才能正确使用线程。不利方面主要有如下几点：</p>
+
+<ul>
+  <li>
+    <p>线程也是程序，所以线程需要占用内存，线程越多，占用内存也越多。</p>
+  </li>
+  <li>
+    <p>多线程需要协调和管理，所以需要占用 CPU 时间以便跟踪线程。</p>
+  </li>
+  <li>
+    <p>线程之间对共享资源的访问会相互影响，必须解决争用共享资源的问题。</p>
+  </li>
+  <li>
+    <p>线程太多会导致控制太复杂，最终可能造成很多程序缺陷。</p>
+  </li>
+</ul>
+
+<h3 id="c-中创建线程">C# 中创建线程</h3>
+
+<p>在 C# 中，线程是使用 Thread 类处理的，该类在 <code class="language-plaintext highlighter-rouge">System.Threading</code> 命名空间中。使用 Thread 类创建线程时，只需要提供线程入口，线程入口告诉程序让这个线程做什么。通过实例化一个 Thread 类的对象就可以创建一个线程。
+创建线程示例：</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span><span class="err"> </span><span class="nn">System</span><span class="p">;</span>  
+<span class="k">using</span><span class="err"> </span><span class="nn">System.Threading</span><span class="p">;</span>  
+
+<span class="k">namespace</span><span class="err"> </span><span class="nn">MultithreadingApplication</span>  
+<span class="p">{</span>  
+<span class="err"> </span> <span class="err">  </span><span class="k">class</span><span class="err"> </span><span class="nc">ThreadCreationProgram</span>  
+<span class="err"> </span> <span class="err">  </span><span class="p">{</span>  
+        <span class="c1">//编写线程要执行的方法</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err">  </span><span class="k">public</span><span class="err"> </span><span class="k">static</span><span class="err"> </span><span class="k">void</span><span class="err"> </span><span class="nf">CallToChildThread</span><span class="p">()</span>  
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err">  </span><span class="p">{</span>  
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"Child thread starts"</span><span class="p">);</span>  
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err">  </span><span class="p">}</span>  
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span>  
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err">  </span><span class="k">static</span><span class="err"> </span><span class="k">void</span><span class="err"> </span><span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span><span class="err"> </span><span class="n">args</span><span class="p">)</span>  
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err">  </span><span class="p">{</span>  
+    <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err">  </span><span class="c1">//实例化一个线程对象，并传入一个指向线程所要执行方法的委托</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">ThreadStart</span> <span class="n">childref</span><span class="err"> </span><span class="p">=</span><span class="err"> </span><span class="k">new</span><span class="err"> </span><span class="nf">ThreadStart</span><span class="p">(</span><span class="n">CallToChildThread</span><span class="p">);</span>  
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"In Main: Creating the Child thread"</span><span class="p">);</span>  
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">Thread</span> <span class="n">childThread</span><span class="err"> </span><span class="p">=</span><span class="err"> </span><span class="k">new</span><span class="err"> </span><span class="nf">Thread</span><span class="p">(</span><span class="n">childref</span><span class="p">);</span> 
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="c1">//start线程 </span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">childThread</span><span class="p">.</span><span class="nf">Start</span><span class="p">();</span>  
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">Console</span><span class="p">.</span><span class="nf">ReadKey</span><span class="p">();</span>  
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err">  </span><span class="p">}</span>  
+<span class="err"> </span> <span class="err">  </span><span class="p">}</span>  
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>上面代码实例化了一个 <code class="language-plaintext highlighter-rouge">Thread</code> 对象，并指明将要调用的方法 <code class="language-plaintext highlighter-rouge">method ()</code>，然后启动线程。
+<code class="language-plaintext highlighter-rouge">ThreadStart</code> 是一个无参的、返回值为 void 的委托。</p>
+
+<p>委托定义如下：</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">delegate</span> <span class="k">void</span> <span class="nf">ThreadStart</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>通过 <code class="language-plaintext highlighter-rouge">ThreadStart</code> 委托创建并运行一个线程，<code class="language-plaintext highlighter-rouge">ThreadStart</code> 委托中作为参数的方法<strong>不需要参数，并且没有返回值</strong>。</p>
+
+<p><strong>创建多线程的步骤</strong>：<br />
+1、编写线程所要执行的方法；
+2、实例化 Thread 类，并传入一个指向线程所要执行方法的委托。（这时线程已经产生，但还没有运行）;<br />
+3、调用 Thread 实例的 Start 方法，标记该线程可以被 CPU 执行了，但具体执行时间由 CPU 决定；</p>
+
+<h3 id="线程的同步">线程的同步</h3>
+
+<p>所谓同步：<strong>是指在某一时刻只有一个线程可以访问被保护的变量</strong>。
+如果不能确保对变量的访问是同步的，就会产生错误。
+C# 为同步访问变量提供了一个非常简单的方式，即使用 C# 语言的关键字 <code class="language-plaintext highlighter-rouge">Lock</code> ，<strong>它可以把一段代码定义为互斥段，互斥段在一个时刻内只允许一个线程进入执行，而其他线程必须等待</strong>。
+在 C# 中，关键字 <code class="language-plaintext highlighter-rouge">Lock</code> 定义如下：</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Program</span>
+<span class="p">{</span>
+    <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">BookShop</span> <span class="n">book</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">BookShop</span><span class="p">();</span>
+        <span class="p">/</span><span class="err">创建两个线程同时访问</span><span class="n">saLe</span><span class="err">方法</span>
+        <span class="n">Thread</span> <span class="n">t1</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Thread</span><span class="p">(</span><span class="k">new</span> <span class="nf">Threadstart</span><span class="p">(</span><span class="n">book</span><span class="p">.</span><span class="n">Sale</span><span class="p">));</span>
+        <span class="n">Thread</span> <span class="n">t2</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Thread</span><span class="p">(</span><span class="k">new</span> <span class="nf">Threadstart</span><span class="p">(</span><span class="n">book</span><span class="p">.</span><span class="n">Sale</span><span class="p">));</span>
+        <span class="c1">//启动线程</span>
+        <span class="n">t1</span><span class="p">.</span><span class="nf">start</span><span class="p">();</span>
+        <span class="n">t2</span><span class="p">.</span><span class="nf">Start</span><span class="p">();</span>
+        <span class="n">Console</span><span class="p">.</span><span class="nf">ReadKey</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">BookShop</span>
+<span class="p">{</span>
+    <span class="c1">//剩余图书数量</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">num</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">Sale</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">//使用Lock关键字解决线程同步问题</span>
+        <span class="k">lock</span> <span class="p">(</span><span class="k">this</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">tmp</span> <span class="p">=</span> <span class="n">num</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">tmp</span><span class="p">&gt;</span><span class="n">o</span><span class="p">)</span><span class="c1">//判断是否有书，如果有就可以卖</span>
+            <span class="p">{</span>
+                <span class="n">Thread</span><span class="p">.</span><span class="nf">sleep</span><span class="p">(</span><span class="m">1000</span><span class="p">);</span>
+                <span class="n">num</span> <span class="p">-=</span> <span class="m">1</span><span class="p">;</span>
+                <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"售出一本图书，还剩余{e}本"</span><span class="err">，</span><span class="n">num</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">else</span>
+            <span class="p">{</span>
+                <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"没有了"</span><span class="p">)</span><span class="err">；</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="c-跨线程访问">C# 跨线程访问</h3>
+
+<p>假设我在一个新的子线程 mythread 上访问<strong>主线程的窗体控件</strong> textBox, 会报错误 “线程间访问无效”，原因是 textBox 是由主线程创建的，mythread 线程是另外创建的一个线程，在.NET 上执行的是托管代码，C# 强制要求这些代码必须是线程安全的，<strong>即不允许跨线程访问 Windows 窗体的控件</strong>。</p>
+
+<p>解决方案：
+使用回调函数。C# 的回调机制，实质上是委托的一种应用。</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">namespace</span> <span class="nn">MultiThreadDemo</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">partial</span> <span class="k">class</span> <span class="nc">Form1</span> <span class="p">:</span> <span class="n">Form</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nf">Form1</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nf">InitializeComponent</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="c1">//定义回调</span>
+    <span class="k">private</span> <span class="k">delegate</span> <span class="k">void</span> <span class="nf">setTextValueCallBack</span><span class="p">(</span><span class="kt">int</span> <span class="k">value</span><span class="p">);</span>
+    <span class="c1">//声明回调</span>
+    <span class="k">private</span> <span class="n">setTextValueCallBack</span> <span class="n">setCallBack</span><span class="p">;</span>
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">btn_Test_click</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span><span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">//实例化回调</span>
+        <span class="n">setCallBack</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">setTextValueCallBack</span><span class="p">(</span><span class="n">SetValue</span><span class="p">);</span>
+        <span class="c1">//创建一个线程去执行这个方法：创建的线程默认是前台线程</span>
+        <span class="n">Thread</span> <span class="n">thread</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Thread</span><span class="p">(</span><span class="k">new</span> <span class="nf">ThreadStart</span><span class="p">(</span><span class="n">Test</span><span class="p">));</span>
+        <span class="c1">//Start,方法标记这个线程就绪了，可以随时被执行，具体什么时候执行这个线程，日</span>
+        <span class="c1">//将线程设置为后台线程</span>
+        <span class="n">thread</span><span class="p">.</span><span class="n">IsBackground</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+        <span class="n">thread</span><span class="p">.</span><span class="nf">Start</span><span class="p">();</span>
+        <span class="k">private</span> <span class="k">void</span> <span class="nf">Test</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">=</span><span class="m">0</span><span class="err">；</span><span class="n">i</span><span class="p">&lt;</span><span class="m">10000</span><span class="p">;</span><span class="n">i</span><span class="p">++)</span>
+            <span class="p">{</span>
+                <span class="c1">//使用回调</span>
+                <span class="n">textBox1</span><span class="p">.</span><span class="nf">Invoke</span><span class="p">(</span><span class="n">setCallBack</span><span class="p">,</span><span class="n">i</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+        <span class="c1">///&lt;summary&gt;</span>
+        <span class="c1">///定义回调使用的方法</span>
+        <span class="c1">///&lt;/summary&gt;</span>
+        <span class="c1">//&lt;param name="vaLue"&gt;&lt;/param&gt;</span>
+        <span class="k">private</span> <span class="k">void</span> <span class="nf">Setvalue</span><span class="p">(</span><span class="kt">int</span> <span class="k">value</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="n">textBox1</span><span class="p">.</span><span class="n">Text</span> <span class="p">=</span> <span class="k">value</span><span class="p">.</span><span class="nf">ToString</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>使用回调的步骤如下：</p>
+
+<ol>
+  <li>
+    <p>定义、声明回调方法。</p>
+
+    <div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//定义回调</span>
+<span class="k">private</span> <span class="k">delegate</span> <span class="k">void</span> <span class="nf">DoSomeCallBack</span><span class="p">(</span><span class="n">Type</span> <span class="n">para</span><span class="p">);</span>
+<span class="c1">//声明回调</span>
+<span class="n">DoSomeCallBack</span> <span class="n">doSomaCallBack</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>初始化回调方法，所谓“初始化回调方法”实际上就是实例化刚刚定义了的委托，这里作为参数的 <code class="language-plaintext highlighter-rouge">DoSomeMethod</code> 称为“回调方法”，<strong>它封装了对另一个线程中目标对象（窗体控件或其他类）的操作代码</strong>。</p>
+
+    <div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">doSomeCallBack</span><span class="p">=</span><span class="k">new</span> <span class="nf">DoSomeCallBack</span><span class="p">(</span><span class="n">DoSomeMethod</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>触发对象动作.</p>
+
+    <div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">object</span> <span class="n">Control</span><span class="p">.</span><span class="nf">Invoke</span><span class="p">(</span><span class="n">Delegate</span> <span class="n">method</span><span class="p">,</span><span class="k">params</span> <span class="kt">object</span><span class="p">[]</span> <span class="n">args</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h3 id="前台线程和后台线程">前台线程和后台线程</h3>
+
+<p>前台线程：只有所有的前台线程都结束，应用程序才能结束。默认情况下创建的线程都是前台线程。
+后台线程：只要所有的前台线程结束，后台线程自动结束。通过 <code class="language-plaintext highlighter-rouge">Thread.IsBackground</code> 设置后台线程。必须在调用 Start 方法之前设置线程的类型，否则一旦线程运行，将无法改变其类型。后台线程一般用于处理不重要的事情，应用程序结束时，后台线程是否执行完成对整个应用程序没有影响。如果要执行的事情很重要，需要将线程设置为前台线程。</p>
+
+<h3 id="线程常用的方法">线程常用的方法</h3>
+
+<p>Thread 中包括了多个方法来控制线程的创建、挂起、停止、销毁，以后来的例子中会经常使用。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>方法</th>
+      <th>作用</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Abort ()</td>
+      <td>终止本线程</td>
+    </tr>
+    <tr>
+      <td>Interrupt ()</td>
+      <td>中断处于 WaitSleepJoin 线程状态的线程</td>
+    </tr>
+    <tr>
+      <td>Join ()</td>
+      <td>阻塞调用线程，直到某个线程终止时为止</td>
+    </tr>
+    <tr>
+      <td>Resume ()</td>
+      <td>继续运行已挂起的线程</td>
+    </tr>
+    <tr>
+      <td>Start ()</td>
+      <td>执行本线程</td>
+    </tr>
+    <tr>
+      <td>Suspend ()</td>
+      <td>挂起当前线程，如果当前线程已属于挂起状态则此不起作用</td>
+    </tr>
+    <tr>
+      <td>Sleep ()</td>
+      <td>把正在运行的线程挂起一段时间</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="线程的常用属性值">线程的常用属性值</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>属性值</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CurrentContext</td>
+      <td>获取当前线程的上下文</td>
+    </tr>
+    <tr>
+      <td>CurrentThread</td>
+      <td>获取当前正在运行的线程</td>
+    </tr>
+    <tr>
+      <td>isActive</td>
+      <td>获取当前线程的执行状态</td>
+    </tr>
+    <tr>
+      <td>isBackground</td>
+      <td>获取当前线程是否为后台线程</td>
+    </tr>
+    <tr>
+      <td>name</td>
+      <td>获取或者设置线程的名称</td>
+    </tr>
+    <tr>
+      <td>Priority</td>
+      <td>获取或者设置线程的优先级</td>
+    </tr>
+    <tr>
+      <td>ThreadState</td>
+      <td>获取线程的状态</td>
+    </tr>
+    <tr>
+      <td>ManagedThreadId</td>
+      <td>获取当前托管线程的唯一标识符</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><code class="language-plaintext highlighter-rouge">ManagedThreadId</code> 是确认线程的唯一标识符，程序在大部分情况下都是通过 <code class="language-plaintext highlighter-rouge">Thread.ManagedThreadId</code> 来辨别线程的。开发人员可以通过程序设置线程的名称，但这只是一个辅助功能。</p>
+
+<h3 id="线程的优先级别">线程的优先级别</h3>
+
+<p>当线程之间争夺 CPU 时间时，CPU 按照线程的优先级给予服务。高优先级的线程可以完全阻止低优先级的线程执行。.NET 为线程设置了 Priority 属性来定义线程执行的优先级别，</p>
+
+<p>里面包含 5 个选项，其中 Normal 是默认值。</p>
+
+<ul>
+  <li>Lowest: 可以将 Thread 安排在具有任何其他优先级的线程之后。</li>
+  <li>BelowNormal: 可以将 Thread 安排在具有 Normal 优先级的线程之后，在具有 Lowest 优先级的线程之前。</li>
+  <li>Normal: 默认选择。可以将 Thread 安排在具有 AboveNormal 优先级的线程之后，在具有 BelowNormal 优先级的线程之前。</li>
+  <li>AboveNormal: 可以将 Thread 安排在具有 Highest 优先级的线程之后，在具有 Normal 优先级的线程之前。</li>
+  <li>Highest: 可以将 Thread 安排在具有任何其他优先级的线程之前。</li>
+</ul>
+
+<h3 id="c-中这条语句什么意思-">C# 中这条语句什么意思 ？</h3>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">new</span> <span class="nf">Action</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="n">comboBox1</span><span class="p">.</span><span class="n">SelectedItem</span><span class="p">.</span><span class="nf">ToString</span><span class="p">();</span> <span class="p">})</span>
+</code></pre></div></div>
+
+<p>这条语句是创建一个新的 <code class="language-plaintext highlighter-rouge">Action</code> 委托，<strong>它表示一个没有参数和返回值的方法</strong>。这个方法的内容是获取 comboBox1 控件中选中的项，并将其转换为字符串。这个委托可以用于 <code class="language-plaintext highlighter-rouge">Invoke</code> 或 <code class="language-plaintext highlighter-rouge">BeginInvoke</code> 方法，以便在其他线程上执行 UI 操作。
+例如</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">Invoke</span><span class="p">(</span><span class="k">new</span> <span class="nf">Action</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="n">comboBox1</span><span class="p">.</span><span class="n">SelectedItem</span><span class="p">.</span><span class="nf">ToString</span><span class="p">();</span> <span class="p">}))</span>
+</code></pre></div></div>
+
+<h3 id="new-action-的用法是什么如果我想表示一个-string-类型的返回值没有参数的方法该如何实现">new Action 的用法是什么？如果我想表示一个 string 类型的返回值，没有参数的方法该如何实现？</h3>
+
+<p><code class="language-plaintext highlighter-rouge">new Action</code> 的用法是创建一个委托类型，它可以表示一个没有返回值的方法。如果你想表示一个 <code class="language-plaintext highlighter-rouge">string</code> 类型的返回值，没有参数的方法，你可以使用 <code class="language-plaintext highlighter-rouge">Func&lt;string&gt;</code> 委托。
+例如：</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 创建一个Action委托，它表示一个打印Hello World的方法</span>
+<span class="n">Action</span> <span class="n">action</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Action</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span><span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"Hello World"</span><span class="p">);});</span>
+<span class="c1">// 调用这个委托</span>
+<span class="nf">action</span><span class="p">();</span>
+
+<span class="c1">// 创建一个Func&lt;string&gt;委托，它表示一个返回当前日期字符串的方法</span>
+<span class="n">Func</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">func</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Func</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;(()</span> <span class="p">=&gt;</span> <span class="p">{</span><span class="k">return</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">.</span><span class="nf">ToString</span><span class="p">();});</span>
+<span class="c1">// 调用这个委托，并打印返回值</span>
+<span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="nf">func</span><span class="p">());</span>
+</code></pre></div></div>
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box" id = "sidebar">
+		    
+				<p class = "sidebar-title">关于文章</p>
+			
+			
+				
+				<p class = "sidebar-about-content sidebar-font-big">文章简单总结了 C# 中的线程用法。</p>
+				
+				
+				<p class = "icon-link sidebar-about-content sidebar-font-medium" style = "margin-top:40px">文章作者: <a href="https://github.com/gangdong">david.dong</a></p>
+				
+				<p class = "icon-hourglass sidebar-about-content sidebar-font-medium">阅读时间：14 mins</p>
+				<p class = "icon-book sidebar-about-content sidebar-font-medium">全文字数：5204</p>
+				
+					<p class = "icon-th-list sidebar-about-content sidebar-font-medium">关键字: Thread</p>
+				
+				
+					<p class = "icon-hashtag sidebar-about-content sidebar-font-medium">标签: 
+					
+					<a href="/category#C#">C#&nbsp;</a>
+					
+					</p>
+				
+			
+		</div>
+		
+		
+	    <div class="sidebar-toc-box">
+			
+			<p class = "sidebar-title">文章目录</p>
+			<span class = "sidebar-font-medium sidebar-toc-content"><ul id="toc" class="section-nav">
+<li class="toc-entry toc-h3"><a href="#c-中创建线程">C# 中创建线程</a></li>
+<li class="toc-entry toc-h3"><a href="#线程的同步">线程的同步</a></li>
+<li class="toc-entry toc-h3"><a href="#c-跨线程访问">C# 跨线程访问</a></li>
+<li class="toc-entry toc-h3"><a href="#前台线程和后台线程">前台线程和后台线程</a></li>
+<li class="toc-entry toc-h3"><a href="#线程常用的方法">线程常用的方法</a></li>
+<li class="toc-entry toc-h3"><a href="#线程的常用属性值">线程的常用属性值</a></li>
+<li class="toc-entry toc-h3"><a href="#线程的优先级别">线程的优先级别</a></li>
+<li class="toc-entry toc-h3"><a href="#c-中这条语句什么意思-">C# 中这条语句什么意思 ？</a></li>
+<li class="toc-entry toc-h3"><a href="#new-action-的用法是什么如果我想表示一个-string-类型的返回值没有参数的方法该如何实现">new Action 的用法是什么？如果我想表示一个 string 类型的返回值，没有参数的方法该如何实现？</a></li>
+</ul></span>
+			
+		</div>
+		
+	</div>
+	 
+</div>
+<!-- no sidebar, use flex width box! -->
+<br>
+<div class="post-container">
+    <!-- post categories box! here  -->
+    
+   <div class="post-categories-meta">
+		<div class="post-categories-box post-categories-box-hide"><a href="/category#C#">C#</a></div>
+	</div>
+  
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">分享:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+	
+		<span class = "icon-eye tooltip"><p class = "tooltiptext" style = "left:0%; margin-left: 0px">阅读量</p><span id="busuanzi_value_page_pv"></span></span>
+		
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">相关文章</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/c%23/2021/12/10/Csharp-Intptr.html">C# 的 IntPtr 类型</a></li>
+			
+			<li><a href="/c%23/2021/09/11/Csharp-threadSynchronization.html">浅析 C# 中的线程同步 </a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">继续阅读</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta"><div class="navigation-bar">
+	 
+	 <a href="/blog/2021/03/08/Web-gitalk-fixing.html"><span>前一章</span><br>A quick way to fix the Gitalk Error: Validation Failed</a>
+	 
+    </div><div class="navigation-bar"> 
+	 
+	 <a href="/blog/web/2021/04/10/Blog-speeding-up-loadtime.html"><span>后一章</span><br>Speeding up my blog loadtime</a>
+	 
+    </div></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'gangdong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9&domready=1"></script>
+
+
+<!-- sidebar button, toggle display/hide sidebar -->
+<script type="text/javascript">
+        $('.btn').on('click',function(){
+            $('.btn').toggleClass('btnc');
+            $('.sidebar-container').toggleClass('sidebar-container-hide');
+        })
+</script>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=G-3MXGF3F8QN"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-3MXGF3F8QN');
+	</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></body>
+</html>

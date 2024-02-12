@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Android Fingerprint Framework (1) | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Android Fingerprint Framework (1)" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Some knowledge for Fingerprint framework in Android platform." />
+<meta property="og:description" content="Some knowledge for Fingerprint framework in Android platform." />
+<link rel="canonical" href="http://localhost:4000/android/fingerprint/2019/10/03/Fingerprint-frmk1.html" />
+<meta property="og:url" content="http://localhost:4000/android/fingerprint/2019/10/03/Fingerprint-frmk1.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-10-03T15:17:47+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Android Fingerprint Framework (1)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"david.dong"},"dateModified":"2019-10-03T15:17:47+08:00","datePublished":"2019-10-03T15:17:47+08:00","description":"Some knowledge for Fingerprint framework in Android platform.","headline":"Android Fingerprint Framework (1)","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/android/fingerprint/2019/10/03/Fingerprint-frmk1.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/logo.png"},"name":"david.dong"},"url":"http://localhost:4000/android/fingerprint/2019/10/03/Fingerprint-frmk1.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+<meta property="article:tag" content="Android">
+
+<meta property="article:tag" content="Fingerprint">
+
+
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
+
+</head><body>
+    <main class="container">
+      <section class="about condensed">
+	    <div class="about-header condensed">
+			<div class="about-title">
+				<a href="/blog/index.html">
+				  <img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/avatar-11.png" alt="David Dong"/>
+				</a>
+				<div class = "title-meta">
+					<h2 id="title">
+					  <a href="/blog/index.html">David Dong</a>
+					</h2>
+					<p class = "tagline-small">Java/C/C#/Python</p>
+				</div>
+			</div>
+			<p class="tagline">Java/C/C#/Python</p>
+		</div>
+		<!--put dark mode button here -->
+		<div class = "about-footer condensed">
+		  <!--put rss/code link here -->
+			<div class="icon-box-container about-footer condensed"><div class = "icon-box" style = "padding-right:0px">
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id = "mode">Dark Mode</span>
+					</a>
+				</div>
+				<!-- toggle dark/light display mode, should loading darkmode.js here for avoiding flicker when switching -->
+				<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/darkmode.js"></script>
+				<script type="text/javascript">
+				$('.dark-mode').on('click',function(){
+					$('.dark-mode').toggleClass('light-mode');
+					if (document.getElementById("mode").innerHTML=="Light Mode")
+						document.getElementById("mode").innerHTML="Dark Mode";
+					else 
+						document.getElementById("mode").innerHTML="Light Mode";
+				})
+				</script><div class = "icon-box">
+					<a class="icon-rss" href="/rss.xml">
+						<span>Subscribe</span>
+					</a>
+				</div><div class = "icon-box">
+					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
+						<span>Source Code</span>
+					</a>
+				</div></div>
+		</div>
+		
+	    <!--show contact me -->
+		<div class = "about-footer condensed social-container">
+	    <p class = "contact about-footer condensed">CONTACT ME</p>
+		<!-- put social link here -->
+	      <ul class="social about-footer condensed" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		<!--put timestamp here -->
+		<p class ="timestamp about-footer condensed">&copy; 2024</p>
+		</div>
+	  <!-- about box end here -->
+      </section>
+	  
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+<div class="post-container">
+	<div  class = "menu-meta condensed">
+		<!--put top menu here, display @ big screen (> $mobileW) -->
+		<div  class = "menu-logo">BLOG</div>
+		<div  class = "menu">
+			<a href="/blog/index.html">
+				<li class="icon-home">Home</li>
+			</a><a href="/archive">
+				<li class="icon-archive">Archives</li>
+			</a><a href="/category">
+				<li class="icon-tags">Categories</li>
+			</a><a href="/about">
+				<li class="icon-help-circled">About</li>
+			</a>
+		</div>
+		<!--put hide menu button here, display @ small screen (< $mobileW) -->
+		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
+		<!--put hide menu here, display @ small screen (< $mobileW) -->
+		<div class="context-menu">
+			<ul >
+				<li>
+					<a class="icon-home" href="/blog/index.html">Home</a>
+				</li><li>
+					<a class="icon-archive" href="/archive">Archives</a>
+				</li><li>
+					<a class="icon-tags" href="/category">Categories</a>
+				</li><li>
+					<a class="icon-help-circled" href="/about">About</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('.menu-btn').on('click',function(e){
+		
+	e.stopPropagation();
+	var tag = $('.context-menu');		
+	$(tag).toggleClass('context-menu-show');
+			
+	var flag = true;
+	/* hide the context-menu when other element is clicked */
+	$(document).bind('click',function(e){
+		var target = $(e.target);
+		if(target.closest(tag).length == 0 && flag == true){
+			$(tag).toggleClass('context-menu-show');
+			flag = false;
+		}
+	});
+})
+</script><div class="post-container" style = "margin-bottom:1rem">
+	<div class="posts-labelgroup" id="posts-labelgroup">
+		<h1 id="posts-label">POST</h1>
+	</div>  
+	<!-- post title -->
+	<h2 class="post-title-body">Android Fingerprint Framework (1)</h2>
+	<div class="post-meta">
+		<div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">Oct 3, 2019</div>
+		
+		<!-- sidebar button for displaying/hiding sidebar -->
+		<div class = "sidebar-btn-box"><a class="btn"></a></div>
+		
+	</div>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+<div class="post-viewer-container">
+	<div class="post post-fix-width">
+		<p>This page is trying to present a brief introduction on the android fingerprint framework, aimed at helping anyone who wants to learn android fingerprint-related knowledge, created by referring to some documents and android source code.</p>
+
+<p>There are some articles throughout the internet to share android fingerprint-related knowledge. However, from my point of view, part of them are too complicated to understand and some aren’t very distinct. I wrote this article by referring to android source code and according to my personal working experiences, tried to make the contents simple and easy to understand.</p>
+
+<p>From Android 6.0 (API23), android introduced a fingerprint API interface, that is FingerprintManager to support fingerprint identification. While at android 8.0 (API26), it is deprecated and replaced by <code class="language-plaintext highlighter-rouge">BiometricPrompt</code> API interface.</p>
+
+<p>The below description is from the android official document about the fingerprint framework.</p>
+
+<h2 id="architecture">Architecture</h2>
+<blockquote>
+  <p>The Fingerprint HAL interacts with the following components.</p>
+  <ul>
+    <li><strong>BiometricManager</strong> interacts directly with an app in an app process. Each app has an instance of IBiometricsFingerprint.hal</li>
+    <li><strong>FingerprintService</strong> operates in the system process, which handles communication with fingerprint HAL.</li>
+    <li><strong>Fingerprint HAL</strong> is a C/C++ implementation of the IBiometricsFingerprint HIDL interface. This contains the vendor-specific library that communicates with the device-specific hardware.</li>
+    <li><strong>Keystore API and Keymaster</strong> components provide hardware-backed cryptography for secure key storage in a secure environment, such as the Trusted Execution Environment (TEE).  <br />
+<img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/android-fingerprint-framework-framework.png" alt="framework" class="center-image" />
+A vendor-specific HAL implementation must use the communication protocol required by a TEE. Raw images and processed fingerprint features must not be passed in untrusted memory. All such biometric data needs to be stored in secure hardware such as the TEE. Rooting must not be able to compromise biometric data. <br />
+FingerprintService and fingerprintd make calls through the Fingerprint HAL to the vendor-specific library to enroll fingerprints and perform other operations.
+<img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/android-fingerprint-framework-tee.png" alt="tee" class="center-image" />    <br />
+<br /><br /></li>
+  </ul>
+</blockquote>
+
+<h2 id="implementation-guidelines">Implementation guidelines</h2>
+<p>The following Fingerprint HAL guidelines are designed to ensure that fingerprint data is not leaked and is removed when a user is removed from a device:</p>
+<ul>
+  <li>Raw fingerprint data or derivatives (for example, templates) must never be accessible from outside the sensor driver or TEE. If the hardware supports a TEE, hardware access must be limited to the TEE and protected by an SELinux policy. The Serial Peripheral Interface (SPI) channel must be accessible only to the TEE and there must be an explicit SELinux policy on all device files.</li>
+  <li>Fingerprint acquisition, enrollment, and recognition must occur inside the TEE.</li>
+  <li>Only the encrypted form of the fingerprint data can be stored on the file system, even if the file system itself is encrypted.</li>
+  <li>Fingerprint templates must be signed with a private, device-specific key. For Advanced Encryption Standard (AES), at a minimum, a template must be signed with the absolute file-system path, group, and finger ID such that template files are inoperable on another device or for anyone other than the user that enrolled them on the same device. For example, copying fingerprint data from a different user on the same device or another device must not work.</li>
+  <li>Implementations must either use the file-system path provided by the 
+setActiveGroup() function or provide a way to erase all user template data when the user is removed. It’s strongly recommended that fingerprint template files be stored as encrypted and stored in the path provided. If this is infeasible due to TEE storage requirements, the implementer must add hooks to ensure the removal of the data when the user is removed.</li>
+</ul>
+
+<h2 id="working-process">Working process</h2>
+<p>By referring to the official introduction, here I summarized the workflow according to my understanding.</p>
+
+<ol>
+  <li>Android starts the fingerprint daemons process-<code class="language-plaintext highlighter-rouge">Fingerprintd</code> during boot up in <code class="language-plaintext highlighter-rouge">init.rc</code>.</li>
+  <li>System server will start the fingerprint system service <code class="language-plaintext highlighter-rouge">Fingerprint Service</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">Fingerprint Service</code> calls the interface of <code class="language-plaintext highlighter-rouge">Fingerprintd</code> to communicate with the fingerprint HAL code.</li>
+  <li>Fingerprint HAL interacts with the TA program and the latter undertakes the communication with fingerprint hardware through SPI.</li>
+  <li>For the sake of security, the hardware SPI is mounted in the <code class="language-plaintext highlighter-rouge">TEE</code> environment. The data collection of fingerprint images and the related processing of the algorithm are all carried out within the <code class="language-plaintext highlighter-rouge">TEE</code> environment. The <code class="language-plaintext highlighter-rouge">REE</code> side only obtains the result of the <code class="language-plaintext highlighter-rouge">TEE</code> side.</li>
+</ol>
+
+<p>In the next article, I will make a detailed introduction to the work process by inspecting the android source code.</p>
+
+<p>To be continued…</p>
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box" id = "sidebar">
+		    
+				<p class = "sidebar-title">About This Article</p>
+			
+			
+				
+					<P class = "sidebar-about-content sidebar-font-big">Some knowledge for Fingerprint framework in Android platform.</P>
+				
+				
+					<P class = "icon-link sidebar-about-content sidebar-font-medium" style = "margin-top:30px">Author: <a href="https://github.com/gangdong">david.dong</a></P>
+				
+					<P class = "icon-clock sidebar-about-content sidebar-font-medium">10 mins to read</P>
+					<P class = "icon-book-1 sidebar-about-content sidebar-font-medium">3927 words</P>
+				
+					<P class = "icon-th-list sidebar-about-content sidebar-font-medium">Key Words: Fingerprint framework/Android</P>
+				
+				
+				    <P class = "icon-hashtag sidebar-about-content sidebar-font-medium">Tags: 
+					
+					<a href="/category#Android">Android&nbsp;</a>
+					
+					<a href="/category#Fingerprint">Fingerprint&nbsp;</a>
+					
+					</P>
+				
+			
+		</div>
+		
+		
+	    <div class="sidebar-toc-box">
+			
+			<p class = "sidebar-title">Table of Contents</p>
+			<span class = "sidebar-font-medium sidebar-toc-content"><ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#architecture">Architecture</a></li>
+<li class="toc-entry toc-h2"><a href="#implementation-guidelines">Implementation guidelines</a></li>
+<li class="toc-entry toc-h2"><a href="#working-process">Working process</a></li>
+</ul></span>
+			
+		</div>
+		
+	</div>
+	 
+</div>
+<!-- no sidebar, use flex width box! -->
+<br>
+<div class="post-container">
+    <!-- post categories box! here  -->
+    
+   <div class="post-categories-meta">
+		<div class="post-categories-box post-categories-box-hide"><a href="/category#Android">Android</a><a href="/category#Fingerprint">Fingerprint</a></div>
+	</div>
+  
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">Share:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+	
+		<span class = "icon-eye tooltip"><p class = "tooltiptext" style = "left:0%; margin-left: 0px">Viewers</p><span id="busuanzi_value_page_pv"></span></span>
+		
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">You may also like</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/android/fingerprint/2021/02/04/Fingerprint-build-ta.html">Build TA images on different TEE</a></li>
+			
+			<li><a href="/android/fingerprint/2020/12/02/Fingerprint-Trusty.html">Some useful knowledge for Fingerprint Application on Trusty TEE</a></li>
+			
+			<li><a href="/android/fingerprint/2020/01/09/Fingerprint-impl-AN8.0.html">Fingerprint implementation in android 8.0 and later</a></li>
+			
+			<li><a href="/android/fingerprint/2019/12/21/Fingerprint-frmk3.html">Android Fingerprint Framework (3)</a></li>
+			
+			<li><a href="/android/fingerprint/2019/12/07/Fingerprint-frmk2.html">Android Fingerprint Framework (2)</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">further reading</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta"><div class="navigation-bar">
+	 
+	 <a href="/android/fingerprint/2019/09/15/Fingerprint-enroll.html"><span>Previous Post</span><br>Fingerprint enrollment in Android</a>
+	 
+    </div><div class="navigation-bar"> 
+	 
+     <a href="/android/fingerprint/2019/12/07/Fingerprint-frmk2.html"><span>Next Post</span><br>Android Fingerprint Framework (2)</a>
+	 
+    </div></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'gangdong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9&domready=1"></script>
+
+
+<!-- sidebar button, toggle display/hide sidebar -->
+<script type="text/javascript">
+        $('.btn').on('click',function(){
+            $('.btn').toggleClass('btnc');
+            $('.sidebar-container').toggleClass('sidebar-container-hide');
+        })
+</script>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=G-3MXGF3F8QN"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-3MXGF3F8QN');
+	</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></body>
+</html>

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Linux fork() 函数 | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Linux fork() 函数" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="本文主要总结了Linux fork() 函数的使用。" />
+<meta property="og:description" content="本文主要总结了Linux fork() 函数的使用。" />
+<link rel="canonical" href="http://localhost:4000/linux/2013/09/22/Linux-fork.html" />
+<meta property="og:url" content="http://localhost:4000/linux/2013/09/22/Linux-fork.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-09-22T20:12:01+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Linux fork() 函数" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"david.dong"},"dateModified":"2013-09-22T20:12:01+08:00","datePublished":"2013-09-22T20:12:01+08:00","description":"本文主要总结了Linux fork() 函数的使用。","headline":"Linux fork() 函数","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/linux/2013/09/22/Linux-fork.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/logo.png"},"name":"david.dong"},"url":"http://localhost:4000/linux/2013/09/22/Linux-fork.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+<meta property="article:tag" content="Linux">
+
+
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
+
+</head><body>
+    <main class="container">
+      <section class="about condensed">
+	    <div class="about-header condensed">
+			<div class="about-title">
+				<a href="/blog/index.html">
+				  <img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/avatar-11.png" alt="David Dong"/>
+				</a>
+				<div class = "title-meta">
+					<h2 id="title">
+					  <a href="/blog/index.html">David Dong</a>
+					</h2>
+					<p class = "tagline-small">Java/C/C#/Python</p>
+				</div>
+			</div>
+			<p class="tagline">Java/C/C#/Python</p>
+		</div>
+		<!--put dark mode button here -->
+		<div class = "about-footer condensed">
+		  <!--put rss/code link here -->
+			<div class="icon-box-container about-footer condensed"><div class = "icon-box" style = "padding-right:0px">
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id = "mode">Dark Mode</span>
+					</a>
+				</div>
+				<!-- toggle dark/light display mode, should loading darkmode.js here for avoiding flicker when switching -->
+				<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/darkmode.js"></script>
+				<script type="text/javascript">
+				$('.dark-mode').on('click',function(){
+					$('.dark-mode').toggleClass('light-mode');
+					if (document.getElementById("mode").innerHTML=="Light Mode")
+						document.getElementById("mode").innerHTML="Dark Mode";
+					else 
+						document.getElementById("mode").innerHTML="Light Mode";
+				})
+				</script><div class = "icon-box">
+					<a class="icon-rss" href="/rss.xml">
+						<span>Subscribe</span>
+					</a>
+				</div><div class = "icon-box">
+					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
+						<span>Source Code</span>
+					</a>
+				</div></div>
+		</div>
+		
+	    <!--show contact me -->
+		<div class = "about-footer condensed social-container">
+	    <p class = "contact about-footer condensed">CONTACT ME</p>
+		<!-- put social link here -->
+	      <ul class="social about-footer condensed" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		<!--put timestamp here -->
+		<p class ="timestamp about-footer condensed">&copy; 2024</p>
+		</div>
+	  <!-- about box end here -->
+      </section>
+	  
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+<div class="post-container">
+	<div  class = "menu-meta condensed">
+		<!--put top menu here, display @ big screen (> $mobileW) -->
+		<div  class = "menu-logo">BLOG</div>
+		<div  class = "menu">
+			<a href="/blog/index.html">
+				<li class="icon-home">Home</li>
+			</a><a href="/archive">
+				<li class="icon-archive">Archives</li>
+			</a><a href="/category">
+				<li class="icon-tags">Categories</li>
+			</a><a href="/about">
+				<li class="icon-help-circled">About</li>
+			</a>
+		</div>
+		<!--put hide menu button here, display @ small screen (< $mobileW) -->
+		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
+		<!--put hide menu here, display @ small screen (< $mobileW) -->
+		<div class="context-menu">
+			<ul >
+				<li>
+					<a class="icon-home" href="/blog/index.html">Home</a>
+				</li><li>
+					<a class="icon-archive" href="/archive">Archives</a>
+				</li><li>
+					<a class="icon-tags" href="/category">Categories</a>
+				</li><li>
+					<a class="icon-help-circled" href="/about">About</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('.menu-btn').on('click',function(e){
+		
+	e.stopPropagation();
+	var tag = $('.context-menu');		
+	$(tag).toggleClass('context-menu-show');
+			
+	var flag = true;
+	/* hide the context-menu when other element is clicked */
+	$(document).bind('click',function(e){
+		var target = $(e.target);
+		if(target.closest(tag).length == 0 && flag == true){
+			$(tag).toggleClass('context-menu-show');
+			flag = false;
+		}
+	});
+})
+</script><div class="post-container" style = "margin-bottom:1rem">
+	<div class="posts-labelgroup" id="posts-labelgroup">
+		<h1 id="posts-label">POST</h1>
+	</div>  
+	<!-- post title -->
+	<h2 class="post-title-body">Linux fork() 函数</h2>
+	<div class="post-meta">
+		<div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">Sep 22, 2013</div>
+		
+		<!-- sidebar button for displaying/hiding sidebar -->
+		<div class = "sidebar-btn-box"><a class="btn"></a></div>
+		
+	</div>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+<div class="post-viewer-container">
+	<div class="post post-fix-width">
+		<p>本文主要总结了Linux <code class="language-plaintext highlighter-rouge">fork()</code>函数的使用。</p>
+
+<p>在Linux中每个进程拥有独立的地址空间,地址空间包括代码段、数据段和堆栈段。</p>
+
+<p><strong>代码段</strong>：存储程序的代码<br />
+<strong>数据段</strong>：存储程序的全局变量和动态分配的内存<br />
+<strong>堆栈段</strong>：存储函数运行时的局部变量<br /></p>
+
+<p>进程之间的地址空间是隔离的。</p>
+
+<p><code class="language-plaintext highlighter-rouge">fork()</code>函数的作用是新建立一个进程。这个进程是从父进程COPY过来，因此和父进程几乎完全相同。
+<code class="language-plaintext highlighter-rouge">fork()</code>函数的原型如下,需要注意的是函数的返回值。</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">pid_t</span> <span class="nf">fork</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span></code></pre></figure>
+
+<p>函数返回值:</p>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">0:子进程返回0
+-1:出错返回
+其它：父进程返回子进程ID</code></pre></figure>
+
+<p><strong>注意，fork被调用后，是要返回两次，也就是有两个返回值，</strong>
+<strong>分别代表了父进程和子进程，这点和一般的函数调用不同。</strong></p>
+
+<p>看代码。</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="c1">  </span><span class="cp">
+#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="c1">   </span><span class="cp">
+</span><span class="kt">int</span> <span class="nf">main</span> <span class="p">()</span>   
+<span class="p">{</span>   
+    <span class="n">pid_t</span> <span class="n">fpid</span><span class="p">;</span> 
+    <span class="kt">int</span> <span class="n">mCnt</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> 
+    <span class="c1">//调用fork()</span>
+    <span class="n">fpid</span><span class="o">=</span><span class="n">fork</span><span class="p">();</span>
+ 
+    <span class="c1">//fpid 返回0 代表error</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">fpid</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">){</span>   
+        <span class="n">printf</span><span class="p">(</span><span class="s">"error in fork!"</span><span class="p">);</span> 
+    <span class="p">}</span>  
+    <span class="c1">// fpid 等于0代表执行的子进程</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">fpid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>  
+        <span class="n">printf</span><span class="p">(</span><span class="s">"子进程：id is %4d, pid is %4d, ppid is %4d,/n"</span><span class="p">,</span><span class="n">fpid</span><span class="p">,</span><span class="n">getpid</span><span class="p">(),</span><span class="n">getppid</span><span class="p">());</span>   
+        <span class="n">mCnt</span><span class="o">++</span><span class="p">;</span>  
+    <span class="p">}</span>  
+    <span class="c1">// 代表父进程执行</span>
+    <span class="k">else</span> <span class="p">{</span>  
+        <span class="n">printf</span><span class="p">(</span><span class="s">"父进程：id is %4d, pid is %4d, ppid is %4d,/n"</span><span class="p">,</span><span class="n">fpid</span><span class="p">,</span><span class="n">getpid</span><span class="p">(),</span><span class="n">getppid</span><span class="p">());</span>   
+        <span class="n">mCnt</span><span class="o">++</span><span class="p">;</span>  
+    <span class="p">}</span>  
+    <span class="n">printf</span><span class="p">(</span><span class="s">"执行了: %d/n 次"</span><span class="p">,</span><span class="n">mCnt</span><span class="p">);</span>  
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>     
+<span class="p">}</span> </code></pre></figure>
+
+<p>执行结果如下。</p>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">子进程：id is    0, pid is 2621, ppid is 1158,执行了: 1 次
+父进程：id is 2621, pid is 2620, ppid is 2019,执行了: 1 次</code></pre></figure>
+
+<p>我们可以看到相同的代码段被执行了两次。这是因为调用<code class="language-plaintext highlighter-rouge">fork()</code>函数后，就变成两个进程在执行了，这两个进程的执行逻辑完全相同，在子进程中，fork函数返回0，在父进程中，fork返回新创建子进程的进程ID。我们可以通过fork返回的值来判断当前进程是子进程还是父进程。如果把代码稍作修改。</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c">    <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">fpid</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>  
+        <span class="n">printf</span><span class="p">(</span><span class="s">"父进程：id is %4d, pid is %4d, ppid is %4d,/n"</span><span class="p">,</span><span class="n">fpid</span><span class="p">,</span><span class="n">getpid</span><span class="p">(),</span><span class="n">getppid</span><span class="p">());</span>   
+        <span class="n">mCnt</span><span class="o">++</span><span class="p">;</span>  
+    <span class="p">}</span>  
+    <span class="k">else</span> <span class="p">{</span>  
+        <span class="n">printf</span><span class="p">(</span><span class="s">"子进程：id is %4d, pid is %4d, ppid is %4d,/n"</span><span class="p">,</span><span class="n">fpid</span><span class="p">,</span><span class="n">getpid</span><span class="p">(),</span><span class="n">getppid</span><span class="p">());</span>   
+        <span class="n">mCnt</span><span class="o">++</span><span class="p">;</span>  
+    <span class="p">}</span> </code></pre></figure>
+
+<p>结果如下，可以看出到是子进程先执行，父进程后执行，与程序的执行顺序无关。</p>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">子进程：id is    0, pid is 2621, ppid is 1158,执行了: 1 次
+父进程：id is 2621, pid is 2620, ppid is 2019,执行了: 1 次</code></pre></figure>
+
+<p>关于<code class="language-plaintext highlighter-rouge">fork()</code>函数的执行原理，用到了“写时复制”的技术，参考以下的博文，讲的比较清楚。<br />
+<a href="https://www.cnblogs.com/zhangchaoyang/articles/2317420.html">https://www.cnblogs.com/zhangchaoyang/articles/2317420.html</a></p>
+
+<blockquote>
+  <p>fork（）会产生一个和父进程完全相同的子进程，但子进程在此后多会exec系统调用，出于效率考虑，
+linux中引入了“写时复制“技术，也就是只有进程空间的各段的内容要发生变化时，才会将父进程的内容
+复制一份给子进程。在fork之后exec之前两个进程用的是相同的物理空间（内存区），子进程的代码段、
+数据段、堆栈都是指向父进程的物理空间，也就是说，两者的虚拟空间不同，但其对应的物理空间是同一个。
+当父子进程中有更改相应段的行为发生时，再为子进程相应的段分配物理空间，如果不是因为exec，内核会
+给子进程的数据段、堆栈段分配相应的物理空间（至此两者有各自的进程空间，互不影响），而代码段继续共
+享父进程的物理空间（两者的代码完全相同）。而如果是因为exec，由于两者执行的代码不同，子进程的代码
+段也会分配单独的物理空间。
+fork之后内核会通过将子进程放在队列的前面，以让子进程先执行，以免父进程执行导致写时复制，而后子进程执
+行exec系统调用，因无意义的复制而造成效率的下降。
+fork时子进程获得父进程数据空间、堆和栈的复制，所以变量的地址（当然是虚拟地址）也是一样的。</p>
+</blockquote>
+
+<p><br />
+参考：<br />
+<a href="https://www.cnblogs.com/zhangchaoyang/articles/2317420.html">https://www.cnblogs.com/zhangchaoyang/articles/2317420.html</a>
+<a href="https://blog.csdn.net/zhangxiao93/article/details/72811700">https://blog.csdn.net/zhangxiao93/article/details/72811700</a>
+<br /></p>
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box" id = "sidebar">
+		    
+				<p class = "sidebar-title">关于文章</p>
+			
+			
+				
+				<p class = "sidebar-about-content sidebar-font-big">本文主要总结了Linux fork() 函数的使用。</p>
+				
+				
+				<p class = "icon-link sidebar-about-content sidebar-font-medium" style = "margin-top:40px">文章作者: <a href="https://github.com/gangdong">david.dong</a></p>
+				
+				<p class = "icon-hourglass sidebar-about-content sidebar-font-medium">阅读时间：5 mins</p>
+				<p class = "icon-book sidebar-about-content sidebar-font-medium">全文字数：1913</p>
+				
+					<p class = "icon-th-list sidebar-about-content sidebar-font-medium">关键字: Linux/fork</p>
+				
+				
+					<p class = "icon-hashtag sidebar-about-content sidebar-font-medium">标签: 
+					
+					<a href="/category#Linux">Linux&nbsp;</a>
+					
+					</p>
+				
+			
+		</div>
+		
+		
+	</div>
+	 
+</div>
+<!-- no sidebar, use flex width box! -->
+<br>
+<div class="post-container">
+    <!-- post categories box! here  -->
+    
+   <div class="post-categories-meta">
+		<div class="post-categories-box post-categories-box-hide"><a href="/category#Linux">Linux</a></div>
+	</div>
+  
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">分享:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+	
+		<span class = "icon-eye tooltip"><p class = "tooltiptext" style = "left:0%; margin-left: 0px">阅读量</p><span id="busuanzi_value_page_pv"></span></span>
+		
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">相关文章</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/android/linux/2021/05/09/Android-jack-issue.html">Fixing the issue: Communication error with Jack server (35) when building AOSP</a></li>
+			
+			<li><a href="/linux/2020/05/25/Linux-wsl.html">Some notes for WSL</a></li>
+			
+			<li><a href="/linux/2014/11/11/Linux-phony.html">Use of .PHONY in makefile</a></li>
+			
+			<li><a href="/c/touch/android/2014/07/10/Touch-inputevent.html">Android 如何上报 Touchevent 给应用层</a></li>
+			
+			<li><a href="/c/touch/linux/2014/06/25/Touch-driver.html">ATMEL maXTouch IC 驱动代码分析</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">继续阅读</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta"><div class="navigation-bar">
+	 
+	 <a href="/linux/2013/09/02/Linux-epoll.html"><span>前一章</span><br>poll() 函数使用</a>
+	 
+    </div><div class="navigation-bar"> 
+	 
+	 <a href="/touch/2013/12/15/Touch-noise.html"><span>后一章</span><br>浅谈触摸屏充电器噪声要求及测量方法</a>
+	 
+    </div></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'gangdong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9&domready=1"></script>
+
+
+<!-- sidebar button, toggle display/hide sidebar -->
+<script type="text/javascript">
+        $('.btn').on('click',function(){
+            $('.btn').toggleClass('btnc');
+            $('.sidebar-container').toggleClass('sidebar-container-hide');
+        })
+</script>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=G-3MXGF3F8QN"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-3MXGF3F8QN');
+	</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></body>
+</html>

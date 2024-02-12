@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Fingerprint driver development in Windows(1) | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Fingerprint driver development in Windows(1)" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Some knowledge of Fingerprint driver development." />
+<meta property="og:description" content="Some knowledge of Fingerprint driver development." />
+<link rel="canonical" href="http://localhost:4000/c++/fingerprint/windows/2020/06/07/Cpp-wbdi.html" />
+<meta property="og:url" content="http://localhost:4000/c++/fingerprint/windows/2020/06/07/Cpp-wbdi.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-06-07T21:19:23+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Fingerprint driver development in Windows(1)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"david.dong"},"dateModified":"2020-06-07T21:19:23+08:00","datePublished":"2020-06-07T21:19:23+08:00","description":"Some knowledge of Fingerprint driver development.","headline":"Fingerprint driver development in Windows(1)","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/c++/fingerprint/windows/2020/06/07/Cpp-wbdi.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/logo.png"},"name":"david.dong"},"url":"http://localhost:4000/c++/fingerprint/windows/2020/06/07/Cpp-wbdi.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+<meta property="article:tag" content="C++">
+
+<meta property="article:tag" content="Fingerprint">
+
+<meta property="article:tag" content="Windows">
+
+
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
+
+</head><body>
+    <main class="container">
+      <section class="about condensed">
+	    <div class="about-header condensed">
+			<div class="about-title">
+				<a href="/blog/index.html">
+				  <img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/avatar-11.png" alt="David Dong"/>
+				</a>
+				<div class = "title-meta">
+					<h2 id="title">
+					  <a href="/blog/index.html">David Dong</a>
+					</h2>
+					<p class = "tagline-small">Java/C/C#/Python</p>
+				</div>
+			</div>
+			<p class="tagline">Java/C/C#/Python</p>
+		</div>
+		<!--put dark mode button here -->
+		<div class = "about-footer condensed">
+		  <!--put rss/code link here -->
+			<div class="icon-box-container about-footer condensed"><div class = "icon-box" style = "padding-right:0px">
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id = "mode">Dark Mode</span>
+					</a>
+				</div>
+				<!-- toggle dark/light display mode, should loading darkmode.js here for avoiding flicker when switching -->
+				<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/darkmode.js"></script>
+				<script type="text/javascript">
+				$('.dark-mode').on('click',function(){
+					$('.dark-mode').toggleClass('light-mode');
+					if (document.getElementById("mode").innerHTML=="Light Mode")
+						document.getElementById("mode").innerHTML="Dark Mode";
+					else 
+						document.getElementById("mode").innerHTML="Light Mode";
+				})
+				</script><div class = "icon-box">
+					<a class="icon-rss" href="/rss.xml">
+						<span>Subscribe</span>
+					</a>
+				</div><div class = "icon-box">
+					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
+						<span>Source Code</span>
+					</a>
+				</div></div>
+		</div>
+		
+	    <!--show contact me -->
+		<div class = "about-footer condensed social-container">
+	    <p class = "contact about-footer condensed">CONTACT ME</p>
+		<!-- put social link here -->
+	      <ul class="social about-footer condensed" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		<!--put timestamp here -->
+		<p class ="timestamp about-footer condensed">&copy; 2024</p>
+		</div>
+	  <!-- about box end here -->
+      </section>
+	  
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+<div class="post-container">
+	<div  class = "menu-meta condensed">
+		<!--put top menu here, display @ big screen (> $mobileW) -->
+		<div  class = "menu-logo">BLOG</div>
+		<div  class = "menu">
+			<a href="/blog/index.html">
+				<li class="icon-home">Home</li>
+			</a><a href="/archive">
+				<li class="icon-archive">Archives</li>
+			</a><a href="/category">
+				<li class="icon-tags">Categories</li>
+			</a><a href="/about">
+				<li class="icon-help-circled">About</li>
+			</a>
+		</div>
+		<!--put hide menu button here, display @ small screen (< $mobileW) -->
+		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
+		<!--put hide menu here, display @ small screen (< $mobileW) -->
+		<div class="context-menu">
+			<ul >
+				<li>
+					<a class="icon-home" href="/blog/index.html">Home</a>
+				</li><li>
+					<a class="icon-archive" href="/archive">Archives</a>
+				</li><li>
+					<a class="icon-tags" href="/category">Categories</a>
+				</li><li>
+					<a class="icon-help-circled" href="/about">About</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('.menu-btn').on('click',function(e){
+		
+	e.stopPropagation();
+	var tag = $('.context-menu');		
+	$(tag).toggleClass('context-menu-show');
+			
+	var flag = true;
+	/* hide the context-menu when other element is clicked */
+	$(document).bind('click',function(e){
+		var target = $(e.target);
+		if(target.closest(tag).length == 0 && flag == true){
+			$(tag).toggleClass('context-menu-show');
+			flag = false;
+		}
+	});
+})
+</script><div class="post-container" style = "margin-bottom:1rem">
+	<div class="posts-labelgroup" id="posts-labelgroup">
+		<h1 id="posts-label">POST</h1>
+	</div>  
+	<!-- post title -->
+	<h2 class="post-title-body">Fingerprint driver development in Windows(1)</h2>
+	<div class="post-meta">
+		<div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">Jun 7, 2020</div>
+		
+		<!-- sidebar button for displaying/hiding sidebar -->
+		<div class = "sidebar-btn-box"><a class="btn"></a></div>
+		
+	</div>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+<div class="post-viewer-container">
+	<div class="post post-fix-width">
+		<p>Windows 7 and later implements support for Biometric devices. The Windows Biometric Framework (<em>WBF</em>) is a generic biometric architecture in Windows 7 and later versions of Windows.</p>
+
+<p>WBF includes an IOCTL-based driver interface known as the Windows Biometric Driver Interface (<em>WBDI</em>) as well as a Windows service called the Windows Biometric Framework API (Windows) (<em>WBS</em>).</p>
+
+<p>WBDI drivers respond to requests from the WBS(<em>WinBio</em>) service. WBF also includes Windows log-in support.</p>
+
+<div class="separator"></div>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+  <li><a href="#1">Basic Concepts</a></li>
+  <li><a href="#2">UMDF</a>
+    <ul>
+      <li><a href="#2.1">2.1 UMDF advantages</a></li>
+      <li><a href="#2.2">2.2 When to use UMDF?</a></li>
+      <li><a href="#2.3">2.3 UDMF architecture</a></li>
+    </ul>
+  </li>
+  <li><a href="/c++/fingerprint/windows/2020/06/10/Cpp-wbdi-02.html#3">Biometric Unit</a></li>
+  <li><a href="/c++/fingerprint/windows/2020/06/10/Cpp-wbdi-02.html#4">Biometric Unit Life Cycle</a>
+    <ul>
+      <li><a href="/c++/fingerprint/windows/2020/06/10/Cpp-wbdi-02.html#4.1">4.1 Creation</a></li>
+      <li><a href="/c++/fingerprint/windows/2020/06/10/Cpp-wbdi-02.html#4.2">4.2 Configuration</a></li>
+      <li><a href="/c++/fingerprint/windows/2020/06/10/Cpp-wbdi-02.html#4.3">4.3 Shut Down</a></li>
+    </ul>
+  </li>
+  <li><a href="/c++/fingerprint/windows/2020/06/10/Cpp-wbdi-02.html#5">Adapters</a>
+    <ul>
+      <li><a href="/c++/fingerprint/windows/2020/06/10/Cpp-wbdi-02.html#5.1">5.1 Sensor Adapter Function</a></li>
+      <li><a href="/c++/fingerprint/windows/2020/06/10/Cpp-wbdi-02.html#5.2">5.2 Engine Adapter Function</a></li>
+      <li><a href="/c++/fingerprint/windows/2020/06/10/Cpp-wbdi-02.html#5.3">5.3 Storage Adapter Function</a></li>
+    </ul>
+  </li>
+  <li><a href="/c++/fingerprint/windows/2020/06/10/Cpp-wbdi-02.html#6">IOCTLs Interface of Biometric</a>
+    <ul>
+      <li><a href="/c++/fingerprint/windows/2020/06/10/Cpp-wbdi-02.html#6.1">6.1 IOCTLs</a></li>
+      <li><a href="/c++/fingerprint/windows/2020/06/10/Cpp-wbdi-02.html#6.2">6.2 Biometric IOCTLs Calling Sequence</a></li>
+    </ul>
+  </li>
+  <li><a href="/c++/fingerprint/windows/2020/06/13/Cpp-wbdi-03.html#7">Managing Queues in a WBDI Driver</a></li>
+  <li><a href="/c++/fingerprint/windows/2020/06/13/Cpp-wbdi-03.html#8">Installing a Biometric Driver</a></li>
+  <li><a href="/c++/fingerprint/windows/2020/06/13/Cpp-wbdi-03.html#9">Creating a Device Interface for a WBDI Driver</a></li>
+</ol>
+
+<div class="separator"></div>
+
+<p>Starting with some concepts.</p>
+
+<h2 id="1-basic-concepts"><span id="1">1. Basic Concepts</span></h2>
+<h3 id="wbf">WBF:</h3>
+<p>Windows Biometric Framework. WBF is a generic biometric architecture in Windows 7 and later versions of Windows. WBF includes an IOCTL-based driver interface known as the Windows Biometric Driver Interface (<em>WBDI</em>) as well as a Windows service called the Windows Biometric Service (<em>WBS</em>).</p>
+<h3 id="wbdi">WBDI:</h3>
+<p>Windows Biometric Driver Interface. WBDI is a programming interface that a biometric driver can use to expose the biometric device through the Windows Biometric Service (<em>WBS</em>). The developer can implement a WBDI driver by using any supported driver technology, including the following.</p>
+<ul>
+  <li>User Mode Driver Framework (<em>UMDF</em>)</li>
+  <li>Kernel Mode Driver Framework (<em>KMDF</em>)</li>
+  <li>Windows Driver Model (<em>WDM</em>)</li>
+</ul>
+
+<p>A WBDI biometric driver must also support the WBDI driver interface GUID and all mandatory I/O controls (<em>IOCTLs</em>).</p>
+<h3 id="wbs">WBS:</h3>
+<p>Windows Biometric Service. The Windows Biometric Service manages installed biometric drivers and supports the Windows Biometric Framework API to provide device access to client applications.</p>
+<h3 id="adapters">Adapters:</h3>
+<p>Plug-in software components that connect a biometric unit to its underlying hardware and supply any functionality that may be missing from the sensor hardware. There are three types of adapters that you can create:</p>
+<ul>
+  <li>A <strong>sensor adapter</strong> wraps a biometric device and provides a standard interface for configuring the sensor, capturing samples, and controlling the flow of biometric data to the processing engine.</li>
+  <li>An <strong>engine adapter</strong> generates biometric templates from captured samples, matches samples to existing templates, and indexes templates.</li>
+  <li>A <strong>storage adapter</strong> manages template databases.</li>
+</ul>
+
+<h3 id="wdf">WDF:</h3>
+<p>Windows Driver Foundation.</p>
+<h3 id="wudf">WUDF:</h3>
+<p>Windows User-Mode Driver Framework. Also referred to as UMDF.</p>
+<h3 id="umdf">UMDF:</h3>
+<p>User-Mode Driver Framework.</p>
+<h3 id="kmdf">KMDF:</h3>
+<p>Kernel-Mode Driver Framework.</p>
+<h3 id="wudfhostexe">Wudfhost(exe):</h3>
+<p>Windows User-mode Driver Framework Driver host process. The driver host process loads the DLL of the UMDF driver and framework provided by the vendor and provides the execution environment for routing messages between the driver in the user-mode driver and the driver in the user-mode stack.</p>
+<h3 id="wdm">WDM:</h3>
+<p>Windows Driver Manager. The driver manager is a Windows service that manages all instances of the wudfhost driver host process. The driver manager starts and tracks information about each driver host process. Each host is a child of the driver manager.</p>
+<h3 id="biometric-unit">Biometric Unit:</h3>
+<p>The central component of the Windows Biometric Framework plug-in architecture, a software object that exposes the capabilities of a biometric device to the framework through a standard interface.</p>
+<h3 id="overview">Overview</h3>
+<p>The following figure shows how the UMDF based windows biometric driver interface (<em>WBDI</em>) driver can be used for windows biometric framework (<em>WBF</em>) biometric support in Windows 7. All biometric operations rely on client applications to windows biometric services (<em>WBS</em>). The WBS sends the request to the biometric device driver that exposes the WBDI interface.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/others-wbdi-01.PNG" alt="framework" class="center-image" /></p>
+
+<h2 id="2-umdf"><span id="2">2. UMDF</span></h2>
+<p>UMDF is a Framework for creating user-mode drivers. Like the kernel-mode driver framework (<em>KMDF</em>), UMDF provides an abstraction layer from WDM that handles a large number of plug and play (<em>PNP</em>) and power management functions and allows the driver to choose to enable specific functions and event handling. UMDF driver abstracts hardware functions, runs in user mode environment, and can access various services.</p>
+
+<p>The UMDF driver interacts with the following components provided by the system.</p>
+<ul>
+  <li>Wudfhost(<em>exe</em>)</li>
+  <li>WDM</li>
+  <li>Reflector</li>
+</ul>
+
+<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/others-wbdi-02.PNG" alt="framework" class="center-image" /></p>
+
+<h3 id="21-umdf-advantages"><span id="2.1">2.1 UMDF advantages</span></h3>
+<ul>
+  <li>Because UMDF driver running on the user space, which results in the stability of operating systems because they only have access to the address space in which they run the process.</li>
+  <li>Because the local service account runs under the UMDF driver, it has limited access to user data or system files.</li>
+  <li>User-mode drivers run in a simpler environment than KMDF.</li>
+  <li>UMDF-V2 provides most of the functions of KMDF.</li>
+  <li>UMDF version 2 facilitates conversion between KMDF and UMDF.</li>
+</ul>
+
+<h3 id="22-when-to-use-umdf"><span id="2.2">2.2 When to use UMDF?</span></h3>
+<p>On most occasions, Microsoft recommends writing UMDF driver instead of KMDF, since the two frameworks share multiple interfaces, you can also later convert the driver to KMDF if necessary.<br />
+However, the following features are only available for KMDF drivers. If the driver requires one of these features, you must write a KMDF driver.</p>
+<ul>
+  <li>DMA</li>
+  <li>Bus Enumeration</li>
+  <li>Power control (<em>only limited support in UMDF</em>)</li>
+  <li>Access WDM object and lrp</li>
+  <li>non-cache I/O access</li>
+  <li>WMI</li>
+  <li>IOCTLs</li>
+</ul>
+
+<h3 id="23-udmf-architecture"><span id="2.3">2.3 UDMF architecture</span></h3>
+
+<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/others-wbdi-03.PNG" alt="framework" class="center-image" /></p>
+
+<p>The above diagram shows how the driver manager builds a user-mode device stack, and how the host process, reflector, and driver manager to process an I/O request that an application sends to a User-Mode Driver Framework (<em>UMDF</em>) driver.</p>
+
+<p>Similar to a kernel-mode stack, the construction and tear down of a user-mode stack is driven by Plug and Play (<em>PnP</em>) events. After the kernel-mode stack has been built, the reflector notifies the driver manager to start the construction of the user-mode stack. The driver manager launches the driver host process and provides sufficient information to the launched process to build the user-mode stack.</p>
+
+<p>The driver host process provides the execution environment for user-mode drivers and routes messages between drivers in the user-mode stack. The reflector uses a message-based interprocess communication mechanism to communicate with the driver manager and host process.</p>
+
+<p>To send an I/O request to a UMDF driver, an application calls a Win32 file I/O function, such as CreateFile, ReadFileEx, CancelIoEx, or DeviceIoControl. When the reflector receives a request from the client application, it sends the request to the appropriate driver host process. The driver host process then routes the request to the top of the correct user-mode device stack.</p>
+
+<p>The request is either completed by one of the drivers in the user-mode stack or forwarded by one of the drivers back to the reflector. When the reflector receives a request from the user-mode driver stack, it sends the request down the kernel-mode stack for completion.</p>
+
+<p>If no special requirements, the fingerprint driver normally uses the UMDF model to develop.</p>
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box" id = "sidebar">
+		    
+				<p class = "sidebar-title">About This Article</p>
+			
+			
+				
+					<P class = "sidebar-about-content sidebar-font-big">Some knowledge of Fingerprint driver development.</P>
+				
+				
+					<P class = "icon-link sidebar-about-content sidebar-font-medium" style = "margin-top:30px">Author: <a href="https://github.com/gangdong">david.dong</a></P>
+				
+					<P class = "icon-clock sidebar-about-content sidebar-font-medium">15 mins to read</P>
+					<P class = "icon-book-1 sidebar-about-content sidebar-font-medium">5970 words</P>
+				
+					<P class = "icon-th-list sidebar-about-content sidebar-font-medium">Key Words: Fingerprint driver/Windows</P>
+				
+				
+				    <P class = "icon-hashtag sidebar-about-content sidebar-font-medium">Tags: 
+					
+					<a href="/category#C++">C++&nbsp;</a>
+					
+					<a href="/category#Fingerprint">Fingerprint&nbsp;</a>
+					
+					<a href="/category#Windows">Windows&nbsp;</a>
+					
+					</P>
+				
+			
+		</div>
+		
+		
+	</div>
+	 
+</div>
+<!-- no sidebar, use flex width box! -->
+<br>
+<div class="post-container">
+    <!-- post categories box! here  -->
+    
+   <div class="post-categories-meta">
+		<div class="post-categories-box post-categories-box-hide"><a href="/category#C++">C++</a><a href="/category#Fingerprint">Fingerprint</a><a href="/category#Windows">Windows</a></div>
+	</div>
+  
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">Share:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+	
+		<span class = "icon-eye tooltip"><p class = "tooltiptext" style = "left:0%; margin-left: 0px">Viewers</p><span id="busuanzi_value_page_pv"></span></span>
+		
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">You may also like</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/c++/fingerprint/windows/2020/06/13/Cpp-wbdi-03.html">Fingerprint driver development in Windows(3)</a></li>
+			
+			<li><a href="/c++/fingerprint/windows/2020/06/10/Cpp-wbdi-02.html">Fingerprint driver development in Windows(2)</a></li>
+			
+			<li><a href="/android/fingerprint/2021/02/04/Fingerprint-build-ta.html">Build TA images on different TEE</a></li>
+			
+			<li><a href="/android/fingerprint/2020/12/02/Fingerprint-Trusty.html">Some useful knowledge for Fingerprint Application on Trusty TEE</a></li>
+			
+			<li><a href="/android/fingerprint/2020/01/09/Fingerprint-impl-AN8.0.html">Fingerprint implementation in android 8.0 and later</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">further reading</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta"><div class="navigation-bar">
+	 
+	 <a href="/windows/2020/06/04/Windows-traceview.html"><span>Previous Post</span><br>Use TraceView to trace windows driver log</a>
+	 
+    </div><div class="navigation-bar"> 
+	 
+     <a href="/c++/fingerprint/windows/2020/06/10/Cpp-wbdi-02.html"><span>Next Post</span><br>Fingerprint driver development in Windows(2)</a>
+	 
+    </div></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'gangdong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9&domready=1"></script>
+
+
+<!-- sidebar button, toggle display/hide sidebar -->
+<script type="text/javascript">
+        $('.btn').on('click',function(){
+            $('.btn').toggleClass('btnc');
+            $('.sidebar-container').toggleClass('sidebar-container-hide');
+        })
+</script>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=G-3MXGF3F8QN"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-3MXGF3F8QN');
+	</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></body>
+</html>

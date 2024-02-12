@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Getting started with Jekyll (1) | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Getting started with Jekyll (1)" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Jekyll is a website generate/debug tool. This article introduced what Jekyll is and how to install Jekyll as a startup." />
+<meta property="og:description" content="Jekyll is a website generate/debug tool. This article introduced what Jekyll is and how to install Jekyll as a startup." />
+<link rel="canonical" href="http://localhost:4000/blog/2018/03/27/Web-jekyll-installation.html" />
+<meta property="og:url" content="http://localhost:4000/blog/2018/03/27/Web-jekyll-installation.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-03-27T20:56:30+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Getting started with Jekyll (1)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"david.dong"},"dateModified":"2018-03-27T20:56:30+08:00","datePublished":"2018-03-27T20:56:30+08:00","description":"Jekyll is a website generate/debug tool. This article introduced what Jekyll is and how to install Jekyll as a startup.","headline":"Getting started with Jekyll (1)","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/blog/2018/03/27/Web-jekyll-installation.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/logo.png"},"name":"david.dong"},"url":"http://localhost:4000/blog/2018/03/27/Web-jekyll-installation.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+<meta property="article:tag" content="Blog">
+
+
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
+
+</head><body>
+    <main class="container">
+      <section class="about condensed">
+	    <div class="about-header condensed">
+			<div class="about-title">
+				<a href="/blog/index.html">
+				  <img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/avatar-11.png" alt="David Dong"/>
+				</a>
+				<div class = "title-meta">
+					<h2 id="title">
+					  <a href="/blog/index.html">David Dong</a>
+					</h2>
+					<p class = "tagline-small">Java/C/C#/Python</p>
+				</div>
+			</div>
+			<p class="tagline">Java/C/C#/Python</p>
+		</div>
+		<!--put dark mode button here -->
+		<div class = "about-footer condensed">
+		  <!--put rss/code link here -->
+			<div class="icon-box-container about-footer condensed"><div class = "icon-box" style = "padding-right:0px">
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id = "mode">Dark Mode</span>
+					</a>
+				</div>
+				<!-- toggle dark/light display mode, should loading darkmode.js here for avoiding flicker when switching -->
+				<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/darkmode.js"></script>
+				<script type="text/javascript">
+				$('.dark-mode').on('click',function(){
+					$('.dark-mode').toggleClass('light-mode');
+					if (document.getElementById("mode").innerHTML=="Light Mode")
+						document.getElementById("mode").innerHTML="Dark Mode";
+					else 
+						document.getElementById("mode").innerHTML="Light Mode";
+				})
+				</script><div class = "icon-box">
+					<a class="icon-rss" href="/rss.xml">
+						<span>Subscribe</span>
+					</a>
+				</div><div class = "icon-box">
+					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
+						<span>Source Code</span>
+					</a>
+				</div></div>
+		</div>
+		
+	    <!--show contact me -->
+		<div class = "about-footer condensed social-container">
+	    <p class = "contact about-footer condensed">CONTACT ME</p>
+		<!-- put social link here -->
+	      <ul class="social about-footer condensed" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		<!--put timestamp here -->
+		<p class ="timestamp about-footer condensed">&copy; 2024</p>
+		</div>
+	  <!-- about box end here -->
+      </section>
+	  
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+<div class="post-container">
+	<div  class = "menu-meta condensed">
+		<!--put top menu here, display @ big screen (> $mobileW) -->
+		<div  class = "menu-logo">BLOG</div>
+		<div  class = "menu">
+			<a href="/blog/index.html">
+				<li class="icon-home">Home</li>
+			</a><a href="/archive">
+				<li class="icon-archive">Archives</li>
+			</a><a href="/category">
+				<li class="icon-tags">Categories</li>
+			</a><a href="/about">
+				<li class="icon-help-circled">About</li>
+			</a>
+		</div>
+		<!--put hide menu button here, display @ small screen (< $mobileW) -->
+		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
+		<!--put hide menu here, display @ small screen (< $mobileW) -->
+		<div class="context-menu">
+			<ul >
+				<li>
+					<a class="icon-home" href="/blog/index.html">Home</a>
+				</li><li>
+					<a class="icon-archive" href="/archive">Archives</a>
+				</li><li>
+					<a class="icon-tags" href="/category">Categories</a>
+				</li><li>
+					<a class="icon-help-circled" href="/about">About</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('.menu-btn').on('click',function(e){
+		
+	e.stopPropagation();
+	var tag = $('.context-menu');		
+	$(tag).toggleClass('context-menu-show');
+			
+	var flag = true;
+	/* hide the context-menu when other element is clicked */
+	$(document).bind('click',function(e){
+		var target = $(e.target);
+		if(target.closest(tag).length == 0 && flag == true){
+			$(tag).toggleClass('context-menu-show');
+			flag = false;
+		}
+	});
+})
+</script><div class="post-container" style = "margin-bottom:1rem">
+	<div class="posts-labelgroup" id="posts-labelgroup">
+		<h1 id="posts-label">POST</h1>
+	</div>  
+	<!-- post title -->
+	<h2 class="post-title-body">Getting started with Jekyll (1)</h2>
+	<div class="post-meta">
+		<div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">Mar 27, 2018</div>
+		
+		<!-- sidebar button for displaying/hiding sidebar -->
+		<div class = "sidebar-btn-box"><a class="btn"></a></div>
+		
+	</div>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+<div class="post-viewer-container">
+	<div class="post post-fix-width">
+		<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/web-jekyll-1-cover.png" alt="Jekyll theme pic" />  <br />
+In my last article, I have introduced how to create a blog based on Github Pages, if you haven’t read it and you want to read it, find the article at <a href="/blog/github/2018/03/23/Github-github-blog.html">here</a>. Following that article, this page will give a brief introduction to Jekyll and its installation.</p>
+
+<h2 id="jekyll">Jekyll</h2>
+<p>What’s Jekyll?</p>
+
+<p>Jekyll is a simple and free blog generation tool, similar to WordPress. But it’s very different from WordPress because Jekyll is just a tool for generating static web pages and does not need database support. It can work with third-party services, such as Disqus. The key is that Jekyll can be deployed on GitHub Pages free of charge and can bind its own domain name.</p>
+
+<div class="post-note info">
+  <div class="header"></div>
+  <div class="body">
+    <p>Github Pages use Jekyll to build and generate the website.
+    </p>
+  </div>
+</div>
+
+<p>As a static site generator, Jekyll provides many advantages. For example, a website constructed by Jekyll will get a faster page speed over a dynamic, database-driven site.</p>
+
+<p>Jekyll also offers a way of storing data in a more human-readable format, such as <code class="language-plaintext highlighter-rouge">YAML</code> or <code class="language-plaintext highlighter-rouge">JSON</code>. This means you can store data that is used in multiple places across your site in one file and reference it in many places.</p>
+
+<p>Others are Jekyll gives the developer more freedom to design and build the site. It is free to write your own HTML and text onto the page in the format you want.</p>
+
+<p>Generally, Jekyll is a static site generator. It will transform your plain text into static websites and blogs. No more databases, slow loading websites, risk of being hacked…just your content.</p>
+
+<p>Let’s turn to how to build the website by Jekyll, I suggest you construct your website on Github Pages because Jekyll is well deployed on Github Pages and there are many Jekyll theme templates for you powering your website. More important is all of these are free of charge. If you like, you can even bind your domain on it. you can view my previous <a href="/blog/github/2018/03/23/Github-github-blog.html">article</a> to learn how to create a blog on GitHub Pages.</p>
+<h2 id="installation">Installation</h2>
+<p>The first step is installing the Jekyll tools on your PC, here I just introduce the installation on the windows platform.</p>
+
+<ul>
+  <li>download Ruby at <a href="https://rubyinstaller.org/">here</a> and install it. You can skip it if you have already installed.</li>
+  <li>download RubyGems at <a href="https://rubygems.org/pages/download">here</a>. Again, skip this step if you have done.</li>
+  <li>unzip the RubyGems folder and enter the directory. Execute the below command.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">ruby</span> <span class="n">setup</span><span class="p">.</span><span class="nf">rb</span></code></pre></figure>
+
+<ul>
+  <li>execute command install Jekyll.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">gem</span> <span class="n">install</span> <span class="no">Jekyll</span></code></pre></figure>
+
+<p>After the installation, check it by creating a Jekyll template.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">cd</span> <span class="ss">d:
+d:
+</span><span class="no">Jekyll</span> <span class="n">new</span> <span class="n">testblog</span>
+<span class="n">cd</span> <span class="n">testblog</span>
+<span class="no">Jekyll</span> <span class="n">server</span></code></pre></figure>
+
+<p>If you see below output message, Jekyll is working on your PC now.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Generating</span><span class="o">...</span>
+    <span class="n">done</span> <span class="k">in</span> <span class="mf">1.684</span> <span class="n">seconds</span><span class="o">.</span>
+<span class="no">Please</span> <span class="n">add</span> <span class="n">the</span> <span class="n">following</span> <span class="n">to</span> <span class="n">your</span> <span class="no">Gemfile</span> <span class="n">to</span> <span class="n">avoid</span> <span class="n">polling</span> <span class="k">for</span> <span class="ss">changes:
+    </span><span class="n">gem</span> <span class="s1">'wdm'</span><span class="p">,</span> <span class="s1">'&gt;= 0.1.0'</span> <span class="k">if</span> <span class="no">Gem</span><span class="p">.</span><span class="nf">win_platform?</span>
+<span class="no">Auto</span><span class="o">-</span><span class="ss">regeneration: </span><span class="n">enabled</span> <span class="k">for</span> <span class="s1">'D:/Study/backup/daviddong.github.io'</span>
+    <span class="no">Server</span> <span class="ss">address: </span><span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">4000</span>
+<span class="no">Server</span> <span class="n">running</span><span class="o">...</span> <span class="n">press</span> <span class="n">ctrl</span><span class="o">-</span><span class="n">c</span> <span class="n">to</span> <span class="n">stop</span><span class="o">.</span></code></pre></figure>
+
+<p>So far you can input http://127.0.0.1:4000/ in the browser to view the blog you just created.</p>
+
+<h2 id="jekyll-theme">Jekyll theme</h2>
+<p>Jekyll provides a lot of beautiful theme templates, you can use them to power your website easily.<br /></p>
+
+<p>You can view the demo, download the source code and use it on your own website.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/web-jekyll-1-template.png" alt="Jekyll theme pic" /></p>
+
+<p>Now go and choose the one you like -&gt; <a href="http://jekyllthemes.org/">Jekyll theme</a>.</p>
+
+<p>In next article, I will introduce Jekyll grammar. If you have questions about this article, please add them to the comment box. I will try to answer you as promptly as I can.</p>
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box" id = "sidebar">
+		    
+				<p class = "sidebar-title">About This Article</p>
+			
+			
+				
+					<P class = "sidebar-about-content sidebar-font-big">Jekyll is a website generate/debug tool. This article introduced what Jekyll is and how to install Jekyll as a startup.</P>
+				
+				
+					<P class = "icon-link sidebar-about-content sidebar-font-medium" style = "margin-top:30px">Author: <a href="https://github.com/gangdong">david.dong</a></P>
+				
+					<P class = "icon-clock sidebar-about-content sidebar-font-medium">7 mins to read</P>
+					<P class = "icon-book-1 sidebar-about-content sidebar-font-medium">2722 words</P>
+				
+					<P class = "icon-th-list sidebar-about-content sidebar-font-medium">Key Words: Jekyll</P>
+				
+				
+				    <P class = "icon-hashtag sidebar-about-content sidebar-font-medium">Tags: 
+					
+					<a href="/category#Blog">Blog&nbsp;</a>
+					
+					</P>
+				
+			
+		</div>
+		
+		
+	    <div class="sidebar-toc-box">
+			
+			<p class = "sidebar-title">Table of Contents</p>
+			<span class = "sidebar-font-medium sidebar-toc-content"><ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#jekyll">Jekyll</a></li>
+<li class="toc-entry toc-h2"><a href="#installation">Installation</a></li>
+<li class="toc-entry toc-h2"><a href="#jekyll-theme">Jekyll theme</a></li>
+</ul></span>
+			
+		</div>
+		
+	</div>
+	 
+</div>
+<!-- no sidebar, use flex width box! -->
+<br>
+<div class="post-container">
+    <!-- post categories box! here  -->
+    
+   <div class="post-categories-meta">
+		<div class="post-categories-box post-categories-box-hide"><a href="/category#Blog">Blog</a></div>
+	</div>
+  
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">Share:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+	
+		<span class = "icon-eye tooltip"><p class = "tooltiptext" style = "left:0%; margin-left: 0px">Viewers</p><span id="busuanzi_value_page_pv"></span></span>
+		
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">You may also like</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/blog/github/web/2021/05/04/Blog-github-action.html">CI platform migration: from Travis CI to GitHub Actions</a></li>
+			
+			<li><a href="/blog/web/2021/04/10/Blog-speeding-up-loadtime.html">Speeding up my blog loadtime</a></li>
+			
+			<li><a href="/blog/2021/03/08/Web-gitalk-fixing.html">A quick way to fix the Gitalk Error: Validation Failed</a></li>
+			
+			<li><a href="/blog/github/2020/04/01/Blog-travisci.html">Use Travis CI to build and deploy project automatically on Github</a></li>
+			
+			<li><a href="/blog/2019/03/20/Blog-mathjax.html">Display mathematics formula in blog with MathJax</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">further reading</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta"><div class="navigation-bar">
+	 
+	 <a href="/blog/github/2018/03/23/Github-github-blog.html"><span>Previous Post</span><br>How to build your personal blog on Github Pages</a>
+	 
+    </div><div class="navigation-bar"> 
+	 
+     <a href="/blog/2018/04/13/Web-jekyll-grammar.html"><span>Next Post</span><br>Getting started with Jekyll (2)</a>
+	 
+    </div></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'gangdong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9&domready=1"></script>
+
+
+<!-- sidebar button, toggle display/hide sidebar -->
+<script type="text/javascript">
+        $('.btn').on('click',function(){
+            $('.btn').toggleClass('btnc');
+            $('.sidebar-container').toggleClass('sidebar-container-hide');
+        })
+</script>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=G-3MXGF3F8QN"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-3MXGF3F8QN');
+	</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></body>
+</html>

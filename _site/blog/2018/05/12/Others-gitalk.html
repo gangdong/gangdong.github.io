@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Gitalk Usage | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Gitalk Usage" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This article introduced how to use Gitalk on the blog, it is useful to someone who wants to add a comment function into the blog." />
+<meta property="og:description" content="This article introduced how to use Gitalk on the blog, it is useful to someone who wants to add a comment function into the blog." />
+<link rel="canonical" href="http://localhost:4000/blog/2018/05/12/Others-gitalk.html" />
+<meta property="og:url" content="http://localhost:4000/blog/2018/05/12/Others-gitalk.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-05-12T12:22:01+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Gitalk Usage" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"david.dong"},"dateModified":"2018-05-12T12:22:01+08:00","datePublished":"2018-05-12T12:22:01+08:00","description":"This article introduced how to use Gitalk on the blog, it is useful to someone who wants to add a comment function into the blog.","headline":"Gitalk Usage","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/blog/2018/05/12/Others-gitalk.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/logo.png"},"name":"david.dong"},"url":"http://localhost:4000/blog/2018/05/12/Others-gitalk.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+<meta property="article:tag" content="Blog">
+
+
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
+
+</head><body>
+    <main class="container">
+      <section class="about condensed">
+	    <div class="about-header condensed">
+			<div class="about-title">
+				<a href="/blog/index.html">
+				  <img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/avatar-11.png" alt="David Dong"/>
+				</a>
+				<div class = "title-meta">
+					<h2 id="title">
+					  <a href="/blog/index.html">David Dong</a>
+					</h2>
+					<p class = "tagline-small">Java/C/C#/Python</p>
+				</div>
+			</div>
+			<p class="tagline">Java/C/C#/Python</p>
+		</div>
+		<!--put dark mode button here -->
+		<div class = "about-footer condensed">
+		  <!--put rss/code link here -->
+			<div class="icon-box-container about-footer condensed"><div class = "icon-box" style = "padding-right:0px">
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id = "mode">Dark Mode</span>
+					</a>
+				</div>
+				<!-- toggle dark/light display mode, should loading darkmode.js here for avoiding flicker when switching -->
+				<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/darkmode.js"></script>
+				<script type="text/javascript">
+				$('.dark-mode').on('click',function(){
+					$('.dark-mode').toggleClass('light-mode');
+					if (document.getElementById("mode").innerHTML=="Light Mode")
+						document.getElementById("mode").innerHTML="Dark Mode";
+					else 
+						document.getElementById("mode").innerHTML="Light Mode";
+				})
+				</script><div class = "icon-box">
+					<a class="icon-rss" href="/rss.xml">
+						<span>Subscribe</span>
+					</a>
+				</div><div class = "icon-box">
+					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
+						<span>Source Code</span>
+					</a>
+				</div></div>
+		</div>
+		
+	    <!--show contact me -->
+		<div class = "about-footer condensed social-container">
+	    <p class = "contact about-footer condensed">CONTACT ME</p>
+		<!-- put social link here -->
+	      <ul class="social about-footer condensed" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		<!--put timestamp here -->
+		<p class ="timestamp about-footer condensed">&copy; 2024</p>
+		</div>
+	  <!-- about box end here -->
+      </section>
+	  
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+<div class="post-container">
+	<div  class = "menu-meta condensed">
+		<!--put top menu here, display @ big screen (> $mobileW) -->
+		<div  class = "menu-logo">BLOG</div>
+		<div  class = "menu">
+			<a href="/blog/index.html">
+				<li class="icon-home">Home</li>
+			</a><a href="/archive">
+				<li class="icon-archive">Archives</li>
+			</a><a href="/category">
+				<li class="icon-tags">Categories</li>
+			</a><a href="/about">
+				<li class="icon-help-circled">About</li>
+			</a>
+		</div>
+		<!--put hide menu button here, display @ small screen (< $mobileW) -->
+		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
+		<!--put hide menu here, display @ small screen (< $mobileW) -->
+		<div class="context-menu">
+			<ul >
+				<li>
+					<a class="icon-home" href="/blog/index.html">Home</a>
+				</li><li>
+					<a class="icon-archive" href="/archive">Archives</a>
+				</li><li>
+					<a class="icon-tags" href="/category">Categories</a>
+				</li><li>
+					<a class="icon-help-circled" href="/about">About</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('.menu-btn').on('click',function(e){
+		
+	e.stopPropagation();
+	var tag = $('.context-menu');		
+	$(tag).toggleClass('context-menu-show');
+			
+	var flag = true;
+	/* hide the context-menu when other element is clicked */
+	$(document).bind('click',function(e){
+		var target = $(e.target);
+		if(target.closest(tag).length == 0 && flag == true){
+			$(tag).toggleClass('context-menu-show');
+			flag = false;
+		}
+	});
+})
+</script><div class="post-container" style = "margin-bottom:1rem">
+	<div class="posts-labelgroup" id="posts-labelgroup">
+		<h1 id="posts-label">POST</h1>
+	</div>  
+	<!-- post title -->
+	<h2 class="post-title-body">Gitalk Usage</h2>
+	<div class="post-meta">
+		<div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">May 12, 2018</div>
+		
+		<!-- sidebar button for displaying/hiding sidebar -->
+		<div class = "sidebar-btn-box"><a class="btn"></a></div>
+		
+	</div>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+<div class="post-viewer-container">
+	<div class="post post-fix-width">
+		<p>If you are looking for a quick solution about how to add a comment function on your blog, this article probably can help you.</p>
+
+<p>I have been trying to add a comment function under my blog for the past few days. My blog was built on Github by Jekyll, Jekyll is just a tool for generating static web pages, and does not provide database support, which means, I need help with the third-party software tool. <br /></p>
+
+<p>Of course, <code class="language-plaintext highlighter-rouge">disqus</code> is the first choice that you can think out however it is not a good option for china users for some known reasons. After reviewed some popular third-party tools, I decided to use <code class="language-plaintext highlighter-rouge">Gitalk</code> to construct my comment function.</p>
+
+<p>Remember <em>Github is all-powerful, you can find everything on it</em>. I found Gitalk on Github. Gitalk is a comment component based on the Github issue and preact. Actually, it is a Github project, designed for Github users and easy to be applied on the Github pages. Gitalk stores the comments into your repository issues and doesn’t need any extra database.<br /></p>
+
+<p>The official Github page link of Gitalk is <a href="https://Github.com/gitalk/gitalk#install">Here</a>. <br /></p>
+
+<p>It is amazingly easy to use and no need for database support in the background. Moreover, it can support multiple languages includes Chinese.</p>
+
+<p>The installation is simple, just need to refer to the below procedure.</p>
+
+<ol>
+  <li>Register a Github application, as a Github application you need to get authorization before using it. The path to open the OAuth Apps page is
+    <ul>
+      <li>Github homepage-&gt;Settings-&gt;Developer Settings-&gt;OAuth Apps.<br /></li>
+    </ul>
+  </li>
+  <li><br /></li>
+</ol>
+
+<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/others-gitalk-oauth-apps.png" alt="oAuth Apps" class="center-image" /></p>
+
+<p>You must specify the website domain URL in the Authorization callback URL field.
+After registration, you will get a <code class="language-plaintext highlighter-rouge">Client ID</code> and <code class="language-plaintext highlighter-rouge">Client Secret</code>, remember these two numbers, you will need to fill them in the following step.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/others-gitalk-oauth-apps-clientID.png" alt="oAuth Apps" class="center-image" /></p>
+
+<p>Please note, the user number is zero at this moment when you haven’t authenticated the application. You need to do it later.
+Now you have registered Github application for Gitalk. <br /></p>
+
+<p>Next, copy the below code snippet into the page where you want to use Gitalk or add it to the post’s page, it depends on your website’s structure. <br /></p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/others-gitalk-code.png" alt="code" class="center-image" /></p>
+
+<p>Below are the setting options.<br /></p>
+
+<hr />
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">clientID</code> - Github Application Client ID. <br />
+ <strong>type:</strong> String. <br />
+  <strong>Required.</strong> <br /></li>
+  <li><code class="language-plaintext highlighter-rouge">clientSecret</code> -  Github Application Client Secret.<br />
+  <strong>type:</strong> String <br />
+  <strong>Required.</strong> <br /></li>
+  <li><code class="language-plaintext highlighter-rouge">repo</code> - Github repository. <br />
+ <strong>type:</strong> String <br />
+  <strong>Required.</strong> <br /></li>
+  <li><code class="language-plaintext highlighter-rouge">owner</code> - Github repository owner. Can be personal user or organization.<br />
+ <strong>type:</strong> String <br />
+  <strong>Required.</strong> <br /></li>
+  <li><code class="language-plaintext highlighter-rouge">admin</code> - Github repository owner and collaborators. (Users who having write access to this repository)<br />
+ <strong>type:</strong> Array <br />
+  <strong>Required.</strong> <br /></li>
+  <li><code class="language-plaintext highlighter-rouge">id</code> - The unique id of the page. Length must <code class="language-plaintext highlighter-rouge">less than 50</code>.    <br />
+<strong>type:</strong> String <br />
+<strong>Default:</strong> location.href.<br /></li>
+  <li><code class="language-plaintext highlighter-rouge">number</code> - The issue ID of the page, if the number attribute is not defined, issue will be located using id.<br />
+<strong>type:</strong> Number <br />
+<strong>Default:</strong> -1. <br /></li>
+  <li><code class="language-plaintext highlighter-rouge">labels</code> - Github issue labels. Array<br />
+<strong>type:</strong> Array <br />
+<strong>Default:</strong> [‘Gitalk’].<br /></li>
+  <li><code class="language-plaintext highlighter-rouge">title</code> - Github issue title.<br />
+<strong>type:</strong> String <br />
+<strong>Default:</strong> document.title.<br /></li>
+  <li><code class="language-plaintext highlighter-rouge">body</code> - Github issue body. <br />
+<strong>type:</strong> String <br />
+<strong>Default:</strong> location.href + header.meta[description].<br /></li>
+  <li><code class="language-plaintext highlighter-rouge">language</code> - Localization language key, en, zh-CN and zh-TW are currently available.<br />
+<strong>type:</strong> String <br />
+<strong>Default:</strong> navigator.language || navigator.userLanguage.<br /></li>
+  <li><code class="language-plaintext highlighter-rouge">perPage</code> - Pagination size, with maximum 100.<br />
+<strong>type:</strong> Number <br />
+<strong>Default:</strong> 10. <br /></li>
+  <li><code class="language-plaintext highlighter-rouge">distractionFreeMode</code> - Facebook-like distraction free mode. Boolean<br />
+<strong>type:</strong> Boolean <br />
+<strong>Default:</strong> false.<br /></li>
+  <li><code class="language-plaintext highlighter-rouge">pagerDirection</code> - Comment sorting direction, available values are last and first.<br />
+<strong>type:</strong> String <br />
+<strong>Default:</strong> ‘last’ <br /></li>
+  <li><code class="language-plaintext highlighter-rouge">createIssueManually</code> - By default, Gitalk will create a corresponding Github issue for your every single page automatically when the logined user is belong to the admin users. You can create it manually by setting this option to true.<br />
+<strong>type:</strong> Boolean <br />
+<strong>Default:</strong> false.<br /></li>
+  <li><code class="language-plaintext highlighter-rouge">proxy</code> - Github oauth request reverse proxy for CORS. Why need this? <br />
+<strong>type:</strong> String <br />
+<strong>Default:</strong> <a href="https://cors-anywhere.herokuapp.com/">https://cors-anywhere.herokuapp.com/</a> <a href="https://Github.com/login/oauth/access_token">https://github.com/login/oauth/access_token</a>.<br /></li>
+  <li><code class="language-plaintext highlighter-rouge">flipMoveOptions</code> - Comment list animation. <a href="https://github.com/joshwcomeau/react-flip-move/blob/master/documentation/enter_leave_animations.md">Reference</a><br />
+<strong>type:</strong> Object<br />
+<strong>Default:</strong></li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="p">{</span>
+      <span class="ss">staggerDelayBy: </span><span class="mi">150</span><span class="p">,</span>
+      <span class="ss">appearAnimation: </span><span class="s1">'accordionVertical'</span><span class="p">,</span>
+      <span class="ss">enterAnimation: </span><span class="s1">'accordionVertical'</span><span class="p">,</span>
+      <span class="ss">leaveAnimation: </span><span class="s1">'accordionVertical'</span><span class="p">,</span>
+<span class="p">}</span></code></pre></figure>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">enableHotKey</code> - Enable hot key (cmd|ctrl + enter) submit comment. <br />
+<strong>type:</strong> Boolean <br />
+<strong>Default:</strong> true.<br /></li>
+</ul>
+
+<p>Since Gitalk uses the repository issues to store the comments, so don’t forget to enable your repository issue function.</p>
+
+<div class="post-note info">
+  <div class="header"></div>
+  <div class="body">
+    <p>The default setting is <span>enabled</span>.
+    </p>
+  </div>
+</div>
+
+<p>For now, the Gitalk comment component has been added into your website successfully.<br />
+The appearance is like this.<br /></p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/others-gitalk-effect.png" alt="effect" /></p>
+
+<p>When first loading, you will be requested to sign in your Github account to active the comment function.<br /></p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/others-gitalk-first-loading.png" alt="firstload" class="center-image" /><br /></p>
+
+<p>Active it then you can use it now!<br />
+If you like this page or you have anything would like to share, comment below! 🙂 <br /></p>
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box" id = "sidebar">
+		    
+				<p class = "sidebar-title">About This Article</p>
+			
+			
+				
+					<P class = "sidebar-about-content sidebar-font-big">This article introduced how to use Gitalk on the blog, it is useful to someone who wants to add a comment function into the blog.</P>
+				
+				
+					<P class = "icon-link sidebar-about-content sidebar-font-medium" style = "margin-top:30px">Author: <a href="https://github.com/gangdong">david.dong</a></P>
+				
+					<P class = "icon-clock sidebar-about-content sidebar-font-medium">10 mins to read</P>
+					<P class = "icon-book-1 sidebar-about-content sidebar-font-medium">3851 words</P>
+				
+					<P class = "icon-th-list sidebar-about-content sidebar-font-medium">Key Words: Gitalk/</P>
+				
+				
+				    <P class = "icon-hashtag sidebar-about-content sidebar-font-medium">Tags: 
+					
+					<a href="/category#Blog">Blog&nbsp;</a>
+					
+					</P>
+				
+			
+		</div>
+		
+		
+	</div>
+	 
+</div>
+<!-- no sidebar, use flex width box! -->
+<br>
+<div class="post-container">
+    <!-- post categories box! here  -->
+    
+   <div class="post-categories-meta">
+		<div class="post-categories-box post-categories-box-hide"><a href="/category#Blog">Blog</a></div>
+	</div>
+  
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">Share:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+	
+		<span class = "icon-eye tooltip"><p class = "tooltiptext" style = "left:0%; margin-left: 0px">Viewers</p><span id="busuanzi_value_page_pv"></span></span>
+		
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">You may also like</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/blog/github/web/2021/05/04/Blog-github-action.html">CI platform migration: from Travis CI to GitHub Actions</a></li>
+			
+			<li><a href="/blog/web/2021/04/10/Blog-speeding-up-loadtime.html">Speeding up my blog loadtime</a></li>
+			
+			<li><a href="/blog/2021/03/08/Web-gitalk-fixing.html">A quick way to fix the Gitalk Error: Validation Failed</a></li>
+			
+			<li><a href="/blog/github/2020/04/01/Blog-travisci.html">Use Travis CI to build and deploy project automatically on Github</a></li>
+			
+			<li><a href="/blog/2019/03/20/Blog-mathjax.html">Display mathematics formula in blog with MathJax</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">further reading</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta"><div class="navigation-bar">
+	 
+	 <a href="/blog/2018/04/25/Others-markdown.html"><span>Previous Post</span><br>Mark一下 Markdown 语言的基本语法</a>
+	 
+    </div><div class="navigation-bar"> 
+	 
+     <a href="/blog/2018/06/28/Web-jekyll-pagination.html"><span>Next Post</span><br>Pagination in Jekyll</a>
+	 
+    </div></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'gangdong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9&domready=1"></script>
+
+
+<!-- sidebar button, toggle display/hide sidebar -->
+<script type="text/javascript">
+        $('.btn').on('click',function(){
+            $('.btn').toggleClass('btnc');
+            $('.sidebar-container').toggleClass('sidebar-container-hide');
+        })
+</script>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=G-3MXGF3F8QN"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-3MXGF3F8QN');
+	</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></body>
+</html>

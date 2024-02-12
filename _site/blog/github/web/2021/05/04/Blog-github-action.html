@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>CI platform migration: from Travis CI to GitHub Actions | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="CI platform migration: from Travis CI to GitHub Actions" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="GitHub Actions provides a flexible CI function and can be a good substitute for Travis CI. This article will show how I migrate my projects from Travis CI to Github Actions." />
+<meta property="og:description" content="GitHub Actions provides a flexible CI function and can be a good substitute for Travis CI. This article will show how I migrate my projects from Travis CI to Github Actions." />
+<link rel="canonical" href="http://localhost:4000/blog/github/web/2021/05/04/Blog-github-action.html" />
+<meta property="og:url" content="http://localhost:4000/blog/github/web/2021/05/04/Blog-github-action.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-05-04T20:14:11+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="CI platform migration: from Travis CI to GitHub Actions" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"david.dong"},"dateModified":"2021-05-04T20:14:11+08:00","datePublished":"2021-05-04T20:14:11+08:00","description":"GitHub Actions provides a flexible CI function and can be a good substitute for Travis CI. This article will show how I migrate my projects from Travis CI to Github Actions.","headline":"CI platform migration: from Travis CI to GitHub Actions","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/blog/github/web/2021/05/04/Blog-github-action.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/logo.png"},"name":"david.dong"},"url":"http://localhost:4000/blog/github/web/2021/05/04/Blog-github-action.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+<meta property="article:tag" content="Blog">
+
+<meta property="article:tag" content="Github">
+
+<meta property="article:tag" content="Web">
+
+
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
+
+</head><body>
+    <main class="container">
+      <section class="about condensed">
+	    <div class="about-header condensed">
+			<div class="about-title">
+				<a href="/blog/index.html">
+				  <img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/avatar-11.png" alt="David Dong"/>
+				</a>
+				<div class = "title-meta">
+					<h2 id="title">
+					  <a href="/blog/index.html">David Dong</a>
+					</h2>
+					<p class = "tagline-small">Java/C/C#/Python</p>
+				</div>
+			</div>
+			<p class="tagline">Java/C/C#/Python</p>
+		</div>
+		<!--put dark mode button here -->
+		<div class = "about-footer condensed">
+		  <!--put rss/code link here -->
+			<div class="icon-box-container about-footer condensed"><div class = "icon-box" style = "padding-right:0px">
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id = "mode">Dark Mode</span>
+					</a>
+				</div>
+				<!-- toggle dark/light display mode, should loading darkmode.js here for avoiding flicker when switching -->
+				<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/darkmode.js"></script>
+				<script type="text/javascript">
+				$('.dark-mode').on('click',function(){
+					$('.dark-mode').toggleClass('light-mode');
+					if (document.getElementById("mode").innerHTML=="Light Mode")
+						document.getElementById("mode").innerHTML="Dark Mode";
+					else 
+						document.getElementById("mode").innerHTML="Light Mode";
+				})
+				</script><div class = "icon-box">
+					<a class="icon-rss" href="/rss.xml">
+						<span>Subscribe</span>
+					</a>
+				</div><div class = "icon-box">
+					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
+						<span>Source Code</span>
+					</a>
+				</div></div>
+		</div>
+		
+	    <!--show contact me -->
+		<div class = "about-footer condensed social-container">
+	    <p class = "contact about-footer condensed">CONTACT ME</p>
+		<!-- put social link here -->
+	      <ul class="social about-footer condensed" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		<!--put timestamp here -->
+		<p class ="timestamp about-footer condensed">&copy; 2024</p>
+		</div>
+	  <!-- about box end here -->
+      </section>
+	  
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+<div class="post-container">
+	<div  class = "menu-meta condensed">
+		<!--put top menu here, display @ big screen (> $mobileW) -->
+		<div  class = "menu-logo">BLOG</div>
+		<div  class = "menu">
+			<a href="/blog/index.html">
+				<li class="icon-home">Home</li>
+			</a><a href="/archive">
+				<li class="icon-archive">Archives</li>
+			</a><a href="/category">
+				<li class="icon-tags">Categories</li>
+			</a><a href="/about">
+				<li class="icon-help-circled">About</li>
+			</a>
+		</div>
+		<!--put hide menu button here, display @ small screen (< $mobileW) -->
+		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
+		<!--put hide menu here, display @ small screen (< $mobileW) -->
+		<div class="context-menu">
+			<ul >
+				<li>
+					<a class="icon-home" href="/blog/index.html">Home</a>
+				</li><li>
+					<a class="icon-archive" href="/archive">Archives</a>
+				</li><li>
+					<a class="icon-tags" href="/category">Categories</a>
+				</li><li>
+					<a class="icon-help-circled" href="/about">About</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('.menu-btn').on('click',function(e){
+		
+	e.stopPropagation();
+	var tag = $('.context-menu');		
+	$(tag).toggleClass('context-menu-show');
+			
+	var flag = true;
+	/* hide the context-menu when other element is clicked */
+	$(document).bind('click',function(e){
+		var target = $(e.target);
+		if(target.closest(tag).length == 0 && flag == true){
+			$(tag).toggleClass('context-menu-show');
+			flag = false;
+		}
+	});
+})
+</script><div class="post-container" style = "margin-bottom:1rem">
+	<div class="posts-labelgroup" id="posts-labelgroup">
+		<h1 id="posts-label">POST</h1>
+	</div>  
+	<!-- post title -->
+	<h2 class="post-title-body">CI platform migration: from Travis CI to GitHub Actions</h2>
+	<div class="post-meta">
+		<div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">May 4, 2021</div>
+		
+		<!-- sidebar button for displaying/hiding sidebar -->
+		<div class = "sidebar-btn-box"><a class="btn"></a></div>
+		
+	</div>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+<div class="post-viewer-container">
+	<div class="post post-fix-width">
+		<p>I’ve used <a href="https://www.travis-ci.com/">Travis CI</a> to build and deploy my projects for some years. The performance of Travis CI can meet my requirements. However, recently I found Travis CI stopped working for me. ☹️</p>
+
+<h2 id="the-motivation-of-migrating">The motivation of migrating</h2>
+
+<p>The service of Travis CI provided convenience and helped me a lot with my development works during the past few years, I really appreciated it!</p>
+
+<p>Until one day a couple of weeks ago, I received the notification from Travis CI, <strong><em>“My builds have been temporarily disabled for public repositories due to a negative credit balance”</em></strong>. I realized that the time of free use is over. I need to pay for the service now.</p>
+
+<p>From the beginning, Travis CI was built to integrate with GitHub repositories and offer free open source CI. It was popular since then around the open-source developers. I think it is not only because of the powerful functionality but the free model of service. I knew Travis CI was purchased by Idera in Jan 2019. There should be some change in the pricing strategy. But when the new pricing strategy comes, I still feel a little bit frustrated.</p>
+
+<blockquote>
+  <p>A <code class="language-plaintext highlighter-rouge">Free</code> Plan, assigned automatically to every new sign up, is a Usage based plan with an unlimited amount of users which comes with a trial pool of credits to be used. Once these credits are used they are not replenished.</p>
+</blockquote>
+
+<p>The new pricing plan offers 10000 credits for users to use freely and the credits will not be replenished once they are exhausted. At least 10 credits are paid for each build, which means the users only have a limited right of using the service now. I received the notice requesting payment because I have run out of my credits. I have to pay to continue using the service.</p>
+
+<p>I checked the price of renewal, to be honest, it isn’t an attractive price. I think at least in China it isn’t.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/blog-github-action-01.PNG" alt="price" class="center-image" /></p>
+
+<p>To me, the reason for using Travis CI was because of the free model, and considering most of my projects on GitHub are non-commercial projects, I decided to abandon Travis CI and migrate my projects to another CI platform.</p>
+
+<h2 id="how-about-github-actions">How about GitHub Actions?</h2>
+
+<p>GitHub published the CI system <code class="language-plaintext highlighter-rouge">GitHub Actions</code> in 2018, which can be thought of as a good substitute for Travis CI especially for the projects hosted on GitHub.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/blog-github-action-03.PNG" alt="github actions" class="center-image" /></p>
+
+<p>There are plenty of articles in the <a href="https://docs.github.com/en/actions/quickstart">GitHub Docs</a> to teach how to write your own GitHub Actions.</p>
+<div class="post-note info">
+  <div class="header"></div>
+  	<div class="body">
+		<p>I have spent some hours reading through the below articles: 
+		  <ul>
+			<li><a href="https://docs.github.com/en/actions/quickstart">quick start</a></li>
+			<li><a href="https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions">Workflow syntax for Github Actions</a></li>
+			<li><a href="https://docs.github.com/en/actions/creating-actions">Creating Action</a></li>
+			<li><a href="https://docs.github.com/en/actions/learn-github-actions/migrating-from-travis-ci-to-github-actions">Migrating from Travis CI to GitHub Actions</a></li>
+		  </ul>
+		</p>
+  	</div>
+</div>
+<p>Travis CI and GitHub Actions are similar in terms of usage. They are all based on the <code class="language-plaintext highlighter-rouge">YAML</code> file format to write configuration files. The difference is GitHub Actions introduced the concept of the <code class="language-plaintext highlighter-rouge">job</code> in the workflows. Each job is separated into some <code class="language-plaintext highlighter-rouge">steps</code>, the step uses different actions to complete the function. So the users can set different actions according to different scenarios to reduce the complexity of development and speed up writing the configuration file.</p>
+
+<p>This will provide great flexibility, I think that’s the most special thing about GitHub Actions.</p>
+
+<p>Based on these features, many actions are developed by third-party developers for some common applications, such as grabbing code, running tests, logging on the remote server, publishing to third-party services, and so on. You can find them in the <a href="https://github.com/marketplace?type=actions">GitHub Marketplace</a>.</p>
+
+<p>If you want to start your CI, you don’t have to write complex actions by yourself. The quickest way is searching the <code class="language-plaintext highlighter-rouge">GitHub Marketplace</code> to find the actions that can fulfill the function you want and written by other contributors. You can construct the whole continuous integration process by combining actions.</p>
+
+<h2 id="migrating-to-github-actions">Migrating to GitHub Actions</h2>
+
+<p>I decided to start the migration from my blog project. As I said above, both Travis CI and GitHub Actions use the <code class="language-plaintext highlighter-rouge">YAML</code> file format to write the configuration files, so the syntax is similar. What I do was rewriting the control flow with the GitHub Actions’ syntax and replaced the environment variables used in Travis CI.</p>
+
+<p>The first thing was creating a <code class="language-plaintext highlighter-rouge">.github/workflow</code> folder in my blog’s repository then adding a YAML file.</p>
+
+<div class="post-note info">
+  <div class="header"></div>
+  	<div class="body">
+		<p>It can be done by project repository's Action tab -&gt; new workflow -&gt; setup workflow with a template.
+		</p>
+  	</div>
+</div>
+
+<p>My blog’s CI process can be set for the below parts (<em>see <a href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/.travis.yml">.travis.yml</a></em>).</p>
+
+<ol>
+  <li>Setup build environment in the virtual machine.</li>
+  <li>Access permission authentication.</li>
+  <li>Jekyll Build</li>
+  <li>Deploy to GitHub Pages</li>
+  <li>Clean up</li>
+</ol>
+
+<p>I don’t want to re-write the above procedure in GitHub Actions, I searched the GitHub Marketplace and found some <a href="https://github.com/marketplace?category=continuous-integration&amp;type=actions&amp;query=jekyll">actions</a> that can help me complete the above works.</p>
+
+<p>Because I need to do some extra works before deploying the static website files to GitHub Pages after they are generated by Jekyll. Therefore, what I want is just a build action, instead of the build &amp; deploy integrated action.</p>
+
+<p>I finally picked this action <a href="https://github.com/marketplace/actions/build-jekyll-toolbox">build-jekyll-toolbox</a> to help me build the website.</p>
+
+<p>After the build, I ported some of the deploy codes written in Travis CI to GitHub Actions. Since both of them use Linux OS on the virtual machine, the shell commands are identical, I finished it quickly. The change was to replace the <code class="language-plaintext highlighter-rouge">GH_TOKEN</code> environment variable with the <code class="language-plaintext highlighter-rouge">DEPLOY_TOKEN</code> in GitHub Actions (<em>They are the same token just with the different name</em>).</p>
+
+<p>Below is the last code in my <code class="language-plaintext highlighter-rouge">ci.yml</code> file:</p>
+
+<figure class="highlight"><pre><code class="language-yml" data-lang="yml"><span class="na">name</span><span class="pi">:</span> <span class="s">CI</span>
+
+<span class="c1"># Controls when the action will run. </span>
+<span class="na">on</span><span class="pi">:</span>
+  <span class="c1"># Triggers the workflow on push or pull request events but only for the master branch</span>
+  <span class="na">push</span><span class="pi">:</span>
+    <span class="na">branches</span><span class="pi">:</span> <span class="pi">[</span> <span class="nv">dev</span> <span class="pi">]</span>
+  <span class="na">pull_request</span><span class="pi">:</span>
+    <span class="na">branches</span><span class="pi">:</span> <span class="pi">[</span> <span class="nv">dev</span> <span class="pi">]</span>
+
+  <span class="c1"># Allows you to run this workflow manually from the Actions tab</span>
+  <span class="na">workflow_dispatch</span><span class="pi">:</span>
+
+<span class="c1"># A workflow run is made up of one or more jobs that can run sequentially or in parallel</span>
+<span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">jekyll</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">Build and deploy Jekyll site</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+
+    <span class="na">steps</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Checkout</span>
+      <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v2</span>
+
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Build</span>
+      <span class="na">uses</span><span class="pi">:</span> <span class="s">ealenn/jekyll-build-action@v1</span>
+      
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Deploy</span>
+      <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+        <span class="s">git config user.name "gangdong"</span>
+        <span class="s">git config user.email "dqdongg@hotmail.com"</span>
+        <span class="s">chmod 777 .</span>
+        <span class="s">cp -r ./_site  /tmp/</span>
+        <span class="s">cp ./_site/blog/index.html /tmp/_site/</span>
+        <span class="s">git checkout -b deploy</span>
+        <span class="s">sudo rm -rf *</span>
+        <span class="s">cp -r /tmp/_site/* ./</span>
+        <span class="s">ls -la</span>
+        <span class="s">git add -A</span>
+        <span class="s">git commit -m "github_ci update gh-pages dev -&gt; 2f3f1699 add Github Actions for build and deploy"</span>
+        <span class="s">git push --force "https://${{ secrets.DEPLOY_TOKEN }}@github.com/gangdong/gangdong.github.io.git" deploy:gh-pages</span></code></pre></figure>
+
+<h2 id="my-feeling">My feeling</h2>
+<p>With the above works, GitHub Actions started to build and deploy my blog website for me. After the trial, my immediate reflection is that GitHub Actions is fast build and simple to use.</p>
+
+<p>You can see from the above source code, I used 2 actions <code class="language-plaintext highlighter-rouge">checkout@v2</code> and <code class="language-plaintext highlighter-rouge">jekyll-build-action@v1</code> to fetch the code and build them on the virtual machine. It does simplify the writing of configuration file compare to writing them in Travis CI.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/blog-github-action-02.PNG" alt="result" class="center-image" /></p>
+
+<p>As the above screenshot showed, each step of the process is clear and the whole construction costs <code class="language-plaintext highlighter-rouge">~ 1</code> minute to complete. It is a great improvement than running in Travis CI, which took 3 ~ 4 minutes for the whole process. Although I haven’t know what caused the promotion internally yet, It did improve a lot.</p>
+
+<h2 id="badges">Badges</h2>
+<p>Like Travis CI, GitHub Actions supports status badges, which let you indicate whether a build is passing or failing.</p>
+
+<p><img src="https://github.com/gangdong/gangdong.github.io/actions/workflows/ci.yml/badge.svg?branch=dev" alt="status badge" /></p>
+
+<p>For more information, see</p>
+
+<ul>
+  <li><a href="https://docs.github.com/en/actions/managing-workflow-runs/adding-a-workflow-status-badge">Adding a workflow status badge to your repository.</a></li>
+</ul>
+
+<p>I think GitHub Actions is an alternative option if you are looking for another CI to replace Travis CI.</p>
+
+<p>Hope my practice was useful for you.</p>
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box" id = "sidebar">
+		    
+				<p class = "sidebar-title">About This Article</p>
+			
+			
+				
+					<P class = "sidebar-about-content sidebar-font-big">GitHub Actions provides a flexible CI function and can be a good substitute for Travis CI. This article will show how I migrate my projects from Travis CI to Github Actions.</P>
+				
+				
+					<P class = "icon-link sidebar-about-content sidebar-font-medium" style = "margin-top:30px">Author: <a href="https://github.com/gangdong">david.dong</a></P>
+				
+					<P class = "icon-clock sidebar-about-content sidebar-font-medium">16 mins to read</P>
+					<P class = "icon-book-1 sidebar-about-content sidebar-font-medium">6107 words</P>
+				
+					<P class = "icon-th-list sidebar-about-content sidebar-font-medium">Key Words: GitHub Actions/Travis CI</P>
+				
+				
+				    <P class = "icon-hashtag sidebar-about-content sidebar-font-medium">Tags: 
+					
+					<a href="/category#Blog">Blog&nbsp;</a>
+					
+					<a href="/category#Github">Github&nbsp;</a>
+					
+					<a href="/category#Web">Web&nbsp;</a>
+					
+					</P>
+				
+			
+		</div>
+		
+		
+	    <div class="sidebar-toc-box">
+			
+			<p class = "sidebar-title">Table of Contents</p>
+			<span class = "sidebar-font-medium sidebar-toc-content"><ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#the-motivation-of-migrating">The motivation of migrating</a></li>
+<li class="toc-entry toc-h2"><a href="#how-about-github-actions">How about GitHub Actions?</a></li>
+<li class="toc-entry toc-h2"><a href="#migrating-to-github-actions">Migrating to GitHub Actions</a></li>
+<li class="toc-entry toc-h2"><a href="#my-feeling">My feeling</a></li>
+<li class="toc-entry toc-h2"><a href="#badges">Badges</a></li>
+</ul></span>
+			
+		</div>
+		
+	</div>
+	 
+</div>
+<!-- no sidebar, use flex width box! -->
+<br>
+<div class="post-container">
+    <!-- post categories box! here  -->
+    
+   <div class="post-categories-meta">
+		<div class="post-categories-box post-categories-box-hide"><a href="/category#Blog">Blog</a><a href="/category#Github">Github</a><a href="/category#Web">Web</a></div>
+	</div>
+  
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">Share:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+	
+		<span class = "icon-eye tooltip"><p class = "tooltiptext" style = "left:0%; margin-left: 0px">Viewers</p><span id="busuanzi_value_page_pv"></span></span>
+		
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">You may also like</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/blog/web/2021/04/10/Blog-speeding-up-loadtime.html">Speeding up my blog loadtime</a></li>
+			
+			<li><a href="/blog/web/2019/02/23/Blog-Template.html">关于本博客模板使用上的一些问题</a></li>
+			
+			<li><a href="/blog/github/2020/04/01/Blog-travisci.html">Use Travis CI to build and deploy project automatically on Github</a></li>
+			
+			<li><a href="/blog/github/2018/12/29/Blog-Jekyll-toc-plugin.html">Use jekyll-toc plugin on Github Pages</a></li>
+			
+			<li><a href="/blog/github/2018/03/23/Github-github-blog.html">How to build your personal blog on Github Pages</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">further reading</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta"><div class="navigation-bar">
+	 
+	 <a href="/blog/web/2021/04/10/Blog-speeding-up-loadtime.html"><span>Previous Post</span><br>Speeding up my blog loadtime</a>
+	 
+    </div><div class="navigation-bar"> 
+	 
+     <a href="/android/linux/2021/05/09/Android-jack-issue.html"><span>Next Post</span><br>Fixing the issue: Communication error with Jack server (35) when building AOSP</a>
+	 
+    </div></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'gangdong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9&domready=1"></script>
+
+
+<!-- sidebar button, toggle display/hide sidebar -->
+<script type="text/javascript">
+        $('.btn').on('click',function(){
+            $('.btn').toggleClass('btnc');
+            $('.sidebar-container').toggleClass('sidebar-container-hide');
+        })
+</script>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=G-3MXGF3F8QN"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-3MXGF3F8QN');
+	</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></body>
+</html>

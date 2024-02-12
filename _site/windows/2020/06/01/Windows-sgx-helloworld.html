@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>HelloWorld: my first SGX application | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="HelloWorld: my first SGX application" />
+<meta name="author" content="David Dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A simple sample code to get started with the SGX application development." />
+<meta property="og:description" content="A simple sample code to get started with the SGX application development." />
+<link rel="canonical" href="http://localhost:4000/windows/2020/06/01/Windows-sgx-helloworld.html" />
+<meta property="og:url" content="http://localhost:4000/windows/2020/06/01/Windows-sgx-helloworld.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-06-01T22:04:51+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="HelloWorld: my first SGX application" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"David Dong"},"dateModified":"2020-06-01T22:04:51+08:00","datePublished":"2020-06-01T22:04:51+08:00","description":"A simple sample code to get started with the SGX application development.","headline":"HelloWorld: my first SGX application","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/windows/2020/06/01/Windows-sgx-helloworld.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/logo.png"},"name":"David Dong"},"url":"http://localhost:4000/windows/2020/06/01/Windows-sgx-helloworld.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+<meta property="article:tag" content="Windows">
+
+
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
+
+</head><body>
+    <main class="container">
+      <section class="about condensed">
+	    <div class="about-header condensed">
+			<div class="about-title">
+				<a href="/blog/index.html">
+				  <img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/avatar-11.png" alt="David Dong">
+				</a>
+				<div class="title-meta">
+					<h2 id="title">
+					  <a href="/blog/index.html">David Dong</a>
+					</h2>
+					<p class="tagline-small">Java/C/C#/Python</p>
+				</div>
+			</div>
+			<p class="tagline">Java/C/C#/Python</p>
+		</div>
+		<!--put dark mode button here -->
+		<div class="about-footer condensed">
+		  <!--put rss/code link here -->
+			<div class="icon-box-container about-footer condensed">
+<div class="icon-box" style="padding-right:0px">
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id="mode">Dark Mode</span>
+					</a>
+				</div>
+				<!-- toggle dark/light display mode, should loading darkmode.js here for avoiding flicker when switching -->
+				<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/darkmode.js"></script>
+				<script type="text/javascript">
+				$('.dark-mode').on('click',function(){
+					$('.dark-mode').toggleClass('light-mode');
+					if (document.getElementById("mode").innerHTML=="Light Mode")
+						document.getElementById("mode").innerHTML="Dark Mode";
+					else 
+						document.getElementById("mode").innerHTML="Light Mode";
+				})
+				</script><div class="icon-box">
+					<a class="icon-rss" href="/rss.xml">
+						<span>Subscribe</span>
+					</a>
+				</div>
+<div class="icon-box">
+					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
+						<span>Source Code</span>
+					</a>
+				</div>
+</div>
+		</div>
+		
+	    <!--show contact me -->
+		<div class="about-footer condensed social-container">
+	    <p class="contact about-footer condensed">CONTACT ME</p>
+		<!-- put social link here -->
+	      <ul class="social about-footer condensed">
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/%E5%88%9A-%E8%91%A3-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style="font-size: 27px"></i>
+              </li>
+            </a>
+</ul>
+		<!--put timestamp here -->
+		<p class="timestamp about-footer condensed">© 2024</p>
+		</div>
+	  <!-- about box end here -->
+      </section>
+	  
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+<div class="post-container">
+	<div class="menu-meta condensed">
+		<!--put top menu here, display @ big screen (> $mobileW) -->
+		<div class="menu-logo">BLOG</div>
+		<div class="menu">
+			<a href="/blog/index.html">
+				<li class="icon-home">Home</li>
+			</a><a href="/archive">
+				<li class="icon-archive">Archives</li>
+			</a><a href="/category">
+				<li class="icon-tags">Categories</li>
+			</a><a href="/about">
+				<li class="icon-help-circled">About</li>
+			</a>
+		</div>
+		<!--put hide menu button here, display @ small screen (< $mobileW) -->
+		<div class="menu-btn-box"><a class="menu-btn"></a></div>
+		<!--put hide menu here, display @ small screen (< $mobileW) -->
+		<div class="context-menu">
+			<ul>
+				<li>
+					<a class="icon-home" href="/blog/index.html">Home</a>
+				</li>
+<li>
+					<a class="icon-archive" href="/archive">Archives</a>
+				</li>
+<li>
+					<a class="icon-tags" href="/category">Categories</a>
+				</li>
+<li>
+					<a class="icon-help-circled" href="/about">About</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('.menu-btn').on('click',function(e){
+		
+	e.stopPropagation();
+	var tag = $('.context-menu');		
+	$(tag).toggleClass('context-menu-show');
+			
+	var flag = true;
+	/* hide the context-menu when other element is clicked */
+	$(document).bind('click',function(e){
+		var target = $(e.target);
+		if(target.closest(tag).length == 0 && flag == true){
+			$(tag).toggleClass('context-menu-show');
+			flag = false;
+		}
+	});
+})
+</script><div class="post-container" style="margin-bottom:1rem">
+	<div class="posts-labelgroup" id="posts-labelgroup">
+		<h1 id="posts-label">POST</h1>
+	</div>  
+	<!-- post title -->
+	<h2 class="post-title-body">HelloWorld: my first SGX application</h2>
+	<div class="post-meta">
+		<div class="post-date icon-calendar" style="padding-left:0px;font-size:14px">Jun 1, 2020</div>
+		
+	</div>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+<div class="post-viewer-container">
+	<div class="post post-fix-width">
+		<p>A simple sample code to get started with the SGX application development.</p>
+
+<ol>
+  <li>New create VC++ <code class="language-plaintext highlighter-rouge">Win32 Console Application</code>.
+<img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/others-sgx-start-01.PNG" alt="project" class="center-image">
+The project name is <code class="language-plaintext highlighter-rouge">HelloWorld</code>.</li>
+  <li>Create new VC++ <code class="language-plaintext highlighter-rouge">Intel SGX Enclave project</code>.
+<img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/others-sgx-11.PNG" alt="psw" class="center-image">
+Use default project name <code class="language-plaintext highlighter-rouge">Enclave1</code>.</li>
+  <li>Edit <code class="language-plaintext highlighter-rouge">Enclave1.edl</code> file with below code.
+<img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/others-sgx-start-02.PNG" alt="project" class="center-image">
+This piece of code declares the <code class="language-plaintext highlighter-rouge">foo()</code> method as a trusted method and executes at trusted zone.</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">enclave</span> <span class="p">{</span>
+    <span class="n">from</span> <span class="s2">"sgx_tstdc.edl"</span> <span class="n">import</span> <span class="o">*</span><span class="p">;</span>
+
+    <span class="n">trusted</span> <span class="p">{</span>
+        <span class="sr">/* define ECALLs here. */</span>
+		<span class="kp">public</span> <span class="n">void</span> <span class="n">foo</span><span class="p">([</span><span class="n">out</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">len</span><span class="p">]</span> <span class="n">char</span><span class="o">*</span> <span class="n">buf</span><span class="p">,</span><span class="n">size_t</span> <span class="n">len</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="n">untrusted</span> <span class="p">{</span>
+        <span class="sr">/* define OCALLs here. */</span>
+
+    <span class="p">};</span>
+<span class="p">};</span></code></pre></figure>
+
+<p>Edit <code class="language-plaintext highlighter-rouge">Enclave1.cpp</code>. Realize the <code class="language-plaintext highlighter-rouge">foo()</code> method.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">#include "sgx_trts.h"</span>
+<span class="c1">#include "Enclave1_t.h"</span>
+<span class="c1">#include "sgx_trts.h"</span>
+<span class="c1">#include &lt;string.h&gt;</span>
+<span class="n">void</span> <span class="n">foo</span><span class="p">(</span><span class="n">char</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">len</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">secret</span> <span class="o">=</span> <span class="s2">"Hello App!"</span><span class="p">;</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">len</span> <span class="o">&gt;</span> <span class="n">strlen</span><span class="p">(</span><span class="n">secret</span><span class="p">))</span>
+	<span class="p">{</span>
+		<span class="n">memcpy</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">secret</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">secret</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<ol>
+  <li>Set the <code class="language-plaintext highlighter-rouge">Enclave1</code> project configuration as below.
+<img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/others-sgx-start-03.PNG" alt="project" class="center-image">
+</li>
+  <li>Build the <code class="language-plaintext highlighter-rouge">Enclave1</code> project.
+<img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/others-sgx-start-04.PNG" alt="project" class="center-image">
+Above result shows the <code class="language-plaintext highlighter-rouge">Enclave1</code> project has been build successfully. Next I need to add it into the <code class="language-plaintext highlighter-rouge">HelloWorld</code> project and call the <code class="language-plaintext highlighter-rouge">foo()</code> methods.</li>
+  <li>Edit the <code class="language-plaintext highlighter-rouge">main()</code> method of <code class="language-plaintext highlighter-rouge">HelloWorld.cpp</code> file.</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">#include "stdafx.h"</span>
+<span class="c1">#include &lt;stdio.h&gt;</span>
+<span class="c1">#include &lt;tchar.h&gt;</span>
+<span class="c1">#include "sgx_urts.h"</span>
+<span class="c1">#include &lt;string.h&gt;</span>
+<span class="c1">#include "Enclave1_u.h"</span>
+<span class="c1">#define ENCLAVE_FILE _T("Enclave1.signed.dll")</span>
+<span class="c1">#define MAX_BUF_LEN 100</span>
+<span class="n">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="n">sgx_enclave_id_t</span>	<span class="n">eid</span><span class="p">;</span>
+	<span class="n">sgx_status_t</span>		<span class="n">ret</span> <span class="o">=</span> <span class="no">SGX_SUCCESS</span><span class="p">;</span>
+	<span class="n">sgx_launch_token_t</span>	<span class="n">token</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span>
+	<span class="n">int</span> <span class="n">updated</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="n">char</span> <span class="n">buffer</span><span class="p">[</span><span class="no">MAX_BUF_LEN</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Hello World!"</span><span class="p">;</span>
+	<span class="sr">//</span><span class="n">create</span> <span class="n">a</span> <span class="n">enclave</span> <span class="n">container</span>
+	<span class="n">ret</span> <span class="o">=</span> <span class="n">sgx_create_enclave</span><span class="p">(</span><span class="no">ENCLAVE_FILE</span><span class="p">,</span> <span class="no">SGX_DEBUG_FLAG</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">token</span><span class="p">,</span> 
+    <span class="o">&amp;</span><span class="n">updated</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">eid</span><span class="p">,</span> <span class="no">NULL</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">!=</span> <span class="no">SGX_SUCCESS</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="nb">printf</span><span class="p">(</span><span class="s2">"APP:error %#x ,failed to create enclave .</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">ret</span><span class="p">);</span>
+		<span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="sr">//</span><span class="no">Enclave</span> <span class="no">CALL</span><span class="p">(</span><span class="no">ECALL</span><span class="p">)</span> 
+	<span class="n">foo</span><span class="p">(</span><span class="n">eid</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="no">MAX_BUF_LEN</span><span class="p">);</span>
+	<span class="nb">printf</span><span class="p">(</span><span class="s2">"%s</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">buffer</span><span class="p">);</span>
+	<span class="n">getchar</span><span class="p">();</span>
+	<span class="sr">//</span><span class="n">distory</span> <span class="n">enclave</span> <span class="n">container</span>
+	<span class="k">if</span> <span class="p">(</span><span class="no">SGX_SUCCESS</span> <span class="o">!=</span> <span class="n">sgx_destroy_enclave</span><span class="p">(</span><span class="n">eid</span><span class="p">))</span>
+		<span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+	<span class="nb">system</span><span class="p">(</span><span class="s2">"pause"</span><span class="p">);</span>
+	<span class="n">getchar</span><span class="p">();</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<ol>
+  <li>Set the <code class="language-plaintext highlighter-rouge">HelloWorld</code> project configuration.
+<img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/others-sgx-start-06.PNG" alt="project" class="center-image">
+</li>
+  <li>Add the <code class="language-plaintext highlighter-rouge">Enclave1</code> project into the <code class="language-plaintext highlighter-rouge">HelloWorld</code> project.
+Right click ‘Solution HelloWorld’ -&gt; add -&gt; existing project and select <code class="language-plaintext highlighter-rouge">Enclave1</code> project. Now there are two projects under the ‘Solution HelloWorld’.
+<img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/others-sgx-start-15.PNG" alt="project" class="center-image">
+right click <code class="language-plaintext highlighter-rouge">HelloWorld</code> project -&gt; Intel SGX Configuration -&gt; Import Enclave
+<img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/others-sgx-start-07.PNG" alt="project" class="center-image">
+Select <code class="language-plaintext highlighter-rouge">Enclave1.edl</code>.
+<img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/others-sgx-start-08.PNG" alt="project" class="center-image"><br class="center-image">
+The <code class="language-plaintext highlighter-rouge">Enclave1.edl</code> file will be envoloved into the source of <code class="language-plaintext highlighter-rouge">HelloWorld</code> project.
+<img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/others-sgx-start-09.PNG" alt="project" class="center-image">
+</li>
+  <li>Since the <code class="language-plaintext highlighter-rouge">HelloWorld</code> project is the main project, I need to add the dependency of <code class="language-plaintext highlighter-rouge">Enclave1</code> project.
+Set the main project.
+<img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/others-sgx-start-10.PNG" alt="project" class="center-image">
+Set the dependency.
+<img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/others-sgx-start-11.PNG" alt="project" class="center-image">
+</li>
+  <li>The configuration is done!  <br>
+Build the main project and start to run.</li>
+  <li>Unfortunately, the trying is failed with the below error.
+<img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/others-sgx-start-12.PNG" alt="project" class="center-image">
+That is because my CPU cannot support SGX at present. I have to change the running mode to Simulation.
+<img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/others-sgx-start-13.PNG" alt="project" class="center-image">
+I got below result, which means my first app was runing well.<img class="emoji" title=":v:" alt=":v:" src="https://github.githubassets.com/images/icons/emoji/unicode/270c.png" height="20" width="20"><br>
+<img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/others-sgx-start-14.PNG" alt="project" class="center-image">
+</li>
+</ol>
+
+	</div>
+	<!-- put sidebar! -->
+	
+</div>
+<!-- no sidebar, use flex width box! -->
+<br>
+<div class="post-container">
+    <!-- post categories box! here  -->
+    
+   <div class="post-categories-meta">
+		<div class="post-categories-box post-categories-box-hide"><a href="/category#Windows">Windows</a></div>
+	</div>
+  
+  
+  <div class="share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style="padding: 2px">Share:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class="post-view">
+	
+		<span class="icon-eye tooltip"><p class="tooltiptext" style="left:0%; margin-left: 0px">Viewers</p>
+<span id="busuanzi_value_page_pv"></span></span>
+		
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">You may also like</h1>
+		
+	  <div class="related-posts-box">
+		<ul>
+			
+			<li><a href="/windows/2022/06/18/Windows-message-handler.html">Windows 消息处理机制</a></li>
+			
+			<li><a href="/security/windows/2020/07/23/Security-signature-02.html">利用 Microsoft WDK 工具生成数字签名</a></li>
+			
+			<li><a href="/windows/2020/07/09/Windows-inf2cat.html">Inf2Cat 工具</a></li>
+			
+			<li><a href="/c++/fingerprint/windows/2020/06/13/Cpp-wbdi-03.html">Fingerprint driver development in Windows(3)</a></li>
+			
+			<li><a href="/c++/fingerprint/windows/2020/06/10/Cpp-wbdi-02.html">Fingerprint driver development in Windows(2)</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">further reading</h1>
+  
+  <div class="separator"></div>
+  <div class="navigation-meta">
+<div class="navigation-bar">
+	 
+	 <a href="/windows/2020/05/31/Windows-sgx.html"><span>Previous Post</span><br>Configure Intel SGX on Win10</a>
+	 
+    </div>
+<div class="navigation-bar"> 
+	 
+     <a href="/windows/2020/06/04/Windows-traceview.html"><span>Next Post</span><br>Use TraceView to trace windows driver log</a>
+	 
+    </div>
+</div>
+<br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'gangdong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br><br><br><div class="footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9&amp;domready=1"></script>
+
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=G-3MXGF3F8QN"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-3MXGF3F8QN');
+	</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></body>
+</html>

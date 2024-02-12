@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>C# 的 IntPtr 类型 | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="C# 的 IntPtr 类型" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="C# 中的 Intptr 类型的学习。" />
+<meta property="og:description" content="C# 中的 Intptr 类型的学习。" />
+<link rel="canonical" href="http://localhost:4000/c%23/2021/12/10/Csharp-Intptr.html" />
+<meta property="og:url" content="http://localhost:4000/c%23/2021/12/10/Csharp-Intptr.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-12-10T20:29:33+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="C# 的 IntPtr 类型" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"david.dong"},"dateModified":"2021-12-10T20:29:33+08:00","datePublished":"2021-12-10T20:29:33+08:00","description":"C# 中的 Intptr 类型的学习。","headline":"C# 的 IntPtr 类型","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/c%23/2021/12/10/Csharp-Intptr.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/logo.png"},"name":"david.dong"},"url":"http://localhost:4000/c%23/2021/12/10/Csharp-Intptr.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+<meta property="article:tag" content="C#">
+
+
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
+
+</head><body>
+    <main class="container">
+      <section class="about condensed">
+	    <div class="about-header condensed">
+			<div class="about-title">
+				<a href="/blog/index.html">
+				  <img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/avatar-11.png" alt="David Dong"/>
+				</a>
+				<div class = "title-meta">
+					<h2 id="title">
+					  <a href="/blog/index.html">David Dong</a>
+					</h2>
+					<p class = "tagline-small">Java/C/C#/Python</p>
+				</div>
+			</div>
+			<p class="tagline">Java/C/C#/Python</p>
+		</div>
+		<!--put dark mode button here -->
+		<div class = "about-footer condensed">
+		  <!--put rss/code link here -->
+			<div class="icon-box-container about-footer condensed"><div class = "icon-box" style = "padding-right:0px">
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id = "mode">Dark Mode</span>
+					</a>
+				</div>
+				<!-- toggle dark/light display mode, should loading darkmode.js here for avoiding flicker when switching -->
+				<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/darkmode.js"></script>
+				<script type="text/javascript">
+				$('.dark-mode').on('click',function(){
+					$('.dark-mode').toggleClass('light-mode');
+					if (document.getElementById("mode").innerHTML=="Light Mode")
+						document.getElementById("mode").innerHTML="Dark Mode";
+					else 
+						document.getElementById("mode").innerHTML="Light Mode";
+				})
+				</script><div class = "icon-box">
+					<a class="icon-rss" href="/rss.xml">
+						<span>Subscribe</span>
+					</a>
+				</div><div class = "icon-box">
+					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
+						<span>Source Code</span>
+					</a>
+				</div></div>
+		</div>
+		
+	    <!--show contact me -->
+		<div class = "about-footer condensed social-container">
+	    <p class = "contact about-footer condensed">CONTACT ME</p>
+		<!-- put social link here -->
+	      <ul class="social about-footer condensed" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		<!--put timestamp here -->
+		<p class ="timestamp about-footer condensed">&copy; 2024</p>
+		</div>
+	  <!-- about box end here -->
+      </section>
+	  
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+<div class="post-container">
+	<div  class = "menu-meta condensed">
+		<!--put top menu here, display @ big screen (> $mobileW) -->
+		<div  class = "menu-logo">BLOG</div>
+		<div  class = "menu">
+			<a href="/blog/index.html">
+				<li class="icon-home">Home</li>
+			</a><a href="/archive">
+				<li class="icon-archive">Archives</li>
+			</a><a href="/category">
+				<li class="icon-tags">Categories</li>
+			</a><a href="/about">
+				<li class="icon-help-circled">About</li>
+			</a>
+		</div>
+		<!--put hide menu button here, display @ small screen (< $mobileW) -->
+		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
+		<!--put hide menu here, display @ small screen (< $mobileW) -->
+		<div class="context-menu">
+			<ul >
+				<li>
+					<a class="icon-home" href="/blog/index.html">Home</a>
+				</li><li>
+					<a class="icon-archive" href="/archive">Archives</a>
+				</li><li>
+					<a class="icon-tags" href="/category">Categories</a>
+				</li><li>
+					<a class="icon-help-circled" href="/about">About</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('.menu-btn').on('click',function(e){
+		
+	e.stopPropagation();
+	var tag = $('.context-menu');		
+	$(tag).toggleClass('context-menu-show');
+			
+	var flag = true;
+	/* hide the context-menu when other element is clicked */
+	$(document).bind('click',function(e){
+		var target = $(e.target);
+		if(target.closest(tag).length == 0 && flag == true){
+			$(tag).toggleClass('context-menu-show');
+			flag = false;
+		}
+	});
+})
+</script><div class="post-container" style = "margin-bottom:1rem">
+	<div class="posts-labelgroup" id="posts-labelgroup">
+		<h1 id="posts-label">POST</h1>
+	</div>  
+	<!-- post title -->
+	<h2 class="post-title-body">C# 的 IntPtr 类型</h2>
+	<div class="post-meta">
+		<div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">Dec 10, 2021</div>
+		
+		<!-- sidebar button for displaying/hiding sidebar -->
+		<div class = "sidebar-btn-box"><a class="btn"></a></div>
+		
+	</div>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+<div class="post-viewer-container">
+	<div class="post post-fix-width">
+		<p>C# 中，IntPtr 是一个代表内存位置指针的类型。它被用来存储一个变量或一个对象在内存中的地址。IntPtr 是一个整数类型，但它的大小与平台有关。在 32 位系统中，IntPtr 的大小为 32 比特（4字节），在 64 位系统中，它的大小为 64 比特（8字节）。</p>
+
+<p>IntPtr 通常在处理非托管代码或与其他使用指针的语言相互操作时使用。例如，如果你从动态链接库（DLL）中调用一个以指针为参数的函数，你可以使用IntPtr将一个变量的地址传递给该函数。C# 中主要用它<strong>调用 C++\C 封装的 DLL 库</strong>；</p>
+
+<p>下面主要介绍 IntPtr 的常见用法。</p>
+
+<h3 id="1-int-类型与-intptr-类型之间的转换">1 .int 类型与 IntPtr 类型之间的转换</h3>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Linq</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Runtime.InteropServices</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Text</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Threading.Tasks</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">MyIntPtr</span>
+<span class="p">{</span>
+    <span class="k">class</span> <span class="nc">Program</span>
+    <span class="p">{</span>
+        <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">nValue1</span> <span class="p">=</span> <span class="m">10</span><span class="p">;</span>
+            <span class="kt">int</span> <span class="n">nValue2</span> <span class="p">=</span> <span class="m">20</span><span class="p">;</span>
+            <span class="c1">//AllocHGlobal(int cb):通过使用指定的字节数，从进程的非托管内存中分配内存。</span>
+            <span class="n">IntPtr</span> <span class="n">ptr1</span> <span class="p">=</span> <span class="n">Marshal</span><span class="p">.</span><span class="nf">AllocHGlobal</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+            <span class="n">IntPtr</span> <span class="n">ptr2</span> <span class="p">=</span> <span class="n">Marshal</span><span class="p">.</span><span class="nf">AllocHGlobal</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+            <span class="c1">//WriteInt32(IntPtr ptr, int val):将 32 位有符号整数值写入非托管内存。</span>
+            <span class="c1">//int-&gt;IntPtr</span>
+            <span class="n">Marshal</span><span class="p">.</span><span class="nf">WriteInt32</span><span class="p">(</span><span class="n">ptr1</span><span class="p">,</span> <span class="n">nValue1</span><span class="p">);</span>
+            <span class="n">Marshal</span><span class="p">.</span><span class="nf">WriteInt32</span><span class="p">(</span><span class="n">ptr2</span><span class="p">,</span> <span class="n">nValue2</span><span class="p">);</span>
+            <span class="c1">// ReadInt32(IntPtr ptr, int ofs):从非托管内存按给定的偏移量读取一个 32 位带符号整数</span>
+            <span class="c1">//IntPtr-&gt;int</span>
+            <span class="kt">int</span> <span class="n">nVal1</span> <span class="p">=</span> <span class="n">Marshal</span><span class="p">.</span><span class="nf">ReadInt32</span><span class="p">(</span><span class="n">ptr1</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+            <span class="kt">int</span> <span class="n">nVal2</span> <span class="p">=</span> <span class="n">Marshal</span><span class="p">.</span><span class="nf">ReadInt32</span><span class="p">(</span><span class="n">ptr2</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+            <span class="c1">//FreeHGlobal(IntPtr hglobal):释放以前从进程的非托管内存中分配的内存。</span>
+            <span class="n">Marshal</span><span class="p">.</span><span class="nf">FreeHGlobal</span><span class="p">(</span><span class="n">ptr1</span><span class="p">);</span>
+            <span class="n">Marshal</span><span class="p">.</span><span class="nf">FreeHGlobal</span><span class="p">(</span><span class="n">ptr2</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="2string-类型与-intptr-之间的转换">2.string 类型与 IntPtr 之间的转换</h3>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Linq</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Runtime.InteropServices</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Text</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Threading.Tasks</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">MyIntPtr</span>
+<span class="p">{</span>
+    <span class="k">class</span> <span class="nc">Program</span>
+    <span class="p">{</span>
+        <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kt">string</span> <span class="n">str</span> <span class="p">=</span> <span class="s">"aa"</span><span class="p">;</span>
+            <span class="n">IntPtr</span> <span class="n">strPtr</span> <span class="p">=</span> <span class="n">Marshal</span><span class="p">.</span><span class="nf">StringToHGlobalAnsi</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
+            <span class="kt">string</span> <span class="n">ss</span> <span class="p">=</span> <span class="n">Marshal</span><span class="p">.</span><span class="nf">PtrToStringAnsi</span><span class="p">(</span><span class="n">strPtr</span><span class="p">);</span>
+            <span class="n">Marshal</span><span class="p">.</span><span class="nf">FreeHGlobal</span><span class="p">(</span><span class="n">strPtr</span><span class="p">);</span>  
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="3-结构体与-intptr-之间的转换">3. 结构体与 IntPtr 之间的转换</h3>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Linq</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Runtime.InteropServices</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Text</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Threading.Tasks</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">MyIntPtr</span>
+<span class="p">{</span>
+    <span class="k">class</span> <span class="nc">Program</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="k">struct</span> <span class="nc">stuInfo</span>
+        <span class="p">{</span>
+            <span class="k">public</span> <span class="kt">string</span> <span class="n">Name</span><span class="p">;</span>
+            <span class="k">public</span> <span class="kt">string</span> <span class="n">Gender</span><span class="p">;</span>
+            <span class="k">public</span> <span class="kt">int</span> <span class="n">Age</span><span class="p">;</span>
+            <span class="k">public</span> <span class="kt">int</span> <span class="n">Height</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">stuInfo</span> <span class="n">stu</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">stuInfo</span><span class="p">()</span>
+            <span class="p">{</span>
+                <span class="n">Name</span> <span class="p">=</span> <span class="s">"张三"</span><span class="p">,</span>
+                <span class="n">Gender</span> <span class="p">=</span> <span class="s">"男"</span><span class="p">,</span>
+                <span class="n">Age</span> <span class="p">=</span> <span class="m">23</span><span class="p">,</span>
+                <span class="n">Height</span> <span class="p">=</span> <span class="m">172</span><span class="p">,</span>
+            <span class="p">};</span>
+
+            <span class="c1">//获取结构体占用空间的大小</span>
+            <span class="kt">int</span> <span class="n">nSize</span> <span class="p">=</span> <span class="n">Marshal</span><span class="p">.</span><span class="nf">SizeOf</span><span class="p">(</span><span class="n">stu</span><span class="p">);</span>
+            <span class="c1">//声明一个相同大小的内存空间</span>
+            <span class="n">IntPtr</span> <span class="n">intPtr</span> <span class="p">=</span> <span class="n">Marshal</span><span class="p">.</span><span class="nf">AllocHGlobal</span><span class="p">(</span><span class="n">nSize</span><span class="p">);</span>
+            <span class="c1">//IntPtr-&gt;Struct</span>
+            <span class="n">Marshal</span><span class="p">.</span><span class="nf">StructureToPtr</span><span class="p">(</span><span class="n">stu</span><span class="p">,</span> <span class="n">intPtr</span><span class="p">,</span><span class="k">true</span><span class="p">);</span>
+            <span class="c1">//Struct-&gt;IntPtr</span>
+            <span class="n">stuInfo</span> <span class="n">Info</span> <span class="p">=(</span><span class="n">stuInfo</span><span class="p">)</span><span class="n">Marshal</span><span class="p">.</span><span class="nf">PtrToStructure</span><span class="p">(</span><span class="n">intPtr</span><span class="p">,</span> <span class="k">typeof</span><span class="p">(</span><span class="n">stuInfo</span><span class="p">));</span>
+
+            <span class="n">Console</span><span class="p">.</span><span class="nf">ReadKey</span><span class="p">();</span>
+
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="4--调用-cc-封装的-dll-库">4.  调用 C++\C 封装的 DLL 库</h3>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Copy</span> <span class="n">codeusing</span> <span class="n">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Runtime.InteropServices</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">IntPtrExample</span>
+<span class="p">{</span>
+    <span class="k">class</span> <span class="nc">Program</span>
+    <span class="p">{</span>
+        <span class="c1">// Import the DLL function that takes an IntPtr argument</span>
+        <span class="p">[</span><span class="nf">DllImport</span><span class="p">(</span><span class="s">"mylibrary.dll"</span><span class="p">)]</span>
+        <span class="k">static</span> <span class="k">extern</span> <span class="k">void</span> <span class="nf">MyFunction</span><span class="p">(</span><span class="n">IntPtr</span> <span class="n">ptr</span><span class="p">);</span>
+
+        <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// Create an integer variable</span>
+            <span class="kt">int</span> <span class="n">x</span> <span class="p">=</span> <span class="m">10</span><span class="p">;</span>
+
+            <span class="c1">// Allocate memory for the variable and get a pointer to it</span>
+            <span class="n">IntPtr</span> <span class="n">ptr</span> <span class="p">=</span> <span class="n">Marshal</span><span class="p">.</span><span class="nf">AllocHGlobal</span><span class="p">(</span><span class="n">Marshal</span><span class="p">.</span><span class="nf">SizeOf</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
+            <span class="n">Marshal</span><span class="p">.</span><span class="nf">StructureToPtr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
+
+            <span class="c1">// Call the DLL function and pass the pointer to the variable</span>
+            <span class="nf">MyFunction</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
+
+            <span class="c1">// Free the allocated memory</span>
+            <span class="n">Marshal</span><span class="p">.</span><span class="nf">FreeHGlobal</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>在这个例子中，<code class="language-plaintext highlighter-rouge">MyFunction()</code> 函数从一个DLL中导入，并接受一个 IntPtr 参数。<code class="language-plaintext highlighter-rouge">Main()</code> 方法使用 <code class="language-plaintext highlighter-rouge">Marshal.AllocHGlobal()</code> 方法为一个整数变量分配内存，然后使用一个 IntPtr 变量将该变量的地址传递给 <code class="language-plaintext highlighter-rouge">MyFunction()</code>。</p>
+
+<p>注意，当使用 IntPtr 时，正确管理被分配的内存是很重要的。在上面的例子中，内存是用 <code class="language-plaintext highlighter-rouge">Marshal.AllocHGlobal()</code> 分配的，然后在不再需要时用 <code class="language-plaintext highlighter-rouge">Marshal.FreeHGlobal()</code> 释放。未能正确管理内存会导致内存泄漏或其他问题。</p>
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box" id = "sidebar">
+		    
+				<p class = "sidebar-title">关于文章</p>
+			
+			
+				
+				<p class = "sidebar-about-content sidebar-font-big">C# 中的 Intptr 类型的学习。</p>
+				
+				
+				<p class = "icon-link sidebar-about-content sidebar-font-medium" style = "margin-top:40px">文章作者: <a href="https://github.com/gangdong">david.dong</a></p>
+				
+				<p class = "icon-hourglass sidebar-about-content sidebar-font-medium">阅读时间：8 mins</p>
+				<p class = "icon-book sidebar-about-content sidebar-font-medium">全文字数：2800</p>
+				
+					<p class = "icon-th-list sidebar-about-content sidebar-font-medium">关键字: IntPtr</p>
+				
+				
+					<p class = "icon-hashtag sidebar-about-content sidebar-font-medium">标签: 
+					
+					<a href="/category#C#">C#&nbsp;</a>
+					
+					</p>
+				
+			
+		</div>
+		
+		
+	    <div class="sidebar-toc-box">
+			
+			<p class = "sidebar-title">文章目录</p>
+			<span class = "sidebar-font-medium sidebar-toc-content"><ul id="toc" class="section-nav">
+<li class="toc-entry toc-h3"><a href="#1-int-类型与-intptr-类型之间的转换">1 .int 类型与 IntPtr 类型之间的转换</a></li>
+<li class="toc-entry toc-h3"><a href="#2string-类型与-intptr-之间的转换">2.string 类型与 IntPtr 之间的转换</a></li>
+<li class="toc-entry toc-h3"><a href="#3-结构体与-intptr-之间的转换">3. 结构体与 IntPtr 之间的转换</a></li>
+<li class="toc-entry toc-h3"><a href="#4--调用-cc-封装的-dll-库">4.  调用 C++\C 封装的 DLL 库</a></li>
+</ul></span>
+			
+		</div>
+		
+	</div>
+	 
+</div>
+<!-- no sidebar, use flex width box! -->
+<br>
+<div class="post-container">
+    <!-- post categories box! here  -->
+    
+   <div class="post-categories-meta">
+		<div class="post-categories-box post-categories-box-hide"><a href="/category#C#">C#</a></div>
+	</div>
+  
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">分享:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+	
+		<span class = "icon-eye tooltip"><p class = "tooltiptext" style = "left:0%; margin-left: 0px">阅读量</p><span id="busuanzi_value_page_pv"></span></span>
+		
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">相关文章</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/c%23/2021/09/11/Csharp-threadSynchronization.html">浅析 C# 中的线程同步 </a></li>
+			
+			<li><a href="/c%23/2021/03/09/Csharp-thread.html">C# 线程</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">继续阅读</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta"><div class="navigation-bar">
+	 
+	 <a href="/c%23/2021/09/11/Csharp-threadSynchronization.html"><span>前一章</span><br>浅析 C# 中的线程同步 </a>
+	 
+    </div><div class="navigation-bar"> 
+	 
+	 <a href="/others/2022/02/11/Others-typora.html"><span>后一章</span><br>从 MarkdownPad2 到 Typora - 使用 Typora 的直观感受</a>
+	 
+    </div></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'gangdong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9&domready=1"></script>
+
+
+<!-- sidebar button, toggle display/hide sidebar -->
+<script type="text/javascript">
+        $('.btn').on('click',function(){
+            $('.btn').toggleClass('btnc');
+            $('.sidebar-container').toggleClass('sidebar-container-hide');
+        })
+</script>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=G-3MXGF3F8QN"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-3MXGF3F8QN');
+	</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></body>
+</html>

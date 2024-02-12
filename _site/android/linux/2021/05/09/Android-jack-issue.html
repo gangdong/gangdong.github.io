@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Fixing the issue: Communication error with Jack server (35) when building AOSP | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Fixing the issue: Communication error with Jack server (35) when building AOSP" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This article may help you when you build AOSP and encounter the jack server issue “SSL error when connecting to the Jack server”." />
+<meta property="og:description" content="This article may help you when you build AOSP and encounter the jack server issue “SSL error when connecting to the Jack server”." />
+<link rel="canonical" href="http://localhost:4000/android/linux/2021/05/09/Android-jack-issue.html" />
+<meta property="og:url" content="http://localhost:4000/android/linux/2021/05/09/Android-jack-issue.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-05-09T07:14:11+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Fixing the issue: Communication error with Jack server (35) when building AOSP" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"david.dong"},"dateModified":"2021-05-09T07:14:11+08:00","datePublished":"2021-05-09T07:14:11+08:00","description":"This article may help you when you build AOSP and encounter the jack server issue “SSL error when connecting to the Jack server”.","headline":"Fixing the issue: Communication error with Jack server (35) when building AOSP","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/android/linux/2021/05/09/Android-jack-issue.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/logo.png"},"name":"david.dong"},"url":"http://localhost:4000/android/linux/2021/05/09/Android-jack-issue.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+<meta property="article:tag" content="Android">
+
+<meta property="article:tag" content="Linux">
+
+
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
+
+</head><body>
+    <main class="container">
+      <section class="about condensed">
+	    <div class="about-header condensed">
+			<div class="about-title">
+				<a href="/blog/index.html">
+				  <img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/avatar-11.png" alt="David Dong"/>
+				</a>
+				<div class = "title-meta">
+					<h2 id="title">
+					  <a href="/blog/index.html">David Dong</a>
+					</h2>
+					<p class = "tagline-small">Java/C/C#/Python</p>
+				</div>
+			</div>
+			<p class="tagline">Java/C/C#/Python</p>
+		</div>
+		<!--put dark mode button here -->
+		<div class = "about-footer condensed">
+		  <!--put rss/code link here -->
+			<div class="icon-box-container about-footer condensed"><div class = "icon-box" style = "padding-right:0px">
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id = "mode">Dark Mode</span>
+					</a>
+				</div>
+				<!-- toggle dark/light display mode, should loading darkmode.js here for avoiding flicker when switching -->
+				<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/darkmode.js"></script>
+				<script type="text/javascript">
+				$('.dark-mode').on('click',function(){
+					$('.dark-mode').toggleClass('light-mode');
+					if (document.getElementById("mode").innerHTML=="Light Mode")
+						document.getElementById("mode").innerHTML="Dark Mode";
+					else 
+						document.getElementById("mode").innerHTML="Light Mode";
+				})
+				</script><div class = "icon-box">
+					<a class="icon-rss" href="/rss.xml">
+						<span>Subscribe</span>
+					</a>
+				</div><div class = "icon-box">
+					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
+						<span>Source Code</span>
+					</a>
+				</div></div>
+		</div>
+		
+	    <!--show contact me -->
+		<div class = "about-footer condensed social-container">
+	    <p class = "contact about-footer condensed">CONTACT ME</p>
+		<!-- put social link here -->
+	      <ul class="social about-footer condensed" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		<!--put timestamp here -->
+		<p class ="timestamp about-footer condensed">&copy; 2024</p>
+		</div>
+	  <!-- about box end here -->
+      </section>
+	  
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+<div class="post-container">
+	<div  class = "menu-meta condensed">
+		<!--put top menu here, display @ big screen (> $mobileW) -->
+		<div  class = "menu-logo">BLOG</div>
+		<div  class = "menu">
+			<a href="/blog/index.html">
+				<li class="icon-home">Home</li>
+			</a><a href="/archive">
+				<li class="icon-archive">Archives</li>
+			</a><a href="/category">
+				<li class="icon-tags">Categories</li>
+			</a><a href="/about">
+				<li class="icon-help-circled">About</li>
+			</a>
+		</div>
+		<!--put hide menu button here, display @ small screen (< $mobileW) -->
+		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
+		<!--put hide menu here, display @ small screen (< $mobileW) -->
+		<div class="context-menu">
+			<ul >
+				<li>
+					<a class="icon-home" href="/blog/index.html">Home</a>
+				</li><li>
+					<a class="icon-archive" href="/archive">Archives</a>
+				</li><li>
+					<a class="icon-tags" href="/category">Categories</a>
+				</li><li>
+					<a class="icon-help-circled" href="/about">About</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('.menu-btn').on('click',function(e){
+		
+	e.stopPropagation();
+	var tag = $('.context-menu');		
+	$(tag).toggleClass('context-menu-show');
+			
+	var flag = true;
+	/* hide the context-menu when other element is clicked */
+	$(document).bind('click',function(e){
+		var target = $(e.target);
+		if(target.closest(tag).length == 0 && flag == true){
+			$(tag).toggleClass('context-menu-show');
+			flag = false;
+		}
+	});
+})
+</script><div class="post-container" style = "margin-bottom:1rem">
+	<div class="posts-labelgroup" id="posts-labelgroup">
+		<h1 id="posts-label">POST</h1>
+	</div>  
+	<!-- post title -->
+	<h2 class="post-title-body">Fixing the issue: Communication error with Jack server (35) when building AOSP</h2>
+	<div class="post-meta">
+		<div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">May 9, 2021</div>
+		
+		<!-- sidebar button for displaying/hiding sidebar -->
+		<div class = "sidebar-btn-box"><a class="btn"></a></div>
+		
+	</div>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+<div class="post-viewer-container">
+	<div class="post post-fix-width">
+		<p>I met an issue <code class="language-plaintext highlighter-rouge">Communication error with Jack server (35)</code> when built the AOSP yesterday. I can build the AOSP successfully before this issue popped up. I spent hours figuring out why and solved the problem.</p>
+
+<h2 id="issue">Issue</h2>
+<p>My build environment of the AOSP is</p>
+<ul>
+  <li>Ubuntu 16.04 LTS server;</li>
+  <li>Android AOSP 8.0;</li>
+  <li>OpenJDK 8;</li>
+</ul>
+
+<p>It works well until the below issue occurred yesterday. I remembered that I didn’t do anything unusual before that.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="o">[</span>  0% 1/20573] Ensuring Jack server is installed and started
+FAILED: setup-jack-server 
+/bin/bash <span class="nt">-c</span> <span class="s2">"(prebuilts/sdk/tools/jack-admin install-server prebuilts/sdk/tools/jack-launcher.jar prebuilts/sdk/tools/jack-server-4.11.ALPHA.jar  2&gt;&amp;1 || (exit 0) ) &amp;&amp; (JACK_SERVER_VM_ARGUMENTS=</span><span class="se">\"</span><span class="s2">-Dfile.encoding=UTF-8 -XX:+TieredCompilation</span><span class="se">\"</span><span class="s2"> prebuilts/sdk/tools/jack-admin start-server 2&gt;&amp;1 || exit 0 ) &amp;&amp; (prebuilts/sdk/tools/jack-admin update server prebuilts/sdk/tools/jack-server-4.11.ALPHA.jar 4.11.ALPHA 2&gt;&amp;1 || exit 0 ) &amp;&amp; (prebuilts/sdk/tools/jack-admin update jack prebuilts/sdk/tools/jacks/jack-4.31.CANDIDATE.jar 4.31.CANDIDATE || exit 47 )"</span>
+Jack server already installed <span class="k">in</span> <span class="s2">"/home/david/.jack-server"</span>
+Communication error with Jack server <span class="o">(</span>35<span class="o">)</span>, try <span class="s1">'jack-diagnose'</span> or see Jack server log
+SSL error when connecting to the Jack server. Try <span class="s1">'jack-diagnose'</span>
+SSL error when connecting to the Jack server. Try <span class="s1">'jack-diagnose'</span>
+ninja: build stopped: subcommand failed.
+06:38:55 ninja failed with: <span class="nb">exit </span>status 1
+build/core/main.mk:21: recipe <span class="k">for </span>target <span class="s1">'run_soong_ui'</span> failed
+make: <span class="k">***</span> <span class="o">[</span>run_soong_ui] Error 1
+make: Leaving directory <span class="s1">'/home/david/code/androidSrc'</span>
+
+<span class="c">#### make failed to build some targets (21 seconds) ####</span></code></pre></figure>
+
+<h2 id="analysis">Analysis</h2>
+<p>First, I tried to debug it by following the information in the logs. I ran the <code class="language-plaintext highlighter-rouge">jack-diagnose</code> command and it returned the below message.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">error: process ID list syntax error
+
+Usage:
+ ps <span class="o">[</span>options]
+
+ Try <span class="s1">'ps --help &lt;simple|list|output|threads|misc|all&gt;'</span>
+  or <span class="s1">'ps --help &lt;s|l|o|t|m|a&gt;'</span>
+ <span class="k">for </span>additional <span class="nb">help </span>text.
+
+For more details see ps<span class="o">(</span>1<span class="o">)</span><span class="nb">.</span>
+Port 8077 is used by another process <span class="o">(</span><span class="nv">pid</span><span class="o">=)</span>, please ensure to free the port or change port configuration <span class="k">in</span> <span class="s1">'/home/david/.jack-settings'</span> and <span class="s1">'/home/david/.jack-server/config.properties'</span>
+error: process ID list syntax error
+
+Usage:
+ ps <span class="o">[</span>options]
+
+ Try <span class="s1">'ps --help &lt;simple|list|output|threads|misc|all&gt;'</span>
+  or <span class="s1">'ps --help &lt;s|l|o|t|m|a&gt;'</span>
+ <span class="k">for </span>additional <span class="nb">help </span>text.
+
+For more details see ps<span class="o">(</span>1<span class="o">)</span><span class="nb">.</span>
+Port 8076 is used by another process <span class="o">(</span><span class="nv">pid</span><span class="o">=)</span>, please ensure to free the port or change port configuration <span class="k">in</span> <span class="s1">'/home/david/.jack-settings'</span> and <span class="s1">'/home/david/.jack-server/config.properties</span></code></pre></figure>
+
+<p>The log indicated the port has been used by another process, so I changed the port to another one by modifying the port number in the <code class="language-plaintext highlighter-rouge">~/.jack-settings</code> and <code class="language-plaintext highlighter-rouge">~/.jack-server/config.properties</code>.</p>
+
+<p>However, it didn’t work. The issue was still existing.</p>
+
+<p>Then I tried to restart the jack server by commands:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">./prebuilts/sdk/tools/jack-admin kill-server
+./prebuilts/sdk/tools/jack-admin start-server</code></pre></figure>
+
+<p>The issue was still there!</p>
+
+<div class="post-note info">
+  <div class="header"></div>
+  	<div class="body">
+		<p>There are some articles on the internet talking about this error, they pointed that the issue was caused by the <span>multiple users</span> doing the build process simultaneously, which is not supported by jack and will bring the issue. The solution is to change the port number to another one to keep jack working. But I don't think it is my case. And the result confirmed my idea.
+		</p>
+  	</div>
+</div>
+
+<p>OK! I kept investigating to get more information.</p>
+
+<p>I checked the log in the file - <code class="language-plaintext highlighter-rouge">~/.jack-server/log/xxxx-0-0.log</code>. It has nothing about the error.</p>
+
+<p>I ran command <code class="language-plaintext highlighter-rouge">./prebuilts/sdk/tools/jack-admin dump-report</code> and this time I got some useful information in the error report.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">gnutls_handshake<span class="o">()</span> failed: The TLS connection was non-properly terminated.</code></pre></figure>
+
+<p>Looks like it is related to the TLS connection, so I ran more commands to check.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">curl https://127.0.0.1:8076/jack
+curl: <span class="o">(</span>35<span class="o">)</span> gnutls_handshake<span class="o">()</span> failed: The TLS connection was non-properly terminated.</code></pre></figure>
+
+<p>It verified that the issue is because of the TLS connection failure.</p>
+
+<h2 id="fixing">Fixing</h2>
+
+<p>Follow this clue, I searched Google to check if anyone has met the same issue with me. I finally found the post in <a href="https://stackoverflow.com/questions/67330554/is-openjdk-upgrading-to-8u292-break-my-AOSP-build-system">stackoverflow</a> that discussed this issue and provided the solution.</p>
+
+<p>The reason for this issue is that I upgraded my OpenJDK to 8u292, but OpenJDK disabled the support for TLS 1.0 and 1.1, starting in <code class="language-plaintext highlighter-rouge">8u291</code>. They think TLS 1.0/1.1 are old, insecure, and deprecated. Unfortunately, I was using TLS1.1 on my build system, therefore, the connection was broken for this reason.</p>
+
+<p>I have two ways to solve this problem.</p>
+
+<ol>
+  <li>I can turn on the support of TLS1.0/1.1 manually by removing the <code class="language-plaintext highlighter-rouge">TLSv1, TLSv1.1</code> declaring in <code class="language-plaintext highlighter-rouge">jdk.tls.disabledAlgorithms</code> configuration in file <code class="language-plaintext highlighter-rouge">/etc/java-8-openjdk/security/java.security</code>.</li>
+  <li>Switch to use TLS1.2 for the build system.</li>
+</ol>
+
+<p>Solution 1 is relatively quick so I tried this way.</p>
+
+<p>I enabled the support to TLS1.0/1.1, restart the jack server, and ran the build again.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">Jack server already installed <span class="k">in</span> <span class="s2">"/home/david/.jack-server"</span>
+Server is already running
+<span class="o">[</span>100% 696/696] Install: out/target/product/bullhead/vendor/app/SensorTestTool/SensorTestTool.apk
+make: Leaving directory <span class="s1">'/home/david/code/androidSrc'</span>
+
+<span class="c">#### make completed successfully (03:51 (mm:ss)) ####</span></code></pre></figure>
+
+<p>It worked this time!</p>
+
+<p>If you’re in trouble with this issue like me, hope my experience and study can help you a little bit!</p>
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box" id = "sidebar">
+		    
+				<p class = "sidebar-title">About This Article</p>
+			
+			
+				
+					<P class = "sidebar-about-content sidebar-font-big">This article may help you when you build AOSP and encounter the jack server issue "SSL error when connecting to the Jack server".</P>
+				
+				
+					<P class = "icon-link sidebar-about-content sidebar-font-medium" style = "margin-top:30px">Author: <a href="https://github.com/gangdong">david.dong</a></P>
+				
+					<P class = "icon-clock sidebar-about-content sidebar-font-medium">12 mins to read</P>
+					<P class = "icon-book-1 sidebar-about-content sidebar-font-medium">4587 words</P>
+				
+					<P class = "icon-th-list sidebar-about-content sidebar-font-medium">Key Words: Android/jack/SSL error</P>
+				
+				
+				    <P class = "icon-hashtag sidebar-about-content sidebar-font-medium">Tags: 
+					
+					<a href="/category#Android">Android&nbsp;</a>
+					
+					<a href="/category#Linux">Linux&nbsp;</a>
+					
+					</P>
+				
+			
+		</div>
+		
+		
+	    <div class="sidebar-toc-box">
+			
+			<p class = "sidebar-title">Table of Contents</p>
+			<span class = "sidebar-font-medium sidebar-toc-content"><ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#issue">Issue</a></li>
+<li class="toc-entry toc-h2"><a href="#analysis">Analysis</a></li>
+<li class="toc-entry toc-h2"><a href="#fixing">Fixing</a></li>
+</ul></span>
+			
+		</div>
+		
+	</div>
+	 
+</div>
+<!-- no sidebar, use flex width box! -->
+<br>
+<div class="post-container">
+    <!-- post categories box! here  -->
+    
+   <div class="post-categories-meta">
+		<div class="post-categories-box post-categories-box-hide"><a href="/category#Android">Android</a><a href="/category#Linux">Linux</a></div>
+	</div>
+  
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">Share:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+	
+		<span class = "icon-eye tooltip"><p class = "tooltiptext" style = "left:0%; margin-left: 0px">Viewers</p><span id="busuanzi_value_page_pv"></span></span>
+		
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">You may also like</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/c/touch/android/2014/07/10/Touch-inputevent.html">Android 如何上报 Touchevent 给应用层</a></li>
+			
+			<li><a href="/linux/2020/05/25/Linux-wsl.html">Some notes for WSL</a></li>
+			
+			<li><a href="/linux/2014/11/11/Linux-phony.html">Use of .PHONY in makefile</a></li>
+			
+			<li><a href="/c/touch/linux/2014/06/25/Touch-driver.html">ATMEL maXTouch IC 驱动代码分析</a></li>
+			
+			<li><a href="/touch/linux/2014/02/12/Touch-protocol.html">Linux 系统下的多点触摸协议</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">further reading</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta"><div class="navigation-bar">
+	 
+	 <a href="/blog/github/web/2021/05/04/Blog-github-action.html"><span>Previous Post</span><br>CI platform migration: from Travis CI to GitHub Actions</a>
+	 
+    </div><div class="navigation-bar"> 
+	 
+     <a href="/python/2021/06/03/Python-pypy.html"><span>Next Post</span><br>Use Pypy to make Python run faster</a>
+	 
+    </div></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'gangdong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9&domready=1"></script>
+
+
+<!-- sidebar button, toggle display/hide sidebar -->
+<script type="text/javascript">
+        $('.btn').on('click',function(){
+            $('.btn').toggleClass('btnc');
+            $('.sidebar-container').toggleClass('sidebar-container-hide');
+        })
+</script>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=G-3MXGF3F8QN"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-3MXGF3F8QN');
+	</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></body>
+</html>

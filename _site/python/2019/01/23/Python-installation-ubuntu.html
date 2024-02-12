@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Install python3.6 on ubuntu16.04 | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Install python3.6 on ubuntu16.04" />
+<meta name="author" content="David Dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Today I spent some time installing the python3.6 on my ubuntu16.04. Here is a short note for the process, which might be useful for anyone who wants to do the same thing." />
+<meta property="og:description" content="Today I spent some time installing the python3.6 on my ubuntu16.04. Here is a short note for the process, which might be useful for anyone who wants to do the same thing." />
+<link rel="canonical" href="http://localhost:4000/python/2019/01/23/Python-installation-ubuntu.html" />
+<meta property="og:url" content="http://localhost:4000/python/2019/01/23/Python-installation-ubuntu.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-01-23T23:07:49+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Install python3.6 on ubuntu16.04" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"David Dong"},"dateModified":"2019-01-23T23:07:49+08:00","datePublished":"2019-01-23T23:07:49+08:00","description":"Today I spent some time installing the python3.6 on my ubuntu16.04. Here is a short note for the process, which might be useful for anyone who wants to do the same thing.","headline":"Install python3.6 on ubuntu16.04","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/python/2019/01/23/Python-installation-ubuntu.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/logo.png"},"name":"David Dong"},"url":"http://localhost:4000/python/2019/01/23/Python-installation-ubuntu.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+<meta property="article:tag" content="Python">
+
+
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
+
+</head><body>
+    <main class="container">
+      <section class="about condensed">
+	    <div class="about-header condensed">
+			<div class="about-title">
+				<a href="/blog/index.html">
+				  <img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/avatar-11.png" alt="David Dong"/>
+				</a>
+				<div class = "title-meta">
+					<h2 id="title">
+					  <a href="/blog/index.html">David Dong</a>
+					</h2>
+					<p class = "tagline-small">Java/C/C#/Python</p>
+				</div>
+			</div>
+			<p class="tagline">Java/C/C#/Python</p>
+		</div>
+		<!--put dark mode button here -->
+		<div class = "about-footer condensed">
+		  <!--put rss/code link here -->
+			<div class="icon-box-container about-footer condensed"><div class = "icon-box" style = "padding-right:0px">
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id = "mode">Dark Mode</span>
+					</a>
+				</div>
+				<!-- toggle dark/light display mode, should loading darkmode.js here for avoiding flicker when switching -->
+				<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/darkmode.js"></script>
+				<script type="text/javascript">
+				$('.dark-mode').on('click',function(){
+					$('.dark-mode').toggleClass('light-mode');
+					if (document.getElementById("mode").innerHTML=="Light Mode")
+						document.getElementById("mode").innerHTML="Dark Mode";
+					else 
+						document.getElementById("mode").innerHTML="Light Mode";
+				})
+				</script><div class = "icon-box">
+					<a class="icon-rss" href="/rss.xml">
+						<span>Subscribe</span>
+					</a>
+				</div><div class = "icon-box">
+					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
+						<span>Source Code</span>
+					</a>
+				</div></div>
+		</div>
+		
+	    <!--show contact me -->
+		<div class = "about-footer condensed social-container">
+	    <p class = "contact about-footer condensed">CONTACT ME</p>
+		<!-- put social link here -->
+	      <ul class="social about-footer condensed" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		<!--put timestamp here -->
+		<p class ="timestamp about-footer condensed">&copy; 2024</p>
+		</div>
+	  <!-- about box end here -->
+      </section>
+	  
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+<div class="post-container">
+	<div  class = "menu-meta condensed">
+		<!--put top menu here, display @ big screen (> $mobileW) -->
+		<div  class = "menu-logo">BLOG</div>
+		<div  class = "menu">
+			<a href="/blog/index.html">
+				<li class="icon-home">Home</li>
+			</a><a href="/archive">
+				<li class="icon-archive">Archives</li>
+			</a><a href="/category">
+				<li class="icon-tags">Categories</li>
+			</a><a href="/about">
+				<li class="icon-help-circled">About</li>
+			</a>
+		</div>
+		<!--put hide menu button here, display @ small screen (< $mobileW) -->
+		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
+		<!--put hide menu here, display @ small screen (< $mobileW) -->
+		<div class="context-menu">
+			<ul >
+				<li>
+					<a class="icon-home" href="/blog/index.html">Home</a>
+				</li><li>
+					<a class="icon-archive" href="/archive">Archives</a>
+				</li><li>
+					<a class="icon-tags" href="/category">Categories</a>
+				</li><li>
+					<a class="icon-help-circled" href="/about">About</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('.menu-btn').on('click',function(e){
+		
+	e.stopPropagation();
+	var tag = $('.context-menu');		
+	$(tag).toggleClass('context-menu-show');
+			
+	var flag = true;
+	/* hide the context-menu when other element is clicked */
+	$(document).bind('click',function(e){
+		var target = $(e.target);
+		if(target.closest(tag).length == 0 && flag == true){
+			$(tag).toggleClass('context-menu-show');
+			flag = false;
+		}
+	});
+})
+</script><div class="post-container" style = "margin-bottom:1rem">
+	<div class="posts-labelgroup" id="posts-labelgroup">
+		<h1 id="posts-label">POST</h1>
+	</div>  
+	<!-- post title -->
+	<h2 class="post-title-body">Install python3.6 on ubuntu16.04</h2>
+	<div class="post-meta">
+		<div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">Jan 23, 2019</div>
+		
+	</div>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+<div class="post-viewer-container">
+	<div class="post post-fix-width">
+		<p>Today I spent some time installing the python3.6 on my ubuntu16.04.
+Here is a short note for the process, which might be useful for anyone who wants to do the same thing.</p>
+
+<p>The first thing before you start to install the python3.6 is that you need to know which version of python is on your system. On ubuntu16.04 you can use the below command to check your python version.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">ls</span> /usr/local/lib/</code></pre></figure>
+
+<p>For example, before the installation, I have python2.7 and python3.5 on my ubuntu system. They are actually default installed by ubuntu16.04 build.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">david@david-VirtualBox:/<span class="nv">$ </span><span class="nb">ls</span> /usr/local/lib/
+python2.7  python3.5  
+david@david-VirtualBox:/<span class="nv">$ </span></code></pre></figure>
+
+<p>then input <code class="language-plaintext highlighter-rouge">python --version</code> to check which version python is your default python application.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">python <span class="nt">--version</span></code></pre></figure>
+
+<p>If you want to switch to another python version, input the below command</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">echo alias </span><span class="nv">python</span><span class="o">=</span>python3 <span class="o">&gt;&gt;</span> ~/.bashrc
+<span class="nb">source</span> ~/.bashrc
+python <span class="nt">--version</span></code></pre></figure>
+
+<p>Here I switched my default python version to python3.5.
+But python3.5 is still not the right one, what I need is python3.6. To install python3.6, there are usually two methods. one is using <code class="language-plaintext highlighter-rouge">apt-get install</code>. The command is as below.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>add-apt-repository ppa:jonathonf/python-3.6
+<span class="nb">sudo </span>apt-get update
+<span class="nb">sudo </span>apt-get <span class="nb">install </span>python3.6</code></pre></figure>
+
+<p>Unfortunately, it doesn’t work on my installation for the PPA has been removed. Therefore I turned to the second way to download the source code and compile, install it.
+The command as below.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">wget https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tar.xz
+xz <span class="nt">-d</span> Python-3.6.0.tar.xz
+<span class="nb">tar</span> <span class="nt">-xvf</span>  Python-3.6.0.tar
+<span class="nb">cd </span>Python-3.6.0
+./configure
+make
+<span class="nb">sudo </span>make <span class="nb">install</span></code></pre></figure>
+
+<p>Waiting for the installation to complete. Then check the python version, if you see the “Python 3.6.x”, python3.6 has been installed successfully on your ubuntu16.04.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">david@david-VirtualBox:~<span class="nv">$ </span>python <span class="nt">--version</span>
+Python 3.6.0</code></pre></figure>
+
+<p>If you don’t see the Python3.6.x, instead, you see Python3.5.x or else, which means your system’s default python version isn’t python3.6. You need to use <code class="language-plaintext highlighter-rouge">update-alternatives --config python</code> command to switch it to python3.6.<br /> 
+Like this.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>update-alternatives <span class="nt">--list</span> python
+<span class="nb">sudo </span>update-alternatives <span class="nt">--config</span> python</code></pre></figure>
+
+<p>If you find below message, represents the alternatives failed to recognize python and you must install python into your alternatives list firstly.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">update-alternatives：error：no alternatives <span class="k">for </span>python</code></pre></figure>
+
+<p>install your python by below command.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>update-alternatives <span class="nt">--install</span> /usr/bin/python python /home/david/Python-3.6.0 3
+<span class="nb">sudo </span>update-alternatives <span class="nt">--install</span> /usr/bin/python python /usr/bin/python3.5 2
+<span class="nb">sudo </span>update-alternatives <span class="nt">--install</span> /usr/bin/python python /usr/bin/python2.7 1 </code></pre></figure>
+
+<p>The last character of above each command sets the priority of your pythons on the system. The bigger the higher priority. 
+After installment, check again. you will see all your pythons are in the alternatives.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">david@david-VirtualBox:~<span class="nv">$ </span><span class="nb">sudo </span>update-alternatives <span class="nt">--list</span> python
+/home/david/Python-3.6.0
+/usr/bin/python2.7
+/usr/bin/python3.5</code></pre></figure>
+
+<p>Then switch to root user and execute the last command to choose which python you are going to set as default.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>su
+update-alternatives <span class="nt">--config</span> python</code></pre></figure>
+
+<p>If you see the below menu, congratulations, just select the one you want.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">有 3 个候选项可用于替换 python <span class="o">(</span>提供 /usr/bin/python<span class="o">)</span>。
+
+  选择       路径                    优先级  状态
+<span class="nt">------------------------------------------------------------</span>
+<span class="k">*</span> 0            /home/david/Python-3.6.0   3         自动模式
+  1            /home/david/Python-3.6.0   3         手动模式
+  2            /usr/bin/python2.7         1         手动模式
+  3            /usr/bin/python3.5         2         手动模式
+
+要维持当前值[<span class="k">*</span><span class="o">]</span>请按&lt;回车键&gt;，或者键入选择的编号：</code></pre></figure>
+
+<p>We have done all the job for now. Hope this short article can give you help if you have the same requirement as me. 
+If you have any questions, please ask in below comment box.
+<br /></p>
+
+	</div>
+	<!-- put sidebar! -->
+	
+</div>
+<!-- no sidebar, use flex width box! -->
+<br>
+<div class="post-container">
+    <!-- post categories box! here  -->
+    
+   <div class="post-categories-meta">
+		<div class="post-categories-box post-categories-box-hide"><a href="/category#Python">Python</a></div>
+	</div>
+  
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">Share:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+	
+		<span class = "icon-eye tooltip"><p class = "tooltiptext" style = "left:0%; margin-left: 0px">Viewers</p><span id="busuanzi_value_page_pv"></span></span>
+		
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">You may also like</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/python/2021/06/03/Python-pypy.html">Use Pypy to make Python run faster</a></li>
+			
+			<li><a href="/python/2019/05/11/Python-re.html">Python re module</a></li>
+			
+			<li><a href="/python/2019/05/03/Python-pack.html">Python struct.pack()</a></li>
+			
+			<li><a href="/python/2019/04/01/Python-coding-spec.html">Python 开发编码规范（转）</a></li>
+			
+			<li><a href="/python/2019/03/07/Python-pillow.html">Python Pillow library usage</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">further reading</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta"><div class="navigation-bar">
+	 
+	 <a href="/blog/github/2018/12/29/Blog-Jekyll-toc-plugin.html"><span>Previous Post</span><br>Use jekyll-toc plugin on Github Pages</a>
+	 
+    </div><div class="navigation-bar"> 
+	 
+     <a href="/blog/web/2019/02/23/Blog-Template.html"><span>Next Post</span><br>关于本博客模板使用上的一些问题</a>
+	 
+    </div></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'gangdong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9&domready=1"></script>
+
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=G-3MXGF3F8QN"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-3MXGF3F8QN');
+	</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></body>
+</html>

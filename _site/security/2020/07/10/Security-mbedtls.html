@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>mbedtls 使用说明 | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="mbedtls 使用说明" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="mbedtls 的相关知识。" />
+<meta property="og:description" content="mbedtls 的相关知识。" />
+<link rel="canonical" href="http://localhost:4000/security/2020/07/10/Security-mbedtls.html" />
+<meta property="og:url" content="http://localhost:4000/security/2020/07/10/Security-mbedtls.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-07-10T10:24:12+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="mbedtls 使用说明" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"david.dong"},"dateModified":"2020-07-10T10:24:12+08:00","datePublished":"2020-07-10T10:24:12+08:00","description":"mbedtls 的相关知识。","headline":"mbedtls 使用说明","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/security/2020/07/10/Security-mbedtls.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/logo.png"},"name":"david.dong"},"url":"http://localhost:4000/security/2020/07/10/Security-mbedtls.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+<meta property="article:tag" content="Security">
+
+
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
+
+</head><body>
+    <main class="container">
+      <section class="about condensed">
+	    <div class="about-header condensed">
+			<div class="about-title">
+				<a href="/blog/index.html">
+				  <img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/avatar-11.png" alt="David Dong"/>
+				</a>
+				<div class = "title-meta">
+					<h2 id="title">
+					  <a href="/blog/index.html">David Dong</a>
+					</h2>
+					<p class = "tagline-small">Java/C/C#/Python</p>
+				</div>
+			</div>
+			<p class="tagline">Java/C/C#/Python</p>
+		</div>
+		<!--put dark mode button here -->
+		<div class = "about-footer condensed">
+		  <!--put rss/code link here -->
+			<div class="icon-box-container about-footer condensed"><div class = "icon-box" style = "padding-right:0px">
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id = "mode">Dark Mode</span>
+					</a>
+				</div>
+				<!-- toggle dark/light display mode, should loading darkmode.js here for avoiding flicker when switching -->
+				<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/darkmode.js"></script>
+				<script type="text/javascript">
+				$('.dark-mode').on('click',function(){
+					$('.dark-mode').toggleClass('light-mode');
+					if (document.getElementById("mode").innerHTML=="Light Mode")
+						document.getElementById("mode").innerHTML="Dark Mode";
+					else 
+						document.getElementById("mode").innerHTML="Light Mode";
+				})
+				</script><div class = "icon-box">
+					<a class="icon-rss" href="/rss.xml">
+						<span>Subscribe</span>
+					</a>
+				</div><div class = "icon-box">
+					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
+						<span>Source Code</span>
+					</a>
+				</div></div>
+		</div>
+		
+	    <!--show contact me -->
+		<div class = "about-footer condensed social-container">
+	    <p class = "contact about-footer condensed">CONTACT ME</p>
+		<!-- put social link here -->
+	      <ul class="social about-footer condensed" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		<!--put timestamp here -->
+		<p class ="timestamp about-footer condensed">&copy; 2024</p>
+		</div>
+	  <!-- about box end here -->
+      </section>
+	  
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+<div class="post-container">
+	<div  class = "menu-meta condensed">
+		<!--put top menu here, display @ big screen (> $mobileW) -->
+		<div  class = "menu-logo">BLOG</div>
+		<div  class = "menu">
+			<a href="/blog/index.html">
+				<li class="icon-home">Home</li>
+			</a><a href="/archive">
+				<li class="icon-archive">Archives</li>
+			</a><a href="/category">
+				<li class="icon-tags">Categories</li>
+			</a><a href="/about">
+				<li class="icon-help-circled">About</li>
+			</a>
+		</div>
+		<!--put hide menu button here, display @ small screen (< $mobileW) -->
+		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
+		<!--put hide menu here, display @ small screen (< $mobileW) -->
+		<div class="context-menu">
+			<ul >
+				<li>
+					<a class="icon-home" href="/blog/index.html">Home</a>
+				</li><li>
+					<a class="icon-archive" href="/archive">Archives</a>
+				</li><li>
+					<a class="icon-tags" href="/category">Categories</a>
+				</li><li>
+					<a class="icon-help-circled" href="/about">About</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('.menu-btn').on('click',function(e){
+		
+	e.stopPropagation();
+	var tag = $('.context-menu');		
+	$(tag).toggleClass('context-menu-show');
+			
+	var flag = true;
+	/* hide the context-menu when other element is clicked */
+	$(document).bind('click',function(e){
+		var target = $(e.target);
+		if(target.closest(tag).length == 0 && flag == true){
+			$(tag).toggleClass('context-menu-show');
+			flag = false;
+		}
+	});
+})
+</script><div class="post-container" style = "margin-bottom:1rem">
+	<div class="posts-labelgroup" id="posts-labelgroup">
+		<h1 id="posts-label">POST</h1>
+	</div>  
+	<!-- post title -->
+	<h2 class="post-title-body">mbedtls 使用说明</h2>
+	<div class="post-meta">
+		<div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">Jul 10, 2020</div>
+		
+		<!-- sidebar button for displaying/hiding sidebar -->
+		<div class = "sidebar-btn-box"><a class="btn"></a></div>
+		
+	</div>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+<div class="post-viewer-container">
+	<div class="post post-fix-width">
+		<p>最近的工作中使用到了mbedtls，这里做一个简单的总结。</p>
+
+<h2 id="1-什么是-mbedtls"><span id="1">1. 什么是 mbedtls</span></h2>
+<p>mbedtls 一句话来概况的话就是它是一个开源的SSL/TLS库。 <br />
+<a href="https://github.com/ARMmbed/mbedtls#readme-for-mbed-tls">–项目源码地址</a> <br />
+<a href="https://tls.mbed.org/api/">–项目API文档</a></p>
+
+<h3 id="11-ssl"><span id="1.1">1.1 SSL</span></h3>
+<p>关于SSL(Secure Sockets Layer 安全套接字协议)，百度百科的解释如下：</p>
+<blockquote>
+  <p>SSL协议位于TCP/IP协议与各种应用层协议之间，为数据通讯提供安全支持。SSL协议可分为两层：</p>
+  <ul>
+    <li>SSL记录协议（SSL Record Protocol）：它建立在可靠的传输协议（如TCP）之上，为高层协议提供数据封装、压缩、加密等基本功能的支持。</li>
+    <li>SSL握手协议（SSL Handshake Protocol）：它建立在SSL记录协议之上，用于在实际的数据传输开始前，通讯双方进行身份认证、协商加密算法、交换加密密钥等。</li>
+  </ul>
+
+  <p>TLS与SSL在传输层与应用层之间对网络连接进行加密。</p>
+</blockquote>
+
+<h3 id="12-mbedtls-特点"><span id="1.2">1.2 mbedtls 特点</span></h3>
+<p>mbedtls 有以下的特点：</p>
+<ul>
+  <li>简洁的API</li>
+  <li>开源代码库</li>
+  <li>功能模块化，松耦合。</li>
+  <li>模块可单独配置，编译</li>
+  <li>C 语言编写，针对嵌入式应用</li>
+</ul>
+
+<p>从功能角度来看，mbedtls可以分为三个主要部分：</p>
+
+<ul>
+  <li>SSL/TLS 协议库（<code class="language-plaintext highlighter-rouge">libmbedtls.a</code>）</li>
+  <li>加密库（<code class="language-plaintext highlighter-rouge">libmbedcrypto.a</code>）</li>
+  <li>X.509 证书处理库（<code class="language-plaintext highlighter-rouge">libmbedx509.a</code>）</li>
+</ul>
+
+<p><strong>注意：这三个库在生成的时候的依赖关系，libmbedtls.a 依赖 libmbedx509.a 而 libmbedx509.a 依赖 libmbedcrypto.a。</strong> 因此在生成时要注意顺序问题。</p>
+
+<h3 id="13-mbedtls-模块"><span id="1.3">1.3 mbedtls 模块</span></h3>
+<p>mbedtls库包含以下的模块。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>模块</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Encryption/decryption module</td>
+      <td>加解密模块</td>
+    </tr>
+    <tr>
+      <td>Hashing module</td>
+      <td>The Message Digest (MD)提供了hash 功能</td>
+    </tr>
+    <tr>
+      <td>Random number generator (RNG) module</td>
+      <td>提供了随机数产生功能，see <a href="https://tls.mbed.org/api/ctr__drbg_8h.html#af6e4dd295ae790a33128562dd01c79ab">mbedtls_ctr_drbg_random()</a></td>
+    </tr>
+    <tr>
+      <td>SSL/TLS communication module</td>
+      <td>提供了方式建立SSL/TLS通讯通道</td>
+    </tr>
+    <tr>
+      <td>TCP/IP communication module</td>
+      <td>provides for a channel of communication for the SSL/TLS communication module to use</td>
+    </tr>
+    <tr>
+      <td>X.509 module</td>
+      <td>提供了X.509的支持，用于证书的读写和认证</td>
+    </tr>
+    <tr>
+      <td>Asn1_module</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="2-mbedtls-安装与配置"><span id="2">2. mbedtls 安装与配置</span></h2>
+<p>mbedtls支持3种 build 方式，</p>
+<ul>
+  <li>GNU Make</li>
+  <li>CMake</li>
+  <li>Microsoft Visual Studio (Microsoft Visual Studio 2013 or later)</li>
+</ul>
+
+<h3 id="21-工具链支持"><span id="2.1">2.1 工具链支持</span></h3>
+<ul>
+  <li>GNU Make 或者 CMake build 工具.</li>
+  <li>C99 工具链 (compiler, linker, achiever). 目前支持 <code class="language-plaintext highlighter-rouge">GCC5.4</code>, <code class="language-plaintext highlighter-rouge">Clang 3.8</code>, <code class="language-plaintext highlighter-rouge">IAR8</code> 和 <code class="language-plaintext highlighter-rouge">Visual Studio 2013</code> 以后的版本.</li>
+  <li>Python 3 用于产生测试代码.</li>
+  <li>Perl 用于运行测试.</li>
+</ul>
+
+<h3 id="22-gnu-make"><span id="2.2">2.2 GNU Make</span></h3>
+<p>run build</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">make</span></code></pre></figure>
+
+<p>build with test</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">make</span> <span class="n">check</span></code></pre></figure>
+
+<p>build without test</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">make</span> <span class="n">no_test</span></code></pre></figure>
+
+<h3 id="23-cmake"><span id="2.3">2.3 CMake</span></h3>
+<p>run build</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">mkdir</span> <span class="sr">/path/</span><span class="n">to</span><span class="o">/</span><span class="n">build_dir</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="sr">/path/</span><span class="n">to</span><span class="o">/</span><span class="n">build_dir</span>
+<span class="n">cmake</span> <span class="sr">/path/</span><span class="n">to</span><span class="o">/</span><span class="n">mbedtls_source</span>
+<span class="n">cmake</span> <span class="o">--</span><span class="n">build</span> <span class="o">.</span></code></pre></figure>
+
+<p>run test</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">ctest</span></code></pre></figure>
+
+<p>build without test</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">cmake</span> <span class="o">-</span><span class="no">DENABLE_TESTING</span><span class="o">=</span><span class="no">Off</span> <span class="sr">/path/</span><span class="n">to</span><span class="o">/</span><span class="n">mbedtls_source</span></code></pre></figure>
+
+<p>make shared library</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">cmake</span> <span class="o">-</span><span class="no">DUSE_SHARED_MBEDTLS_LIBRARY</span><span class="o">=</span><span class="no">On</span> <span class="sr">/path/</span><span class="n">to</span><span class="o">/</span><span class="n">mbedtls_source</span></code></pre></figure>
+
+<h3 id="24-microsoft-visual-studio"><span id="2.4">2.4 Microsoft Visual Studio</span></h3>
+<p>工程文件<code class="language-plaintext highlighter-rouge">mbedTLS.sln</code> 包含了所有必需的项目和程序. 编译该工程文件可以生成库文件。</p>
+
+<p>关于更多的相关信息，可以参阅 <a href="https://github.com/ARMmbed/mbedtls#readme-for-mbed-tls">GitHub README for Mbed TLS</a>。</p>
+
+<h2 id="3-mbedtls-使用"><span id="3">3. mbedtls 使用</span></h2>
+
+<p>mbedtls通过提供以下功能支持<code class="language-plaintext highlighter-rouge">SSLv3</code>到<code class="language-plaintext highlighter-rouge">TLSv1.2</code>版本的通信：</p>
+<ul>
+  <li>TCP/IP通信功能：监听、连接、接受、读/写</li>
+  <li>SSL/TLS通信功能：初始化、握手、读/写</li>
+  <li>X.509功能：CRT、CRL和按键处理</li>
+  <li>随机数生成</li>
+  <li>散列</li>
+  <li>加密/解密</li>
+</ul>
+
+<p>上面的功能被整齐地设计成逻辑接口。它们可以单独用于提供上述任何功能，或者混合和匹配到使用X.509 PKI的SSL服务器/客户端解决方案中。</p>
+
+<h3 id="31-例子"><span id="3.1">3.1 例子</span></h3>
+<p>服务器端的设定: <br />
+<strong>先决条件</strong></p>
+<ul>
+  <li>X.509证书和私钥</li>
+  <li>会话处理函数
+<strong>设定步骤</strong></li>
+  <li>加载证书和私钥（X.509接口）</li>
+  <li>设置侦听TCP套接字（TCP/IP接口）</li>
+  <li>接受传入客户端连接（TCP/IP接口）</li>
+  <li>初始化为SSL服务器（SSL/TLS接口）</li>
+  <li>设置参数，例如身份验证、密码、CA链、密钥交换</li>
+  <li>设置回调函数RNG、IO、会话处理</li>
+  <li>执行SSL握手（SSL/TLS接口）</li>
+  <li>读/写数据（SSL/TLS接口）</li>
+  <li>关闭和清理（所有接口）</li>
+</ul>
+
+<p>客户端的设定: <br />
+<strong>先决条件</strong></p>
+<ul>
+  <li>X.509证书和私钥</li>
+  <li>X.509可信CA证书
+<strong>设定步骤</strong></li>
+  <li>加载受信任的CA证书（X.509接口）</li>
+  <li>加载证书和私钥（X.509接口）</li>
+  <li>设置TCP/IP连接（TCP/IP接口）</li>
+  <li>初始化为SSL客户端（SSL/TLS接口）</li>
+  <li>设置参数，例如身份验证模式、密码、CA链、会话</li>
+  <li>设置回调函数RNG，IO</li>
+  <li>执行SSL握手（SSL/TLS接口）</li>
+  <li>验证服务器证书（SSL/TLS接口）</li>
+  <li>写入/读取数据（SSL/TLS接口）</li>
+  <li>关闭和清理（所有接口）</li>
+</ul>
+
+<h3 id="32-ssltls-部分功能"><span id="3.2">3.2 SSL/TLS 部分功能</span></h3>
+<p>mbed tls的ssl/tls部分提供了使用ssl/tls通过安全通信通道建立和通信方法。</p>
+
+<p>其基本规定是:</p>
+<ul>
+  <li>初始化一个SSL/TLS context</li>
+  <li>执行一个SSL/TLS握手(handshake)</li>
+  <li>发送/接收数据</li>
+  <li>通知对方一个连接正在关闭</li>
+</ul>
+
+<p>一个通道很多方面都是通过参数和回调函数来设置的 »&gt;</p>
+<ul>
+  <li>端点角色(endpoint role),客户端和服务器</li>
+  <li>身份验证模式: 是否应该进行证书验证</li>
+  <li>主机到主机通信通道: 发送和接收功能</li>
+  <li>随机数生成器(RNG)功能</li>
+  <li>用于加密/解密的密码</li>
+  <li>证书验证功能</li>
+  <li>会话控制: 会话获取和设置功能</li>
+  <li>证书处理和密钥交换的X.509参数</li>
+</ul>
+
+<p>mbed 通过创建一个SSL/TLS服务器和客户端,通过提供一个框架来建立和通过SSL/TLS通信通道进行通信.SSL/TLS部分直接依赖于库的证书解析,对称和非对称和哈希模块.</p>
+
+<h3 id="33-数据结构"><span id="3.3">3.3 数据结构</span></h3>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">mbedtls_net_context：目前只有文件描述符，可以用于适配异步I/O库
+mbedtls_ssl_context：保存SSL基本数据
+mbedtls_ssl_config: SSL 配置数据
+mbedtls_ctr_drbg_context
+mbedtls_entropy_context：保存熵配置
+mbedtls_x509_crt：保存认证信息</code></pre></figure>
+
+<h3 id="34-init-阶段"><span id="3.4">3.4 Init 阶段</span></h3>
+<p>下面时init阶段需要调用的函数与传统 socket 的对比。传统的socket-based的程序，依照顺序，作为client要做以下的函数调用：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">gethostbyname</span><span class="p">()</span>
+<span class="n">socket</span><span class="p">()</span>
+<span class="n">connect</span><span class="p">()</span>
+<span class="n">write</span><span class="p">()</span>
+<span class="n">read</span><span class="p">()</span></code></pre></figure>
+
+<p>改成SSL之后，mbedTLS对应上述函数，分别对应为：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">gethostbyname</span><span class="p">()</span>   <span class="p">\</span> 
+<span class="n">socket</span><span class="p">()</span>          <span class="o">-+--&gt;</span> <span class="n">mbedtls_net_connect</span><span class="p">()</span> <span class="o">+</span> <span class="n">mbedtls_ssl_handshake</span><span class="p">()</span>
+<span class="n">connect</span><span class="p">()</span>         <span class="o">/</span>
+<span class="n">write</span><span class="p">()</span>           <span class="o">----&gt;</span> <span class="n">mbedtls_ssl_write</span><span class="p">()</span>
+<span class="n">read</span><span class="p">()</span>            <span class="o">----&gt;</span> <span class="n">mbedtls_ssl_read</span><span class="p">()</span></code></pre></figure>
+
+<p>当然，实际情况下，会使用更多的其他函数。</p>
+
+<p>下面是init阶段需要调用的各函数。函数的参数，在调用的时候按照上面的函数类型一个一个传入就行了。</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">mbedtls_net_init</span><span class="p">()</span>
+<span class="n">mbedtld_ssl_init</span><span class="p">()</span>
+<span class="n">mbedtld_ssl_config_init</span><span class="p">()</span>
+<span class="n">mbedtls_ctr_drbg_init</span><span class="p">()</span>
+<span class="n">mbedtld_x509_crt_init</span><span class="p">()</span>
+<span class="n">mbedtls_entropy_init</span><span class="p">()</span>
+<span class="n">mebdtls_ctr_drbg_seed</span><span class="p">()</span></code></pre></figure>
+
+<p>其中<a href="https://tls.mbed.org/api/ctr__drbg_8h.html#af6e4dd295ae790a33128562dd01c79ab">mebdtls_ctr_drbg_seed()</a>可以指定熵函数。如果回调使用默认的mbedtls_entropy_func的话，可以传入一个初始的熵seed，也可以NULL。</p>
+
+<h3 id="35-connect-阶段"><span id="3.5">3.5 Connect 阶段</span></h3>
+<p><a href="https://tls.mbed.org/api/ctr__drbg_8h.html#af6e4dd295ae790a33128562dd01c79ab">mbedtls_net_connect()</a>：参数是server和端口，均为字符串。server可以使域名或者IP字符串。最后一个参数使用<code class="language-plaintext highlighter-rouge">MBEDTLS_NET_PROTO_TCP</code>即可。端口号不仅仅可以传入数字字符串，也可以类似于get_addrinfo函数的protocol参数那样，传入类似于<code class="language-plaintext highlighter-rouge">HTTPS</code>这样的可读化字符串。</p>
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box" id = "sidebar">
+		    
+				<p class = "sidebar-title">关于文章</p>
+			
+			
+				
+				<p class = "sidebar-about-content sidebar-font-big">mbedtls 的相关知识。</p>
+				
+				
+				<p class = "icon-link sidebar-about-content sidebar-font-medium" style = "margin-top:40px">文章作者: <a href="https://github.com/gangdong">david.dong</a></p>
+				
+				<p class = "icon-hourglass sidebar-about-content sidebar-font-medium">阅读时间：10 mins</p>
+				<p class = "icon-book sidebar-about-content sidebar-font-medium">全文字数：3602</p>
+				
+					<p class = "icon-th-list sidebar-about-content sidebar-font-medium">关键字: mbetls/</p>
+				
+				
+					<p class = "icon-hashtag sidebar-about-content sidebar-font-medium">标签: 
+					
+					<a href="/category#Security">Security&nbsp;</a>
+					
+					</p>
+				
+			
+		</div>
+		
+		
+	    <div class="sidebar-toc-box">
+			
+			<p class = "sidebar-title">文章目录</p>
+			<span class = "sidebar-font-medium sidebar-toc-content"><ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#1-什么是-mbedtls">1. 什么是 mbedtls</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#11-ssl">1.1 SSL</a></li>
+<li class="toc-entry toc-h3"><a href="#12-mbedtls-特点">1.2 mbedtls 特点</a></li>
+<li class="toc-entry toc-h3"><a href="#13-mbedtls-模块">1.3 mbedtls 模块</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#2-mbedtls-安装与配置">2. mbedtls 安装与配置</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#21-工具链支持">2.1 工具链支持</a></li>
+<li class="toc-entry toc-h3"><a href="#22-gnu-make">2.2 GNU Make</a></li>
+<li class="toc-entry toc-h3"><a href="#23-cmake">2.3 CMake</a></li>
+<li class="toc-entry toc-h3"><a href="#24-microsoft-visual-studio">2.4 Microsoft Visual Studio</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#3-mbedtls-使用">3. mbedtls 使用</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#31-例子">3.1 例子</a></li>
+<li class="toc-entry toc-h3"><a href="#32-ssltls-部分功能">3.2 SSL/TLS 部分功能</a></li>
+<li class="toc-entry toc-h3"><a href="#33-数据结构">3.3 数据结构</a></li>
+<li class="toc-entry toc-h3"><a href="#34-init-阶段">3.4 Init 阶段</a></li>
+<li class="toc-entry toc-h3"><a href="#35-connect-阶段">3.5 Connect 阶段</a></li>
+</ul>
+</li>
+</ul></span>
+			
+		</div>
+		
+	</div>
+	 
+</div>
+<!-- no sidebar, use flex width box! -->
+<br>
+<div class="post-container">
+    <!-- post categories box! here  -->
+    
+   <div class="post-categories-meta">
+		<div class="post-categories-box post-categories-box-hide"><a href="/category#Security">Security</a></div>
+	</div>
+  
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">分享:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+	
+		<span class = "icon-eye tooltip"><p class = "tooltiptext" style = "left:0%; margin-left: 0px">阅读量</p><span id="busuanzi_value_page_pv"></span></span>
+		
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">相关文章</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/security/windows/2020/07/23/Security-signature-02.html">利用 Microsoft WDK 工具生成数字签名</a></li>
+			
+			<li><a href="/security/2020/07/01/Security-signature.html">浅谈数字签名</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">继续阅读</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta"><div class="navigation-bar">
+	 
+	 <a href="/windows/2020/07/09/Windows-inf2cat.html"><span>前一章</span><br>Inf2Cat 工具</a>
+	 
+    </div><div class="navigation-bar"> 
+	 
+	 <a href="/security/windows/2020/07/23/Security-signature-02.html"><span>后一章</span><br>利用 Microsoft WDK 工具生成数字签名</a>
+	 
+    </div></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'gangdong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9&domready=1"></script>
+
+
+<!-- sidebar button, toggle display/hide sidebar -->
+<script type="text/javascript">
+        $('.btn').on('click',function(){
+            $('.btn').toggleClass('btnc');
+            $('.sidebar-container').toggleClass('sidebar-container-hide');
+        })
+</script>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=G-3MXGF3F8QN"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-3MXGF3F8QN');
+	</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></body>
+</html>

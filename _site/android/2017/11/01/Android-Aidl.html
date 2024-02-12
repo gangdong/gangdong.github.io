@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Android Aidl 开发 | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Android Aidl 开发" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Android Aidl 介绍." />
+<meta property="og:description" content="Android Aidl 介绍." />
+<link rel="canonical" href="http://localhost:4000/android/2017/11/01/Android-Aidl.html" />
+<meta property="og:url" content="http://localhost:4000/android/2017/11/01/Android-Aidl.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-11-01T17:13:44+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Android Aidl 开发" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"david.dong"},"dateModified":"2017-11-01T17:13:44+08:00","datePublished":"2017-11-01T17:13:44+08:00","description":"Android Aidl 介绍.","headline":"Android Aidl 开发","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/android/2017/11/01/Android-Aidl.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/logo.png"},"name":"david.dong"},"url":"http://localhost:4000/android/2017/11/01/Android-Aidl.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+<meta property="article:tag" content="Android">
+
+
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
+
+</head><body>
+    <main class="container">
+      <section class="about condensed">
+	    <div class="about-header condensed">
+			<div class="about-title">
+				<a href="/blog/index.html">
+				  <img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/avatar-11.png" alt="David Dong"/>
+				</a>
+				<div class = "title-meta">
+					<h2 id="title">
+					  <a href="/blog/index.html">David Dong</a>
+					</h2>
+					<p class = "tagline-small">Java/C/C#/Python</p>
+				</div>
+			</div>
+			<p class="tagline">Java/C/C#/Python</p>
+		</div>
+		<!--put dark mode button here -->
+		<div class = "about-footer condensed">
+		  <!--put rss/code link here -->
+			<div class="icon-box-container about-footer condensed"><div class = "icon-box" style = "padding-right:0px">
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id = "mode">Dark Mode</span>
+					</a>
+				</div>
+				<!-- toggle dark/light display mode, should loading darkmode.js here for avoiding flicker when switching -->
+				<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/darkmode.js"></script>
+				<script type="text/javascript">
+				$('.dark-mode').on('click',function(){
+					$('.dark-mode').toggleClass('light-mode');
+					if (document.getElementById("mode").innerHTML=="Light Mode")
+						document.getElementById("mode").innerHTML="Dark Mode";
+					else 
+						document.getElementById("mode").innerHTML="Light Mode";
+				})
+				</script><div class = "icon-box">
+					<a class="icon-rss" href="/rss.xml">
+						<span>Subscribe</span>
+					</a>
+				</div><div class = "icon-box">
+					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
+						<span>Source Code</span>
+					</a>
+				</div></div>
+		</div>
+		
+	    <!--show contact me -->
+		<div class = "about-footer condensed social-container">
+	    <p class = "contact about-footer condensed">CONTACT ME</p>
+		<!-- put social link here -->
+	      <ul class="social about-footer condensed" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		<!--put timestamp here -->
+		<p class ="timestamp about-footer condensed">&copy; 2024</p>
+		</div>
+	  <!-- about box end here -->
+      </section>
+	  
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+<div class="post-container">
+	<div  class = "menu-meta condensed">
+		<!--put top menu here, display @ big screen (> $mobileW) -->
+		<div  class = "menu-logo">BLOG</div>
+		<div  class = "menu">
+			<a href="/blog/index.html">
+				<li class="icon-home">Home</li>
+			</a><a href="/archive">
+				<li class="icon-archive">Archives</li>
+			</a><a href="/category">
+				<li class="icon-tags">Categories</li>
+			</a><a href="/about">
+				<li class="icon-help-circled">About</li>
+			</a>
+		</div>
+		<!--put hide menu button here, display @ small screen (< $mobileW) -->
+		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
+		<!--put hide menu here, display @ small screen (< $mobileW) -->
+		<div class="context-menu">
+			<ul >
+				<li>
+					<a class="icon-home" href="/blog/index.html">Home</a>
+				</li><li>
+					<a class="icon-archive" href="/archive">Archives</a>
+				</li><li>
+					<a class="icon-tags" href="/category">Categories</a>
+				</li><li>
+					<a class="icon-help-circled" href="/about">About</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('.menu-btn').on('click',function(e){
+		
+	e.stopPropagation();
+	var tag = $('.context-menu');		
+	$(tag).toggleClass('context-menu-show');
+			
+	var flag = true;
+	/* hide the context-menu when other element is clicked */
+	$(document).bind('click',function(e){
+		var target = $(e.target);
+		if(target.closest(tag).length == 0 && flag == true){
+			$(tag).toggleClass('context-menu-show');
+			flag = false;
+		}
+	});
+})
+</script><div class="post-container" style = "margin-bottom:1rem">
+	<div class="posts-labelgroup" id="posts-labelgroup">
+		<h1 id="posts-label">POST</h1>
+	</div>  
+	<!-- post title -->
+	<h2 class="post-title-body">Android Aidl 开发</h2>
+	<div class="post-meta">
+		<div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">Nov 1, 2017</div>
+		
+		<!-- sidebar button for displaying/hiding sidebar -->
+		<div class = "sidebar-btn-box"><a class="btn"></a></div>
+		
+	</div>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+<div class="post-viewer-container">
+	<div class="post post-fix-width">
+		<p>犹豫了几天，觉得还是把这部分内容写一下吧。虽然在网上已经一大堆了，但是写作本身也是一个查漏补缺的过程。通过对知识的总结归纳可以进一步加深理解。<!--more--></p>
+
+<h2 id="什么是aidl">什么是AIDL?</h2>
+<p>如果你仔细研读过Android的源码，你会发现其中有大量的.aidl类型的文件。这些文件在android 中起到什么样的作用？</p>
+
+<p>要理解.aidl, 需要从跨进程通信（IPC）说起，我们知道，在Android系统中，每个进程都有自己独立的地址空间，所有的资源分配都是在独立的内存空间内完成的。因此每个进程都和其他进程分隔了开来，每个APP都是一个独立的进程。有时候我们有应用间进行互动的需求，比如两个APP之间传递数据或者APP与系统服务进程之间的交互，任务委托等。</p>
+
+<p>Android中有很多种跨进程通信的方式，比如使用 Bundle, ContentProvider，Socket和BroadcastReceiver等。 AIDL也是其中的一种实现方式。通过AIDL，可以在一个进程中获取另一个进程的数据和调用其释放出来的方法，从而满足进程间通信的需求。</p>
+
+<p>AIDL 全称是 Android Interface Description Lanuage, 即Android接口描述语言。从名字上可以看出 AIDL 主要是定义了接口。AIDL接口定义语言的语法十分简单，和Java很相似，仅存在以下几点差异：</p>
+<ol>
+  <li>AIDL文件以 .aidl 为后缀名</li>
+  <li>AIDL支持的数据类型分为如下几种：
+    <ul>
+      <li>基本数据类型：byte、char、short、int、long、float、double、boolean
+String，CharSequence</li>
+      <li>自定义的数据类型必须实现Parcelable接口</li>
+      <li>List 类型。List承载的数据必须是AIDL支持的类型，或者是其它声明的AIDL对象</li>
+      <li>Map类型。Map承载的数据必须是AIDL支持的类型，或者是其它声明的AIDL对象</li>
+    </ul>
+  </li>
+  <li>除了基本类型数据外，其他的数据类型全部需要显式导包，即使在同一个包内也需要导包。</li>
+</ol>
+
+<p>熟悉Java语法的开发者在使用AIDL接口时应该没有任何障碍。</p>
+
+<h2 id="如何使用aidl">如何使用AIDL</h2>
+<p>AIDL 使用起来并不复杂，编程人员只需要在.aidl文件定义好接口，Android plafrom-tools会自动生成基于接口的实现类，该类为一个静态抽象类（后面会详细介绍），服务端代码只需要实现接口的业务即可。因此我们也可以将.aidl 理解为一个模板，通过这个模板生成一些跨进程通信必要的代码，开发者只需要关注实现业务内容即可，而无需花精力在实现IPC通信上面。</p>
+
+<p>下面来具体说明如何实现AIDL编程。</p>
+
+<ol>
+  <li>
+    <p>首先AIDL文件分为两类，一类用来声明实现了Parcelable接口的数据类型，以供其他AIDL文件使用那些非默认支持的数据类型。还有一类是用来定义接口方法，声明要暴露哪些接口给客户端调用。这两种的AIDL文件编写方法是不同的。</p>
+  </li>
+  <li>
+    <p>方向TAG，对于非基本数据类型，在声明AIDL接口的时候需要使用方向TAG来声明数据的流动方向，其中</p>
+    <ul>
+      <li>in 表示数据只能由客户端流向服务端</li>
+      <li>out 表示数据由服务端流向客户端</li>
+      <li>inout 表示数据可以在服务端和客户端之间双向流动</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="服务端编程">服务端编程</h3>
+<p>服务端编程步骤如下：</p>
+<ol>
+  <li>生成一个.aidl文件，文件里声明自定义的对象类型，该数据类一定要实现 parcelable接口 （非8种一般数据类型）。
+<img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/android-aidl-01.PNG" alt="01" class="center-image" />
+编写的 AIDL文件示例如下
+<img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/android-aidl-02.PNG" alt="01" class="center-image" /></li>
+</ol>
+<div class="post-note info">
+  <div class="header"></div>
+  	<div class="body">
+		<p>关于该文件创建，需要注意以下几点：<br />
+           a. 右键点击包名，New-&gt;AIDL文件<br />
+           b .aidl文件的名字要和后续定义的数据类名一致才可以。不然会报 cannot find the import xxx.class。 <br />
+           c. 在Android Studio中要先创建AIDL文件然后创建数据类文件，否则会提示命名重复错误。<br />
+           d. parcelable 注意首字母P要小写，这里和要实现的Parcelable接口不同，不然会报 interface declaration, parcelable declaration, AidlTokenType.import or AidlTokenType.package 5
+		</p>
+  	</div>
+</div>
+<ol>
+  <li>编写自定义的数据类，该类一定要实现 Parcelable 接口（注意大写P）。</li>
+  <li>为自定义的接口编写 AIDL 文件，文件名随便定。</li>
+  <li>如果使用了非一般数据类型，接口要加 In/out/inout</li>
+  <li>一定要引用使用的数据类的包路径进来（导包），即使在一个大包下也要导包。
+<img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/android-aidl-03.PNG" alt="01" class="center-image" /></li>
+  <li>make project 后生成 AIDL的Java文件，路径在 build/generated/下，
+<img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/android-aidl-04.PNG" alt="01" class="center-image" />
+观察生成的Java文件发现生成了两个类，其中静态抽象类.Stub继承了Binder类并实现了AIDL接口的方法，注意<code class="language-plaintext highlighter-rouge">asBinder()</code>方法。
+<img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/android-aidl-05.PNG" alt="01" class="center-image" /></li>
+  <li>AIDL/自定义数据类 完成后，编写 service 类，类内部定义一个 IBinder/.Stub类型的成员mBinder，实现其内部的方法，并且在service的onBind方法内返回该mBinder。</li>
+</ol>
+
+<h3 id="客户端程序">客户端程序</h3>
+<ol>
+  <li>拷贝服务端的 .aidl目录到client项目相同目录下，包名保持不变。</li>
+  <li>拷贝服务端的数据类型类到 client相同目录下，包名保持不变。
+<img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/android-aidl-06.PNG" alt="01" class="center-image" /></li>
+  <li>编写业务代码，代码中需要生成一个 AIDL接口的对象和一个ServiceConnection 对象。</li>
+  <li>将本地的AIDL接口对象通过onServiceConnected方法绑定到远端的Binder对象。</li>
+  <li>通过bindService方法启动远端服务，远端服务启动后，本地的AIDL对象会绑定到远端的Binder对象。</li>
+  <li>绑定后就可以通过本地Binder对象来调用远端的接口方法了。</li>
+</ol>
+
+<p>以上步骤可以看出AIDL接口实际上是远端服务提供的一个钩子，本地应用端要访问远端的服务，首先要先绑定远端服务的钩子（也就是Stub静态类提供的asInterface方法IBookInterface.Stub.asInterface(iBinder)），绑定后即可调用远端的服务。</p>
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box" id = "sidebar">
+		    
+				<p class = "sidebar-title">About This Article</p>
+			
+			
+				
+					<P class = "sidebar-about-content sidebar-font-big">Android Aidl 介绍.</P>
+				
+				
+					<P class = "icon-link sidebar-about-content sidebar-font-medium" style = "margin-top:30px">Author: <a href="https://github.com/gangdong">david.dong</a></P>
+				
+					<P class = "icon-clock sidebar-about-content sidebar-font-medium">6 mins to read</P>
+					<P class = "icon-book-1 sidebar-about-content sidebar-font-medium">2388 words</P>
+				
+					<P class = "icon-th-list sidebar-about-content sidebar-font-medium">Key Words: Android/Aidl</P>
+				
+				
+				    <P class = "icon-hashtag sidebar-about-content sidebar-font-medium">Tags: 
+					
+					<a href="/category#Android">Android&nbsp;</a>
+					
+					</P>
+				
+			
+		</div>
+		
+		
+	    <div class="sidebar-toc-box">
+			
+			<p class = "sidebar-title">Table of Contents</p>
+			<span class = "sidebar-font-medium sidebar-toc-content"><ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#什么是aidl">什么是AIDL?</a></li>
+<li class="toc-entry toc-h2"><a href="#如何使用aidl">如何使用AIDL</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#服务端编程">服务端编程</a></li>
+<li class="toc-entry toc-h3"><a href="#客户端程序">客户端程序</a></li>
+</ul>
+</li>
+</ul></span>
+			
+		</div>
+		
+	</div>
+	 
+</div>
+<!-- no sidebar, use flex width box! -->
+<br>
+<div class="post-container">
+    <!-- post categories box! here  -->
+    
+   <div class="post-categories-meta">
+		<div class="post-categories-box post-categories-box-hide"><a href="/category#Android">Android</a></div>
+	</div>
+  
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">Share:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+	
+		<span class = "icon-eye tooltip"><p class = "tooltiptext" style = "left:0%; margin-left: 0px">Viewers</p><span id="busuanzi_value_page_pv"></span></span>
+		
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">You may also like</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/android/linux/2021/05/09/Android-jack-issue.html">Fixing the issue: Communication error with Jack server (35) when building AOSP</a></li>
+			
+			<li><a href="/android/fingerprint/2021/02/04/Fingerprint-build-ta.html">Build TA images on different TEE</a></li>
+			
+			<li><a href="/android/fingerprint/2020/12/02/Fingerprint-Trusty.html">Some useful knowledge for Fingerprint Application on Trusty TEE</a></li>
+			
+			<li><a href="/android/fingerprint/2020/01/09/Fingerprint-impl-AN8.0.html">Fingerprint implementation in android 8.0 and later</a></li>
+			
+			<li><a href="/android/fingerprint/2019/12/21/Fingerprint-frmk3.html">Android Fingerprint Framework (3)</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">further reading</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta"><div class="navigation-bar">
+	 
+	 <a href="/windows/2017/07/08/Windows-bcdedit.html"><span>Previous Post</span><br>Use bcdedit.exe in Windows</a>
+	 
+    </div><div class="navigation-bar"> 
+	 
+     <a href="/windows/2017/12/09/Windows-powershell.html"><span>Next Post</span><br>Powershell and CMD</a>
+	 
+    </div></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'gangdong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9&domready=1"></script>
+
+
+<!-- sidebar button, toggle display/hide sidebar -->
+<script type="text/javascript">
+        $('.btn').on('click',function(){
+            $('.btn').toggleClass('btnc');
+            $('.sidebar-container').toggleClass('sidebar-container-hide');
+        })
+</script>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=G-3MXGF3F8QN"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-3MXGF3F8QN');
+	</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></body>
+</html>

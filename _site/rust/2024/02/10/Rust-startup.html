@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Rust startup - environment setup | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Rust startup - environment setup" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="To record how to build up dev environment of rust ." />
+<meta property="og:description" content="To record how to build up dev environment of rust ." />
+<link rel="canonical" href="http://localhost:4000/rust/2024/02/10/Rust-startup.html" />
+<meta property="og:url" content="http://localhost:4000/rust/2024/02/10/Rust-startup.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-02-10T17:24:55+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Rust startup - environment setup" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"david.dong"},"dateModified":"2024-02-10T17:24:55+08:00","datePublished":"2024-02-10T17:24:55+08:00","description":"To record how to build up dev environment of rust .","headline":"Rust startup - environment setup","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/rust/2024/02/10/Rust-startup.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/logo.png"},"name":"david.dong"},"url":"http://localhost:4000/rust/2024/02/10/Rust-startup.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+<meta property="article:tag" content="Rust">
+
+
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
+
+</head><body>
+    <main class="container">
+      <section class="about condensed">
+	    <div class="about-header condensed">
+			<div class="about-title">
+				<a href="/blog/index.html">
+				  <img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/avatar-11.png" alt="David Dong"/>
+				</a>
+				<div class = "title-meta">
+					<h2 id="title">
+					  <a href="/blog/index.html">David Dong</a>
+					</h2>
+					<p class = "tagline-small">Java/C/C#/Python</p>
+				</div>
+			</div>
+			<p class="tagline">Java/C/C#/Python</p>
+		</div>
+		<!--put dark mode button here -->
+		<div class = "about-footer condensed">
+		  <!--put rss/code link here -->
+			<div class="icon-box-container about-footer condensed"><div class = "icon-box" style = "padding-right:0px">
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id = "mode">Dark Mode</span>
+					</a>
+				</div>
+				<!-- toggle dark/light display mode, should loading darkmode.js here for avoiding flicker when switching -->
+				<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/darkmode.js"></script>
+				<script type="text/javascript">
+				$('.dark-mode').on('click',function(){
+					$('.dark-mode').toggleClass('light-mode');
+					if (document.getElementById("mode").innerHTML=="Light Mode")
+						document.getElementById("mode").innerHTML="Dark Mode";
+					else 
+						document.getElementById("mode").innerHTML="Light Mode";
+				})
+				</script><div class = "icon-box">
+					<a class="icon-rss" href="/rss.xml">
+						<span>Subscribe</span>
+					</a>
+				</div><div class = "icon-box">
+					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
+						<span>Source Code</span>
+					</a>
+				</div></div>
+		</div>
+		
+	    <!--show contact me -->
+		<div class = "about-footer condensed social-container">
+	    <p class = "contact about-footer condensed">CONTACT ME</p>
+		<!-- put social link here -->
+	      <ul class="social about-footer condensed" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		<!--put timestamp here -->
+		<p class ="timestamp about-footer condensed">&copy; 2024</p>
+		</div>
+	  <!-- about box end here -->
+      </section>
+	  
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+<div class="post-container">
+	<div  class = "menu-meta condensed">
+		<!--put top menu here, display @ big screen (> $mobileW) -->
+		<div  class = "menu-logo">BLOG</div>
+		<div  class = "menu">
+			<a href="/blog/index.html">
+				<li class="icon-home">Home</li>
+			</a><a href="/archive">
+				<li class="icon-archive">Archives</li>
+			</a><a href="/category">
+				<li class="icon-tags">Categories</li>
+			</a><a href="/about">
+				<li class="icon-help-circled">About</li>
+			</a>
+		</div>
+		<!--put hide menu button here, display @ small screen (< $mobileW) -->
+		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
+		<!--put hide menu here, display @ small screen (< $mobileW) -->
+		<div class="context-menu">
+			<ul >
+				<li>
+					<a class="icon-home" href="/blog/index.html">Home</a>
+				</li><li>
+					<a class="icon-archive" href="/archive">Archives</a>
+				</li><li>
+					<a class="icon-tags" href="/category">Categories</a>
+				</li><li>
+					<a class="icon-help-circled" href="/about">About</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('.menu-btn').on('click',function(e){
+		
+	e.stopPropagation();
+	var tag = $('.context-menu');		
+	$(tag).toggleClass('context-menu-show');
+			
+	var flag = true;
+	/* hide the context-menu when other element is clicked */
+	$(document).bind('click',function(e){
+		var target = $(e.target);
+		if(target.closest(tag).length == 0 && flag == true){
+			$(tag).toggleClass('context-menu-show');
+			flag = false;
+		}
+	});
+})
+</script><div class="post-container" style = "margin-bottom:1rem">
+	<div class="posts-labelgroup" id="posts-labelgroup">
+		<h1 id="posts-label">POST</h1>
+	</div>  
+	<!-- post title -->
+	<h2 class="post-title-body">Rust startup - environment setup</h2>
+	<div class="post-meta">
+		<div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">Feb 10, 2024</div>
+		
+		<!-- sidebar button for displaying/hiding sidebar -->
+		<div class = "sidebar-btn-box"><a class="btn"></a></div>
+		
+	</div>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+<div class="post-viewer-container">
+	<div class="post post-fix-width">
+		<p>Rust is hot, I’ve heard a lot of people talking about the Rust language, and it’s powered me enough to learn more about it!   <!--more--></p>
+
+<p>This is the first note to document the process of setting up the development environment, mainly choosing to develop under Linux.</p>
+
+<h2 id="environments">Environments</h2>
+
+<ul>
+  <li>OS - ubuntu 16.04</li>
+  <li>C Compiler - x86_64-unknown-linux-gnu</li>
+  <li>IDE - VS Code</li>
+</ul>
+
+<h2 id="setup">Setup</h2>
+
+<h3 id="rust-compile-environment-and-related-tools-installation">Rust Compile environment and related tools installation</h3>
+
+<p>The rust development environment consists of rustup (toolchain management tool), cargo (package manager and build system) and rustc (compiler).</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span> <span class="n">export</span> <span class="n">RUSTUP_DIST_SERVER</span><span class="o">=</span><span class="n">https</span><span class="o">:</span><span class="c1">//mirrors.ustc.edu.cn/rust-static</span>
+<span class="err">$</span> <span class="n">export</span> <span class="n">RUSTUP_UPDATE_ROOT</span><span class="o">=</span><span class="n">https</span><span class="o">:</span><span class="c1">//mirrors.ustc.edu.cn/rust-static/rustup</span>
+<span class="err">$</span> <span class="n">sudo</span> <span class="n">curl</span> <span class="n">https</span><span class="o">:</span><span class="c1">//sh.rustup.rs -sSf | sh</span>
+</code></pre></div></div>
+
+<p>choose option 1</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&amp;</span> <span class="n">david</span> <span class="err">@</span> <span class="n">david</span><span class="o">-</span><span class="n">VirtualBox</span> <span class="n">in</span> <span class="o">~</span> <span class="mi">0</span> <span class="p">[</span><span class="mi">15</span><span class="o">:</span><span class="mi">51</span><span class="o">:</span><span class="mi">08</span><span class="p">]</span>
+<span class="o">~</span> <span class="n">curl</span> <span class="o">--</span><span class="n">proto</span> <span class="err">'</span><span class="o">=</span><span class="n">https</span><span class="err">'</span> <span class="o">--</span><span class="n">tlsv1</span><span class="p">.</span><span class="mi">2</span> <span class="o">-</span><span class="n">sSf</span> <span class="n">https</span><span class="o">:</span><span class="c1">//sh.rustup.rs | sh                                                                 0 [15:51:08]</span>
+<span class="n">info</span><span class="o">:</span> <span class="n">downloading</span> <span class="n">installer</span>
+
+<span class="n">Welcome</span> <span class="n">to</span> <span class="n">Rust</span><span class="o">!</span>
+
+<span class="n">This</span> <span class="n">will</span> <span class="n">download</span> <span class="n">and</span> <span class="n">install</span> <span class="n">the</span> <span class="n">official</span> <span class="n">compiler</span> <span class="k">for</span> <span class="n">the</span> <span class="n">Rust</span>
+<span class="n">programming</span> <span class="n">language</span><span class="p">,</span> <span class="n">and</span> <span class="n">its</span> <span class="n">package</span> <span class="n">manager</span><span class="p">,</span> <span class="n">Cargo</span><span class="p">.</span>
+
+<span class="n">Rustup</span> <span class="n">metadata</span> <span class="n">and</span> <span class="n">toolchains</span> <span class="n">will</span> <span class="n">be</span> <span class="n">installed</span> <span class="n">into</span> <span class="n">the</span> <span class="n">Rustup</span>
+<span class="n">home</span> <span class="n">directory</span><span class="p">,</span> <span class="n">located</span> <span class="n">at</span><span class="o">:</span>
+
+  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">david</span><span class="o">/</span><span class="p">.</span><span class="n">rustup</span>
+
+<span class="n">This</span> <span class="n">can</span> <span class="n">be</span> <span class="n">modified</span> <span class="n">with</span> <span class="n">the</span> <span class="n">RUSTUP_HOME</span> <span class="n">environment</span> <span class="n">variable</span><span class="p">.</span>
+
+<span class="n">The</span> <span class="n">Cargo</span> <span class="n">home</span> <span class="n">directory</span> <span class="n">is</span> <span class="n">located</span> <span class="n">at</span><span class="o">:</span>
+
+  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">david</span><span class="o">/</span><span class="p">.</span><span class="n">cargo</span>
+
+<span class="n">This</span> <span class="n">can</span> <span class="n">be</span> <span class="n">modified</span> <span class="n">with</span> <span class="n">the</span> <span class="n">CARGO_HOME</span> <span class="n">environment</span> <span class="n">variable</span><span class="p">.</span>
+
+<span class="n">The</span> <span class="n">cargo</span><span class="p">,</span> <span class="n">rustc</span><span class="p">,</span> <span class="n">rustup</span> <span class="n">and</span> <span class="n">other</span> <span class="n">commands</span> <span class="n">will</span> <span class="n">be</span> <span class="n">added</span> <span class="n">to</span>
+<span class="n">Cargo</span><span class="err">'</span><span class="n">s</span> <span class="n">bin</span> <span class="n">directory</span><span class="p">,</span> <span class="n">located</span> <span class="n">at</span><span class="o">:</span>  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">david</span><span class="o">/</span><span class="p">.</span><span class="n">cargo</span><span class="o">/</span><span class="n">binThis</span> <span class="n">path</span> <span class="n">will</span> <span class="n">then</span> <span class="n">be</span> <span class="n">added</span> <span class="n">to</span> <span class="n">your</span> <span class="n">PATH</span> <span class="n">environment</span> <span class="n">variable</span> <span class="n">bymodifying</span> <span class="n">the</span> <span class="n">profile</span> <span class="n">files</span> <span class="n">located</span> <span class="n">at</span><span class="o">:</span>  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">david</span><span class="o">/</span><span class="p">.</span><span class="n">profile</span>  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">david</span><span class="o">/</span><span class="p">.</span><span class="n">bashrcYou</span> <span class="n">can</span> <span class="n">uninstall</span> <span class="n">at</span> <span class="n">any</span> <span class="n">time</span> <span class="n">with</span> <span class="n">rustup</span> <span class="n">self</span> <span class="n">uninstall</span> <span class="n">andthese</span> <span class="n">changes</span> <span class="n">will</span> <span class="n">be</span> <span class="n">reverted</span><span class="p">.</span><span class="n">Current</span> <span class="n">installation</span> <span class="n">options</span><span class="o">:</span>   <span class="k">default</span> <span class="n">host</span> <span class="n">triple</span><span class="o">:</span> <span class="n">x86_64</span><span class="o">-</span><span class="n">unknown</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span>     <span class="k">default</span> <span class="n">toolchain</span><span class="o">:</span> <span class="n">stable</span> <span class="p">(</span><span class="k">default</span><span class="p">)</span>               <span class="n">profile</span><span class="o">:</span> <span class="k">default</span>  <span class="n">modify</span> <span class="n">PATH</span> <span class="n">variable</span><span class="o">:</span> <span class="n">yes1</span><span class="p">)</span> <span class="n">Proceed</span> <span class="n">with</span> <span class="n">installation</span> <span class="p">(</span><span class="k">default</span><span class="p">)</span><span class="mi">2</span><span class="p">)</span> <span class="n">Customize</span> <span class="n">installation3</span><span class="p">)</span> <span class="n">Cancel</span> <span class="n">installation</span><span class="o">&gt;</span><span class="mi">1</span><span class="n">info</span><span class="o">:</span> <span class="n">profile</span> <span class="n">set</span> <span class="n">to</span> <span class="err">'</span><span class="k">default</span><span class="err">'</span><span class="n">info</span><span class="o">:</span> <span class="k">default</span> <span class="n">host</span> <span class="n">triple</span> <span class="n">is</span> <span class="n">x86_64</span><span class="o">-</span><span class="n">unknown</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnuinfo</span><span class="o">:</span> <span class="n">syncing</span> <span class="n">channel</span> <span class="n">updates</span> <span class="k">for</span> <span class="err">'</span><span class="n">stable</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">unknown</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span><span class="err">'</span><span class="mi">712</span><span class="p">.</span><span class="mi">1</span> <span class="n">KiB</span> <span class="o">/</span> <span class="mi">712</span><span class="p">.</span><span class="mi">1</span> <span class="n">KiB</span> <span class="p">(</span><span class="mi">100</span> <span class="o">%</span><span class="p">)</span>  <span class="mi">78</span><span class="p">.</span><span class="mi">6</span> <span class="n">KiB</span><span class="o">/</span><span class="n">s</span> <span class="n">in</span>  <span class="mi">7</span><span class="n">s</span> <span class="n">ETA</span><span class="o">:</span>  <span class="mi">0</span><span class="n">sinfo</span><span class="o">:</span> <span class="n">latest</span> <span class="n">update</span> <span class="n">on</span> <span class="mi">2024</span><span class="o">-</span><span class="mo">02</span><span class="o">-</span><span class="mi">08</span><span class="p">,</span> <span class="n">rust</span> <span class="n">version</span> <span class="mi">1</span><span class="p">.</span><span class="mi">76</span><span class="p">.</span><span class="mi">0</span> <span class="p">(</span><span class="mo">07</span><span class="n">dca489a</span> <span class="mi">2024</span><span class="o">-</span><span class="mo">02</span><span class="o">-</span><span class="mo">04</span><span class="p">)</span><span class="n">info</span><span class="o">:</span> <span class="n">downloading</span> <span class="n">component</span> <span class="err">'</span><span class="n">cargo</span><span class="err">'</span>  <span class="mi">8</span><span class="p">.</span><span class="mi">5</span> <span class="n">MiB</span> <span class="o">/</span>   <span class="mi">8</span><span class="p">.</span><span class="mi">5</span> <span class="n">MiB</span> <span class="p">(</span><span class="mi">100</span> <span class="o">%</span><span class="p">)</span>  <span class="mi">80</span><span class="p">.</span><span class="mi">0</span> <span class="n">KiB</span><span class="o">/</span><span class="n">s</span> <span class="n">in</span>  <span class="mi">1</span><span class="n">m</span> <span class="mi">44</span><span class="n">s</span> <span class="n">ETA</span><span class="o">:</span>  <span class="mi">0</span><span class="n">sinfo</span><span class="o">:</span> <span class="n">downloading</span> <span class="n">component</span> <span class="err">'</span><span class="n">clippy</span><span class="err">'</span>  <span class="mi">2</span><span class="p">.</span><span class="mi">1</span> <span class="n">MiB</span> <span class="o">/</span>   <span class="mi">2</span><span class="p">.</span><span class="mi">1</span> <span class="n">MiB</span> <span class="p">(</span><span class="mi">100</span> <span class="o">%</span><span class="p">)</span>  <span class="mi">95</span><span class="p">.</span><span class="mi">0</span> <span class="n">KiB</span><span class="o">/</span><span class="n">s</span> <span class="n">in</span> <span class="mi">23</span><span class="n">s</span> <span class="n">ETA</span><span class="o">:</span>  <span class="mi">0</span><span class="n">sinfo</span><span class="o">:</span> <span class="n">downloading</span> <span class="n">component</span> <span class="err">'</span><span class="n">rust</span><span class="o">-</span><span class="n">docs</span><span class="err">'</span> <span class="mi">14</span><span class="p">.</span><span class="mi">7</span> <span class="n">MiB</span> <span class="o">/</span>  <span class="mi">14</span><span class="p">.</span><span class="mi">7</span> <span class="n">MiB</span> <span class="p">(</span><span class="mi">100</span> <span class="o">%</span><span class="p">)</span> <span class="mi">117</span><span class="p">.</span><span class="mi">4</span> <span class="n">KiB</span><span class="o">/</span><span class="n">s</span> <span class="n">in</span>  <span class="mi">2</span><span class="n">m</span> <span class="mi">45</span><span class="n">s</span> <span class="n">ETA</span><span class="o">:</span>  <span class="mi">0</span><span class="n">s</span>    <span class="n">info</span><span class="o">:</span> <span class="n">downloading</span> <span class="n">component</span> <span class="err">'</span><span class="n">rust</span><span class="o">-</span><span class="n">std</span><span class="err">'</span> <span class="mi">23</span><span class="p">.</span><span class="mi">9</span> <span class="n">MiB</span> <span class="o">/</span>  <span class="mi">23</span><span class="p">.</span><span class="mi">9</span> <span class="n">MiB</span> <span class="p">(</span><span class="mi">100</span> <span class="o">%</span><span class="p">)</span>  <span class="mi">98</span><span class="p">.</span><span class="mi">2</span> <span class="n">KiB</span><span class="o">/</span><span class="n">s</span> <span class="n">in</span>  <span class="mi">4</span><span class="n">m</span> <span class="mi">21</span><span class="n">s</span> <span class="n">ETA</span><span class="o">:</span>  <span class="mi">0</span><span class="n">s</span>    <span class="n">info</span><span class="o">:</span> <span class="n">downloading</span> <span class="n">component</span> <span class="err">'</span><span class="n">rustc</span><span class="err">'</span> <span class="mi">62</span><span class="p">.</span><span class="mi">3</span> <span class="n">MiB</span> <span class="o">/</span>  <span class="mi">62</span><span class="p">.</span><span class="mi">3</span> <span class="n">MiB</span> <span class="p">(</span><span class="mi">100</span> <span class="o">%</span><span class="p">)</span> <span class="mi">135</span><span class="p">.</span><span class="mi">4</span> <span class="n">KiB</span><span class="o">/</span><span class="n">s</span> <span class="n">in</span> <span class="mi">12</span><span class="n">m</span> <span class="mi">15</span><span class="n">s</span> <span class="n">ETA</span><span class="o">:</span>  <span class="mi">0</span><span class="n">s</span>    <span class="n">info</span><span class="o">:</span> <span class="n">downloading</span> <span class="n">component</span> <span class="err">'</span><span class="n">rustfmt</span><span class="err">'</span>  <span class="mi">2</span><span class="p">.</span><span class="mi">3</span> <span class="n">MiB</span> <span class="o">/</span>   <span class="mi">2</span><span class="p">.</span><span class="mi">3</span> <span class="n">MiB</span> <span class="p">(</span><span class="mi">100</span> <span class="o">%</span><span class="p">)</span>  <span class="mi">86</span><span class="p">.</span><span class="mi">2</span> <span class="n">KiB</span><span class="o">/</span><span class="n">s</span> <span class="n">in</span> <span class="mi">30</span><span class="n">s</span> <span class="n">ETA</span><span class="o">:</span>  <span class="mi">0</span><span class="n">s</span> <span class="n">info</span><span class="o">:</span> <span class="n">installing</span> <span class="n">component</span> <span class="err">'</span><span class="n">cargo</span><span class="err">'</span><span class="n">info</span><span class="o">:</span> <span class="n">installing</span> <span class="n">component</span> <span class="err">'</span><span class="n">clippy</span><span class="err">'</span><span class="n">info</span><span class="o">:</span> <span class="n">installing</span> <span class="n">component</span> <span class="err">'</span><span class="n">rust</span><span class="o">-</span><span class="n">docs</span><span class="err">'</span> <span class="mi">14</span><span class="p">.</span><span class="mi">7</span> <span class="n">MiB</span> <span class="o">/</span>  <span class="mi">14</span><span class="p">.</span><span class="mi">7</span> <span class="n">MiB</span> <span class="p">(</span><span class="mi">100</span> <span class="o">%</span><span class="p">)</span>   <span class="mi">5</span><span class="p">.</span><span class="mi">0</span> <span class="n">MiB</span><span class="o">/</span><span class="n">s</span> <span class="n">in</span>  <span class="mi">2</span><span class="n">s</span> <span class="n">ETA</span><span class="o">:</span>  <span class="mi">0</span><span class="n">sinfo</span><span class="o">:</span> <span class="n">installing</span> <span class="n">component</span> <span class="err">'</span><span class="n">rust</span><span class="o">-</span><span class="n">std</span><span class="err">'</span> <span class="mi">23</span><span class="p">.</span><span class="mi">9</span> <span class="n">MiB</span> <span class="o">/</span>  <span class="mi">23</span><span class="p">.</span><span class="mi">9</span> <span class="n">MiB</span> <span class="p">(</span><span class="mi">100</span> <span class="o">%</span><span class="p">)</span>  <span class="mi">13</span><span class="p">.</span><span class="mi">2</span> <span class="n">MiB</span><span class="o">/</span><span class="n">s</span> <span class="n">in</span>  <span class="mi">1</span><span class="n">s</span> <span class="n">ETA</span><span class="o">:</span>  <span class="mi">0</span><span class="n">sinfo</span><span class="o">:</span> <span class="n">installing</span> <span class="n">component</span> <span class="err">'</span><span class="n">rustc</span><span class="err">'</span> <span class="mi">62</span><span class="p">.</span><span class="mi">3</span> <span class="n">MiB</span> <span class="o">/</span>  <span class="mi">62</span><span class="p">.</span><span class="mi">3</span> <span class="n">MiB</span> <span class="p">(</span><span class="mi">100</span> <span class="o">%</span><span class="p">)</span>  <span class="mi">14</span><span class="p">.</span><span class="mi">9</span> <span class="n">MiB</span><span class="o">/</span><span class="n">s</span> <span class="n">in</span>  <span class="mi">4</span><span class="n">s</span> <span class="n">ETA</span><span class="o">:</span>  <span class="mi">0</span><span class="n">sinfo</span><span class="o">:</span> <span class="n">installing</span> <span class="n">component</span> <span class="err">'</span><span class="n">rustfmt</span><span class="err">'</span><span class="n">info</span><span class="o">:</span> <span class="k">default</span> <span class="n">toolchain</span> <span class="n">set</span> <span class="n">to</span> <span class="err">'</span><span class="n">stable</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">unknown</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span><span class="err">'</span>  <span class="n">stable</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">unknown</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span> <span class="n">installed</span> <span class="o">-</span> <span class="n">rustc</span> <span class="mi">1</span><span class="p">.</span><span class="mi">76</span><span class="p">.</span><span class="mi">0</span> <span class="p">(</span><span class="mo">07</span><span class="n">dca489a</span> <span class="mi">2024</span><span class="o">-</span><span class="mo">02</span><span class="o">-</span><span class="mo">04</span><span class="p">)</span><span class="n">Rust</span> <span class="n">is</span> <span class="n">installed</span> <span class="n">now</span><span class="p">.</span> <span class="n">Great</span><span class="o">!</span><span class="n">To</span> <span class="n">get</span> <span class="n">started</span> <span class="n">you</span> <span class="n">may</span> <span class="n">need</span> <span class="n">to</span> <span class="n">restart</span> <span class="n">your</span> <span class="n">current</span> <span class="n">shell</span><span class="p">.</span><span class="n">This</span> <span class="n">would</span> <span class="n">reload</span> <span class="n">your</span> <span class="n">PATH</span> <span class="n">environment</span> <span class="n">variable</span> <span class="n">to</span> <span class="n">includeCargo</span><span class="err">'</span><span class="n">s</span> <span class="n">bin</span> <span class="n">directory</span> <span class="p">(</span><span class="err">$</span><span class="n">HOME</span><span class="o">/</span><span class="p">.</span><span class="n">cargo</span><span class="o">/</span><span class="n">bin</span><span class="p">).</span>
+
+<span class="n">To</span> <span class="n">configure</span> <span class="n">your</span> <span class="n">current</span> <span class="n">shell</span><span class="p">,</span> <span class="n">run</span><span class="o">:</span>
+<span class="n">source</span> <span class="s">"$HOME/.cargo/env"</span>
+
+<span class="o">&amp;</span> <span class="n">david</span> <span class="err">@</span> <span class="n">david</span><span class="o">-</span><span class="n">VirtualBox</span> <span class="n">in</span> <span class="o">~</span> <span class="mi">0</span> <span class="p">[</span><span class="mi">16</span><span class="o">:</span><span class="mi">20</span><span class="o">:</span><span class="mi">53</span><span class="p">]</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>The Rustup metadata and toolchain will be installed in the Rustup home directory located at /home/david/.rustup, which can be modified using the RUSTUP_HOME environment variable.</p>
+  </li>
+  <li>
+    <p>Cargo’s home directory is located at /home/david/.cargo which can be modified via the CARGO_HOME environment variable.</p>
+  </li>
+  <li>
+    <p>cargo, rustc, rustup and other commands will be added to cargo’s bin directory, which is located in /home/david/.cargo/bin</p>
+  </li>
+  <li>
+    <p>add this path to the PATH environment variable /home/david/.profile or /home/david/. bashrc</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.cargo/bin:</span><span class="nv">$PATH</span><span class="s2">
+</span></code></pre></div>    </div>
+  </li>
+  <li>
+    <p>I used fish shell, so need to add environment variable PATH in ~/.config/fish/config.fish</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">set</span> <span class="nt">-x</span> PATH ~/.cargo/bin <span class="nv">$PATH</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Verify the installation</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> <span class="n">rustc</span> <span class="o">-</span><span class="n">V</span>
+<span class="n">rustc</span> <span class="mi">1</span><span class="p">.</span><span class="mi">76</span><span class="p">.</span><span class="mi">0</span> <span class="p">(</span><span class="mo">07</span><span class="n">dca489a</span> <span class="mi">2024</span><span class="o">-</span><span class="mo">02</span><span class="o">-</span><span class="mo">04</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="n">cargo</span> <span class="o">-</span><span class="n">V</span>
+<span class="n">cargo</span> <span class="mi">1</span><span class="p">.</span><span class="mi">76</span><span class="p">.</span><span class="mi">0</span> <span class="p">(</span><span class="n">c84b36747</span> <span class="mi">2024</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">18</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="n">rustup</span> <span class="o">-</span><span class="n">V</span>
+<span class="n">rustup</span> <span class="mi">1</span><span class="p">.</span><span class="mi">26</span><span class="p">.</span><span class="mi">0</span> <span class="p">(</span><span class="mi">5</span><span class="n">af9b9484</span> <span class="mi">2023</span><span class="o">-</span><span class="mo">04</span><span class="o">-</span><span class="mo">05</span><span class="p">)</span>
+<span class="n">info</span><span class="o">:</span> <span class="n">This</span> <span class="n">is</span> <span class="n">the</span> <span class="n">version</span> <span class="k">for</span> <span class="n">the</span> <span class="n">rustup</span> <span class="n">toolchain</span> <span class="n">manager</span><span class="p">,</span> <span class="n">not</span> <span class="n">the</span> <span class="n">rustc</span> <span class="n">compiler</span><span class="p">.</span>
+<span class="n">info</span><span class="o">:</span> <span class="n">The</span> <span class="n">currently</span> <span class="n">active</span> <span class="err">`</span><span class="n">rustc</span><span class="err">`</span> <span class="n">version</span> <span class="n">is</span> <span class="err">`</span><span class="n">rustc</span> <span class="mi">1</span><span class="p">.</span><span class="mi">76</span><span class="p">.</span><span class="mi">0</span> <span class="p">(</span><span class="mo">07</span><span class="n">dca489a</span> <span class="mi">2024</span><span class="o">-</span><span class="mo">02</span><span class="o">-</span><span class="mo">04</span><span class="p">)</span><span class="err">`</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>The rust toolchain management tool rustup, the package manager cargo, and the compiler rustc are now installed!</p>
+
+<ul>
+  <li>
+    <p>unstallation command</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rustup</span> <span class="n">self</span> <span class="n">uninstall</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="vscode-configuration-development-rust">VSCODE configuration development Rust</h3>
+
+<p>Install the following plug-ins</p>
+
+<ul>
+  <li>rust-analyzer</li>
+  <li>CodeLLDB</li>
+  <li>Code Runner</li>
+</ul>
+
+<h3 id="vscode-debugging-rust-code">Vscode debugging Rust code</h3>
+
+<ul>
+  <li>
+    <p>Create a project directory like first_prj</p>
+  </li>
+  <li>
+    <p>Go to first_prj</p>
+  </li>
+  <li>
+    <p>Run <code class="language-plaintext highlighter-rouge">cargo new first_prj_name</code> in terminal, it will create project first_prj_name directory and src/main. rs</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Welcome</span> <span class="n">to</span> <span class="n">fish</span><span class="p">,</span> <span class="n">the</span> <span class="n">friendly</span> <span class="n">interactive</span> <span class="n">shell</span>
+<span class="n">Type</span> <span class="n">help</span> <span class="k">for</span> <span class="n">instructions</span> <span class="n">on</span> <span class="n">how</span> <span class="n">to</span> <span class="n">use</span> <span class="n">fish</span>
+  
+<span class="o">&amp;</span> <span class="n">david</span> <span class="err">@</span> <span class="n">ubuntu</span> <span class="n">in</span> <span class="o">~/</span><span class="n">code</span><span class="o">/</span><span class="n">rust</span><span class="o">/</span><span class="n">first_proj</span> <span class="mi">0</span> <span class="p">[</span><span class="mi">19</span><span class="o">:</span><span class="mo">06</span><span class="o">:</span><span class="mi">14</span><span class="p">]</span>
+<span class="o">~</span> <span class="n">cargo</span> <span class="n">new</span> <span class="n">greeting</span>
+     <span class="n">Created</span> <span class="n">binary</span> <span class="p">(</span><span class="n">application</span><span class="p">)</span> <span class="err">`</span><span class="n">greeting</span><span class="err">`</span> <span class="n">package</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>cd . /first_prj_name</p>
+  </li>
+  <li>
+    <p>run <code class="language-plaintext highlighter-rouge">cargo build</code> to compile the code</p>
+
+    <div class="language-cs highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">&amp;</span> <span class="n">david</span> <span class="err">@</span> <span class="n">ubuntu</span> <span class="k">in</span> <span class="p">~/</span><span class="n">code</span><span class="p">/</span><span class="n">rust</span><span class="p">/</span><span class="n">first_proj</span><span class="p">/</span><span class="nf">greeting</span> <span class="p">(</span><span class="n">master</span> <span class="err">…</span><span class="m">3</span><span class="p">)</span> <span class="m">0</span> <span class="p">[</span><span class="m">19</span><span class="p">:</span><span class="m">07</span><span class="p">:</span><span class="m">15</span><span class="p">]</span>
+<span class="p">~</span> <span class="n">cargo</span> <span class="n">build</span>
+   <span class="n">Compiling</span> <span class="n">greeting</span> <span class="n">v0</span><span class="p">.</span><span class="m">1.0</span> <span class="p">(/</span><span class="n">home</span><span class="p">/</span><span class="n">david</span><span class="p">/</span><span class="n">code</span><span class="p">/</span><span class="n">rust</span><span class="p">/</span><span class="n">first_proj</span><span class="p">/</span><span class="n">greeting</span><span class="p">)</span>
+    <span class="n">Finished</span> <span class="n">dev</span> <span class="p">[</span><span class="n">unoptimized</span> <span class="p">+</span> <span class="n">debuginfo</span><span class="p">]</span> <span class="nf">target</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">in</span> <span class="m">0.18</span><span class="n">s</span> <span class="m">0.</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>run <code class="language-plaintext highlighter-rouge">cargo run</code> to debug the code</p>
+  </li>
+</ul>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&amp;</span> <span class="n">david</span> <span class="err">@</span> <span class="n">ubuntu</span> <span class="n">in</span> <span class="o">~/</span><span class="n">code</span><span class="o">/</span><span class="n">rust</span><span class="o">/</span><span class="n">first_proj</span><span class="o">/</span><span class="n">greeting</span> <span class="p">(</span><span class="n">master</span> <span class="err">…</span><span class="mi">4</span><span class="p">)</span> <span class="mi">0</span> <span class="p">[</span><span class="mi">19</span><span class="o">:</span><span class="mo">07</span><span class="o">:</span><span class="mi">19</span><span class="p">]</span>
+<span class="o">~</span> <span class="n">cargo</span> <span class="n">run</span>
+    <span class="n">Finished</span> <span class="n">dev</span> <span class="p">[</span><span class="n">unoptimized</span> <span class="o">+</span> <span class="n">debuginfo</span><span class="p">]</span> <span class="n">target</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">in</span> <span class="mi">0</span><span class="p">.</span><span class="mo">00</span><span class="n">s</span>
+     <span class="n">Running</span> <span class="err">`</span><span class="n">target</span><span class="o">/</span><span class="n">debug</span><span class="o">/</span><span class="n">greeting</span><span class="err">`</span>
+<span class="n">Hello</span><span class="p">,</span> <span class="n">world</span><span class="o">!</span>
+</code></pre></div></div>
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box" id = "sidebar">
+		    
+				<p class = "sidebar-title">About This Article</p>
+			
+			
+				
+					<P class = "sidebar-about-content sidebar-font-big">To record how to build up dev environment of rust .</P>
+				
+				
+					<P class = "icon-link sidebar-about-content sidebar-font-medium" style = "margin-top:30px">Author: <a href="https://github.com/gangdong">david.dong</a></P>
+				
+					<P class = "icon-clock sidebar-about-content sidebar-font-medium">13 mins to read</P>
+					<P class = "icon-book-1 sidebar-about-content sidebar-font-medium">4979 words</P>
+				
+					<P class = "icon-th-list sidebar-about-content sidebar-font-medium">Key Words: Rust</P>
+				
+				
+				    <P class = "icon-hashtag sidebar-about-content sidebar-font-medium">Tags: 
+					
+					<a href="/category#Rust">Rust&nbsp;</a>
+					
+					</P>
+				
+			
+		</div>
+		
+		
+	    <div class="sidebar-toc-box">
+			
+			<p class = "sidebar-title">Table of Contents</p>
+			<span class = "sidebar-font-medium sidebar-toc-content"><ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#environments">Environments</a></li>
+<li class="toc-entry toc-h2"><a href="#setup">Setup</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#rust-compile-environment-and-related-tools-installation">Rust Compile environment and related tools installation</a></li>
+<li class="toc-entry toc-h3"><a href="#vscode-configuration-development-rust">VSCODE configuration development Rust</a></li>
+<li class="toc-entry toc-h3"><a href="#vscode-debugging-rust-code">Vscode debugging Rust code</a></li>
+</ul>
+</li>
+</ul></span>
+			
+		</div>
+		
+	</div>
+	 
+</div>
+<!-- no sidebar, use flex width box! -->
+<br>
+<div class="post-container">
+    <!-- post categories box! here  -->
+    
+   <div class="post-categories-meta">
+		<div class="post-categories-box post-categories-box-hide"><a href="/category#Rust">Rust</a></div>
+	</div>
+  
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">Share:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+	
+		<span class = "icon-eye tooltip"><p class = "tooltiptext" style = "left:0%; margin-left: 0px">Viewers</p><span id="busuanzi_value_page_pv"></span></span>
+		
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">further reading</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta"><div class="navigation-bar">
+	 
+	 <a href="/others/2023/02/04/Others-chatgpt.html"><span>Previous Post</span><br>What it&#39;s like to use ChatGPT</a>
+	 
+    </div></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'gangdong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9&domready=1"></script>
+
+
+<!-- sidebar button, toggle display/hide sidebar -->
+<script type="text/javascript">
+        $('.btn').on('click',function(){
+            $('.btn').toggleClass('btnc');
+            $('.sidebar-container').toggleClass('sidebar-container-hide');
+        })
+</script>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=G-3MXGF3F8QN"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-3MXGF3F8QN');
+	</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></body>
+</html>
