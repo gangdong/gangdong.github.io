@@ -22,9 +22,6 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-
-    - name: Build
-      uses: ealenn/jekyll-build-action@v1
       
     - name: Deploy
       run: |
