@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Rust startup - build up environment"
+title:  "Rust startup - environment setup"
 date:   2024-02-10 17:24:55 +0800
 categories: Rust
 tags: Rust
@@ -73,22 +73,21 @@ source "$HOME/.cargo/env"
 ```
 
 - The Rustup metadata and toolchain will be installed in the Rustup home directory located at /home/david/.rustup, which can be modified using the RUSTUP_HOME environment variable. 
+
 - Cargo's home directory is located at /home/david/.cargo which can be modified via the CARGO_HOME environment variable.
+
 - cargo, rustc, rustup and other commands will be added to cargo's bin directory, which is located in /home/david/.cargo/bin 
+
 - add this path to the PATH environment variable /home/david/.profile or /home/david/. bashrc
   
   ```shell
   export PATH="$HOME/.cargo/bin:$PATH
   ```
-  
-  
 + I used fish shell, so need to add environment variable PATH in ~/.config/fish/config.fish
   
   ```shell
   set -x PATH ~/.cargo/bin $PATH
   ```
-  
-  
 
 + Verify the installation
   
@@ -102,8 +101,6 @@ source "$HOME/.cargo/env"
   info: This is the version for the rustup toolchain manager, not the rustc compiler.
   info: The currently active `rustc` version is `rustc 1.76.0 (07dca489a 2024-02-04)`
   ```
-  
-  
 
 The rust toolchain management tool rustup, the package manager cargo, and the compiler rustc are now installed!
 
@@ -112,8 +109,6 @@ The rust toolchain management tool rustup, the package manager cargo, and the co
   ```c
   rustup self uninstall
   ```
-  
-  
 
 ### VSCODE configuration development Rust
 
@@ -126,7 +121,9 @@ Install the following plug-ins
 ### Vscode debugging Rust code
 
 - Create a project directory like first_prj 
+
 - Go to first_prj 
+
 - Run `cargo new first_prj_name` in terminal, it will create project first_prj_name directory and src/main. rs 
   
   ```c
@@ -137,7 +134,9 @@ Install the following plug-ins
   ~ cargo new greeting
        Created binary (application) `greeting` package
   ```
+
 - cd . /first_prj_name
+
 - run `cargo build` to compile the code 
   
   ```cs
@@ -146,14 +145,13 @@ Install the following plug-ins
      Compiling greeting v0.1.0 (/home/david/code/rust/first_proj/greeting)
       Finished dev [unoptimized + debuginfo] target(s) in 0.18s 0.
   ```
+
 - run `cargo run` to debug the code
-  
-  
-  
-  ```c
-  & david @ ubuntu in ~/code/rust/first_proj/greeting (master …4) 0 [19:07:19]
-  ~ cargo run
-      Finished dev [unoptimized + debuginfo] target(s) in 0.00s
-       Running `target/debug/greeting`
-  Hello, world!
-  ```
+
+```c
+& david @ ubuntu in ~/code/rust/first_proj/greeting (master …4) 0 [19:07:19]
+~ cargo run
+    Finished dev [unoptimized + debuginfo] target(s) in 0.00s
+     Running `target/debug/greeting`
+Hello, world!
+```
