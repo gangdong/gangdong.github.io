@@ -1155,7 +1155,7 @@ input:checked + .slider:before { -webkit-transform: translateX(13px); -ms-transf
 
 .dark .pagination-box-hit, .dark * .pagination-box-hit { border: 2px solid #9679f4; background-color: #9679f4; color: #000; }
 
-.dark .pagination-box-idle, .dark * .pagination-box-idle { border: 2px solid #333; color: #9679f4; }
+.dark .pagination-box-idle, .dark * .pagination-box-idle { border: 2px solid #333; color: #aaa; }
 
 .dark .pagination a:hover, .dark * .pagination a:hover { border: 2px solid #9679f4; background-color: #9679f4; }
 
