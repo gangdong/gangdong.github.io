@@ -6,7 +6,7 @@
                 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
         <url>
             <loc>https://dqdongg.com</loc>
-            <lastmod>2024-02-14T13:53:35+08:00</lastmod>
+            <lastmod>2024-02-14T14:06:12+08:00</lastmod>
             <priority>1.00</priority>
         </url><url>
                 <loc>https://dqdongg.com/rust/2024/02/14/Rust-startup-ownership.html</loc>

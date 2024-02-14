@@ -6,8 +6,8 @@
     <atom:link href="https://dqdongg.com/blog/index.html" rel="self" type="application/rss+xml" />
     <description>This is David Dong's blog. It's about program and design, life and sharing. Let's explore more together. | David，Software，Developer.Designer | 关于程序与设计 - 生活与分享 | 这里是董刚 的个人博客，让我们一起探索更多。</description>
     <language>en-us</language>
-    <pubDate>Wed, 14 Feb 2024 13:53:35 +0800</pubDate>
-    <lastBuildDate>Wed, 14 Feb 2024 13:53:35 +0800</lastBuildDate>
+    <pubDate>Wed, 14 Feb 2024 14:06:12 +0800</pubDate>
+    <lastBuildDate>Wed, 14 Feb 2024 14:06:12 +0800</lastBuildDate>
 
     
     <item>
@@ -9706,9 +9706,11 @@ Merge method and split method are relative. it combines multiple single channel 
 &lt;p&gt;The latest release is &lt;a href=&quot;https://github.com/gangdong/jekyll-theme-rawposts/releases&quot;&gt;v2.1&lt;/a&gt;, I will keep developing this theme. I’ve pinned this post, if any update is available I will update it here.&lt;/p&gt;
 
 &lt;h2 id=&quot;preview&quot;&gt;Preview&lt;/h2&gt;
+
 &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/screenshot.png&quot; alt=&quot;screenshot&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;features-list&quot;&gt;Features List&lt;/h2&gt;
+
 &lt;ul&gt;
   &lt;li&gt;Fully responsive, optimized for tablets &amp;amp; mobiles&lt;/li&gt;
   &lt;li&gt;Portfolio style&lt;/li&gt;
@@ -9750,6 +9752,7 @@ Merge method and split method are relative. it combines multiple single channel 
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;plugins&quot;&gt;Plugins&lt;/h2&gt;
+
 &lt;ul&gt;
   &lt;li&gt;jekyll-seo-tag&lt;/li&gt;
   &lt;li&gt;jemoji&lt;/li&gt;
@@ -9762,6 +9765,7 @@ Merge method and split method are relative. it combines multiple single channel 
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;installation&quot;&gt;Installation&lt;/h2&gt;
+
 &lt;ol&gt;
   &lt;li&gt;Fork the theme at &lt;a href=&quot;https://github.com/gangdong/jekyll-theme-rawposts&quot;&gt;here&lt;/a&gt;.&lt;/li&gt;
   &lt;li&gt;If you don’t have Jekyll installed, install it on your local machine. If you don’t know how to install, please refer to &lt;a href=&quot;https://gangdong.github.io/daviddong.github.io/web/2018/03/27/Web-jekyll-installation.html&quot;&gt;Getting started with Jekyll (1)&lt;/a&gt;.&lt;/li&gt;
@@ -9771,6 +9775,7 @@ Merge method and split method are relative. it combines multiple single channel 
 &lt;/ol&gt;
 
 &lt;h2 id=&quot;customization--configuration&quot;&gt;Customization &amp;amp; Configuration&lt;/h2&gt;
+
 &lt;p&gt;You can use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_config.yml&lt;/code&gt; file to configure the theme with your preferences.&lt;/p&gt;
 
 &lt;ul&gt;
@@ -9804,6 +9809,7 @@ set to &lt;em&gt;true&lt;/em&gt; to add link to source code.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;include-files&quot;&gt;Include Files&lt;/h2&gt;
+
 &lt;p&gt;There are some necessary &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.html&lt;/code&gt; files for utilizing the site’s features and they are in different folders.&lt;/p&gt;
 
 &lt;ul&gt;
@@ -9824,6 +9830,7 @@ Used for setting the menu bar of the homepage, is in the &lt;code class=&quot;la
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;development&quot;&gt;Development&lt;/h2&gt;
+
 &lt;p&gt;To set up your environment to develop this theme:&lt;/p&gt;
 
 &lt;ol&gt;
@@ -9841,6 +9848,7 @@ Used for setting the menu bar of the homepage, is in the &lt;code class=&quot;la
 &lt;p&gt;This starts a Jekyll server using the theme’s files and contents of the / directory. As modifications are made, refresh your browser to see any changes.&lt;/p&gt;
 
 &lt;h2 id=&quot;pull-requests&quot;&gt;Pull Requests&lt;/h2&gt;
+
 &lt;p&gt;When submitting a pull request:&lt;/p&gt;
 
 &lt;ol&gt;
@@ -9852,15 +9860,18 @@ Used for setting the menu bar of the homepage, is in the &lt;code class=&quot;la
 &lt;p&gt;Welcome to submitting pull requests to me, for each request, I will review as soon as possible and merge any good submits.&lt;/p&gt;
 
 &lt;h2 id=&quot;version&quot;&gt;Version&lt;/h2&gt;
+
 &lt;p&gt;2.1.0&lt;/p&gt;
 
 &lt;h2 id=&quot;q--a&quot;&gt;Q &amp;amp; A&lt;/h2&gt;
+
 &lt;p&gt;Welcome raise issues if you have any questions about this theme, not limited for any usage, bug fix, new features requirements… :smile:&lt;/p&gt;
 
 &lt;h2 id=&quot;license&quot;&gt;License&lt;/h2&gt;
+
 &lt;p&gt;The theme is available as open source under the terms of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MIT&lt;/code&gt; License. 
 &lt;br /&gt;&lt;br /&gt;
-&lt;a href=&quot;https://dqdongg.com/blog/web/github/2019/02/22/Blog-Template.html&quot;&gt;中文 -&amp;gt;&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&quot;&quot;&gt;中文 -&amp;gt; &lt;/a&gt;&lt;a href=&quot;https://dqdongg.com/blog/web/2019/02/23/Blog-Template.html&quot;&gt;关于本博客模板使用上的一些问题 | David Dong’s Blog&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
