@@ -178,7 +178,49 @@ $('.menu-btn').on('click',function(e){
 	<!-- Try to look for the pinned article and locked at the first page -->
 	
 
-	<!-- This loops through the paginated posts --><li class="post-wrapper"><a class="post-link" href="/python/2021/06/03/Python-pypy.html">
+	<!-- This loops through the paginated posts --><li class="post-wrapper"><a class="post-link" href="/c%23/2021/09/11/Csharp-threadSynchronization.html">
+          <h2 class="post-title">浅析 C# 中的线程同步 </h2>
+        </a>
+		
+        <div class="post-meta">
+          <ul class="post-categories post-categories-padding"><a href="/category#C#">C#</a></ul>
+          <div class="post-date-right-align">
+            <i class="icon-calendar"></i>
+            Sep 11, 2021
+		  </div>
+		</div>
+		
+        <div class="post"><p>线程间同步是指在多线程环境下，保证共享资源的安全和一致性的机制。
+C# 中提供了多种方式实现线程间同步。例如：</p>
+<ul>
+  <li>lock 语句：使用一个对象作为锁，保证一次只有一个线程可以进入临界区；</li>
+  <li>Interlocked 类：提供了原子操作，如递增、递减、交换和读取值；</li>
+  <li>Monitor 类：提供了锁定对象、等待信号和通知信号的方法；</li>
+  <li>Mutex 类：提供了<strong>跨进程</strong>的互斥锁，可以用来同步<strong>不同进程中</strong>的线程；</li>
+  <li>Semaphore 类：提供了一个计数器，限制同时访问共享资源的线程数；</li>
+  <li>AutoResetEvent 和 ManualResetEvent 类：提供了信号量，可以用来通知或等待其他线程的状态变化；</li>
+</ul>
+</div>
+
+
+
+<footer>
+    <div class="readingtime-meta">
+	    <div class = "readingtime-box">
+			
+			<span class="icon-hourglass readingtime">阅读时间：22 mins</span>
+			<span class="icon-book readingtime">字数：8472</span>
+			
+		</div>
+		<div>
+			<a class="readingtime-categories" href="/c%23/2021/09/11/Csharp-threadSynchronization.html">
+				
+				<span class="icon-angle-double-right">阅读全文&nbsp;</span>
+				
+			</a>
+		</div>
+	</div>
+</footer> </li><li class="post-wrapper"><a class="post-link" href="/python/2021/06/03/Python-pypy.html">
           <h2 class="post-title">Use Pypy to make Python run faster</h2>
         </a>
 		
@@ -537,39 +579,6 @@ This is the story of how I speed up my blog website load time…</p>
 		</div>
 		<div>
 			<a class="readingtime-categories" href="/windows/2020/07/09/Windows-inf2cat.html">
-				
-				<span class="icon-angle-double-right">阅读全文&nbsp;</span>
-				
-			</a>
-		</div>
-	</div>
-</footer> </li><li class="post-wrapper"><a class="post-link" href="/security/2020/07/01/Security-signature.html">
-          <h2 class="post-title">浅谈数字签名</h2>
-        </a>
-		
-        <div class="post-meta">
-          <ul class="post-categories post-categories-padding"><a href="/category#Security">Security</a></ul>
-          <div class="post-date-right-align">
-            <i class="icon-calendar"></i>
-            Jul 1, 2020
-		  </div>
-		</div>
-		
-        <div class="post"><p>近日，腾讯公司状告贵州老干妈的新闻在互联网上闹得沸沸扬扬，💥 大家也应该有所耳闻。腾讯起诉老干妈合作推广后没有付广告费，但随后老干妈否认了此事，称完全不知道这个合作。 😕 后来经调查发现，这是三个人冒充老干妈市场部经理，然后刻了个假公章，就为了获得合作后的游戏礼包并从中牟利。</p>
-</div>
-
-
-
-<footer>
-    <div class="readingtime-meta">
-	    <div class = "readingtime-box">
-			
-			<span class="icon-hourglass readingtime">阅读时间：15 mins</span>
-			<span class="icon-book readingtime">字数：5622</span>
-			
-		</div>
-		<div>
-			<a class="readingtime-categories" href="/security/2020/07/01/Security-signature.html">
 				
 				<span class="icon-angle-double-right">阅读全文&nbsp;</span>
 				

@@ -1,6 +1,18 @@
 [
   
     {
+      "title"    : "Rust startup - Ownership",
+      "title-lower"    : "rust startup - ownership",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Rust",
+      "tags"     : "Rust",
+      "url"      : "/rust/2024/02/14/Rust-startup-ownership.html",
+      "date"     : "2024-02-14 11:20:15 +0800",
+      "content"     : "Ownership in Rust refers to a set of rules that govern how memory is managed. At any given time, each value in Rust has a variable that is known as its owner. There can be only one owner at a time...."
+    } ,
+  
+    {
       "title"    : "Rust startup - environment setup",
       "title-lower"    : "rust startup - environment setup",
       "sub-titile" : "",

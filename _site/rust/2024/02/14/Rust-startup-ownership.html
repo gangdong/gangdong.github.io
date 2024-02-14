@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Rust startup - Ownership | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Rust startup - Ownership" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Learning the concept of ownership." />
+<meta property="og:description" content="Learning the concept of ownership." />
+<link rel="canonical" href="http://localhost:4000/rust/2024/02/14/Rust-startup-ownership.html" />
+<meta property="og:url" content="http://localhost:4000/rust/2024/02/14/Rust-startup-ownership.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-02-14T11:20:15+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Rust startup - Ownership" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"david.dong"},"dateModified":"2024-02-14T11:20:15+08:00","datePublished":"2024-02-14T11:20:15+08:00","description":"Learning the concept of ownership.","headline":"Rust startup - Ownership","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/rust/2024/02/14/Rust-startup-ownership.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/logo.png"},"name":"david.dong"},"url":"http://localhost:4000/rust/2024/02/14/Rust-startup-ownership.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+<meta property="article:tag" content="Rust">
+
+
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
+
+</head><body>
+    <main class="container">
+      <section class="about condensed">
+	    <div class="about-header condensed">
+			<div class="about-title">
+				<a href="/blog/index.html">
+				  <img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/avatar-11.png" alt="David Dong"/>
+				</a>
+				<div class = "title-meta">
+					<h2 id="title">
+					  <a href="/blog/index.html">David Dong</a>
+					</h2>
+					<p class = "tagline-small">Java/C/C#/Python</p>
+				</div>
+			</div>
+			<p class="tagline">Java/C/C#/Python</p>
+		</div>
+		<!--put dark mode button here -->
+		<div class = "about-footer condensed">
+		  <!--put rss/code link here -->
+			<div class="icon-box-container about-footer condensed"><div class = "icon-box" style = "padding-right:0px">
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id = "mode">Dark Mode</span>
+					</a>
+				</div>
+				<!-- toggle dark/light display mode, should loading darkmode.js here for avoiding flicker when switching -->
+				<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/darkmode.js"></script>
+				<script type="text/javascript">
+				$('.dark-mode').on('click',function(){
+					$('.dark-mode').toggleClass('light-mode');
+					if (document.getElementById("mode").innerHTML=="Light Mode")
+						document.getElementById("mode").innerHTML="Dark Mode";
+					else 
+						document.getElementById("mode").innerHTML="Light Mode";
+				})
+				</script><div class = "icon-box">
+					<a class="icon-rss" href="/rss.xml">
+						<span>Subscribe</span>
+					</a>
+				</div><div class = "icon-box">
+					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
+						<span>Source Code</span>
+					</a>
+				</div></div>
+		</div>
+		
+	    <!--show contact me -->
+		<div class = "about-footer condensed social-container">
+	    <p class = "contact about-footer condensed">CONTACT ME</p>
+		<!-- put social link here -->
+	      <ul class="social about-footer condensed" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		<!--put timestamp here -->
+		<p class ="timestamp about-footer condensed">&copy; 2024</p>
+		</div>
+	  <!-- about box end here -->
+      </section>
+	  
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+<div class="post-container">
+	<div  class = "menu-meta condensed">
+		<!--put top menu here, display @ big screen (> $mobileW) -->
+		<div  class = "menu-logo">BLOG</div>
+		<div  class = "menu">
+			<a href="/blog/index.html">
+				<li class="icon-home">Home</li>
+			</a><a href="/archive">
+				<li class="icon-archive">Archives</li>
+			</a><a href="/category">
+				<li class="icon-tags">Categories</li>
+			</a><a href="/about">
+				<li class="icon-help-circled">About</li>
+			</a>
+		</div>
+		<!--put hide menu button here, display @ small screen (< $mobileW) -->
+		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
+		<!--put hide menu here, display @ small screen (< $mobileW) -->
+		<div class="context-menu">
+			<ul >
+				<li>
+					<a class="icon-home" href="/blog/index.html">Home</a>
+				</li><li>
+					<a class="icon-archive" href="/archive">Archives</a>
+				</li><li>
+					<a class="icon-tags" href="/category">Categories</a>
+				</li><li>
+					<a class="icon-help-circled" href="/about">About</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('.menu-btn').on('click',function(e){
+		
+	e.stopPropagation();
+	var tag = $('.context-menu');		
+	$(tag).toggleClass('context-menu-show');
+			
+	var flag = true;
+	/* hide the context-menu when other element is clicked */
+	$(document).bind('click',function(e){
+		var target = $(e.target);
+		if(target.closest(tag).length == 0 && flag == true){
+			$(tag).toggleClass('context-menu-show');
+			flag = false;
+		}
+	});
+})
+</script><div class="post-container" style = "margin-bottom:1rem">
+	<div class="posts-labelgroup" id="posts-labelgroup">
+		<h1 id="posts-label">POST</h1>
+	</div>  
+	<!-- post title -->
+	<h2 class="post-title-body">Rust startup - Ownership</h2>
+	<div class="post-meta">
+		<div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">Feb 14, 2024</div>
+		
+		<!-- sidebar button for displaying/hiding sidebar -->
+		<div class = "sidebar-btn-box"><a class="btn"></a></div>
+		
+	</div>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+<div class="post-viewer-container">
+	<div class="post post-fix-width">
+		<p>Ownership in Rust refers to a set of rules that govern how memory is managed. At any given time, each value in Rust has a variable that is known as its owner. There can be only one owner at a time. When the owner goes out of scope, the value is dropped and its memory is deallocated.   <!--more--></p>
+
+<p>Ownership ensures that memory is used safely and efficiently, and it prevents common memory errors such as dangling pointers and memory leaks.</p>
+
+<h3 id="the-ownership-rules">The Ownership Rules</h3>
+
+<p>The ownership rules in Rust are as follows:</p>
+
+<ul>
+  <li>
+    <p><strong>Every value in Rust has an owner.</strong> The owner is the variable or expression that is last assigned to the value.</p>
+  </li>
+  <li>
+    <p><strong>There can only be one owner of a value at a time.</strong> When a value is assigned to a new variable, the ownership of the value is transferred to the new variable.</p>
+  </li>
+  <li>
+    <p><strong>When a value goes out of scope, the value is dropped.</strong> The value is deallocated and its memory is returned to the system.</p>
+  </li>
+</ul>
+
+<h3 id="the-benefits-of-ownership">The Benefits of Ownership</h3>
+
+<p>Ownership provides several benefits for Rust programs, including:</p>
+
+<ul>
+  <li>
+    <p><strong>Memory safety:</strong> Ownership prevents common memory errors such as dangling pointers and memory leaks.</p>
+  </li>
+  <li>
+    <p><strong>Efficiency:</strong> Ownership allows Rust to optimize memory usage by deallocating memory as soon as it is no longer needed.</p>
+  </li>
+  <li>
+    <p><strong>Expressiveness:</strong> Ownership can be used to express the lifetime of data in Rust programs.</p>
+  </li>
+</ul>
+
+<h3 id="ownership-and-borrowing">Ownership and Borrowing</h3>
+
+<p>In some cases, it is necessary to allow multiple parts of a program to access the same data. This can be done using borrowing. Borrowing is a way to temporarily transfer ownership of a value to another variable or expression. References (&amp;) are used to borrow values, and they have a limited lifetime during which they are valid.</p>
+
+<h3 id="mutable-borrowing">Mutable Borrowing</h3>
+
+<p>Mutable references (&amp;mut) allow you to borrow a value for both reading and writing.
+Only one mutable reference is allowed at a time in a given scope to prevent data races.</p>
+
+<h3 id="clone">Clone</h3>
+
+<p>To create a new value with the same data without transferring ownership, you can explicitly clone the value. Cloning allocates new memory for the data, allowing multiple variables to own separate copies of the same data.</p>
+
+<h3 id="ownership-in-functions">Ownership in Functions</h3>
+
+<p>Function parameters by default take ownership of the passed values.
+To borrow a value within a function without taking ownership, you can pass references as function arguments.</p>
+
+<h3 id="the-ownership-checker">The Ownership Checker</h3>
+
+<p>The Rust compiler includes an ownership checker that helps to ensure that the ownership rules are followed. The ownership checker can detect and report errors such as dangling pointers and memory leaks.</p>
+
+<h3 id="lifetimes">Lifetimes</h3>
+
+<p>Lifetimes are annotations that specify the scope for which references are valid.
+They are used by the Rust compiler to enforce memory safety rules and prevent dangling references.</p>
+
+<p>Ownership in Rust provides a powerful mechanism for memory management and ensures memory safety without the need for a garbage collector or manual memory management. It enables safe and efficient concurrency and system-level programming in Rust.</p>
+
+<h3 id="example">Example</h3>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Car</span> <span class="p">{</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+    <span class="n">price</span><span class="p">:</span> <span class="nb">u32</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="k">fn</span> <span class="nf">print_car</span><span class="p">(</span><span class="n">car</span><span class="p">:</span> <span class="n">Car</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Name {}, price {}"</span><span class="p">,</span> <span class="n">car</span><span class="py">.name</span><span class="p">,</span> <span class="n">car</span><span class="py">.price</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">let</span> <span class="n">demo_car</span> <span class="o">=</span> <span class="n">Car</span> <span class="p">{</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nn">String</span><span class="p">::</span><span class="nf">from</span><span class="p">(</span><span class="s">"Ferrari"</span><span class="p">),</span>
+        <span class="n">price</span><span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
+    <span class="p">};</span>
+
+    <span class="nf">print_car</span><span class="p">(</span><span class="n">demo_car</span><span class="p">);</span>
+    <span class="c1">//println!("Name {}, price {}", demo_car.name, demo_car.price);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Output</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">~</span> <span class="n">cargo</span> <span class="n">run</span>
+   <span class="n">Compiling</span> <span class="n">greeting</span> <span class="n">v0</span><span class="p">.</span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span> <span class="p">(</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">david</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">rust</span><span class="o">/</span><span class="n">first_proj</span><span class="o">/</span><span class="n">greeting</span><span class="p">)</span>
+    <span class="n">Finished</span> <span class="n">dev</span> <span class="p">[</span><span class="n">unoptimized</span> <span class="o">+</span> <span class="n">debuginfo</span><span class="p">]</span> <span class="n">target</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">in</span> <span class="mi">0</span><span class="p">.</span><span class="mi">48</span><span class="n">s</span>
+     <span class="n">Running</span> <span class="err">`</span><span class="n">target</span><span class="o">/</span><span class="n">debug</span><span class="o">/</span><span class="n">greeting</span><span class="err">`</span>
+<span class="n">Name</span> <span class="n">Ferrari</span><span class="p">,</span> <span class="n">price</span> <span class="mi">10000</span>
+</code></pre></div></div>
+
+<p>so the ownership of the <code class="language-plaintext highlighter-rouge">demo_car</code> has been transferred to function <code class="language-plaintext highlighter-rouge">pirnt_car</code>, try to use the <code class="language-plaintext highlighter-rouge">demo_car</code> after being transferred.</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Car</span> <span class="p">{</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+    <span class="n">price</span><span class="p">:</span> <span class="nb">u32</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="k">fn</span> <span class="nf">print_car</span><span class="p">(</span><span class="n">car</span><span class="p">:</span> <span class="n">Car</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Name {}, price {}"</span><span class="p">,</span> <span class="n">car</span><span class="py">.name</span><span class="p">,</span> <span class="n">car</span><span class="py">.price</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">let</span> <span class="n">demo_car</span> <span class="o">=</span> <span class="n">Car</span> <span class="p">{</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nn">String</span><span class="p">::</span><span class="nf">from</span><span class="p">(</span><span class="s">"Ferrari"</span><span class="p">),</span>
+        <span class="n">price</span><span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
+    <span class="p">};</span>
+
+    <span class="nf">print_car</span><span class="p">(</span><span class="n">demo_car</span><span class="p">);</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Name {}, price {}"</span><span class="p">,</span> <span class="n">demo_car</span><span class="py">.name</span><span class="p">,</span> <span class="n">demo_car</span><span class="py">.price</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>as expected, a compile error occurred. The error encountered is due to the <code class="language-plaintext highlighter-rouge">demo_car</code> variable being moved when it’s passed to the <code class="language-plaintext highlighter-rouge">print_car</code> function. After the move, I am trying to use <code class="language-plaintext highlighter-rouge">demo_car</code> again in the <code class="language-plaintext highlighter-rouge">println!</code> macro, which is not allowed because ownership has already been transferred.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">~</span> <span class="n">cargo</span> <span class="n">run</span>
+   <span class="n">Compiling</span> <span class="n">greeting</span> <span class="n">v0</span><span class="p">.</span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span> <span class="p">(</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">david</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">rust</span><span class="o">/</span><span class="n">first_proj</span><span class="o">/</span><span class="n">greeting</span><span class="p">)</span>
+<span class="n">error</span><span class="p">[</span><span class="n">E0382</span><span class="p">]</span><span class="o">:</span> <span class="n">borrow</span> <span class="n">of</span> <span class="n">moved</span> <span class="n">value</span><span class="o">:</span> <span class="err">`</span><span class="n">demo_car</span><span class="err">`</span>
+  <span class="o">--&gt;</span> <span class="n">src</span><span class="o">/</span><span class="n">main</span><span class="p">.</span><span class="n">rs</span><span class="o">:</span><span class="mi">17</span><span class="o">:</span><span class="mi">50</span>
+   <span class="o">|</span>
+<span class="mi">11</span> <span class="o">|</span>     <span class="n">let</span> <span class="n">demo_car</span> <span class="o">=</span> <span class="n">Car</span> <span class="p">{</span>
+   <span class="o">|</span>         <span class="o">--------</span> <span class="n">move</span> <span class="n">occurs</span> <span class="n">because</span> <span class="err">`</span><span class="n">demo_car</span><span class="err">`</span> <span class="n">has</span> <span class="n">type</span> <span class="err">`</span><span class="n">Car</span><span class="err">`</span><span class="p">,</span> <span class="n">which</span> <span class="n">does</span> <span class="n">not</span> <span class="n">implement</span> <span class="n">the</span> <span class="err">`</span><span class="n">Copy</span><span class="err">`</span> <span class="n">trait</span>
+<span class="p">...</span>
+<span class="mi">16</span> <span class="o">|</span>     <span class="n">print_car</span><span class="p">(</span><span class="n">demo_car</span><span class="p">);</span>
+   <span class="o">|</span>               <span class="o">--------</span> <span class="n">value</span> <span class="n">moved</span> <span class="n">here</span>
+<span class="mi">17</span> <span class="o">|</span>     <span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">"Name {}, price {}"</span><span class="p">,</span> <span class="n">demo_car</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="n">demo_car</span><span class="p">.</span><span class="n">price</span><span class="p">);</span>
+   <span class="o">|</span>                                                  <span class="o">^^^^^^^^^^^^^^</span> <span class="n">value</span> <span class="n">borrowed</span> <span class="n">here</span> <span class="n">after</span> <span class="n">move</span>
+   <span class="o">|</span>
+<span class="nl">note:</span> <span class="n">consider</span> <span class="n">changing</span> <span class="n">this</span> <span class="n">parameter</span> <span class="n">type</span> <span class="n">in</span> <span class="n">function</span> <span class="err">`</span><span class="n">print_car</span><span class="err">`</span> <span class="n">to</span> <span class="n">borrow</span> <span class="n">instead</span> <span class="k">if</span> <span class="n">owning</span> <span class="n">the</span> <span class="n">value</span> <span class="n">isn</span><span class="err">'</span><span class="n">t</span> <span class="n">necessary</span>
+  <span class="o">--&gt;</span> <span class="n">src</span><span class="o">/</span><span class="n">main</span><span class="p">.</span><span class="n">rs</span><span class="o">:</span><span class="mi">5</span><span class="o">:</span><span class="mi">19</span>
+   <span class="o">|</span>
+<span class="mi">5</span>  <span class="o">|</span> <span class="n">fn</span> <span class="n">print_car</span><span class="p">(</span><span class="n">car</span><span class="o">:</span> <span class="n">Car</span><span class="p">)</span>
+   <span class="o">|</span>    <span class="o">---------</span>      <span class="o">^^^</span> <span class="n">this</span> <span class="n">parameter</span> <span class="n">takes</span> <span class="n">ownership</span> <span class="n">of</span> <span class="n">the</span> <span class="n">value</span>
+   <span class="o">|</span>    <span class="o">|</span>
+   <span class="o">|</span>    <span class="n">in</span> <span class="n">this</span> <span class="n">function</span>
+</code></pre></div></div>
+
+<p>To fix this, we can either clone the <code class="language-plaintext highlighter-rouge">demo_car</code> before passing it to <code class="language-plaintext highlighter-rouge">print_car</code>, or we can change the <code class="language-plaintext highlighter-rouge">print_car</code> function to accept a reference to Car rather than taking ownership of it. Here’s the modified code using the second approach:</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">#[derive(Clone)]</span>
+<span class="k">struct</span> <span class="n">Car</span> <span class="p">{</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+    <span class="n">price</span><span class="p">:</span> <span class="nb">u32</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="k">fn</span> <span class="nf">print_car</span><span class="p">(</span><span class="n">car</span><span class="p">:</span> <span class="n">Car</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Name {}, price {}"</span><span class="p">,</span> <span class="n">car</span><span class="py">.name</span><span class="p">,</span> <span class="n">car</span><span class="py">.price</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">let</span> <span class="n">demo_car</span> <span class="o">=</span> <span class="n">Car</span> <span class="p">{</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nn">String</span><span class="p">::</span><span class="nf">from</span><span class="p">(</span><span class="s">"Ferrari"</span><span class="p">),</span>
+        <span class="n">price</span><span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
+    <span class="p">};</span>
+
+    <span class="nf">print_car</span><span class="p">(</span><span class="n">demo_car</span><span class="nf">.clone</span><span class="p">());</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Name {}, price {}"</span><span class="p">,</span> <span class="n">demo_car</span><span class="py">.name</span><span class="p">,</span> <span class="n">demo_car</span><span class="py">.price</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Output</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">~</span> <span class="n">cargo</span> <span class="n">run</span>
+    <span class="n">Finished</span> <span class="n">dev</span> <span class="p">[</span><span class="n">unoptimized</span> <span class="o">+</span> <span class="n">debuginfo</span><span class="p">]</span> <span class="n">target</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">in</span> <span class="mi">0</span><span class="p">.</span><span class="mo">05</span><span class="n">s</span>
+     <span class="n">Running</span> <span class="err">`</span><span class="n">target</span><span class="o">/</span><span class="n">debug</span><span class="o">/</span><span class="n">greeting</span><span class="err">`</span>
+<span class="n">Name</span> <span class="n">Ferrari</span><span class="p">,</span> <span class="n">price</span> <span class="mi">10000</span>
+<span class="n">Name</span> <span class="n">Ferrari</span><span class="p">,</span> <span class="n">price</span> <span class="mi">10000</span>
+</code></pre></div></div>
+
+<p>Above we clone <code class="language-plaintext highlighter-rouge">demo_car</code> before passing it to the <code class="language-plaintext highlighter-rouge">print_car</code> function.</p>
+
+<p>In this version:</p>
+
+<ul>
+  <li>
+    <p>We’ve added <code class="language-plaintext highlighter-rouge">#[derive(Clone)]</code> to the Car struct definition to automatically derive the Clone trait for Car, allowing us to call the clone method on instances of Car.</p>
+  </li>
+  <li>
+    <p>When calling <code class="language-plaintext highlighter-rouge">print_car</code>, we pass a cloned copy of <code class="language-plaintext highlighter-rouge">demo_car</code> using <code class="language-plaintext highlighter-rouge">demo_car.clone()</code>. This creates a new copy of <code class="language-plaintext highlighter-rouge">demo_car</code>, and ownership of the copy is passed to the <code class="language-plaintext highlighter-rouge">print_car</code> function, allowing us to retain ownership of the original <code class="language-plaintext highlighter-rouge">demo_car</code>.</p>
+  </li>
+  <li>
+    <p>After calling <code class="language-plaintext highlighter-rouge">print_car</code>, we can still use <code class="language-plaintext highlighter-rouge">demo_car</code> as it has not been moved.</p>
+  </li>
+</ul>
+
+<p>Below is another approach</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Car</span> <span class="p">{</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+    <span class="n">price</span><span class="p">:</span> <span class="nb">u32</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="k">fn</span> <span class="nf">print_car</span><span class="p">(</span><span class="n">car</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">Car</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Name {}, price {}"</span><span class="p">,</span> <span class="n">car</span><span class="py">.name</span><span class="p">,</span> <span class="n">car</span><span class="py">.price</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">let</span> <span class="n">demo_car</span> <span class="o">=</span> <span class="n">Car</span> <span class="p">{</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nn">String</span><span class="p">::</span><span class="nf">from</span><span class="p">(</span><span class="s">"Ferrari"</span><span class="p">),</span>
+        <span class="n">price</span><span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
+    <span class="p">};</span>
+
+    <span class="nf">print_car</span><span class="p">(</span><span class="o">&amp;</span><span class="n">demo_car</span><span class="p">);</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Name {}, price {}"</span><span class="p">,</span> <span class="n">demo_car</span><span class="py">.name</span><span class="p">,</span> <span class="n">demo_car</span><span class="py">.price</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Output</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">~</span> <span class="n">cargo</span> <span class="n">run</span>
+   <span class="n">Compiling</span> <span class="n">greeting</span> <span class="n">v0</span><span class="p">.</span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span> <span class="p">(</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">david</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">rust</span><span class="o">/</span><span class="n">first_proj</span><span class="o">/</span><span class="n">greeting</span><span class="p">)</span>
+    <span class="n">Finished</span> <span class="n">dev</span> <span class="p">[</span><span class="n">unoptimized</span> <span class="o">+</span> <span class="n">debuginfo</span><span class="p">]</span> <span class="n">target</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">in</span> <span class="mi">0</span><span class="p">.</span><span class="mi">35</span><span class="n">s</span>
+     <span class="n">Running</span> <span class="err">`</span><span class="n">target</span><span class="o">/</span><span class="n">debug</span><span class="o">/</span><span class="n">greeting</span><span class="err">`</span>
+<span class="n">Name</span> <span class="n">Ferrari</span><span class="p">,</span> <span class="n">price</span> <span class="mi">10000</span>
+<span class="n">Name</span> <span class="n">Ferrari</span><span class="p">,</span> <span class="n">price</span> <span class="mi">10000</span>
+</code></pre></div></div>
+
+<p>In this version:</p>
+
+<ul>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">print_car</code> function now accepts a reference to a Car struct using <code class="language-plaintext highlighter-rouge">&amp;Car</code> as the parameter type.</p>
+  </li>
+  <li>
+    <p>Inside <code class="language-plaintext highlighter-rouge">print_car</code>, we use car.name and car.price to access the fields of the Car struct via the reference.</p>
+  </li>
+  <li>
+    <p>When calling <code class="language-plaintext highlighter-rouge">print_car</code>, we pass a reference to <code class="language-plaintext highlighter-rouge">demo_car</code> using <code class="language-plaintext highlighter-rouge">&amp;demo_car</code>, which allows us to borrow demo_car without transferring ownership.</p>
+  </li>
+  <li>
+    <p>After calling <code class="language-plaintext highlighter-rouge">print_car</code>, we can still use <code class="language-plaintext highlighter-rouge">demo_car</code> as it has not been moved.</p>
+  </li>
+</ul>
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box" id = "sidebar">
+		    
+				<p class = "sidebar-title">About This Article</p>
+			
+			
+				
+					<P class = "sidebar-about-content sidebar-font-big">Learning the concept of ownership.</P>
+				
+				
+					<P class = "icon-link sidebar-about-content sidebar-font-medium" style = "margin-top:30px">Author: <a href="https://github.com/gangdong">david.dong</a></P>
+				
+					<P class = "icon-clock sidebar-about-content sidebar-font-medium">16 mins to read</P>
+					<P class = "icon-book-1 sidebar-about-content sidebar-font-medium">6005 words</P>
+				
+					<P class = "icon-th-list sidebar-about-content sidebar-font-medium">Key Words: Rust</P>
+				
+				
+				    <P class = "icon-hashtag sidebar-about-content sidebar-font-medium">Tags: 
+					
+					<a href="/category#Rust">Rust&nbsp;</a>
+					
+					</P>
+				
+			
+		</div>
+		
+		
+	    <div class="sidebar-toc-box">
+			
+			<p class = "sidebar-title">Table of Contents</p>
+			<span class = "sidebar-font-medium sidebar-toc-content"><ul id="toc" class="section-nav">
+<li class="toc-entry toc-h3"><a href="#the-ownership-rules">The Ownership Rules</a></li>
+<li class="toc-entry toc-h3"><a href="#the-benefits-of-ownership">The Benefits of Ownership</a></li>
+<li class="toc-entry toc-h3"><a href="#ownership-and-borrowing">Ownership and Borrowing</a></li>
+<li class="toc-entry toc-h3"><a href="#mutable-borrowing">Mutable Borrowing</a></li>
+<li class="toc-entry toc-h3"><a href="#clone">Clone</a></li>
+<li class="toc-entry toc-h3"><a href="#ownership-in-functions">Ownership in Functions</a></li>
+<li class="toc-entry toc-h3"><a href="#the-ownership-checker">The Ownership Checker</a></li>
+<li class="toc-entry toc-h3"><a href="#lifetimes">Lifetimes</a></li>
+<li class="toc-entry toc-h3"><a href="#example">Example</a></li>
+</ul></span>
+			
+		</div>
+		
+	</div>
+	 
+</div>
+<!-- no sidebar, use flex width box! -->
+<br>
+<div class="post-container">
+    <!-- post categories box! here  -->
+    
+   <div class="post-categories-meta">
+		<div class="post-categories-box post-categories-box-hide"><a href="/category#Rust">Rust</a></div>
+	</div>
+  
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">Share:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+	
+		<span class = "icon-eye tooltip"><p class = "tooltiptext" style = "left:0%; margin-left: 0px">Viewers</p><span id="busuanzi_value_page_pv"></span></span>
+		
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">You may also like</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/rust/2024/02/10/Rust-startup.html">Rust startup - environment setup</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">further reading</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta"><div class="navigation-bar">
+	 
+	 <a href="/rust/2024/02/10/Rust-startup.html"><span>Previous Post</span><br>Rust startup - environment setup</a>
+	 
+    </div></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'gangdong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9&domready=1"></script>
+
+
+<!-- sidebar button, toggle display/hide sidebar -->
+<script type="text/javascript">
+        $('.btn').on('click',function(){
+            $('.btn').toggleClass('btnc');
+            $('.sidebar-container').toggleClass('sidebar-container-hide');
+        })
+</script>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=G-3MXGF3F8QN"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-3MXGF3F8QN');
+	</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></body>
+</html>
