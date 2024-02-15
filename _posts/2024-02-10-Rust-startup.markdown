@@ -64,7 +64,43 @@ The Cargo home directory is located at:
 This can be modified with the CARGO_HOME environment variable.
 
 The cargo, rustc, rustup and other commands will be added to
-Cargo's bin directory, located at:  /home/david/.cargo/binThis path will then be added to your PATH environment variable bymodifying the profile files located at:  /home/david/.profile  /home/david/.bashrcYou can uninstall at any time with rustup self uninstall andthese changes will be reverted.Current installation options:   default host triple: x86_64-unknown-linux-gnu     default toolchain: stable (default)               profile: default  modify PATH variable: yes1) Proceed with installation (default)2) Customize installation3) Cancel installation>1info: profile set to 'default'info: default host triple is x86_64-unknown-linux-gnuinfo: syncing channel updates for 'stable-x86_64-unknown-linux-gnu'712.1 KiB / 712.1 KiB (100 %)  78.6 KiB/s in  7s ETA:  0sinfo: latest update on 2024-02-08, rust version 1.76.0 (07dca489a 2024-02-04)info: downloading component 'cargo'  8.5 MiB /   8.5 MiB (100 %)  80.0 KiB/s in  1m 44s ETA:  0sinfo: downloading component 'clippy'  2.1 MiB /   2.1 MiB (100 %)  95.0 KiB/s in 23s ETA:  0sinfo: downloading component 'rust-docs' 14.7 MiB /  14.7 MiB (100 %) 117.4 KiB/s in  2m 45s ETA:  0s    info: downloading component 'rust-std' 23.9 MiB /  23.9 MiB (100 %)  98.2 KiB/s in  4m 21s ETA:  0s    info: downloading component 'rustc' 62.3 MiB /  62.3 MiB (100 %) 135.4 KiB/s in 12m 15s ETA:  0s    info: downloading component 'rustfmt'  2.3 MiB /   2.3 MiB (100 %)  86.2 KiB/s in 30s ETA:  0s info: installing component 'cargo'info: installing component 'clippy'info: installing component 'rust-docs' 14.7 MiB /  14.7 MiB (100 %)   5.0 MiB/s in  2s ETA:  0sinfo: installing component 'rust-std' 23.9 MiB /  23.9 MiB (100 %)  13.2 MiB/s in  1s ETA:  0sinfo: installing component 'rustc' 62.3 MiB /  62.3 MiB (100 %)  14.9 MiB/s in  4s ETA:  0sinfo: installing component 'rustfmt'info: default toolchain set to 'stable-x86_64-unknown-linux-gnu'  stable-x86_64-unknown-linux-gnu installed - rustc 1.76.0 (07dca489a 2024-02-04)Rust is installed now. Great!To get started you may need to restart your current shell.This would reload your PATH environment variable to includeCargo's bin directory ($HOME/.cargo/bin).
+Cargo's bin directory, located at:  /home/david/.cargo/bin 
+This path will then be added to your PATH environment variable by modifying the 
+profile files located at:  /home/david/.profile  /home/david/.bashrc 
+You can uninstall at any time with rustup self uninstall and these changes will 
+be reverted. 
+Current installation options:   default 
+host triple: x86_64-unknown-linux-gnu     default 
+toolchain: stable (default)               
+profile: default  
+modify PATH variable: yes
+1) Proceed with installation (default)
+2) Customize installation
+3) Cancel installation
+>1
+info: profile set to 'default'
+info: default 
+host triple is x86_64-unknown-linux-gnu
+info: syncing channel updates for 'stable-x86_64-unknown-linux-gnu' 712.1 KiB
+info: latest update on 2024-02-08, 
+rust version 1.76.0 (07dca489a 2024-02-04)
+info: downloading component 'cargo' 8.5 MiB / 8.5 MiB (100 %) 80.0 KiB/s in 1m 44s
+info: downloading component 'clippy'  2.1 MiB /   2.1 MiB (100 %)  95.0 KiB/s in 23s
+info: downloading component 'rust-docs' 14.7 MiB /  14.7 MiB (100 %) 117.4 KiB/s in 2m 
+info: downloading component 'rust-std' 23.9 MiB /  23.9 MiB (100 %)  98.2 KiB/s in 4m 
+info: downloading component 'rustc' 62.3 MiB /  62.3 MiB (100 %) 135.4 KiB/s in 12m 
+info: downloading component 'rustfmt'  2.3 MiB /   2.3 MiB (100 %)  86.2 KiB/s in 30s 
+info: installing component 'cargo'
+info: installing component 'clippy'info: installing component 'rust-docs' 14.7 MiB 
+info: installing component 'rust-std' 23.9 MiB /  23.9 MiB (100 %)  13.2 MiB/s in 1s
+info: installing component 'rustc' 62.3 MiB /  62.3 MiB (100 %)  14.9 MiB/s in  4s 
+info: installing component 'rustfmt'
+info: default toolchain set to 'stable-x86_64-unknown-linux-gnu'  
+stable-x86_64-unknown-linux-gnu installed 
+- rustc 1.76.0 (07dca489a 2024-02-04)Rust is installed now. 
+Great!To get started you may need to restart your current shell.
+This would reload your PATH environment variable to include 
+Cargo's bin directory ($HOME/.cargo/bin).
 
 To configure your current shell, run:
 source "$HOME/.cargo/env"

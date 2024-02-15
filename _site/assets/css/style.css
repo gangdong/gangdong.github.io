@@ -1257,7 +1257,7 @@ input:checked + .slider:before { -webkit-transform: translateX(13px); -ms-transf
 
 .dark table th { background-color: #444; }
 
-.dark blockquote { border-left: 6px solid #0366d6; border-top: 1px solid #888; border-bottom: 1px solid #888; border-right: 1px solid #888; box-shadow: 0 0 0px 0px #888; color: #777; }
+.dark blockquote { border-left: 6px solid #9679f4; border-top: 1px solid #888; border-bottom: 1px solid #888; border-right: 1px solid #888; box-shadow: 0 0 0px 0px #888; color: #777; }
 
 .dark code, tt { color: #D58000; background-color: #272727; }
 

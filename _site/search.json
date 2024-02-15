@@ -1,6 +1,18 @@
 [
   
     {
+      "title"    : "Rust startup - trait",
+      "title-lower"    : "rust startup - trait",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Rust",
+      "tags"     : "Rust",
+      "url"      : "/rust/2024/02/15/Rust-startup-trait.html",
+      "date"     : "2024-02-15 11:22:40 +0800",
+      "content"     : "Is Rust an object-oriented programming language? I searched for the answer to this question on different AI assistants. Below are the answers. Let’s see.  CHATGPT 3.5  While Rust supports some obje..."
+    } ,
+  
+    {
       "title"    : "Rust startup - Ownership",
       "title-lower"    : "rust startup - ownership",
       "sub-titile" : "",
