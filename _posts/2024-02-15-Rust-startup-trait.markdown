@@ -16,7 +16,7 @@ keywords: Rust
 
 ---
 
-Is Rust an object-oriented programming language? I searched for the answer to this question on different AI assistants. <!--more-->
+Is Rust an object-oriented programming language? I have searched for the answer to this question on different AI assistants. <!--more-->
 
 Below are the answers. Let's see.
 
