@@ -6,7 +6,7 @@
 <meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
 <!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>Android Fingerprint Framework (2) | David Dong’s Blog</title>
-<meta name="generator" content="Jekyll v4.2.2" />
+<meta name="generator" content="Jekyll v4.3.3" />
 <meta property="og:title" content="Android Fingerprint Framework (2)" />
 <meta name="author" content="david.dong" />
 <meta property="og:locale" content="en_US" />
@@ -215,7 +215,7 @@ Here I would recommend a useful website for you viewing the android source code.
 
 <p>we can know that this package is built as a executable program.<br /></p>
 
-<figure class="highlight"><pre><code class="language-make" data-lang="make"><span class="nv">LOCAL_PATH</span> <span class="o">:=</span> <span class="nf">$(</span><span class="nb">call</span> my-dir<span class="nf">)</span>
+<figure class="highlight"><pre><code class="language-make" data-lang="make"><span class="nv">LOCAL_PATH</span> <span class="o">:=</span> <span class="p">$(</span>call my-dir<span class="p">)</span>
 <span class="k">include</span><span class="sx"> $(CLEAR_VARS)</span>
 <span class="nv">LOCAL_CFLAGS</span> <span class="o">:=</span> <span class="nt">-Wall</span> <span class="nt">-Wextra</span> <span class="nt">-Werror</span> <span class="nt">-Wunused</span>
 <span class="nv">LOCAL_SRC_FILES</span> <span class="o">:=</span> <span class="se">\</span>
@@ -296,30 +296,30 @@ The protocol interface is <code class="language-plaintext highlighter-rouge">IFi
         <span class="p">}</span>
 
         <span class="c1">// These reflect binder methods.</span>
-        <span class="k">virtual</span> <span class="kt">void</span> <span class="n">init</span><span class="p">(</span><span class="k">const</span> <span class="n">sp</span><span class="o">&lt;</span><span class="n">IFingerprintDaemonCallback</span><span class="o">&gt;&amp;</span> <span class="n">callback</span><span class="p">);</span>
-        <span class="k">virtual</span> <span class="kt">int32_t</span> <span class="n">enroll</span><span class="p">(</span><span class="k">const</span> <span class="kt">uint8_t</span><span class="o">*</span> <span class="n">token</span><span class="p">,</span> <span class="kt">ssize_t</span> 
+        <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">(</span><span class="k">const</span> <span class="n">sp</span><span class="o">&lt;</span><span class="n">IFingerprintDaemonCallback</span><span class="o">&gt;&amp;</span> <span class="n">callback</span><span class="p">);</span>
+        <span class="k">virtual</span> <span class="kt">int32_t</span> <span class="nf">enroll</span><span class="p">(</span><span class="k">const</span> <span class="kt">uint8_t</span><span class="o">*</span> <span class="n">token</span><span class="p">,</span> <span class="kt">ssize_t</span> 
         <span class="n">tokenLength</span><span class="p">,</span> <span class="kt">int32_t</span> <span class="n">groupId</span><span class="p">,</span> <span class="kt">int32_t</span> <span class="n">timeout</span><span class="p">);</span>
-        <span class="k">virtual</span> <span class="kt">uint64_t</span> <span class="n">preEnroll</span><span class="p">();</span>
-        <span class="k">virtual</span> <span class="kt">int32_t</span> <span class="n">postEnroll</span><span class="p">();</span>
-        <span class="k">virtual</span> <span class="kt">int32_t</span> <span class="n">stopEnrollment</span><span class="p">();</span>
-        <span class="k">virtual</span> <span class="kt">int32_t</span> <span class="n">authenticate</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="n">sessionId</span><span class="p">,</span> <span class="kt">uint32_t</span> 
+        <span class="k">virtual</span> <span class="kt">uint64_t</span> <span class="nf">preEnroll</span><span class="p">();</span>
+        <span class="k">virtual</span> <span class="kt">int32_t</span> <span class="nf">postEnroll</span><span class="p">();</span>
+        <span class="k">virtual</span> <span class="kt">int32_t</span> <span class="nf">stopEnrollment</span><span class="p">();</span>
+        <span class="k">virtual</span> <span class="kt">int32_t</span> <span class="nf">authenticate</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="n">sessionId</span><span class="p">,</span> <span class="kt">uint32_t</span> 
         <span class="n">groupId</span><span class="p">);</span>
-        <span class="k">virtual</span> <span class="kt">int32_t</span> <span class="n">stopAuthentication</span><span class="p">();</span>
-        <span class="k">virtual</span> <span class="kt">int32_t</span> <span class="n">remove</span><span class="p">(</span><span class="kt">int32_t</span> <span class="n">fingerId</span><span class="p">,</span> <span class="kt">int32_t</span> <span class="n">groupId</span><span class="p">);</span>
-        <span class="k">virtual</span> <span class="kt">int32_t</span> <span class="n">enumerate</span><span class="p">();</span>
-        <span class="k">virtual</span> <span class="kt">uint64_t</span> <span class="n">getAuthenticatorId</span><span class="p">();</span>
-        <span class="k">virtual</span> <span class="kt">int32_t</span> <span class="n">setActiveGroup</span><span class="p">(</span><span class="kt">int32_t</span> <span class="n">groupId</span><span class="p">,</span> 
+        <span class="k">virtual</span> <span class="kt">int32_t</span> <span class="nf">stopAuthentication</span><span class="p">();</span>
+        <span class="k">virtual</span> <span class="kt">int32_t</span> <span class="nf">remove</span><span class="p">(</span><span class="kt">int32_t</span> <span class="n">fingerId</span><span class="p">,</span> <span class="kt">int32_t</span> <span class="n">groupId</span><span class="p">);</span>
+        <span class="k">virtual</span> <span class="kt">int32_t</span> <span class="nf">enumerate</span><span class="p">();</span>
+        <span class="k">virtual</span> <span class="kt">uint64_t</span> <span class="nf">getAuthenticatorId</span><span class="p">();</span>
+        <span class="k">virtual</span> <span class="kt">int32_t</span> <span class="nf">setActiveGroup</span><span class="p">(</span><span class="kt">int32_t</span> <span class="n">groupId</span><span class="p">,</span> 
         <span class="k">const</span> <span class="kt">uint8_t</span><span class="o">*</span> <span class="n">path</span><span class="p">,</span> <span class="kt">ssize_t</span> <span class="n">pathLen</span><span class="p">);</span>
-        <span class="k">virtual</span> <span class="kt">int64_t</span> <span class="n">openHal</span><span class="p">();</span>
-        <span class="k">virtual</span> <span class="kt">int32_t</span> <span class="n">closeHal</span><span class="p">();</span>
+        <span class="k">virtual</span> <span class="kt">int64_t</span> <span class="nf">openHal</span><span class="p">();</span>
+        <span class="k">virtual</span> <span class="kt">int32_t</span> <span class="nf">closeHal</span><span class="p">();</span>
 
-    <span class="nl">private:</span>
+    <span class="k">private</span><span class="o">:</span>
         <span class="n">FingerprintDaemonProxy</span><span class="p">();</span>
         <span class="k">virtual</span> <span class="o">~</span><span class="n">FingerprintDaemonProxy</span><span class="p">();</span>
-        <span class="kt">void</span> <span class="n">binderDied</span><span class="p">(</span><span class="k">const</span> <span class="n">wp</span><span class="o">&lt;</span><span class="n">IBinder</span><span class="o">&gt;&amp;</span> <span class="n">who</span><span class="p">);</span>
-        <span class="kt">void</span> <span class="n">notifyKeystore</span><span class="p">(</span><span class="k">const</span> <span class="kt">uint8_t</span> <span class="o">*</span><span class="n">auth_token</span><span class="p">,</span> <span class="k">const</span> <span class="kt">size_t</span>
+        <span class="kt">void</span> <span class="nf">binderDied</span><span class="p">(</span><span class="k">const</span> <span class="n">wp</span><span class="o">&lt;</span><span class="n">IBinder</span><span class="o">&gt;&amp;</span> <span class="n">who</span><span class="p">);</span>
+        <span class="kt">void</span> <span class="nf">notifyKeystore</span><span class="p">(</span><span class="k">const</span> <span class="kt">uint8_t</span> <span class="o">*</span><span class="n">auth_token</span><span class="p">,</span> <span class="k">const</span> <span class="kt">size_t</span>
         <span class="n">auth_token_length</span><span class="p">);</span>
-        <span class="k">static</span> <span class="kt">void</span> <span class="n">hal_notify_callback</span><span class="p">(</span><span class="k">const</span> <span class="n">fingerprint_msg_t</span> <span class="o">*</span><span class="n">msg</span><span class="p">);</span>
+        <span class="k">static</span> <span class="kt">void</span> <span class="nf">hal_notify_callback</span><span class="p">(</span><span class="k">const</span> <span class="n">fingerprint_msg_t</span> <span class="o">*</span><span class="n">msg</span><span class="p">);</span>
 
         <span class="k">static</span> <span class="n">FingerprintDaemonProxy</span><span class="o">*</span> <span class="n">sInstance</span><span class="p">;</span>
         <span class="n">fingerprint_module_t</span> <span class="k">const</span><span class="o">*</span> <span class="n">mModule</span><span class="p">;</span>

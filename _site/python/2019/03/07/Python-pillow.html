@@ -6,7 +6,7 @@
 <meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
 <!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>Python Pillow library usage | David Dong’s Blog</title>
-<meta name="generator" content="Jekyll v4.2.2" />
+<meta name="generator" content="Jekyll v4.3.3" />
 <meta property="og:title" content="Python Pillow library usage" />
 <meta name="author" content="david.dong" />
 <meta property="og:locale" content="en_US" />
@@ -234,10 +234,10 @@ There’s a histogram method allowing you to pull some statistics out of an imag
 Before use the library, need to import it first.<br /></p>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#python2 
-</span><span class="kn">import</span> <span class="nn">Image</span> 
+</span><span class="kn">import</span> <span class="n">Image</span> 
 
 <span class="c1">#python3 
-</span><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span></code></pre></figure>
+</span><span class="kn">from</span> <span class="n">PIL</span> <span class="kn">import</span> <span class="n">Image</span></code></pre></figure>
 
 <h3 id="some-useful-methods">Some useful methods</h3>
 
@@ -248,11 +248,11 @@ Before use the library, need to import it first.<br /></p>
 To load an image from a file, use the <code class="language-plaintext highlighter-rouge">open()</code> function in the Image module. If successful, this function returns an Image object. You can now use instance attributes to examine the file contents:</li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
-<span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="s">"python-pillow-02.jpg"</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">im</span><span class="p">.</span><span class="n">size</span><span class="p">,</span><span class="n">im</span><span class="p">.</span><span class="n">mode</span><span class="p">,</span><span class="n">im</span><span class="p">.</span><span class="nb">format</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="n">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="sh">"</span><span class="s">python-pillow-02.jpg</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">im</span><span class="p">.</span><span class="n">size</span><span class="p">,</span><span class="n">im</span><span class="p">.</span><span class="n">mode</span><span class="p">,</span><span class="n">im</span><span class="p">.</span><span class="nb">format</span><span class="p">)</span>
 <span class="p">(</span><span class="mi">750</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span> <span class="n">RGB</span> <span class="n">JPEG</span>
-<span class="n">im</span><span class="p">.</span><span class="n">show</span><span class="p">()</span></code></pre></figure>
+<span class="n">im</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span></code></pre></figure>
 
 <p>The format attribute identifies the source of an image. If the image was not read from a file, it is set to None. The size attribute is a 2-tuple containing width and height (in pixels). The mode attribute defines the number and names of the bands in the image, and also the pixel type and depth. Common modes are <code class="language-plaintext highlighter-rouge">L</code> (luminance) for greyscale images, <code class="language-plaintext highlighter-rouge">RGB</code> for true color images, and <code class="language-plaintext highlighter-rouge">CMYK</code> for pre-press images.<br />
 Above four-row codes will open and display an image on the screen. it will use the default image viewer of your computer to show the image.
@@ -262,11 +262,11 @@ Above four-row codes will open and display an image on the screen. it will use t
   <li><strong>resize()</strong></li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">print</span><span class="p">(</span><span class="n">im</span><span class="p">.</span><span class="n">size</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="nf">print</span><span class="p">(</span><span class="n">im</span><span class="p">.</span><span class="n">size</span><span class="p">)</span>
 <span class="p">(</span><span class="mi">750</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
-<span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="n">resize</span><span class="p">((</span><span class="mi">150</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
-<span class="n">im</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-<span class="k">print</span><span class="p">(</span><span class="n">im</span><span class="p">.</span><span class="n">size</span><span class="p">)</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="nf">resize</span><span class="p">((</span><span class="mi">150</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
+<span class="n">im</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">im</span><span class="p">.</span><span class="n">size</span><span class="p">)</span>
 <span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span></code></pre></figure>
 
 <p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/python-pillow-03.JPG" alt="image" class="center-image" /></p>
@@ -275,8 +275,8 @@ Above four-row codes will open and display an image on the screen. it will use t
   <li><strong>transpose()</strong></li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">im_rotate_180</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">Image</span><span class="p">.</span><span class="n">ROTATE_180</span><span class="p">)</span>
-<span class="n">im_rotate_180</span><span class="p">.</span><span class="n">show</span><span class="p">()</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">im_rotate_180</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="nf">transpose</span><span class="p">(</span><span class="n">Image</span><span class="p">.</span><span class="n">ROTATE_180</span><span class="p">)</span>
+<span class="n">im_rotate_180</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span></code></pre></figure>
 
 <p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/python-pillow-04.JPG" alt="image" class="center-image" /> <br />
 The parameters can be <br />
@@ -292,10 +292,10 @@ The parameters can be <br />
   <li><strong>crop()</strong></li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="s">"python-pillow-02.JPG"</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="sh">"</span><span class="s">python-pillow-02.JPG</span><span class="sh">"</span><span class="p">)</span>
 <span class="n">box</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span>
-<span class="n">region</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="n">crop</span><span class="p">(</span><span class="n">box</span><span class="p">)</span>
-<span class="n">region</span><span class="p">.</span><span class="n">show</span><span class="p">()</span></code></pre></figure>
+<span class="n">region</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="nf">crop</span><span class="p">(</span><span class="n">box</span><span class="p">)</span>
+<span class="n">region</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span></code></pre></figure>
 
 <p>The above code cuts out a box rectangle area on the <code class="language-plaintext highlighter-rouge">im</code> and displays it. The box is a tuple with four numbers (upper left, upper left, lower right, lower right). Each pixel represents a coordinate <code class="language-plaintext highlighter-rouge">unit. Crop()</code> still returns an image object.<br /></p>
 
@@ -308,22 +308,22 @@ Image can provide below filters.<br />
 Below we demonstrate some of the effect of filters.</li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
-<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">ImageFilter</span>
-<span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="s">"python-pillow-02.JPG"</span><span class="p">)</span>
-<span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="n">resize</span><span class="p">((</span><span class="mi">150</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
-<span class="n">blur</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="nb">filter</span><span class="p">(</span><span class="n">ImageFilter</span><span class="p">.</span><span class="n">BLUR</span><span class="p">)</span>
-<span class="n">conf</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="nb">filter</span><span class="p">(</span><span class="n">ImageFilter</span><span class="p">.</span><span class="n">CONTOUR</span><span class="p">)</span>
-<span class="n">edge</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="nb">filter</span><span class="p">(</span><span class="n">ImageFilter</span><span class="p">.</span><span class="n">FIND_EDGES</span><span class="p">)</span>
-<span class="n">smooth</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="nb">filter</span><span class="p">(</span><span class="n">ImageFilter</span><span class="p">.</span><span class="n">SMOOTH</span><span class="p">)</span>
-<span class="n">sharpen</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="nb">filter</span><span class="p">(</span><span class="n">ImageFilter</span><span class="p">.</span><span class="n">SHARPEN</span><span class="p">)</span>
-<span class="n">emboss</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="nb">filter</span><span class="p">(</span><span class="n">ImageFilter</span><span class="p">.</span><span class="n">EMBOSS</span><span class="p">)</span>
-<span class="n">blur</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-<span class="n">conf</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-<span class="n">edge</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-<span class="n">smooth</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-<span class="n">sharpen</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-<span class="n">emboss</span><span class="p">.</span><span class="n">show</span><span class="p">()</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="n">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="n">PIL</span> <span class="kn">import</span> <span class="n">ImageFilter</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="sh">"</span><span class="s">python-pillow-02.JPG</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="nf">resize</span><span class="p">((</span><span class="mi">150</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
+<span class="n">blur</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="n">ImageFilter</span><span class="p">.</span><span class="n">BLUR</span><span class="p">)</span>
+<span class="n">conf</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="n">ImageFilter</span><span class="p">.</span><span class="n">CONTOUR</span><span class="p">)</span>
+<span class="n">edge</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="n">ImageFilter</span><span class="p">.</span><span class="n">FIND_EDGES</span><span class="p">)</span>
+<span class="n">smooth</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="n">ImageFilter</span><span class="p">.</span><span class="n">SMOOTH</span><span class="p">)</span>
+<span class="n">sharpen</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="n">ImageFilter</span><span class="p">.</span><span class="n">SHARPEN</span><span class="p">)</span>
+<span class="n">emboss</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="n">ImageFilter</span><span class="p">.</span><span class="n">EMBOSS</span><span class="p">)</span>
+<span class="n">blur</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+<span class="n">conf</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+<span class="n">edge</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+<span class="n">smooth</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+<span class="n">sharpen</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+<span class="n">emboss</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span></code></pre></figure>
 
 <p><code class="language-plaintext highlighter-rouge">BLUR</code><br />
 <img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/python-pillow-06.JPG" alt="blur" class="center-image" /><br />
@@ -342,14 +342,14 @@ Below we demonstrate some of the effect of filters.</li>
   <li><strong>rotate()</strong></li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
-<span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="s">"python-pillow-02.JPG"</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="n">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="sh">"</span><span class="s">python-pillow-02.JPG</span><span class="sh">"</span><span class="p">)</span>
 <span class="n">w</span><span class="p">,</span><span class="n">h</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="n">size</span>
-<span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="n">resize</span><span class="p">(((</span><span class="nb">int</span><span class="p">)(</span><span class="n">w</span><span class="o">/</span><span class="mi">2</span><span class="p">),(</span><span class="nb">int</span><span class="p">)(</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">)))</span>
-<span class="n">im_45</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">im_90</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
-<span class="n">im_45</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-<span class="n">im_90</span><span class="p">.</span><span class="n">show</span><span class="p">()</span></code></pre></figure>
+<span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="nf">resize</span><span class="p">(((</span><span class="nb">int</span><span class="p">)(</span><span class="n">w</span><span class="o">/</span><span class="mi">2</span><span class="p">),(</span><span class="nb">int</span><span class="p">)(</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">)))</span>
+<span class="n">im_45</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="nf">rotate</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">im_90</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="nf">rotate</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">im_45</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+<span class="n">im_90</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span></code></pre></figure>
 
 <p><code class="language-plaintext highlighter-rouge">rotate 45 degree</code><br />
 <img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/python-pillow-12.JPG" alt="rotate45" class="center-image" /><br />
@@ -370,20 +370,20 @@ Below we demonstrate some of the effect of filters.</li>
 · <code class="language-plaintext highlighter-rouge">F</code> (32-bit floating point pixels)<br /></li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
-<span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="s">"python-pillow-02.JPG"</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="n">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="sh">"</span><span class="s">python-pillow-02.JPG</span><span class="sh">"</span><span class="p">)</span>
 <span class="n">w</span><span class="p">,</span><span class="n">h</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="n">size</span>
-<span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="n">resize</span><span class="p">(((</span><span class="nb">int</span><span class="p">)(</span><span class="n">w</span><span class="o">/</span><span class="mi">2</span><span class="p">),(</span><span class="nb">int</span><span class="p">)(</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">)))</span>
-<span class="n">im_1</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="n">convert</span><span class="p">(</span><span class="s">"1"</span><span class="p">)</span>
-<span class="n">im_L</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="n">convert</span><span class="p">(</span><span class="s">"L"</span><span class="p">)</span>
-<span class="n">im_P</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="n">convert</span><span class="p">(</span><span class="s">"P"</span><span class="p">)</span>
-<span class="n">im_CMYK</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="n">convert</span><span class="p">(</span><span class="s">"CMYK"</span><span class="p">)</span>
-<span class="n">im_F</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="n">convert</span><span class="p">(</span><span class="s">"F"</span><span class="p">)</span>
-<span class="n">im_1</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-<span class="n">im_L</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-<span class="n">im_P</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-<span class="n">im_CMYK</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-<span class="n">im_F</span><span class="p">.</span><span class="n">show</span><span class="p">()</span></code></pre></figure>
+<span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="nf">resize</span><span class="p">(((</span><span class="nb">int</span><span class="p">)(</span><span class="n">w</span><span class="o">/</span><span class="mi">2</span><span class="p">),(</span><span class="nb">int</span><span class="p">)(</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">)))</span>
+<span class="n">im_1</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="nf">convert</span><span class="p">(</span><span class="sh">"</span><span class="s">1</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">im_L</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="nf">convert</span><span class="p">(</span><span class="sh">"</span><span class="s">L</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">im_P</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="nf">convert</span><span class="p">(</span><span class="sh">"</span><span class="s">P</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">im_CMYK</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="nf">convert</span><span class="p">(</span><span class="sh">"</span><span class="s">CMYK</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">im_F</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="nf">convert</span><span class="p">(</span><span class="sh">"</span><span class="s">F</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">im_1</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+<span class="n">im_L</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+<span class="n">im_P</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+<span class="n">im_CMYK</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+<span class="n">im_F</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span></code></pre></figure>
 
 <p><code class="language-plaintext highlighter-rouge">mode 1</code><br />
 <img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/python-pillow-14.JPG" alt="mode1" class="center-image" /><br />
@@ -401,15 +401,15 @@ Below we demonstrate some of the effect of filters.</li>
 Paste one image onto another.</li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
-<span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="s">"python-pillow-02.JPG"</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="n">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="sh">"</span><span class="s">python-pillow-02.JPG</span><span class="sh">"</span><span class="p">)</span>
 <span class="n">w</span><span class="p">,</span><span class="n">h</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="n">size</span>
-<span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="n">resize</span><span class="p">(((</span><span class="nb">int</span><span class="p">)(</span><span class="n">w</span><span class="o">/</span><span class="mi">2</span><span class="p">),(</span><span class="nb">int</span><span class="p">)(</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">)))</span>
-<span class="k">print</span><span class="p">(</span><span class="n">im</span><span class="p">.</span><span class="n">size</span><span class="p">)</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="nf">resize</span><span class="p">(((</span><span class="nb">int</span><span class="p">)(</span><span class="n">w</span><span class="o">/</span><span class="mi">2</span><span class="p">),(</span><span class="nb">int</span><span class="p">)(</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">)))</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">im</span><span class="p">.</span><span class="n">size</span><span class="p">)</span>
 <span class="n">box</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
-<span class="n">region</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="n">crop</span><span class="p">(</span><span class="n">box</span><span class="p">)</span>
-<span class="n">im</span><span class="p">.</span><span class="n">paste</span><span class="p">(</span><span class="n">region</span><span class="p">,(</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
-<span class="n">im</span><span class="p">.</span><span class="n">show</span><span class="p">()</span></code></pre></figure>
+<span class="n">region</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="nf">crop</span><span class="p">(</span><span class="n">box</span><span class="p">)</span>
+<span class="n">im</span><span class="p">.</span><span class="nf">paste</span><span class="p">(</span><span class="n">region</span><span class="p">,(</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
+<span class="n">im</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span></code></pre></figure>
 
 <p>in above code, <code class="language-plaintext highlighter-rouge">region</code> is the object to be pasted. <br />
 <img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/python-pillow-19.JPG" alt="paste" class="center-image" /><br /></p>
@@ -419,14 +419,14 @@ Paste one image onto another.</li>
 <code class="language-plaintext highlighter-rouge">Split()</code> method can separate each channel of the original image. For example, for <code class="language-plaintext highlighter-rouge">RGB</code> image, the three color channels <code class="language-plaintext highlighter-rouge">R</code>, <code class="language-plaintext highlighter-rouge">G</code> and <code class="language-plaintext highlighter-rouge">B</code> can be separated.</li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
-<span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="s">"python-pillow-02.JPG"</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="n">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="sh">"</span><span class="s">python-pillow-02.JPG</span><span class="sh">"</span><span class="p">)</span>
 <span class="n">w</span><span class="p">,</span><span class="n">h</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="n">size</span>
-<span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="n">resize</span><span class="p">(((</span><span class="nb">int</span><span class="p">)(</span><span class="n">w</span><span class="o">/</span><span class="mi">2</span><span class="p">),(</span><span class="nb">int</span><span class="p">)(</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">)))</span>
-<span class="n">r</span><span class="p">,</span><span class="n">g</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="n">split</span><span class="p">()</span>
-<span class="n">r</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-<span class="n">g</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-<span class="n">b</span><span class="p">.</span><span class="n">show</span><span class="p">()</span></code></pre></figure>
+<span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="nf">resize</span><span class="p">(((</span><span class="nb">int</span><span class="p">)(</span><span class="n">w</span><span class="o">/</span><span class="mi">2</span><span class="p">),(</span><span class="nb">int</span><span class="p">)(</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">)))</span>
+<span class="n">r</span><span class="p">,</span><span class="n">g</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="nf">split</span><span class="p">()</span>
+<span class="n">r</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+<span class="n">g</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+<span class="n">b</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span></code></pre></figure>
 
 <p><code class="language-plaintext highlighter-rouge">R</code><br />
 <img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/python-pillow-20.JPG" alt="R" class="center-image" /><br />
@@ -440,8 +440,8 @@ Paste one image onto another.</li>
 Merge method and split method are relative. it combines multiple single channel sequences to form a multi-channel image. Mode is the mode of the combined image, such as <code class="language-plaintext highlighter-rouge">RGB</code>, and channels is the sequence composed of multiple single channels.</li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">im_merge</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="n">merge</span><span class="p">(</span><span class="s">"RGB"</span><span class="p">,[</span><span class="n">r</span><span class="p">,</span><span class="n">g</span><span class="p">,</span><span class="n">b</span><span class="p">])</span>
-<span class="n">im_merge</span><span class="p">.</span><span class="n">show</span><span class="p">()</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">im_merge</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nf">merge</span><span class="p">(</span><span class="sh">"</span><span class="s">RGB</span><span class="sh">"</span><span class="p">,[</span><span class="n">r</span><span class="p">,</span><span class="n">g</span><span class="p">,</span><span class="n">b</span><span class="p">])</span>
+<span class="n">im_merge</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span></code></pre></figure>
 
 <p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/python-pillow-23.JPG" alt="merge" class="center-image" /><br /></p>
 

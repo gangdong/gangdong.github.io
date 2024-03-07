@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-02-15T19:00:59+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">David Dong’s Blog</title><subtitle>This is David Dong's blog. It's about program and design, life and sharing. Let's explore more together. | David，Software，Developer.Designer | 关于程序与设计 - 生活与分享 | 这里是董刚 的个人博客，让我们一起探索更多。</subtitle><author><name>David Dong</name></author><entry><title type="html">Rust startup - trait</title><link href="http://localhost:4000/rust/2024/02/15/Rust-startup-trait.html" rel="alternate" type="text/html" title="Rust startup - trait" /><published>2024-02-15T11:22:40+08:00</published><updated>2024-02-15T11:22:40+08:00</updated><id>http://localhost:4000/rust/2024/02/15/Rust-startup-trait</id><content type="html" xml:base="http://localhost:4000/rust/2024/02/15/Rust-startup-trait.html"><![CDATA[<p>Is Rust an object-oriented programming language? I searched for the answer to this question on different AI assistants. <!--more--></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-03-07T12:07:37+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">David Dong’s Blog</title><subtitle>This is David Dong&apos;s blog. It&apos;s about program and design, life and sharing. Let&apos;s explore more together. | David，Software，Developer.Designer | 关于程序与设计 - 生活与分享 | 这里是董刚 的个人博客，让我们一起探索更多。</subtitle><author><name>David Dong</name></author><entry><title type="html">Rust startup - trait</title><link href="http://localhost:4000/rust/2024/02/15/Rust-startup-trait.html" rel="alternate" type="text/html" title="Rust startup - trait" /><published>2024-02-15T11:22:40+08:00</published><updated>2024-02-15T11:22:40+08:00</updated><id>http://localhost:4000/rust/2024/02/15/Rust-startup-trait</id><content type="html" xml:base="http://localhost:4000/rust/2024/02/15/Rust-startup-trait.html"><![CDATA[<p>Is Rust an object-oriented programming language? I searched for the answer to this question on different AI assistants. <!--more--></p>
 
 <p>Below are the answers. Let’s see.</p>
 
@@ -525,7 +525,7 @@ They are used by the Rust compiler to enforce memory safety rules and prevent da
     <div class="language-cs highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">&amp;</span> <span class="n">david</span> <span class="err">@</span> <span class="n">ubuntu</span> <span class="k">in</span> <span class="p">~/</span><span class="n">code</span><span class="p">/</span><span class="n">rust</span><span class="p">/</span><span class="n">first_proj</span><span class="p">/</span><span class="nf">greeting</span> <span class="p">(</span><span class="n">master</span> <span class="err">…</span><span class="m">3</span><span class="p">)</span> <span class="m">0</span> <span class="p">[</span><span class="m">19</span><span class="p">:</span><span class="m">07</span><span class="p">:</span><span class="m">15</span><span class="p">]</span>
 <span class="p">~</span> <span class="n">cargo</span> <span class="n">build</span>
    <span class="n">Compiling</span> <span class="n">greeting</span> <span class="n">v0</span><span class="p">.</span><span class="m">1.0</span> <span class="p">(/</span><span class="n">home</span><span class="p">/</span><span class="n">david</span><span class="p">/</span><span class="n">code</span><span class="p">/</span><span class="n">rust</span><span class="p">/</span><span class="n">first_proj</span><span class="p">/</span><span class="n">greeting</span><span class="p">)</span>
-    <span class="n">Finished</span> <span class="n">dev</span> <span class="p">[</span><span class="n">unoptimized</span> <span class="p">+</span> <span class="n">debuginfo</span><span class="p">]</span> <span class="nf">target</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">in</span> <span class="m">0.18</span><span class="n">s</span> <span class="m">0.</span>
+    <span class="n">Finished</span> <span class="n">dev</span> <span class="p">[</span><span class="n">unoptimized</span> <span class="p">+</span> <span class="n">debuginfo</span><span class="p">]</span> <span class="nf">target</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">in</span> <span class="m">0.18</span><span class="n">s</span> <span class="m">0</span><span class="p">.</span>
 </code></pre></div>    </div>
   </li>
   <li>
@@ -792,7 +792,7 @@ I asked a few random professional questions to see how it answered. Here’s how
   <li><code class="language-plaintext highlighter-rouge">GetMessage</code> 会一直等到接收到消息才返回。</li>
   <li><code class="language-plaintext highlighter-rouge">PeekMessage</code> 函数不会等到有消息放入队列时才返回.</li>
   <li><code class="language-plaintext highlighter-rouge">WaitMessage</code> 当一个应用程序无事可做时，该函数就将控制权交给另外的应用程序，同时将该应用程序挂起，直到一个新的消息被放入应用程序的队列之中才返回。</li>
-</ul>]]></content><author><name>david.dong</name></author><category term="Windows" /><category term="Windows" /><summary type="html"><![CDATA[记录 Windows 消息处理原理的学习内容]]></summary></entry><entry><title type="html">浅谈 Java 线程同步技术</title><link href="http://localhost:4000/java/2022/04/22/Java-threadSynchronization.html" rel="alternate" type="text/html" title="浅谈 Java 线程同步技术" /><published>2022-04-22T22:44:19+08:00</published><updated>2022-04-22T22:44:19+08:00</updated><id>http://localhost:4000/java/2022/04/22/Java-threadSynchronization</id><content type="html" xml:base="http://localhost:4000/java/2022/04/22/Java-threadSynchronization.html"><![CDATA[<p>Java 里实现线程间的同步有多种方法，比如使用 <code class="language-plaintext highlighter-rouge">synchronized</code> 关键字，<code class="language-plaintext highlighter-rouge">wait</code> 和 <code class="language-plaintext highlighter-rouge">notify</code>，<code class="language-plaintext highlighter-rouge">volatile</code> 变量，重入锁，局部变量，阻塞队列或者原子类型变量等。</p>
+</ul>]]></content><author><name>david.dong</name></author><category term="Windows" /><category term="Windows" /><summary type="html"><![CDATA[记录 Windows 消息处理原理的学习内容]]></summary></entry><entry><title type="html">浅谈 Java 线程同步技术</title><link href="http://localhost:4000/java/2022/04/22/Java-ThreadSynchronization.html" rel="alternate" type="text/html" title="浅谈 Java 线程同步技术" /><published>2022-04-22T22:44:19+08:00</published><updated>2022-04-22T22:44:19+08:00</updated><id>http://localhost:4000/java/2022/04/22/Java-ThreadSynchronization</id><content type="html" xml:base="http://localhost:4000/java/2022/04/22/Java-ThreadSynchronization.html"><![CDATA[<p>Java 里实现线程间的同步有多种方法，比如使用 <code class="language-plaintext highlighter-rouge">synchronized</code> 关键字，<code class="language-plaintext highlighter-rouge">wait</code> 和 <code class="language-plaintext highlighter-rouge">notify</code>，<code class="language-plaintext highlighter-rouge">volatile</code> 变量，重入锁，局部变量，阻塞队列或者原子类型变量等。</p>
 
 <h2 id="synchronized">synchronized</h2>
 
@@ -993,445 +993,205 @@ I asked a few random professional questions to see how it answered. Here’s how
         <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div></div>]]></content><author><name>david.dong</name></author><category term="Java" /><category term="Java" /><summary type="html"><![CDATA[本文内容对 Java 中用到的线程间同步的技术做了些讨论和总结。]]></summary></entry><entry><title type="html">Git commands and usage tips</title><link href="http://localhost:4000/git/2022/03/29/Github-git-command.html" rel="alternate" type="text/html" title="Git commands and usage tips" /><published>2022-03-29T23:17:03+08:00</published><updated>2022-03-29T23:17:03+08:00</updated><id>http://localhost:4000/git/2022/03/29/Github-git-command</id><content type="html" xml:base="http://localhost:4000/git/2022/03/29/Github-git-command.html"><![CDATA[<p><img src="\assets\image\github-git-command-01.jpg" alt="git-command-01" style="zoom:100%;" /></p>
+</code></pre></div></div>]]></content><author><name>david.dong</name></author><category term="Java" /><category term="Java" /><summary type="html"><![CDATA[本文内容对 Java 中用到的线程间同步的技术做了些讨论和总结。]]></summary></entry><entry><title type="html">浅谈 Java 线程同步技术</title><link href="http://localhost:4000/java/2022/04/22/Java-threadSynchronization.html" rel="alternate" type="text/html" title="浅谈 Java 线程同步技术" /><published>2022-04-22T22:44:19+08:00</published><updated>2022-04-22T22:44:19+08:00</updated><id>http://localhost:4000/java/2022/04/22/Java-threadSynchronization</id><content type="html" xml:base="http://localhost:4000/java/2022/04/22/Java-threadSynchronization.html"><![CDATA[<p>Java 里实现线程间的同步有多种方法，比如使用 <code class="language-plaintext highlighter-rouge">synchronized</code> 关键字，<code class="language-plaintext highlighter-rouge">wait</code> 和 <code class="language-plaintext highlighter-rouge">notify</code>，<code class="language-plaintext highlighter-rouge">volatile</code> 变量，重入锁，局部变量，阻塞队列或者原子类型变量等。</p>
 
-<p>Git is a powerful version control tool. I would even say it’s one of the best. However, being powerful sometimes means being complex in terms of functionality. Git has a lot of commands. The good thing is that you can do everything you want with them, the bad thing is that you need to remember them. Here, I’ll write down the commands that I’ll use often to keep better track of them and make them easier to search.😉 <!--more--></p>
+<h2 id="synchronized">synchronized</h2>
 
-<h2 id="推送到远程分支">推送到远程分支</h2>
+<p>使用 <code class="language-plaintext highlighter-rouge">synchronized</code> 关键字：这是最常用的一种方法，它可以修饰代码块或者方法，使得同一时刻只有一个线程能够访问被修饰的代码。例如 ：</p>
 
-<h3 id="用法git-push--">用法：git push <远程主机名> <本地分支名>:<远程分支名></远程分支名></本地分支名></远程主机名></h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SynchronizedDemo</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//创建两个线程</span>
+        <span class="nc">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nc">Runnable</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+                <span class="c1">//调用同步方法</span>
+                <span class="n">syncMethod</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">},</span> <span class="s">"t1"</span><span class="o">);</span>
 
-<h4 id="1-将本地的-master-分支推送到远程-master-分支">1. 将本地的 master 分支推送到远程 master 分支</h4>
+        <span class="nc">Thread</span> <span class="n">t2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nc">Runnable</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+                <span class="c1">//调用同步方法</span>
+                <span class="n">syncMethod</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">},</span> <span class="s">"t2"</span><span class="o">);</span>
 
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">master</span></code></pre></figure>
+        <span class="c1">//启动两个线程</span>
+        <span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="n">t2</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+    <span class="o">}</span>
 
-<h4 id="2-将本地的-dev-分支推送到远程-master-分支">2. 将本地的 dev 分支推送到远程 master 分支</h4>
+    <span class="c1">//定义一个同步方法</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">syncMethod</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">"开始执行"</span><span class="o">);</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">"结束执行"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">dev</span><span class="o">:</span><span class="n">master</span></code></pre></figure>
+<h2 id="wait-和-notify">wait 和 notify</h2>
 
-<h4 id="3-删除远程-master-分支">3. 删除远程 master 分支</h4>
+<p>使用 <code class="language-plaintext highlighter-rouge">wait</code> 和 <code class="language-plaintext highlighter-rouge">notify</code> ：这是一种基于对象监视器的机制，它可以让一个线程等待另一个线程的通知，从而实现协作。例如：</p>
 
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="o">:</span><span class="n">master</span>
-<span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="o">--</span><span class="n">delete</span> <span class="n">master</span></code></pre></figure>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">WaitNotifyDemo</span> <span class="o">{</span>
 
-<h4 id="4-添加远程主分支和本地-master-分支的绑定关系">4. 添加远程主分支和本地 master 分支的绑定关系</h4>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="nc">Object</span> <span class="n">lock</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Object</span><span class="o">();</span> <span class="c1">//定义一个锁对象</span>
 
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">push</span> <span class="o">-</span><span class="n">u</span> <span class="n">origin</span> <span class="n">master</span></code></pre></figure>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
 
-<p>绑定后可以直接将当前分支推送到origin主机的对应分支</p>
+        <span class="c1">//创建两个线程</span>
+        <span class="nc">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nc">Runnable</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+                <span class="kd">synchronized</span> <span class="o">(</span><span class="n">lock</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//获取锁对象</span>
+                    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"t1开始执行"</span><span class="o">);</span>
+                    <span class="k">try</span> <span class="o">{</span>
+                        <span class="n">lock</span><span class="o">.</span><span class="na">wait</span><span class="o">();</span> <span class="c1">//释放锁并等待通知</span>
+                    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+                    <span class="o">}</span>
+                    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"t1收到通知"</span><span class="o">);</span>
+                    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"t1结束执行"</span><span class="o">);</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">},</span> <span class="s">"t1"</span><span class="o">);</span>
 
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span></code></pre></figure>
+        <span class="nc">Thread</span> <span class="n">t2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nc">Runnable</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+                <span class="kd">synchronized</span> <span class="o">(</span><span class="n">lock</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//获取锁对象</span>
+                    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"t2开始执行"</span><span class="o">);</span>
+                    <span class="k">try</span> <span class="o">{</span>
+                        <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">2000</span><span class="o">);</span> <span class="c1">//模拟耗时操作</span>
+                    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+                    <span class="o">}</span>
+                    <span class="n">lock</span><span class="o">.</span><span class="na">notify</span><span class="o">();</span> <span class="c1">//唤醒等待的线程</span>
+                    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"t2发送通知"</span><span class="o">);</span>
+                    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"t2结束执行"</span><span class="o">);</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">},</span> <span class="s">"t2"</span><span class="o">);</span>
 
-<h4 id="5-强制推送本地dev分支到远程master分支">5. 强制推送本地dev分支到远程master分支</h4>
+        <span class="c1">//启动两个线程</span>
+        <span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="n">t2</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
 
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">push</span> <span class="o">--</span><span class="n">force</span> <span class="n">origin</span> <span class="n">dev</span><span class="o">:</span><span class="n">master</span></code></pre></figure>
+    <span class="o">}</span>
 
-<h4 id="6-推送本地当前分支到远程-master分支">6. 推送本地当前分支到远程 master分支</h4>
+<span class="o">}</span>
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">HEAD</span><span class="o">:</span><span class="n">master</span></code></pre></figure>
+<h2 id="volatile">volatile</h2>
 
-<h2 id="拉取远程分支到本地">拉取远程分支到本地</h2>
+<p><code class="language-plaintext highlighter-rouge">volatile</code> 变量是一种特殊的变量，它可以保证变量在多个线程之间的可见性，也就是说当一个线程修改了 <code class="language-plaintext highlighter-rouge">volatile</code> 变量的值后，其他线程能够立即看到最新的值。<code class="language-plaintext highlighter-rouge"> volatile </code> 变量还可以防止编译器或者运行时对其进行重排序，从而保证其操作的顺序性。</p>
 
-<h3 id="用法git-pull--">用法：git pull <远程主机名> <远程分支名>:<本地分支名></本地分支名></远程分支名></远程主机名></h3>
+<p><code class="language-plaintext highlighter-rouge">volatile</code> 变量适合用于以下几种场景：</p>
 
-<h4 id="1-拉取远程-master-分支到本地-dev-分支">1. 拉取远程 master 分支到本地 dev 分支</h4>
+<p>状态标志：例如一个开关变量，用来控制其他线程的执行流程。
+单例模式：例如双重检查锁定（double-checked locking）模式，用来保证对象的唯一性和及时性。
+原子操作：例如 long 或 double 类型的赋值操作，在 Java 中不是原子性的，但是定义为 volatile 后可以保证原子性。</p>
 
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">pull</span> <span class="n">origin</span> <span class="n">master</span><span class="o">:</span><span class="n">dev</span></code></pre></figure>
+<p>假设有一个 <code class="language-plaintext highlighter-rouge">volatile</code> 变量叫做 stop，它用来控制一个线程的执行流程。当 stop 为 false 时，线程继续运行；当 stop 为 true 时，线程停止运行。代码如下:</p>
 
-<h4 id="2-拉取远程-master-分支到本地当前分支">2. 拉取远程 master 分支到本地当前分支</h4>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">VolatileExample</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">volatile</span> <span class="kt">boolean</span> <span class="n">stop</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
 
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">pull</span> <span class="n">origin</span> <span class="n">master</span></code></pre></figure>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">InterruptedException</span> <span class="o">{</span>
+        <span class="nc">Thread</span> <span class="n">thread</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nc">Runnable</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+                <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+                <span class="k">while</span> <span class="o">(!</span><span class="n">stop</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 如果stop为true，跳出循环</span>
+                    <span class="n">i</span><span class="o">++;</span>
+                <span class="o">}</span>
+                <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"i="</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+        <span class="n">thread</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span> <span class="c1">// 主线程休眠1秒</span>
+        <span class="n">stop</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span> <span class="c1">// 修改stop的值为true</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
 
-<h4 id="3-建立本地分支与远程分支的追踪关系">3. 建立本地分支与远程分支的追踪关系</h4>
+<p>这个例子中，如果不使用 <code class="language-plaintext highlighter-rouge">volatile</code> 修饰 <code class="language-plaintext highlighter-rouge">stop</code> 变量，那么可能会出现这样的情况：主线程修改了 stop 的值为 true，但是子线程没有看到最新的值，仍然认为 stop 是 false，导致子线程无法停止。这是因为每个线程都有自己的工作内存（缓存），它们会从主内存中复制共享变量的值，并在工作内存中操作共享变量。如果不使用 <code class="language-plaintext highlighter-rouge">volatile</code> 修饰共享变量，那么就不能保证其他线程能够及时看到最新的值。</p>
 
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">branch</span> <span class="o">--</span><span class="n">set</span><span class="o">-</span><span class="n">upstream</span> <span class="n">master</span> <span class="n">origin</span><span class="o">/</span><span class="n">next</span></code></pre></figure>
+<p>但是如果使用了 <code class="language-plaintext highlighter-rouge">volatile</code> 修饰 <code class="language-plaintext highlighter-rouge">stop</code> 变量，那么就可以保证当主线程修改了 stop 的值后，其他线程能够立即看到最新的值，并根据最新的值来执行相应的操作。这是因为 volatile 关键字可以强制让编译器每次都从主内存中读取共享变量的值，并且禁止对其进行重排序。</p>
 
-<p>建立追踪后可以直接省略远程分支名</p>
+<h2 id="重入锁">重入锁</h2>
 
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">pull</span> <span class="n">origin</span></code></pre></figure>
+<p>重入锁是一种可以被同一个线程多次获取的锁，也就是说当一个线程已经持有了锁，它可以再次请求获取锁而不会被阻塞。重入锁可以避免死锁的发生，也可以提高代码的可读性和可维护性。</p>
 
-<h4 id="4-git-pull-origin-masterdev-等于">4. git pull origin master:dev 等于</h4>
+<p>Java 中提供了一个重入锁的实现类：<code class="language-plaintext highlighter-rouge">ReentrantLock</code>，它实现了 <code class="language-plaintext highlighter-rouge">Lock</code> 接口，提供了加锁和释放锁的方法。使用 <code class="language-plaintext highlighter-rouge">ReentrantLock</code> 时，需要在 try-finally 块中手动调用 <code class="language-plaintext highlighter-rouge">lock ()</code> 和 <code class="language-plaintext highlighter-rouge">unlock ()</code> 方法来保证锁的正确获取和释放。</p>
 
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">fetch</span> <span class="n">origin</span> <span class="n">master</span><span class="o">:</span><span class="n">dev</span>
-<span class="n">git</span> <span class="n">diff</span> <span class="n">dev</span>
-<span class="n">git</span> <span class="n">merge</span> <span class="n">dev</span></code></pre></figure>
+<p>举个例子吧，假设有一个银行账户类 Account，它有一个余额属性 balance 和一个转账方法 transfer ()，为了保证转账操作的原子性和线程安全性，我们可以使用 <code class="language-plaintext highlighter-rouge">ReentrantLock</code> 来对 <code class="language-plaintext highlighter-rouge">transfer ()</code> 方法进行同步控制。
+代码如下：</p>
 
-<h4 id="5-采用-rebase-的方式合并本地分支">5. 采用 rebase 的方式合并本地分支</h4>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.concurrent.locks.ReentrantLock</span><span class="o">;</span>
 
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">pull</span> <span class="o">--</span><span class="n">rebase</span> <span class="n">origin</span> <span class="n">master</span><span class="o">:</span><span class="n">dev</span></code></pre></figure>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Account</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">balance</span><span class="o">;</span> <span class="c1">// 余额</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">ReentrantLock</span> <span class="n">lock</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ReentrantLock</span><span class="o">();</span> <span class="c1">// 重入锁</span>
 
-<h2 id="创建新分支">创建新分支</h2>
+    <span class="kd">public</span> <span class="nf">Account</span><span class="o">(</span><span class="kt">int</span> <span class="n">balance</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">balance</span> <span class="o">=</span> <span class="n">balance</span><span class="o">;</span>
+    <span class="o">}</span>
 
-<h3 id="1-创建-newbranch-分支">1. 创建 newbranch 分支</h3>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">transfer</span><span class="o">(</span><span class="nc">Account</span> <span class="n">target</span><span class="o">,</span> <span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">lock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span> <span class="c1">// 获取锁</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">balance</span> <span class="o">&gt;=</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 如果余额足够</span>
+                <span class="n">balance</span> <span class="o">-=</span> <span class="n">amount</span><span class="o">;</span> <span class="c1">// 扣除转出金额</span>
+                <span class="n">target</span><span class="o">.</span><span class="na">balance</span> <span class="o">+=</span> <span class="n">amount</span><span class="o">;</span> <span class="c1">// 增加转入金额</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="n">lock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span> <span class="c1">// 释放锁</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">newbranch</span></code></pre></figure>
+<p>这个例子中，如果不使用 <code class="language-plaintext highlighter-rouge">ReentrantLock</code> 来对 <code class="language-plaintext highlighter-rouge">transfer ()</code> 方法进行同步控制，那么可能会出现这样的情况：当两个线程同时对同一个账户对象执行转账操作时，可能会导致余额不正确或者数据不一致的问题。这是因为转账操作涉及到多个共享变量（balance 和 target.balance）的读写操作，并且这些操作不是原子性的。</p>
 
-<p>或者</p>
+<p>但是如果使用了 <code class="language-plaintext highlighter-rouge">ReentrantLock</code> 来对 <code class="language-plaintext highlighter-rouge">transfer ()</code> 方法进行同步控制，那么就可以保证当一个线程执行转账操作时，其他线程不能同时执行该操作，并且该操作能够完整地执行而不会被打断。这是因为 <code class="language-plaintext highlighter-rouge">ReentrantLock</code> 可以实现互斥访问共享资源，并且保证操作的顺序性和原子性。</p>
 
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">branch</span> <span class="n">newbranch</span>
-<span class="n">git</span> <span class="n">checkout</span> <span class="n">newbranch</span></code></pre></figure>
+<h2 id="原子类型变量">原子类型变量</h2>
 
-<h3 id="2-创建新分支并与远程分支关联">2. 创建新分支并与远程分支关联</h3>
+<p>Java 里的原子类型变量是一种可以在多线程环境下保证原子性操作的变量类，它们使用了 CAS（Compare And Swap）算法来实现无锁的并发控制。</p>
 
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">tempbarch</span> <span class="o">--</span><span class="n">track</span> <span class="n">origin</span><span class="o">/</span><span class="n">testdevelop</span></code></pre></figure>
-
-<h2 id="删除分支">删除分支</h2>
-
-<h3 id="1-删除本地分支">1. 删除本地分支</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">branch</span> <span class="o">-</span><span class="n">d</span> <span class="n">newbranch</span></code></pre></figure>
-
-<h3 id="2-强制删除本地分支">2. 强制删除本地分支</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">branch</span> <span class="o">-</span><span class="n">D</span> <span class="n">newbranch</span></code></pre></figure>
-
-<h3 id="3-删除远程-master-分支-1">3. 删除远程 master 分支</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="o">:</span><span class="n">master</span>
-<span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="o">--</span><span class="n">delete</span> <span class="n">master</span></code></pre></figure>
-
-<h2 id="重命名分支">重命名分支</h2>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">branch</span> <span class="o">-</span><span class="n">m</span> <span class="n">oldbranch</span> <span class="n">newbranch</span>
-<span class="n">git</span> <span class="n">branch</span> <span class="o">-</span><span class="n">M</span> <span class="n">oldbranch</span> <span class="n">newbranch</span></code></pre></figure>
-
-<h2 id="添加远程分支">添加远程分支</h2>
-
-<h3 id="git-remote-add">git remote add</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">origin</span> <span class="n">https</span><span class="o">:</span><span class="c1">//github.com/gangdong/git_learn.git</span></code></pre></figure>
-
-<h2 id="克隆远程分支">克隆远程分支</h2>
-
-<h3 id="git-clone">git clone</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="o">:</span><span class="c1">//github.com/gangdong/git_learn.git</span></code></pre></figure>
-
-<h2 id="查看远程提交记录">查看远程提交记录</h2>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="n">remotes</span><span class="o">/</span><span class="n">origin</span><span class="o">/</span><span class="n">dev</span></code></pre></figure>
-
-<h2 id="添加-github-token-到本地仓库">添加 Github Token 到本地仓库</h2>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">remote</span> <span class="n">set</span><span class="o">-</span><span class="n">url</span> <span class="n">origin</span> <span class="n">https</span><span class="o">:</span><span class="c1">//&lt;your_token&gt;@github.com/&lt;USERNAME&gt;/&lt;REPO&gt;.git</span>
-<span class="n">git</span> <span class="n">remote</span> <span class="n">set</span><span class="o">-</span><span class="n">url</span> <span class="n">origin</span> <span class="n">https</span><span class="o">:</span><span class="c1">//ghp_YIKL6G9C5oWxxxxxxssssKsoYg@github.com/gangdong/git_learn.git</span></code></pre></figure>
-
-<h2 id="git-stash">git stash</h2>
-
-<h3 id="应用场景">应用场景</h3>
+<p>原子类型变量有以下几种分类：</p>
 
 <ul>
-  <li>当正在dev分支上开发某个项目，这时项目中出现一个bug，需要紧急修复，但是正在开发的内容只是完成一半，还不想提交，这时可以用git stash命令将修改的内容保存至堆栈区，然后顺利切换到hotfix分支进行bug修复，修复完成后，再次切回到dev分支，从堆栈中恢复刚刚保存的内容。</li>
-  <li>本应该在dev分支开发的内容，却在master上进行了开发，需要重新切回到dev分支上进行开发，可以用git stash将内容保存至堆栈中，切回到dev分支后，再次恢复内容即可。</li>
-  <li>git stash命令的作用就是将目前还不想提交的但是已经修改的内容进行保存至堆栈中，后续可以在某个分支上恢复出堆栈中的内容。这也就是说，stash中的内容不仅仅可以恢复到原先开发的分支，也可以恢复到其他任意指定的分支上</li>
+  <li>标量原子变量类：支持对 int，long 和 boolean 等基本数据类型的操作，例如 AtomicInteger，AtomicLong 和 AtomicBoolean。</li>
+  <li>原子数组类：支持对 int，long 和引用类型的数组元素进行原子性更新，例如 AtomicIntegerArray，AtomicLongArray 和 AtomicReferenceArray。</li>
+  <li>原子字段更新程序类：支持使用反射以原子方式更新类的易失性字段，例如 AtomicLongFieldUpdater，AtomicIntegerFieldUpdater 和 AtomicReferenceFieldUpdater。</li>
+  <li>原子复合变量类：支持对多个变量进行原子性更新，例如 AtomicStampedReference 和 AtomicMarkableReference。
+下面是一个使用 AtomicInteger 的例子：</li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-c" data-lang="c">  <span class="n">git</span> <span class="n">stash</span>
-  <span class="n">git</span> <span class="n">stash</span> <span class="n">save</span> <span class="s">"stash 01"</span>
-  
-  <span class="cp"># 恢复
-</span>  
-  <span class="n">git</span> <span class="n">stash</span> <span class="n">pop</span> 
-  
-  <span class="cp"># 不自动删除堆栈内的内容
-</span>  
-  <span class="n">git</span> <span class="n">stash</span> <span class="n">apply</span> <span class="n">stash</span><span class="err">@</span><span class="p">{</span><span class="n">n</span><span class="p">}</span>
-  
-  <span class="cp"># 堆栈中移除某个指定记录
-</span>  
-  <span class="n">git</span> <span class="n">stash</span> <span class="n">drop</span>
-  <span class="n">git</span> <span class="n">stash</span> <span class="n">clear</span>
-  <span class="n">git</span> <span class="n">stash</span> <span class="n">list</span>
-  
-  <span class="cp"># 查看某条 stash 的更改
-</span>  
-  <span class="n">git</span> <span class="n">stash</span> <span class="n">show</span> <span class="n">stash</span><span class="err">@</span><span class="p">{</span><span class="n">n</span><span class="p">}</span>
-  </code></pre></figure>
-
-<h2 id="合并分支">合并分支</h2>
-
-<h3 id="git-merge">git merge</h3>
-
-<h4 id="1-merge-dev-分支和-dev2-分支">1. merge dev 分支和 dev2 分支</h4>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">checkout</span> <span class="n">dev</span>
-<span class="n">git</span> <span class="n">merge</span> <span class="n">dev2</span>
-<span class="n">git</span> <span class="n">mergetool</span></code></pre></figure>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">checkout</span> <span class="n">dev</span>
-<span class="n">git</span> <span class="n">fetch</span> <span class="n">origin</span> <span class="n">dev2</span>
-<span class="n">git</span> <span class="n">diff</span> <span class="n">origin</span><span class="o">/</span><span class="n">dev2</span>
-<span class="n">git</span> <span class="n">merge</span> <span class="n">origin</span><span class="o">/</span><span class="n">dev2</span></code></pre></figure>
-
-<h4 id="2-手动提交">2. 手动提交</h4>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">checkout</span> <span class="n">dev</span>
-<span class="n">git</span> <span class="n">merge</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">commit</span> <span class="n">dev2</span></code></pre></figure>
-
-<h4 id="3-如果有冲突处理冲突">3. 如果有冲突，处理冲突</h4>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">checkout</span> <span class="n">dev</span>
-<span class="n">git</span> <span class="n">merge</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">commit</span> <span class="n">dev2</span>
-<span class="n">git</span> <span class="n">ls</span><span class="o">-</span><span class="n">files</span> <span class="o">-</span><span class="n">s</span>
-<span class="n">git</span> <span class="n">show</span> <span class="o">:</span><span class="mi">1</span><span class="o">:</span><span class="n">filename</span>
-<span class="n">git</span> <span class="n">mergetool</span>
-<span class="n">git</span> <span class="n">add</span> <span class="p">.</span>
-<span class="n">git</span> <span class="n">commit</span></code></pre></figure>
-
-<h2 id="git-cherry-pick">git cherry-pick</h2>
-
-<h3 id="1-复制-dev2-的-aa3b6ca2--b821c4f7e1c-提交到-dev-分支">1. 复制 dev2 的 aa3b6ca2  b821c4f7e1c 提交到 dev 分支</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">checkout</span> <span class="n">dev</span>
-<span class="n">git</span> <span class="n">cherry</span><span class="o">-</span><span class="n">pick</span> <span class="n">aa3b6ca2</span> <span class="n">b821c4f7e1c</span></code></pre></figure>
-
-<p>注意cherry-pick 多个提交时注意顺序，否则会出现冲突。</p>
-
-<p>git-cherry-pick 只是复制其他分支提交的内容到本地分支，复制后的commit id 和之前 pick的不同。这一点和 git merge/git rebase 有区别。git merge/git rebase 合并的是分支，之前原分支的commit id会带到本地分支。</p>
-
-<h2 id="git-rebase">git rebase</h2>
-
-<h3 id="用法">用法：</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">rebase</span>   <span class="p">[</span><span class="n">startpoint</span><span class="p">]</span>   <span class="p">[</span><span class="n">endpoint</span><span class="p">]</span>  <span class="o">--</span><span class="n">onto</span>  <span class="p">[</span><span class="n">branchName</span><span class="p">]</span>
-<span class="n">git</span> <span class="n">rebase</span> <span class="o">-</span><span class="n">i</span>  <span class="p">[</span><span class="n">startpoint</span><span class="p">]</span>  <span class="p">[</span><span class="n">endpoint</span><span class="p">]</span></code></pre></figure>
-
-<p>注意：[startpoint] [endpoint]指定了一个编辑区间，如果不指定[endpoint]，则该区间的终点默认是当前分支HEAD所指向的commit (注：该区间指定的是一个前开后闭的区间)。</p>
-
-<h3 id="1-合并当前分支的多个提交记录">1. 合并当前分支的多个提交记录</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="mi">7</span><span class="n">f66117d96ac6db8661c66c55c5476c9be82622e</span> <span class="n">modify</span> <span class="n">readme</span><span class="p">.</span><span class="n">md</span>
-<span class="mi">6</span><span class="n">af9edd695f3f51120b888d724eea4d254fe5bb3</span> <span class="n">master</span> <span class="n">commit</span> <span class="mo">02</span>
-<span class="mi">3</span><span class="n">ce944b8cf3b35121936ae0fe59ca7ff76ed81d3</span> <span class="n">master</span> <span class="n">commit</span> <span class="mo">01</span>
-<span class="mi">3</span><span class="n">f901ec367853b7852b30f0023af4398ee48235d</span> <span class="n">my_dev</span> <span class="n">work</span> <span class="n">done</span><span class="p">.</span>
-<span class="mi">86624</span><span class="n">b76ac8a6f16334605e0ee44f64305c4d8c3</span> <span class="n">my_dev</span> <span class="n">first</span> <span class="n">commit</span></code></pre></figure>
-
-<h4 id="合并3ce944b8c7f66117d96ac6-三条提交记录">合并3ce944b8c..7f66117d96ac6 三条提交记录</h4>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">rebase</span> <span class="o">-</span><span class="n">i</span> <span class="mi">3</span><span class="n">f901ec367853</span> <span class="mi">7</span><span class="n">f66117d96ac6db</span></code></pre></figure>
-
-<p>或者</p>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">rebase</span> <span class="o">-</span><span class="n">i</span> <span class="n">HEAD</span><span class="o">~</span><span class="mi">3</span></code></pre></figure>
-
-<h3 id="2-复制一段提交记录到dev2分支">2. 复制一段提交记录到dev2分支</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">rebase</span> <span class="o">-</span><span class="n">i</span> <span class="mi">3</span><span class="n">f901ec367853</span> <span class="mi">7</span><span class="n">f66117d96ac6db</span> <span class="n">onto</span> <span class="n">dev2</span>
-<span class="n">git</span> <span class="n">checkout</span> <span class="n">dev2</span>
-<span class="n">git</span> <span class="n">reset</span> <span class="o">--</span><span class="n">hard</span>  <span class="n">HEAD</span></code></pre></figure>
-
-<h3 id="3-合并分支">3. 合并分支</h3>
-
-<p>dev 分支rebase master 分支</p>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">checkout</span> <span class="n">dev</span>
-<span class="n">git</span> <span class="n">rebase</span> <span class="n">master</span></code></pre></figure>
-
-<h3 id="4-冲突处理">4. 冲突处理</h3>
-
-<p>如果有冲突，解决掉冲突后，执行</p>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">add</span> <span class="p">.</span>
-<span class="n">git</span> <span class="n">rebase</span> <span class="o">--</span><span class="k">continue</span></code></pre></figure>
-
-<div class="post-note warning">
-  <div class="header"></div>
-      <div class="body">
-        <p>rebase会改变原来的commit ID, 一旦对历史提交做出改变，那么从变基开始的那个提交往后所有的提交的commit ID 都会发生改变。<br />
-        因此rebase命令使用要遵循以下原则:<br />
-        1. “从来不要对任何已经提交到公共分支的提交记录做rebase操作，rebase操作会使得公共分支的提交记录变更，导致其他共用该分支的人的代码产生冲突。<br />
-        2. 不基于rebase分支切换新分支。<br />
-        3. 不对已经合入远程分支的本地分支做rebase。
-        </p>
-      </div>
-</div>
-
-<h2 id="git-fetch">git fetch</h2>
-
-<h3 id="1-fetch-远程-dev-分支并merge">1. fetch 远程 dev 分支并merge</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">fetch</span> <span class="n">origin</span> <span class="n">dev</span>
-<span class="n">git</span> <span class="n">diff</span> <span class="n">origin</span><span class="o">/</span><span class="n">dev</span>
-<span class="n">git</span> <span class="n">merge</span> <span class="n">origin</span><span class="o">/</span><span class="n">dev</span></code></pre></figure>
-
-<h2 id="git-log">Git log</h2>
-
-<h3 id="1-显示提交的差异">1. 显示提交的差异</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">-</span><span class="n">p</span> </code></pre></figure>
-
-<h3 id="2--显示-2-个提交信息">2.  显示 2 个提交信息</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">-</span><span class="mi">2</span></code></pre></figure>
-
-<h3 id="3-显示统计信息包括哪些文件被改动">3. 显示统计信息，包括哪些文件被改动</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">stat</span></code></pre></figure>
-
-<h3 id="4-显示格式一行显示">4. 显示格式，一行显示</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span></code></pre></figure>
-
-<h3 id="5-格式化输出">5. 格式化输出</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">format</span><span class="o">:</span><span class="s">"%h - %an, %ar-%cr : %s"</span></code></pre></figure>
-
-<p>按照 <strong>哈希值-作者，修改时间-提交时间：提交说明</strong> 显示</p>
-
-<h3 id="6-图形化输出">6. 图形化输出</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">graph</span></code></pre></figure>
-
-<p>通常比较有用的是</p>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">formate</span><span class="o">:</span><span class="s">"%h - %an, %ar:%s"</span> <span class="o">--</span><span class="n">graph</span>
-<span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">format</span><span class="o">:</span><span class="s">"%Cred%h%Creset -%C(yellow)%d%Cblue %s %Cgreen(%cd) %C(cyan)%ar %C(bold blue)&lt;%an&gt;"</span></code></pre></figure>
-
-<h3 id="7-按照作者查找提交">7. 按照作者查找提交</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">author</span><span class="o">=</span><span class="s">"david.dong"</span> </code></pre></figure>
-
-<p>通常比较常用</p>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">author</span><span class="o">=</span><span class="s">"david.dong"</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span></code></pre></figure>
-
-<h3 id="8-按照内容匹配指定字符串的提交">8. 按照内容匹配指定字符串的提交</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">-</span><span class="n">S</span></code></pre></figure>
-
-<p>通常比较常用</p>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">-</span><span class="n">S</span> <span class="s">"function_name"</span> <span class="o">-</span><span class="n">p</span></code></pre></figure>
-
-<h3 id="9--按照时间范围查找提交">9.  按照时间范围查找提交</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">since</span> <span class="o">--</span><span class="n">until</span></code></pre></figure>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">since</span><span class="o">=</span><span class="s">"2020-01-01"</span> <span class="o">--</span><span class="n">until</span><span class="o">=</span><span class="s">"2020-02-01"</span>
-<span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">since</span><span class="o">=</span><span class="s">"3 weeks ago"</span> <span class="o">--</span><span class="n">until</span><span class="o">=</span><span class="s">"2 days ago"</span></code></pre></figure>
-
-<h3 id="10-限定查找-pathfilename-的提交">10. 限定查找 path/filename 的提交</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">-</span><span class="n">p</span> <span class="o">--</span> <span class="n">path</span><span class="o">/</span><span class="n">filename</span></code></pre></figure>
-
-<p>查找 david 对 fpc_bio_interface 的提交</p>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">author</span><span class="o">=</span><span class="s">"david"</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span> <span class="o">--</span> <span class="n">my_interface</span> </code></pre></figure>
-
-<p>或者查找 Andy 对 my_db.c 的修改提交记录</p>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">author</span><span class="o">=</span><span class="s">"Andy"</span> <span class="o">--</span> <span class="n">my_db</span><span class="p">.</span><span class="n">c</span></code></pre></figure>
-
-<h3 id="11-查找提交说明中包含指定字符串的提交">11. 查找提交说明中包含指定字符串的提交</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">grep</span> </code></pre></figure>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span> <span class="o">--</span><span class="n">grep</span><span class="o">=</span><span class="s">"Minor refinement"</span>
-<span class="n">git</span> <span class="n">log</span> <span class="o">-</span><span class="n">p</span> <span class="o">--</span><span class="n">grep</span><span class="o">=</span><span class="s">"ISEE"</span></code></pre></figure>
-
-<h3 id="12-仅显示merge的提交">12. 仅显示merge的提交</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">merges</span> </code></pre></figure>
-
-<h3 id="13-不显示merge-提交">13. 不显示merge 提交</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">merges</span> </code></pre></figure>
-
-<h3 id="14-只打印主线提交">14. 只打印主线提交</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">first</span><span class="o">-</span><span class="n">parent</span> </code></pre></figure>
-
-<h3 id="15-只打印某两个提交之间的记录">15. 只打印某两个提交之间的记录</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="n">cd50063c9a625</span><span class="p">..</span><span class="n">ad3d6ae40d271778ae6</span></code></pre></figure>
-
-<h3 id="16-显示某一个分支的提交记录">16. 显示某一个分支的提交记录</h3>
-
-<h4 id="1-显示-远程-dev-分支记录中有关-readmemd-的提交">1. 显示 远程 dev 分支记录中有关 README.md 的提交</h4>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span> <span class="n">origin</span><span class="o">/</span><span class="n">dev</span> <span class="o">--</span> <span class="n">README</span><span class="p">.</span><span class="n">md</span></code></pre></figure>
-
-<h4 id="2-显示-master-分支记录">2. 显示 master 分支记录</h4>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span> <span class="n">master</span></code></pre></figure>
-
-<h3 id="17-查看只在一个分支中的提交">17. 查看只在一个分支中的提交</h3>
-
-<p>查看只在 master 中的提交记录</p>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span> <span class="o">--</span><span class="n">right</span><span class="o">-</span><span class="n">only</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">merges</span> <span class="o">--</span><span class="n">cherry</span><span class="o">-</span><span class="n">pick</span> <span class="n">my_dev</span><span class="p">...</span><span class="n">master</span></code></pre></figure>
-
-<p>查看只在 my_dev 中的提交记录</p>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span> <span class="o">--</span><span class="n">left</span><span class="o">-</span><span class="n">only</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">merges</span> <span class="o">--</span><span class="n">cherry</span><span class="o">-</span><span class="n">pick</span> <span class="n">my_dev</span><span class="p">...</span><span class="n">master</span></code></pre></figure>
-
-<p>查看只在 master 有， my_dev 没有的提交记录</p>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="n">master</span> <span class="o">^</span><span class="n">my_dev</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span></code></pre></figure>
-
-<p>或者</p>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="n">my_dev</span><span class="p">..</span><span class="n">master</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span></code></pre></figure>
-
-<p>查看只在 my_dev 有， master 没有的提交记录</p>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="n">my_dev</span> <span class="o">^</span><span class="n">master</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span> </code></pre></figure>
-
-<p>或者</p>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="n">master</span><span class="p">..</span><span class="n">my_dev</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span></code></pre></figure>
-
-<div class="post-note info">
-  <div class="header"></div>
-      <div class="body">
-        <p>说明：<br />
-... 是列出两个分支不同的提交，等于 master..dev + dev..master, 如果加上 --left-only/--right-only 就等于 .. <br />
-.. 是列出一个分支有，另一个分支没有的提交。 <br />
-因此：<br />
-git log --pretty=oneline --right-only --no-merges --cherry-pick my_dev...master <br />
-相当于 git log --pretty=oneline master ^my_dev <br />
-和 git log --pretty=oneline my_dev..master 
-        </p>
-      </div>
-</div>
-<h3 id="18-不显示-cherry-pick-的提交">18. 不显示 cherry-pick 的提交</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">cherry</span><span class="o">-</span><span class="n">pick</span> </code></pre></figure>
-
-<h2 id="git-grep">git grep</h2>
-
-<h3 id="在某个提交中查找字符串">在某个提交中查找字符串</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">grep</span> <span class="s">"ISEE"</span> <span class="n">cd5000634</span><span class="o">:</span> </code></pre></figure>
-
-<h2 id="git-archive">git archive</h2>
-
-<h3 id="打包某个提交的代码">打包某个提交的代码</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">archive</span> <span class="o">--</span><span class="n">format</span> <span class="n">tar</span><span class="p">.</span><span class="n">gz</span> <span class="o">--</span><span class="n">output</span> <span class="s">"linux.5.9.tar.gz"</span> <span class="mi">856</span><span class="n">deb866d16e29bd659</span></code></pre></figure>
-
-<h2 id="git-show">git show</h2>
-
-<h3 id="查看某个提交的内容">查看某个提交的内容</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">show</span> <span class="mi">856</span><span class="n">deb866d16e29bd659</span></code></pre></figure>
-
-<h2 id="重设分支">重设分支</h2>
-
-<h3 id="1-reset-hard">1. reset –hard</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">reset</span> <span class="o">--</span><span class="n">hard</span> <span class="mi">856</span><span class="n">deb866</span></code></pre></figure>
-
-<h3 id="2-reset-soft">2. reset –soft</h3>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">reset</span> <span class="o">--</span><span class="n">soft</span> <span class="mi">856</span><span class="n">deb866</span></code></pre></figure>
-
-<p>区别：reset –hard 执行后之前的提交全部清除，reset –soft 执行后之前的提交会保留到暂存区，相当于staged.</p>
-
-<h2 id="撤消提交">撤消提交</h2>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">revert</span> <span class="mi">856</span><span class="n">deb866</span></code></pre></figure>
-
-<h2 id="查看全部操作历史">查看全部操作历史</h2>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">reflog</span></code></pre></figure>]]></content><author><name>david.dong</name></author><category term="Git" /><category term="Git" /><summary type="html"><![CDATA[记录 Git 的常用命令和使用技巧.]]></summary></entry></feed>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.concurrent.atomic.AtomicInteger</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AtomicCounter</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">AtomicInteger</span> <span class="n">value</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AtomicInteger</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">increment</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="na">incrementAndGet</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">decrement</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="na">decrementAndGet</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">get</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>]]></content><author><name>david.dong</name></author><category term="Java" /><category term="Java" /><summary type="html"><![CDATA[本文内容对 Java 中用到的线程间同步的技术做了些讨论和总结。]]></summary></entry></feed>

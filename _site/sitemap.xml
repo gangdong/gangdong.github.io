@@ -6,7 +6,7 @@
                 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
         <url>
             <loc>https://dqdongg.com</loc>
-            <lastmod>2024-02-15T19:00:59+08:00</lastmod>
+            <lastmod>2024-03-07T12:07:37+08:00</lastmod>
             <priority>1.00</priority>
         </url><url>
                 <loc>https://dqdongg.com/rust/2024/02/15/Rust-startup-trait.html</loc>
@@ -50,6 +50,11 @@
                 <priority>0.80</priority>
             </url><url>
                 <loc>https://dqdongg.com/java/2022/04/22/Java-threadSynchronization.html</loc>
+                <lastmod>2022-04-22T22:44:19+08:00</lastmod>
+                <changefreq>weekly</changefreq>
+                <priority>0.80</priority>
+            </url><url>
+                <loc>https://dqdongg.com/java/2022/04/22/Java-ThreadSynchronization.html</loc>
                 <lastmod>2022-04-22T22:44:19+08:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>

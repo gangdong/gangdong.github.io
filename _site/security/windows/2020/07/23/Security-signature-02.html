@@ -6,7 +6,7 @@
 <meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
 <!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>利用 Microsoft WDK 工具生成数字签名 | David Dong’s Blog</title>
-<meta name="generator" content="Jekyll v4.2.2" />
+<meta name="generator" content="Jekyll v4.3.3" />
 <meta property="og:title" content="利用 Microsoft WDK 工具生成数字签名" />
 <meta name="author" content="david.dong" />
 <meta property="og:locale" content="en_US" />
@@ -468,8 +468,8 @@ Microsoft规定应使用证书存储区来安全地存储证书（证书存储�
   <li>执行 makecert.exe 时出现如下错误</li>
 </ol>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">   <span class="s1">'makecert'</span> <span class="n">is</span> <span class="n">not</span> <span class="n">recognized</span> <span class="n">as</span> <span class="n">an</span> <span class="n">internal</span> <span class="n">or</span> <span class="n">external</span> <span class="n">command</span><span class="p">,</span>
-   <span class="n">operable</span> <span class="n">program</span> <span class="n">or</span> <span class="n">batch</span> <span class="n">file</span><span class="o">.</span>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">   <span class="s1">'makecert'</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">recognized</span> <span class="n">as</span> <span class="n">an</span> <span class="n">internal</span> <span class="ow">or</span> <span class="n">external</span> <span class="n">command</span><span class="p">,</span>
+   <span class="n">operable</span> <span class="n">program</span> <span class="ow">or</span> <span class="n">batch</span> <span class="n">file</span><span class="o">.</span>
    </code></pre></figure>
 
 <p>原因：这是因为没有在 makecert.exe 的路径下执行该命令，解决方法时切换到工具所在的目录下执行。</p>
@@ -1162,7 +1162,7 @@ Microsoft规定应使用证书存储区来安全地存储证书（证书存储�
     <tr>
       <td>
 <code class="language-plaintext highlighter-rouge">/o</code> Version</td>
-      <td>按操作系统版本验证文件。 版本具有以下格式：PlatformID：VerMajor.VerMinor.BuildNumber。 PlatformID 表示 <system.platformid> 枚举成员的基础值。 **重要提示：** 建议使用 `/o` 开关。 如果未指定 `/o`，SignTool.exe 可能会返回意外的结果。 例如，如果你未将 `/o` 开关包含在内，则能在旧版操作系统上正确验证的系统目录可能在新版操作系统上无法正确验证。</system.platformid>
+      <td>按操作系统版本验证文件。 版本具有以下格式：PlatformID：VerMajor.VerMinor.BuildNumber。 PlatformID 表示 <xref:system.platformid> 枚举成员的基础值。 **重要提示：** 建议使用 `/o` 开关。 如果未指定 `/o`，SignTool.exe 可能会返回意外的结果。 例如，如果你未将 `/o` 开关包含在内，则能在旧版操作系统上正确验证的系统目录可能在新版操作系统上无法正确验证。</xref:system.platformid>
 </td>
     </tr>
     <tr>

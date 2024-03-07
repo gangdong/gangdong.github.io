@@ -6,7 +6,7 @@
 <meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
 <!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>Calculate reading time in Jekyll | David Dong’s Blog</title>
-<meta name="generator" content="Jekyll v4.2.2" />
+<meta name="generator" content="Jekyll v4.3.3" />
 <meta property="og:title" content="Calculate reading time in Jekyll" />
 <meta name="author" content="David Dong" />
 <meta property="og:locale" content="en_US" />
@@ -199,16 +199,16 @@ $('.menu-btn').on('click',function(e){
 
 <p>So I tried to write the below trick code to realize this feature.</p>
 
-<figure class="highlight"><pre><code class="language-liquid" data-lang="liquid"><span class="p">{%</span><span class="w"> </span><span class="nt">assign</span><span class="w"> </span><span class="nv">words</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">post</span><span class="p">.</span><span class="nv">content</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">strip_html</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">strip_newlines</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">remove</span><span class="p">:</span><span class="w"> </span><span class="s2">" "</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">size</span><span class="w"> </span><span class="p">%}</span>
-<span class="p">{%</span><span class="w"> </span><span class="nt">assign</span><span class="w"> </span><span class="nv">time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">post</span><span class="p">.</span><span class="nv">content</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">strip_html</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">strip_newlines</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">remove</span><span class="p">:</span><span class="w"> </span><span class="s2">" "</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">size</span><span class="w"> </span><span class="err">
-</span><span class="p">|</span><span class="w"> </span><span class="nf">divided_by</span><span class="p">:</span><span class="w"> </span><span class="mi">400</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">plus</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">%}</span>
+<figure class="highlight"><pre><code class="language-liquid" data-lang="liquid"><span class="cp">{%</span><span class="w"> </span><span class="nt">assign</span><span class="w"> </span><span class="nv">words</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">post</span><span class="p">.</span><span class="nv">content</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">strip_html</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">strip_newlines</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">remove</span><span class="p">:</span><span class="w"> </span><span class="s2">" "</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">size</span><span class="w"> </span><span class="cp">%}</span>
+<span class="cp">{%</span><span class="w"> </span><span class="nt">assign</span><span class="w"> </span><span class="nv">time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">post</span><span class="p">.</span><span class="nv">content</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">strip_html</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">strip_newlines</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">remove</span><span class="p">:</span><span class="w"> </span><span class="s2">" "</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">size</span><span class="w"> 
+</span><span class="p">|</span><span class="w"> </span><span class="nf">divided_by</span><span class="p">:</span><span class="w"> </span><span class="mi">400</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">plus</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="cp">%}</span>
 
 &lt;footer&gt;
   &lt;div style="margin-top:25px"&gt;
-	&lt;a class="post-link" href="<span class="p">{{</span><span class="w"> </span><span class="nv">post</span><span class="p">.</span><span class="nv">url</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">relative_url</span><span class="w"> </span><span class="p">}}</span>"&gt;
-		&lt;span class="icon-clock morebox" &gt;Reading time: <span class="p">{{</span><span class="w"> </span><span class="nv">time</span><span class="w"> </span><span class="p">}}</span> 
-        <span class="p">{%</span><span class="kr">if</span><span class="w"> </span><span class="nv">time</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">%}</span> mins
-        <span class="p">{%</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">%}</span>min<span class="p">{%</span><span class="w"> </span><span class="kr">endif</span><span class="w"> </span><span class="p">%}</span>, <span class="p">{{</span><span class="nv">words</span><span class="p">}}</span> words.&lt;br&gt;      Continue read...&lt;/span&gt;
+	&lt;a class="post-link" href="<span class="cp">{{</span><span class="w"> </span><span class="nv">post</span><span class="p">.</span><span class="nv">url</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">relative_url</span><span class="w"> </span><span class="cp">}}</span>"&gt;
+		&lt;span class="icon-clock morebox" &gt;Reading time: <span class="cp">{{</span><span class="w"> </span><span class="nv">time</span><span class="w"> </span><span class="cp">}}</span> 
+        <span class="cp">{%</span><span class="nt">if</span><span class="w"> </span><span class="nv">time</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="cp">%}</span> mins
+        <span class="cp">{%</span><span class="w"> </span><span class="nt">else</span><span class="w"> </span><span class="cp">%}</span>min<span class="cp">{%</span><span class="w"> </span><span class="nt">endif</span><span class="w"> </span><span class="cp">%}</span>, <span class="cp">{{</span><span class="nv">words</span><span class="cp">}}</span> words.&lt;br&gt;      Continue read...&lt;/span&gt;
     &lt;/a&gt;
   &lt;/div&gt;
 &lt;/footer&gt; </code></pre></figure>
@@ -218,7 +218,7 @@ $('.menu-btn').on('click',function(e){
   <li>Statistics the words count of every post. Actually a more simple and pure Liquid code is like this:</li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-liquid" data-lang="liquid"><span class="p">{%</span><span class="w"> </span><span class="nt">assign</span><span class="w"> </span><span class="nv">words</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">content</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">number_of_words</span><span class="w"> </span><span class="p">%}</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-liquid" data-lang="liquid"><span class="cp">{%</span><span class="w"> </span><span class="nt">assign</span><span class="w"> </span><span class="nv">words</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">content</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">number_of_words</span><span class="w"> </span><span class="cp">%}</span></code></pre></figure>
 
 <p>But Jekyll’s built-in filter <code class="language-plaintext highlighter-rouge">number_of_words</code> cannot accurately count the number of Chinese words. If you have Chinese words to calculate, you can use Liquid’s size filter to avoid this problem. In order to make statistics more accurate, it is better to ignore all <code class="language-plaintext highlighter-rouge">HTML</code> tags and blank lines before calculation.</p>
 <ul>
@@ -230,7 +230,7 @@ $('.menu-btn').on('click',function(e){
 
 <p>I just include the <code class="language-plaintext highlighter-rouge">read_time.html</code> in my post layout.</p>
 
-<figure class="highlight"><pre><code class="language-liquid" data-lang="liquid"><span class="p">{%</span><span class="w"> </span><span class="nt">include</span><span class="w"> </span>reading_time.html<span class="w"> </span><span class="p">%}</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-liquid" data-lang="liquid"><span class="cp">{%</span><span class="w"> </span><span class="nt">include</span><span class="w"> </span>reading_time.html<span class="w"> </span><span class="cp">%}</span></code></pre></figure>
 
 <p>That’s all. If you want to get all code, fork it <a href="https://github.com/gangdong/daviddong.github.io">here</a>.</p>
 

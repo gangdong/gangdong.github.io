@@ -6,7 +6,7 @@
 <meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
 <!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>Display mathematics formula in blog with MathJax | David Dong’s Blog</title>
-<meta name="generator" content="Jekyll v4.2.2" />
+<meta name="generator" content="Jekyll v4.3.3" />
 <meta property="og:title" content="Display mathematics formula in blog with MathJax" />
 <meta name="author" content="david.dong" />
 <meta property="og:locale" content="en_US" />
@@ -248,7 +248,7 @@ $('.menu-btn').on('click',function(e){
 <p>Here is an example, I wrote below code to add single dollar <code class="language-plaintext highlighter-rouge">$</code> signs as in-line math delimiters.</p>
 
 <figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/x-mathjax-config"</span><span class="nt">&gt;</span>
-  <span class="nx">MathJax</span><span class="p">.</span><span class="nx">Hub</span><span class="p">.</span><span class="nx">Config</span><span class="p">({</span><span class="na">tex2jax</span><span class="p">:</span> <span class="p">{</span><span class="na">inlineMath</span><span class="p">:</span> <span class="p">[[</span><span class="dl">'</span><span class="s1">$</span><span class="dl">'</span><span class="p">,</span><span class="dl">'</span><span class="s1">$</span><span class="dl">'</span><span class="p">],</span> <span class="p">[</span><span class="dl">'</span><span class="se">\\</span><span class="s1">(</span><span class="dl">'</span><span class="p">,</span><span class="dl">'</span><span class="se">\\</span><span class="s1">)</span><span class="dl">'</span><span class="p">]]}});</span>
+  <span class="nx">MathJax</span><span class="p">.</span><span class="nx">Hub</span><span class="p">.</span><span class="nc">Config</span><span class="p">({</span><span class="na">tex2jax</span><span class="p">:</span> <span class="p">{</span><span class="na">inlineMath</span><span class="p">:</span> <span class="p">[[</span><span class="dl">'</span><span class="s1">$</span><span class="dl">'</span><span class="p">,</span><span class="dl">'</span><span class="s1">$</span><span class="dl">'</span><span class="p">],</span> <span class="p">[</span><span class="dl">'</span><span class="se">\\</span><span class="s1">(</span><span class="dl">'</span><span class="p">,</span><span class="dl">'</span><span class="se">\\</span><span class="s1">)</span><span class="dl">'</span><span class="p">]]}});</span>
 <span class="nt">&lt;/script&gt;</span></code></pre></figure>
 
 <p>It is better to place the MathJax object in a <code class="language-plaintext highlighter-rouge">&lt;script&gt;</code> tag just before the script that loads MathJax itself.</p>
@@ -256,7 +256,7 @@ $('.menu-btn').on('click',function(e){
 <p>My last code is</p>
 
 <figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/x-mathjax-config"</span><span class="nt">&gt;</span>
-  <span class="nx">MathJax</span><span class="p">.</span><span class="nx">Hub</span><span class="p">.</span><span class="nx">Config</span><span class="p">({</span><span class="na">tex2jax</span><span class="p">:</span> <span class="p">{</span><span class="na">inlineMath</span><span class="p">:</span> <span class="p">[[</span><span class="dl">'</span><span class="s1">$</span><span class="dl">'</span><span class="p">,</span><span class="dl">'</span><span class="s1">$</span><span class="dl">'</span><span class="p">],</span> <span class="p">[</span><span class="dl">'</span><span class="se">\\</span><span class="s1">(</span><span class="dl">'</span><span class="p">,</span><span class="dl">'</span><span class="se">\\</span><span class="s1">)</span><span class="dl">'</span><span class="p">]]}});</span>
+  <span class="nx">MathJax</span><span class="p">.</span><span class="nx">Hub</span><span class="p">.</span><span class="nc">Config</span><span class="p">({</span><span class="na">tex2jax</span><span class="p">:</span> <span class="p">{</span><span class="na">inlineMath</span><span class="p">:</span> <span class="p">[[</span><span class="dl">'</span><span class="s1">$</span><span class="dl">'</span><span class="p">,</span><span class="dl">'</span><span class="s1">$</span><span class="dl">'</span><span class="p">],</span> <span class="p">[</span><span class="dl">'</span><span class="se">\\</span><span class="s1">(</span><span class="dl">'</span><span class="p">,</span><span class="dl">'</span><span class="se">\\</span><span class="s1">)</span><span class="dl">'</span><span class="p">]]}});</span>
 <span class="nt">&lt;/script&gt;</span>
 <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">async</span> <span class="na">src=</span><span class="s">"//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"</span><span class="nt">&gt;</span>
 <span class="nt">&lt;/script&gt;</span></code></pre></figure>

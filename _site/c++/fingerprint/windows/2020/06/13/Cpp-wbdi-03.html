@@ -6,7 +6,7 @@
 <meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
 <!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>Fingerprint driver development in Windows(3) | David Dong’s Blog</title>
-<meta name="generator" content="Jekyll v4.2.2" />
+<meta name="generator" content="Jekyll v4.3.3" />
 <meta property="og:title" content="Fingerprint driver development in Windows(3)" />
 <meta name="author" content="david.dong" />
 <meta property="og:locale" content="en_US" />
@@ -261,7 +261,7 @@ $('.menu-btn').on('click',function(e){
 
 <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="p">[</span><span class="no">Biometric_Device_AddReg</span><span class="p">]</span>
 <span class="no">HKR</span><span class="p">,,</span><span class="s2">"DeviceCharacteristics"</span><span class="p">,</span><span class="mh">0x10001</span><span class="p">,</span><span class="mh">0x0100</span>     <span class="p">;</span> <span class="no">Use</span> <span class="n">same</span> <span class="n">security</span> <span class="n">checks</span> <span class="n">on</span> <span class="n">relative</span> <span class="n">opens</span>
-<span class="no">HKR</span><span class="p">,,</span><span class="s2">"Security"</span><span class="p">,,</span><span class="s2">"D:P(A;;GA;;;BA)(A;;GA;;;SY)"</span>  <span class="p">;</span> <span class="no">Allow</span> <span class="n">generic</span><span class="o">-</span><span class="n">all</span> <span class="n">access</span> <span class="n">to</span> <span class="no">Built</span><span class="o">-</span><span class="k">in</span> <span class="n">administrators</span> <span class="n">and</span> <span class="no">Local</span> <span class="nb">system</span>
+<span class="no">HKR</span><span class="p">,,</span><span class="s2">"Security"</span><span class="p">,,</span><span class="s2">"D:P(A;;GA;;;BA)(A;;GA;;;SY)"</span>  <span class="p">;</span> <span class="no">Allow</span> <span class="n">generic</span><span class="o">-</span><span class="n">all</span> <span class="n">access</span> <span class="n">to</span> <span class="no">Built</span><span class="o">-</span><span class="k">in</span> <span class="n">administrators</span> <span class="ow">and</span> <span class="no">Local</span> <span class="nb">system</span>
 <span class="no">HKR</span><span class="p">,,</span><span class="s2">"LowerFilters"</span><span class="p">,</span><span class="mh">0x00010008</span><span class="p">,</span><span class="s2">"WinUsb"</span> <span class="p">;</span> <span class="no">FLG_ADDREG_TYPE_MULTI_SZ</span> <span class="o">|</span> <span class="no">FLG_ADDREG_APPEND</span>
 <span class="no">HKR</span><span class="p">,,</span><span class="s2">"Exclusive"</span><span class="p">,</span><span class="mh">0x10001</span><span class="p">,</span><span class="mi">1</span>
 <span class="no">HKR</span><span class="p">,,</span><span class="s2">"SystemWakeEnabled"</span><span class="p">,</span><span class="mh">0x00010001</span><span class="p">,</span><span class="mi">1</span>

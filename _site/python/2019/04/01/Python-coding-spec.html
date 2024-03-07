@@ -6,7 +6,7 @@
 <meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
 <!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>Python 开发编码规范（转） | David Dong’s Blog</title>
-<meta name="generator" content="Jekyll v4.2.2" />
+<meta name="generator" content="Jekyll v4.3.3" />
 <meta property="og:title" content="Python 开发编码规范（转）" />
 <meta name="author" content="david.dong" />
 <meta property="og:locale" content="en_US" />
@@ -215,15 +215,15 @@ Emacs的Python-mode正确得完成了这些。一些例子：</p>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!Python
 </span><span class="k">class</span> <span class="nc">Rectangle</span><span class="p">(</span><span class="n">Blob</span><span class="p">):</span>
-<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">width</span><span class="p">,</span><span class="n">height</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s">'black'</span><span class="p">,</span><span class="n">emphasis</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">highlight</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="n">width</span><span class="p">,</span><span class="n">height</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="sh">'</span><span class="s">black</span><span class="sh">'</span><span class="p">,</span><span class="n">emphasis</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">highlight</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
 <span class="k">if</span> <span class="n">width</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">height</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> \
-<span class="n">color</span> <span class="o">==</span> <span class="s">'red'</span> <span class="ow">and</span> <span class="n">emphasis</span> <span class="o">==</span> <span class="s">'strong'</span> <span class="ow">or</span> \
+<span class="n">color</span> <span class="o">==</span> <span class="sh">'</span><span class="s">red</span><span class="sh">'</span> <span class="ow">and</span> <span class="n">emphasis</span> <span class="o">==</span> <span class="sh">'</span><span class="s">strong</span><span class="sh">'</span> <span class="ow">or</span> \
 <span class="n">highlight</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">:</span>
-<span class="k">raise</span> <span class="nb">ValueError</span><span class="p">,</span> <span class="s">"sorry， you lose"</span>
-<span class="k">if</span> <span class="n">width</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">height</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="p">(</span><span class="n">color</span> <span class="o">==</span> <span class="s">'red'</span> <span class="ow">or</span>
+<span class="k">raise</span> <span class="nb">ValueError</span><span class="p">,</span> <span class="sh">"</span><span class="s">sorry， you lose</span><span class="sh">"</span>
+<span class="k">if</span> <span class="n">width</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">height</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="p">(</span><span class="n">color</span> <span class="o">==</span> <span class="sh">'</span><span class="s">red</span><span class="sh">'</span> <span class="ow">or</span>
 <span class="n">emphasis</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">):</span>
-<span class="k">raise</span> <span class="nb">ValueError</span><span class="p">,</span><span class="s">"I don't think so"</span>
-<span class="n">Blob</span><span class="p">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">width</span><span class="p">,</span><span class="n">height</span><span class="p">,</span><span class="n">color</span><span class="p">,</span><span class="n">emphasis</span><span class="p">,</span><span class="n">highlight</span><span class="p">)</span></code></pre></figure>
+<span class="k">raise</span> <span class="nb">ValueError</span><span class="p">,</span><span class="sh">"</span><span class="s">I don</span><span class="sh">'</span><span class="s">t think so</span><span class="sh">"</span>
+<span class="n">Blob</span><span class="p">.</span><span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="n">width</span><span class="p">,</span><span class="n">height</span><span class="p">,</span><span class="n">color</span><span class="p">,</span><span class="n">emphasis</span><span class="p">,</span><span class="n">highlight</span><span class="p">)</span></code></pre></figure>
 
 <h3 id="14-空行"><span id="1.4">1.4 空行</span></h3>
 <p>用两行空行分割顶层函数和类的定义，类内方法的定义用单个空行分割，额外的空行可被用于(保守的)分割相关函数组成的群，在一组相关的单句中间可以省略空行。(例如：一组哑元素)。
@@ -305,17 +305,17 @@ Imports应该有顺序地成组安放：</p>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!Python
 </span><span class="k">def</span> <span class="nf">complex</span><span class="p">(</span><span class="n">real</span><span class="p">,</span> <span class="n">imag</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
-<span class="k">return</span> <span class="n">magic</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="n">real</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="n">imag</span><span class="p">)</span></code></pre></figure>
+<span class="k">return</span> <span class="nf">magic</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="n">real</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="n">imag</span><span class="p">)</span></code></pre></figure>
 
 <p>不要将多条语句写在同一行上：</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">No</span><span class="p">:</span> <span class="k">if</span> <span class="n">foo</span> <span class="o">==</span> <span class="s">'blah'</span><span class="p">:</span><span class="n">do_blah_thing</span><span class="p">()</span>
-<span class="n">Yes</span><span class="p">:</span><span class="k">if</span> <span class="n">foo</span> <span class="o">==</span> <span class="s">'blah'</span><span class="p">:</span>
-<span class="n">do_blah_thing</span><span class="p">()</span>
-<span class="n">No</span><span class="p">:</span><span class="n">do_one</span><span class="p">():</span><span class="n">do_two</span><span class="p">():</span><span class="n">do_three</span><span class="p">()</span>
-<span class="n">Yes</span><span class="p">:</span> <span class="n">do_one</span><span class="p">()</span>
-<span class="n">do_two</span><span class="p">()</span>
-<span class="n">do_three</span><span class="p">()</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">No</span><span class="p">:</span> <span class="k">if</span> <span class="n">foo</span> <span class="o">==</span> <span class="sh">'</span><span class="s">blah</span><span class="sh">'</span><span class="p">:</span><span class="nf">do_blah_thing</span><span class="p">()</span>
+<span class="n">Yes</span><span class="p">:</span><span class="k">if</span> <span class="n">foo</span> <span class="o">==</span> <span class="sh">'</span><span class="s">blah</span><span class="sh">'</span><span class="p">:</span>
+<span class="nf">do_blah_thing</span><span class="p">()</span>
+<span class="n">No</span><span class="p">:</span><span class="nf">do_one</span><span class="p">():</span><span class="nf">do_two</span><span class="p">():</span><span class="nf">do_three</span><span class="p">()</span>
+<span class="n">Yes</span><span class="p">:</span> <span class="nf">do_one</span><span class="p">()</span>
+<span class="nf">do_two</span><span class="p">()</span>
+<span class="nf">do_three</span><span class="p">()</span></code></pre></figure>
 
 <h2 id="3-注释"><span id="3">3. 注释</span></h2>
 <p>同代码不一致的注释比没注释更差。当代码修改时，始终优先更新注释 <strong>!注释应该是完整的句子</strong>，如果注释是一个短语或句子，首字母应该大写，除非他是一个以小写字母开头的标识符(永远不要修改标识符的大小写)。
@@ -341,16 +341,16 @@ Imports应该有顺序地成组安放：</p>
 <p>应该一直遵守编写好的文档字符串的约定<code class="language-plaintext highlighter-rouge">PEP 257 [3]</code>。为所有公共模块，函数，类和方法编写文档字符串。文档字符串对非公开的方法不是必要的，但你应该有一个描述这个方法做什么的注释。这个注释应该在<code class="language-plaintext highlighter-rouge">def</code>这行后。
 <code class="language-plaintext highlighter-rouge">PEP 257</code> 描述了好的文档字符串的约定。一定注意，多行文档字符串结尾的<code class="language-plaintext highlighter-rouge">"""</code>应该单独成行，例如：</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="s">"""Return a foobang
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="sh">"""</span><span class="s">Return a foobang
 Optional plotz says to frobnicate the bizbaz first。
-"""</span></code></pre></figure>
+</span><span class="sh">"""</span></code></pre></figure>
 
 <p>对单行的文档字符串，结尾的<code class="language-plaintext highlighter-rouge">"""</code>在同一行也可以。
 版本注记
 如果你要将RCS或CVS的杂项(crud)包含在你的源文件中，按如下做。</p>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!Python
-</span><span class="n">__version__</span> <span class="o">=</span> <span class="s">"$Revision： 1。4 $"</span>
+</span><span class="n">__version__</span> <span class="o">=</span> <span class="sh">"</span><span class="s">$Revision： 1。4 $</span><span class="sh">"</span>
 <span class="c1"># $Source： E：/cvsroot/Python_doc/pep8。txt，v $</span></code></pre></figure>
 
 <p>这个行应该包含在模块的文档字符串之后，所有代码之前，上下用一个空行分割。</p>
@@ -411,34 +411,34 @@ X11库的所有公开函数以X开头。(在Python中，这个风格通常认为
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!Python
 </span><span class="k">class</span> <span class="nc">MessageError</span><span class="p">(</span><span class="nb">Exception</span><span class="p">):</span>
-<span class="s">"""Base class for errors in the email package。"""</span></code></pre></figure>
+<span class="sh">"""</span><span class="s">Base class for errors in the email package。</span><span class="sh">"""</span></code></pre></figure>
 
 <p>使用字符串方法(methods)代替字符串模块，除非必须向后兼容Python 2.0以前的版本。字符串方法总是非常快，而且和unicode字符串共用同样的API(应用程序接口)在检查前缀或后缀时避免对字符串进行切片。用<code class="language-plaintext highlighter-rouge">startswith()</code>和<code class="language-plaintext highlighter-rouge">endswith()</code>代替，因为它们是明确的并且错误更少。例如：</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">No</span><span class="p">:</span><span class="k">if</span> <span class="n">foo</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="s">'bar'</span><span class="p">:</span>
-<span class="n">Yes</span><span class="p">:</span><span class="k">if</span> <span class="n">foo</span><span class="p">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">'bar'</span><span class="p">):</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">No</span><span class="p">:</span><span class="k">if</span> <span class="n">foo</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">bar</span><span class="sh">'</span><span class="p">:</span>
+<span class="n">Yes</span><span class="p">:</span><span class="k">if</span> <span class="n">foo</span><span class="p">.</span><span class="nf">startswith</span><span class="p">(</span><span class="sh">'</span><span class="s">bar</span><span class="sh">'</span><span class="p">):</span></code></pre></figure>
 
 <p>例外是如果你的代码必须工作在Python 1.5.2 (但是我们希望它不会发生！)，对象类型的比较应该始终用<code class="language-plaintext highlighter-rouge">isinstance()</code>代替直接比较类型，例如：</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">No</span><span class="p">:</span><span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">type</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
-<span class="n">Yes</span><span class="p">:</span><span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">No</span><span class="p">:</span><span class="k">if</span> <span class="nf">type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="ow">is</span> <span class="nf">type</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
+<span class="n">Yes</span><span class="p">:</span><span class="k">if</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span></code></pre></figure>
 
 <p>检查一个对象是否是字符串时，紧记它也可能是unicode字符串！在Python 2.3，str和unicode有公共的基类，basestring，所以你可以这样做：</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="nb">basestring</span><span class="p">):</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">if</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="nb">basestring</span><span class="p">):</span></code></pre></figure>
 
 <p>在Python 2.2类型模块为此定义了<code class="language-plaintext highlighter-rouge">StringTypes</code>类型，例如：</p>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!Python
-</span><span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">StringTypes</span>
-<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">StringTypes</span><span class="p">):</span></code></pre></figure>
+</span><span class="kn">from</span> <span class="n">types</span> <span class="kn">import</span> <span class="n">StringTypes</span>
+<span class="k">if</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">StringTypes</span><span class="p">):</span></code></pre></figure>
 
 <p>在Python 2.0和2.1，你应该这样做：</p>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!Python
-</span><span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">StringType</span><span class="p">,</span> <span class="n">UnicodeType</span>
-<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">StringType</span><span class="p">)</span> <span class="ow">or</span> \
-<span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="n">UnicodeType</span><span class="p">):</span></code></pre></figure>
+</span><span class="kn">from</span> <span class="n">types</span> <span class="kn">import</span> <span class="n">StringType</span><span class="p">,</span> <span class="n">UnicodeType</span>
+<span class="k">if</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">StringType</span><span class="p">)</span> <span class="ow">or</span> \
+<span class="nf">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="n">UnicodeType</span><span class="p">):</span></code></pre></figure>
 
 <p>对序列，(字符串，列表，元组)，使用空列表是false这个事实，因此<code class="language-plaintext highlighter-rouge">if not seq</code>或<code class="language-plaintext highlighter-rouge">if seq</code>比<code class="language-plaintext highlighter-rouge">if len(seq)</code>或<code class="language-plaintext highlighter-rouge">if not len(seq)</code>好。书写字符串文字时不要依赖于有意义的后置空格。这种后置空格在视觉上是不可辨别的，并且有些编辑器(特别是近来，reindent.py)会将它们修整掉。不要用==来比较布尔型的值以确定是True或False(布尔型是Pythn 2.3中新增的)</p>
 

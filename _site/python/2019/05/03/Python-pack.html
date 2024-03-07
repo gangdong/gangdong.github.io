@@ -6,7 +6,7 @@
 <meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
 <!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>Python struct.pack() | David Dong’s Blog</title>
-<meta name="generator" content="Jekyll v4.2.2" />
+<meta name="generator" content="Jekyll v4.3.3" />
 <meta property="og:title" content="Python struct.pack()" />
 <meta name="author" content="david.dong" />
 <meta property="og:locale" content="en_US" />
@@ -196,7 +196,7 @@ $('.menu-btn').on('click',function(e){
 
 <p>The function prototype:</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">struck</span><span class="p">.</span><span class="n">pack</span><span class="p">(</span><span class="nb">format</span><span class="p">,</span> <span class="n">data1</span><span class="p">,</span> <span class="n">data2</span><span class="p">,...)</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">struck</span><span class="p">.</span><span class="nf">pack</span><span class="p">(</span><span class="nb">format</span><span class="p">,</span> <span class="n">data1</span><span class="p">,</span> <span class="n">data2</span><span class="p">,...)</span></code></pre></figure>
 
 <p>format: define the converted format.
 data1,data2,…: the data needs to be packed.</p>
@@ -373,22 +373,22 @@ data1,data2,…: the data needs to be packed.</p>
 
 <p>for example.</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">struct</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="n">struct</span>
 
 <span class="n">a</span> <span class="o">=</span> <span class="mi">11</span>
 <span class="n">b</span> <span class="o">=</span> <span class="mi">12</span>
 
-<span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">struct</span><span class="p">.</span><span class="n">pack</span><span class="p">(</span><span class="s">"ii"</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)))</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">struct</span><span class="p">.</span><span class="nf">pack</span><span class="p">(</span><span class="sh">"</span><span class="s">ii</span><span class="sh">"</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)))</span>
 <span class="mi">8</span>
-<span class="k">print</span><span class="p">(</span><span class="n">struct</span><span class="p">.</span><span class="n">pack</span><span class="p">(</span><span class="s">"ii"</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">))</span>
-<span class="sa">b</span><span class="s">'</span><span class="se">\x0b\x00\x00\x00\x0c\x00\x00\x00</span><span class="s">'</span></code></pre></figure>
+<span class="nf">print</span><span class="p">(</span><span class="n">struct</span><span class="p">.</span><span class="nf">pack</span><span class="p">(</span><span class="sh">"</span><span class="s">ii</span><span class="sh">"</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">))</span>
+<span class="sa">b</span><span class="sh">'</span><span class="se">\x0b\x00\x00\x00\x0c\x00\x00\x00</span><span class="sh">'</span></code></pre></figure>
 
 <h3 id="structunpack">struct.unpack()</h3>
 
 <p><code class="language-plaintext highlighter-rouge">struct.unpack()</code> unpacks the byte stream into Python data type.<br />
 The function prototype:</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">struct</span><span class="p">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">fmt</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">struct</span><span class="p">.</span><span class="nf">unpack</span><span class="p">(</span><span class="n">fmt</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span></code></pre></figure>
 
 <p>This function return a tuple.</p>
 
@@ -396,9 +396,9 @@ The function prototype:</p>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">a</span> <span class="o">=</span> <span class="mi">11</span>
 <span class="n">b</span> <span class="o">=</span> <span class="mi">12</span>
-<span class="n">packdata</span> <span class="o">=</span> <span class="n">struct</span><span class="p">.</span><span class="n">pack</span><span class="p">(</span><span class="s">"ii"</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
-<span class="n">c</span><span class="p">,</span><span class="n">d</span> <span class="o">=</span> <span class="n">struct</span><span class="p">.</span><span class="n">unpack</span><span class="p">(</span><span class="s">"1i1i"</span><span class="p">,</span><span class="n">packdata</span><span class="p">)</span>
-<span class="k">print</span><span class="p">((</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">))</span>
+<span class="n">packdata</span> <span class="o">=</span> <span class="n">struct</span><span class="p">.</span><span class="nf">pack</span><span class="p">(</span><span class="sh">"</span><span class="s">ii</span><span class="sh">"</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<span class="n">c</span><span class="p">,</span><span class="n">d</span> <span class="o">=</span> <span class="n">struct</span><span class="p">.</span><span class="nf">unpack</span><span class="p">(</span><span class="sh">"</span><span class="s">1i1i</span><span class="sh">"</span><span class="p">,</span><span class="n">packdata</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">((</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">))</span>
 <span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">)</span></code></pre></figure>
 
 <h3 id="structcalcsize">struct.calcsize()</h3>
@@ -407,13 +407,13 @@ The function prototype:</p>
 
 <p>For example.<br /></p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">print</span><span class="p">(</span><span class="n">struct</span><span class="p">.</span><span class="n">calcsize</span><span class="p">(</span><span class="s">"c"</span><span class="p">))</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="nf">print</span><span class="p">(</span><span class="n">struct</span><span class="p">.</span><span class="nf">calcsize</span><span class="p">(</span><span class="sh">"</span><span class="s">c</span><span class="sh">"</span><span class="p">))</span>
 <span class="mi">1</span>
-<span class="k">print</span><span class="p">(</span><span class="n">struct</span><span class="p">.</span><span class="n">calcsize</span><span class="p">(</span><span class="s">"H"</span><span class="p">))</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">struct</span><span class="p">.</span><span class="nf">calcsize</span><span class="p">(</span><span class="sh">"</span><span class="s">H</span><span class="sh">"</span><span class="p">))</span>
 <span class="mi">2</span>
-<span class="k">print</span><span class="p">(</span><span class="n">struct</span><span class="p">.</span><span class="n">calcsize</span><span class="p">(</span><span class="s">"L"</span><span class="p">))</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">struct</span><span class="p">.</span><span class="nf">calcsize</span><span class="p">(</span><span class="sh">"</span><span class="s">L</span><span class="sh">"</span><span class="p">))</span>
 <span class="mi">4</span>
-<span class="k">print</span><span class="p">(</span><span class="n">struct</span><span class="p">.</span><span class="n">calcsize</span><span class="p">(</span><span class="s">"Q"</span><span class="p">))</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">struct</span><span class="p">.</span><span class="nf">calcsize</span><span class="p">(</span><span class="sh">"</span><span class="s">Q</span><span class="sh">"</span><span class="p">))</span>
 <span class="mi">8</span></code></pre></figure>
 
 	</div>

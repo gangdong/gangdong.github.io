@@ -109,6 +109,18 @@
     } ,
   
     {
+      "title"    : "浅谈 Java 线程同步技术",
+      "title-lower"    : "浅谈 java 线程同步技术",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Java",
+      "tags"     : "Java",
+      "url"      : "/java/2022/04/22/Java-ThreadSynchronization.html",
+      "date"     : "2022-04-22 22:44:19 +0800",
+      "content"     : "Java 里实现线程间的同步有多种方法，比如使用 synchronized 关键字，wait 和 notify，volatile 变量，重入锁，局部变量，阻塞队列或者原子类型变量等。synchronized使用 synchronized 关键字：这是最常用的一种方法，它可以修饰代码块或者方法，使得同一时刻只有一个线程能够访问被修饰的代码。例如 ：public class Synchroniz..."
+    } ,
+  
+    {
       "title"    : "Git commands and usage tips",
       "title-lower"    : "git commands and usage tips",
       "sub-titile" : "",

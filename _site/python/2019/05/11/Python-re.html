@@ -6,7 +6,7 @@
 <meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
 <!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>Python re module | David Dong’s Blog</title>
-<meta name="generator" content="Jekyll v4.2.2" />
+<meta name="generator" content="Jekyll v4.3.3" />
 <meta property="og:title" content="Python re module" />
 <meta name="author" content="david.dong" />
 <meta property="og:locale" content="en_US" />
@@ -196,7 +196,7 @@ $('.menu-btn').on('click',function(e){
 
 <h2 id="prototype">prototype</h2>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">re</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">maxsplit</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">re</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">maxsplit</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code></pre></figure>
 
 <h2 id="parameters">parameters</h2>
 <ul>
@@ -211,50 +211,50 @@ $('.menu-btn').on('click',function(e){
   <li>split the input string by <code class="language-plaintext highlighter-rouge">space</code> and <code class="language-plaintext highlighter-rouge">,</code>, only do one time split.</li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">re</span>
-<span class="n">inputs</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s">'[\s,]+'</span><span class="p">,</span> <span class="nb">input</span><span class="p">(</span><span class="s">"Enter: 'ID' ['File name'] &gt;&gt; "</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">Enter</span><span class="p">:</span> <span class="s">'ID'</span> <span class="p">[</span><span class="s">'File name'</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="mi">01</span> <span class="n">filename</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="n">re</span>
+<span class="n">inputs</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sa">r</span><span class="sh">'</span><span class="s">[\s,]+</span><span class="sh">'</span><span class="p">,</span> <span class="nf">input</span><span class="p">(</span><span class="sh">"</span><span class="s">Enter: </span><span class="sh">'</span><span class="s">ID</span><span class="sh">'</span><span class="s"> [</span><span class="sh">'</span><span class="s">File name</span><span class="sh">'</span><span class="s">] &gt;&gt; </span><span class="sh">"</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">Enter</span><span class="p">:</span> <span class="sh">'</span><span class="s">ID</span><span class="sh">'</span> <span class="p">[</span><span class="sh">'</span><span class="s">File name</span><span class="sh">'</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="mi">01</span> <span class="n">filename</span>
 <span class="n">inputs</span>
-<span class="p">[</span><span class="s">'01'</span><span class="p">,</span> <span class="s">'filename'</span><span class="p">]</span>
-<span class="n">inputs</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s">'[\s,]+'</span><span class="p">,</span> <span class="nb">input</span><span class="p">(</span><span class="s">"Enter: 'ID' ['File name'] &gt;&gt; "</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">Enter</span><span class="p">:</span> <span class="s">'ID'</span> <span class="p">[</span><span class="s">'File name'</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="mi">01</span><span class="p">,</span><span class="n">filename</span>
+<span class="p">[</span><span class="sh">'</span><span class="s">01</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">filename</span><span class="sh">'</span><span class="p">]</span>
+<span class="n">inputs</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sa">r</span><span class="sh">'</span><span class="s">[\s,]+</span><span class="sh">'</span><span class="p">,</span> <span class="nf">input</span><span class="p">(</span><span class="sh">"</span><span class="s">Enter: </span><span class="sh">'</span><span class="s">ID</span><span class="sh">'</span><span class="s"> [</span><span class="sh">'</span><span class="s">File name</span><span class="sh">'</span><span class="s">] &gt;&gt; </span><span class="sh">"</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">Enter</span><span class="p">:</span> <span class="sh">'</span><span class="s">ID</span><span class="sh">'</span> <span class="p">[</span><span class="sh">'</span><span class="s">File name</span><span class="sh">'</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="mi">01</span><span class="p">,</span><span class="n">filename</span>
 <span class="n">inputs</span>
-<span class="p">[</span><span class="s">'01'</span><span class="p">,</span> <span class="s">'filename'</span><span class="p">]</span>
-<span class="n">inputs</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s">'[\s,]+'</span><span class="p">,</span> <span class="nb">input</span><span class="p">(</span><span class="s">"Enter: 'ID' ['File name'] &gt;&gt; "</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">Enter</span><span class="p">:</span> <span class="s">'ID'</span> <span class="p">[</span><span class="s">'File name'</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="mi">01</span><span class="p">,</span><span class="n">file1</span><span class="p">,</span><span class="n">file2</span> <span class="n">file3</span>
+<span class="p">[</span><span class="sh">'</span><span class="s">01</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">filename</span><span class="sh">'</span><span class="p">]</span>
+<span class="n">inputs</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sa">r</span><span class="sh">'</span><span class="s">[\s,]+</span><span class="sh">'</span><span class="p">,</span> <span class="nf">input</span><span class="p">(</span><span class="sh">"</span><span class="s">Enter: </span><span class="sh">'</span><span class="s">ID</span><span class="sh">'</span><span class="s"> [</span><span class="sh">'</span><span class="s">File name</span><span class="sh">'</span><span class="s">] &gt;&gt; </span><span class="sh">"</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">Enter</span><span class="p">:</span> <span class="sh">'</span><span class="s">ID</span><span class="sh">'</span> <span class="p">[</span><span class="sh">'</span><span class="s">File name</span><span class="sh">'</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="mi">01</span><span class="p">,</span><span class="n">file1</span><span class="p">,</span><span class="n">file2</span> <span class="n">file3</span>
 <span class="n">inputs</span>
-<span class="p">[</span><span class="s">'01'</span><span class="p">,</span> <span class="s">'file1,file2 file3'</span><span class="p">]</span></code></pre></figure>
+<span class="p">[</span><span class="sh">'</span><span class="s">01</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">file1,file2 file3</span><span class="sh">'</span><span class="p">]</span></code></pre></figure>
 
 <ul>
   <li>split the string by character.</li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">re</span>
-<span class="n">s</span> <span class="o">=</span> <span class="s">'ab12,% ffa[]-(fceknl)'</span>
-<span class="n">re</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s">'b'</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>
-<span class="p">[</span><span class="s">'a'</span><span class="p">,</span> <span class="s">'12,% ffa[]-(fceknl)'</span><span class="p">]</span>
-<span class="n">re</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s">'f'</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>
-<span class="p">[</span><span class="s">'ab12,% '</span><span class="p">,</span> <span class="s">''</span><span class="p">,</span> <span class="s">'a[]-('</span><span class="p">,</span> <span class="s">'ceknl)'</span><span class="p">]</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="n">re</span>
+<span class="n">s</span> <span class="o">=</span> <span class="sh">'</span><span class="s">ab12,% ffa[]-(fceknl)</span><span class="sh">'</span>
+<span class="n">re</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sa">r</span><span class="sh">'</span><span class="s">b</span><span class="sh">'</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>
+<span class="p">[</span><span class="sh">'</span><span class="s">a</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">12,% ffa[]-(fceknl)</span><span class="sh">'</span><span class="p">]</span>
+<span class="n">re</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sa">r</span><span class="sh">'</span><span class="s">f</span><span class="sh">'</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>
+<span class="p">[</span><span class="sh">'</span><span class="s">ab12,% </span><span class="sh">'</span><span class="p">,</span> <span class="sh">''</span><span class="p">,</span> <span class="sh">'</span><span class="s">a[]-(</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">ceknl)</span><span class="sh">'</span><span class="p">]</span></code></pre></figure>
 
 <ul>
   <li>match multiple characters</li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">re</span>
-<span class="n">s</span> <span class="o">=</span> <span class="s">'ab12,% ffa[]-(fceknl)'</span>
-<span class="n">re</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s">'[1,en]'</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>
-<span class="p">[</span><span class="s">'ab'</span><span class="p">,</span> <span class="s">'2'</span><span class="p">,</span> <span class="s">'% ffa[]-(fc'</span><span class="p">,</span> <span class="s">'k'</span><span class="p">,</span> <span class="s">'l)'</span><span class="p">]</span>
-<span class="n">re</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s">'[-e(n]'</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>
-<span class="p">[</span><span class="s">'ab12,% ffa[]'</span><span class="p">,</span> <span class="s">''</span><span class="p">,</span> <span class="s">'fc'</span><span class="p">,</span> <span class="s">'k'</span><span class="p">,</span> <span class="s">'l)'</span><span class="p">]</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="n">re</span>
+<span class="n">s</span> <span class="o">=</span> <span class="sh">'</span><span class="s">ab12,% ffa[]-(fceknl)</span><span class="sh">'</span>
+<span class="n">re</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sa">r</span><span class="sh">'</span><span class="s">[1,en]</span><span class="sh">'</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>
+<span class="p">[</span><span class="sh">'</span><span class="s">ab</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">2</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">% ffa[]-(fc</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">k</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">l)</span><span class="sh">'</span><span class="p">]</span>
+<span class="n">re</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sa">r</span><span class="sh">'</span><span class="s">[-e(n]</span><span class="sh">'</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>
+<span class="p">[</span><span class="sh">'</span><span class="s">ab12,% ffa[]</span><span class="sh">'</span><span class="p">,</span> <span class="sh">''</span><span class="p">,</span> <span class="sh">'</span><span class="s">fc</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">k</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">l)</span><span class="sh">'</span><span class="p">]</span></code></pre></figure>
 
 <ul>
   <li>keep separator</li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">re</span>
-<span class="n">s</span> <span class="o">=</span> <span class="s">'ab12,% ffa[]-(fceknl)'</span>
-<span class="n">re</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">'([af])'</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>
-<span class="p">[</span><span class="s">''</span><span class="p">,</span> <span class="s">'a'</span><span class="p">,</span> <span class="s">'b12,% '</span><span class="p">,</span> <span class="s">'f'</span><span class="p">,</span> <span class="s">''</span><span class="p">,</span> <span class="s">'f'</span><span class="p">,</span> <span class="s">''</span><span class="p">,</span> <span class="s">'a'</span><span class="p">,</span> <span class="s">'[]-('</span><span class="p">,</span> <span class="s">'f'</span><span class="p">,</span> <span class="s">'ceknl)'</span><span class="p">]</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="n">re</span>
+<span class="n">s</span> <span class="o">=</span> <span class="sh">'</span><span class="s">ab12,% ffa[]-(fceknl)</span><span class="sh">'</span>
+<span class="n">re</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sh">'</span><span class="s">([af])</span><span class="sh">'</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>
+<span class="p">[</span><span class="sh">''</span><span class="p">,</span> <span class="sh">'</span><span class="s">a</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">b12,% </span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">f</span><span class="sh">'</span><span class="p">,</span> <span class="sh">''</span><span class="p">,</span> <span class="sh">'</span><span class="s">f</span><span class="sh">'</span><span class="p">,</span> <span class="sh">''</span><span class="p">,</span> <span class="sh">'</span><span class="s">a</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">[]-(</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">f</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">ceknl)</span><span class="sh">'</span><span class="p">]</span></code></pre></figure>
 
 
 	</div>
