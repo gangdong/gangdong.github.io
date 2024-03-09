@@ -6,8 +6,8 @@
     <atom:link href="https://dqdongg.com/blog/index.html" rel="self" type="application/rss+xml" />
     <description>This is David Dong's blog. It's about program and design, life and sharing. Let's explore more together. | David，Software，Developer.Designer | 关于程序与设计 - 生活与分享 | 这里是董刚 的个人博客，让我们一起探索更多。</description>
     <language>en-us</language>
-    <pubDate>Thu, 07 Mar 2024 12:07:37 +0800</pubDate>
-    <lastBuildDate>Thu, 07 Mar 2024 12:07:37 +0800</lastBuildDate>
+    <pubDate>Sat, 09 Mar 2024 16:45:47 +0800</pubDate>
+    <lastBuildDate>Sat, 09 Mar 2024 16:45:47 +0800</lastBuildDate>
 
     
     <item>
@@ -16,7 +16,7 @@
       <pubDate>Thu, 15 Feb 2024 11:22:40 +0800</pubDate>
       <author>David Dong</author>
       <guid>https://dqdongg.com/rust/2024/02/15/Rust-startup-trait</guid>
-      <description>&lt;p&gt;Is Rust an object-oriented programming language? I searched for the answer to this question on different AI assistants. &lt;!--more--&gt;&lt;/p&gt;
+      <description>&lt;p&gt;Is Rust an object-oriented programming language? I have searched for the answer to this question on different AI assistants. &lt;!--more--&gt;&lt;/p&gt;
 
 &lt;p&gt;Below are the answers. Let’s see.&lt;/p&gt;
 
@@ -2409,6 +2409,165 @@ git log --pretty=oneline --right-only --no-merges --cherry-pick my_dev...master 
 &lt;p&gt;最后贴一张和 MarkdownPad2 对比图，看起来 MarkdownPad2 就显得有那么一点笨重和陈旧了。typora 符合了我对文本编辑器的大多数的需求，后面我会切换到 typora 来作为文本编辑器使用，MarkdownPad2 可以卸载掉了~~&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev\assets\image\others-typora-03.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Securing Connections with SSH - A Comprehensive Guide</title>
+      <link>https://dqdongg.com/security/2021/12/15/SSH.html</link>
+      <pubDate>Wed, 15 Dec 2021 20:11:11 +0800</pubDate>
+      <author>David Dong</author>
+      <guid>https://dqdongg.com/security/2021/12/15/SSH</guid>
+      <description>&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;Secure Shell (SSH) is a cryptographic network protocol widely used for secure communication over an unsecured network. I used it almost everyday, this article will delve into the encryption principles and applications of SSH, followed by a guide on installing and utilizing SSH on Linux systems, and finally, exploring methods to enable passwordless login for remote hosts.&lt;/p&gt;
+
+&lt;h3 id=&quot;chapter-1-encryption-principles-and-applications-of-ssh&quot;&gt;Chapter 1: Encryption Principles and Applications of SSH&lt;/h3&gt;
+
+&lt;h4 id=&quot;11-symmetric-encryption&quot;&gt;1.1 Symmetric Encryption:&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;SSH utilizes symmetric encryption algorithms like AES (Advanced Encryption Standard) to encrypt data during transmission.&lt;/li&gt;
+  &lt;li&gt;Symmetric encryption ensures that the data exchanged between the client and server remains confidential and cannot be intercepted by malicious actors.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;12-asymmetric-encryption&quot;&gt;1.2 Asymmetric Encryption:&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Asymmetric encryption, based on public-private key pairs, is employed for authentication and key exchange.&lt;/li&gt;
+  &lt;li&gt;SSH uses algorithms like RSA or ECDSA to generate key pairs, with the client possessing the public key and the server holding the private key.&lt;/li&gt;
+  &lt;li&gt;This asymmetric encryption ensures secure authentication and protection against man-in-the-middle attacks.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;13-use-cases-of-ssh&quot;&gt;1.3 Use Cases of SSH:&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Remote login: SSH enables users to securely log in to remote systems over the network.&lt;/li&gt;
+  &lt;li&gt;Secure file transfer: It facilitates the secure transfer of files between systems using utilities like SCP (Secure Copy) or SFTP (SSH File Transfer Protocol).&lt;/li&gt;
+  &lt;li&gt;Tunneling: SSH tunneling allows for secure communication between two devices by encapsulating data within SSH connections, useful for accessing services behind firewalls or bypassing censorship.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;chapter-2-installing-and-using-ssh-on-linux&quot;&gt;Chapter 2: Installing and Using SSH on Linux&lt;/h3&gt;
+
+&lt;h4 id=&quot;21-installation&quot;&gt;2.1 Installation:&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Most Linux distributions come pre-installed with SSH packages. However, if not available, SSH can be easily installed using package managers like apt, yum, or dnf.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For example, on Debian-based systems:&lt;/p&gt;
+
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt update
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;atp &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;openssh-server
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;openssh-client
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;check SSH status&lt;/p&gt;
+
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl status ssh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;start SSH service&lt;/p&gt;
+
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl start ssh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;stop SSH service&lt;/p&gt;
+
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl stop ssh
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl disable ssh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;22-configuration&quot;&gt;2.2 Configuration:&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;SSH configuration files are located in /etc/ssh/ directory.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Users can customize SSH settings such as port number, authentication methods, and access control through the sshd_config file.&lt;/p&gt;
+
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh username@hostname
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Replace ‘username’ with the remote user’s username and ‘hostname’ with the IP address or domain name of the remote server.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;chapter-3-implementing-passwordless-login-for-remote-hosts&quot;&gt;Chapter 3: Implementing Passwordless Login for Remote Hosts&lt;/h3&gt;
+
+&lt;h4 id=&quot;31-generating-ssh-key-pair&quot;&gt;3.1 Generating SSH Key Pair:&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;To enable passwordless login, first, generate an SSH key pair on the local machine using the ssh-keygen command.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh-keygen &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; rsa &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; 4096 &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;username@user.com&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;This command will create a public key (id_rsa.pub) and a private key (id_rsa) in the ~/.ssh/ directory.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;32-copying-public-key-to-remote-host&quot;&gt;3.2 Copying Public Key to Remote Host:&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Next, copy the public key to the ~/.ssh/authorized_keys file on the remote &lt;strong&gt;host&lt;/strong&gt; using the ssh-copy-id command or manually.&lt;/p&gt;
+
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh-copy-id username@hostname
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;33-passwordless-login&quot;&gt;3.3 Passwordless Login:&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Once the public key is added to the authorized_keys file on the remote host, SSH will authenticate the user using the private key without requiring a password.&lt;/li&gt;
+  &lt;li&gt;Users can now log in to the remote host securely without entering a password.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A common example is to use this method to push commits to github repository, the workflow is similiar.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh-keygen &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; rsa &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; 4096 &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;xxx@xxx.com&quot;&lt;/span&gt; 
+&lt;span class=&quot;c&quot;&gt;#write the private key to ssh agent&lt;/span&gt;
+ssh-add ~/.ssh/id_rsa
+&lt;span class=&quot;c&quot;&gt;# then login the github accounts,  &lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# add the public key id_rsa_pub into github -&amp;gt;settings-&amp;gt;SSH and GPG keys&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# check the connecting status&lt;/span&gt;
+ssh &lt;span class=&quot;nt&quot;&gt;-T&lt;/span&gt; git@github.com
+&lt;span class=&quot;c&quot;&gt;# check the local branch status,&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# if binding to remote branch&lt;/span&gt;
+git branch &lt;span class=&quot;nt&quot;&gt;-vv&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# looking for the remote url information.&lt;/span&gt;
+git remote &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# if the url is using https format, switch to ssh link&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# the link informaion can be found the github repository page&lt;/span&gt;
+git remote set-url origin git@github.com:username/repository_name.git
+&lt;span class=&quot;c&quot;&gt;# push to remote without inputing password&lt;/span&gt;
+git push origin 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;34-known-host&quot;&gt;3.4 Known Host&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;known_hosts&lt;/code&gt; is a text file that stores the host keys of remote servers your computer has connected to in the past. Each time you connect to a new remote server, the SSH client will ask you to confirm the host key and then save it to the ~/.ssh/known_hosts file.&lt;/p&gt;
+
+&lt;p&gt;The purpose of this file is to help detect man-in-the-middle attacks. If the host key of a server you’ve previously connected to changes (for example, due to the server being reinstalled or tampered with by a man-in-the-middle attacker), the SSH client will issue a warning, indicating a potential security risk.&lt;/p&gt;
+
+&lt;p&gt;However, there are situations where you might encounter issues, such as when the host key changes for legitimate reasons or when you switch between different connection methods (e.g., connecting via IP address versus domain name). In such cases, you may need to manually edit the ~/.ssh/known_hosts file to remove or update the old host key.&lt;/p&gt;
+
+&lt;p&gt;In summary, ~/.ssh/known_hosts is a file that stores the known host keys for SSH clients, helping ensure that the remote servers you connect to are the ones you expect, and providing a level of security against unauthorized access&lt;/p&gt;
+
+&lt;h3 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h3&gt;
+
+&lt;p&gt;SSH stands as a cornerstone of secure communication, offering robust encryption and authentication mechanisms for remote access and data transfer. Understanding its encryption principles, installation, and utilization on Linux systems, along with implementing advanced features like passwordless login, empowers users to establish and maintain secure connections in today’s interconnected digital landscape.&lt;/p&gt;
 </description>
     </item>
     

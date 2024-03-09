@@ -9,7 +9,7 @@
       "tags"     : "Rust",
       "url"      : "/rust/2024/02/15/Rust-startup-trait.html",
       "date"     : "2024-02-15 11:22:40 +0800",
-      "content"     : "Is Rust an object-oriented programming language? I searched for the answer to this question on different AI assistants. Below are the answers. Let’s see.  CHATGPT 3.5  While Rust supports some obje..."
+      "content"     : "Is Rust an object-oriented programming language? I have searched for the answer to this question on different AI assistants. Below are the answers. Let’s see.  CHATGPT 3.5  While Rust supports some..."
     } ,
   
     {
@@ -154,6 +154,18 @@
       "url"      : "/others/2022/02/11/Others-typora.html",
       "date"     : "2022-02-11 09:24:16 +0800",
       "content"     : "一直以来我都是用 MarkdownPad2 撰写自己的博客文章，也没有觉得哪里不好。关注到 typora 这个软件是因为最近网上讨论的比较热烈的这个软件要收费的消息，于是上网 Google 了一下这个软件才发现很多人对这个软件的评价很高，这就引起了我的兴趣，于是我决定下载这个软件亲自试用一下。😉 第一眼感觉下载安装后，打开这款文本编辑器，第一眼感觉着实有些惊艳到我，整个 UI 给人的感觉是 ..."
+    } ,
+  
+    {
+      "title"    : "Securing Connections with SSH - A Comprehensive Guide",
+      "title-lower"    : "securing connections with ssh - a comprehensive guide",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Security",
+      "tags"     : "SSH",
+      "url"      : "/security/2021/12/15/SSH.html",
+      "date"     : "2021-12-15 20:11:11 +0800",
+      "content"     : "IntroductionSecure Shell (SSH) is a cryptographic network protocol widely used for secure communication over an unsecured network. I used it almost everyday, this article will delve into the encryp..."
     } ,
   
     {
