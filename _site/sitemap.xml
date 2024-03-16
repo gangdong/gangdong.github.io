@@ -6,7 +6,7 @@
                 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
         <url>
             <loc>https://dqdongg.com</loc>
-            <lastmod>2024-03-09T16:45:47+08:00</lastmod>
+            <lastmod>2024-03-16T12:14:45+08:00</lastmod>
             <priority>1.00</priority>
         </url><url>
                 <loc>https://dqdongg.com/rust/2024/02/15/Rust-startup-trait.html</loc>
@@ -46,11 +46,6 @@
             </url><url>
                 <loc>https://dqdongg.com/windows/2022/06/18/Windows-message-handler.html</loc>
                 <lastmod>2022-06-18T19:43:52+08:00</lastmod>
-                <changefreq>weekly</changefreq>
-                <priority>0.80</priority>
-            </url><url>
-                <loc>https://dqdongg.com/java/2022/04/22/Java-threadSynchronization.html</loc>
-                <lastmod>2022-04-22T22:44:19+08:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url><url>
@@ -131,6 +126,11 @@
             </url><url>
                 <loc>https://dqdongg.com/security/windows/2020/07/23/Security-signature-02.html</loc>
                 <lastmod>2020-07-23T18:24:12+08:00</lastmod>
+                <changefreq>weekly</changefreq>
+                <priority>0.80</priority>
+            </url><url>
+                <loc>https://dqdongg.com/linux/2020/07/19/Application-ubuntu.html</loc>
+                <lastmod>2020-07-19T11:06:44+08:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url><url>

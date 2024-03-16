@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Install and remove application with command line in Ubuntu | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.3.3" />
+<meta property="og:title" content="Install and remove application with command line in Ubuntu" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This guide shows you how to use apt commands in Linux" />
+<meta property="og:description" content="This guide shows you how to use apt commands in Linux" />
+<link rel="canonical" href="http://localhost:4000/linux/2020/07/19/Application-ubuntu.html" />
+<meta property="og:url" content="http://localhost:4000/linux/2020/07/19/Application-ubuntu.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-07-19T11:06:44+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Install and remove application with command line in Ubuntu" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"david.dong"},"dateModified":"2020-07-19T11:06:44+08:00","datePublished":"2020-07-19T11:06:44+08:00","description":"This guide shows you how to use apt commands in Linux","headline":"Install and remove application with command line in Ubuntu","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/linux/2020/07/19/Application-ubuntu.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/logo.png"},"name":"david.dong"},"url":"http://localhost:4000/linux/2020/07/19/Application-ubuntu.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+<meta property="article:tag" content="Linux">
+
+
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
+
+</head><body>
+    <main class="container">
+      <section class="about condensed">
+	    <div class="about-header condensed">
+			<div class="about-title">
+				<a href="/blog/index.html">
+				  <img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/avatar-11.png" alt="David Dong"/>
+				</a>
+				<div class = "title-meta">
+					<h2 id="title">
+					  <a href="/blog/index.html">David Dong</a>
+					</h2>
+					<p class = "tagline-small">Java/C/C#/Python</p>
+				</div>
+			</div>
+			<p class="tagline">Java/C/C#/Python</p>
+		</div>
+		<!--put dark mode button here -->
+		<div class = "about-footer condensed">
+		  <!--put rss/code link here -->
+			<div class="icon-box-container about-footer condensed"><div class = "icon-box" style = "padding-right:0px">
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id = "mode">Dark Mode</span>
+					</a>
+				</div>
+				<!-- toggle dark/light display mode, should loading darkmode.js here for avoiding flicker when switching -->
+				<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/darkmode.js"></script>
+				<script type="text/javascript">
+				$('.dark-mode').on('click',function(){
+					$('.dark-mode').toggleClass('light-mode');
+					if (document.getElementById("mode").innerHTML=="Light Mode")
+						document.getElementById("mode").innerHTML="Dark Mode";
+					else 
+						document.getElementById("mode").innerHTML="Light Mode";
+				})
+				</script><div class = "icon-box">
+					<a class="icon-rss" href="/rss.xml">
+						<span>Subscribe</span>
+					</a>
+				</div><div class = "icon-box">
+					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
+						<span>Source Code</span>
+					</a>
+				</div></div>
+		</div>
+		
+	    <!--show contact me -->
+		<div class = "about-footer condensed social-container">
+	    <p class = "contact about-footer condensed">CONTACT ME</p>
+		<!-- put social link here -->
+	      <ul class="social about-footer condensed" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		<!--put timestamp here -->
+		<p class ="timestamp about-footer condensed">&copy; 2024</p>
+		</div>
+	  <!-- about box end here -->
+      </section>
+	  
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+<div class="post-container">
+	<div  class = "menu-meta condensed">
+		<!--put top menu here, display @ big screen (> $mobileW) -->
+		<div  class = "menu-logo">BLOG</div>
+		<div  class = "menu">
+			<a href="/blog/index.html">
+				<li class="icon-home">Home</li>
+			</a><a href="/archive">
+				<li class="icon-archive">Archives</li>
+			</a><a href="/category">
+				<li class="icon-tags">Categories</li>
+			</a><a href="/about">
+				<li class="icon-help-circled">About</li>
+			</a>
+		</div>
+		<!--put hide menu button here, display @ small screen (< $mobileW) -->
+		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
+		<!--put hide menu here, display @ small screen (< $mobileW) -->
+		<div class="context-menu">
+			<ul >
+				<li>
+					<a class="icon-home" href="/blog/index.html">Home</a>
+				</li><li>
+					<a class="icon-archive" href="/archive">Archives</a>
+				</li><li>
+					<a class="icon-tags" href="/category">Categories</a>
+				</li><li>
+					<a class="icon-help-circled" href="/about">About</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('.menu-btn').on('click',function(e){
+		
+	e.stopPropagation();
+	var tag = $('.context-menu');		
+	$(tag).toggleClass('context-menu-show');
+			
+	var flag = true;
+	/* hide the context-menu when other element is clicked */
+	$(document).bind('click',function(e){
+		var target = $(e.target);
+		if(target.closest(tag).length == 0 && flag == true){
+			$(tag).toggleClass('context-menu-show');
+			flag = false;
+		}
+	});
+})
+</script><div class="post-container" style = "margin-bottom:1rem">
+	<div class="posts-labelgroup" id="posts-labelgroup">
+		<h1 id="posts-label">POST</h1>
+	</div>  
+	<!-- post title -->
+	<h2 class="post-title-body">Install and remove application with command line in Ubuntu</h2>
+	<div class="post-meta">
+		<div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">Jul 19, 2020</div>
+		
+		<!-- sidebar button for displaying/hiding sidebar -->
+		<div class = "sidebar-btn-box"><a class="btn"></a></div>
+		
+	</div>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+<div class="post-viewer-container">
+	<div class="post post-fix-width">
+		<p>How to install and remove software in Ubuntu? Don’t worry, Ubuntu provides many ways to assist you in this task. Some of them are graphical tools like the built-in “Ubuntu Software Center,” or well-known tools such as “Synaptic” and “gdebi.” In this post, I want to discuss apt, a command-line tool. Because I prefer command-line tools, they are fast and straightforward.</p>
+
+<h2 id="what-is-apt">what is APT?</h2>
+
+<p><a href="https://wiki.debian.org/Apt?ref=itsfoss.com">APT</a> (Advanced Package Tool) is the command line tool to interact with the packaging system in Debian-based Linux distributions. There is already dpkg commands to manage it. But APT is a more friendly way to handle packaging. You can use it to find and install new packages, upgrade packages, remove the packages etc. You may heard about <code class="language-plaintext highlighter-rouge">apt-get</code>, but <code class="language-plaintext highlighter-rouge">apt</code>  is new.  what is the difference between <code class="language-plaintext highlighter-rouge">apt</code> and <code class="language-plaintext highlighter-rouge">apt-get</code>? In a short, apt is a subset of  <code class="language-plaintext highlighter-rouge">apt-get</code> and <code class="language-plaintext highlighter-rouge">apt-cache</code> commands providing necessary commands for package management. apt is more friendly to users because  it is easier to use with its fewer but easy to remember options.</p>
+
+<h2 id="using-apt-commands-to-manage-packages">Using APT commands to manage packages</h2>
+
+<h3 id="some-location-need-to-know">some location need to know</h3>
+
+<ul>
+  <li>
+    <p>the location to store the software (.deb package) that APT download from the PPA <code class="language-plaintext highlighter-rouge">/var/cache/apt/archives</code></p>
+  </li>
+  <li>
+    <p>the location to store the softwae after install by APT</p>
+
+    <p><code class="language-plaintext highlighter-rouge">/usr/share/packagename</code></p>
+  </li>
+  <li>
+    <p>the path of the sources.list</p>
+
+    <p><code class="language-plaintext highlighter-rouge">/etc/apt/sources.list</code></p>
+  </li>
+  <li>
+    <p>the location to store the executable bin file</p>
+
+    <p><code class="language-plaintext highlighter-rouge">/usr/bin</code></p>
+  </li>
+  <li>
+    <p>the location to store the libs</p>
+
+    <p><code class="language-plaintext highlighter-rouge">/usr/lib</code></p>
+  </li>
+</ul>
+
+<h3 id="add-software-ppa">add software ppa</h3>
+
+<p>APT uses PPA to install software, But what is PPA? Why is it used? Is it safe to use PPA? How to properly use PPA? How to delete a PPA?</p>
+
+<p>Here I would not discuss too much about it, PPA means Personal Package Archive. You can unserstand it as a URL of software repository where allows application developers and Linux users to create their own repositories to distribute software.</p>
+
+<p>suggest to read <a href="https://itsfoss.com/ppa-guide/">PPA in Ubuntu Linux [Definitive Guide]</a> for more details.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># add ppa into sources.list</span>
+<span class="nb">sudo </span>add-apt-repository ppa:khurshid-alam/nautilus-git
+<span class="c"># remove ppa</span>
+<span class="nb">sudo </span>add-apt-repository <span class="nt">--remove</span> ppa:khurshid-alam/nautilus-git
+</code></pre></div></div>
+
+<h3 id="update-package-databas-with-apt">update package databas with APT</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt update
+</code></pre></div></div>
+
+<p>APT uses the database to manager the package version, updating the repository should be the first thing to do before the installation of package. elsewise, APT won’t know if there are any newer packages available. this command won’t upgrade the real package but just refresh the package version information in the database.</p>
+
+<h3 id="install-software-package">install software package</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install </span>nautilus-compare
+<span class="c"># install specific version package</span>
+<span class="nb">sudo </span>apt <span class="nb">install </span>nautilus-compare<span class="o">=</span>0.0.6~bionic3
+</code></pre></div></div>
+
+<p>apt install command will install the latest version of the package in the repository. normally the repository will not contain the older version. If you have already installed the package, running the command will upgrade the package to the latest version. If you want to install the package without upgrading, try this command</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install </span>nautilus-compare <span class="nt">--no-upgrade</span>
+</code></pre></div></div>
+
+<p>If you only want to upgrade a package but don’t want to install it (if 
+it’s not already installed), you can do that with the following command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install </span>nautilus-compare <span class="nt">--only-upgrade</span>
+</code></pre></div></div>
+
+<h3 id="remove-software-package">remove software package</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># remove installed package</span>
+<span class="nb">sudo </span>apt remove nautilus-compare
+<span class="c"># remove installed package and related configure file</span>
+<span class="nb">sudo </span>purge nautilus-compare
+<span class="c"># remove package and it's dependency</span>
+<span class="nb">sudo </span>apt autoremove nautilus-compare
+</code></pre></div></div>
+
+<p>What is the difference between apt remove and apt purge?</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">apt remove</code> just removes the binaries of a package. It leaves residue configuration files.</li>
+  <li><code class="language-plaintext highlighter-rouge">apt purge</code> removes everything related to a package including the configuration files.</li>
+</ul>
+
+<p>If you used <code class="language-plaintext highlighter-rouge">apt remove</code> to a get rid of a particular software and then install it again, your software will have the same configuration files.</p>
+
+<h3 id="search-for-package">search for package</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt search nautilus-compare
+</code></pre></div></div>
+
+<p>another way to search the available package is using <a href="https://launchpad.net/?ref=itsfoss.com">Launchpad</a> website, the official platform for hosting PPA. You can go to Launchpad and search for the required package directly there.</p>
+
+<h3 id="see-the-content-of-a-package">See the content of a package</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt show nautilus-compare
+</code></pre></div></div>
+
+<p>This will show information about the given package(s) like its dependencies, installation and download size, different sources the package is available from, the description of the content of the package among other things.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt policy nautilus-compare
+<span class="c"># show package info and dependency</span>
+<span class="nb">sudo </span>apt-cache showpkg rsync
+<span class="nb">sudo </span>apt-cache depends rsync
+<span class="c"># show the </span>
+<span class="nb">sudo </span>apt-cache rdenpends rsync
+</code></pre></div></div>
+
+<h3 id="list-upgradable-and-installed-versions">List upgradable and installed versions</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt list <span class="nt">--installed</span>
+<span class="nb">sudo </span>apt list <span class="nt">--upgradable</span>
+<span class="nb">sudo </span>apt list <span class="nt">--all-version</span>
+</code></pre></div></div>
+
+<h3 id="clean-the-system">Clean the system</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt autoremove
+<span class="nb">sudo </span>apt autoremove <span class="nt">--purge</span>
+</code></pre></div></div>
+
+<p>this command removes the unnecessary libs or packages that are once as the dependency by some applications and didn’t used.</p>
+
+<p>When you install a package using apt-get or <a href="https://itsfoss.com/apt-command-guide/">apt command</a> (or DEB packages in the software center), the apt <a href="https://itsfoss.com/package-manager/">package manager</a> downloads the package and its dependencies in .deb format and keeps it in <code class="language-plaintext highlighter-rouge">/var/cache/apt/archives</code> folder.</p>
+
+<p>Once the deb files for the package and its dependencies are downloaded, your system installs the package from these deb files.</p>
+
+<p>if you want to clean the cache of download package in the <code class="language-plaintext highlighter-rouge">/var/cache/apt/archieve</code></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-get clean
+<span class="nb">sudo </span>apt-get autoclean
+</code></pre></div></div>
+
+<h3 id="upgrade-package">upgrade package</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#auto upgrade all package</span>
+<span class="nb">sudo </span>apt upgrade
+<span class="c">#upgrade os</span>
+<span class="nb">sudo </span>apt dist-upgrade
+<span class="c"># only upgrade specific package</span>
+<span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">--only-upgrade</span> rsync
+<span class="c"># or run insall command to upgrade to latest version</span>
+<span class="nb">sudo </span>apt <span class="nb">install </span>rsync
+</code></pre></div></div>
+
+<h2 id="hold-the-package-and-prevent-upgrade">Hold the package and prevent upgrade</h2>
+
+<p>If you manage to install a specific program version, you may want to avoid accidentally upgrading to the newer version. It’s not too complicated to achieve this.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># lock package version, don't upgrade by apt upgrade command</span>
+<span class="nb">sudo </span>apt-mark hold rsync
+</code></pre></div></div>
+
+<p>You can remove the hold so that it can be upgraded later:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-mark unhold rsync
+</code></pre></div></div>
+
+<p>set manual install</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-mark manual rsync
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-mark showhold
+<span class="nb">sudo </span>apt-mark showauto
+<span class="nb">sudo </span>apt-mark showmanual
+</code></pre></div></div>
+
+<h3 id="fix-the-install">fix the install</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nt">-f</span> <span class="nb">install</span>
+</code></pre></div></div>
+
+<p>this command will fix the dependency broken error durring the installtion.</p>
+
+<h3 id="standalone-deb-package-install-and-remove">standalone .deb package install and remove</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># download deb package</span>
+<span class="nb">sudo </span>apt download nautilus-compare
+<span class="c"># install by dpkg</span>
+<span class="nb">sudo </span>dpkg <span class="nt">-i</span> nautilus-compare_1.0.0~focal1_all.deb
+
+<span class="c">#remove </span>
+<span class="nb">sudo </span>dpkg <span class="nt">-r</span> nautilus-compare_1.0.0~focal1_all.deb
+<span class="nb">sudo </span>dpkg <span class="nt">--remove</span> <span class="nt">--purge</span> nautilus-compare_1.0.0~focal1_all.deb
+
+<span class="c">#list</span>
+<span class="nb">sudo </span>dpkg <span class="nt">-l</span> rsync
+<span class="c"># show the deb package contents</span>
+<span class="nb">sudo </span>dpkg <span class="nt">-c</span> nautilus-compare_1.0.0~focal1_all.deb
+<span class="c"># show the package installed files in the system</span>
+<span class="nb">sudo </span>dpkg <span class="nt">-L</span> copyq
+<span class="c"># find the file belongs to which package</span>
+<span class="nb">sudo </span>dpkg <span class="nt">-S</span> /usr/bin/rsync
+</code></pre></div></div>
+
+<h3 id="apt-key-manager-gpg-key">apt-key manager GPG key</h3>
+
+<p>You can see the GPG keys added by various repositories in your system using the <code class="language-plaintext highlighter-rouge">apt-key list</code> command.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># show key </span>
+<span class="nb">sudo </span>apt-key list
+</code></pre></div></div>
+
+<p>add key</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-key adv <span class="nt">--keyserver</span> keyserver.ubuntu.com <span class="nt">--recv-keys</span> E298A3A825C0D65DFD57CBB651716619E084DAB9
+</code></pre></div></div>
+
+<p>delete key</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-key del 12345
+</code></pre></div></div>
+
+<h3 id="apt-lock">apt lock</h3>
+
+<p>you may encounter the issue when you use APT tool install package, as below</p>
+
+<p><code class="language-plaintext highlighter-rouge">you cannot acquire the lock /var/lib/dpkg/lock-fronted</code>.</p>
+
+<p>There are 3 lock files in the ubuntu that used for apt/dpkg</p>
+
+<ul>
+  <li>
+    <p>/var/lib/dpkg/lock-frontend</p>
+  </li>
+  <li>
+    <p>/var/cache/apt/archieve/lock</p>
+  </li>
+  <li>
+    <p>/var/lib/dpkg/lock</p>
+  </li>
+</ul>
+
+<p>one way to fix the lock issue is running the command to remove the lock file.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo rm</span> <span class="nt">-rf</span> /var/lib/dpkg/lock-frontend /var/cache/apt/archieve/lock /var/lib/dpkg/lock
+</code></pre></div></div>
+
+<p>you may not have to remove all of them, just find which lock file cannot be acquired and delete it!</p>
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box" id = "sidebar">
+		    
+				<p class = "sidebar-title">About This Article</p>
+			
+			
+				
+					<P class = "sidebar-about-content sidebar-font-big">This guide shows you how to use apt commands in Linux</P>
+				
+				
+					<P class = "icon-link sidebar-about-content sidebar-font-medium" style = "margin-top:30px">Author: <a href="https://github.com/gangdong">david.dong</a></P>
+				
+					<P class = "icon-clock sidebar-about-content sidebar-font-medium">16 mins to read</P>
+					<P class = "icon-book-1 sidebar-about-content sidebar-font-medium">6283 words</P>
+				
+					<P class = "icon-th-list sidebar-about-content sidebar-font-medium">Key Words: apt dpkg ubuntu</P>
+				
+				
+				    <P class = "icon-hashtag sidebar-about-content sidebar-font-medium">Tags: 
+					
+					<a href="/category#Linux">Linux&nbsp;</a>
+					
+					</P>
+				
+			
+		</div>
+		
+		
+	    <div class="sidebar-toc-box">
+			
+			<p class = "sidebar-title">Table of Contents</p>
+			<span class = "sidebar-font-medium sidebar-toc-content"><ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#what-is-apt">what is APT?</a></li>
+<li class="toc-entry toc-h2"><a href="#using-apt-commands-to-manage-packages">Using APT commands to manage packages</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#some-location-need-to-know">some location need to know</a></li>
+<li class="toc-entry toc-h3"><a href="#add-software-ppa">add software ppa</a></li>
+<li class="toc-entry toc-h3"><a href="#update-package-databas-with-apt">update package databas with APT</a></li>
+<li class="toc-entry toc-h3"><a href="#install-software-package">install software package</a></li>
+<li class="toc-entry toc-h3"><a href="#remove-software-package">remove software package</a></li>
+<li class="toc-entry toc-h3"><a href="#search-for-package">search for package</a></li>
+<li class="toc-entry toc-h3"><a href="#see-the-content-of-a-package">See the content of a package</a></li>
+<li class="toc-entry toc-h3"><a href="#list-upgradable-and-installed-versions">List upgradable and installed versions</a></li>
+<li class="toc-entry toc-h3"><a href="#clean-the-system">Clean the system</a></li>
+<li class="toc-entry toc-h3"><a href="#upgrade-package">upgrade package</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#hold-the-package-and-prevent-upgrade">Hold the package and prevent upgrade</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#fix-the-install">fix the install</a></li>
+<li class="toc-entry toc-h3"><a href="#standalone-deb-package-install-and-remove">standalone .deb package install and remove</a></li>
+<li class="toc-entry toc-h3"><a href="#apt-key-manager-gpg-key">apt-key manager GPG key</a></li>
+<li class="toc-entry toc-h3"><a href="#apt-lock">apt lock</a></li>
+</ul>
+</li>
+</ul></span>
+			
+		</div>
+		
+	</div>
+	 
+</div>
+<!-- no sidebar, use flex width box! -->
+<br>
+<div class="post-container">
+    <!-- post categories box! here  -->
+    
+   <div class="post-categories-meta">
+		<div class="post-categories-box post-categories-box-hide"><a href="/category#Linux">Linux</a></div>
+	</div>
+  
+  
+  <div class = "share-box-meta">
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	
+	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">Share:</span></div>
+	
+	<!-- Put post veiw statistic here! -->
+	<div class = "post-view">
+	
+		<span class = "icon-eye tooltip"><p class = "tooltiptext" style = "left:0%; margin-left: 0px">Viewers</p><span id="busuanzi_value_page_pv"></span></span>
+		
+	</div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">You may also like</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/android/linux/2021/05/09/Android-jack-issue.html">Fixing the issue: Communication error with Jack server (35) when building AOSP</a></li>
+			
+			<li><a href="/linux/2020/05/25/Linux-wsl.html">Some notes for WSL</a></li>
+			
+			<li><a href="/linux/2014/11/11/Linux-phony.html">Use of .PHONY in makefile</a></li>
+			
+			<li><a href="/c/touch/android/2014/07/10/Touch-inputevent.html">Android 如何上报 Touchevent 给应用层</a></li>
+			
+			<li><a href="/c/touch/linux/2014/06/25/Touch-driver.html">ATMEL maXTouch IC 驱动代码分析</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">further reading</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta"><div class="navigation-bar">
+	 
+	 <a href="/security/2020/07/10/Security-mbedtls.html"><span>Previous Post</span><br>mbedtls 使用说明</a>
+	 
+    </div><div class="navigation-bar"> 
+	 
+     <a href="/security/windows/2020/07/23/Security-signature-02.html"><span>Next Post</span><br>利用 Microsoft WDK 工具生成数字签名</a>
+	 
+    </div></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'gangdong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9&domready=1"></script>
+
+
+<!-- sidebar button, toggle display/hide sidebar -->
+<script type="text/javascript">
+        $('.btn').on('click',function(){
+            $('.btn').toggleClass('btnc');
+            $('.sidebar-container').toggleClass('sidebar-container-hide');
+        })
+</script>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=G-3MXGF3F8QN"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-3MXGF3F8QN');
+	</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></body>
+</html>

@@ -597,240 +597,6 @@ $('.menu-btn').on('click',function(e){
 			</a>
 		</div>
 	</div>
-</footer> </li><li class="post-wrapper"><a class="post-link" href="/java/2022/04/22/Java-threadSynchronization.html">
-          <h2 class="post-title">浅谈 Java 线程同步技术</h2>
-        </a>
-		
-        <div class="post-meta">
-          <ul class="post-categories post-categories-padding"><a href="/category#Java">Java</a></ul>
-          <div class="post-date-right-align">
-            <i class="icon-calendar"></i>
-            Apr 22, 2022
-		  </div>
-		</div>
-		
-        <div class="post"><p>Java 里实现线程间的同步有多种方法，比如使用 <code class="language-plaintext highlighter-rouge">synchronized</code> 关键字，<code class="language-plaintext highlighter-rouge">wait</code> 和 <code class="language-plaintext highlighter-rouge">notify</code>，<code class="language-plaintext highlighter-rouge">volatile</code> 变量，重入锁，局部变量，阻塞队列或者原子类型变量等。</p>
-
-<h2 id="synchronized">synchronized</h2>
-
-<p>使用 <code class="language-plaintext highlighter-rouge">synchronized</code> 关键字：这是最常用的一种方法，它可以修饰代码块或者方法，使得同一时刻只有一个线程能够访问被修饰的代码。例如 ：</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SynchronizedDemo</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="c1">//创建两个线程</span>
-        <span class="nc">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nc">Runnable</span><span class="o">()</span> <span class="o">{</span>
-            <span class="nd">@Override</span>
-            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-                <span class="c1">//调用同步方法</span>
-                <span class="n">syncMethod</span><span class="o">();</span>
-            <span class="o">}</span>
-        <span class="o">},</span> <span class="s">"t1"</span><span class="o">);</span>
-
-        <span class="nc">Thread</span> <span class="n">t2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nc">Runnable</span><span class="o">()</span> <span class="o">{</span>
-            <span class="nd">@Override</span>
-            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-                <span class="c1">//调用同步方法</span>
-                <span class="n">syncMethod</span><span class="o">();</span>
-            <span class="o">}</span>
-        <span class="o">},</span> <span class="s">"t2"</span><span class="o">);</span>
-
-        <span class="c1">//启动两个线程</span>
-        <span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
-        <span class="n">t2</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
-    <span class="o">}</span>
-
-    <span class="c1">//定义一个同步方法</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">syncMethod</span><span class="o">()</span> <span class="o">{</span>
-        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">"开始执行"</span><span class="o">);</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-        <span class="o">}</span>
-        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">"结束执行"</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<h2 id="wait-和-notify">wait 和 notify</h2>
-
-<p>使用 <code class="language-plaintext highlighter-rouge">wait</code> 和 <code class="language-plaintext highlighter-rouge">notify</code> ：这是一种基于对象监视器的机制，它可以让一个线程等待另一个线程的通知，从而实现协作。例如：</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">WaitNotifyDemo</span> <span class="o">{</span>
-
-    <span class="kd">private</span> <span class="kd">static</span> <span class="nc">Object</span> <span class="n">lock</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Object</span><span class="o">();</span> <span class="c1">//定义一个锁对象</span>
-
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-
-        <span class="c1">//创建两个线程</span>
-        <span class="nc">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nc">Runnable</span><span class="o">()</span> <span class="o">{</span>
-            <span class="nd">@Override</span>
-            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-                <span class="kd">synchronized</span> <span class="o">(</span><span class="n">lock</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//获取锁对象</span>
-                    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"t1开始执行"</span><span class="o">);</span>
-                    <span class="k">try</span> <span class="o">{</span>
-                        <span class="n">lock</span><span class="o">.</span><span class="na">wait</span><span class="o">();</span> <span class="c1">//释放锁并等待通知</span>
-                    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-                        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-                    <span class="o">}</span>
-                    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"t1收到通知"</span><span class="o">);</span>
-                    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"t1结束执行"</span><span class="o">);</span>
-                <span class="o">}</span>
-            <span class="o">}</span>
-        <span class="o">},</span> <span class="s">"t1"</span><span class="o">);</span>
-
-        <span class="nc">Thread</span> <span class="n">t2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nc">Runnable</span><span class="o">()</span> <span class="o">{</span>
-            <span class="nd">@Override</span>
-            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-                <span class="kd">synchronized</span> <span class="o">(</span><span class="n">lock</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//获取锁对象</span>
-                    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"t2开始执行"</span><span class="o">);</span>
-                    <span class="k">try</span> <span class="o">{</span>
-                        <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">2000</span><span class="o">);</span> <span class="c1">//模拟耗时操作</span>
-                    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-                        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-                    <span class="o">}</span>
-                    <span class="n">lock</span><span class="o">.</span><span class="na">notify</span><span class="o">();</span> <span class="c1">//唤醒等待的线程</span>
-                    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"t2发送通知"</span><span class="o">);</span>
-                    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"t2结束执行"</span><span class="o">);</span>
-                <span class="o">}</span>
-            <span class="o">}</span>
-        <span class="o">},</span> <span class="s">"t2"</span><span class="o">);</span>
-
-        <span class="c1">//启动两个线程</span>
-        <span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
-        <span class="n">t2</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
-
-    <span class="o">}</span>
-
-<span class="o">}</span>
-</code></pre></div></div>
-
-<h2 id="volatile">volatile</h2>
-
-<p><code class="language-plaintext highlighter-rouge">volatile</code> 变量是一种特殊的变量，它可以保证变量在多个线程之间的可见性，也就是说当一个线程修改了 <code class="language-plaintext highlighter-rouge">volatile</code> 变量的值后，其他线程能够立即看到最新的值。<code class="language-plaintext highlighter-rouge"> volatile </code> 变量还可以防止编译器或者运行时对其进行重排序，从而保证其操作的顺序性。</p>
-
-<p><code class="language-plaintext highlighter-rouge">volatile</code> 变量适合用于以下几种场景：</p>
-
-<p>状态标志：例如一个开关变量，用来控制其他线程的执行流程。
-单例模式：例如双重检查锁定（double-checked locking）模式，用来保证对象的唯一性和及时性。
-原子操作：例如 long 或 double 类型的赋值操作，在 Java 中不是原子性的，但是定义为 volatile 后可以保证原子性。</p>
-
-<p>假设有一个 <code class="language-plaintext highlighter-rouge">volatile</code> 变量叫做 stop，它用来控制一个线程的执行流程。当 stop 为 false 时，线程继续运行；当 stop 为 true 时，线程停止运行。代码如下:</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">VolatileExample</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">volatile</span> <span class="kt">boolean</span> <span class="n">stop</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
-
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">InterruptedException</span> <span class="o">{</span>
-        <span class="nc">Thread</span> <span class="n">thread</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nc">Runnable</span><span class="o">()</span> <span class="o">{</span>
-            <span class="nd">@Override</span>
-            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-                <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
-                <span class="k">while</span> <span class="o">(!</span><span class="n">stop</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 如果stop为true，跳出循环</span>
-                    <span class="n">i</span><span class="o">++;</span>
-                <span class="o">}</span>
-                <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"i="</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>
-            <span class="o">}</span>
-        <span class="o">});</span>
-        <span class="n">thread</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
-        <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span> <span class="c1">// 主线程休眠1秒</span>
-        <span class="n">stop</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span> <span class="c1">// 修改stop的值为true</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p>这个例子中，如果不使用 <code class="language-plaintext highlighter-rouge">volatile</code> 修饰 <code class="language-plaintext highlighter-rouge">stop</code> 变量，那么可能会出现这样的情况：主线程修改了 stop 的值为 true，但是子线程没有看到最新的值，仍然认为 stop 是 false，导致子线程无法停止。这是因为每个线程都有自己的工作内存（缓存），它们会从主内存中复制共享变量的值，并在工作内存中操作共享变量。如果不使用 <code class="language-plaintext highlighter-rouge">volatile</code> 修饰共享变量，那么就不能保证其他线程能够及时看到最新的值。</p>
-
-<p>但是如果使用了 <code class="language-plaintext highlighter-rouge">volatile</code> 修饰 <code class="language-plaintext highlighter-rouge">stop</code> 变量，那么就可以保证当主线程修改了 stop 的值后，其他线程能够立即看到最新的值，并根据最新的值来执行相应的操作。这是因为 volatile 关键字可以强制让编译器每次都从主内存中读取共享变量的值，并且禁止对其进行重排序。</p>
-
-<h2 id="重入锁">重入锁</h2>
-
-<p>重入锁是一种可以被同一个线程多次获取的锁，也就是说当一个线程已经持有了锁，它可以再次请求获取锁而不会被阻塞。重入锁可以避免死锁的发生，也可以提高代码的可读性和可维护性。</p>
-
-<p>Java 中提供了一个重入锁的实现类：<code class="language-plaintext highlighter-rouge">ReentrantLock</code>，它实现了 <code class="language-plaintext highlighter-rouge">Lock</code> 接口，提供了加锁和释放锁的方法。使用 <code class="language-plaintext highlighter-rouge">ReentrantLock</code> 时，需要在 try-finally 块中手动调用 <code class="language-plaintext highlighter-rouge">lock ()</code> 和 <code class="language-plaintext highlighter-rouge">unlock ()</code> 方法来保证锁的正确获取和释放。</p>
-
-<p>举个例子吧，假设有一个银行账户类 Account，它有一个余额属性 balance 和一个转账方法 transfer ()，为了保证转账操作的原子性和线程安全性，我们可以使用 <code class="language-plaintext highlighter-rouge">ReentrantLock</code> 来对 <code class="language-plaintext highlighter-rouge">transfer ()</code> 方法进行同步控制。
-代码如下：</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.concurrent.locks.ReentrantLock</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Account</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kt">int</span> <span class="n">balance</span><span class="o">;</span> <span class="c1">// 余额</span>
-    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">ReentrantLock</span> <span class="n">lock</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ReentrantLock</span><span class="o">();</span> <span class="c1">// 重入锁</span>
-
-    <span class="kd">public</span> <span class="nf">Account</span><span class="o">(</span><span class="kt">int</span> <span class="n">balance</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">balance</span> <span class="o">=</span> <span class="n">balance</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">transfer</span><span class="o">(</span><span class="nc">Account</span> <span class="n">target</span><span class="o">,</span> <span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">lock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span> <span class="c1">// 获取锁</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="k">if</span> <span class="o">(</span><span class="n">balance</span> <span class="o">&gt;=</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 如果余额足够</span>
-                <span class="n">balance</span> <span class="o">-=</span> <span class="n">amount</span><span class="o">;</span> <span class="c1">// 扣除转出金额</span>
-                <span class="n">target</span><span class="o">.</span><span class="na">balance</span> <span class="o">+=</span> <span class="n">amount</span><span class="o">;</span> <span class="c1">// 增加转入金额</span>
-            <span class="o">}</span>
-        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
-            <span class="n">lock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span> <span class="c1">// 释放锁</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p>这个例子中，如果不使用 <code class="language-plaintext highlighter-rouge">ReentrantLock</code> 来对 <code class="language-plaintext highlighter-rouge">transfer ()</code> 方法进行同步控制，那么可能会出现这样的情况：当两个线程同时对同一个账户对象执行转账操作时，可能会导致余额不正确或者数据不一致的问题。这是因为转账操作涉及到多个共享变量（balance 和 target.balance）的读写操作，并且这些操作不是原子性的。</p>
-
-<p>但是如果使用了 <code class="language-plaintext highlighter-rouge">ReentrantLock</code> 来对 <code class="language-plaintext highlighter-rouge">transfer ()</code> 方法进行同步控制，那么就可以保证当一个线程执行转账操作时，其他线程不能同时执行该操作，并且该操作能够完整地执行而不会被打断。这是因为 <code class="language-plaintext highlighter-rouge">ReentrantLock</code> 可以实现互斥访问共享资源，并且保证操作的顺序性和原子性。</p>
-
-<h2 id="原子类型变量">原子类型变量</h2>
-
-<p>Java 里的原子类型变量是一种可以在多线程环境下保证原子性操作的变量类，它们使用了 CAS（Compare And Swap）算法来实现无锁的并发控制。</p>
-
-<p>原子类型变量有以下几种分类：</p>
-
-<ul>
-  <li>标量原子变量类：支持对 int，long 和 boolean 等基本数据类型的操作，例如 AtomicInteger，AtomicLong 和 AtomicBoolean。</li>
-  <li>原子数组类：支持对 int，long 和引用类型的数组元素进行原子性更新，例如 AtomicIntegerArray，AtomicLongArray 和 AtomicReferenceArray。</li>
-  <li>原子字段更新程序类：支持使用反射以原子方式更新类的易失性字段，例如 AtomicLongFieldUpdater，AtomicIntegerFieldUpdater 和 AtomicReferenceFieldUpdater。</li>
-  <li>原子复合变量类：支持对多个变量进行原子性更新，例如 AtomicStampedReference 和 AtomicMarkableReference。
-下面是一个使用 AtomicInteger 的例子：</li>
-</ul>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.concurrent.atomic.AtomicInteger</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AtomicCounter</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="nc">AtomicInteger</span> <span class="n">value</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AtomicInteger</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
-
-    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">increment</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="na">incrementAndGet</span><span class="o">();</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">decrement</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="na">decrementAndGet</span><span class="o">();</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">get</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-</div>
-
-
-
-<footer>
-    <div class="readingtime-meta">
-	    <div class = "readingtime-box">
-			
-			<span class="icon-hourglass readingtime">阅读时间：11 mins</span>
-			<span class="icon-book readingtime">字数：4213</span>
-			
-		</div>
-		<div>
-			<a class="readingtime-categories" href="/java/2022/04/22/Java-threadSynchronization.html">
-				
-				<span class="icon-angle-double-right">阅读全文&nbsp;</span>
-				
-			</a>
-		</div>
-	</div>
 </footer> </li><li class="post-wrapper"><a class="post-link" href="/java/2022/04/22/Java-ThreadSynchronization.html">
           <h2 class="post-title">浅谈 Java 线程同步技术</h2>
         </a>
@@ -927,6 +693,41 @@ $('.menu-btn').on('click',function(e){
 		</div>
 		<div>
 			<a class="readingtime-categories" href="/others/2022/02/15/Others-online-tools.html">
+				
+				<span class="icon-angle-double-right">阅读全文&nbsp;</span>
+				
+			</a>
+		</div>
+	</div>
+</footer> </li><li class="post-wrapper"><a class="post-link" href="/others/2022/02/11/Others-typora.html">
+          <h2 class="post-title">从 MarkdownPad2 到 Typora - 使用 Typora 的直观感受</h2>
+        </a>
+		
+        <div class="post-meta">
+          <ul class="post-categories post-categories-padding"><a href="/category#Others">Others</a></ul>
+          <div class="post-date-right-align">
+            <i class="icon-calendar"></i>
+            Feb 11, 2022
+		  </div>
+		</div>
+		
+        <div class="post"><p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev\assets\image\others-typora-01.jpeg" alt="others-typora-01" style="zoom:100%;" /></p>
+
+<p>一直以来我都是用 MarkdownPad2 撰写自己的博客文章，也没有觉得哪里不好。关注到 typora 这个软件是因为最近网上讨论的比较热烈的这个软件要收费的消息，于是上网 Google 了一下这个软件才发现很多人对这个软件的评价很高，这就引起了我的兴趣，于是我决定下载这个软件亲自试用一下。😉</p>
+</div>
+
+
+
+<footer>
+    <div class="readingtime-meta">
+	    <div class = "readingtime-box">
+			
+			<span class="icon-hourglass readingtime">阅读时间：5 mins</span>
+			<span class="icon-book readingtime">字数：1739</span>
+			
+		</div>
+		<div>
+			<a class="readingtime-categories" href="/others/2022/02/11/Others-typora.html">
 				
 				<span class="icon-angle-double-right">阅读全文&nbsp;</span>
 				
