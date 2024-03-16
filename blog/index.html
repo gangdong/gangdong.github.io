@@ -1,11 +1,168 @@
----
-layout: default
-title: Home
----
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Home | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.3.3" />
+<meta property="og:title" content="Home" />
+<meta name="author" content="David Dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This is David Dong’s blog. It’s about program and design, life and sharing. Let’s explore more together. David，Software，Developer.Designer 关于程序与设计 - 生活与分享 这里是董刚 的个人博客，让我们一起探索更多。" />
+<meta property="og:description" content="This is David Dong’s blog. It’s about program and design, life and sharing. Let’s explore more together. David，Software，Developer.Designer 关于程序与设计 - 生活与分享 这里是董刚 的个人博客，让我们一起探索更多。" />
+<link rel="canonical" href="http://localhost:4000/blog/" />
+<meta property="og:url" content="http://localhost:4000/blog/" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="website" />
+<link rel="next" href="http://localhost:4000/blog/page2/" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Home" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"David Dong"},"description":"This is David Dong’s blog. It’s about program and design, life and sharing. Let’s explore more together. David，Software，Developer.Designer 关于程序与设计 - 生活与分享 这里是董刚 的个人博客，让我们一起探索更多。","headline":"Home","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/logo.png"},"name":"David Dong"},"url":"http://localhost:4000/blog/"}</script>
+<!-- End Jekyll SEO tag -->
 
-{% include menu.html %}
-{%- if paginator.posts.size > 0 -%}  
-  <div class= "post-container">
+
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/css/syntax/syntax.monokai.sublime.css" rel="stylesheet"/>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
+
+</head><body>
+    <main class="container">
+      <section class="about ">
+	    <div class="about-header ">
+			<div class="about-title">
+				<a href="/blog/index.html">
+				  <img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/avatar-11.png" alt="David Dong"/>
+				</a>
+				<div class = "title-meta">
+					<h2 id="title">
+					  <a href="/blog/index.html">David Dong</a>
+					</h2>
+					<p class = "tagline-small">Java/C/C#/Python</p>
+				</div>
+			</div>
+			<p class="tagline">Java/C/C#/Python</p>
+		</div>
+		<!--put dark mode button here -->
+		<div class = "about-footer ">
+		  <!--put rss/code link here -->
+			<div class="icon-box-container about-footer "><div class = "icon-box" style = "padding-right:0px">
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id = "mode">Dark Mode</span>
+					</a>
+				</div>
+				<!-- toggle dark/light display mode, should loading darkmode.js here for avoiding flicker when switching -->
+				<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/darkmode.js"></script>
+				<script type="text/javascript">
+				$('.dark-mode').on('click',function(){
+					$('.dark-mode').toggleClass('light-mode');
+					if (document.getElementById("mode").innerHTML=="Light Mode")
+						document.getElementById("mode").innerHTML="Dark Mode";
+					else 
+						document.getElementById("mode").innerHTML="Light Mode";
+				})
+				</script><div class = "icon-box">
+					<a class="icon-rss" href="/rss.xml">
+						<span>Subscribe</span>
+					</a>
+				</div><div class = "icon-box">
+					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
+						<span>Source Code</span>
+					</a>
+				</div></div>
+		</div>
+		
+	    <!--show contact me -->
+		<div class = "about-footer  social-container">
+	    <p class = "contact about-footer ">CONTACT ME</p>
+		<!-- put social link here -->
+	      <ul class="social about-footer " >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		<!--put timestamp here -->
+		<p class ="timestamp about-footer ">&copy; 2024</p>
+		</div>
+	  <!-- about box end here -->
+      </section>
+	  
+      <section class="content">
+        <div class="post-container">
+	<div  class = "menu-meta ">
+		<!--put top menu here, display @ big screen (> $mobileW) -->
+		<div  class = "menu-logo">BLOG</div>
+		<div  class = "menu">
+			<a href="/blog/index.html">
+				<li class="icon-home">Home</li>
+			</a><a href="/archive">
+				<li class="icon-archive">Archives</li>
+			</a><a href="/category">
+				<li class="icon-tags">Categories</li>
+			</a><a href="/about">
+				<li class="icon-help-circled">About</li>
+			</a>
+		</div>
+		<!--put hide menu button here, display @ small screen (< $mobileW) -->
+		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
+		<!--put hide menu here, display @ small screen (< $mobileW) -->
+		<div class="context-menu">
+			<ul >
+				<li>
+					<a class="icon-home" href="/blog/index.html">Home</a>
+				</li><li>
+					<a class="icon-archive" href="/archive">Archives</a>
+				</li><li>
+					<a class="icon-tags" href="/category">Categories</a>
+				</li><li>
+					<a class="icon-help-circled" href="/about">About</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('.menu-btn').on('click',function(e){
+		
+	e.stopPropagation();
+	var tag = $('.context-menu');		
+	$(tag).toggleClass('context-menu-show');
+			
+	var flag = true;
+	/* hide the context-menu when other element is clicked */
+	$(document).bind('click',function(e){
+		var target = $(e.target);
+		if(target.closest(tag).length == 0 && flag == true){
+			$(tag).toggleClass('context-menu-show');
+			flag = false;
+		}
+	});
+})
+</script><div class= "post-container">
     <!-- Put search box here -->
     <li class="posts-labelgroup" id="posts-labelgroup">
       <h1 id="posts-label">posts</h1>
@@ -18,100 +175,633 @@ title: Home
       </div>
     </li>
 	<!-- Try to look for the pinned article and locked at the first page -->
-	{% if 1 == paginator.page %}
+	
 	   <!-- Should look for site.posts instead of paginator.posts -->
-       {%- for post in site.posts -%}
-	    {%- for tag in post.categories -%}
-		  {% assign is_pinned = tag %}
 		  <!-- Found tag == 'Pinned' -->
-		  {%- if 'Pinned' == is_pinned -%}
-		    <li class="post-wrapper">
-              {%- assign date_format = site.rawposts.date_format | default: "%b %-d, %Y" -%}
-              <a class="post-link" href="{{ post.url | relative_url }}">
-                <h2 class="post-title">{{ post.title | escape }}</h2>
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' --><li class="post-wrapper"><a class="post-link" href="/pinned/2019/02/23/Pinned-Template-english.html">
+                <h2 class="post-title">RawPosts - A theme for Jekyll</h2>
               </a>
               <div class="post-meta">
-                <ul class="post-categories post-pin-categories-padding">
-                  {%- for tag in post.categories -%}
-                    <a class="icon-pin" href="{{site.baseurl}}/category#{{tag}}">{{ tag }}</a>
-                  {%- endfor -%}
-                </ul>
+                <ul class="post-categories post-pin-categories-padding"><a class="icon-pin" href="/category#Pinned">Pinned</a></ul>
                 <div class="post-date-right-align">
                   <i class="icon-calendar"></i>
-                  {{ post.date | date: date_format }}
+                  Feb 23, 2019
 				</div>
               </div>
-              <div class="post">
-                {%- if site.show_excerpts -%}
-                  {{ post.excerpt }}
-                {%- endif -%}
-              </div>
-		      {%- if site.rawposts.reading_time -%}
-		        {% include reading_time.html %}
-		      {%- endif -%}
-            </li>
-		  {%- endif -%}
-        {%- endfor -%}
-	  {%- endfor -%}
-    {% endif %}
+              <div class="post"><p><a href="https://github.com/gangdong/jekyll-theme-rawposts/">RawPosts</a> is a simple, elegant, and clean <a href="https://jekyllrb.com/">Jekyll</a> theme. It is born from the creation of my blog website. It is designed with a fully responsive feature and can be deployed on Github Pages. I open-sourced this theme on Github with an MIT license, so it is free for use.</p>
+</div>
 
-	<!-- This loops through the paginated posts -->
-    {%- for post in paginator.posts -%}
-      <li class="post-wrapper">
-        {%- assign date_format = site.rawposts.date_format | default: "%b %-d, %Y" -%}
-        <a class="post-link" href="{{ post.url | relative_url }}">
-          <h2 class="post-title">{{ post.title | escape }}</h2>
+
+
+<footer>
+    <div class="readingtime-meta">
+	    <div class = "readingtime-box">
+			
+			<span class="icon-clock readingtime">11 mins read</span>
+			<span class="icon-book-1 readingtime" > 4191 words</span>
+			
+		</div>
+		<div>
+			<a class="readingtime-categories" href="/pinned/2019/02/23/Pinned-Template-english.html">
+				
+				<span class="icon-angle-double-right">Continue reading&nbsp;</span>
+				
+			</a>
+		</div>
+	</div>
+</footer> </li>
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+		  <!-- Found tag == 'Pinned' -->
+
+	<!-- This loops through the paginated posts --><li class="post-wrapper"><a class="post-link" href="/rust/2024/02/15/Rust-startup-trait.html">
+          <h2 class="post-title">Rust startup - trait</h2>
         </a>
-		{% if site.rawposts.show_category_box == true %}
+		
         <div class="post-meta">
-          <ul class="post-categories post-categories-padding">
-            {%- for tag in post.categories -%}
-              <a href="{{site.baseurl}}/category#{{tag}}">{{ tag }}</a>
-            {%- endfor -%}
-          </ul>
+          <ul class="post-categories post-categories-padding"><a href="/category#Rust">Rust</a></ul>
           <div class="post-date-right-align">
             <i class="icon-calendar"></i>
-            {{ post.date | date: date_format }}
+            Feb 15, 2024
 		  </div>
 		</div>
-		{% else %}
-		<div class = "post-meta" style = "justify-content: flex-start;">
-		  <div class="post-date-right-align" style = "text-align:left">
-            <i class="icon-calendar"></i>
-            {{ post.date | date: date_format }}
-		  </div>
-        </div>
-		{% endif %}
-        <div class="post">
-          {%- if site.show_excerpts -%}
-            {{ post.excerpt }}
-          {%- endif -%}
-        </div>
-		{%- if site.rawposts.reading_time -%}
-		  {% include reading_time.html %}
-		{%- endif -%}
-      </li>
-    {%- endfor -%}	
-  </div>
-  <!-- <p class="feed-subscribe"><svg class="svg-icon orange">
-		<use xlink:href="{{ '/assets/minima-social-icons.svg#rss' | relative_url }}"></use>
-	</svg><a href="{{ "/feed.xml" | relative_url }}">Subscribe</a></p> -->
-{%- endif -%}
+		
+        <div class="post"><p>Is Rust an object-oriented programming language? I have searched for the answer to this question on different AI assistants.</p>
+</div>
 
-<div class="post-container">
+
+
+<footer>
+    <div class="readingtime-meta">
+	    <div class = "readingtime-box">
+			
+			<span class="icon-clock readingtime">6 mins read</span>
+			<span class="icon-book-1 readingtime" > 2130 words</span>
+			
+		</div>
+		<div>
+			<a class="readingtime-categories" href="/rust/2024/02/15/Rust-startup-trait.html">
+				
+				<span class="icon-angle-double-right">Continue reading&nbsp;</span>
+				
+			</a>
+		</div>
+	</div>
+</footer> </li><li class="post-wrapper"><a class="post-link" href="/rust/2024/02/14/Rust-startup-ownership.html">
+          <h2 class="post-title">Rust startup - Ownership</h2>
+        </a>
+		
+        <div class="post-meta">
+          <ul class="post-categories post-categories-padding"><a href="/category#Rust">Rust</a></ul>
+          <div class="post-date-right-align">
+            <i class="icon-calendar"></i>
+            Feb 14, 2024
+		  </div>
+		</div>
+		
+        <div class="post"><p>Ownership in Rust refers to a set of rules that govern how memory is managed. At any given time, each value in Rust has a variable that is known as its owner. There can be only one owner at a time. When the owner goes out of scope, the value is dropped and its memory is deallocated.</p>
+</div>
+
+
+
+<footer>
+    <div class="readingtime-meta">
+	    <div class = "readingtime-box">
+			
+			<span class="icon-clock readingtime">16 mins read</span>
+			<span class="icon-book-1 readingtime" > 6005 words</span>
+			
+		</div>
+		<div>
+			<a class="readingtime-categories" href="/rust/2024/02/14/Rust-startup-ownership.html">
+				
+				<span class="icon-angle-double-right">Continue reading&nbsp;</span>
+				
+			</a>
+		</div>
+	</div>
+</footer> </li><li class="post-wrapper"><a class="post-link" href="/rust/2024/02/10/Rust-startup.html">
+          <h2 class="post-title">Rust startup - environment setup</h2>
+        </a>
+		
+        <div class="post-meta">
+          <ul class="post-categories post-categories-padding"><a href="/category#Rust">Rust</a></ul>
+          <div class="post-date-right-align">
+            <i class="icon-calendar"></i>
+            Feb 10, 2024
+		  </div>
+		</div>
+		
+        <div class="post"><p>Rust is hot, I’ve heard a lot of people talking about the Rust language, and it’s powered me enough to learn more about it!</p>
+</div>
+
+
+
+<footer>
+    <div class="readingtime-meta">
+	    <div class = "readingtime-box">
+			
+			<span class="icon-clock readingtime">13 mins read</span>
+			<span class="icon-book-1 readingtime" > 4861 words</span>
+			
+		</div>
+		<div>
+			<a class="readingtime-categories" href="/rust/2024/02/10/Rust-startup.html">
+				
+				<span class="icon-angle-double-right">Continue reading&nbsp;</span>
+				
+			</a>
+		</div>
+	</div>
+</footer> </li><li class="post-wrapper"><a class="post-link" href="/others/2023/02/04/Others-chatgpt.html">
+          <h2 class="post-title">What it&#39;s like to use ChatGPT</h2>
+        </a>
+		
+        <div class="post-meta">
+          <ul class="post-categories post-categories-padding"><a href="/category#Others">Others</a></ul>
+          <div class="post-date-right-align">
+            <i class="icon-calendar"></i>
+            Feb 4, 2023
+		  </div>
+		</div>
+		
+        <div class="post"><p>ChatGPT is very hot recently, I also registered an account and experienced it myself. 😉</p>
+</div>
+
+
+
+<footer>
+    <div class="readingtime-meta">
+	    <div class = "readingtime-box">
+			
+			<span class="icon-clock readingtime">14 mins read</span>
+			<span class="icon-book-1 readingtime" > 5211 words</span>
+			
+		</div>
+		<div>
+			<a class="readingtime-categories" href="/others/2023/02/04/Others-chatgpt.html">
+				
+				<span class="icon-angle-double-right">Continue reading&nbsp;</span>
+				
+			</a>
+		</div>
+	</div>
+</footer> </li><li class="post-wrapper"><a class="post-link" href="/git/2022/08/11/gerrit.createchangeid.html">
+          <h2 class="post-title">About gerrit.createChangeId</h2>
+        </a>
+		
+        <div class="post-meta">
+          <ul class="post-categories post-categories-padding"><a href="/category#Git">Git</a></ul>
+          <div class="post-date-right-align">
+            <i class="icon-calendar"></i>
+            Aug 11, 2022
+		  </div>
+		</div>
+		
+        <div class="post"><p><code class="language-plaintext highlighter-rouge">git config --bool --get gerrit.createChangeId</code> is a command used in the Git version control system to retrieve the value of the configuration option <code class="language-plaintext highlighter-rouge">gerrit.createChangeId</code>.</p>
+</div>
+
+
+
+<footer>
+    <div class="readingtime-meta">
+	    <div class = "readingtime-box">
+			
+			<span class="icon-clock readingtime">3 mins read</span>
+			<span class="icon-book-1 readingtime" > 938 words</span>
+			
+		</div>
+		<div>
+			<a class="readingtime-categories" href="/git/2022/08/11/gerrit.createchangeid.html">
+				
+				<span class="icon-angle-double-right">Continue reading&nbsp;</span>
+				
+			</a>
+		</div>
+	</div>
+</footer> </li><li class="post-wrapper"><a class="post-link" href="/git/2022/07/22/git-change-id.html">
+          <h2 class="post-title">Keep old change-id when do git commit</h2>
+        </a>
+		
+        <div class="post-meta">
+          <ul class="post-categories post-categories-padding"><a href="/category#Git">Git</a></ul>
+          <div class="post-date-right-align">
+            <i class="icon-calendar"></i>
+            Jul 22, 2022
+		  </div>
+		</div>
+		
+        <div class="post"><p>When I use <code class="language-plaintext highlighter-rouge">git commit --amend</code> command, it will generate a new change-id. But I want to use the previous change-id and don’t want to generate a new one. How should I keep the old change-id and keep only one change-id?</p>
+</div>
+
+
+
+<footer>
+    <div class="readingtime-meta">
+	    <div class = "readingtime-box">
+			
+			<span class="icon-clock readingtime">3 mins read</span>
+			<span class="icon-book-1 readingtime" > 1046 words</span>
+			
+		</div>
+		<div>
+			<a class="readingtime-categories" href="/git/2022/07/22/git-change-id.html">
+				
+				<span class="icon-angle-double-right">Continue reading&nbsp;</span>
+				
+			</a>
+		</div>
+	</div>
+</footer> </li><li class="post-wrapper"><a class="post-link" href="/git/2022/07/01/Git-hooks.html">
+          <h2 class="post-title">Git hook 配置与使用</h2>
+        </a>
+		
+        <div class="post-meta">
+          <ul class="post-categories post-categories-padding"><a href="/category#Git">Git</a></ul>
+          <div class="post-date-right-align">
+            <i class="icon-calendar"></i>
+            Jul 1, 2022
+		  </div>
+		</div>
+		
+        <div class="post"><p>Hook 就是在执行某个事件之前或之后进行一些其他额外的操作。在 Git 中也有许多的事件（commit、push 等等），每个事件也是对应了有不同的钩子的（如 commit 前，commit 后），那么我们就可以在这些钩子这里配置一些自己需要执行的操作来实现各种各样的需求。</p>
+</div>
+
+
+
+<footer>
+    <div class="readingtime-meta">
+	    <div class = "readingtime-box">
+			
+			<span class="icon-hourglass readingtime">阅读时间：3 mins</span>
+			<span class="icon-book readingtime">字数：939</span>
+			
+		</div>
+		<div>
+			<a class="readingtime-categories" href="/git/2022/07/01/Git-hooks.html">
+				
+				<span class="icon-angle-double-right">阅读全文&nbsp;</span>
+				
+			</a>
+		</div>
+	</div>
+</footer> </li><li class="post-wrapper"><a class="post-link" href="/windows/2022/06/18/Windows-message-handler.html">
+          <h2 class="post-title">Windows 消息处理机制</h2>
+        </a>
+		
+        <div class="post-meta">
+          <ul class="post-categories post-categories-padding"><a href="/category#Windows">Windows</a></ul>
+          <div class="post-date-right-align">
+            <i class="icon-calendar"></i>
+            Jun 18, 2022
+		  </div>
+		</div>
+		
+        <div class="post"><p>Windows32 程序是由消息事件驱动的。一个消息，是系统定义的一个 32 位的值，它唯一的定义了一个事件，向 Windows 发出一个通知，告诉应用程序某个事情发生了。</p>
+</div>
+
+
+
+<footer>
+    <div class="readingtime-meta">
+	    <div class = "readingtime-box">
+			
+			<span class="icon-hourglass readingtime">阅读时间：5 mins</span>
+			<span class="icon-book readingtime">字数：1954</span>
+			
+		</div>
+		<div>
+			<a class="readingtime-categories" href="/windows/2022/06/18/Windows-message-handler.html">
+				
+				<span class="icon-angle-double-right">阅读全文&nbsp;</span>
+				
+			</a>
+		</div>
+	</div>
+</footer> </li><li class="post-wrapper"><a class="post-link" href="/java/2022/04/22/Java-ThreadSynchronization.html">
+          <h2 class="post-title">浅谈 Java 线程同步技术</h2>
+        </a>
+		
+        <div class="post-meta">
+          <ul class="post-categories post-categories-padding"><a href="/category#Java">Java</a></ul>
+          <div class="post-date-right-align">
+            <i class="icon-calendar"></i>
+            Apr 22, 2022
+		  </div>
+		</div>
+		
+        <div class="post"><p>Java 里实现线程间的同步有多种方法，比如使用 <code class="language-plaintext highlighter-rouge">synchronized</code> 关键字，<code class="language-plaintext highlighter-rouge">wait</code> 和 <code class="language-plaintext highlighter-rouge">notify</code>，<code class="language-plaintext highlighter-rouge">volatile</code> 变量，重入锁，局部变量，阻塞队列或者原子类型变量等。</p>
+</div>
+
+
+
+<footer>
+    <div class="readingtime-meta">
+	    <div class = "readingtime-box">
+			
+			<span class="icon-hourglass readingtime">阅读时间：11 mins</span>
+			<span class="icon-book readingtime">字数：4213</span>
+			
+		</div>
+		<div>
+			<a class="readingtime-categories" href="/java/2022/04/22/Java-ThreadSynchronization.html">
+				
+				<span class="icon-angle-double-right">阅读全文&nbsp;</span>
+				
+			</a>
+		</div>
+	</div>
+</footer> </li><li class="post-wrapper"><a class="post-link" href="/git/2022/03/29/Github-git-command.html">
+          <h2 class="post-title">Git commands and usage tips</h2>
+        </a>
+		
+        <div class="post-meta">
+          <ul class="post-categories post-categories-padding"><a href="/category#Git">Git</a></ul>
+          <div class="post-date-right-align">
+            <i class="icon-calendar"></i>
+            Mar 29, 2022
+		  </div>
+		</div>
+		
+        <div class="post"><p><img src="\assets\image\github-git-command-01.jpg" alt="git-command-01" style="zoom:100%;" /></p>
+
+<p>Git is a powerful version control tool. I would even say it’s one of the best. However, being powerful sometimes means being complex in terms of functionality. Git has a lot of commands. The good thing is that you can do everything you want with them, the bad thing is that you need to remember them. Here, I’ll write down the commands that I’ll use often to keep better track of them and make them easier to search.😉</p>
+</div>
+
+
+
+<footer>
+    <div class="readingtime-meta">
+	    <div class = "readingtime-box">
+			
+			<span class="icon-hourglass readingtime">阅读时间：16 mins</span>
+			<span class="icon-book readingtime">字数：6028</span>
+			
+		</div>
+		<div>
+			<a class="readingtime-categories" href="/git/2022/03/29/Github-git-command.html">
+				
+				<span class="icon-angle-double-right">阅读全文&nbsp;</span>
+				
+			</a>
+		</div>
+	</div>
+</footer> </li><li class="post-wrapper"><a class="post-link" href="/others/2022/02/15/Others-online-tools.html">
+          <h2 class="post-title">生产力工具</h2>
+        </a>
+		
+        <div class="post-meta">
+          <ul class="post-categories post-categories-padding"><a href="/category#Others">Others</a></ul>
+          <div class="post-date-right-align">
+            <i class="icon-calendar"></i>
+            Feb 15, 2022
+		  </div>
+		</div>
+		
+        <div class="post"><p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/others-online-tools-01.jpg" alt="others-online-tools-01" class="center-image" />
+“工欲善其事，必先利其器”，使用一款好的工具，能帮助我们工作中事半功倍，提升效率。这篇文章记录了我日常使用的一些我认为相当不错的工具和软件。</p>
+</div>
+
+
+
+<footer>
+    <div class="readingtime-meta">
+	    <div class = "readingtime-box">
+			
+			<span class="icon-hourglass readingtime">阅读时间：17 mins</span>
+			<span class="icon-book readingtime">字数：6490</span>
+			
+		</div>
+		<div>
+			<a class="readingtime-categories" href="/others/2022/02/15/Others-online-tools.html">
+				
+				<span class="icon-angle-double-right">阅读全文&nbsp;</span>
+				
+			</a>
+		</div>
+	</div>
+</footer> </li><li class="post-wrapper"><a class="post-link" href="/others/2022/02/11/Others-typora.html">
+          <h2 class="post-title">从 MarkdownPad2 到 Typora - 使用 Typora 的直观感受</h2>
+        </a>
+		
+        <div class="post-meta">
+          <ul class="post-categories post-categories-padding"><a href="/category#Others">Others</a></ul>
+          <div class="post-date-right-align">
+            <i class="icon-calendar"></i>
+            Feb 11, 2022
+		  </div>
+		</div>
+		
+        <div class="post"><p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev\assets\image\others-typora-01.jpeg" alt="others-typora-01" style="zoom:100%;" /></p>
+
+<p>一直以来我都是用 MarkdownPad2 撰写自己的博客文章，也没有觉得哪里不好。关注到 typora 这个软件是因为最近网上讨论的比较热烈的这个软件要收费的消息，于是上网 Google 了一下这个软件才发现很多人对这个软件的评价很高，这就引起了我的兴趣，于是我决定下载这个软件亲自试用一下。😉</p>
+</div>
+
+
+
+<footer>
+    <div class="readingtime-meta">
+	    <div class = "readingtime-box">
+			
+			<span class="icon-hourglass readingtime">阅读时间：5 mins</span>
+			<span class="icon-book readingtime">字数：1739</span>
+			
+		</div>
+		<div>
+			<a class="readingtime-categories" href="/others/2022/02/11/Others-typora.html">
+				
+				<span class="icon-angle-double-right">阅读全文&nbsp;</span>
+				
+			</a>
+		</div>
+	</div>
+</footer> </li></div>
+  <!-- <p class="feed-subscribe"><svg class="svg-icon orange">
+		<use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+	</svg><a href="/feed.xml">Subscribe</a></p> --><div class="post-container">
   <!-- put paginator here -->
-  {% include pagination.html %}
+  <!-- Pagination links -->
+
+<div class="pagination">
+  
+  <!--do not add button here -->
+  
+
+  
+    
+      <span class="pagination-box pagination-box-hit">1</span>
+    
+
+    
+      <a class="pagination-box pagination-box-idle" href="/blog/page2/">2</a>
+    
+
+    
+      <a class="pagination-box pagination-box-idle" href="/blog/page3/">3</a>
+    
+
+    
+      <a class="pagination-box pagination-box-idle" href="/blog/page4/">4</a>
+    
+
+    
+      <a class="pagination-box pagination-box-idle" href="/blog/page5/">5</a>
+    
+
+    
+      <a class="pagination-box pagination-box-idle" href="/blog/page6/">6</a>
+    
+
+    
+      <a class="pagination-box pagination-box-idle" href="/blog/page7/">7</a>
+    
+
+    
+      <a class="pagination-box pagination-box-idle" href="/blog/page8/">8</a>
+    
+
+  
+  
+    <a class="pagination-box pagination-box-idle" href="/blog/page2/"> &raquo;</a>
+  
+</div>
+
   <!-- put footer here -->
   <div class ="footer" style="margin-top:30px">
-    Copyright © {{ site.time | date: "%Y" }} {{ site.title }}  |  <a href = "https://github.com/gangdong/gangdong.github.io"> Github Project </a> powered by Jekyll
-   {%- if site.rawposts.show_statistics -%}
-   <div>
+    Copyright © 2024 David Dong's Blog  |  <a href = "https://github.com/gangdong/gangdong.github.io"> Github Project </a> powered by Jekyll<div>
      <span class="icon-user"> <span class="web-statistics" id="busuanzi_value_site_uv"></span> </span>
-   </div>
-   {%- endif -%}
-  </div>
+   </div></div>
 </div>
-{% if site.rawposts.search %}
-	<script async src="{{site.cdn_baseurl}}/assets/js/simple-jekyll-search.min.js"></script>
-	<script async src="{{site.cdn_baseurl}}/assets/js/search.js"></script>
-{% endif %}
+
+	<script async src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/simple-jekyll-search.min.js"></script>
+	<script async src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/search.js"></script>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=G-3MXGF3F8QN"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-3MXGF3F8QN');
+	</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></body>
+</html>
