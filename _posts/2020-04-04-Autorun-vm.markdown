@@ -11,7 +11,7 @@ sidebar: true
 language: english
 about: true
 author: david.dong
-description: Sharing a method of running virtual machine automatically when windwos boots on.
+description: Sharing a method of running virtual machine automatically when Windows boots on.
 keywords: Rust
 
 ---
