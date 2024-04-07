@@ -445,6 +445,18 @@
     } ,
   
     {
+      "title"    : "Run virtual machine automatically at windows10 startup",
+      "title-lower"    : "run virtual machine automatically at windows10 startup",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Linux",
+      "tags"     : "ubuntu",
+      "url"      : "/linux/2020/04/04/Autorun-vm.html",
+      "date"     : "2020-04-04 10:45:40 +0800",
+      "content"     : "I prefer working under Ubuntu because it is a programmer-friendly operating system and helps me develop more efficiently. However, there are times when I need to use Windows because it has more sof..."
+    } ,
+  
+    {
       "title"    : "Use Travis CI to build and deploy project automatically on Github",
       "title-lower"    : "use travis ci to build and deploy project automatically on github",
       "sub-titile" : "",

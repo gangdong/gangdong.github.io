@@ -6,8 +6,8 @@
     <atom:link href="https://dqdongg.com/blog/index.html" rel="self" type="application/rss+xml" />
     <description>This is David Dong's blog. It's about program and design, life and sharing. Let's explore more together. | David，Software，Developer.Designer | 关于程序与设计 - 生活与分享 | 这里是董刚 的个人博客，让我们一起探索更多。</description>
     <language>en-us</language>
-    <pubDate>Sat, 16 Mar 2024 12:14:45 +0800</pubDate>
-    <lastBuildDate>Sat, 16 Mar 2024 12:14:45 +0800</lastBuildDate>
+    <pubDate>Sun, 07 Apr 2024 20:26:34 +0800</pubDate>
+    <lastBuildDate>Sun, 07 Apr 2024 20:26:34 +0800</lastBuildDate>
 
     
     <item>
@@ -7650,6 +7650,77 @@ It is not recommended to do so, at least do not try to modify any file externall
 &lt;p&gt;This website collected some interesting stories and photos of my travel experiences. I love to explore all kinds of landscapes and experience different custom around the world, which always make me feel the beauty of nature and bring endless power to me. I hope those posts in my album will bring the same feeling to you, I hope you like it.  🙂&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/others-album-screenshot.png&quot; alt=&quot;screenshot&quot; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Run virtual machine automatically at windows10 startup</title>
+      <link>https://dqdongg.com/linux/2020/04/04/Autorun-vm.html</link>
+      <pubDate>Sat, 04 Apr 2020 10:45:40 +0800</pubDate>
+      <author>David Dong</author>
+      <guid>https://dqdongg.com/linux/2020/04/04/Autorun-vm</guid>
+      <description>&lt;p&gt;I prefer working under Ubuntu because it is a programmer-friendly operating system and helps me develop more efficiently. However, there are times when I need to use Windows because it has more software options available. To address this, I used to install a virtual machine on my Windows 10 computer. But, there is a downside to this method. I had to manually start the virtual machine every time, which was a bit inconvenient. Therefore, I found a way to make the virtual machine start automatically when my Windows 10 boots up.&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;step-1&quot;&gt;Step 1&lt;/h3&gt;
+
+&lt;p&gt;I used VMware workstation,  to set up boot auto-start using VMware Workstation, we need to understand the command line tool called “vmrun” provided by the software. “vmrun” is a command line tool that starts a virtual machine by command.&lt;/p&gt;
+
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;vmrun&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AUTHENTICATION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FLAGS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;COMMAND&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PARAMETERS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;For example, starting a virtual machine with Workstation on a Windows host&lt;/p&gt;
+
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;vmrun&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ws&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;c:\my_VMs_folder\myVM.vmx&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;here the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-T ws&lt;/code&gt; means  use VMware Workstation&lt;/p&gt;
+
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hostType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ws&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fusion&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;||&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;player&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;so the firsty step is to add the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vmrun&lt;/code&gt; path in the the windows envrionments variable.&lt;/p&gt;
+
+&lt;p&gt;It is easy !&lt;/p&gt;
+
+&lt;h3 id=&quot;step-2&quot;&gt;Step 2&lt;/h3&gt;
+
+&lt;p&gt;Now I have added the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vmrun&lt;/code&gt; into the Windows environments since I have verified by inputting &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vmrun&lt;/code&gt; command in the CMD and received the output of the command.&lt;/p&gt;
+
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nl&quot;&gt;C:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Users&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vmrun&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;vmrun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;version&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;17&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;18811642&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Usage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vmrun&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AUTHENTICATION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FLAGS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;COMMAND&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PARAMETERS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Next, I will need to write a batch script to start my Ubuntu by the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vmrun&lt;/code&gt; command. The script is simple just as below.&lt;/p&gt;
+
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;off&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;vmrun&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ws&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;D:\Virtual_Machine\VM_Ubuntu20.04\UbuntuVM20.04.vmx&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I saved the script as  vm-autorun.bat.&lt;/p&gt;
+
+&lt;h3 id=&quot;step-3&quot;&gt;Step 3&lt;/h3&gt;
+
+&lt;p&gt;I need to make the script auto-run when Windows 10 starts. In Windows, adding an autorun task is not a complicated work. Just put the script into the Windows startup directory. So I pressed &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;win+r&lt;/code&gt; and input &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;shell:startup&lt;/code&gt;. This operation helped me to navigate to the Windows startup directory, after that I copied the vm-autorun.bat to this directory.
+I rebooted the windows10 and after waiting some seconds, the virtual machine started to run and my Ubuntu was booting! It was working!&lt;/p&gt;
+
+&lt;h3 id=&quot;step-4&quot;&gt;Step 4&lt;/h3&gt;
+
+&lt;p&gt;But there was a small problem which made the solution not perfect. That was during the startup there was a command prompt window (CMD) displayed and it was a little annoying. So I need a bitter more optimized.
+I used a small tweak to hide the command prompt window, making it invisible.
+I used the VBScript to execute the batch file. This approach allows me to hide the command prompt window.
+I replaced the vm-autorun.bat file with the vm-autorun.vbs and wrote the below command into the vbs file.&lt;/p&gt;
+
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Set&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ws&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CreateObject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Wscript.Shell&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ws&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;cmd /c D:\Virtual_Machine&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\v&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;m-autorun.bat&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vbhide&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In the command, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;D:\Virtual_Machine\vm-autorun.bat&lt;/code&gt; was my bat file path and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vbhide&lt;/code&gt; meant &lt;strong&gt;hide&lt;/strong&gt; mode -  do not show command prompt window.&lt;/p&gt;
+
+&lt;p&gt;Save the file and reboot.&lt;/p&gt;
+
+&lt;p&gt;It was perfect this time, executed just as I expected.&lt;/p&gt;
 </description>
     </item>
     
