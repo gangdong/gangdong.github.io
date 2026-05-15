@@ -35,16 +35,16 @@ But there is no free lunch. Every framework makes trade-offs. Let me walk throug
 
 Before diving into details, here is a bird's-eye view of the frameworks covered in this article:
 
-| Framework | Language | Primary Platforms | Rendering Approach | Bundle Size | First Release |
-|-----------|----------|-------------------|-------------------|-------------|---------------|
-| **Flutter** | Dart | iOS, Android, Web, Desktop | Self-painting (Skia/Impeller) | 15-50 MB | 2017 |
-| **React Native** | JS/TS | iOS, Android, Web | Native control bridge | 10-30 MB | 2015 |
-| **KMP** | Kotlin | iOS, Android, Desktop, Web | Shared logic + native UI | ~2 MB (logic) | 2017 |
-| **Tauri** | Rust + JS/TS | Win, Mac, Linux | System WebView | 3-10 MB | 2022 |
-| **Electron** | JS/HTML/CSS | Win, Mac, Linux | Built-in Chromium | 100-300 MB | 2013 |
-| **Qt** | C++/Python | Win, Mac, Linux, Embedded | System native + GPU (QML) | 20-70 MB | 1995 |
-| **.NET MAUI** | C# | iOS, Android, Win, Mac | Native control rendering | 20-40 MB | 2022 |
-| **Unity** | C# | Mobile, Desktop, Console, WebGL | Self-painting 3D engine | 20-200 MB | 2005 |
+| Framework | Language | Platforms | Rendering | Size | Since |
+|-----------|----------|-----------|-----------|------|-------|
+| **Flutter** | Dart | iOS/And/Web/Desktop | Self-paint (Skia) | 15-50 MB | 2017 |
+| **React Native** | JS/TS | iOS/And/Web | Native bridge | 10-30 MB | 2015 |
+| **KMP** | Kotlin | iOS/And/Desktop/Web | Shared logic | ~2 MB | 2017 |
+| **Tauri** | Rust+JS/TS | Win/Mac/Linux | System WebView | 3-10 MB | 2022 |
+| **Electron** | JS/HTML/CSS | Win/Mac/Linux | Bundled Chromium | 100-300 MB | 2013 |
+| **Qt** | C++/Python | Win/Mac/Linux/Embed | System native+GPU | 20-70 MB | 1995 |
+| **.NET MAUI** | C# | iOS/And/Win/Mac | Native controls | 20-40 MB | 2022 |
+| **Unity** | C# | Mobile/Desktop/Console | Self-paint 3D | 20-200 MB | 2005 |
 
 ---
 
