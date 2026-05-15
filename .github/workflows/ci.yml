@@ -23,6 +23,14 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        bundler-cache: true
+
+    - name: Build site
+      run: bundle exec jekyll build
+
     - name: Deploy
       run: |
         git config user.name "gangdong"
@@ -32,9 +40,9 @@ jobs:
         cp -r ./_site  /tmp/
         cp ./_site/blog/index.html /tmp/_site/
         git checkout -b deploy
-        sudo rm -rf *
+        rm -rf *
         cp -r /tmp/_site/* ./
         ls -la
         git add -A
-        git commit -m "github_ci update gh-pages dev -> 2f3f1699 add github action for build and deploy"
+        git commit -m "github_ci update gh-pages"
         git push --force "https://${{ secrets.DEPLOY_TOKEN }}@github.com/gangdong/gangdong.github.io.git" deploy:gh-pages
