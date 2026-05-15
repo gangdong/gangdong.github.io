@@ -1,4 +1,4 @@
-@import 'ext/solarized-light';
+@use 'ext/solarized-light' as *;
 
 .highlight {
 	background-color: #f4f4f4;

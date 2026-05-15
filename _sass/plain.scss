@@ -1,6 +1,6 @@
-@import "ext/fonts";
-@import "ext/normalize";
-@import "syntax";
+@use "ext/fonts" as *;
+@use "ext/normalize" as *;
+@use "syntax" as *;
 
 $linkColor: #0366d6;
 $btnColor: #0366d6;

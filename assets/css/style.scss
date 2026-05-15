@@ -1,12 +1,12 @@
 ---
 ---
-@import "plain";
+@use "plain" as *;
 
 {% if site.rawposts.search %}
-  @import "search";
+  @use "search" as *;
 {% endif %}
 
 {%- if site.rawposts.dark_mode -%}
-  @import "toggle";
-  @import "dark";
+  @use "toggle" as *;
+  @use "dark" as *;
 {%- endif -%}

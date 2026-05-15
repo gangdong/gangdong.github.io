@@ -1,3 +1,4 @@
+@use 'sass:meta';
 .dark,
 .dark * {
 	$dark_text_color: #aaa;
@@ -31,8 +32,8 @@
 		border-bottom: 1px solid #f6f6f6;
 	}
 
-	@import 'ext/syntax.monokai.sublime';
-	.highlight, .highlight * 
+	@include meta.load-css('ext/syntax.monokai.sublime');
+	.highlight, .highlight *
 	{
 		background-color: #00080a;
 		color: #93a1a1;
