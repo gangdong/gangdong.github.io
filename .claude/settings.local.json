@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:blog.csdn.net)",
+      "WebFetch(domain:cloud.tencent.com)",
+      "Bash(git switch *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(gh run *)",
+      "Bash(git push *)"
+    ]
+  }
+}

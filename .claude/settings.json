@@ -1,12 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "git",
-      "gh",
-      "bundle"
+      "Git",
+      "Gh",
+      "Bundle"
     ],
     "allowConfig": [
-      "git"
+      "Git"
     ]
   }
 }
