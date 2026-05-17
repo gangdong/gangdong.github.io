@@ -3,6 +3,9 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="keywords"  content="{{ site.keywords }}">
 {% seo %}
+{%- if site.rawposts.rss -%}
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title }} - RSS" href="{{ '/rss.xml' | relative_url }}">
+{%- endif -%}
 {% case page.layout %}
 {% when 'post' %}
 {% for tag in page.tags %}
@@ -24,3 +27,10 @@
 {% endif %}
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
 
+<script defer>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js');
+  });
+}
+</script>
