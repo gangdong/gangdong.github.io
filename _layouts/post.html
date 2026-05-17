@@ -123,13 +123,6 @@ layout: default
       <a class="share-link" href="https://www.linkedin.com/sharing/share-offsite/?url={{ site.url }}{{ page.url | url_encode }}" target="_blank" rel="noopener">LinkedIn</a>
       <a class="share-link" href="mailto:?subject={{ page.title | url_encode }}&body={{ site.url }}{{ page.url | url_encode }}" target="_blank" rel="noopener">Email</a>
     </div>
-    <!-- Put post veiw statistic here! -->
-    <div class = "post-view">
-      <span class = "icon-eye tooltip">
-        <p class = "tooltiptext" style = "left:0%; margin-left: 0px">{% if page.language == 'chinese' %}阅读量{% else %}Viewers{% endif %}</p>
-        <span id="busuanzi_value_page_pv"></span>
-      </span>
-    </div>
   </div>
   {% endif %}
   <!-- Related posts start here! -->

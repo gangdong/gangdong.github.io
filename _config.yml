@@ -44,7 +44,7 @@ rawposts:
   related_posts: true #  set to true to enable related posts
   gittalk: true  # set to true to add gittalk 
   navigation: true    # set to to add page navigation bar
-  show_statistics: true  #set to true to show statistics of site visitors number
+  # show_statistics: true  #busuanzi removed
   rss: true  #set to true to add rss 
   source_code: true  #set to true to add link to source code
   analytics_id: G-3MXGF3F8QN  #use Google analytics
