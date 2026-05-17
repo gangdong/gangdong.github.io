@@ -1203,6 +1203,19 @@ table {
 	padding: 10px;
 	font-size: 14px;
 }
+.share-link {
+	margin-left: 8px;
+	padding: 3px 10px;
+	border-radius: 4px;
+	background: #f0f0f0;
+	color: #555;
+	text-decoration: none;
+	font-size: 13px;
+	&:hover {
+		background: #0366d6;
+		color: #fff;
+	}
+}
 .related-posts-box {
 	margin-bottom: 40px;
 	border: 1px solid #ececec;

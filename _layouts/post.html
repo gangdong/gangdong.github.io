@@ -117,20 +117,19 @@ layout: default
   {% endif %}
   {% if site.rawposts.share_media %}
   <div class = "share-box-meta">
-  <!-- Go to www.addthis.com/dashboard to customize your tools -->
-	{% if page.language == 'chinese' %}
-	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">分享:</span></div>
-	{% else %}
-	<div class="addthis_inline_share_toolbox share-box"><span style ="padding: 2px">Share:</span></div>
-	{% endif %}
-	<!-- Put post veiw statistic here! -->
-	<div class = "post-view">
-	{% if page.language == 'chinese' %}
-		<span class = "icon-eye tooltip"><p class = "tooltiptext" style = "left:0%; margin-left: 0px">阅读量</p><span id="busuanzi_value_page_pv"></span></span>
-		{% else %}
-		<span class = "icon-eye tooltip"><p class = "tooltiptext" style = "left:0%; margin-left: 0px">Viewers</p><span id="busuanzi_value_page_pv"></span></span>
-		{% endif %}
-	</div>
+    <div class="share-box">
+      <span style ="padding: 2px">{% if page.language == 'chinese' %}分享:{% else %}Share:{% endif %}</span>
+      <a class="share-link" href="https://twitter.com/intent/tweet?text={{ page.title | url_encode }}&url={{ site.url }}{{ page.url | url_encode }}" target="_blank" rel="noopener">Twitter</a>
+      <a class="share-link" href="https://www.linkedin.com/sharing/share-offsite/?url={{ site.url }}{{ page.url | url_encode }}" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="share-link" href="mailto:?subject={{ page.title | url_encode }}&body={{ site.url }}{{ page.url | url_encode }}" target="_blank" rel="noopener">Email</a>
+    </div>
+    <!-- Put post veiw statistic here! -->
+    <div class = "post-view">
+      <span class = "icon-eye tooltip">
+        <p class = "tooltiptext" style = "left:0%; margin-left: 0px">{% if page.language == 'chinese' %}阅读量{% else %}Viewers{% endif %}</p>
+        <span id="busuanzi_value_page_pv"></span>
+      </span>
+    </div>
   </div>
   {% endif %}
   <!-- Related posts start here! -->
@@ -191,15 +190,13 @@ layout: default
   <br>
 </div>
 {% if site.rawposts.share_media %}
-<!-- Go to www.addthis.com/dashboard to customize your tools -->
-<script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-604f502a8198c9c9&domready=1"></script>
 {% endif %}
 {% if page.sidebar %}
 <!-- sidebar button, toggle display/hide sidebar -->
-<script type="text/javascript">
-        $('.btn').on('click',function(){
-            $('.btn').toggleClass('btnc');
-            $('.sidebar-container').toggleClass('sidebar-container-hide');
-        })
+<script>
+  document.querySelector('.btn')?.addEventListener('click', function() {
+    this.classList.toggle('btnc');
+    document.querySelector('.sidebar-container')?.classList.toggle('sidebar-container-hide');
+  });
 </script>
 {% endif %}
