@@ -4,6 +4,11 @@
   color: #fbf1c7;
   background-color: #282828;
 }
+.highlight {
+  border-radius: 8px;
+  position: relative;
+  border-left: 3px solid #83a598;
+}
 .highlight .err {
   color: #fb4934;
   background-color: #282828;
