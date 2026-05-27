@@ -997,7 +997,7 @@ code, tt {
   font-size: 14px;
   padding: 4px 4px;
   white-space: nowrap;
-  color: #c7254e;
+  color: #eeeeee;
   background-color: #f9f2f4;
   border-radius: 4px;
 }
@@ -1010,6 +1010,7 @@ pre>code {
   white-space: pre;
   border: none;
   background: transparent;
+  color: inherit;
 }
 
 pre {
