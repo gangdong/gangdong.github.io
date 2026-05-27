@@ -1,0 +1,2222 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://dqdongg.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://dqdongg.com/" rel="alternate" type="text/html" /><updated>2026-05-27T04:03:53+00:00</updated><id>https://dqdongg.com/feed.xml</id><title type="html">David Dong’s Blog</title><subtitle>This is David Dong&apos;s blog. It&apos;s about program and design, life and sharing. Let&apos;s explore more together. | David，Software，Developer.Designer | 关于程序与设计 - 生活与分享 | 这里是董刚 的个人博客，让我们一起探索更多。</subtitle><author><name>David Dong</name></author><entry><title type="html">CodeGraph vs Code-Review-Graph：两大代码图分析 MCP 工具深度对比</title><link href="https://dqdongg.com/ai/2026/05/27/CodeGraph-vs-Code-Review-Graph.html" rel="alternate" type="text/html" title="CodeGraph vs Code-Review-Graph：两大代码图分析 MCP 工具深度对比" /><published>2026-05-27T00:30:00+00:00</published><updated>2026-05-27T00:30:00+00:00</updated><id>https://dqdongg.com/ai/2026/05/27/CodeGraph-vs-Code-Review-Graph</id><content type="html" xml:base="https://dqdongg.com/ai/2026/05/27/CodeGraph-vs-Code-Review-Graph.html"><![CDATA[<blockquote>
+  <p>当 AI 编程助手遇到大型代码仓库时，”大海捞针”式的文件搜索和上下文拼接很快就会达到性能和成本瓶颈。<strong>代码图（Code Graph）</strong> 技术应运而生——它预先把代码仓库的调用关系、依赖结构、模块边界等信息建模为一个可查询的图结构，让 AI 能够”按图索骥”而不是”全文扫描”。</p>
+</blockquote>
+
+<p>当前最有代表性的两个解决方案是 <strong>CodeGraph</strong>（由 Colby McHenry 开发，Node.js 生态）和 <strong>Code-Review-Graph</strong>（由 Tirth Pandya 开发，Python 生态）。本文基于实际项目中的使用体验，从多个维度进行深度对比，并分享如何在 AI 编程工作流中组合使用它们。</p>
+
+<!--more-->
+
+<h2 id="一基本介绍">一、基本介绍</h2>
+
+<h3 id="codegraph">CodeGraph</h3>
+
+<ul>
+  <li><strong>开发者</strong>：Colby McHenry</li>
+  <li><strong>语言与运行环境</strong>：TypeScript / Node.js（自带 Node.js 运行时，无需预装 Node）</li>
+  <li><strong>许可证</strong>：MIT 开源</li>
+  <li><strong>核心定位</strong>：面向日常编码的轻量语义图工具，强调<strong>快速符号定位、调用链追踪和影响分析</strong>。</li>
+  <li><strong>支持的 AI 平台</strong>：Claude Code、Cursor、Codex CLI、OpenCode、Hermes Agent、Gemini CLI、Antigravity IDE、Kiro。</li>
+  <li><strong>GitHub</strong>：<a href="https://github.com/colbymchenry/codegraph">colbymchenry/codegraph</a></li>
+</ul>
+
+<h3 id="code-review-graph">Code-Review-Graph</h3>
+
+<ul>
+  <li><strong>开发者</strong>：Tirth Pandya</li>
+  <li><strong>语言与运行环境</strong>：Python（通过 pip 安装，独立 CLI）</li>
+  <li><strong>许可证</strong>：MIT 开源</li>
+  <li><strong>核心定位</strong>：面向 <strong>Code Review 场景</strong>的重型图分析工具，强调<strong>影响半径分析、社区检测、执行流追踪和 Token 成本节省量化</strong>。</li>
+  <li><strong>支持的 AI 平台</strong>：Claude Code、Cline、Windsurf、Copilot、Genkit 等，通过 MCP 协议接入。</li>
+  <li><strong>GitHub</strong>：<a href="https://github.com/tirth8205/code-review-graph">tirth8205/code-review-graph</a></li>
+</ul>
+
+<h2 id="二安装方法">二、安装方法</h2>
+
+<h3 id="codegraph-安装">CodeGraph 安装</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 一条命令完成：安装 + 自动配置所有已检测到的 AI 平台</span>
+npx @colbymchenry/codegraph
+
+<span class="c"># 如果只想安装到 PATH（不自动配置 Agent）</span>
+npm <span class="nb">install</span> <span class="nt">-g</span> @colbymchenry/codegraph
+</code></pre></div></div>
+
+<p>安装时会自动检测已安装的 AI 助手（Claude Code、Cursor 等），询问配置范围（全局 or 当前项目），并写入对应的 MCP 配置文件和指令参考文件。</p>
+
+<h3 id="code-review-graph-安装">Code-Review-Graph 安装</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 通过 pip 安装</span>
+pip <span class="nb">install </span>code-review-graph
+
+<span class="c"># 初始化项目</span>
+code-review-graph <span class="nb">install</span>
+
+<span class="c"># 构建图索引</span>
+code-review-graph build
+
+<span class="c"># 启动监听模式（自动更新图）</span>
+code-review-graph watch
+</code></pre></div></div>
+
+<p>安装后需要手动配置 MCP 服务器（<code class="language-plaintext highlighter-rouge">mcp.json</code> 或 <code class="language-plaintext highlighter-rouge">claude_desktop_config.json</code>），然后在项目中先 <code class="language-plaintext highlighter-rouge">build</code> 再 <code class="language-plaintext highlighter-rouge">watch</code> 维护图索引。</p>
+
+<h2 id="三技术架构差异">三、技术架构差异</h2>
+
+<p>两个工具虽然都基于”代码图”概念，但技术实现和侧重点有本质区别。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>维度</th>
+      <th style="text-align: center">CodeGraph</th>
+      <th style="text-align: center">Code-Review-Graph</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>后端语言</strong></td>
+      <td style="text-align: center">TypeScript (Node.js)</td>
+      <td style="text-align: center">Python</td>
+    </tr>
+    <tr>
+      <td><strong>图存储</strong></td>
+      <td style="text-align: center">SQLite（嵌入式）</td>
+      <td style="text-align: center">SQLite（嵌入式）</td>
+    </tr>
+    <tr>
+      <td><strong>安装方式</strong></td>
+      <td style="text-align: center">npm / npx</td>
+      <td style="text-align: center">pip</td>
+    </tr>
+    <tr>
+      <td><strong>运行时依赖</strong></td>
+      <td style="text-align: center">自带 Node 运行时，无需预装</td>
+      <td style="text-align: center">需要 Python 3.8+</td>
+    </tr>
+    <tr>
+      <td><strong>自动配置 Agent</strong></td>
+      <td style="text-align: center">✅ 一键自动配置</td>
+      <td style="text-align: center">❌ 手动配置 MCP</td>
+    </tr>
+    <tr>
+      <td><strong>增量更新</strong></td>
+      <td style="text-align: center">✅ 文件监听秒级更新</td>
+      <td style="text-align: center">✅ watch / update 命令</td>
+    </tr>
+    <tr>
+      <td><strong>多仓库支持</strong></td>
+      <td style="text-align: center">❌ 单项目</td>
+      <td style="text-align: center">✅ 多仓库注册中心 + Daemon</td>
+    </tr>
+    <tr>
+      <td><strong>可视化导出</strong></td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">✅ HTML / SVG / Obsidian / Neo4j / GraphML</td>
+    </tr>
+    <tr>
+      <td><strong>Token 节省统计</strong></td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">✅ 量化面板，显示节省比例</td>
+    </tr>
+    <tr>
+      <td><strong>社区/模块检测</strong></td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">✅ Leiden 算法聚类</td>
+    </tr>
+    <tr>
+      <td><strong>执行流识别</strong></td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">✅ 自动检测流程链</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="四核心收益对比--token-节省与-benchmark-数据">四、核心收益对比 — Token 节省与 Benchmark 数据</h2>
+
+<p>两个工具最显著的共同价值是<strong>大幅减少 AI 编程的 Token 消耗</strong>。传统方式下，AI 助手需要执行大量 grep/glob/Read 操作来理解代码——每次探索都产生大量输入 Token。代码图工具提前索引了代码关系，AI 只需查询图即可获知信息，无需反复读取文件。</p>
+
+<h3 id="41-没有代码图时发生了什么">4.1 没有代码图时发生了什么？</h3>
+
+<p>当 AI 助手（如 Claude Code）需要理解一个代码库时，它会：</p>
+<ol>
+  <li>用 <code class="language-plaintext highlighter-rouge">Grep</code> 搜索符号定义</li>
+  <li>用 <code class="language-plaintext highlighter-rouge">Glob</code> 查找相关文件</li>
+  <li>用 <code class="language-plaintext highlighter-rouge">Read</code> 读取多个文件的完整内容</li>
+  <li>用 <code class="language-plaintext highlighter-rouge">Bash(find/grep)</code> 在文件系统中搜索</li>
+</ol>
+
+<p><strong>每个步骤都消耗大量 Token</strong>，且随着代码库增大呈指数增长。</p>
+
+<h3 id="42-codegraph-benchmark">4.2 CodeGraph Benchmark</h3>
+
+<p>CodeGraph 在 <strong>7 个真实世界开源项目</strong>（涵盖 7 种编程语言）上进行了严格的基准测试。测试方式：让 Claude Code（headless 模式）回答同一个架构问题，分别对比<strong>使用 CodeGraph</strong> 和<strong>不使用 CodeGraph</strong> 的表现。每个测试取 4 次运行的中位数，在 v0.9.4 版本上验证。</p>
+
+<blockquote>
+  <p><strong>平均：节省 35% 费用 · 减少 57% Token · 提速 46% · 减少 71% 工具调用</strong></p>
+</blockquote>
+
+<table>
+  <thead>
+    <tr>
+      <th>项目</th>
+      <th>语言/规模</th>
+      <th style="text-align: center">费用节省</th>
+      <th style="text-align: center">Token 减少</th>
+      <th style="text-align: center">速度提升</th>
+      <th style="text-align: center">工具调用减少</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>VS Code</strong></td>
+      <td>TypeScript · ~1 万文件</td>
+      <td style="text-align: center">26%</td>
+      <td style="text-align: center"><strong>78%</strong></td>
+      <td style="text-align: center">52%</td>
+      <td style="text-align: center"><strong>85%</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Excalidraw</strong></td>
+      <td>TypeScript · ~640 文件</td>
+      <td style="text-align: center"><strong>52%</strong></td>
+      <td style="text-align: center"><strong>90%</strong></td>
+      <td style="text-align: center"><strong>73%</strong></td>
+      <td style="text-align: center"><strong>96%</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Django</strong></td>
+      <td>Python · ~3000 文件</td>
+      <td style="text-align: center">12%</td>
+      <td style="text-align: center">36%</td>
+      <td style="text-align: center">19%</td>
+      <td style="text-align: center">53%</td>
+    </tr>
+    <tr>
+      <td><strong>Tokio</strong></td>
+      <td>Rust · ~790 文件</td>
+      <td style="text-align: center"><strong>82%</strong></td>
+      <td style="text-align: center"><strong>86%</strong></td>
+      <td style="text-align: center">71%</td>
+      <td style="text-align: center"><strong>92%</strong></td>
+    </tr>
+    <tr>
+      <td><strong>OkHttp</strong></td>
+      <td>Java · ~645 文件</td>
+      <td style="text-align: center">2%</td>
+      <td style="text-align: center">13%</td>
+      <td style="text-align: center">31%</td>
+      <td style="text-align: center">45%</td>
+    </tr>
+    <tr>
+      <td><strong>Gin</strong></td>
+      <td>Go · ~110 文件</td>
+      <td style="text-align: center">21%</td>
+      <td style="text-align: center">34%</td>
+      <td style="text-align: center">27%</td>
+      <td style="text-align: center">40%</td>
+    </tr>
+    <tr>
+      <td><strong>Alamofire</strong></td>
+      <td>Swift · ~110 文件</td>
+      <td style="text-align: center">47%</td>
+      <td style="text-align: center">64%</td>
+      <td style="text-align: center">48%</td>
+      <td style="text-align: center"><strong>83%</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>关键发现</strong>：</p>
+<ul>
+  <li>收益随代码库规模放大：VS Code（~1 万文件）Token 减少 78%；Excalidraw（~640 文件）甚至达到 <strong>90% Token 减少</strong>、<strong>96% 工具调用减少</strong>——因为 AI 直接从索引回答问题，零文件读取。</li>
+  <li>小项目（Gin 仅 ~110 文件）收益相对较小，因为传统搜索本身成本已很低。</li>
+  <li><strong>Tokio</strong>（Rust 项目）费用节省最高达 <strong>82%</strong>，说明图索引对强类型语言的分析优势显著。</li>
+</ul>
+
+<h3 id="43-code-review-graph-benchmark">4.3 Code-Review-Graph Benchmark</h3>
+
+<p>Code-Review-Graph 在其自动化评估套件（<code class="language-plaintext highlighter-rouge">code-review-graph eval --all</code>）中对 FastAPI、HTTPX、Express 等仓库进行了测试，结果如下：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>指标</th>
+      <th style="text-align: center">传统方式</th>
+      <th style="text-align: center">使用图索引</th>
+      <th style="text-align: center">提升幅度</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Token 用量（平均）</strong></td>
+      <td style="text-align: center">全文件转储</td>
+      <td style="text-align: center">结构化图上下文</td>
+      <td style="text-align: center"><strong>6.8x ~ 8.2x 减少</strong></td>
+    </tr>
+    <tr>
+      <td><strong>大型代码库场景</strong></td>
+      <td style="text-align: center">线性增长</td>
+      <td style="text-align: center">O(Impact Radius)</td>
+      <td style="text-align: center"><strong>最高 49x 减少</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Monorepo 扩展</strong></td>
+      <td style="text-align: center">线性增长</td>
+      <td style="text-align: center">影响半径限制</td>
+      <td style="text-align: center"><strong>最高 528x 减少</strong></td>
+    </tr>
+    <tr>
+      <td><strong>更新速度</strong></td>
+      <td style="text-align: center">全量重新扫描</td>
+      <td style="text-align: center">哈希增量检测</td>
+      <td style="text-align: center"><strong>&lt; 2 秒</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p><strong>平均 Token 减少 6.8 倍，大型代码库场景最高可达 49 倍。</strong></p>
+</blockquote>
+
+<p>不仅如此，<code class="language-plaintext highlighter-rouge">code-review-graph detect-changes --brief</code> 命令会直接输出一个 <strong>Token 节省面板</strong>，实时对比”全量传递”和”结构化图上下文”的 Token 消耗差异：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌─────────────────────── Token Savings ────────────────────────┐
+│ Full context would be:     12,921 tokens                     │
+│ Graph context is:             749 tokens                     │
+│ Saved:                   ~94.2% (12,172 tokens)              │
+│ Rate: $0.15/M in · $0.60/M out                              │
+│ Cost: ~$0.0026 → ~$0.0002 / review                          │
+└──────────────────────────────────────────────────────────────┘
+</code></pre></div></div>
+
+<p>上例来自一个中等规模的 PR review：传统方式需 12,921 tokens，使用图上下文仅需 <strong>749 tokens——节省了 94.2%</strong>。</p>
+
+<h3 id="44-收益对比总结">4.4 收益对比总结</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>收益维度</th>
+      <th style="text-align: center">CodeGraph</th>
+      <th style="text-align: center">Code-Review-Graph</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Token 节省（平均）</strong></td>
+      <td style="text-align: center"><strong>~57%</strong></td>
+      <td style="text-align: center"><strong>~85%~94%</strong> (6.8x~16x)</td>
+    </tr>
+    <tr>
+      <td><strong>费用节省（平均）</strong></td>
+      <td style="text-align: center"><strong>~35%</strong></td>
+      <td style="text-align: center">与 Token 节省成正比</td>
+    </tr>
+    <tr>
+      <td><strong>工具调用减少</strong></td>
+      <td style="text-align: center"><strong>~71%</strong></td>
+      <td style="text-align: center">受限于业务场景</td>
+    </tr>
+    <tr>
+      <td><strong>速度提升</strong></td>
+      <td style="text-align: center"><strong>~46%</strong></td>
+      <td style="text-align: center">核心场景（review）显著</td>
+    </tr>
+    <tr>
+      <td><strong>最佳省场景</strong></td>
+      <td style="text-align: center">日常编码/架构查询</td>
+      <td style="text-align: center">Code Review / 影响分析</td>
+    </tr>
+    <tr>
+      <td><strong>测试代码库</strong></td>
+      <td style="text-align: center">7 个开源项目（7 种语言）</td>
+      <td style="text-align: center">FastAPI、HTTPX、Express 等</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>为什么 Code-Review-Graph 的 Token 节省更显著？</strong> 因为它的定位更聚焦：Code Review 本身就是 Token 消耗大户（需要传递完整 diff + 相关上下文），且它的图查询返回的是高度结构化的摘要信息而非源码。而 CodeGraph 的日常编码查询也会返回源码片段供 AI 直接使用，Token 开销略高但交互更直接。</p>
+
+<h2 id="五工具能力深度对比">五、工具能力深度对比</h2>
+
+<p>这是实际使用中最核心的差异，我用一个对比表来呈现：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>能力维度</th>
+      <th style="text-align: center">CodeGraph</th>
+      <th style="text-align: center">Code-Review-Graph</th>
+      <th style="text-align: center">传统 Grep/Read</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>符号搜索（按名称定位）</strong></td>
+      <td style="text-align: center">✅ <code class="language-plaintext highlighter-rouge">codegraph_search</code> 快准</td>
+      <td style="text-align: center">✅ <code class="language-plaintext highlighter-rouge">semantic_search_nodes</code></td>
+      <td style="text-align: center">✅ 可做但慢</td>
+    </tr>
+    <tr>
+      <td><strong>调用链查询</strong></td>
+      <td style="text-align: center">✅ <code class="language-plaintext highlighter-rouge">callers</code>/<code class="language-plaintext highlighter-rouge">callees</code> 简洁，自动过滤 stdlib/log</td>
+      <td style="text-align: center">✅ <code class="language-plaintext highlighter-rouge">query_graph</code> 含完整边信息</td>
+      <td style="text-align: center">❌ 需手动追踪</td>
+    </tr>
+    <tr>
+      <td><strong>源码查看（含签名/参数）</strong></td>
+      <td style="text-align: center">✅ <code class="language-plaintext highlighter-rouge">codegraph_node</code> 带签名</td>
+      <td style="text-align: center">❌ 元信息不完整</td>
+      <td style="text-align: center">✅ 最准确</td>
+    </tr>
+    <tr>
+      <td><strong>影响半径分析</strong></td>
+      <td style="text-align: center">✅ <code class="language-plaintext highlighter-rouge">codegraph_impact</code></td>
+      <td style="text-align: center">✅ <code class="language-plaintext highlighter-rouge">get_impact_radius</code></td>
+      <td style="text-align: center">❌</td>
+    </tr>
+    <tr>
+      <td><strong>社区/模块边界检测</strong></td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">✅ <strong>独家</strong> <code class="language-plaintext highlighter-rouge">list_communities</code></td>
+      <td style="text-align: center">❌</td>
+    </tr>
+    <tr>
+      <td><strong>执行流分析</strong></td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">✅ <strong>独家</strong> <code class="language-plaintext highlighter-rouge">list_flows</code> / <code class="language-plaintext highlighter-rouge">get_flow</code></td>
+      <td style="text-align: center">❌</td>
+    </tr>
+    <tr>
+      <td><strong>Code Review 集成</strong></td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">✅ <strong>独家</strong> <code class="language-plaintext highlighter-rouge">detect_changes</code> / <code class="language-plaintext highlighter-rouge">get_review_context</code></td>
+      <td style="text-align: center">❌</td>
+    </tr>
+    <tr>
+      <td><strong>架构概览</strong></td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">✅ <code class="language-plaintext highlighter-rouge">get_architecture_overview</code></td>
+      <td style="text-align: center">❌</td>
+    </tr>
+    <tr>
+      <td><strong>重构规划</strong></td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">✅ <code class="language-plaintext highlighter-rouge">refactor_tool</code></td>
+      <td style="text-align: center">❌</td>
+    </tr>
+    <tr>
+      <td><strong>宏/函数指针追踪</strong></td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">✅ 唯一可靠</td>
+    </tr>
+    <tr>
+      <td><strong>条件编译追踪</strong></td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">✅ 唯一可靠</td>
+    </tr>
+    <tr>
+      <td><strong>实时准确性</strong></td>
+      <td style="text-align: center">秒级延迟</td>
+      <td style="text-align: center">需重构图</td>
+      <td style="text-align: center">✅ 实时</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="六在-ai-编程中的合理使用策略">六、在 AI 编程中的合理使用策略</h2>
+
+<h3 id="61-场景化选型">6.1 场景化选型</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>想解决的问题</th>
+      <th>首选工具</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>“这个函数定义在哪里？”</td>
+      <td><code class="language-plaintext highlighter-rouge">codegraph_search</code></td>
+    </tr>
+    <tr>
+      <td>“谁调用了这个函数？”</td>
+      <td><code class="language-plaintext highlighter-rouge">codegraph_callers</code>（简洁模式）</td>
+    </tr>
+    <tr>
+      <td>“这个函数调用了哪些函数？”</td>
+      <td><code class="language-plaintext highlighter-rouge">codegraph_callees</code></td>
+    </tr>
+    <tr>
+      <td>“改这个函数会影响到什么？”</td>
+      <td><code class="language-plaintext highlighter-rouge">codegraph_impact</code> 或 <code class="language-plaintext highlighter-rouge">get_impact_radius</code></td>
+    </tr>
+    <tr>
+      <td>“这个模块有哪些子模块？”</td>
+      <td><code class="language-plaintext highlighter-rouge">list_communities</code></td>
+    </tr>
+    <tr>
+      <td>“这段代码的执行流程是什么？”</td>
+      <td><code class="language-plaintext highlighter-rouge">list_flows</code> / <code class="language-plaintext highlighter-rouge">get_flow</code></td>
+    </tr>
+    <tr>
+      <td>“这次 PR 变更的影响范围？”</td>
+      <td><code class="language-plaintext highlighter-rouge">detect_changes</code>（含风险评分）</td>
+    </tr>
+    <tr>
+      <td>“宏展开或条件编译分支？”</td>
+      <td>直接 Read 源码</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="62-三步分析法推荐工作流">6.2 三步分析法（推荐工作流）</h3>
+
+<p>基于实际使用经验，我总结了一套”三步分析法”，将两个工具配合使用效果最佳：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Step 1 — 定位：codegraph_search / semantic_search_nodes
+  ↓
+Step 2 — 调用链：codegraph_callers/callees（简洁）或 query_graph（详细）
+  ↓
+Step 3 — 源码验证：codegraph_node（含源码）或 Read 源码
+</code></pre></div></div>
+
+<p><strong>配合原则</strong>：</p>
+<ul>
+  <li><strong>日常编码</strong>：以 <strong>CodeGraph</strong> 为主——它的查询轻量、响应快，<code class="language-plaintext highlighter-rouge">codegraph_node</code> 可以同时获取签名信息和源码，减少一次 Read 调用。</li>
+  <li><strong>Code Review / 重构</strong>：以 <strong>Code-Review-Graph</strong> 为主——它的 <code class="language-plaintext highlighter-rouge">detect_changes</code> 带风险评分面板，<code class="language-plaintext highlighter-rouge">get_impact_radius</code> 能准确计算波及范围，<code class="language-plaintext highlighter-rouge">list_communities</code> 帮你看清模块边界。</li>
+  <li><strong>复杂流程理解</strong>：优先使用 <strong>Code-Review-Graph</strong> 的 <code class="language-plaintext highlighter-rouge">list_flows</code> 和 <code class="language-plaintext highlighter-rouge">get_flow</code>，自动提取执行路径。</li>
+  <li><strong>宏/条件编译/刚改的代码</strong>：<strong>回退到传统 Grep/Read</strong>——图工具无法覆盖这些场景。</li>
+</ul>
+
+<h3 id="63-两个工具可以共存">6.3 两个工具可以共存</h3>
+
+<p>两者互不冲突，可以同时在 MCP 配置中注册。AI 助手会根据任务场景自动选择调用哪个工具。例如：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 当 AI 需要理解一个跨模块调用的影响时，可能依次调用：
+# 1️⃣ code-review-graph: get_architecture_overview  → 看清模块结构
+# 2️⃣ codegraph: codegraph_callers                    → 追踪调用链
+# 3️⃣ codegraph: codegraph_node                       → 查看关键函数源码
+# 4️⃣ code-review-graph: get_impact_radius             → 评估改动影响
+</code></pre></div></div>
+
+<h2 id="七使用时的注意事项">七、使用时的注意事项</h2>
+
+<ol>
+  <li><strong>图索引需要维护</strong>：新改的代码需要约 1 秒同步时间，刚改完的文件建议直接用 Read 而不是查询图。</li>
+  <li><strong>Node.js 项目更适配 CodeGraph</strong>：因为它是 TypeScript 原生构建，对 JavaScript/TypeScript 项目的分析准确度最高。</li>
+  <li><strong>Python/C++ 项目更适配 Code-Review-Graph</strong>：它的解析器对多语言支持更好，且社区检测功能对大型嵌入式项目（如 Android HAL 层、Linux 驱动）的模块划分非常有用。</li>
+  <li><strong>Token 节省是真实可量化的收益</strong>：CodeGraph 在 7 个开源项目上的平均 Token 节省为 <strong>57%</strong>（费用节省 <strong>35%</strong>），大型项目可达 <strong>78%~90%</strong>；Code-Review-Graph 在 Code Review 场景的平均 Token 节省为 <strong>6.8x~8.2x</strong>（约 85%~88%），大型代码库最高达 <strong>49x</strong>（约 98%）。这意味着每月 $100 的 AI API 费用可能降至 <strong>$35~$65</strong>。</li>
+</ol>
+
+<h2 id="八总结">八、总结</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>维度</th>
+      <th style="text-align: center">CodeGraph</th>
+      <th style="text-align: center">Code-Review-Graph</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>核心收益</strong></td>
+      <td style="text-align: center">日常编码效率提升</td>
+      <td style="text-align: center">Code Review Token 节省</td>
+    </tr>
+    <tr>
+      <td><strong>Token 节省平均</strong></td>
+      <td style="text-align: center"><strong>57%</strong></td>
+      <td style="text-align: center"><strong>6.8x~8.2x（85%~88%）</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Token 节省极值</strong></td>
+      <td style="text-align: center"><strong>90%</strong>（Excalidraw）</td>
+      <td style="text-align: center"><strong>49x（约 98%）</strong>（大型代码库）</td>
+    </tr>
+    <tr>
+      <td><strong>费用节省平均</strong></td>
+      <td style="text-align: center"><strong>~35%</strong></td>
+      <td style="text-align: center">与 Token 节省成正比</td>
+    </tr>
+    <tr>
+      <td><strong>优点</strong></td>
+      <td style="text-align: center">安装简单、查询轻快、符号定位精准、自动配置 Agent</td>
+      <td style="text-align: center">Code Review 场景专精、社区检测独家、Token 节省量化、可导出可视化</td>
+    </tr>
+    <tr>
+      <td><strong>缺点</strong></td>
+      <td style="text-align: center">功能相对单一、无社区/流检测、小项目杀手锏、大项目不够用</td>
+      <td style="text-align: center">安装配置较复杂、需要手动维护 MCP、Python 依赖较重</td>
+    </tr>
+    <tr>
+      <td><strong>适用项目</strong></td>
+      <td style="text-align: center">中小型项目、日常编码</td>
+      <td style="text-align: center">中大型项目、Code Review、重构、架构分析</td>
+    </tr>
+    <tr>
+      <td><strong>最佳搭档</strong></td>
+      <td style="text-align: center">Claude Code / Cursor + CodeGraph</td>
+      <td style="text-align: center">Claude Code / Cline + Code-Review-Graph</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>如果只能选一个，我会建议：<strong>日常开发用 CodeGraph，Code Review 和大型项目重构用 Code-Review-Graph。</strong> 两者组合使用效果最佳——但不是必须二选一，它们可以共存，互为补充。</p>
+
+<p><strong>延伸阅读</strong>：</p>
+<ul>
+  <li><a href="https://github.com/colbymchenry/codegraph">CodeGraph GitHub</a></li>
+  <li><a href="https://github.com/tirth8205/code-review-graph">Code-Review-Graph GitHub</a></li>
+  <li><a href="https://modelcontextprotocol.io/">MCP 协议规范</a></li>
+</ul>]]></content><author><name>david.dong</name></author><category term="AI" /><category term="AI编程" /><summary type="html"><![CDATA[CodeGraph 和 Code-Review-Graph 是两款基于代码图（Code Graph）的 MCP 工具，为 AI 编程助手提供语义级代码理解能力。本文从基本概念、安装方法、技术特点、适用场景等方面进行深度对比，并给出在 AI 编程中组合使用的实战策略。]]></summary></entry><entry><title type="html">Claude Code vs CodeBuddy：两大 AI 编程助手的权限系统设计深度对比</title><link href="https://dqdongg.com/ai/2026/05/26/Claude-Code-vs-CodeBuddy-Permission-System-Deep-Dive.html" rel="alternate" type="text/html" title="Claude Code vs CodeBuddy：两大 AI 编程助手的权限系统设计深度对比" /><published>2026-05-26T10:00:00+00:00</published><updated>2026-05-26T10:00:00+00:00</updated><id>https://dqdongg.com/ai/2026/05/26/Claude-Code-vs-CodeBuddy-Permission-System-Deep-Dive</id><content type="html" xml:base="https://dqdongg.com/ai/2026/05/26/Claude-Code-vs-CodeBuddy-Permission-System-Deep-Dive.html"><![CDATA[<p>随着 AI 编程助手从 IDE 插件走向终端命令行，权限系统设计成为了区分「玩具」和「生产工具」的关键分水岭。终端环境下的 AI 助手拥有文件读写、Shell 执行等高度敏感的能力，一个设计良好的权限系统需要在 <strong>效率</strong> 和 <strong>安全</strong> 之间找到平衡。</p>
+
+<p>本文基于对 Claude Code 和 CodeBuddy 的实际使用体验，从架构设计、规则体系、运行模式、安全边界四个维度进行对比。</p>
+
+<!--more-->
+
+<h2 id="一概览两种设计哲学">一、概览：两种设计哲学</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>维度</th>
+      <th>Claude Code</th>
+      <th>CodeBuddy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>权限规则</strong></td>
+      <td>deny / ask / allow 三层</td>
+      <td>allow / ask / deny 三层</td>
+    </tr>
+    <tr>
+      <td><strong>运行时模式</strong></td>
+      <td>5 种（含 auto）</td>
+      <td>5 种（含 delegate）</td>
+    </tr>
+    <tr>
+      <td><strong>模式切换</strong></td>
+      <td>Shift+Tab 循环</td>
+      <td>Alt+M 循环</td>
+    </tr>
+    <tr>
+      <td><strong>bypass 行为</strong></td>
+      <td><strong>保留 deny 硬关卡</strong></td>
+      <td><strong>跳过所有规则</strong></td>
+    </tr>
+    <tr>
+      <td><strong>断路器</strong></td>
+      <td>根/家目录删除硬编码保护</td>
+      <td>无独立机制</td>
+    </tr>
+    <tr>
+      <td><strong>安全路径</strong></td>
+      <td>.git/ .claude/ 等路径保护</td>
+      <td>无</td>
+    </tr>
+    <tr>
+      <td><strong>配置层级</strong></td>
+      <td>全局/项目 settings.json</td>
+      <td>CLI &gt; local &gt; project &gt; global</td>
+    </tr>
+    <tr>
+      <td><strong>Subagent 权限</strong></td>
+      <td>无明显独立机制</td>
+      <td>delegate 模式 + 独立 subagent 配置</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="二规则体系殊途同归的-denyaskallow">二、规则体系：殊途同归的 deny/ask/allow</h2>
+
+<p>两者都采用三层规则体系，但<strong>优先级行为和绕过策略存在根本差异</strong>。</p>
+
+<h3 id="相同点">相同点</h3>
+
+<ul>
+  <li>都支持 <code class="language-plaintext highlighter-rouge">工具名(匹配模式)</code> 语法，例如 <code class="language-plaintext highlighter-rouge">"Bash(git push:*)"</code></li>
+  <li>都支持裸工具名匹配（如 <code class="language-plaintext highlighter-rouge">"Read"</code> 匹配所有 Read 调用）</li>
+  <li>规则优先级顺序一致：<strong>deny &gt; ask &gt; allow</strong></li>
+</ul>
+
+<h3 id="关键差异bypass-时的-deny-行为">关键差异：bypass 时的 deny 行为</h3>
+
+<p>这是两者最核心的设计分歧：</p>
+
+<ul>
+  <li><strong>Claude Code</strong>：<code class="language-plaintext highlighter-rouge">bypassPermissions</code> 模式仍然保留 deny 规则、content-level ask 规则、safetyCheck 路径保护和根/家目录断路器。这些是<strong>写死在源码中的硬关卡</strong>，模式切换无法绕过。</li>
+  <li><strong>CodeBuddy</strong>：<code class="language-plaintext highlighter-rouge">bypassPermissions</code> 模式下<strong>完全跳过所有权限检查</strong>，包括 deny 规则。文档明确警告「仅限安全隔离环境（Docker / VM）使用」。</li>
+</ul>
+
+<p>这个差异反映了两种安全哲学：<strong>Claude Code 将安全边界视为不可妥协的基础设施</strong>，而 <strong>CodeBuddy 将 bypass 视为完全的信任开关</strong>。</p>
+
+<h2 id="三运行时模式对比">三、运行时模式对比</h2>
+
+<p>两者都有 5 种运行时模式，但具体组成不同：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>模式</th>
+      <th style="text-align: center">Claude Code</th>
+      <th style="text-align: center">CodeBuddy</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>default</strong></td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center">✅</td>
+      <td>所有操作弹窗确认</td>
+    </tr>
+    <tr>
+      <td><strong>acceptEdits</strong></td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center">✅</td>
+      <td>文件编辑自动放行，Bash 弹窗</td>
+    </tr>
+    <tr>
+      <td><strong>plan</strong></td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center">✅</td>
+      <td>只读模式</td>
+    </tr>
+    <tr>
+      <td><strong>bypassPermissions</strong></td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center">✅</td>
+      <td>跳过常规确认（行为差异大）</td>
+    </tr>
+    <tr>
+      <td><strong>auto</strong></td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center">❌</td>
+      <td>AI 分类器智能判断（Claude 特有）</td>
+    </tr>
+    <tr>
+      <td><strong>delegate</strong></td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">✅</td>
+      <td>委派 subagent 执行（CodeBuddy 特有）</td>
+    </tr>
+    <tr>
+      <td><strong>dontAsk</strong></td>
+      <td style="text-align: center">✅ (defaultMode)</td>
+      <td style="text-align: center">❌</td>
+      <td>未匹配命令直接拒绝</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="claude-code-模式行为矩阵">Claude Code 模式行为矩阵</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>模式</th>
+      <th style="text-align: center">deny 规则</th>
+      <th style="text-align: center">ask 规则</th>
+      <th style="text-align: center">allow 规则</th>
+      <th style="text-align: center">未匹配 Bash</th>
+      <th style="text-align: center">未匹配 Write/Edit</th>
+      <th style="text-align: center">读操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Default</td>
+      <td style="text-align: center">拒绝</td>
+      <td style="text-align: center">弹窗</td>
+      <td style="text-align: center">放行</td>
+      <td style="text-align: center">弹窗</td>
+      <td style="text-align: center">弹窗</td>
+      <td style="text-align: center">放行</td>
+    </tr>
+    <tr>
+      <td>Accept Edits</td>
+      <td style="text-align: center">拒绝</td>
+      <td style="text-align: center">弹窗</td>
+      <td style="text-align: center">放行</td>
+      <td style="text-align: center">弹窗</td>
+      <td style="text-align: center">自动批</td>
+      <td style="text-align: center">放行</td>
+    </tr>
+    <tr>
+      <td>Plan</td>
+      <td style="text-align: center">拒绝</td>
+      <td style="text-align: center">弹窗</td>
+      <td style="text-align: center">放行</td>
+      <td style="text-align: center">阻止</td>
+      <td style="text-align: center">阻止</td>
+      <td style="text-align: center">放行</td>
+    </tr>
+    <tr>
+      <td>Bypass</td>
+      <td style="text-align: center"><strong>仍拒绝</strong></td>
+      <td style="text-align: center">跳过</td>
+      <td style="text-align: center">放行</td>
+      <td style="text-align: center">放行</td>
+      <td style="text-align: center">放行</td>
+      <td style="text-align: center">放行</td>
+    </tr>
+    <tr>
+      <td>Auto</td>
+      <td style="text-align: center">拒绝</td>
+      <td style="text-align: center">弹窗</td>
+      <td style="text-align: center">放行</td>
+      <td style="text-align: center">分类器</td>
+      <td style="text-align: center">分类器</td>
+      <td style="text-align: center">放行</td>
+    </tr>
+    <tr>
+      <td>dontAsk</td>
+      <td style="text-align: center">拒绝</td>
+      <td style="text-align: center">转为拒</td>
+      <td style="text-align: center">放行</td>
+      <td style="text-align: center">拒绝</td>
+      <td style="text-align: center">拒绝</td>
+      <td style="text-align: center">放行</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="codebuddy-模式行为矩阵">CodeBuddy 模式行为矩阵</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>模式</th>
+      <th style="text-align: center">allow 规则</th>
+      <th style="text-align: center">ask 规则</th>
+      <th style="text-align: center">deny 规则</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Default</td>
+      <td style="text-align: center">不弹窗</td>
+      <td style="text-align: center">弹窗</td>
+      <td style="text-align: center">拒绝</td>
+    </tr>
+    <tr>
+      <td>Accept Edits</td>
+      <td style="text-align: center">不弹窗</td>
+      <td style="text-align: center">弹窗</td>
+      <td style="text-align: center">拒绝</td>
+    </tr>
+    <tr>
+      <td>Plan</td>
+      <td style="text-align: center">只读有效</td>
+      <td style="text-align: center">不适用</td>
+      <td style="text-align: center">拒绝</td>
+    </tr>
+    <tr>
+      <td>Bypass</td>
+      <td style="text-align: center"><strong>跳过</strong></td>
+      <td style="text-align: center"><strong>跳过</strong></td>
+      <td style="text-align: center"><strong>跳过</strong></td>
+    </tr>
+    <tr>
+      <td>Delegate</td>
+      <td style="text-align: center">不弹窗</td>
+      <td style="text-align: center">弹窗</td>
+      <td style="text-align: center">拒绝</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="四独有特性亮点">四、独有特性亮点</h2>
+
+<h3 id="claude-code-独有的安全设计">Claude Code 独有的安全设计</h3>
+
+<ol>
+  <li><strong>Auto 模式（AI 分类器）</strong>：2026 年新增，使用 transcript classifier 自动判断操作安全性。三个快捷路径：安全文件编辑快速通过、安全工具白名单直接放行、复杂操作分类器判断。连续 3 次或累计 20 次被拒则降级为人工确认。<strong>需 Claude Sonnet 4.6 / Opus 4.6 支持</strong>。</li>
+  <li><strong>断路器（Circuit Breaker）</strong>：根目录 <code class="language-plaintext highlighter-rouge">/</code> 和家目录 <code class="language-plaintext highlighter-rouge">~/</code> 删除操作<strong>硬编码拦截</strong>，任何模式都无法绕过。</li>
+  <li><strong>safetyCheck 路径保护</strong>：<code class="language-plaintext highlighter-rouge">.git/</code>、<code class="language-plaintext highlighter-rouge">.claude/</code>、<code class="language-plaintext highlighter-rouge">.vscode/</code> 和 shell 配置文件受到路径级保护。</li>
+  <li><strong>dontAsk 模式</strong>：作为 <code class="language-plaintext highlighter-rouge">defaultMode</code> 配置项，将所有未明确允许的命令直接拒绝，适合 CI/CD 和 headless 场景。</li>
+</ol>
+
+<h3 id="codebuddy-独有的协作设计">CodeBuddy 独有的协作设计</h3>
+
+<ol>
+  <li><strong>Delegate 模式</strong>：当前 AI 作为 coordinator，只使用 Agent、SendMessage 等协调工具，所有实际操作交由 subagent 完成。适合复杂多步任务团队协作。</li>
+  <li><strong>Subagent 权限管理</strong>：可配置 <code class="language-plaintext highlighter-rouge">subagentPermissionMode</code>，后台 subagent 自动处理权限不弹窗。delegate 模式下 subagent 默认使用 <code class="language-plaintext highlighter-rouge">default</code> 模式。</li>
+  <li><strong>配置优先级链</strong>：Agent mode 参数 &gt; CLI 参数 &gt; 环境变量 &gt; Settings &gt; 继承主 session，共 5 层优先级。</li>
+  <li><strong>-y 参数快速 bypass</strong>：启动时通过 <code class="language-plaintext highlighter-rouge">-y</code> 参数直接进入 bypass 模式。</li>
+</ol>
+
+<h2 id="五安全设计理念差异">五、安全设计理念差异</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Claude Code:  安全纵深防御
+
+  Stage 1: deny/ask/allow 硬关卡  静态配置，免疫 bypass
+  Stage 2: 运行时模式后处理         Shift+Tab 切换
+  Stage 3: 断路器（硬编码）         无法配置，无法绕过
+  Stage 4: safetyCheck 路径保护     敏感路径自动保护
+
+CodeBuddy:    灵活信任模型
+
+  规则层: deny/ask/allow           可配置
+  模式层: 5 种模式                 Alt+M 切换，bypass 完全放行
+  委派层: delegate + subagent      协作场景优化
+</code></pre></div></div>
+
+<p>Claude Code 的设计偏向 <strong>安全优先</strong>：即使切换到 bypass 模式，核心安全规则仍然生效。这种设计适合企业环境和对安全性要求较高的场景。</p>
+
+<p>CodeBuddy 的设计偏向 <strong>灵活信任</strong>：bypass 是完全的信任开关，适合已建立信任的开发者在隔离环境中使用。同时通过 delegate 模式和 subagent 权限管理，在团队协作场景中提供了更精细的控制。</p>
+
+<h2 id="六场景推荐">六、场景推荐</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>使用场景</th>
+      <th style="text-align: center">推荐工具</th>
+      <th>推荐配置</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>日常编码、安全敏感</td>
+      <td style="text-align: center">Claude Code</td>
+      <td>default 模式 + deny 危险命令</td>
+    </tr>
+    <tr>
+      <td>需要 AI 智能审批</td>
+      <td style="text-align: center">Claude Code</td>
+      <td>auto 模式</td>
+    </tr>
+    <tr>
+      <td>CI/CD 自动化</td>
+      <td style="text-align: center">Claude Code</td>
+      <td>dontAsk defaultMode + allow 白名单</td>
+    </tr>
+    <tr>
+      <td>团队协作复杂任务</td>
+      <td style="text-align: center">CodeBuddy</td>
+      <td>delegate + subagent 权限配置</td>
+    </tr>
+    <tr>
+      <td>隔离沙箱快速开发</td>
+      <td style="text-align: center">CodeBuddy</td>
+      <td>bypass 模式 + -y 参数</td>
+    </tr>
+    <tr>
+      <td>安全审查/代码 Review</td>
+      <td style="text-align: center">两者均可</td>
+      <td>plan 模式只读审查</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="七总结">七、总结</h2>
+
+<p>Claude Code 和 CodeBuddy 在权限系统设计上展现了不同的产品理念：</p>
+
+<ul>
+  <li><strong>Claude Code 更像一个成熟的操作系统</strong>：多层防护、硬编码安全边界、AI 辅助决策。它的权限系统设计严谨，适合需要精细控制的专业开发者。</li>
+  <li><strong>CodeBuddy 更像一个灵活的协作平台</strong>：委派机制、subagent 权限链、清晰的优先级体系。它在团队协作和复杂任务编排上更有优势。</li>
+</ul>
+
+<p>两者在 deny/ask/allow 三层规则体系上高度一致，说明这已成为终端 AI 工具权限管理的行业标准。真正的差异化在于：<strong>安全边界的不可绕过性</strong>（Claude Code）vs <strong>权限模型的灵活性</strong>（CodeBuddy）。</p>
+
+<p>选择哪一款，取决于你对安全和效率的权衡——而理解这些设计差异，能帮助你更好地配置和使用它们。</p>]]></content><author><name>david.dong</name></author><category term="AI" /><category term="AI编程工具" /><summary type="html"><![CDATA[Claude Code 和 CodeBuddy 是目前最受关注的两款终端 AI 编程助手。本文从权限系统设计的角度，深入对比两者的 deny/ask/allow 规则体系、运行时模式、安全设计哲学等方面的异同。]]></summary></entry><entry><title type="html">Mainstream UI App Development Frameworks in 2026 — A Learning Summary</title><link href="https://dqdongg.com/crossplatform/2026/05/15/Mainstream-UI-App-Development-Frameworks.html" rel="alternate" type="text/html" title="Mainstream UI App Development Frameworks in 2026 — A Learning Summary" /><published>2026-05-15T08:00:00+00:00</published><updated>2026-05-15T08:00:00+00:00</updated><id>https://dqdongg.com/crossplatform/2026/05/15/Mainstream-UI-App-Development-Frameworks</id><content type="html" xml:base="https://dqdongg.com/crossplatform/2026/05/15/Mainstream-UI-App-Development-Frameworks.html"><![CDATA[<p>Over the past decade, the landscape of UI application development has undergone a dramatic transformation. The days when building an app for iOS, Android, Windows, and macOS meant maintaining four separate codebases are fading fast. Today, developers have an overwhelming number of cross-platform frameworks to choose from — each with its own philosophy, trade-offs, and ideal use cases. After studying this topic in depth, here is what I have learned and my personal take on where things stand in 2026.<!--more--></p>
+
+<h2 id="why-cross-platform-matters-more-than-ever">Why Cross-Platform Matters More Than Ever</h2>
+
+<p>The demand for cross-platform development is no longer just about “write once, run anywhere.” In 2026, the key drivers are:</p>
+
+<ul>
+  <li><strong>Cost efficiency</strong>: maintaining a single codebase for multiple platforms dramatically reduces engineering headcount</li>
+  <li><strong>Time to market</strong>: cross-platform frameworks allow teams to ship to iOS, Android, and desktop simultaneously</li>
+  <li><strong>Consistent brand experience</strong>: users expect the same look and feel across devices</li>
+  <li><strong>Talent availability</strong>: frameworks leveraging popular languages (JS/TS, Dart, Kotlin) tap into larger developer pools</li>
+</ul>
+
+<p>But there is no free lunch. Every framework makes trade-offs. Let me walk through the major players, what I found impressive, and where each falls short.</p>
+
+<hr />
+
+<h2 id="framework-overview">Framework Overview</h2>
+
+<p>Before diving into details, here is a bird’s-eye view of the frameworks covered in this article:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Framework</th>
+      <th>Language</th>
+      <th>Platforms</th>
+      <th>Bundle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Flutter</strong></td>
+      <td>Dart</td>
+      <td>iOS/Android/Web/Desktop</td>
+      <td>15-50 MB</td>
+    </tr>
+    <tr>
+      <td><strong>React Native</strong></td>
+      <td>JS/TS</td>
+      <td>iOS/Android/Web</td>
+      <td>10-30 MB</td>
+    </tr>
+    <tr>
+      <td><strong>KMP</strong></td>
+      <td>Kotlin</td>
+      <td>iOS/Android/Desktop/Web</td>
+      <td>~2 MB</td>
+    </tr>
+    <tr>
+      <td><strong>Tauri</strong></td>
+      <td>Rust+JS</td>
+      <td>Win/Mac/Linux</td>
+      <td>3-10 MB</td>
+    </tr>
+    <tr>
+      <td><strong>Electron</strong></td>
+      <td>JS/CSS</td>
+      <td>Win/Mac/Linux</td>
+      <td>100-300 MB</td>
+    </tr>
+    <tr>
+      <td><strong>Qt</strong></td>
+      <td>C++/Python</td>
+      <td>Win/Mac/Linux/Embed</td>
+      <td>20-70 MB</td>
+    </tr>
+    <tr>
+      <td><strong>.NET MAUI</strong></td>
+      <td>C#</td>
+      <td>iOS/Android/Win/Mac</td>
+      <td>20-40 MB</td>
+    </tr>
+    <tr>
+      <td><strong>Unity</strong></td>
+      <td>C#</td>
+      <td>Mobile/Desktop/Console</td>
+      <td>20-200 MB</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="deep-dive-each-framework-analyzed">Deep Dive: Each Framework Analyzed</h2>
+
+<h3 id="1-flutter--the-cross-platform-consistency-king">1. Flutter — The Cross-Platform Consistency King</h3>
+
+<p>Flutter is arguably the most ambitious cross-platform framework today. Instead of translating your UI code into native widgets, it draws every pixel itself using the Skia (now Impeller) graphics engine.</p>
+
+<p><strong>What impressed me:</strong></p>
+<ul>
+  <li>The UI consistency is unmatched. A Flutter app running on Android, iOS, Windows, and macOS looks virtually identical at the pixel level</li>
+  <li>Performance is genuinely near-native for most use cases. The 60/120fps claim holds up in practice thanks to AOT compilation to native ARM/x64 machine code</li>
+  <li>Hot reload is a game-changer for developer productivity — I have seen teams iterate at speeds that feel almost like web development</li>
+  <li>The widget system is well-designed. “Everything is a widget” is not just a slogan; it genuinely simplifies composability</li>
+</ul>
+
+<p><strong>The not-so-good:</strong></p>
+<ul>
+  <li>Dart, while a well-designed language, remains relatively niche. Finding experienced Dart developers is harder than JS or Kotlin</li>
+  <li>The bundle size floor is around 8-10 MB minimum, which can feel heavy for a simple app</li>
+  <li>Platform channels for native bridging add complexity. Every time you need platform-specific functionality, you write Dart code + native code + maintain the bridge</li>
+  <li>Flutter Web performance still lags behind React or Vue for complex content-heavy pages</li>
+</ul>
+
+<p><strong>Notable apps</strong>: Alibaba Xianyu, Google Ads, BMW App, ByteDance products (partial), Nubank</p>
+
+<p><strong>My take</strong>: Flutter is the strongest choice when UI consistency across platforms is your top priority, especially for consumer-facing apps with rich animations and custom designs.</p>
+
+<hr />
+
+<h3 id="2-react-native--the-web-developers-gateway-to-mobile">2. React Native — The Web Developer’s Gateway to Mobile</h3>
+
+<p>React Native brings the React paradigm to mobile development. Instead of rendering DOM elements, it maps React components to native platform widgets through a JavaScript bridge.</p>
+
+<p><strong>What impressed me:</strong></p>
+<ul>
+  <li>The developer experience is excellent for anyone with React experience — and there are a lot of React developers</li>
+  <li>The community ecosystem is the largest of any cross-platform framework. NPM has a package for virtually everything</li>
+  <li>Hot reload and Fast Refresh make iteration fast</li>
+  <li>OTA updates via CodePush or Expo Updates allow pushing fixes without going through app store review — a huge operational advantage</li>
+</ul>
+
+<p><strong>The not-so-good:</strong></p>
+<ul>
+  <li>The JavaScript bridge introduces unavoidable communication overhead. Complex lists and animations can exhibit noticeable jank</li>
+  <li>UI consistency suffers because components map to different native widgets on each platform. A <code class="language-plaintext highlighter-rouge">Picker</code> on iOS looks different from one on Android, and custom styling only gets you so far</li>
+  <li>Debugging bridge-layer issues is genuinely painful — crashes that originate in the native side from a JS call stack are hard to trace</li>
+  <li>Large projects tend to accumulate messy state management and the project structure degrades over time without discipline</li>
+</ul>
+
+<p><strong>Notable apps</strong>: Facebook, Instagram, Shopify, Discord, Uber Eats, Pinterest</p>
+
+<p><strong>My take</strong>: React Native is ideal for web-first teams building mobile apps without dedicated native engineers. For straightforward CRUD apps and content-focused experiences, it delivers fast time-to-market.</p>
+
+<hr />
+
+<h3 id="3-kotlin-multiplatform-kmp--the-pragmatic-choice-for-native-teams">3. Kotlin Multiplatform (KMP) — The Pragmatic Choice for Native Teams</h3>
+
+<p>KMP takes a different approach from Flutter or React Native. Instead of trying to share UI code, it focuses on sharing business logic while keeping the UI native on each platform.</p>
+
+<p><strong>What impressed me:</strong></p>
+<ul>
+  <li>Zero bridge overhead — shared code compiles down to native binaries on each platform</li>
+  <li>It integrates into existing native projects seamlessly. You do not need to rewrite your app; you just start adding shared modules</li>
+  <li>Business logic sharing is genuinely high — networking, data storage, validation, algorithms — 100% of this code can be shared</li>
+  <li>Backed by JetBrains, so it has strong tooling (although Gradle build is still slow)</li>
+</ul>
+
+<p><strong>The not-so-good:</strong></p>
+<ul>
+  <li>You still need to write and maintain two UIs (SwiftUI for iOS, Jetpack Compose for Android). This is a significant amount of work</li>
+  <li>The learning curve is steep if you are not already familiar with Kotlin and the KMP build system</li>
+  <li>Gradle configuration is complex and compilation is slow — this impacts iteration velocity</li>
+  <li>The ecosystem is relatively young. Third-party library support, while growing, is nowhere near Flutter or React Native levels</li>
+</ul>
+
+<p><strong>Notable apps</strong>: Netflix, Cash App, JetBrains Space, McDonalds (partial)</p>
+
+<p><strong>My take</strong>: KMP is the best choice for teams that already have native iOS and Android apps and want to reduce duplication in business logic. It is not a “cross-platform UI framework” — it is a “cross-platform logic framework.”</p>
+
+<hr />
+
+<h3 id="4-tauri--the-lightweight-challenger-to-electron">4. Tauri — The Lightweight Challenger to Electron</h3>
+
+<p>Tauri represents a fundamental rethinking of desktop app development. Instead of bundling a browser engine, it leverages the OS-native WebView and pairs it with a Rust backend.</p>
+
+<p><strong>What impressed me:</strong></p>
+<ul>
+  <li>The bundle size difference is staggering. While Electron apps routinely exceed 100 MB, a Tauri app can be as small as 3 MB</li>
+  <li>Memory usage is 50-70% lower than equivalent Electron apps</li>
+  <li>Startup time is typically under 1 second</li>
+  <li>Rust provides genuine memory safety guarantees without garbage collection overhead</li>
+  <li>You can use any web framework (React, Vue, Svelte) as your frontend</li>
+</ul>
+
+<p><strong>The not-so-good:</strong></p>
+<ul>
+  <li>Mobile support is still in development. If you need iOS/Android, Tauri is not ready yet</li>
+  <li>The ecosystem is young. Documentation, community plugins, and best practices are still maturing</li>
+  <li>OS-level features (file system, system tray, notifications) require writing Rust wrappers — the API surface is not as rich as Electron’s</li>
+  <li>WebView behavior varies across platforms. Linux WebKit, macOS WebKit, and Windows WebView2 all have subtle differences that can cause UI issues</li>
+</ul>
+
+<p><strong>Notable apps</strong>: AppFlowy, Figma Desktop (partial), various open-source tools</p>
+
+<p><strong>My take</strong>: Tauri is the framework I am most excited about for desktop applications. Its lightweight philosophy is the right direction, and as the ecosystem matures, I expect it to become the default choice for new desktop app projects by 2027-2028.</p>
+
+<hr />
+
+<h3 id="5-electron--the-battle-tested-veteran">5. Electron — The Battle-Tested Veteran</h3>
+
+<p>Electron packages a full Chromium browser with Node.js to build desktop applications using web technologies. It is the most mature cross-platform desktop framework by a wide margin.</p>
+
+<p><strong>What impressed me:</strong></p>
+<ul>
+  <li>The ecosystem is unmatched. Need to interact with the file system? Node.js has a library. Need to integrate with a native API? There is probably an Electron plugin</li>
+  <li>Cross-platform compatibility is genuinely excellent. An Electron app on Windows, macOS, and Linux behaves almost identically</li>
+  <li>For frontend developers, the learning curve is essentially zero. You are building a web app</li>
+  <li>Debugging is straightforward — you can use standard Chrome DevTools</li>
+</ul>
+
+<p><strong>The not-so-good:</strong></p>
+<ul>
+  <li>Resource usage is genuinely problematic. 100-300 MB for a “Hello World” app is hard to defend in 2026</li>
+  <li>Cold start time of 3-5 seconds feels sluggish compared to native or Tauri</li>
+  <li>Memory consumption of 200-500 MB at runtime is not uncommon</li>
+  <li>Security surface area is enormous — you are bundling a full browser engine, which means all Chromium and Node.js CVEs are applicable</li>
+</ul>
+
+<p><strong>Notable apps</strong>: VS Code, Slack, Discord, Figma, Notion, WhatsApp Desktop, Postman</p>
+
+<p><strong>My take</strong>: Electron is still the right choice for complex desktop tools where ecosystem richness outweighs resource concerns. VS Code proves that an Electron app can feel native with enough engineering polish. But for simple tools? Tauri is now a better option.</p>
+
+<hr />
+
+<h3 id="6-qt--the-industrial-standard">6. Qt — The Industrial Standard</h3>
+
+<p>Qt has been the gold standard for cross-platform native applications since the 1990s. It uses a platform abstraction layer (QPA) to map its widgets to native APIs on each operating system.</p>
+
+<p><strong>What impressed me:</strong></p>
+<ul>
+  <li>Performance is native — because it <em>is</em> native. Qt widgets render through the OS’s native 2D API (GDI on Windows, Core Graphics on macOS)</li>
+  <li>The platform abstraction layer (QPA) is brilliantly designed — Qt applications genuinely feel at home on each platform</li>
+  <li>Embedded systems support is unmatched. Qt runs on everything from industrial displays to automotive dashboards</li>
+  <li>Qt Quick/QML provides a modern, GPU-accelerated path that can compete with Flutter</li>
+</ul>
+
+<p><strong>The not-so-good:</strong></p>
+<ul>
+  <li>C++ is unforgiving. Memory management and build complexity are real productivity drains</li>
+  <li>Licensing is complex — Qt requires commercial licensing for proprietary applications, which is expensive</li>
+  <li>The UI, while native, looks dated by default. Achieving modern aesthetics requires significant customization</li>
+  <li>The learning curve is steep for developers not already familiar with C++</li>
+</ul>
+
+<p><strong>Notable apps</strong>: Autodesk Maya, VirtualBox, VLC, OBS Studio, Wireshark, Telegram Desktop, KDE</p>
+
+<p><strong>My take</strong>: Qt is irreplaceable in industrial and embedded contexts. If you are building a medical device interface, an automotive dashboard, or professional creative software, Qt is still the answer. For consumer apps? The cost and complexity are harder to justify.</p>
+
+<hr />
+
+<h3 id="7-net-maui--the-enterprise-contender">7. .NET MAUI — The Enterprise Contender</h3>
+
+<p>.NET MAUI is Microsoft’s evolution of Xamarin.Forms, aiming to provide a single project structure for iOS, Android, Windows, and macOS.</p>
+
+<p><strong>What impressed me:</strong></p>
+<ul>
+  <li>Deep Visual Studio integration for debugging, profiling, and packaging</li>
+  <li>MVVM architecture support built-in — enterprise developers feel right at home</li>
+  <li>Covers all platforms Microsoft cares about, with good Windows support</li>
+</ul>
+
+<p><strong>The not-so-good:</strong></p>
+<ul>
+  <li>macOS and iOS support feels like an afterthought — incomplete feature adaptation and poor debugging experience</li>
+  <li>The community is small compared to Flutter or React Native. Finding third-party libraries is harder</li>
+  <li>Cold start speed is slower than Flutter and native apps</li>
+  <li>You need to understand .NET ecosystem plus platform-native specifics — the knowledge requirements are broad</li>
+</ul>
+
+<p><strong>Notable apps</strong>: Microsoft enterprise products, internal line-of-business applications</p>
+
+<p><strong>My take</strong>: .NET MAUI is a viable choice for enterprises already invested in the Microsoft ecosystem building internal tools. For consumer-grade cross-platform apps, I would look at Flutter or KMP first.</p>
+
+<hr />
+
+<h3 id="8-unity--beyond-gaming">8. Unity — Beyond Gaming</h3>
+
+<p>Unity deserves mention not because it is a traditional UI framework, but because it powers a massive number of applications that blend UI with 2D/3D graphics.</p>
+
+<p><strong>What impressed me:</strong></p>
+<ul>
+  <li>The 2D/3D rendering capabilities are best-in-class. Particle systems, physics, AR/VR — Unity handles it all</li>
+  <li>Asset Store provides a massive library of pre-built components, reducing development time</li>
+  <li>Multi-platform coverage extends beyond mobile and desktop to consoles (PlayStation, Xbox, Switch) and WebGL</li>
+</ul>
+
+<p><strong>The not-so-good:</strong></p>
+<ul>
+  <li>It is fundamentally a game engine, not a UI framework. Building a standard form-based app in Unity is overkill and inefficient</li>
+  <li>Bundle size starts at 20 MB and quickly balloons with assets</li>
+  <li>Development workflow is optimized for games — the scene-based editor and component system feel awkward for traditional app development</li>
+  <li>Memory and CPU overhead are significant even for simple applications</li>
+</ul>
+
+<p><strong>Notable apps</strong>: Honor of Kings, Pokemon Go, Genshin Impact, various AR/VR experiences</p>
+
+<p><strong>My take</strong>: Unity is the right choice for games, AR/VR, and interactive 3D experiences. Do not use it for a standard CRUD application — you will regret it.</p>
+
+<hr />
+
+<h3 id="china-specific-frameworks-worth-knowing">China-Specific Frameworks Worth Knowing</h3>
+
+<p>No cross-platform analysis in 2026 would be complete without mentioning the vibrant ecosystem in China, where homegrown frameworks have gained significant traction:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Framework</th>
+      <th>Company</th>
+      <th>Key Strength</th>
+      <th>Notable Apps</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Kuikly</strong></td>
+      <td>Tencent</td>
+      <td>KMP-based, native-level performance, HarmonyOS support</td>
+      <td>QQ Music, Tencent News, WeSing, 20+ Tencent products</td>
+    </tr>
+    <tr>
+      <td><strong>uni-app X</strong></td>
+      <td>DCloud</td>
+      <td>Vue syntax, deep mini-program support</td>
+      <td>JD.com, DiDi, Kuaishou (partial)</td>
+    </tr>
+    <tr>
+      <td><strong>Lynx</strong></td>
+      <td>ByteDance</td>
+      <td>Low-code, visual building, non-developer friendly</td>
+      <td>Douyin internal operations</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Kuikly deserves special attention because it has been validated at massive scale — over 1000 pages and 500M+ DAU across Tencent’s product portfolio. The key advantage is that Kuikly leverages Kotlin Multiplatform under the hood, achieving 90%+ code sharing while producing native binaries. Its deep HarmonyOS support is particularly strategic given China’s push for domestic OS adoption.</p>
+
+<hr />
+
+<h2 id="framework-comparison-matrix">Framework Comparison Matrix</h2>
+
+<h3 id="performance--technical">Performance &amp; Technical</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Framework</th>
+      <th style="text-align: center">Runtime Performance</th>
+      <th style="text-align: center">Startup Time</th>
+      <th style="text-align: center">GPU Acceleration</th>
+      <th style="text-align: center">Memory Efficiency</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Flutter</td>
+      <td style="text-align: center">★★★★☆</td>
+      <td style="text-align: center">Fast</td>
+      <td style="text-align: center">Native (Skia)</td>
+      <td style="text-align: center">★★★★☆</td>
+    </tr>
+    <tr>
+      <td>React Native</td>
+      <td style="text-align: center">★★★☆☆</td>
+      <td style="text-align: center">Medium</td>
+      <td style="text-align: center">Via native bridge</td>
+      <td style="text-align: center">★★★☆☆</td>
+    </tr>
+    <tr>
+      <td>KMP</td>
+      <td style="text-align: center">★★★★★</td>
+      <td style="text-align: center">Fastest</td>
+      <td style="text-align: center">Native</td>
+      <td style="text-align: center">★★★★★</td>
+    </tr>
+    <tr>
+      <td>Tauri</td>
+      <td style="text-align: center">★★★★☆</td>
+      <td style="text-align: center">Fastest</td>
+      <td style="text-align: center">Via WebView</td>
+      <td style="text-align: center">★★★★★</td>
+    </tr>
+    <tr>
+      <td>Electron</td>
+      <td style="text-align: center">★★☆☆☆</td>
+      <td style="text-align: center">Slow</td>
+      <td style="text-align: center">Via Chromium</td>
+      <td style="text-align: center">★★☆☆☆</td>
+    </tr>
+    <tr>
+      <td>Qt (C++)</td>
+      <td style="text-align: center">★★★★★</td>
+      <td style="text-align: center">Fastest</td>
+      <td style="text-align: center">Native / GL</td>
+      <td style="text-align: center">★★★★☆</td>
+    </tr>
+    <tr>
+      <td>.NET MAUI</td>
+      <td style="text-align: center">★★★☆☆</td>
+      <td style="text-align: center">Medium</td>
+      <td style="text-align: center">Native</td>
+      <td style="text-align: center">★★★☆☆</td>
+    </tr>
+    <tr>
+      <td>Unity</td>
+      <td style="text-align: center">★★★★★</td>
+      <td style="text-align: center">Slow</td>
+      <td style="text-align: center">Custom engine</td>
+      <td style="text-align: center">★★☆☆☆</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="developer-experience--ecosystem">Developer Experience &amp; Ecosystem</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Framework</th>
+      <th style="text-align: center">Learning Curve</th>
+      <th style="text-align: center">Community Size</th>
+      <th style="text-align: center">Job Market</th>
+      <th style="text-align: center">Library Ecosystem</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Flutter</td>
+      <td style="text-align: center">Medium</td>
+      <td style="text-align: center">Large (growing)</td>
+      <td style="text-align: center">Growing fast</td>
+      <td style="text-align: center">Rich</td>
+    </tr>
+    <tr>
+      <td>React Native</td>
+      <td style="text-align: center">Low</td>
+      <td style="text-align: center">Largest</td>
+      <td style="text-align: center">Largest</td>
+      <td style="text-align: center">Richest</td>
+    </tr>
+    <tr>
+      <td>KMP</td>
+      <td style="text-align: center">High</td>
+      <td style="text-align: center">Medium (growing)</td>
+      <td style="text-align: center">Niche</td>
+      <td style="text-align: center">Growing</td>
+    </tr>
+    <tr>
+      <td>Tauri</td>
+      <td style="text-align: center">Medium (Rust)</td>
+      <td style="text-align: center">Medium (growing)</td>
+      <td style="text-align: center">Niche</td>
+      <td style="text-align: center">Small</td>
+    </tr>
+    <tr>
+      <td>Electron</td>
+      <td style="text-align: center">Low</td>
+      <td style="text-align: center">Largest</td>
+      <td style="text-align: center">Stable</td>
+      <td style="text-align: center">Richest</td>
+    </tr>
+    <tr>
+      <td>Qt</td>
+      <td style="text-align: center">High (C++)</td>
+      <td style="text-align: center">Mature</td>
+      <td style="text-align: center">Stable</td>
+      <td style="text-align: center">Mature</td>
+    </tr>
+    <tr>
+      <td>.NET MAUI</td>
+      <td style="text-align: center">Medium</td>
+      <td style="text-align: center">Small</td>
+      <td style="text-align: center">Niche</td>
+      <td style="text-align: center">Limited</td>
+    </tr>
+    <tr>
+      <td>Unity</td>
+      <td style="text-align: center">High (C# + 3D)</td>
+      <td style="text-align: center">Large (gaming)</td>
+      <td style="text-align: center">Gaming-focused</td>
+      <td style="text-align: center">Rich (gaming)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="bundle-size-comparison">Bundle Size Comparison</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Electron : ██████████████████████████████████████████████████ (100-300 MB)
+Unity    : ████████████                                       (20-200 MB)
+Flutter  : ████████                                           (15-50 MB)
+Qt       : ████████████                                       (20-70 MB)
+.NET MAUI: █████████                                           (20-40 MB)
+React Native: ██████                                         (10-30 MB)
+Tauri    : ██                                                  (3-10 MB)
+KMP      : █                                                   (~2 MB logic)
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="scenario-based-selection-guide">Scenario-Based Selection Guide</h2>
+
+<p>After studying all these options, here is my practical decision framework:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Your Situation</th>
+      <th>Best Choice</th>
+      <th>Why</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Consumer mobile app with rich UI</td>
+      <td><strong>Flutter</strong></td>
+      <td>Unmatched UI consistency, great animation support</td>
+    </tr>
+    <tr>
+      <td>Web-first team, need mobile ASAP</td>
+      <td><strong>React Native</strong></td>
+      <td>Huge dev pool, fast iteration, OTA updates</td>
+    </tr>
+    <tr>
+      <td>Existing native app, share logic</td>
+      <td><strong>KMP</strong></td>
+      <td>Zero bridge overhead, incrementally adoptable</td>
+    </tr>
+    <tr>
+      <td>Lightweight desktop tool</td>
+      <td><strong>Tauri</strong></td>
+      <td>Tiny bundle, low memory, fast startup</td>
+    </tr>
+    <tr>
+      <td>Complex desktop tool (IDE, design tool)</td>
+      <td><strong>Electron</strong></td>
+      <td>Mature ecosystem, proven at scale</td>
+    </tr>
+    <tr>
+      <td>Industrial/embedded software</td>
+      <td><strong>Qt</strong></td>
+      <td>Native performance, unmatched platform support</td>
+    </tr>
+    <tr>
+      <td>Enterprise .NET shop, internal tools</td>
+      <td><strong>.NET MAUI</strong></td>
+      <td>VS integration, Azure ecosystem</td>
+    </tr>
+    <tr>
+      <td>Game / AR / VR / interactive 3D</td>
+      <td><strong>Unity</strong></td>
+      <td>Best-in-class 2D/3D rendering</td>
+    </tr>
+    <tr>
+      <td>China market + multi-mini-program</td>
+      <td><strong>uni-app X</strong></td>
+      <td>Deep WeChat/Alipay miniprogram integration</td>
+    </tr>
+    <tr>
+      <td>Large-scale Chinese app, HarmonyOS target</td>
+      <td><strong>Kuikly</strong></td>
+      <td>Proven at Tencent scale, HarmonyOS support</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="personal-reflections">Personal Reflections</h2>
+
+<h3 id="what-i-learned">What I Learned</h3>
+
+<p><strong>1. There is no “best” framework — only “best for your context.”</strong>
+Every framework exists because it solves a specific set of problems. Flutter is amazing for UI consistency, but that comes at the cost of Dart adoption and bundle size. Tauri is incredibly lightweight, but you pay in ecosystem maturity. Understanding your constraints — team skills, target platforms, performance requirements, timeline — is the most important skill in framework selection.</p>
+
+<p><strong>2. The industry is converging on lighter, faster frameworks.</strong>
+The Electron era of “just bundle a browser” is giving way to a more thoughtful approach. Tauri, Flutter Desktop, and even improved React Native with the new architecture (JSI instead of bridge) all point in the same direction: smaller bundles, faster startup, lower memory. This trend will only accelerate.</p>
+
+<p><strong>3. Cross-platform is not just about code sharing.</strong>
+The hardest part of building multi-platform apps is not writing the code — it is handling platform-specific behaviors, testing across devices, and maintaining the app over time. KMP’s approach of sharing logic while keeping native UI has real merit here.</p>
+
+<p><strong>4. China’s cross-platform ecosystem is ahead in some ways.</strong>
+Kuikly’s deep integration with KMP and HarmonyOS, uni-app’s seamless miniprogram support, and Lynx’s low-code approach represent real innovations that the global ecosystem is only starting to catch up with.</p>
+
+<p><strong>5. AI is changing the calculus.</strong>
+With AI-assisted development tools in 2026, maintaining multiple codebases is less painful than it used to be. This weakens the case for cross-platform frameworks in some scenarios — if AI can generate and update your SwiftUI and Jetpack Compose code from a single description, do you still need a cross-platform runtime?</p>
+
+<hr />
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>The cross-platform framework landscape in 2026 is rich, diverse, and evolving rapidly. My personal recommendation:</p>
+
+<ul>
+  <li><strong>For mobile-first consumer apps</strong>: Flutter is the safe bet today</li>
+  <li><strong>For desktop tools</strong>: Tauri deserves serious evaluation — it is ready for production</li>
+  <li><strong>For team with no time to learn</strong>: React Native remains the pragmatic choice</li>
+  <li><strong>For industrial/embedded</strong>: Qt remains the only serious option</li>
+  <li><strong>For native teams wanting less duplicate work</strong>: KMP is the unsung hero</li>
+</ul>
+
+<p>The most important lesson? Do not treat framework selection as a religious debate. Evaluate honestly against your specific context, prototype with two candidates, and make a data-driven decision. The right framework can multiply your team’s output; the wrong one can become a drag that lasts for years.</p>
+
+<hr />
+
+<p><em>Originally published on <a href="https://dqdongg.com">David Dong’s Blog</a>. This article is a learning summary based on research and study of various cross-platform frameworks.</em></p>]]></content><author><name>david.dong</name></author><category term="crossplatform" /><category term="UI开发框架" /><summary type="html"><![CDATA[A comprehensive analysis of mainstream cross-platform UI development frameworks including Flutter, React Native, KMP, Tauri, Electron, Qt, .NET MAUI, Unity, and more. Covers architecture, performance, ecosystem, and selection guidance.]]></summary></entry><entry><title type="html">Rust startup - trait</title><link href="https://dqdongg.com/rust/2024/02/15/Rust-startup-trait.html" rel="alternate" type="text/html" title="Rust startup - trait" /><published>2024-02-15T03:22:40+00:00</published><updated>2024-02-15T03:22:40+00:00</updated><id>https://dqdongg.com/rust/2024/02/15/Rust-startup-trait</id><content type="html" xml:base="https://dqdongg.com/rust/2024/02/15/Rust-startup-trait.html"><![CDATA[<p>Is Rust an object-oriented programming language? I have searched for the answer to this question on different AI assistants. <!--more--></p>
+
+<p>Below are the answers. Let’s see.</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">CHATGPT 3.5</code></p>
+
+  <p>While Rust supports some object-oriented programming (OOP) concepts, it is not strictly
+classified as an object-oriented programming language. Rust is more commonly categorized
+as a multi-paradigm programming language, combining features from OOP, functional programming, 
+and other paradigms.</p>
+</blockquote>
+
+<p>And</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">Copilot</code></p>
+
+  <ul>
+    <li>
+      <p>Rust is <strong>not</strong> strictly an object-oriented programming language.</p>
+    </li>
+    <li>
+      <p>However, it shares some features with OOP, making it a fascinating blend of paradigms.</p>
+    </li>
+  </ul>
+</blockquote>
+
+<p>And</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">Gemini</code></p>
+
+  <p>The question of whether Rust is an object-oriented programming language (OOP) has a nuanced answer. While it <strong>shares some features with OOP languages, it ultimately has a different paradigm.</strong>
+So, is Rust OOP?</p>
+
+  <ul>
+    <li>
+      <p><strong>From a strict definition:</strong> Technically no, Rust’s core design philosophy differs from traditional OOP.</p>
+    </li>
+    <li>
+      <p><strong>In practice:</strong> It borrows certain OOP concepts and tools, offering a familiar feel for OOP programmers.</p>
+    </li>
+    <li>
+      <p><strong>More accurately:</strong> Rust uses a multi-paradigm approach, incorporating elements of OOP, functional programming, and others.</p>
+    </li>
+  </ul>
+</blockquote>
+
+<p>So the next question is how the Rust achieves polymorphism. The answer is using <strong>traits</strong>.</p>
+
+<p>In Rust, we can define data structures using structs and enums, and achieve polymorphism using <strong>traits</strong> and trait objects, which share some similarities with classes and interfaces in OOP. However, Rust <strong>does not have</strong> classes or inheritance as found in traditional OOP languages. Instead, Rust emphasizes ownership, lifetimes, and abstraction through traits and generics.</p>
+
+<p>Below is an example of how to use traits.</p>
+
+<p>trait allows developers to define shared behavior that can be implemented by different types. They serve as a way to express interfaces or contracts that types must adhere to.</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">trait</span> <span class="n">Animal</span> <span class="p">{</span>
+    <span class="k">fn</span> <span class="nf">speak</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">struct</span> <span class="n">Dog</span> <span class="p">{</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+    <span class="n">age</span><span class="p">:</span> <span class="nb">u32</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">impl</span> <span class="n">Animal</span> <span class="k">for</span> <span class="n">Dog</span> <span class="p">{</span>
+    <span class="k">fn</span> <span class="nf">speak</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"Woof!"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">struct</span> <span class="n">Cat</span> <span class="p">{</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+    <span class="n">age</span><span class="p">:</span> <span class="nb">u32</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">impl</span> <span class="n">Animal</span> <span class="k">for</span> <span class="n">Cat</span> <span class="p">{</span>
+    <span class="k">fn</span> <span class="nf">speak</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"Meow!"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">fn</span> <span class="nf">do_speak</span><span class="p">(</span><span class="n">animal</span> <span class="p">:</span> <span class="o">&amp;</span><span class="k">dyn</span> <span class="n">Animal</span><span class="p">){</span>
+    <span class="n">animal</span><span class="nf">.speak</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">let</span> <span class="n">dog</span> <span class="o">=</span> <span class="n">Dog</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="nn">String</span><span class="p">::</span><span class="nf">from</span><span class="p">(</span><span class="s">"kaka"</span><span class="p">),</span> <span class="n">age</span><span class="p">:</span> <span class="mi">10</span><span class="p">};</span>
+    <span class="k">let</span> <span class="n">cat</span> <span class="o">=</span> <span class="n">Cat</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="nn">String</span><span class="p">::</span><span class="nf">from</span><span class="p">(</span><span class="s">"haha"</span><span class="p">),</span> <span class="n">age</span><span class="p">:</span><span class="mi">5</span><span class="p">};</span>
+
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"{} is {} years old"</span><span class="p">,</span> <span class="n">dog</span><span class="py">.name</span><span class="p">,</span> <span class="n">dog</span><span class="py">.age</span><span class="p">);</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"{} is {} years old"</span><span class="p">,</span> <span class="n">cat</span><span class="py">.name</span><span class="p">,</span> <span class="n">cat</span><span class="py">.age</span><span class="p">);</span>
+
+    <span class="n">dog</span><span class="nf">.speak</span><span class="p">();</span>
+    <span class="n">cat</span><span class="nf">.speak</span><span class="p">();</span>
+
+    <span class="nf">do_speak</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dog</span><span class="p">);</span>
+    <span class="nf">do_speak</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cat</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Output</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">kaka</span> <span class="n">is</span> <span class="mi">10</span> <span class="n">years</span> <span class="n">old</span>
+<span class="n">haha</span> <span class="n">is</span> <span class="mi">5</span> <span class="n">years</span> <span class="n">old</span>
+<span class="n">Woof</span><span class="o">!</span>
+<span class="n">Meow</span><span class="o">!</span>
+<span class="n">Woof</span><span class="o">!</span>
+<span class="n">Meow</span><span class="o">!</span>
+</code></pre></div></div>]]></content><author><name>david.dong</name></author><category term="Rust" /><category term="Rust" /><summary type="html"><![CDATA[Is Rust an object-oriented programming language?]]></summary></entry><entry><title type="html">Rust startup - Ownership</title><link href="https://dqdongg.com/rust/2024/02/14/Rust-startup-ownership.html" rel="alternate" type="text/html" title="Rust startup - Ownership" /><published>2024-02-14T03:20:15+00:00</published><updated>2024-02-14T03:20:15+00:00</updated><id>https://dqdongg.com/rust/2024/02/14/Rust-startup-ownership</id><content type="html" xml:base="https://dqdongg.com/rust/2024/02/14/Rust-startup-ownership.html"><![CDATA[<p>Ownership in Rust refers to a set of rules that govern how memory is managed. At any given time, each value in Rust has a variable that is known as its owner. There can be only one owner at a time. When the owner goes out of scope, the value is dropped and its memory is deallocated.   <!--more--></p>
+
+<p>Ownership ensures that memory is used safely and efficiently, and it prevents common memory errors such as dangling pointers and memory leaks.</p>
+
+<h3 id="the-ownership-rules">The Ownership Rules</h3>
+
+<p>The ownership rules in Rust are as follows:</p>
+
+<ul>
+  <li>
+    <p><strong>Every value in Rust has an owner.</strong> The owner is the variable or expression that is last assigned to the value.</p>
+  </li>
+  <li>
+    <p><strong>There can only be one owner of a value at a time.</strong> When a value is assigned to a new variable, the ownership of the value is transferred to the new variable.</p>
+  </li>
+  <li>
+    <p><strong>When a value goes out of scope, the value is dropped.</strong> The value is deallocated and its memory is returned to the system.</p>
+  </li>
+</ul>
+
+<h3 id="the-benefits-of-ownership">The Benefits of Ownership</h3>
+
+<p>Ownership provides several benefits for Rust programs, including:</p>
+
+<ul>
+  <li>
+    <p><strong>Memory safety:</strong> Ownership prevents common memory errors such as dangling pointers and memory leaks.</p>
+  </li>
+  <li>
+    <p><strong>Efficiency:</strong> Ownership allows Rust to optimize memory usage by deallocating memory as soon as it is no longer needed.</p>
+  </li>
+  <li>
+    <p><strong>Expressiveness:</strong> Ownership can be used to express the lifetime of data in Rust programs.</p>
+  </li>
+</ul>
+
+<h3 id="ownership-and-borrowing">Ownership and Borrowing</h3>
+
+<p>In some cases, it is necessary to allow multiple parts of a program to access the same data. This can be done using borrowing. Borrowing is a way to temporarily transfer ownership of a value to another variable or expression. References (&amp;) are used to borrow values, and they have a limited lifetime during which they are valid.</p>
+
+<h3 id="mutable-borrowing">Mutable Borrowing</h3>
+
+<p>Mutable references (&amp;mut) allow you to borrow a value for both reading and writing.
+Only one mutable reference is allowed at a time in a given scope to prevent data races.</p>
+
+<h3 id="clone">Clone</h3>
+
+<p>To create a new value with the same data without transferring ownership, you can explicitly clone the value. Cloning allocates new memory for the data, allowing multiple variables to own separate copies of the same data.</p>
+
+<h3 id="ownership-in-functions">Ownership in Functions</h3>
+
+<p>Function parameters by default take ownership of the passed values.
+To borrow a value within a function without taking ownership, you can pass references as function arguments.</p>
+
+<h3 id="the-ownership-checker">The Ownership Checker</h3>
+
+<p>The Rust compiler includes an ownership checker that helps to ensure that the ownership rules are followed. The ownership checker can detect and report errors such as dangling pointers and memory leaks.</p>
+
+<h3 id="lifetimes">Lifetimes</h3>
+
+<p>Lifetimes are annotations that specify the scope for which references are valid.
+They are used by the Rust compiler to enforce memory safety rules and prevent dangling references.</p>
+
+<p>Ownership in Rust provides a powerful mechanism for memory management and ensures memory safety without the need for a garbage collector or manual memory management. It enables safe and efficient concurrency and system-level programming in Rust.</p>
+
+<h3 id="example">Example</h3>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Car</span> <span class="p">{</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+    <span class="n">price</span><span class="p">:</span> <span class="nb">u32</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="k">fn</span> <span class="nf">print_car</span><span class="p">(</span><span class="n">car</span><span class="p">:</span> <span class="n">Car</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Name {}, price {}"</span><span class="p">,</span> <span class="n">car</span><span class="py">.name</span><span class="p">,</span> <span class="n">car</span><span class="py">.price</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">let</span> <span class="n">demo_car</span> <span class="o">=</span> <span class="n">Car</span> <span class="p">{</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nn">String</span><span class="p">::</span><span class="nf">from</span><span class="p">(</span><span class="s">"Ferrari"</span><span class="p">),</span>
+        <span class="n">price</span><span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
+    <span class="p">};</span>
+
+    <span class="nf">print_car</span><span class="p">(</span><span class="n">demo_car</span><span class="p">);</span>
+    <span class="c1">//println!("Name {}, price {}", demo_car.name, demo_car.price);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Output</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">~</span> <span class="n">cargo</span> <span class="n">run</span>
+   <span class="n">Compiling</span> <span class="n">greeting</span> <span class="n">v0</span><span class="p">.</span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span> <span class="p">(</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">david</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">rust</span><span class="o">/</span><span class="n">first_proj</span><span class="o">/</span><span class="n">greeting</span><span class="p">)</span>
+    <span class="n">Finished</span> <span class="n">dev</span> <span class="p">[</span><span class="n">unoptimized</span> <span class="o">+</span> <span class="n">debuginfo</span><span class="p">]</span> <span class="n">target</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">in</span> <span class="mi">0</span><span class="p">.</span><span class="mi">48</span><span class="n">s</span>
+     <span class="n">Running</span> <span class="err">`</span><span class="n">target</span><span class="o">/</span><span class="n">debug</span><span class="o">/</span><span class="n">greeting</span><span class="err">`</span>
+<span class="n">Name</span> <span class="n">Ferrari</span><span class="p">,</span> <span class="n">price</span> <span class="mi">10000</span>
+</code></pre></div></div>
+
+<p>so the ownership of the <code class="language-plaintext highlighter-rouge">demo_car</code> has been transferred to function <code class="language-plaintext highlighter-rouge">pirnt_car</code>, try to use the <code class="language-plaintext highlighter-rouge">demo_car</code> after being transferred.</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Car</span> <span class="p">{</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+    <span class="n">price</span><span class="p">:</span> <span class="nb">u32</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="k">fn</span> <span class="nf">print_car</span><span class="p">(</span><span class="n">car</span><span class="p">:</span> <span class="n">Car</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Name {}, price {}"</span><span class="p">,</span> <span class="n">car</span><span class="py">.name</span><span class="p">,</span> <span class="n">car</span><span class="py">.price</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">let</span> <span class="n">demo_car</span> <span class="o">=</span> <span class="n">Car</span> <span class="p">{</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nn">String</span><span class="p">::</span><span class="nf">from</span><span class="p">(</span><span class="s">"Ferrari"</span><span class="p">),</span>
+        <span class="n">price</span><span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
+    <span class="p">};</span>
+
+    <span class="nf">print_car</span><span class="p">(</span><span class="n">demo_car</span><span class="p">);</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Name {}, price {}"</span><span class="p">,</span> <span class="n">demo_car</span><span class="py">.name</span><span class="p">,</span> <span class="n">demo_car</span><span class="py">.price</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>as expected, a compile error occurred. The error encountered is due to the <code class="language-plaintext highlighter-rouge">demo_car</code> variable being moved when it’s passed to the <code class="language-plaintext highlighter-rouge">print_car</code> function. After the move, I am trying to use <code class="language-plaintext highlighter-rouge">demo_car</code> again in the <code class="language-plaintext highlighter-rouge">println!</code> macro, which is not allowed because ownership has already been transferred.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">~</span> <span class="n">cargo</span> <span class="n">run</span>
+   <span class="n">Compiling</span> <span class="n">greeting</span> <span class="n">v0</span><span class="p">.</span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span> <span class="p">(</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">david</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">rust</span><span class="o">/</span><span class="n">first_proj</span><span class="o">/</span><span class="n">greeting</span><span class="p">)</span>
+<span class="n">error</span><span class="p">[</span><span class="n">E0382</span><span class="p">]</span><span class="o">:</span> <span class="n">borrow</span> <span class="n">of</span> <span class="n">moved</span> <span class="n">value</span><span class="o">:</span> <span class="err">`</span><span class="n">demo_car</span><span class="err">`</span>
+  <span class="o">--&gt;</span> <span class="n">src</span><span class="o">/</span><span class="n">main</span><span class="p">.</span><span class="n">rs</span><span class="o">:</span><span class="mi">17</span><span class="o">:</span><span class="mi">50</span>
+   <span class="o">|</span>
+<span class="mi">11</span> <span class="o">|</span>     <span class="n">let</span> <span class="n">demo_car</span> <span class="o">=</span> <span class="n">Car</span> <span class="p">{</span>
+   <span class="o">|</span>         <span class="o">--------</span> <span class="n">move</span> <span class="n">occurs</span> <span class="n">because</span> <span class="err">`</span><span class="n">demo_car</span><span class="err">`</span> <span class="n">has</span> <span class="n">type</span> <span class="err">`</span><span class="n">Car</span><span class="err">`</span><span class="p">,</span> <span class="n">which</span> <span class="n">does</span> <span class="n">not</span> <span class="n">implement</span> <span class="n">the</span> <span class="err">`</span><span class="n">Copy</span><span class="err">`</span> <span class="n">trait</span>
+<span class="p">...</span>
+<span class="mi">16</span> <span class="o">|</span>     <span class="n">print_car</span><span class="p">(</span><span class="n">demo_car</span><span class="p">);</span>
+   <span class="o">|</span>               <span class="o">--------</span> <span class="n">value</span> <span class="n">moved</span> <span class="n">here</span>
+<span class="mi">17</span> <span class="o">|</span>     <span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">"Name {}, price {}"</span><span class="p">,</span> <span class="n">demo_car</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="n">demo_car</span><span class="p">.</span><span class="n">price</span><span class="p">);</span>
+   <span class="o">|</span>                                                  <span class="o">^^^^^^^^^^^^^^</span> <span class="n">value</span> <span class="n">borrowed</span> <span class="n">here</span> <span class="n">after</span> <span class="n">move</span>
+   <span class="o">|</span>
+<span class="nl">note:</span> <span class="n">consider</span> <span class="n">changing</span> <span class="n">this</span> <span class="n">parameter</span> <span class="n">type</span> <span class="n">in</span> <span class="n">function</span> <span class="err">`</span><span class="n">print_car</span><span class="err">`</span> <span class="n">to</span> <span class="n">borrow</span> <span class="n">instead</span> <span class="k">if</span> <span class="n">owning</span> <span class="n">the</span> <span class="n">value</span> <span class="n">isn</span><span class="err">'</span><span class="n">t</span> <span class="n">necessary</span>
+  <span class="o">--&gt;</span> <span class="n">src</span><span class="o">/</span><span class="n">main</span><span class="p">.</span><span class="n">rs</span><span class="o">:</span><span class="mi">5</span><span class="o">:</span><span class="mi">19</span>
+   <span class="o">|</span>
+<span class="mi">5</span>  <span class="o">|</span> <span class="n">fn</span> <span class="n">print_car</span><span class="p">(</span><span class="n">car</span><span class="o">:</span> <span class="n">Car</span><span class="p">)</span>
+   <span class="o">|</span>    <span class="o">---------</span>      <span class="o">^^^</span> <span class="n">this</span> <span class="n">parameter</span> <span class="n">takes</span> <span class="n">ownership</span> <span class="n">of</span> <span class="n">the</span> <span class="n">value</span>
+   <span class="o">|</span>    <span class="o">|</span>
+   <span class="o">|</span>    <span class="n">in</span> <span class="n">this</span> <span class="n">function</span>
+</code></pre></div></div>
+
+<p>To fix this, we can either clone the <code class="language-plaintext highlighter-rouge">demo_car</code> before passing it to <code class="language-plaintext highlighter-rouge">print_car</code>, or we can change the <code class="language-plaintext highlighter-rouge">print_car</code> function to accept a reference to Car rather than taking ownership of it. Here’s the modified code using the second approach:</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">#[derive(Clone)]</span>
+<span class="k">struct</span> <span class="n">Car</span> <span class="p">{</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+    <span class="n">price</span><span class="p">:</span> <span class="nb">u32</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="k">fn</span> <span class="nf">print_car</span><span class="p">(</span><span class="n">car</span><span class="p">:</span> <span class="n">Car</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Name {}, price {}"</span><span class="p">,</span> <span class="n">car</span><span class="py">.name</span><span class="p">,</span> <span class="n">car</span><span class="py">.price</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">let</span> <span class="n">demo_car</span> <span class="o">=</span> <span class="n">Car</span> <span class="p">{</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nn">String</span><span class="p">::</span><span class="nf">from</span><span class="p">(</span><span class="s">"Ferrari"</span><span class="p">),</span>
+        <span class="n">price</span><span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
+    <span class="p">};</span>
+
+    <span class="nf">print_car</span><span class="p">(</span><span class="n">demo_car</span><span class="nf">.clone</span><span class="p">());</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Name {}, price {}"</span><span class="p">,</span> <span class="n">demo_car</span><span class="py">.name</span><span class="p">,</span> <span class="n">demo_car</span><span class="py">.price</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Output</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">~</span> <span class="n">cargo</span> <span class="n">run</span>
+    <span class="n">Finished</span> <span class="n">dev</span> <span class="p">[</span><span class="n">unoptimized</span> <span class="o">+</span> <span class="n">debuginfo</span><span class="p">]</span> <span class="n">target</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">in</span> <span class="mi">0</span><span class="p">.</span><span class="mo">05</span><span class="n">s</span>
+     <span class="n">Running</span> <span class="err">`</span><span class="n">target</span><span class="o">/</span><span class="n">debug</span><span class="o">/</span><span class="n">greeting</span><span class="err">`</span>
+<span class="n">Name</span> <span class="n">Ferrari</span><span class="p">,</span> <span class="n">price</span> <span class="mi">10000</span>
+<span class="n">Name</span> <span class="n">Ferrari</span><span class="p">,</span> <span class="n">price</span> <span class="mi">10000</span>
+</code></pre></div></div>
+
+<p>Above we clone <code class="language-plaintext highlighter-rouge">demo_car</code> before passing it to the <code class="language-plaintext highlighter-rouge">print_car</code> function.</p>
+
+<p>In this version:</p>
+
+<ul>
+  <li>
+    <p>We’ve added <code class="language-plaintext highlighter-rouge">#[derive(Clone)]</code> to the Car struct definition to automatically derive the Clone trait for Car, allowing us to call the clone method on instances of Car.</p>
+  </li>
+  <li>
+    <p>When calling <code class="language-plaintext highlighter-rouge">print_car</code>, we pass a cloned copy of <code class="language-plaintext highlighter-rouge">demo_car</code> using <code class="language-plaintext highlighter-rouge">demo_car.clone()</code>. This creates a new copy of <code class="language-plaintext highlighter-rouge">demo_car</code>, and ownership of the copy is passed to the <code class="language-plaintext highlighter-rouge">print_car</code> function, allowing us to retain ownership of the original <code class="language-plaintext highlighter-rouge">demo_car</code>.</p>
+  </li>
+  <li>
+    <p>After calling <code class="language-plaintext highlighter-rouge">print_car</code>, we can still use <code class="language-plaintext highlighter-rouge">demo_car</code> as it has not been moved.</p>
+  </li>
+</ul>
+
+<p>Below is another approach</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Car</span> <span class="p">{</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+    <span class="n">price</span><span class="p">:</span> <span class="nb">u32</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="k">fn</span> <span class="nf">print_car</span><span class="p">(</span><span class="n">car</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">Car</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Name {}, price {}"</span><span class="p">,</span> <span class="n">car</span><span class="py">.name</span><span class="p">,</span> <span class="n">car</span><span class="py">.price</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">let</span> <span class="n">demo_car</span> <span class="o">=</span> <span class="n">Car</span> <span class="p">{</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nn">String</span><span class="p">::</span><span class="nf">from</span><span class="p">(</span><span class="s">"Ferrari"</span><span class="p">),</span>
+        <span class="n">price</span><span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
+    <span class="p">};</span>
+
+    <span class="nf">print_car</span><span class="p">(</span><span class="o">&amp;</span><span class="n">demo_car</span><span class="p">);</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Name {}, price {}"</span><span class="p">,</span> <span class="n">demo_car</span><span class="py">.name</span><span class="p">,</span> <span class="n">demo_car</span><span class="py">.price</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Output</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">~</span> <span class="n">cargo</span> <span class="n">run</span>
+   <span class="n">Compiling</span> <span class="n">greeting</span> <span class="n">v0</span><span class="p">.</span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span> <span class="p">(</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">david</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">rust</span><span class="o">/</span><span class="n">first_proj</span><span class="o">/</span><span class="n">greeting</span><span class="p">)</span>
+    <span class="n">Finished</span> <span class="n">dev</span> <span class="p">[</span><span class="n">unoptimized</span> <span class="o">+</span> <span class="n">debuginfo</span><span class="p">]</span> <span class="n">target</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">in</span> <span class="mi">0</span><span class="p">.</span><span class="mi">35</span><span class="n">s</span>
+     <span class="n">Running</span> <span class="err">`</span><span class="n">target</span><span class="o">/</span><span class="n">debug</span><span class="o">/</span><span class="n">greeting</span><span class="err">`</span>
+<span class="n">Name</span> <span class="n">Ferrari</span><span class="p">,</span> <span class="n">price</span> <span class="mi">10000</span>
+<span class="n">Name</span> <span class="n">Ferrari</span><span class="p">,</span> <span class="n">price</span> <span class="mi">10000</span>
+</code></pre></div></div>
+
+<p>In this version:</p>
+
+<ul>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">print_car</code> function now accepts a reference to a Car struct using <code class="language-plaintext highlighter-rouge">&amp;Car</code> as the parameter type.</p>
+  </li>
+  <li>
+    <p>Inside <code class="language-plaintext highlighter-rouge">print_car</code>, we use car.name and car.price to access the fields of the Car struct via the reference.</p>
+  </li>
+  <li>
+    <p>When calling <code class="language-plaintext highlighter-rouge">print_car</code>, we pass a reference to <code class="language-plaintext highlighter-rouge">demo_car</code> using <code class="language-plaintext highlighter-rouge">&amp;demo_car</code>, which allows us to borrow demo_car without transferring ownership.</p>
+  </li>
+  <li>
+    <p>After calling <code class="language-plaintext highlighter-rouge">print_car</code>, we can still use <code class="language-plaintext highlighter-rouge">demo_car</code> as it has not been moved.</p>
+  </li>
+</ul>]]></content><author><name>david.dong</name></author><category term="Rust" /><category term="Rust" /><summary type="html"><![CDATA[Learning the concept of ownership.]]></summary></entry><entry><title type="html">Rust startup - environment setup</title><link href="https://dqdongg.com/rust/2024/02/10/Rust-startup.html" rel="alternate" type="text/html" title="Rust startup - environment setup" /><published>2024-02-10T09:24:55+00:00</published><updated>2024-02-10T09:24:55+00:00</updated><id>https://dqdongg.com/rust/2024/02/10/Rust-startup</id><content type="html" xml:base="https://dqdongg.com/rust/2024/02/10/Rust-startup.html"><![CDATA[<p>Rust is hot, I’ve heard a lot of people talking about the Rust language, and it’s powered me enough to learn more about it!   <!--more--></p>
+
+<p>This is the first note to document the process of setting up the development environment, mainly choosing to develop under Linux.</p>
+
+<h2 id="environments">Environments</h2>
+
+<ul>
+  <li>OS - ubuntu 16.04</li>
+  <li>C Compiler - x86_64-unknown-linux-gnu</li>
+  <li>IDE - VS Code</li>
+</ul>
+
+<h2 id="setup">Setup</h2>
+
+<h3 id="rust-compile-environment-and-related-tools-installation">Rust Compile environment and related tools installation</h3>
+
+<p>The rust development environment consists of rustup (toolchain management tool), cargo (package manager and build system) and rustc (compiler).</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span> <span class="n">export</span> <span class="n">RUSTUP_DIST_SERVER</span><span class="o">=</span><span class="n">https</span><span class="o">:</span><span class="c1">//mirrors.ustc.edu.cn/rust-static</span>
+<span class="err">$</span> <span class="n">export</span> <span class="n">RUSTUP_UPDATE_ROOT</span><span class="o">=</span><span class="n">https</span><span class="o">:</span><span class="c1">//mirrors.ustc.edu.cn/rust-static/rustup</span>
+<span class="err">$</span> <span class="n">sudo</span> <span class="n">curl</span> <span class="n">https</span><span class="o">:</span><span class="c1">//sh.rustup.rs -sSf | sh</span>
+</code></pre></div></div>
+
+<p>choose option 1</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&amp;</span> <span class="n">david</span> <span class="err">@</span> <span class="n">david</span><span class="o">-</span><span class="n">VirtualBox</span> <span class="n">in</span> <span class="o">~</span> <span class="mi">0</span> <span class="p">[</span><span class="mi">15</span><span class="o">:</span><span class="mi">51</span><span class="o">:</span><span class="mi">08</span><span class="p">]</span>
+<span class="o">~</span> <span class="n">curl</span> <span class="o">--</span><span class="n">proto</span> <span class="err">'</span><span class="o">=</span><span class="n">https</span><span class="err">'</span> <span class="o">--</span><span class="n">tlsv1</span><span class="p">.</span><span class="mi">2</span> <span class="o">-</span><span class="n">sSf</span> <span class="n">https</span><span class="o">:</span><span class="c1">//sh.rustup.rs | sh                                                                 0 [15:51:08]</span>
+<span class="n">info</span><span class="o">:</span> <span class="n">downloading</span> <span class="n">installer</span>
+
+<span class="n">Welcome</span> <span class="n">to</span> <span class="n">Rust</span><span class="o">!</span>
+
+<span class="n">This</span> <span class="n">will</span> <span class="n">download</span> <span class="n">and</span> <span class="n">install</span> <span class="n">the</span> <span class="n">official</span> <span class="n">compiler</span> <span class="k">for</span> <span class="n">the</span> <span class="n">Rust</span>
+<span class="n">programming</span> <span class="n">language</span><span class="p">,</span> <span class="n">and</span> <span class="n">its</span> <span class="n">package</span> <span class="n">manager</span><span class="p">,</span> <span class="n">Cargo</span><span class="p">.</span>
+
+<span class="n">Rustup</span> <span class="n">metadata</span> <span class="n">and</span> <span class="n">toolchains</span> <span class="n">will</span> <span class="n">be</span> <span class="n">installed</span> <span class="n">into</span> <span class="n">the</span> <span class="n">Rustup</span>
+<span class="n">home</span> <span class="n">directory</span><span class="p">,</span> <span class="n">located</span> <span class="n">at</span><span class="o">:</span>
+
+  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">david</span><span class="o">/</span><span class="p">.</span><span class="n">rustup</span>
+
+<span class="n">This</span> <span class="n">can</span> <span class="n">be</span> <span class="n">modified</span> <span class="n">with</span> <span class="n">the</span> <span class="n">RUSTUP_HOME</span> <span class="n">environment</span> <span class="n">variable</span><span class="p">.</span>
+
+<span class="n">The</span> <span class="n">Cargo</span> <span class="n">home</span> <span class="n">directory</span> <span class="n">is</span> <span class="n">located</span> <span class="n">at</span><span class="o">:</span>
+
+  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">david</span><span class="o">/</span><span class="p">.</span><span class="n">cargo</span>
+
+<span class="n">This</span> <span class="n">can</span> <span class="n">be</span> <span class="n">modified</span> <span class="n">with</span> <span class="n">the</span> <span class="n">CARGO_HOME</span> <span class="n">environment</span> <span class="n">variable</span><span class="p">.</span>
+
+<span class="n">The</span> <span class="n">cargo</span><span class="p">,</span> <span class="n">rustc</span><span class="p">,</span> <span class="n">rustup</span> <span class="n">and</span> <span class="n">other</span> <span class="n">commands</span> <span class="n">will</span> <span class="n">be</span> <span class="n">added</span> <span class="n">to</span>
+<span class="n">Cargo</span><span class="err">'</span><span class="n">s</span> <span class="n">bin</span> <span class="n">directory</span><span class="p">,</span> <span class="n">located</span> <span class="n">at</span><span class="o">:</span>  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">david</span><span class="o">/</span><span class="p">.</span><span class="n">cargo</span><span class="o">/</span><span class="n">bin</span> 
+<span class="n">This</span> <span class="n">path</span> <span class="n">will</span> <span class="n">then</span> <span class="n">be</span> <span class="n">added</span> <span class="n">to</span> <span class="n">your</span> <span class="n">PATH</span> <span class="n">environment</span> <span class="n">variable</span> <span class="n">by</span> <span class="n">modifying</span> <span class="n">the</span> 
+<span class="n">profile</span> <span class="n">files</span> <span class="n">located</span> <span class="n">at</span><span class="o">:</span>  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">david</span><span class="o">/</span><span class="p">.</span><span class="n">profile</span>  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">david</span><span class="o">/</span><span class="p">.</span><span class="n">bashrc</span> 
+<span class="n">You</span> <span class="n">can</span> <span class="n">uninstall</span> <span class="n">at</span> <span class="n">any</span> <span class="n">time</span> <span class="n">with</span> <span class="n">rustup</span> <span class="n">self</span> <span class="n">uninstall</span> <span class="n">and</span> <span class="n">these</span> <span class="n">changes</span> <span class="n">will</span> 
+<span class="n">be</span> <span class="n">reverted</span><span class="p">.</span> 
+<span class="n">Current</span> <span class="n">installation</span> <span class="n">options</span><span class="o">:</span>   <span class="k">default</span> 
+<span class="n">host</span> <span class="n">triple</span><span class="o">:</span> <span class="n">x86_64</span><span class="o">-</span><span class="n">unknown</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span>     <span class="k">default</span> 
+<span class="n">toolchain</span><span class="o">:</span> <span class="n">stable</span> <span class="p">(</span><span class="k">default</span><span class="p">)</span>               
+<span class="n">profile</span><span class="o">:</span> <span class="k">default</span>  
+<span class="n">modify</span> <span class="n">PATH</span> <span class="n">variable</span><span class="o">:</span> <span class="n">yes</span>
+<span class="mi">1</span><span class="p">)</span> <span class="n">Proceed</span> <span class="n">with</span> <span class="n">installation</span> <span class="p">(</span><span class="k">default</span><span class="p">)</span>
+<span class="mi">2</span><span class="p">)</span> <span class="n">Customize</span> <span class="n">installation</span>
+<span class="mi">3</span><span class="p">)</span> <span class="n">Cancel</span> <span class="n">installation</span>
+<span class="o">&gt;</span><span class="mi">1</span>
+<span class="n">info</span><span class="o">:</span> <span class="n">profile</span> <span class="n">set</span> <span class="n">to</span> <span class="err">'</span><span class="k">default</span><span class="err">'</span>
+<span class="n">info</span><span class="o">:</span> <span class="k">default</span> 
+<span class="n">host</span> <span class="n">triple</span> <span class="n">is</span> <span class="n">x86_64</span><span class="o">-</span><span class="n">unknown</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span>
+<span class="n">info</span><span class="o">:</span> <span class="n">syncing</span> <span class="n">channel</span> <span class="n">updates</span> <span class="k">for</span> <span class="err">'</span><span class="n">stable</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">unknown</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span><span class="err">'</span> <span class="mi">712</span><span class="p">.</span><span class="mi">1</span> <span class="n">KiB</span>
+<span class="n">info</span><span class="o">:</span> <span class="n">latest</span> <span class="n">update</span> <span class="n">on</span> <span class="mi">2024</span><span class="o">-</span><span class="mo">02</span><span class="o">-</span><span class="mi">08</span><span class="p">,</span> 
+<span class="n">rust</span> <span class="n">version</span> <span class="mi">1</span><span class="p">.</span><span class="mi">76</span><span class="p">.</span><span class="mi">0</span> <span class="p">(</span><span class="mo">07</span><span class="n">dca489a</span> <span class="mi">2024</span><span class="o">-</span><span class="mo">02</span><span class="o">-</span><span class="mo">04</span><span class="p">)</span>
+<span class="n">info</span><span class="o">:</span> <span class="n">downloading</span> <span class="n">component</span> <span class="err">'</span><span class="n">cargo</span><span class="err">'</span> <span class="mi">8</span><span class="p">.</span><span class="mi">5</span> <span class="n">MiB</span> <span class="o">/</span> <span class="mi">8</span><span class="p">.</span><span class="mi">5</span> <span class="n">MiB</span> <span class="p">(</span><span class="mi">100</span> <span class="o">%</span><span class="p">)</span> <span class="mi">80</span><span class="p">.</span><span class="mi">0</span> <span class="n">KiB</span><span class="o">/</span><span class="n">s</span> <span class="n">in</span> <span class="mi">1</span><span class="n">m</span> <span class="mi">44</span><span class="n">s</span>
+<span class="n">info</span><span class="o">:</span> <span class="n">downloading</span> <span class="n">component</span> <span class="err">'</span><span class="n">clippy</span><span class="err">'</span>  <span class="mi">2</span><span class="p">.</span><span class="mi">1</span> <span class="n">MiB</span> <span class="o">/</span>   <span class="mi">2</span><span class="p">.</span><span class="mi">1</span> <span class="n">MiB</span> <span class="p">(</span><span class="mi">100</span> <span class="o">%</span><span class="p">)</span>  <span class="mi">95</span><span class="p">.</span><span class="mi">0</span> <span class="n">KiB</span><span class="o">/</span><span class="n">s</span> <span class="n">in</span> <span class="mi">23</span><span class="n">s</span>
+<span class="n">info</span><span class="o">:</span> <span class="n">downloading</span> <span class="n">component</span> <span class="err">'</span><span class="n">rust</span><span class="o">-</span><span class="n">docs</span><span class="err">'</span> <span class="mi">14</span><span class="p">.</span><span class="mi">7</span> <span class="n">MiB</span> <span class="o">/</span>  <span class="mi">14</span><span class="p">.</span><span class="mi">7</span> <span class="n">MiB</span> <span class="p">(</span><span class="mi">100</span> <span class="o">%</span><span class="p">)</span> <span class="mi">117</span><span class="p">.</span><span class="mi">4</span> <span class="n">KiB</span><span class="o">/</span><span class="n">s</span> <span class="n">in</span> <span class="mi">2</span><span class="n">m</span> 
+<span class="n">info</span><span class="o">:</span> <span class="n">downloading</span> <span class="n">component</span> <span class="err">'</span><span class="n">rust</span><span class="o">-</span><span class="n">std</span><span class="err">'</span> <span class="mi">23</span><span class="p">.</span><span class="mi">9</span> <span class="n">MiB</span> <span class="o">/</span>  <span class="mi">23</span><span class="p">.</span><span class="mi">9</span> <span class="n">MiB</span> <span class="p">(</span><span class="mi">100</span> <span class="o">%</span><span class="p">)</span>  <span class="mi">98</span><span class="p">.</span><span class="mi">2</span> <span class="n">KiB</span><span class="o">/</span><span class="n">s</span> <span class="n">in</span> <span class="mi">4</span><span class="n">m</span> 
+<span class="n">info</span><span class="o">:</span> <span class="n">downloading</span> <span class="n">component</span> <span class="err">'</span><span class="n">rustc</span><span class="err">'</span> <span class="mi">62</span><span class="p">.</span><span class="mi">3</span> <span class="n">MiB</span> <span class="o">/</span>  <span class="mi">62</span><span class="p">.</span><span class="mi">3</span> <span class="n">MiB</span> <span class="p">(</span><span class="mi">100</span> <span class="o">%</span><span class="p">)</span> <span class="mi">135</span><span class="p">.</span><span class="mi">4</span> <span class="n">KiB</span><span class="o">/</span><span class="n">s</span> <span class="n">in</span> <span class="mi">12</span><span class="n">m</span> 
+<span class="n">info</span><span class="o">:</span> <span class="n">downloading</span> <span class="n">component</span> <span class="err">'</span><span class="n">rustfmt</span><span class="err">'</span>  <span class="mi">2</span><span class="p">.</span><span class="mi">3</span> <span class="n">MiB</span> <span class="o">/</span>   <span class="mi">2</span><span class="p">.</span><span class="mi">3</span> <span class="n">MiB</span> <span class="p">(</span><span class="mi">100</span> <span class="o">%</span><span class="p">)</span>  <span class="mi">86</span><span class="p">.</span><span class="mi">2</span> <span class="n">KiB</span><span class="o">/</span><span class="n">s</span> <span class="n">in</span> <span class="mi">30</span><span class="n">s</span> 
+<span class="n">info</span><span class="o">:</span> <span class="n">installing</span> <span class="n">component</span> <span class="err">'</span><span class="n">cargo</span><span class="err">'</span>
+<span class="n">info</span><span class="o">:</span> <span class="n">installing</span> <span class="n">component</span> <span class="err">'</span><span class="n">clippy</span><span class="err">'</span><span class="n">info</span><span class="o">:</span> <span class="n">installing</span> <span class="n">component</span> <span class="err">'</span><span class="n">rust</span><span class="o">-</span><span class="n">docs</span><span class="err">'</span> <span class="mi">14</span><span class="p">.</span><span class="mi">7</span> <span class="n">MiB</span> 
+<span class="n">info</span><span class="o">:</span> <span class="n">installing</span> <span class="n">component</span> <span class="err">'</span><span class="n">rust</span><span class="o">-</span><span class="n">std</span><span class="err">'</span> <span class="mi">23</span><span class="p">.</span><span class="mi">9</span> <span class="n">MiB</span> <span class="o">/</span>  <span class="mi">23</span><span class="p">.</span><span class="mi">9</span> <span class="n">MiB</span> <span class="p">(</span><span class="mi">100</span> <span class="o">%</span><span class="p">)</span>  <span class="mi">13</span><span class="p">.</span><span class="mi">2</span> <span class="n">MiB</span><span class="o">/</span><span class="n">s</span> <span class="n">in</span> <span class="mi">1</span><span class="n">s</span>
+<span class="n">info</span><span class="o">:</span> <span class="n">installing</span> <span class="n">component</span> <span class="err">'</span><span class="n">rustc</span><span class="err">'</span> <span class="mi">62</span><span class="p">.</span><span class="mi">3</span> <span class="n">MiB</span> <span class="o">/</span>  <span class="mi">62</span><span class="p">.</span><span class="mi">3</span> <span class="n">MiB</span> <span class="p">(</span><span class="mi">100</span> <span class="o">%</span><span class="p">)</span>  <span class="mi">14</span><span class="p">.</span><span class="mi">9</span> <span class="n">MiB</span><span class="o">/</span><span class="n">s</span> <span class="n">in</span>  <span class="mi">4</span><span class="n">s</span> 
+<span class="n">info</span><span class="o">:</span> <span class="n">installing</span> <span class="n">component</span> <span class="err">'</span><span class="n">rustfmt</span><span class="err">'</span>
+<span class="n">info</span><span class="o">:</span> <span class="k">default</span> <span class="n">toolchain</span> <span class="n">set</span> <span class="n">to</span> <span class="err">'</span><span class="n">stable</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">unknown</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span><span class="err">'</span>  
+<span class="n">stable</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">unknown</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span> <span class="n">installed</span> 
+<span class="o">-</span> <span class="n">rustc</span> <span class="mi">1</span><span class="p">.</span><span class="mi">76</span><span class="p">.</span><span class="mi">0</span> <span class="p">(</span><span class="mo">07</span><span class="n">dca489a</span> <span class="mi">2024</span><span class="o">-</span><span class="mo">02</span><span class="o">-</span><span class="mo">04</span><span class="p">)</span><span class="n">Rust</span> <span class="n">is</span> <span class="n">installed</span> <span class="n">now</span><span class="p">.</span> 
+<span class="n">Great</span><span class="o">!</span><span class="n">To</span> <span class="n">get</span> <span class="n">started</span> <span class="n">you</span> <span class="n">may</span> <span class="n">need</span> <span class="n">to</span> <span class="n">restart</span> <span class="n">your</span> <span class="n">current</span> <span class="n">shell</span><span class="p">.</span>
+<span class="n">This</span> <span class="n">would</span> <span class="n">reload</span> <span class="n">your</span> <span class="n">PATH</span> <span class="n">environment</span> <span class="n">variable</span> <span class="n">to</span> <span class="n">include</span> 
+<span class="n">Cargo</span><span class="err">'</span><span class="n">s</span> <span class="n">bin</span> <span class="n">directory</span> <span class="p">(</span><span class="err">$</span><span class="n">HOME</span><span class="o">/</span><span class="p">.</span><span class="n">cargo</span><span class="o">/</span><span class="n">bin</span><span class="p">).</span>
+
+<span class="n">To</span> <span class="n">configure</span> <span class="n">your</span> <span class="n">current</span> <span class="n">shell</span><span class="p">,</span> <span class="n">run</span><span class="o">:</span>
+<span class="n">source</span> <span class="s">"$HOME/.cargo/env"</span>
+
+<span class="o">&amp;</span> <span class="n">david</span> <span class="err">@</span> <span class="n">david</span><span class="o">-</span><span class="n">VirtualBox</span> <span class="n">in</span> <span class="o">~</span> <span class="mi">0</span> <span class="p">[</span><span class="mi">16</span><span class="o">:</span><span class="mi">20</span><span class="o">:</span><span class="mi">53</span><span class="p">]</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>The Rustup metadata and toolchain will be installed in the Rustup home directory located at /home/david/.rustup, which can be modified using the RUSTUP_HOME environment variable.</p>
+  </li>
+  <li>
+    <p>Cargo’s home directory is located at /home/david/.cargo which can be modified via the CARGO_HOME environment variable.</p>
+  </li>
+  <li>
+    <p>cargo, rustc, rustup and other commands will be added to cargo’s bin directory, which is located in /home/david/.cargo/bin</p>
+  </li>
+  <li>
+    <p>add this path to the PATH environment variable /home/david/.profile or /home/david/. bashrc</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.cargo/bin:</span><span class="nv">$PATH</span><span class="s2">
+</span></code></pre></div>    </div>
+  </li>
+  <li>
+    <p>I used fish shell, so need to add environment variable PATH in ~/.config/fish/config.fish</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">set</span> <span class="nt">-x</span> PATH ~/.cargo/bin <span class="nv">$PATH</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Verify the installation</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> <span class="n">rustc</span> <span class="o">-</span><span class="n">V</span>
+<span class="n">rustc</span> <span class="mi">1</span><span class="p">.</span><span class="mi">76</span><span class="p">.</span><span class="mi">0</span> <span class="p">(</span><span class="mo">07</span><span class="n">dca489a</span> <span class="mi">2024</span><span class="o">-</span><span class="mo">02</span><span class="o">-</span><span class="mo">04</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="n">cargo</span> <span class="o">-</span><span class="n">V</span>
+<span class="n">cargo</span> <span class="mi">1</span><span class="p">.</span><span class="mi">76</span><span class="p">.</span><span class="mi">0</span> <span class="p">(</span><span class="n">c84b36747</span> <span class="mi">2024</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">18</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="n">rustup</span> <span class="o">-</span><span class="n">V</span>
+<span class="n">rustup</span> <span class="mi">1</span><span class="p">.</span><span class="mi">26</span><span class="p">.</span><span class="mi">0</span> <span class="p">(</span><span class="mi">5</span><span class="n">af9b9484</span> <span class="mi">2023</span><span class="o">-</span><span class="mo">04</span><span class="o">-</span><span class="mo">05</span><span class="p">)</span>
+<span class="n">info</span><span class="o">:</span> <span class="n">This</span> <span class="n">is</span> <span class="n">the</span> <span class="n">version</span> <span class="k">for</span> <span class="n">the</span> <span class="n">rustup</span> <span class="n">toolchain</span> <span class="n">manager</span><span class="p">,</span> <span class="n">not</span> <span class="n">the</span> <span class="n">rustc</span> <span class="n">compiler</span><span class="p">.</span>
+<span class="n">info</span><span class="o">:</span> <span class="n">The</span> <span class="n">currently</span> <span class="n">active</span> <span class="err">`</span><span class="n">rustc</span><span class="err">`</span> <span class="n">version</span> <span class="n">is</span> <span class="err">`</span><span class="n">rustc</span> <span class="mi">1</span><span class="p">.</span><span class="mi">76</span><span class="p">.</span><span class="mi">0</span> <span class="p">(</span><span class="mo">07</span><span class="n">dca489a</span> <span class="mi">2024</span><span class="o">-</span><span class="mo">02</span><span class="o">-</span><span class="mo">04</span><span class="p">)</span><span class="err">`</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>The rust toolchain management tool rustup, the package manager cargo, and the compiler rustc are now installed!</p>
+
+<ul>
+  <li>
+    <p>unstallation command</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rustup</span> <span class="n">self</span> <span class="n">uninstall</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="vscode-configuration-for-development-of-rust">Vscode configuration for development of Rust</h3>
+
+<p>Install the following plug-ins</p>
+
+<ul>
+  <li>rust-analyzer</li>
+  <li>CodeLLDB</li>
+  <li>Code Runner</li>
+</ul>
+
+<h3 id="vscode-debugging-rust-code">Vscode debugging Rust code</h3>
+
+<ul>
+  <li>
+    <p>Create a project directory like first_prj</p>
+  </li>
+  <li>
+    <p>Go to first_prj</p>
+  </li>
+  <li>
+    <p>Run <code class="language-plaintext highlighter-rouge">cargo new first_prj_name</code> in terminal, it will create project first_prj_name directory and src/main. rs</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Welcome</span> <span class="n">to</span> <span class="n">fish</span><span class="p">,</span> <span class="n">the</span> <span class="n">friendly</span> <span class="n">interactive</span> <span class="n">shell</span>
+<span class="n">Type</span> <span class="n">help</span> <span class="k">for</span> <span class="n">instructions</span> <span class="n">on</span> <span class="n">how</span> <span class="n">to</span> <span class="n">use</span> <span class="n">fish</span>
+  
+<span class="o">&amp;</span> <span class="n">david</span> <span class="err">@</span> <span class="n">ubuntu</span> <span class="n">in</span> <span class="o">~/</span><span class="n">code</span><span class="o">/</span><span class="n">rust</span><span class="o">/</span><span class="n">first_proj</span> <span class="mi">0</span> <span class="p">[</span><span class="mi">19</span><span class="o">:</span><span class="mo">06</span><span class="o">:</span><span class="mi">14</span><span class="p">]</span>
+<span class="o">~</span> <span class="n">cargo</span> <span class="n">new</span> <span class="n">greeting</span>
+     <span class="n">Created</span> <span class="n">binary</span> <span class="p">(</span><span class="n">application</span><span class="p">)</span> <span class="err">`</span><span class="n">greeting</span><span class="err">`</span> <span class="n">package</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>cd . /first_prj_name</p>
+  </li>
+  <li>
+    <p>run <code class="language-plaintext highlighter-rouge">cargo build</code> to compile the code</p>
+
+    <div class="language-cs highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">&amp;</span> <span class="n">david</span> <span class="err">@</span> <span class="n">ubuntu</span> <span class="k">in</span> <span class="p">~/</span><span class="n">code</span><span class="p">/</span><span class="n">rust</span><span class="p">/</span><span class="n">first_proj</span><span class="p">/</span><span class="nf">greeting</span> <span class="p">(</span><span class="n">master</span> <span class="err">…</span><span class="m">3</span><span class="p">)</span> <span class="m">0</span> <span class="p">[</span><span class="m">19</span><span class="p">:</span><span class="m">07</span><span class="p">:</span><span class="m">15</span><span class="p">]</span>
+<span class="p">~</span> <span class="n">cargo</span> <span class="n">build</span>
+   <span class="n">Compiling</span> <span class="n">greeting</span> <span class="n">v0</span><span class="p">.</span><span class="m">1.0</span> <span class="p">(/</span><span class="n">home</span><span class="p">/</span><span class="n">david</span><span class="p">/</span><span class="n">code</span><span class="p">/</span><span class="n">rust</span><span class="p">/</span><span class="n">first_proj</span><span class="p">/</span><span class="n">greeting</span><span class="p">)</span>
+    <span class="n">Finished</span> <span class="n">dev</span> <span class="p">[</span><span class="n">unoptimized</span> <span class="p">+</span> <span class="n">debuginfo</span><span class="p">]</span> <span class="nf">target</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">in</span> <span class="m">0.18</span><span class="n">s</span> <span class="m">0</span><span class="p">.</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>run <code class="language-plaintext highlighter-rouge">cargo run</code> to debug the code</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&amp;</span> <span class="n">david</span> <span class="err">@</span> <span class="n">ubuntu</span> <span class="n">in</span> <span class="o">~/</span><span class="n">code</span><span class="o">/</span><span class="n">rust</span><span class="o">/</span><span class="n">first_proj</span><span class="o">/</span><span class="n">greeting</span> <span class="p">(</span><span class="n">master</span> <span class="err">…</span><span class="mi">4</span><span class="p">)</span> <span class="mi">0</span> <span class="p">[</span><span class="mi">19</span><span class="o">:</span><span class="mo">07</span><span class="o">:</span><span class="mi">19</span><span class="p">]</span>
+<span class="o">~</span> <span class="n">cargo</span> <span class="n">run</span>
+    <span class="n">Finished</span> <span class="n">dev</span> <span class="p">[</span><span class="n">unoptimized</span> <span class="o">+</span> <span class="n">debuginfo</span><span class="p">]</span> <span class="n">target</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">in</span> <span class="mi">0</span><span class="p">.</span><span class="mo">00</span><span class="n">s</span>
+     <span class="n">Running</span> <span class="err">`</span><span class="n">target</span><span class="o">/</span><span class="n">debug</span><span class="o">/</span><span class="n">greeting</span><span class="err">`</span>
+<span class="n">Hello</span><span class="p">,</span> <span class="n">world</span><span class="o">!</span>
+</code></pre></div>    </div>
+  </li>
+</ul>]]></content><author><name>david.dong</name></author><category term="Rust" /><category term="Rust" /><summary type="html"><![CDATA[To record how to set up environment of Rust development.]]></summary></entry><entry><title type="html">What it’s like to use ChatGPT</title><link href="https://dqdongg.com/others/2023/02/04/Others-chatgpt.html" rel="alternate" type="text/html" title="What it’s like to use ChatGPT" /><published>2023-02-04T11:43:17+00:00</published><updated>2023-02-04T11:43:17+00:00</updated><id>https://dqdongg.com/others/2023/02/04/Others-chatgpt</id><content type="html" xml:base="https://dqdongg.com/others/2023/02/04/Others-chatgpt.html"><![CDATA[<p>ChatGPT is very hot recently, I also registered an account and experienced it myself. 😉 <!--more--></p>
+
+<p>After registration, I login to ChatGPT’s URL and start testing.
+I asked a few random professional questions to see how it answered. Here’s how it performed.</p>
+
+<p>❓ <strong>Question:</strong> How to use DllImport in C#?</p>
+
+<hr />
+
+<p><strong>ChatGPT:</strong> To use <code class="language-plaintext highlighter-rouge">DllImport</code> in C#, you need to do the following:</p>
+
+<ul>
+  <li>Add a <code class="language-plaintext highlighter-rouge">using</code> statement for the <code class="language-plaintext highlighter-rouge">System.Runtime.InteropServices</code> namespace at the top of your code file:</li>
+</ul>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Runtime.InteropServices</span><span class="p">;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>Use the <code class="language-plaintext highlighter-rouge">DllImport</code> attribute to specify the name of the DLL containing the unmanaged code you want to call and the name of the function within that DLL.</p>
+
+    <p>For example:</p>
+  </li>
+</ul>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="nf">DllImport</span><span class="p">(</span><span class="s">"mydll.dll"</span><span class="p">)]</span> 
+<span class="k">private</span> <span class="k">static</span> <span class="k">extern</span> <span class="kt">int</span> <span class="nf">MyFunction</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">);</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Call the unmanaged function from your C# code, just like you would call any other C# method:</li>
+</ul>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">result</span> <span class="p">=</span> <span class="nf">MyFunction</span><span class="p">(</span><span class="m">10</span><span class="p">,</span> <span class="m">20</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">DllImport</code> attribute allows you to call functions in unmanaged DLLs from your C# code. It is used to provide the necessary information for the CLR (Common Language Runtime) to be able to locate and call the function in the DLL at runtime.</p>
+
+<p>❓ <strong>Question:</strong> Could you introduce the DllImport usage?</p>
+
+<hr />
+
+<p><strong>ChatGPT:</strong> Sure, the <code class="language-plaintext highlighter-rouge">DllImport</code> attribute is a way to call functions in unmanaged DLLs (Dynamic Link Libraries) From managed code, such as C#. <strong>Unmanaged DLLs are libraries written in languages such as C or C++, which do not run under the .NET runtime.</strong> Because of this, you cannot call functions in these DLLs directly From your C# code.</p>
+
+<p>To use <code class="language-plaintext highlighter-rouge">DllImport</code>, you need to add a <code class="language-plaintext highlighter-rouge">using</code> statement for the <code class="language-plaintext highlighter-rouge">System.Runtime.InteropServices</code> namespace at the top of your code file. Then, use the <code class="language-plaintext highlighter-rouge">DllImport</code> attribute to specify the name of the DLL containing the unmanaged code you want to call and the name of the function within that DLL.</p>
+
+<p>For example:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Runtime.InteropServices</span><span class="p">;</span>  
+<span class="p">[</span><span class="nf">DllImport</span><span class="p">(</span><span class="s">"mydll.dll"</span><span class="p">)]</span> 
+<span class="k">private</span> <span class="k">static</span> <span class="k">extern</span> <span class="kt">int</span> <span class="nf">MyFunction</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Once you’ve done this, you can call the unmanaged function From your C# code, just like you would call any other C# method:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">result</span> <span class="p">=</span> <span class="nf">MyFunction</span><span class="p">(</span><span class="m">10</span><span class="p">,</span> <span class="m">20</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">DllImport</code> attribute provides the necessary information for the CLR (Common Language Runtime) to be able to locate and call the function in the DLL at runtime. This allows you to use functions in unmanaged DLLs From your C# code.</p>
+
+<p>Following its answer, I went on to ask…</p>
+
+<p>❓ <strong>Question:</strong> What does that mean of the parameters <code class="language-plaintext highlighter-rouge">EntryPoint</code> and <code class="language-plaintext highlighter-rouge">CallingConvention</code> in the calling of DllImport with the C#?</p>
+
+<hr />
+
+<p><strong>ChatGPT:</strong> The <code class="language-plaintext highlighter-rouge">EntryPoint</code> parameter of the <code class="language-plaintext highlighter-rouge">DllImport</code> attribute is used to specify the name of the function within the DLL that you want to call.</p>
+
+<p>For example:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="nf">DllImport</span><span class="p">(</span><span class="s">"mydll.dll"</span><span class="p">,</span> <span class="n">EntryPoint</span> <span class="p">=</span> <span class="s">"MyFunction"</span><span class="p">)]</span> 
+<span class="k">private</span> <span class="k">static</span> <span class="k">extern</span> 
+<span class="kt">int</span> <span class="nf">MyFunction</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>In this case, the <code class="language-plaintext highlighter-rouge">EntryPoint</code> is set to <code class="language-plaintext highlighter-rouge">"MyFunction"</code>, which is the name of the function in the DLL that will be called when <code class="language-plaintext highlighter-rouge">MyFunction</code> is called From C# code.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">CallingConvention</code> parameter is used to specify the calling convention of the function being imported. The calling convention determines the order in which parameters are passed to the function, and how the return value is passed back to the caller. The possible values for the <code class="language-plaintext highlighter-rouge">CallingConvention</code> parameter are <code class="language-plaintext highlighter-rouge">StdCall</code>, <code class="language-plaintext highlighter-rouge">Cdecl</code>, and <code class="language-plaintext highlighter-rouge">Winapi</code> (the default).</p>
+
+<p>For example:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="nf">DllImport</span><span class="p">(</span><span class="s">"mydll.dll"</span><span class="p">,</span> <span class="n">EntryPoint</span> <span class="p">=</span> <span class="s">"MyFunction"</span><span class="p">,</span> <span class="n">CallingConvention</span> <span class="p">=</span> <span class="n">CallingConvention</span><span class="p">.</span><span class="n">StdCall</span><span class="p">)]</span> 
+<span class="k">private</span> <span class="k">static</span> <span class="k">extern</span> <span class="kt">int</span> <span class="nf">MyFunction</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>In this case, the <code class="language-plaintext highlighter-rouge">CallingConvention</code> is set to <code class="language-plaintext highlighter-rouge">CallingConvention.StdCall</code>, which specifies that the function uses the standard calling convention. The standard calling convention is the default for most functions in Windows DLLs, so you don’t usually need to specify it explicitly.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">EntryPoint</code> and <code class="language-plaintext highlighter-rouge">CallingConvention</code> parameters are optional when using <code class="language-plaintext highlighter-rouge">DllImport</code>. If you omit them, the default values will be used. For the <code class="language-plaintext highlighter-rouge">EntryPoint</code> parameter, the default value is the name of the method in your C# code, and for the <code class="language-plaintext highlighter-rouge">CallingConvention</code> parameter, the default is <code class="language-plaintext highlighter-rouge">Winapi</code>. However, it’s a good idea to always specify both of these parameters explicitly to avoid any confusion or potential problems.</p>
+
+<p>And the last question,</p>
+
+<p>❓ <strong>Question:</strong> What is the <code class="language-plaintext highlighter-rouge">CallingConvention.Cdecl</code> and what is the difference with <code class="language-plaintext highlighter-rouge">CallingConvention.Cdecl</code> and <code class="language-plaintext highlighter-rouge">CallingConvention.StdCall</code>?</p>
+
+<hr />
+
+<p><strong>ChatGPT:</strong> The <code class="language-plaintext highlighter-rouge">CallingConvention.Cdecl</code> value specifies that the <strong>C calling convention</strong> is used for the function being imported. In the C calling convention, parameters are passed on the stack From right to left, and the caller is responsible for cleaning up the stack. This is the default calling convention for functions in C and C++.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">CallingConvention.StdCall</code> value specifies that the <strong>standard calling convention</strong> is used for the function being imported. In the standard calling convention, parameters are also passed on the stack, but the callee (the function being called) is responsible for cleaning up the stack. This is the default calling convention for most functions in Windows DLLs.</p>
+
+<p><strong>The main difference between these two calling conventions is who is responsible for cleaning up the stack after the function call</strong>. In the C calling convention, the caller is responsible for this, while in the standard calling convention, the callee is responsible. This means that if you use the C calling convention and forget to clean up the stack, you will get a stack overflow error. On the other hand, if you use the standard calling convention and forget to clean up the stack, the DLL will crash.</p>
+
+<p>In general, it’s best to use the standard calling convention unless you have a specific reason to use the C calling convention. This is because the standard calling convention is more robust and less error-prone than the C calling convention.</p>
+
+<p>Well done! So far it has performed very well, at least it has answered as precisely as I wanted.</p>
+
+<p>To sum up my own experience, the first impression is “fast, accurate, efficient and powerful”. I feel comfortable using it and unlike traditional search engines, it summarizes and extracts the amount of information available on the internet and presents it to me in a very concise and easy to understand format, which can really improve productivity.</p>]]></content><author><name>david.dong</name></author><category term="Others" /><category term="ChatGPT" /><summary type="html"><![CDATA[To record my first experience with ChatGPT.]]></summary></entry><entry><title type="html">About gerrit.createChangeId</title><link href="https://dqdongg.com/git/2022/08/11/gerrit.createchangeid.html" rel="alternate" type="text/html" title="About gerrit.createChangeId" /><published>2022-08-11T14:10:09+00:00</published><updated>2022-08-11T14:10:09+00:00</updated><id>https://dqdongg.com/git/2022/08/11/gerrit.createchangeid</id><content type="html" xml:base="https://dqdongg.com/git/2022/08/11/gerrit.createchangeid.html"><![CDATA[<p><code class="language-plaintext highlighter-rouge">git config --bool --get gerrit.createChangeId</code> is a command used in the Git version control system to retrieve the value of the configuration option <code class="language-plaintext highlighter-rouge">gerrit.createChangeId</code>. <!--more-->This option determines whether a change-id should be created for each commit message when pushing to a Gerrit server.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">--bool</code> flag specifies that the value being retrieved is a <em>boolean</em>, which means it can be either <code class="language-plaintext highlighter-rouge">true</code> or <code class="language-plaintext highlighter-rouge">false</code>. The <code class="language-plaintext highlighter-rouge">--get</code> flag specifies that the command should retrieve the value of the specified configuration option.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">gerrit.createChangeId</code> option is used in conjunction with Gerrit, which is a web-based code review tool that integrates with Git. When this option is set to <code class="language-plaintext highlighter-rouge">true</code>, a change-id will be automatically added to the commit message when pushing to a Gerrit server. <strong>This change-id is used by Gerrit to identify a particular change and to track its progress through the code review process.</strong></p>
+
+<p>To set the value of the <code class="language-plaintext highlighter-rouge">gerrit.createChangeId</code> option, you can use the command <code class="language-plaintext highlighter-rouge">git config --bool --add gerrit.createChangeId true</code> or <code class="language-plaintext highlighter-rouge">git config --bool --add gerrit.createChangeId false</code>, depending on the desired value.</p>]]></content><author><name>david.dong</name></author><category term="Git" /><category term="Git" /><summary type="html"><![CDATA[Git Hook 的学习分享.]]></summary></entry><entry><title type="html">Keep old change-id when do git commit</title><link href="https://dqdongg.com/git/2022/07/22/git-change-id.html" rel="alternate" type="text/html" title="Keep old change-id when do git commit" /><published>2022-07-22T14:45:56+00:00</published><updated>2022-07-22T14:45:56+00:00</updated><id>https://dqdongg.com/git/2022/07/22/git-change-id</id><content type="html" xml:base="https://dqdongg.com/git/2022/07/22/git-change-id.html"><![CDATA[<p>When I use <code class="language-plaintext highlighter-rouge">git commit --amend</code> command, it will generate a new change-id. But I want to use the previous change-id and don’t want to generate a new one. How should I keep the old change-id and keep only one change-id?<!--more--></p>
+
+<p>When you use <code class="language-plaintext highlighter-rouge">git commit --amend</code>, it creates a new commit that replaces the previous commit. <strong>This new commit will have a new commit hash and will be treated as a completely separate commit by Git</strong>, even though it may contain the same changes as the previous commit.</p>
+
+<p>To keep the old change-id and have only one change-id, you can use the <code class="language-plaintext highlighter-rouge">git commit --amend --no-edit</code> command. This will allow you to amend the previous commit without creating a new commit or changing the commit message. The change-id will remain the same and you will only have one change-id for that commit.</p>
+
+<p>It’s important to note that using <code class="language-plaintext highlighter-rouge">git commit --amend</code> can be a powerful tool, but it should be used with caution, as it can cause confusion if used improperly. If you have already pushed the commit to a remote repository, you should be careful when using <code class="language-plaintext highlighter-rouge">git commit --amend</code>, as it can cause problems when working with other collaborators. It’s generally a good idea to communicate with your team before using <code class="language-plaintext highlighter-rouge">git commit --amend</code> on a commit that has been pushed to a remote repository.</p>]]></content><author><name>david.dong</name></author><category term="Git" /><category term="Git" /><summary type="html"><![CDATA[Learn how to keep old change-id when git commit.]]></summary></entry><entry><title type="html">Git hook 配置与使用</title><link href="https://dqdongg.com/git/2022/07/01/Git-hooks.html" rel="alternate" type="text/html" title="Git hook 配置与使用" /><published>2022-07-01T14:10:09+00:00</published><updated>2022-07-01T14:10:09+00:00</updated><id>https://dqdongg.com/git/2022/07/01/Git-hooks</id><content type="html" xml:base="https://dqdongg.com/git/2022/07/01/Git-hooks.html"><![CDATA[<p>Hook 就是在执行某个事件之前或之后进行一些其他额外的操作。在 Git 中也有许多的事件（commit、push 等等），每个事件也是对应了有不同的钩子的（如 commit 前，commit 后），那么我们就可以在这些钩子这里配置一些自己需要执行的操作来实现各种各样的需求。<!--more--></p>
+
+<h2 id="git-hooks-介绍">Git Hooks 介绍</h2>
+
+<p><em>Git Hooks</em> 的实现其实非常简单，就是就 <code class="language-plaintext highlighter-rouge">.git/hooks</code> 文件下，保存了一些 shell 脚本，然后在对应的钩子中执行这些脚本就行了。比如下图中，这是一个还没有配置 <em>Git Hooks</em> 的仓库，默认会有很多 <code class="language-plaintext highlighter-rouge">.sample</code> 结尾的文件，这些都是示例文件。</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/image/git-hooks-01.png" alt="git-hook-01" class="center-image" /></p>
+
+<p>我们打开 <code class="language-plaintext highlighter-rouge">pre-commit.sample</code> 文件看一下其中的内容，大致意思是说这是一个示例，做了一些格式方面的检测，这个脚本默认是不生效的，如果要生效，把文件名改为 <code class="language-plaintext highlighter-rouge">pre-commit</code> 即可。</p>
+
+<p><img src="https://pic3.zhimg.com/v2-fa71d169ef288ed2ca7bd660930036f6_r.jpg" alt="" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">pre-commit</code> 这个钩子是在 <code class="language-plaintext highlighter-rouge">git commit</code> 命令执行之前触发。</p>
+
+<p>Git 支持的所有钩子见下表（<em>加粗的为常用钩子</em>）：</p>
+
+<p><img src="https://pic4.zhimg.com/v2-161c0a131454d4b24f16a9a3125d947f_r.jpg" alt="" /></p>
+
+<p>PS：完整钩子说明，请参考 <a href="https://git-scm.com/docs/githooks">@官网链接</a></p>
+
+<h2 id="husky-配置">Husky 配置</h2>
+
+<p>从上面的介绍中，我们知道 Git Hook 保存在 <code class="language-plaintext highlighter-rouge">.git</code> 文件夹中。不知你有没有发现这会有一个问题？可能细心的同学已经知道了，Git 是一个多人协作工具，那按理说 Git 仓库中的所有文件都应该被跟踪并且上传至远程仓库的。但是有个例外，<code class="language-plaintext highlighter-rouge">.git </code> 文件夹不会，这就导致一个问题，我们在本地配置好 <em>Git Hook</em> 后，怎么分享给其他小伙伴儿呢？copy 吗？那未免太 low 了，都用 Git 了，还 copy，也太不优雅了。这时候，就轮到 <a href="https://github.com/typicode/husky">Husky</a> 出场了。</p>
+
+<p><em>Husky</em> 是一个让配置 Git 钩子变得更简单的工具（题外话：Husky 是哈士奇的意思，我猜可能是作者养了条二哈）</p>
+
+<p>下面这些流行的项目都在使用 <em>Husky</em>，可见它确实是一个非常好用的工具：</p>
+
+<ul>
+  <li><a href="https://github.com/webpack/webpack">webpack</a></li>
+  <li><a href="https://github.com/babel/babel">babel</a></li>
+  <li><a href="https://github.com/facebookincubator/create-react-app">create-react-app</a></li>
+  <li>……</li>
+</ul>
+
+<h2 id="no-verify-的使用">–no-verify 的使用</h2>
+
+<p><code class="language-plaintext highlighter-rouge">git commit --amend --no-verify</code> 命令是一条 Git 命令，它允许你修改最近的提交信息或内容，而不触发 <code class="language-plaintext highlighter-rouge">pre-commit</code> 和 <code class="language-plaintext highlighter-rouge">commit-msg</code> 钩子。<code class="language-plaintext highlighter-rouge">git commit --amend</code> 命令与此类似，但它会在钩子存在的情况下运行这些钩子。这两个命令都会用包含你的修改的新提交来替换之前的提交。</p>]]></content><author><name>david.dong</name></author><category term="Git" /><category term="Git" /><summary type="html"><![CDATA[Git Hook 的学习分享.]]></summary></entry></feed>

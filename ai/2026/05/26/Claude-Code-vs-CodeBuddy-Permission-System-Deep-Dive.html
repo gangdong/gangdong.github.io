@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
+<!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>Claude Code vs CodeBuddy：两大 AI 编程助手的权限系统设计深度对比 | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Claude Code vs CodeBuddy：两大 AI 编程助手的权限系统设计深度对比" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Claude Code 和 CodeBuddy 是目前最受关注的两款终端 AI 编程助手。本文从权限系统设计的角度，深入对比两者的 deny/ask/allow 规则体系、运行时模式、安全设计哲学等方面的异同。" />
+<meta name="twitter:description" property="og:description" content="Claude Code 和 CodeBuddy 是目前最受关注的两款终端 AI 编程助手。本文从权限系统设计的角度，深入对比两者的 deny/ask/allow 规则体系、运行时模式、安全设计哲学等方面的异同。" />
+<link rel="canonical" href="https://dqdongg.com/ai/2026/05/26/Claude-Code-vs-CodeBuddy-Permission-System-Deep-Dive.html" />
+<meta property="og:url" content="https://dqdongg.com/ai/2026/05/26/Claude-Code-vs-CodeBuddy-Permission-System-Deep-Dive.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-05-26T10:00:00+00:00" />
+<meta property="article:modified_time" content="2026-05-26T10:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Claude Code vs CodeBuddy：两大 AI 编程助手的权限系统设计深度对比" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"david.dong"},"dateModified":"2026-05-26T10:00:00+00:00","datePublished":"2026-05-26T10:00:00+00:00","description":"Claude Code 和 CodeBuddy 是目前最受关注的两款终端 AI 编程助手。本文从权限系统设计的角度，深入对比两者的 deny/ask/allow 规则体系、运行时模式、安全设计哲学等方面的异同。","headline":"Claude Code vs CodeBuddy：两大 AI 编程助手的权限系统设计深度对比","mainEntityOfPage":{"@type":"WebPage","@id":"https://dqdongg.com/ai/2026/05/26/Claude-Code-vs-CodeBuddy-Permission-System-Deep-Dive.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://dqdongg.com/assets/logo.png"},"name":"david.dong"},"url":"https://dqdongg.com/ai/2026/05/26/Claude-Code-vs-CodeBuddy-Permission-System-Deep-Dive.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="alternate" type="application/rss+xml" title="David Dong's Blog - RSS" href="/rss.xml">
+
+<meta property="article:tag" content="AI编程工具">
+
+
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/css/syntax/syntax.gruvbox.dark.css" rel="stylesheet"/>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
+
+<script defer>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js');
+  });
+}
+</script>
+</head><body>
+    <main class="container">
+      <section class="about condensed">
+	    <div class="about-header condensed">
+			<div class="about-title">
+				<a href="/blog/index.html">
+				  <img loading="lazy" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/my_new_avatar.jpg" alt="David Dong"/>
+				</a>
+				<div class = "title-meta">
+					<h2 id="title">
+					  <a href="/blog/index.html">David Dong</a>
+					</h2>
+					<p class = "tagline-small">Java/C/C#/Python</p>
+				</div>
+			</div>
+			<p class="tagline">Java/C/C#/Python</p>
+		</div>
+		<!--put dark mode button here -->
+		<div class = "about-footer condensed">
+		  <!--put rss/code link here -->
+			<div class="icon-box-container about-footer condensed"><div class = "icon-box" style = "padding-right:0px">
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id = "mode">Dark Mode</span>
+					</a>
+				</div>
+				<!-- toggle dark/light display mode, should loading darkmode.js here for avoiding flicker when switching -->
+				<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/darkmode.js"></script>
+				<script type="text/javascript">
+				$('.dark-mode').on('click',function(){
+					$('.dark-mode').toggleClass('light-mode');
+					if (document.getElementById("mode").innerHTML=="Light Mode")
+						document.getElementById("mode").innerHTML="Dark Mode";
+					else 
+						document.getElementById("mode").innerHTML="Light Mode";
+				})
+				</script><div class = "icon-box">
+					<a class="icon-rss" href="/rss.xml">
+						<span>Subscribe</span>
+					</a>
+				</div><div class = "icon-box">
+					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
+						<span>Source Code</span>
+					</a>
+				</div></div>
+		</div>
+		
+	    <!--show contact me -->
+		<div class = "about-footer condensed social-container">
+	    <p class = "contact about-footer condensed">CONTACT ME</p>
+		<!-- put social link here -->
+	      <ul class="social about-footer condensed" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		<!--put timestamp here -->
+		<p class ="timestamp about-footer condensed">&copy; 2026</p>
+		</div>
+	  <!-- about box end here -->
+      </section>
+	  
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+<div class="post-container">
+	<div  class = "menu-meta condensed">
+		<!--put top menu here, display @ big screen (> $mobileW) -->
+		<div  class = "menu-logo">BLOG</div>
+		<div  class = "menu">
+			<a href="/blog/index.html">
+				<li class="icon-home">Home</li>
+			</a><a href="/archive">
+				<li class="icon-archive">Archives</li>
+			</a><a href="/category">
+				<li class="icon-tags">Categories</li>
+			</a><a href="/about">
+				<li class="icon-help-circled">About</li>
+			</a>
+		</div>
+		<!--put hide menu button here, display @ small screen (< $mobileW) -->
+		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
+		<!--put hide menu here, display @ small screen (< $mobileW) -->
+		<div class="context-menu">
+			<ul >
+				<li>
+					<a class="icon-home" href="/blog/index.html">Home</a>
+				</li><li>
+					<a class="icon-archive" href="/archive">Archives</a>
+				</li><li>
+					<a class="icon-tags" href="/category">Categories</a>
+				</li><li>
+					<a class="icon-help-circled" href="/about">About</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('.menu-btn').on('click',function(e){
+		
+	e.stopPropagation();
+	var tag = $('.context-menu');		
+	$(tag).toggleClass('context-menu-show');
+			
+	var flag = true;
+	/* hide the context-menu when other element is clicked */
+	$(document).bind('click',function(e){
+		var target = $(e.target);
+		if(target.closest(tag).length == 0 && flag == true){
+			$(tag).toggleClass('context-menu-show');
+			flag = false;
+		}
+	});
+})
+</script><div class="post-container" style = "margin-bottom:1rem">
+	<div class="posts-labelgroup" id="posts-labelgroup">
+		<h1 id="posts-label">POST</h1>
+	</div>  
+	<!-- post title -->
+	<h2 class="post-title-body">Claude Code vs CodeBuddy：两大 AI 编程助手的权限系统设计深度对比</h2>
+	<div class="post-meta">
+		<div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">May 26, 2026</div>
+		
+		<!-- sidebar button for displaying/hiding sidebar -->
+		<div class = "sidebar-btn-box"><a class="btn"></a></div>
+		
+	</div>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+<div class="post-viewer-container">
+	<div class="post post-fix-width">
+		<p>随着 AI 编程助手从 IDE 插件走向终端命令行，权限系统设计成为了区分「玩具」和「生产工具」的关键分水岭。终端环境下的 AI 助手拥有文件读写、Shell 执行等高度敏感的能力，一个设计良好的权限系统需要在 <strong>效率</strong> 和 <strong>安全</strong> 之间找到平衡。</p>
+
+<p>本文基于对 Claude Code 和 CodeBuddy 的实际使用体验，从架构设计、规则体系、运行模式、安全边界四个维度进行对比。</p>
+
+<!--more-->
+
+<h2 id="一概览两种设计哲学">一、概览：两种设计哲学</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>维度</th>
+      <th>Claude Code</th>
+      <th>CodeBuddy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>权限规则</strong></td>
+      <td>deny / ask / allow 三层</td>
+      <td>allow / ask / deny 三层</td>
+    </tr>
+    <tr>
+      <td><strong>运行时模式</strong></td>
+      <td>5 种（含 auto）</td>
+      <td>5 种（含 delegate）</td>
+    </tr>
+    <tr>
+      <td><strong>模式切换</strong></td>
+      <td>Shift+Tab 循环</td>
+      <td>Alt+M 循环</td>
+    </tr>
+    <tr>
+      <td><strong>bypass 行为</strong></td>
+      <td><strong>保留 deny 硬关卡</strong></td>
+      <td><strong>跳过所有规则</strong></td>
+    </tr>
+    <tr>
+      <td><strong>断路器</strong></td>
+      <td>根/家目录删除硬编码保护</td>
+      <td>无独立机制</td>
+    </tr>
+    <tr>
+      <td><strong>安全路径</strong></td>
+      <td>.git/ .claude/ 等路径保护</td>
+      <td>无</td>
+    </tr>
+    <tr>
+      <td><strong>配置层级</strong></td>
+      <td>全局/项目 settings.json</td>
+      <td>CLI &gt; local &gt; project &gt; global</td>
+    </tr>
+    <tr>
+      <td><strong>Subagent 权限</strong></td>
+      <td>无明显独立机制</td>
+      <td>delegate 模式 + 独立 subagent 配置</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="二规则体系殊途同归的-denyaskallow">二、规则体系：殊途同归的 deny/ask/allow</h2>
+
+<p>两者都采用三层规则体系，但<strong>优先级行为和绕过策略存在根本差异</strong>。</p>
+
+<h3 id="相同点">相同点</h3>
+
+<ul>
+  <li>都支持 <code class="language-plaintext highlighter-rouge">工具名(匹配模式)</code> 语法，例如 <code class="language-plaintext highlighter-rouge">"Bash(git push:*)"</code></li>
+  <li>都支持裸工具名匹配（如 <code class="language-plaintext highlighter-rouge">"Read"</code> 匹配所有 Read 调用）</li>
+  <li>规则优先级顺序一致：<strong>deny &gt; ask &gt; allow</strong></li>
+</ul>
+
+<h3 id="关键差异bypass-时的-deny-行为">关键差异：bypass 时的 deny 行为</h3>
+
+<p>这是两者最核心的设计分歧：</p>
+
+<ul>
+  <li><strong>Claude Code</strong>：<code class="language-plaintext highlighter-rouge">bypassPermissions</code> 模式仍然保留 deny 规则、content-level ask 规则、safetyCheck 路径保护和根/家目录断路器。这些是<strong>写死在源码中的硬关卡</strong>，模式切换无法绕过。</li>
+  <li><strong>CodeBuddy</strong>：<code class="language-plaintext highlighter-rouge">bypassPermissions</code> 模式下<strong>完全跳过所有权限检查</strong>，包括 deny 规则。文档明确警告「仅限安全隔离环境（Docker / VM）使用」。</li>
+</ul>
+
+<p>这个差异反映了两种安全哲学：<strong>Claude Code 将安全边界视为不可妥协的基础设施</strong>，而 <strong>CodeBuddy 将 bypass 视为完全的信任开关</strong>。</p>
+
+<h2 id="三运行时模式对比">三、运行时模式对比</h2>
+
+<p>两者都有 5 种运行时模式，但具体组成不同：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>模式</th>
+      <th style="text-align: center">Claude Code</th>
+      <th style="text-align: center">CodeBuddy</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>default</strong></td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center">✅</td>
+      <td>所有操作弹窗确认</td>
+    </tr>
+    <tr>
+      <td><strong>acceptEdits</strong></td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center">✅</td>
+      <td>文件编辑自动放行，Bash 弹窗</td>
+    </tr>
+    <tr>
+      <td><strong>plan</strong></td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center">✅</td>
+      <td>只读模式</td>
+    </tr>
+    <tr>
+      <td><strong>bypassPermissions</strong></td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center">✅</td>
+      <td>跳过常规确认（行为差异大）</td>
+    </tr>
+    <tr>
+      <td><strong>auto</strong></td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center">❌</td>
+      <td>AI 分类器智能判断（Claude 特有）</td>
+    </tr>
+    <tr>
+      <td><strong>delegate</strong></td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">✅</td>
+      <td>委派 subagent 执行（CodeBuddy 特有）</td>
+    </tr>
+    <tr>
+      <td><strong>dontAsk</strong></td>
+      <td style="text-align: center">✅ (defaultMode)</td>
+      <td style="text-align: center">❌</td>
+      <td>未匹配命令直接拒绝</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="claude-code-模式行为矩阵">Claude Code 模式行为矩阵</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>模式</th>
+      <th style="text-align: center">deny 规则</th>
+      <th style="text-align: center">ask 规则</th>
+      <th style="text-align: center">allow 规则</th>
+      <th style="text-align: center">未匹配 Bash</th>
+      <th style="text-align: center">未匹配 Write/Edit</th>
+      <th style="text-align: center">读操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Default</td>
+      <td style="text-align: center">拒绝</td>
+      <td style="text-align: center">弹窗</td>
+      <td style="text-align: center">放行</td>
+      <td style="text-align: center">弹窗</td>
+      <td style="text-align: center">弹窗</td>
+      <td style="text-align: center">放行</td>
+    </tr>
+    <tr>
+      <td>Accept Edits</td>
+      <td style="text-align: center">拒绝</td>
+      <td style="text-align: center">弹窗</td>
+      <td style="text-align: center">放行</td>
+      <td style="text-align: center">弹窗</td>
+      <td style="text-align: center">自动批</td>
+      <td style="text-align: center">放行</td>
+    </tr>
+    <tr>
+      <td>Plan</td>
+      <td style="text-align: center">拒绝</td>
+      <td style="text-align: center">弹窗</td>
+      <td style="text-align: center">放行</td>
+      <td style="text-align: center">阻止</td>
+      <td style="text-align: center">阻止</td>
+      <td style="text-align: center">放行</td>
+    </tr>
+    <tr>
+      <td>Bypass</td>
+      <td style="text-align: center"><strong>仍拒绝</strong></td>
+      <td style="text-align: center">跳过</td>
+      <td style="text-align: center">放行</td>
+      <td style="text-align: center">放行</td>
+      <td style="text-align: center">放行</td>
+      <td style="text-align: center">放行</td>
+    </tr>
+    <tr>
+      <td>Auto</td>
+      <td style="text-align: center">拒绝</td>
+      <td style="text-align: center">弹窗</td>
+      <td style="text-align: center">放行</td>
+      <td style="text-align: center">分类器</td>
+      <td style="text-align: center">分类器</td>
+      <td style="text-align: center">放行</td>
+    </tr>
+    <tr>
+      <td>dontAsk</td>
+      <td style="text-align: center">拒绝</td>
+      <td style="text-align: center">转为拒</td>
+      <td style="text-align: center">放行</td>
+      <td style="text-align: center">拒绝</td>
+      <td style="text-align: center">拒绝</td>
+      <td style="text-align: center">放行</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="codebuddy-模式行为矩阵">CodeBuddy 模式行为矩阵</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>模式</th>
+      <th style="text-align: center">allow 规则</th>
+      <th style="text-align: center">ask 规则</th>
+      <th style="text-align: center">deny 规则</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Default</td>
+      <td style="text-align: center">不弹窗</td>
+      <td style="text-align: center">弹窗</td>
+      <td style="text-align: center">拒绝</td>
+    </tr>
+    <tr>
+      <td>Accept Edits</td>
+      <td style="text-align: center">不弹窗</td>
+      <td style="text-align: center">弹窗</td>
+      <td style="text-align: center">拒绝</td>
+    </tr>
+    <tr>
+      <td>Plan</td>
+      <td style="text-align: center">只读有效</td>
+      <td style="text-align: center">不适用</td>
+      <td style="text-align: center">拒绝</td>
+    </tr>
+    <tr>
+      <td>Bypass</td>
+      <td style="text-align: center"><strong>跳过</strong></td>
+      <td style="text-align: center"><strong>跳过</strong></td>
+      <td style="text-align: center"><strong>跳过</strong></td>
+    </tr>
+    <tr>
+      <td>Delegate</td>
+      <td style="text-align: center">不弹窗</td>
+      <td style="text-align: center">弹窗</td>
+      <td style="text-align: center">拒绝</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="四独有特性亮点">四、独有特性亮点</h2>
+
+<h3 id="claude-code-独有的安全设计">Claude Code 独有的安全设计</h3>
+
+<ol>
+  <li><strong>Auto 模式（AI 分类器）</strong>：2026 年新增，使用 transcript classifier 自动判断操作安全性。三个快捷路径：安全文件编辑快速通过、安全工具白名单直接放行、复杂操作分类器判断。连续 3 次或累计 20 次被拒则降级为人工确认。<strong>需 Claude Sonnet 4.6 / Opus 4.6 支持</strong>。</li>
+  <li><strong>断路器（Circuit Breaker）</strong>：根目录 <code class="language-plaintext highlighter-rouge">/</code> 和家目录 <code class="language-plaintext highlighter-rouge">~/</code> 删除操作<strong>硬编码拦截</strong>，任何模式都无法绕过。</li>
+  <li><strong>safetyCheck 路径保护</strong>：<code class="language-plaintext highlighter-rouge">.git/</code>、<code class="language-plaintext highlighter-rouge">.claude/</code>、<code class="language-plaintext highlighter-rouge">.vscode/</code> 和 shell 配置文件受到路径级保护。</li>
+  <li><strong>dontAsk 模式</strong>：作为 <code class="language-plaintext highlighter-rouge">defaultMode</code> 配置项，将所有未明确允许的命令直接拒绝，适合 CI/CD 和 headless 场景。</li>
+</ol>
+
+<h3 id="codebuddy-独有的协作设计">CodeBuddy 独有的协作设计</h3>
+
+<ol>
+  <li><strong>Delegate 模式</strong>：当前 AI 作为 coordinator，只使用 Agent、SendMessage 等协调工具，所有实际操作交由 subagent 完成。适合复杂多步任务团队协作。</li>
+  <li><strong>Subagent 权限管理</strong>：可配置 <code class="language-plaintext highlighter-rouge">subagentPermissionMode</code>，后台 subagent 自动处理权限不弹窗。delegate 模式下 subagent 默认使用 <code class="language-plaintext highlighter-rouge">default</code> 模式。</li>
+  <li><strong>配置优先级链</strong>：Agent mode 参数 &gt; CLI 参数 &gt; 环境变量 &gt; Settings &gt; 继承主 session，共 5 层优先级。</li>
+  <li><strong>-y 参数快速 bypass</strong>：启动时通过 <code class="language-plaintext highlighter-rouge">-y</code> 参数直接进入 bypass 模式。</li>
+</ol>
+
+<h2 id="五安全设计理念差异">五、安全设计理念差异</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Claude Code:  安全纵深防御
+
+  Stage 1: deny/ask/allow 硬关卡  静态配置，免疫 bypass
+  Stage 2: 运行时模式后处理         Shift+Tab 切换
+  Stage 3: 断路器（硬编码）         无法配置，无法绕过
+  Stage 4: safetyCheck 路径保护     敏感路径自动保护
+
+CodeBuddy:    灵活信任模型
+
+  规则层: deny/ask/allow           可配置
+  模式层: 5 种模式                 Alt+M 切换，bypass 完全放行
+  委派层: delegate + subagent      协作场景优化
+</code></pre></div></div>
+
+<p>Claude Code 的设计偏向 <strong>安全优先</strong>：即使切换到 bypass 模式，核心安全规则仍然生效。这种设计适合企业环境和对安全性要求较高的场景。</p>
+
+<p>CodeBuddy 的设计偏向 <strong>灵活信任</strong>：bypass 是完全的信任开关，适合已建立信任的开发者在隔离环境中使用。同时通过 delegate 模式和 subagent 权限管理，在团队协作场景中提供了更精细的控制。</p>
+
+<h2 id="六场景推荐">六、场景推荐</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>使用场景</th>
+      <th style="text-align: center">推荐工具</th>
+      <th>推荐配置</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>日常编码、安全敏感</td>
+      <td style="text-align: center">Claude Code</td>
+      <td>default 模式 + deny 危险命令</td>
+    </tr>
+    <tr>
+      <td>需要 AI 智能审批</td>
+      <td style="text-align: center">Claude Code</td>
+      <td>auto 模式</td>
+    </tr>
+    <tr>
+      <td>CI/CD 自动化</td>
+      <td style="text-align: center">Claude Code</td>
+      <td>dontAsk defaultMode + allow 白名单</td>
+    </tr>
+    <tr>
+      <td>团队协作复杂任务</td>
+      <td style="text-align: center">CodeBuddy</td>
+      <td>delegate + subagent 权限配置</td>
+    </tr>
+    <tr>
+      <td>隔离沙箱快速开发</td>
+      <td style="text-align: center">CodeBuddy</td>
+      <td>bypass 模式 + -y 参数</td>
+    </tr>
+    <tr>
+      <td>安全审查/代码 Review</td>
+      <td style="text-align: center">两者均可</td>
+      <td>plan 模式只读审查</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="七总结">七、总结</h2>
+
+<p>Claude Code 和 CodeBuddy 在权限系统设计上展现了不同的产品理念：</p>
+
+<ul>
+  <li><strong>Claude Code 更像一个成熟的操作系统</strong>：多层防护、硬编码安全边界、AI 辅助决策。它的权限系统设计严谨，适合需要精细控制的专业开发者。</li>
+  <li><strong>CodeBuddy 更像一个灵活的协作平台</strong>：委派机制、subagent 权限链、清晰的优先级体系。它在团队协作和复杂任务编排上更有优势。</li>
+</ul>
+
+<p>两者在 deny/ask/allow 三层规则体系上高度一致，说明这已成为终端 AI 工具权限管理的行业标准。真正的差异化在于：<strong>安全边界的不可绕过性</strong>（Claude Code）vs <strong>权限模型的灵活性</strong>（CodeBuddy）。</p>
+
+<p>选择哪一款，取决于你对安全和效率的权衡——而理解这些设计差异，能帮助你更好地配置和使用它们。</p>
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box" id = "sidebar">
+		    
+				<p class = "sidebar-title">关于文章</p>
+			
+			
+				
+				<p class = "sidebar-about-content sidebar-font-big">Claude Code 和 CodeBuddy 是目前最受关注的两款终端 AI 编程助手。本文从权限系统设计的角度，深入对比两者的 deny/ask/allow 规则体系、运行时模式、安全设计哲学等方面的异同。</p>
+				
+				
+				<p class = "icon-link sidebar-about-content sidebar-font-medium" style = "margin-top:40px">文章作者: <a href="https://github.com/gangdong">david.dong</a></p>
+				
+				<p class = "icon-hourglass sidebar-about-content sidebar-font-medium">阅读时间：8 mins</p>
+				<p class = "icon-book sidebar-about-content sidebar-font-medium">全文字数：2984</p>
+				
+					<p class = "icon-th-list sidebar-about-content sidebar-font-medium">关键字: Claude Code, CodeBuddy, 权限系统, AI编程助手, 工具对比</p>
+				
+				
+					<p class = "icon-hashtag sidebar-about-content sidebar-font-medium">标签: 
+					
+					<a href="/category#AI编程工具">AI编程工具&nbsp;</a>
+					
+					</p>
+				
+			
+		</div>
+		
+		
+	    <div class="sidebar-toc-box">
+			
+			<p class = "sidebar-title">文章目录</p>
+			<span class = "sidebar-font-medium sidebar-toc-content"><ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#一概览两种设计哲学">一、概览：两种设计哲学</a></li>
+<li class="toc-entry toc-h2"><a href="#二规则体系殊途同归的-denyaskallow">二、规则体系：殊途同归的 deny/ask/allow</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#相同点">相同点</a></li>
+<li class="toc-entry toc-h3"><a href="#关键差异bypass-时的-deny-行为">关键差异：bypass 时的 deny 行为</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#三运行时模式对比">三、运行时模式对比</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#claude-code-模式行为矩阵">Claude Code 模式行为矩阵</a></li>
+<li class="toc-entry toc-h3"><a href="#codebuddy-模式行为矩阵">CodeBuddy 模式行为矩阵</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#四独有特性亮点">四、独有特性亮点</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#claude-code-独有的安全设计">Claude Code 独有的安全设计</a></li>
+<li class="toc-entry toc-h3"><a href="#codebuddy-独有的协作设计">CodeBuddy 独有的协作设计</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#五安全设计理念差异">五、安全设计理念差异</a></li>
+<li class="toc-entry toc-h2"><a href="#六场景推荐">六、场景推荐</a></li>
+<li class="toc-entry toc-h2"><a href="#七总结">七、总结</a></li>
+</ul></span>
+			
+		</div>
+		
+	</div>
+	 
+</div>
+<!-- no sidebar, use flex width box! -->
+<br>
+<div class="post-container">
+    <!-- post categories box! here  -->
+    
+   <div class="post-categories-meta">
+		<div class="post-categories-box post-categories-box-hide"><a href="/category#AI">AI</a></div>
+	</div>
+  
+  
+  <div class = "share-box-meta">
+    <div class="share-box">
+      <span style ="padding: 2px">分享:</span>
+      <a class="share-link" href="https://twitter.com/intent/tweet?text=Claude+Code+vs+CodeBuddy%EF%BC%9A%E4%B8%A4%E5%A4%A7+AI+%E7%BC%96%E7%A8%8B%E5%8A%A9%E6%89%8B%E7%9A%84%E6%9D%83%E9%99%90%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%B7%B1%E5%BA%A6%E5%AF%B9%E6%AF%94&url=https://dqdongg.com%2Fai%2F2026%2F05%2F26%2FClaude-Code-vs-CodeBuddy-Permission-System-Deep-Dive.html" target="_blank" rel="noopener">Twitter</a>
+      <a class="share-link" href="https://www.linkedin.com/sharing/share-offsite/?url=https://dqdongg.com%2Fai%2F2026%2F05%2F26%2FClaude-Code-vs-CodeBuddy-Permission-System-Deep-Dive.html" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="share-link" href="mailto:?subject=Claude+Code+vs+CodeBuddy%EF%BC%9A%E4%B8%A4%E5%A4%A7+AI+%E7%BC%96%E7%A8%8B%E5%8A%A9%E6%89%8B%E7%9A%84%E6%9D%83%E9%99%90%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%B7%B1%E5%BA%A6%E5%AF%B9%E6%AF%94&body=https://dqdongg.com%2Fai%2F2026%2F05%2F26%2FClaude-Code-vs-CodeBuddy-Permission-System-Deep-Dive.html" target="_blank" rel="noopener">Email</a>
+    </div>
+  </div>
+  
+  <!-- Related posts start here! -->
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">继续阅读</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta"><div class="navigation-bar">
+	 
+	 <a href="/crossplatform/2026/05/15/Mainstream-UI-App-Development-Frameworks.html"><span>前一章</span><br>Mainstream UI App Development Frameworks in 2026 — A Learning Summary</a>
+	 
+    </div><div class="navigation-bar"> 
+	 
+	 <a href="/ai/2026/05/27/CodeGraph-vs-Code-Review-Graph.html"><span>后一章</span><br>CodeGraph vs Code-Review-Graph：两大代码图分析 MCP 工具深度对比</a>
+	 
+    </div></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'gangdong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+
+<!-- sidebar button, toggle display/hide sidebar -->
+<script>
+  document.querySelector('.btn')?.addEventListener('click', function() {
+    this.classList.toggle('btnc');
+    document.querySelector('.sidebar-container')?.classList.toggle('sidebar-container-hide');
+  });
+</script>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=G-3MXGF3F8QN"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-3MXGF3F8QN');
+	</script></body>
+</html>

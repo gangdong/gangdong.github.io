@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
+<!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>CodeGraph vs Code-Review-Graph：两大代码图分析 MCP 工具深度对比 | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="CodeGraph vs Code-Review-Graph：两大代码图分析 MCP 工具深度对比" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="CodeGraph 和 Code-Review-Graph 是两款基于代码图（Code Graph）的 MCP 工具，为 AI 编程助手提供语义级代码理解能力。本文从基本概念、安装方法、技术特点、适用场景等方面进行深度对比，并给出在 AI 编程中组合使用的实战策略。" />
+<meta name="twitter:description" property="og:description" content="CodeGraph 和 Code-Review-Graph 是两款基于代码图（Code Graph）的 MCP 工具，为 AI 编程助手提供语义级代码理解能力。本文从基本概念、安装方法、技术特点、适用场景等方面进行深度对比，并给出在 AI 编程中组合使用的实战策略。" />
+<link rel="canonical" href="https://dqdongg.com/ai/2026/05/27/CodeGraph-vs-Code-Review-Graph.html" />
+<meta property="og:url" content="https://dqdongg.com/ai/2026/05/27/CodeGraph-vs-Code-Review-Graph.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-05-27T00:30:00+00:00" />
+<meta property="article:modified_time" content="2026-05-27T00:30:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="CodeGraph vs Code-Review-Graph：两大代码图分析 MCP 工具深度对比" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"david.dong"},"dateModified":"2026-05-27T00:30:00+00:00","datePublished":"2026-05-27T00:30:00+00:00","description":"CodeGraph 和 Code-Review-Graph 是两款基于代码图（Code Graph）的 MCP 工具，为 AI 编程助手提供语义级代码理解能力。本文从基本概念、安装方法、技术特点、适用场景等方面进行深度对比，并给出在 AI 编程中组合使用的实战策略。","headline":"CodeGraph vs Code-Review-Graph：两大代码图分析 MCP 工具深度对比","mainEntityOfPage":{"@type":"WebPage","@id":"https://dqdongg.com/ai/2026/05/27/CodeGraph-vs-Code-Review-Graph.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://dqdongg.com/assets/logo.png"},"name":"david.dong"},"url":"https://dqdongg.com/ai/2026/05/27/CodeGraph-vs-Code-Review-Graph.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="alternate" type="application/rss+xml" title="David Dong's Blog - RSS" href="/rss.xml">
+
+<meta property="article:tag" content="AI编程">
+
+
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/css/syntax/syntax.gruvbox.dark.css" rel="stylesheet"/>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
+
+<script defer>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js');
+  });
+}
+</script>
+</head><body>
+    <main class="container">
+      <section class="about condensed">
+	    <div class="about-header condensed">
+			<div class="about-title">
+				<a href="/blog/index.html">
+				  <img loading="lazy" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/my_new_avatar.jpg" alt="David Dong"/>
+				</a>
+				<div class = "title-meta">
+					<h2 id="title">
+					  <a href="/blog/index.html">David Dong</a>
+					</h2>
+					<p class = "tagline-small">Java/C/C#/Python</p>
+				</div>
+			</div>
+			<p class="tagline">Java/C/C#/Python</p>
+		</div>
+		<!--put dark mode button here -->
+		<div class = "about-footer condensed">
+		  <!--put rss/code link here -->
+			<div class="icon-box-container about-footer condensed"><div class = "icon-box" style = "padding-right:0px">
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id = "mode">Dark Mode</span>
+					</a>
+				</div>
+				<!-- toggle dark/light display mode, should loading darkmode.js here for avoiding flicker when switching -->
+				<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/darkmode.js"></script>
+				<script type="text/javascript">
+				$('.dark-mode').on('click',function(){
+					$('.dark-mode').toggleClass('light-mode');
+					if (document.getElementById("mode").innerHTML=="Light Mode")
+						document.getElementById("mode").innerHTML="Dark Mode";
+					else 
+						document.getElementById("mode").innerHTML="Light Mode";
+				})
+				</script><div class = "icon-box">
+					<a class="icon-rss" href="/rss.xml">
+						<span>Subscribe</span>
+					</a>
+				</div><div class = "icon-box">
+					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
+						<span>Source Code</span>
+					</a>
+				</div></div>
+		</div>
+		
+	    <!--show contact me -->
+		<div class = "about-footer condensed social-container">
+	    <p class = "contact about-footer condensed">CONTACT ME</p>
+		<!-- put social link here -->
+	      <ul class="social about-footer condensed" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		<!--put timestamp here -->
+		<p class ="timestamp about-footer condensed">&copy; 2026</p>
+		</div>
+	  <!-- about box end here -->
+      </section>
+	  
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+<div class="post-container">
+	<div  class = "menu-meta condensed">
+		<!--put top menu here, display @ big screen (> $mobileW) -->
+		<div  class = "menu-logo">BLOG</div>
+		<div  class = "menu">
+			<a href="/blog/index.html">
+				<li class="icon-home">Home</li>
+			</a><a href="/archive">
+				<li class="icon-archive">Archives</li>
+			</a><a href="/category">
+				<li class="icon-tags">Categories</li>
+			</a><a href="/about">
+				<li class="icon-help-circled">About</li>
+			</a>
+		</div>
+		<!--put hide menu button here, display @ small screen (< $mobileW) -->
+		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
+		<!--put hide menu here, display @ small screen (< $mobileW) -->
+		<div class="context-menu">
+			<ul >
+				<li>
+					<a class="icon-home" href="/blog/index.html">Home</a>
+				</li><li>
+					<a class="icon-archive" href="/archive">Archives</a>
+				</li><li>
+					<a class="icon-tags" href="/category">Categories</a>
+				</li><li>
+					<a class="icon-help-circled" href="/about">About</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('.menu-btn').on('click',function(e){
+		
+	e.stopPropagation();
+	var tag = $('.context-menu');		
+	$(tag).toggleClass('context-menu-show');
+			
+	var flag = true;
+	/* hide the context-menu when other element is clicked */
+	$(document).bind('click',function(e){
+		var target = $(e.target);
+		if(target.closest(tag).length == 0 && flag == true){
+			$(tag).toggleClass('context-menu-show');
+			flag = false;
+		}
+	});
+})
+</script><div class="post-container" style = "margin-bottom:1rem">
+	<div class="posts-labelgroup" id="posts-labelgroup">
+		<h1 id="posts-label">POST</h1>
+	</div>  
+	<!-- post title -->
+	<h2 class="post-title-body">CodeGraph vs Code-Review-Graph：两大代码图分析 MCP 工具深度对比</h2>
+	<div class="post-meta">
+		<div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">May 27, 2026</div>
+		
+		<!-- sidebar button for displaying/hiding sidebar -->
+		<div class = "sidebar-btn-box"><a class="btn"></a></div>
+		
+	</div>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+<div class="post-viewer-container">
+	<div class="post post-fix-width">
+		<blockquote>
+  <p>当 AI 编程助手遇到大型代码仓库时，”大海捞针”式的文件搜索和上下文拼接很快就会达到性能和成本瓶颈。<strong>代码图（Code Graph）</strong> 技术应运而生——它预先把代码仓库的调用关系、依赖结构、模块边界等信息建模为一个可查询的图结构，让 AI 能够”按图索骥”而不是”全文扫描”。</p>
+</blockquote>
+
+<p>当前最有代表性的两个解决方案是 <strong>CodeGraph</strong>（由 Colby McHenry 开发，Node.js 生态）和 <strong>Code-Review-Graph</strong>（由 Tirth Pandya 开发，Python 生态）。本文基于实际项目中的使用体验，从多个维度进行深度对比，并分享如何在 AI 编程工作流中组合使用它们。</p>
+
+<!--more-->
+
+<h2 id="一基本介绍">一、基本介绍</h2>
+
+<h3 id="codegraph">CodeGraph</h3>
+
+<ul>
+  <li><strong>开发者</strong>：Colby McHenry</li>
+  <li><strong>语言与运行环境</strong>：TypeScript / Node.js（自带 Node.js 运行时，无需预装 Node）</li>
+  <li><strong>许可证</strong>：MIT 开源</li>
+  <li><strong>核心定位</strong>：面向日常编码的轻量语义图工具，强调<strong>快速符号定位、调用链追踪和影响分析</strong>。</li>
+  <li><strong>支持的 AI 平台</strong>：Claude Code、Cursor、Codex CLI、OpenCode、Hermes Agent、Gemini CLI、Antigravity IDE、Kiro。</li>
+  <li><strong>GitHub</strong>：<a href="https://github.com/colbymchenry/codegraph">colbymchenry/codegraph</a></li>
+</ul>
+
+<h3 id="code-review-graph">Code-Review-Graph</h3>
+
+<ul>
+  <li><strong>开发者</strong>：Tirth Pandya</li>
+  <li><strong>语言与运行环境</strong>：Python（通过 pip 安装，独立 CLI）</li>
+  <li><strong>许可证</strong>：MIT 开源</li>
+  <li><strong>核心定位</strong>：面向 <strong>Code Review 场景</strong>的重型图分析工具，强调<strong>影响半径分析、社区检测、执行流追踪和 Token 成本节省量化</strong>。</li>
+  <li><strong>支持的 AI 平台</strong>：Claude Code、Cline、Windsurf、Copilot、Genkit 等，通过 MCP 协议接入。</li>
+  <li><strong>GitHub</strong>：<a href="https://github.com/tirth8205/code-review-graph">tirth8205/code-review-graph</a></li>
+</ul>
+
+<h2 id="二安装方法">二、安装方法</h2>
+
+<h3 id="codegraph-安装">CodeGraph 安装</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 一条命令完成：安装 + 自动配置所有已检测到的 AI 平台</span>
+npx @colbymchenry/codegraph
+
+<span class="c"># 如果只想安装到 PATH（不自动配置 Agent）</span>
+npm <span class="nb">install</span> <span class="nt">-g</span> @colbymchenry/codegraph
+</code></pre></div></div>
+
+<p>安装时会自动检测已安装的 AI 助手（Claude Code、Cursor 等），询问配置范围（全局 or 当前项目），并写入对应的 MCP 配置文件和指令参考文件。</p>
+
+<h3 id="code-review-graph-安装">Code-Review-Graph 安装</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 通过 pip 安装</span>
+pip <span class="nb">install </span>code-review-graph
+
+<span class="c"># 初始化项目</span>
+code-review-graph <span class="nb">install</span>
+
+<span class="c"># 构建图索引</span>
+code-review-graph build
+
+<span class="c"># 启动监听模式（自动更新图）</span>
+code-review-graph watch
+</code></pre></div></div>
+
+<p>安装后需要手动配置 MCP 服务器（<code class="language-plaintext highlighter-rouge">mcp.json</code> 或 <code class="language-plaintext highlighter-rouge">claude_desktop_config.json</code>），然后在项目中先 <code class="language-plaintext highlighter-rouge">build</code> 再 <code class="language-plaintext highlighter-rouge">watch</code> 维护图索引。</p>
+
+<h2 id="三技术架构差异">三、技术架构差异</h2>
+
+<p>两个工具虽然都基于”代码图”概念，但技术实现和侧重点有本质区别。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>维度</th>
+      <th style="text-align: center">CodeGraph</th>
+      <th style="text-align: center">Code-Review-Graph</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>后端语言</strong></td>
+      <td style="text-align: center">TypeScript (Node.js)</td>
+      <td style="text-align: center">Python</td>
+    </tr>
+    <tr>
+      <td><strong>图存储</strong></td>
+      <td style="text-align: center">SQLite（嵌入式）</td>
+      <td style="text-align: center">SQLite（嵌入式）</td>
+    </tr>
+    <tr>
+      <td><strong>安装方式</strong></td>
+      <td style="text-align: center">npm / npx</td>
+      <td style="text-align: center">pip</td>
+    </tr>
+    <tr>
+      <td><strong>运行时依赖</strong></td>
+      <td style="text-align: center">自带 Node 运行时，无需预装</td>
+      <td style="text-align: center">需要 Python 3.8+</td>
+    </tr>
+    <tr>
+      <td><strong>自动配置 Agent</strong></td>
+      <td style="text-align: center">✅ 一键自动配置</td>
+      <td style="text-align: center">❌ 手动配置 MCP</td>
+    </tr>
+    <tr>
+      <td><strong>增量更新</strong></td>
+      <td style="text-align: center">✅ 文件监听秒级更新</td>
+      <td style="text-align: center">✅ watch / update 命令</td>
+    </tr>
+    <tr>
+      <td><strong>多仓库支持</strong></td>
+      <td style="text-align: center">❌ 单项目</td>
+      <td style="text-align: center">✅ 多仓库注册中心 + Daemon</td>
+    </tr>
+    <tr>
+      <td><strong>可视化导出</strong></td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">✅ HTML / SVG / Obsidian / Neo4j / GraphML</td>
+    </tr>
+    <tr>
+      <td><strong>Token 节省统计</strong></td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">✅ 量化面板，显示节省比例</td>
+    </tr>
+    <tr>
+      <td><strong>社区/模块检测</strong></td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">✅ Leiden 算法聚类</td>
+    </tr>
+    <tr>
+      <td><strong>执行流识别</strong></td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">✅ 自动检测流程链</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="四核心收益对比--token-节省与-benchmark-数据">四、核心收益对比 — Token 节省与 Benchmark 数据</h2>
+
+<p>两个工具最显著的共同价值是<strong>大幅减少 AI 编程的 Token 消耗</strong>。传统方式下，AI 助手需要执行大量 grep/glob/Read 操作来理解代码——每次探索都产生大量输入 Token。代码图工具提前索引了代码关系，AI 只需查询图即可获知信息，无需反复读取文件。</p>
+
+<h3 id="41-没有代码图时发生了什么">4.1 没有代码图时发生了什么？</h3>
+
+<p>当 AI 助手（如 Claude Code）需要理解一个代码库时，它会：</p>
+<ol>
+  <li>用 <code class="language-plaintext highlighter-rouge">Grep</code> 搜索符号定义</li>
+  <li>用 <code class="language-plaintext highlighter-rouge">Glob</code> 查找相关文件</li>
+  <li>用 <code class="language-plaintext highlighter-rouge">Read</code> 读取多个文件的完整内容</li>
+  <li>用 <code class="language-plaintext highlighter-rouge">Bash(find/grep)</code> 在文件系统中搜索</li>
+</ol>
+
+<p><strong>每个步骤都消耗大量 Token</strong>，且随着代码库增大呈指数增长。</p>
+
+<h3 id="42-codegraph-benchmark">4.2 CodeGraph Benchmark</h3>
+
+<p>CodeGraph 在 <strong>7 个真实世界开源项目</strong>（涵盖 7 种编程语言）上进行了严格的基准测试。测试方式：让 Claude Code（headless 模式）回答同一个架构问题，分别对比<strong>使用 CodeGraph</strong> 和<strong>不使用 CodeGraph</strong> 的表现。每个测试取 4 次运行的中位数，在 v0.9.4 版本上验证。</p>
+
+<blockquote>
+  <p><strong>平均：节省 35% 费用 · 减少 57% Token · 提速 46% · 减少 71% 工具调用</strong></p>
+</blockquote>
+
+<table>
+  <thead>
+    <tr>
+      <th>项目</th>
+      <th>语言/规模</th>
+      <th style="text-align: center">费用节省</th>
+      <th style="text-align: center">Token 减少</th>
+      <th style="text-align: center">速度提升</th>
+      <th style="text-align: center">工具调用减少</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>VS Code</strong></td>
+      <td>TypeScript · ~1 万文件</td>
+      <td style="text-align: center">26%</td>
+      <td style="text-align: center"><strong>78%</strong></td>
+      <td style="text-align: center">52%</td>
+      <td style="text-align: center"><strong>85%</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Excalidraw</strong></td>
+      <td>TypeScript · ~640 文件</td>
+      <td style="text-align: center"><strong>52%</strong></td>
+      <td style="text-align: center"><strong>90%</strong></td>
+      <td style="text-align: center"><strong>73%</strong></td>
+      <td style="text-align: center"><strong>96%</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Django</strong></td>
+      <td>Python · ~3000 文件</td>
+      <td style="text-align: center">12%</td>
+      <td style="text-align: center">36%</td>
+      <td style="text-align: center">19%</td>
+      <td style="text-align: center">53%</td>
+    </tr>
+    <tr>
+      <td><strong>Tokio</strong></td>
+      <td>Rust · ~790 文件</td>
+      <td style="text-align: center"><strong>82%</strong></td>
+      <td style="text-align: center"><strong>86%</strong></td>
+      <td style="text-align: center">71%</td>
+      <td style="text-align: center"><strong>92%</strong></td>
+    </tr>
+    <tr>
+      <td><strong>OkHttp</strong></td>
+      <td>Java · ~645 文件</td>
+      <td style="text-align: center">2%</td>
+      <td style="text-align: center">13%</td>
+      <td style="text-align: center">31%</td>
+      <td style="text-align: center">45%</td>
+    </tr>
+    <tr>
+      <td><strong>Gin</strong></td>
+      <td>Go · ~110 文件</td>
+      <td style="text-align: center">21%</td>
+      <td style="text-align: center">34%</td>
+      <td style="text-align: center">27%</td>
+      <td style="text-align: center">40%</td>
+    </tr>
+    <tr>
+      <td><strong>Alamofire</strong></td>
+      <td>Swift · ~110 文件</td>
+      <td style="text-align: center">47%</td>
+      <td style="text-align: center">64%</td>
+      <td style="text-align: center">48%</td>
+      <td style="text-align: center"><strong>83%</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>关键发现</strong>：</p>
+<ul>
+  <li>收益随代码库规模放大：VS Code（~1 万文件）Token 减少 78%；Excalidraw（~640 文件）甚至达到 <strong>90% Token 减少</strong>、<strong>96% 工具调用减少</strong>——因为 AI 直接从索引回答问题，零文件读取。</li>
+  <li>小项目（Gin 仅 ~110 文件）收益相对较小，因为传统搜索本身成本已很低。</li>
+  <li><strong>Tokio</strong>（Rust 项目）费用节省最高达 <strong>82%</strong>，说明图索引对强类型语言的分析优势显著。</li>
+</ul>
+
+<h3 id="43-code-review-graph-benchmark">4.3 Code-Review-Graph Benchmark</h3>
+
+<p>Code-Review-Graph 在其自动化评估套件（<code class="language-plaintext highlighter-rouge">code-review-graph eval --all</code>）中对 FastAPI、HTTPX、Express 等仓库进行了测试，结果如下：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>指标</th>
+      <th style="text-align: center">传统方式</th>
+      <th style="text-align: center">使用图索引</th>
+      <th style="text-align: center">提升幅度</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Token 用量（平均）</strong></td>
+      <td style="text-align: center">全文件转储</td>
+      <td style="text-align: center">结构化图上下文</td>
+      <td style="text-align: center"><strong>6.8x ~ 8.2x 减少</strong></td>
+    </tr>
+    <tr>
+      <td><strong>大型代码库场景</strong></td>
+      <td style="text-align: center">线性增长</td>
+      <td style="text-align: center">O(Impact Radius)</td>
+      <td style="text-align: center"><strong>最高 49x 减少</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Monorepo 扩展</strong></td>
+      <td style="text-align: center">线性增长</td>
+      <td style="text-align: center">影响半径限制</td>
+      <td style="text-align: center"><strong>最高 528x 减少</strong></td>
+    </tr>
+    <tr>
+      <td><strong>更新速度</strong></td>
+      <td style="text-align: center">全量重新扫描</td>
+      <td style="text-align: center">哈希增量检测</td>
+      <td style="text-align: center"><strong>&lt; 2 秒</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p><strong>平均 Token 减少 6.8 倍，大型代码库场景最高可达 49 倍。</strong></p>
+</blockquote>
+
+<p>不仅如此，<code class="language-plaintext highlighter-rouge">code-review-graph detect-changes --brief</code> 命令会直接输出一个 <strong>Token 节省面板</strong>，实时对比”全量传递”和”结构化图上下文”的 Token 消耗差异：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌─────────────────────── Token Savings ────────────────────────┐
+│ Full context would be:     12,921 tokens                     │
+│ Graph context is:             749 tokens                     │
+│ Saved:                   ~94.2% (12,172 tokens)              │
+│ Rate: $0.15/M in · $0.60/M out                              │
+│ Cost: ~$0.0026 → ~$0.0002 / review                          │
+└──────────────────────────────────────────────────────────────┘
+</code></pre></div></div>
+
+<p>上例来自一个中等规模的 PR review：传统方式需 12,921 tokens，使用图上下文仅需 <strong>749 tokens——节省了 94.2%</strong>。</p>
+
+<h3 id="44-收益对比总结">4.4 收益对比总结</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>收益维度</th>
+      <th style="text-align: center">CodeGraph</th>
+      <th style="text-align: center">Code-Review-Graph</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Token 节省（平均）</strong></td>
+      <td style="text-align: center"><strong>~57%</strong></td>
+      <td style="text-align: center"><strong>~85%~94%</strong> (6.8x~16x)</td>
+    </tr>
+    <tr>
+      <td><strong>费用节省（平均）</strong></td>
+      <td style="text-align: center"><strong>~35%</strong></td>
+      <td style="text-align: center">与 Token 节省成正比</td>
+    </tr>
+    <tr>
+      <td><strong>工具调用减少</strong></td>
+      <td style="text-align: center"><strong>~71%</strong></td>
+      <td style="text-align: center">受限于业务场景</td>
+    </tr>
+    <tr>
+      <td><strong>速度提升</strong></td>
+      <td style="text-align: center"><strong>~46%</strong></td>
+      <td style="text-align: center">核心场景（review）显著</td>
+    </tr>
+    <tr>
+      <td><strong>最佳省场景</strong></td>
+      <td style="text-align: center">日常编码/架构查询</td>
+      <td style="text-align: center">Code Review / 影响分析</td>
+    </tr>
+    <tr>
+      <td><strong>测试代码库</strong></td>
+      <td style="text-align: center">7 个开源项目（7 种语言）</td>
+      <td style="text-align: center">FastAPI、HTTPX、Express 等</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>为什么 Code-Review-Graph 的 Token 节省更显著？</strong> 因为它的定位更聚焦：Code Review 本身就是 Token 消耗大户（需要传递完整 diff + 相关上下文），且它的图查询返回的是高度结构化的摘要信息而非源码。而 CodeGraph 的日常编码查询也会返回源码片段供 AI 直接使用，Token 开销略高但交互更直接。</p>
+
+<h2 id="五工具能力深度对比">五、工具能力深度对比</h2>
+
+<p>这是实际使用中最核心的差异，我用一个对比表来呈现：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>能力维度</th>
+      <th style="text-align: center">CodeGraph</th>
+      <th style="text-align: center">Code-Review-Graph</th>
+      <th style="text-align: center">传统 Grep/Read</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>符号搜索（按名称定位）</strong></td>
+      <td style="text-align: center">✅ <code class="language-plaintext highlighter-rouge">codegraph_search</code> 快准</td>
+      <td style="text-align: center">✅ <code class="language-plaintext highlighter-rouge">semantic_search_nodes</code></td>
+      <td style="text-align: center">✅ 可做但慢</td>
+    </tr>
+    <tr>
+      <td><strong>调用链查询</strong></td>
+      <td style="text-align: center">✅ <code class="language-plaintext highlighter-rouge">callers</code>/<code class="language-plaintext highlighter-rouge">callees</code> 简洁，自动过滤 stdlib/log</td>
+      <td style="text-align: center">✅ <code class="language-plaintext highlighter-rouge">query_graph</code> 含完整边信息</td>
+      <td style="text-align: center">❌ 需手动追踪</td>
+    </tr>
+    <tr>
+      <td><strong>源码查看（含签名/参数）</strong></td>
+      <td style="text-align: center">✅ <code class="language-plaintext highlighter-rouge">codegraph_node</code> 带签名</td>
+      <td style="text-align: center">❌ 元信息不完整</td>
+      <td style="text-align: center">✅ 最准确</td>
+    </tr>
+    <tr>
+      <td><strong>影响半径分析</strong></td>
+      <td style="text-align: center">✅ <code class="language-plaintext highlighter-rouge">codegraph_impact</code></td>
+      <td style="text-align: center">✅ <code class="language-plaintext highlighter-rouge">get_impact_radius</code></td>
+      <td style="text-align: center">❌</td>
+    </tr>
+    <tr>
+      <td><strong>社区/模块边界检测</strong></td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">✅ <strong>独家</strong> <code class="language-plaintext highlighter-rouge">list_communities</code></td>
+      <td style="text-align: center">❌</td>
+    </tr>
+    <tr>
+      <td><strong>执行流分析</strong></td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">✅ <strong>独家</strong> <code class="language-plaintext highlighter-rouge">list_flows</code> / <code class="language-plaintext highlighter-rouge">get_flow</code></td>
+      <td style="text-align: center">❌</td>
+    </tr>
+    <tr>
+      <td><strong>Code Review 集成</strong></td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">✅ <strong>独家</strong> <code class="language-plaintext highlighter-rouge">detect_changes</code> / <code class="language-plaintext highlighter-rouge">get_review_context</code></td>
+      <td style="text-align: center">❌</td>
+    </tr>
+    <tr>
+      <td><strong>架构概览</strong></td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">✅ <code class="language-plaintext highlighter-rouge">get_architecture_overview</code></td>
+      <td style="text-align: center">❌</td>
+    </tr>
+    <tr>
+      <td><strong>重构规划</strong></td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">✅ <code class="language-plaintext highlighter-rouge">refactor_tool</code></td>
+      <td style="text-align: center">❌</td>
+    </tr>
+    <tr>
+      <td><strong>宏/函数指针追踪</strong></td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">✅ 唯一可靠</td>
+    </tr>
+    <tr>
+      <td><strong>条件编译追踪</strong></td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">✅ 唯一可靠</td>
+    </tr>
+    <tr>
+      <td><strong>实时准确性</strong></td>
+      <td style="text-align: center">秒级延迟</td>
+      <td style="text-align: center">需重构图</td>
+      <td style="text-align: center">✅ 实时</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="六在-ai-编程中的合理使用策略">六、在 AI 编程中的合理使用策略</h2>
+
+<h3 id="61-场景化选型">6.1 场景化选型</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>想解决的问题</th>
+      <th>首选工具</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>“这个函数定义在哪里？”</td>
+      <td><code class="language-plaintext highlighter-rouge">codegraph_search</code></td>
+    </tr>
+    <tr>
+      <td>“谁调用了这个函数？”</td>
+      <td><code class="language-plaintext highlighter-rouge">codegraph_callers</code>（简洁模式）</td>
+    </tr>
+    <tr>
+      <td>“这个函数调用了哪些函数？”</td>
+      <td><code class="language-plaintext highlighter-rouge">codegraph_callees</code></td>
+    </tr>
+    <tr>
+      <td>“改这个函数会影响到什么？”</td>
+      <td><code class="language-plaintext highlighter-rouge">codegraph_impact</code> 或 <code class="language-plaintext highlighter-rouge">get_impact_radius</code></td>
+    </tr>
+    <tr>
+      <td>“这个模块有哪些子模块？”</td>
+      <td><code class="language-plaintext highlighter-rouge">list_communities</code></td>
+    </tr>
+    <tr>
+      <td>“这段代码的执行流程是什么？”</td>
+      <td><code class="language-plaintext highlighter-rouge">list_flows</code> / <code class="language-plaintext highlighter-rouge">get_flow</code></td>
+    </tr>
+    <tr>
+      <td>“这次 PR 变更的影响范围？”</td>
+      <td><code class="language-plaintext highlighter-rouge">detect_changes</code>（含风险评分）</td>
+    </tr>
+    <tr>
+      <td>“宏展开或条件编译分支？”</td>
+      <td>直接 Read 源码</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="62-三步分析法推荐工作流">6.2 三步分析法（推荐工作流）</h3>
+
+<p>基于实际使用经验，我总结了一套”三步分析法”，将两个工具配合使用效果最佳：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Step 1 — 定位：codegraph_search / semantic_search_nodes
+  ↓
+Step 2 — 调用链：codegraph_callers/callees（简洁）或 query_graph（详细）
+  ↓
+Step 3 — 源码验证：codegraph_node（含源码）或 Read 源码
+</code></pre></div></div>
+
+<p><strong>配合原则</strong>：</p>
+<ul>
+  <li><strong>日常编码</strong>：以 <strong>CodeGraph</strong> 为主——它的查询轻量、响应快，<code class="language-plaintext highlighter-rouge">codegraph_node</code> 可以同时获取签名信息和源码，减少一次 Read 调用。</li>
+  <li><strong>Code Review / 重构</strong>：以 <strong>Code-Review-Graph</strong> 为主——它的 <code class="language-plaintext highlighter-rouge">detect_changes</code> 带风险评分面板，<code class="language-plaintext highlighter-rouge">get_impact_radius</code> 能准确计算波及范围，<code class="language-plaintext highlighter-rouge">list_communities</code> 帮你看清模块边界。</li>
+  <li><strong>复杂流程理解</strong>：优先使用 <strong>Code-Review-Graph</strong> 的 <code class="language-plaintext highlighter-rouge">list_flows</code> 和 <code class="language-plaintext highlighter-rouge">get_flow</code>，自动提取执行路径。</li>
+  <li><strong>宏/条件编译/刚改的代码</strong>：<strong>回退到传统 Grep/Read</strong>——图工具无法覆盖这些场景。</li>
+</ul>
+
+<h3 id="63-两个工具可以共存">6.3 两个工具可以共存</h3>
+
+<p>两者互不冲突，可以同时在 MCP 配置中注册。AI 助手会根据任务场景自动选择调用哪个工具。例如：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 当 AI 需要理解一个跨模块调用的影响时，可能依次调用：
+# 1️⃣ code-review-graph: get_architecture_overview  → 看清模块结构
+# 2️⃣ codegraph: codegraph_callers                    → 追踪调用链
+# 3️⃣ codegraph: codegraph_node                       → 查看关键函数源码
+# 4️⃣ code-review-graph: get_impact_radius             → 评估改动影响
+</code></pre></div></div>
+
+<h2 id="七使用时的注意事项">七、使用时的注意事项</h2>
+
+<ol>
+  <li><strong>图索引需要维护</strong>：新改的代码需要约 1 秒同步时间，刚改完的文件建议直接用 Read 而不是查询图。</li>
+  <li><strong>Node.js 项目更适配 CodeGraph</strong>：因为它是 TypeScript 原生构建，对 JavaScript/TypeScript 项目的分析准确度最高。</li>
+  <li><strong>Python/C++ 项目更适配 Code-Review-Graph</strong>：它的解析器对多语言支持更好，且社区检测功能对大型嵌入式项目（如 Android HAL 层、Linux 驱动）的模块划分非常有用。</li>
+  <li><strong>Token 节省是真实可量化的收益</strong>：CodeGraph 在 7 个开源项目上的平均 Token 节省为 <strong>57%</strong>（费用节省 <strong>35%</strong>），大型项目可达 <strong>78%~90%</strong>；Code-Review-Graph 在 Code Review 场景的平均 Token 节省为 <strong>6.8x~8.2x</strong>（约 85%~88%），大型代码库最高达 <strong>49x</strong>（约 98%）。这意味着每月 $100 的 AI API 费用可能降至 <strong>$35~$65</strong>。</li>
+</ol>
+
+<h2 id="八总结">八、总结</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>维度</th>
+      <th style="text-align: center">CodeGraph</th>
+      <th style="text-align: center">Code-Review-Graph</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>核心收益</strong></td>
+      <td style="text-align: center">日常编码效率提升</td>
+      <td style="text-align: center">Code Review Token 节省</td>
+    </tr>
+    <tr>
+      <td><strong>Token 节省平均</strong></td>
+      <td style="text-align: center"><strong>57%</strong></td>
+      <td style="text-align: center"><strong>6.8x~8.2x（85%~88%）</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Token 节省极值</strong></td>
+      <td style="text-align: center"><strong>90%</strong>（Excalidraw）</td>
+      <td style="text-align: center"><strong>49x（约 98%）</strong>（大型代码库）</td>
+    </tr>
+    <tr>
+      <td><strong>费用节省平均</strong></td>
+      <td style="text-align: center"><strong>~35%</strong></td>
+      <td style="text-align: center">与 Token 节省成正比</td>
+    </tr>
+    <tr>
+      <td><strong>优点</strong></td>
+      <td style="text-align: center">安装简单、查询轻快、符号定位精准、自动配置 Agent</td>
+      <td style="text-align: center">Code Review 场景专精、社区检测独家、Token 节省量化、可导出可视化</td>
+    </tr>
+    <tr>
+      <td><strong>缺点</strong></td>
+      <td style="text-align: center">功能相对单一、无社区/流检测、小项目杀手锏、大项目不够用</td>
+      <td style="text-align: center">安装配置较复杂、需要手动维护 MCP、Python 依赖较重</td>
+    </tr>
+    <tr>
+      <td><strong>适用项目</strong></td>
+      <td style="text-align: center">中小型项目、日常编码</td>
+      <td style="text-align: center">中大型项目、Code Review、重构、架构分析</td>
+    </tr>
+    <tr>
+      <td><strong>最佳搭档</strong></td>
+      <td style="text-align: center">Claude Code / Cursor + CodeGraph</td>
+      <td style="text-align: center">Claude Code / Cline + Code-Review-Graph</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>如果只能选一个，我会建议：<strong>日常开发用 CodeGraph，Code Review 和大型项目重构用 Code-Review-Graph。</strong> 两者组合使用效果最佳——但不是必须二选一，它们可以共存，互为补充。</p>
+
+<p><strong>延伸阅读</strong>：</p>
+<ul>
+  <li><a href="https://github.com/colbymchenry/codegraph">CodeGraph GitHub</a></li>
+  <li><a href="https://github.com/tirth8205/code-review-graph">Code-Review-Graph GitHub</a></li>
+  <li><a href="https://modelcontextprotocol.io/">MCP 协议规范</a></li>
+</ul>
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box" id = "sidebar">
+		    
+				<p class = "sidebar-title">关于文章</p>
+			
+			
+				
+				<p class = "sidebar-about-content sidebar-font-big">CodeGraph 和 Code-Review-Graph 是两款基于代码图（Code Graph）的 MCP 工具，为 AI 编程助手提供语义级代码理解能力。本文从基本概念、安装方法、技术特点、适用场景等方面进行深度对比，并给出在 AI 编程中组合使用的实战策略。</p>
+				
+				
+				<p class = "icon-link sidebar-about-content sidebar-font-medium" style = "margin-top:40px">文章作者: <a href="https://github.com/gangdong">david.dong</a></p>
+				
+				<p class = "icon-hourglass sidebar-about-content sidebar-font-medium">阅读时间：15 mins</p>
+				<p class = "icon-book sidebar-about-content sidebar-font-medium">全文字数：5934</p>
+				
+					<p class = "icon-th-list sidebar-about-content sidebar-font-medium">关键字: CodeGraph, Code-Review-Graph, MCP, 代码图, AI编程, 代码分析, 图分析</p>
+				
+				
+					<p class = "icon-hashtag sidebar-about-content sidebar-font-medium">标签: 
+					
+					<a href="/category#AI编程">AI编程&nbsp;</a>
+					
+					</p>
+				
+			
+		</div>
+		
+		
+	    <div class="sidebar-toc-box">
+			
+			<p class = "sidebar-title">文章目录</p>
+			<span class = "sidebar-font-medium sidebar-toc-content"><ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#一基本介绍">一、基本介绍</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#codegraph">CodeGraph</a></li>
+<li class="toc-entry toc-h3"><a href="#code-review-graph">Code-Review-Graph</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#二安装方法">二、安装方法</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#codegraph-安装">CodeGraph 安装</a></li>
+<li class="toc-entry toc-h3"><a href="#code-review-graph-安装">Code-Review-Graph 安装</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#三技术架构差异">三、技术架构差异</a></li>
+<li class="toc-entry toc-h2"><a href="#四核心收益对比--token-节省与-benchmark-数据">四、核心收益对比 — Token 节省与 Benchmark 数据</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#41-没有代码图时发生了什么">4.1 没有代码图时发生了什么？</a></li>
+<li class="toc-entry toc-h3"><a href="#42-codegraph-benchmark">4.2 CodeGraph Benchmark</a></li>
+<li class="toc-entry toc-h3"><a href="#43-code-review-graph-benchmark">4.3 Code-Review-Graph Benchmark</a></li>
+<li class="toc-entry toc-h3"><a href="#44-收益对比总结">4.4 收益对比总结</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#五工具能力深度对比">五、工具能力深度对比</a></li>
+<li class="toc-entry toc-h2"><a href="#六在-ai-编程中的合理使用策略">六、在 AI 编程中的合理使用策略</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#61-场景化选型">6.1 场景化选型</a></li>
+<li class="toc-entry toc-h3"><a href="#62-三步分析法推荐工作流">6.2 三步分析法（推荐工作流）</a></li>
+<li class="toc-entry toc-h3"><a href="#63-两个工具可以共存">6.3 两个工具可以共存</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#七使用时的注意事项">七、使用时的注意事项</a></li>
+<li class="toc-entry toc-h2"><a href="#八总结">八、总结</a></li>
+</ul></span>
+			
+		</div>
+		
+	</div>
+	 
+</div>
+<!-- no sidebar, use flex width box! -->
+<br>
+<div class="post-container">
+    <!-- post categories box! here  -->
+    
+   <div class="post-categories-meta">
+		<div class="post-categories-box post-categories-box-hide"><a href="/category#AI">AI</a></div>
+	</div>
+  
+  
+  <div class = "share-box-meta">
+    <div class="share-box">
+      <span style ="padding: 2px">分享:</span>
+      <a class="share-link" href="https://twitter.com/intent/tweet?text=CodeGraph+vs+Code-Review-Graph%EF%BC%9A%E4%B8%A4%E5%A4%A7%E4%BB%A3%E7%A0%81%E5%9B%BE%E5%88%86%E6%9E%90+MCP+%E5%B7%A5%E5%85%B7%E6%B7%B1%E5%BA%A6%E5%AF%B9%E6%AF%94&url=https://dqdongg.com%2Fai%2F2026%2F05%2F27%2FCodeGraph-vs-Code-Review-Graph.html" target="_blank" rel="noopener">Twitter</a>
+      <a class="share-link" href="https://www.linkedin.com/sharing/share-offsite/?url=https://dqdongg.com%2Fai%2F2026%2F05%2F27%2FCodeGraph-vs-Code-Review-Graph.html" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="share-link" href="mailto:?subject=CodeGraph+vs+Code-Review-Graph%EF%BC%9A%E4%B8%A4%E5%A4%A7%E4%BB%A3%E7%A0%81%E5%9B%BE%E5%88%86%E6%9E%90+MCP+%E5%B7%A5%E5%85%B7%E6%B7%B1%E5%BA%A6%E5%AF%B9%E6%AF%94&body=https://dqdongg.com%2Fai%2F2026%2F05%2F27%2FCodeGraph-vs-Code-Review-Graph.html" target="_blank" rel="noopener">Email</a>
+    </div>
+  </div>
+  
+  <!-- Related posts start here! -->
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">继续阅读</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta"><div class="navigation-bar">
+	 
+	 <a href="/ai/2026/05/26/Claude-Code-vs-CodeBuddy-Permission-System-Deep-Dive.html"><span>前一章</span><br>Claude Code vs CodeBuddy：两大 AI 编程助手的权限系统设计深度对比</a>
+	 
+    </div></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'gangdong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+
+<!-- sidebar button, toggle display/hide sidebar -->
+<script>
+  document.querySelector('.btn')?.addEventListener('click', function() {
+    this.classList.toggle('btnc');
+    document.querySelector('.sidebar-container')?.classList.toggle('sidebar-container-hide');
+  });
+</script>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=G-3MXGF3F8QN"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-3MXGF3F8QN');
+	</script></body>
+</html>

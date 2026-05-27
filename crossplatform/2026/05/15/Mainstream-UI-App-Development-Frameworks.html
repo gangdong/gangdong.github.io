@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
+<!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>Mainstream UI App Development Frameworks in 2026 — A Learning Summary | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Mainstream UI App Development Frameworks in 2026 — A Learning Summary" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A comprehensive analysis of mainstream cross-platform UI development frameworks including Flutter, React Native, KMP, Tauri, Electron, Qt, .NET MAUI, Unity, and more. Covers architecture, performance, ecosystem, and selection guidance." />
+<meta name="twitter:description" property="og:description" content="A comprehensive analysis of mainstream cross-platform UI development frameworks including Flutter, React Native, KMP, Tauri, Electron, Qt, .NET MAUI, Unity, and more. Covers architecture, performance, ecosystem, and selection guidance." />
+<link rel="canonical" href="https://dqdongg.com/crossplatform/2026/05/15/Mainstream-UI-App-Development-Frameworks.html" />
+<meta property="og:url" content="https://dqdongg.com/crossplatform/2026/05/15/Mainstream-UI-App-Development-Frameworks.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-05-15T08:00:00+00:00" />
+<meta property="article:modified_time" content="2026-05-15T08:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Mainstream UI App Development Frameworks in 2026 — A Learning Summary" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"david.dong"},"dateModified":"2026-05-15T08:00:00+00:00","datePublished":"2026-05-15T08:00:00+00:00","description":"A comprehensive analysis of mainstream cross-platform UI development frameworks including Flutter, React Native, KMP, Tauri, Electron, Qt, .NET MAUI, Unity, and more. Covers architecture, performance, ecosystem, and selection guidance.","headline":"Mainstream UI App Development Frameworks in 2026 — A Learning Summary","mainEntityOfPage":{"@type":"WebPage","@id":"https://dqdongg.com/crossplatform/2026/05/15/Mainstream-UI-App-Development-Frameworks.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://dqdongg.com/assets/logo.png"},"name":"david.dong"},"url":"https://dqdongg.com/crossplatform/2026/05/15/Mainstream-UI-App-Development-Frameworks.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="alternate" type="application/rss+xml" title="David Dong's Blog - RSS" href="/rss.xml">
+
+<meta property="article:tag" content="UI开发框架">
+
+
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/css/syntax/syntax.gruvbox.dark.css" rel="stylesheet"/>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
+
+<script defer>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js');
+  });
+}
+</script>
+</head><body>
+    <main class="container">
+      <section class="about condensed">
+	    <div class="about-header condensed">
+			<div class="about-title">
+				<a href="/blog/index.html">
+				  <img loading="lazy" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/my_new_avatar.jpg" alt="David Dong"/>
+				</a>
+				<div class = "title-meta">
+					<h2 id="title">
+					  <a href="/blog/index.html">David Dong</a>
+					</h2>
+					<p class = "tagline-small">Java/C/C#/Python</p>
+				</div>
+			</div>
+			<p class="tagline">Java/C/C#/Python</p>
+		</div>
+		<!--put dark mode button here -->
+		<div class = "about-footer condensed">
+		  <!--put rss/code link here -->
+			<div class="icon-box-container about-footer condensed"><div class = "icon-box" style = "padding-right:0px">
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id = "mode">Dark Mode</span>
+					</a>
+				</div>
+				<!-- toggle dark/light display mode, should loading darkmode.js here for avoiding flicker when switching -->
+				<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/darkmode.js"></script>
+				<script type="text/javascript">
+				$('.dark-mode').on('click',function(){
+					$('.dark-mode').toggleClass('light-mode');
+					if (document.getElementById("mode").innerHTML=="Light Mode")
+						document.getElementById("mode").innerHTML="Dark Mode";
+					else 
+						document.getElementById("mode").innerHTML="Light Mode";
+				})
+				</script><div class = "icon-box">
+					<a class="icon-rss" href="/rss.xml">
+						<span>Subscribe</span>
+					</a>
+				</div><div class = "icon-box">
+					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
+						<span>Source Code</span>
+					</a>
+				</div></div>
+		</div>
+		
+	    <!--show contact me -->
+		<div class = "about-footer condensed social-container">
+	    <p class = "contact about-footer condensed">CONTACT ME</p>
+		<!-- put social link here -->
+	      <ul class="social about-footer condensed" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		<!--put timestamp here -->
+		<p class ="timestamp about-footer condensed">&copy; 2026</p>
+		</div>
+	  <!-- about box end here -->
+      </section>
+	  
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+<div class="post-container">
+	<div  class = "menu-meta condensed">
+		<!--put top menu here, display @ big screen (> $mobileW) -->
+		<div  class = "menu-logo">BLOG</div>
+		<div  class = "menu">
+			<a href="/blog/index.html">
+				<li class="icon-home">Home</li>
+			</a><a href="/archive">
+				<li class="icon-archive">Archives</li>
+			</a><a href="/category">
+				<li class="icon-tags">Categories</li>
+			</a><a href="/about">
+				<li class="icon-help-circled">About</li>
+			</a>
+		</div>
+		<!--put hide menu button here, display @ small screen (< $mobileW) -->
+		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
+		<!--put hide menu here, display @ small screen (< $mobileW) -->
+		<div class="context-menu">
+			<ul >
+				<li>
+					<a class="icon-home" href="/blog/index.html">Home</a>
+				</li><li>
+					<a class="icon-archive" href="/archive">Archives</a>
+				</li><li>
+					<a class="icon-tags" href="/category">Categories</a>
+				</li><li>
+					<a class="icon-help-circled" href="/about">About</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('.menu-btn').on('click',function(e){
+		
+	e.stopPropagation();
+	var tag = $('.context-menu');		
+	$(tag).toggleClass('context-menu-show');
+			
+	var flag = true;
+	/* hide the context-menu when other element is clicked */
+	$(document).bind('click',function(e){
+		var target = $(e.target);
+		if(target.closest(tag).length == 0 && flag == true){
+			$(tag).toggleClass('context-menu-show');
+			flag = false;
+		}
+	});
+})
+</script><div class="post-container" style = "margin-bottom:1rem">
+	<div class="posts-labelgroup" id="posts-labelgroup">
+		<h1 id="posts-label">POST</h1>
+	</div>  
+	<!-- post title -->
+	<h2 class="post-title-body">Mainstream UI App Development Frameworks in 2026 — A Learning Summary</h2>
+	<div class="post-meta">
+		<div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">May 15, 2026</div>
+		
+		<!-- sidebar button for displaying/hiding sidebar -->
+		<div class = "sidebar-btn-box"><a class="btn"></a></div>
+		
+	</div>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+<div class="post-viewer-container">
+	<div class="post post-fix-width">
+		<p>Over the past decade, the landscape of UI application development has undergone a dramatic transformation. The days when building an app for iOS, Android, Windows, and macOS meant maintaining four separate codebases are fading fast. Today, developers have an overwhelming number of cross-platform frameworks to choose from — each with its own philosophy, trade-offs, and ideal use cases. After studying this topic in depth, here is what I have learned and my personal take on where things stand in 2026.<!--more--></p>
+
+<h2 id="why-cross-platform-matters-more-than-ever">Why Cross-Platform Matters More Than Ever</h2>
+
+<p>The demand for cross-platform development is no longer just about “write once, run anywhere.” In 2026, the key drivers are:</p>
+
+<ul>
+  <li><strong>Cost efficiency</strong>: maintaining a single codebase for multiple platforms dramatically reduces engineering headcount</li>
+  <li><strong>Time to market</strong>: cross-platform frameworks allow teams to ship to iOS, Android, and desktop simultaneously</li>
+  <li><strong>Consistent brand experience</strong>: users expect the same look and feel across devices</li>
+  <li><strong>Talent availability</strong>: frameworks leveraging popular languages (JS/TS, Dart, Kotlin) tap into larger developer pools</li>
+</ul>
+
+<p>But there is no free lunch. Every framework makes trade-offs. Let me walk through the major players, what I found impressive, and where each falls short.</p>
+
+<hr />
+
+<h2 id="framework-overview">Framework Overview</h2>
+
+<p>Before diving into details, here is a bird’s-eye view of the frameworks covered in this article:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Framework</th>
+      <th>Language</th>
+      <th>Platforms</th>
+      <th>Bundle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Flutter</strong></td>
+      <td>Dart</td>
+      <td>iOS/Android/Web/Desktop</td>
+      <td>15-50 MB</td>
+    </tr>
+    <tr>
+      <td><strong>React Native</strong></td>
+      <td>JS/TS</td>
+      <td>iOS/Android/Web</td>
+      <td>10-30 MB</td>
+    </tr>
+    <tr>
+      <td><strong>KMP</strong></td>
+      <td>Kotlin</td>
+      <td>iOS/Android/Desktop/Web</td>
+      <td>~2 MB</td>
+    </tr>
+    <tr>
+      <td><strong>Tauri</strong></td>
+      <td>Rust+JS</td>
+      <td>Win/Mac/Linux</td>
+      <td>3-10 MB</td>
+    </tr>
+    <tr>
+      <td><strong>Electron</strong></td>
+      <td>JS/CSS</td>
+      <td>Win/Mac/Linux</td>
+      <td>100-300 MB</td>
+    </tr>
+    <tr>
+      <td><strong>Qt</strong></td>
+      <td>C++/Python</td>
+      <td>Win/Mac/Linux/Embed</td>
+      <td>20-70 MB</td>
+    </tr>
+    <tr>
+      <td><strong>.NET MAUI</strong></td>
+      <td>C#</td>
+      <td>iOS/Android/Win/Mac</td>
+      <td>20-40 MB</td>
+    </tr>
+    <tr>
+      <td><strong>Unity</strong></td>
+      <td>C#</td>
+      <td>Mobile/Desktop/Console</td>
+      <td>20-200 MB</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="deep-dive-each-framework-analyzed">Deep Dive: Each Framework Analyzed</h2>
+
+<h3 id="1-flutter--the-cross-platform-consistency-king">1. Flutter — The Cross-Platform Consistency King</h3>
+
+<p>Flutter is arguably the most ambitious cross-platform framework today. Instead of translating your UI code into native widgets, it draws every pixel itself using the Skia (now Impeller) graphics engine.</p>
+
+<p><strong>What impressed me:</strong></p>
+<ul>
+  <li>The UI consistency is unmatched. A Flutter app running on Android, iOS, Windows, and macOS looks virtually identical at the pixel level</li>
+  <li>Performance is genuinely near-native for most use cases. The 60/120fps claim holds up in practice thanks to AOT compilation to native ARM/x64 machine code</li>
+  <li>Hot reload is a game-changer for developer productivity — I have seen teams iterate at speeds that feel almost like web development</li>
+  <li>The widget system is well-designed. “Everything is a widget” is not just a slogan; it genuinely simplifies composability</li>
+</ul>
+
+<p><strong>The not-so-good:</strong></p>
+<ul>
+  <li>Dart, while a well-designed language, remains relatively niche. Finding experienced Dart developers is harder than JS or Kotlin</li>
+  <li>The bundle size floor is around 8-10 MB minimum, which can feel heavy for a simple app</li>
+  <li>Platform channels for native bridging add complexity. Every time you need platform-specific functionality, you write Dart code + native code + maintain the bridge</li>
+  <li>Flutter Web performance still lags behind React or Vue for complex content-heavy pages</li>
+</ul>
+
+<p><strong>Notable apps</strong>: Alibaba Xianyu, Google Ads, BMW App, ByteDance products (partial), Nubank</p>
+
+<p><strong>My take</strong>: Flutter is the strongest choice when UI consistency across platforms is your top priority, especially for consumer-facing apps with rich animations and custom designs.</p>
+
+<hr />
+
+<h3 id="2-react-native--the-web-developers-gateway-to-mobile">2. React Native — The Web Developer’s Gateway to Mobile</h3>
+
+<p>React Native brings the React paradigm to mobile development. Instead of rendering DOM elements, it maps React components to native platform widgets through a JavaScript bridge.</p>
+
+<p><strong>What impressed me:</strong></p>
+<ul>
+  <li>The developer experience is excellent for anyone with React experience — and there are a lot of React developers</li>
+  <li>The community ecosystem is the largest of any cross-platform framework. NPM has a package for virtually everything</li>
+  <li>Hot reload and Fast Refresh make iteration fast</li>
+  <li>OTA updates via CodePush or Expo Updates allow pushing fixes without going through app store review — a huge operational advantage</li>
+</ul>
+
+<p><strong>The not-so-good:</strong></p>
+<ul>
+  <li>The JavaScript bridge introduces unavoidable communication overhead. Complex lists and animations can exhibit noticeable jank</li>
+  <li>UI consistency suffers because components map to different native widgets on each platform. A <code class="language-plaintext highlighter-rouge">Picker</code> on iOS looks different from one on Android, and custom styling only gets you so far</li>
+  <li>Debugging bridge-layer issues is genuinely painful — crashes that originate in the native side from a JS call stack are hard to trace</li>
+  <li>Large projects tend to accumulate messy state management and the project structure degrades over time without discipline</li>
+</ul>
+
+<p><strong>Notable apps</strong>: Facebook, Instagram, Shopify, Discord, Uber Eats, Pinterest</p>
+
+<p><strong>My take</strong>: React Native is ideal for web-first teams building mobile apps without dedicated native engineers. For straightforward CRUD apps and content-focused experiences, it delivers fast time-to-market.</p>
+
+<hr />
+
+<h3 id="3-kotlin-multiplatform-kmp--the-pragmatic-choice-for-native-teams">3. Kotlin Multiplatform (KMP) — The Pragmatic Choice for Native Teams</h3>
+
+<p>KMP takes a different approach from Flutter or React Native. Instead of trying to share UI code, it focuses on sharing business logic while keeping the UI native on each platform.</p>
+
+<p><strong>What impressed me:</strong></p>
+<ul>
+  <li>Zero bridge overhead — shared code compiles down to native binaries on each platform</li>
+  <li>It integrates into existing native projects seamlessly. You do not need to rewrite your app; you just start adding shared modules</li>
+  <li>Business logic sharing is genuinely high — networking, data storage, validation, algorithms — 100% of this code can be shared</li>
+  <li>Backed by JetBrains, so it has strong tooling (although Gradle build is still slow)</li>
+</ul>
+
+<p><strong>The not-so-good:</strong></p>
+<ul>
+  <li>You still need to write and maintain two UIs (SwiftUI for iOS, Jetpack Compose for Android). This is a significant amount of work</li>
+  <li>The learning curve is steep if you are not already familiar with Kotlin and the KMP build system</li>
+  <li>Gradle configuration is complex and compilation is slow — this impacts iteration velocity</li>
+  <li>The ecosystem is relatively young. Third-party library support, while growing, is nowhere near Flutter or React Native levels</li>
+</ul>
+
+<p><strong>Notable apps</strong>: Netflix, Cash App, JetBrains Space, McDonalds (partial)</p>
+
+<p><strong>My take</strong>: KMP is the best choice for teams that already have native iOS and Android apps and want to reduce duplication in business logic. It is not a “cross-platform UI framework” — it is a “cross-platform logic framework.”</p>
+
+<hr />
+
+<h3 id="4-tauri--the-lightweight-challenger-to-electron">4. Tauri — The Lightweight Challenger to Electron</h3>
+
+<p>Tauri represents a fundamental rethinking of desktop app development. Instead of bundling a browser engine, it leverages the OS-native WebView and pairs it with a Rust backend.</p>
+
+<p><strong>What impressed me:</strong></p>
+<ul>
+  <li>The bundle size difference is staggering. While Electron apps routinely exceed 100 MB, a Tauri app can be as small as 3 MB</li>
+  <li>Memory usage is 50-70% lower than equivalent Electron apps</li>
+  <li>Startup time is typically under 1 second</li>
+  <li>Rust provides genuine memory safety guarantees without garbage collection overhead</li>
+  <li>You can use any web framework (React, Vue, Svelte) as your frontend</li>
+</ul>
+
+<p><strong>The not-so-good:</strong></p>
+<ul>
+  <li>Mobile support is still in development. If you need iOS/Android, Tauri is not ready yet</li>
+  <li>The ecosystem is young. Documentation, community plugins, and best practices are still maturing</li>
+  <li>OS-level features (file system, system tray, notifications) require writing Rust wrappers — the API surface is not as rich as Electron’s</li>
+  <li>WebView behavior varies across platforms. Linux WebKit, macOS WebKit, and Windows WebView2 all have subtle differences that can cause UI issues</li>
+</ul>
+
+<p><strong>Notable apps</strong>: AppFlowy, Figma Desktop (partial), various open-source tools</p>
+
+<p><strong>My take</strong>: Tauri is the framework I am most excited about for desktop applications. Its lightweight philosophy is the right direction, and as the ecosystem matures, I expect it to become the default choice for new desktop app projects by 2027-2028.</p>
+
+<hr />
+
+<h3 id="5-electron--the-battle-tested-veteran">5. Electron — The Battle-Tested Veteran</h3>
+
+<p>Electron packages a full Chromium browser with Node.js to build desktop applications using web technologies. It is the most mature cross-platform desktop framework by a wide margin.</p>
+
+<p><strong>What impressed me:</strong></p>
+<ul>
+  <li>The ecosystem is unmatched. Need to interact with the file system? Node.js has a library. Need to integrate with a native API? There is probably an Electron plugin</li>
+  <li>Cross-platform compatibility is genuinely excellent. An Electron app on Windows, macOS, and Linux behaves almost identically</li>
+  <li>For frontend developers, the learning curve is essentially zero. You are building a web app</li>
+  <li>Debugging is straightforward — you can use standard Chrome DevTools</li>
+</ul>
+
+<p><strong>The not-so-good:</strong></p>
+<ul>
+  <li>Resource usage is genuinely problematic. 100-300 MB for a “Hello World” app is hard to defend in 2026</li>
+  <li>Cold start time of 3-5 seconds feels sluggish compared to native or Tauri</li>
+  <li>Memory consumption of 200-500 MB at runtime is not uncommon</li>
+  <li>Security surface area is enormous — you are bundling a full browser engine, which means all Chromium and Node.js CVEs are applicable</li>
+</ul>
+
+<p><strong>Notable apps</strong>: VS Code, Slack, Discord, Figma, Notion, WhatsApp Desktop, Postman</p>
+
+<p><strong>My take</strong>: Electron is still the right choice for complex desktop tools where ecosystem richness outweighs resource concerns. VS Code proves that an Electron app can feel native with enough engineering polish. But for simple tools? Tauri is now a better option.</p>
+
+<hr />
+
+<h3 id="6-qt--the-industrial-standard">6. Qt — The Industrial Standard</h3>
+
+<p>Qt has been the gold standard for cross-platform native applications since the 1990s. It uses a platform abstraction layer (QPA) to map its widgets to native APIs on each operating system.</p>
+
+<p><strong>What impressed me:</strong></p>
+<ul>
+  <li>Performance is native — because it <em>is</em> native. Qt widgets render through the OS’s native 2D API (GDI on Windows, Core Graphics on macOS)</li>
+  <li>The platform abstraction layer (QPA) is brilliantly designed — Qt applications genuinely feel at home on each platform</li>
+  <li>Embedded systems support is unmatched. Qt runs on everything from industrial displays to automotive dashboards</li>
+  <li>Qt Quick/QML provides a modern, GPU-accelerated path that can compete with Flutter</li>
+</ul>
+
+<p><strong>The not-so-good:</strong></p>
+<ul>
+  <li>C++ is unforgiving. Memory management and build complexity are real productivity drains</li>
+  <li>Licensing is complex — Qt requires commercial licensing for proprietary applications, which is expensive</li>
+  <li>The UI, while native, looks dated by default. Achieving modern aesthetics requires significant customization</li>
+  <li>The learning curve is steep for developers not already familiar with C++</li>
+</ul>
+
+<p><strong>Notable apps</strong>: Autodesk Maya, VirtualBox, VLC, OBS Studio, Wireshark, Telegram Desktop, KDE</p>
+
+<p><strong>My take</strong>: Qt is irreplaceable in industrial and embedded contexts. If you are building a medical device interface, an automotive dashboard, or professional creative software, Qt is still the answer. For consumer apps? The cost and complexity are harder to justify.</p>
+
+<hr />
+
+<h3 id="7-net-maui--the-enterprise-contender">7. .NET MAUI — The Enterprise Contender</h3>
+
+<p>.NET MAUI is Microsoft’s evolution of Xamarin.Forms, aiming to provide a single project structure for iOS, Android, Windows, and macOS.</p>
+
+<p><strong>What impressed me:</strong></p>
+<ul>
+  <li>Deep Visual Studio integration for debugging, profiling, and packaging</li>
+  <li>MVVM architecture support built-in — enterprise developers feel right at home</li>
+  <li>Covers all platforms Microsoft cares about, with good Windows support</li>
+</ul>
+
+<p><strong>The not-so-good:</strong></p>
+<ul>
+  <li>macOS and iOS support feels like an afterthought — incomplete feature adaptation and poor debugging experience</li>
+  <li>The community is small compared to Flutter or React Native. Finding third-party libraries is harder</li>
+  <li>Cold start speed is slower than Flutter and native apps</li>
+  <li>You need to understand .NET ecosystem plus platform-native specifics — the knowledge requirements are broad</li>
+</ul>
+
+<p><strong>Notable apps</strong>: Microsoft enterprise products, internal line-of-business applications</p>
+
+<p><strong>My take</strong>: .NET MAUI is a viable choice for enterprises already invested in the Microsoft ecosystem building internal tools. For consumer-grade cross-platform apps, I would look at Flutter or KMP first.</p>
+
+<hr />
+
+<h3 id="8-unity--beyond-gaming">8. Unity — Beyond Gaming</h3>
+
+<p>Unity deserves mention not because it is a traditional UI framework, but because it powers a massive number of applications that blend UI with 2D/3D graphics.</p>
+
+<p><strong>What impressed me:</strong></p>
+<ul>
+  <li>The 2D/3D rendering capabilities are best-in-class. Particle systems, physics, AR/VR — Unity handles it all</li>
+  <li>Asset Store provides a massive library of pre-built components, reducing development time</li>
+  <li>Multi-platform coverage extends beyond mobile and desktop to consoles (PlayStation, Xbox, Switch) and WebGL</li>
+</ul>
+
+<p><strong>The not-so-good:</strong></p>
+<ul>
+  <li>It is fundamentally a game engine, not a UI framework. Building a standard form-based app in Unity is overkill and inefficient</li>
+  <li>Bundle size starts at 20 MB and quickly balloons with assets</li>
+  <li>Development workflow is optimized for games — the scene-based editor and component system feel awkward for traditional app development</li>
+  <li>Memory and CPU overhead are significant even for simple applications</li>
+</ul>
+
+<p><strong>Notable apps</strong>: Honor of Kings, Pokemon Go, Genshin Impact, various AR/VR experiences</p>
+
+<p><strong>My take</strong>: Unity is the right choice for games, AR/VR, and interactive 3D experiences. Do not use it for a standard CRUD application — you will regret it.</p>
+
+<hr />
+
+<h3 id="china-specific-frameworks-worth-knowing">China-Specific Frameworks Worth Knowing</h3>
+
+<p>No cross-platform analysis in 2026 would be complete without mentioning the vibrant ecosystem in China, where homegrown frameworks have gained significant traction:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Framework</th>
+      <th>Company</th>
+      <th>Key Strength</th>
+      <th>Notable Apps</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Kuikly</strong></td>
+      <td>Tencent</td>
+      <td>KMP-based, native-level performance, HarmonyOS support</td>
+      <td>QQ Music, Tencent News, WeSing, 20+ Tencent products</td>
+    </tr>
+    <tr>
+      <td><strong>uni-app X</strong></td>
+      <td>DCloud</td>
+      <td>Vue syntax, deep mini-program support</td>
+      <td>JD.com, DiDi, Kuaishou (partial)</td>
+    </tr>
+    <tr>
+      <td><strong>Lynx</strong></td>
+      <td>ByteDance</td>
+      <td>Low-code, visual building, non-developer friendly</td>
+      <td>Douyin internal operations</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Kuikly deserves special attention because it has been validated at massive scale — over 1000 pages and 500M+ DAU across Tencent’s product portfolio. The key advantage is that Kuikly leverages Kotlin Multiplatform under the hood, achieving 90%+ code sharing while producing native binaries. Its deep HarmonyOS support is particularly strategic given China’s push for domestic OS adoption.</p>
+
+<hr />
+
+<h2 id="framework-comparison-matrix">Framework Comparison Matrix</h2>
+
+<h3 id="performance--technical">Performance &amp; Technical</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Framework</th>
+      <th style="text-align: center">Runtime Performance</th>
+      <th style="text-align: center">Startup Time</th>
+      <th style="text-align: center">GPU Acceleration</th>
+      <th style="text-align: center">Memory Efficiency</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Flutter</td>
+      <td style="text-align: center">★★★★☆</td>
+      <td style="text-align: center">Fast</td>
+      <td style="text-align: center">Native (Skia)</td>
+      <td style="text-align: center">★★★★☆</td>
+    </tr>
+    <tr>
+      <td>React Native</td>
+      <td style="text-align: center">★★★☆☆</td>
+      <td style="text-align: center">Medium</td>
+      <td style="text-align: center">Via native bridge</td>
+      <td style="text-align: center">★★★☆☆</td>
+    </tr>
+    <tr>
+      <td>KMP</td>
+      <td style="text-align: center">★★★★★</td>
+      <td style="text-align: center">Fastest</td>
+      <td style="text-align: center">Native</td>
+      <td style="text-align: center">★★★★★</td>
+    </tr>
+    <tr>
+      <td>Tauri</td>
+      <td style="text-align: center">★★★★☆</td>
+      <td style="text-align: center">Fastest</td>
+      <td style="text-align: center">Via WebView</td>
+      <td style="text-align: center">★★★★★</td>
+    </tr>
+    <tr>
+      <td>Electron</td>
+      <td style="text-align: center">★★☆☆☆</td>
+      <td style="text-align: center">Slow</td>
+      <td style="text-align: center">Via Chromium</td>
+      <td style="text-align: center">★★☆☆☆</td>
+    </tr>
+    <tr>
+      <td>Qt (C++)</td>
+      <td style="text-align: center">★★★★★</td>
+      <td style="text-align: center">Fastest</td>
+      <td style="text-align: center">Native / GL</td>
+      <td style="text-align: center">★★★★☆</td>
+    </tr>
+    <tr>
+      <td>.NET MAUI</td>
+      <td style="text-align: center">★★★☆☆</td>
+      <td style="text-align: center">Medium</td>
+      <td style="text-align: center">Native</td>
+      <td style="text-align: center">★★★☆☆</td>
+    </tr>
+    <tr>
+      <td>Unity</td>
+      <td style="text-align: center">★★★★★</td>
+      <td style="text-align: center">Slow</td>
+      <td style="text-align: center">Custom engine</td>
+      <td style="text-align: center">★★☆☆☆</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="developer-experience--ecosystem">Developer Experience &amp; Ecosystem</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Framework</th>
+      <th style="text-align: center">Learning Curve</th>
+      <th style="text-align: center">Community Size</th>
+      <th style="text-align: center">Job Market</th>
+      <th style="text-align: center">Library Ecosystem</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Flutter</td>
+      <td style="text-align: center">Medium</td>
+      <td style="text-align: center">Large (growing)</td>
+      <td style="text-align: center">Growing fast</td>
+      <td style="text-align: center">Rich</td>
+    </tr>
+    <tr>
+      <td>React Native</td>
+      <td style="text-align: center">Low</td>
+      <td style="text-align: center">Largest</td>
+      <td style="text-align: center">Largest</td>
+      <td style="text-align: center">Richest</td>
+    </tr>
+    <tr>
+      <td>KMP</td>
+      <td style="text-align: center">High</td>
+      <td style="text-align: center">Medium (growing)</td>
+      <td style="text-align: center">Niche</td>
+      <td style="text-align: center">Growing</td>
+    </tr>
+    <tr>
+      <td>Tauri</td>
+      <td style="text-align: center">Medium (Rust)</td>
+      <td style="text-align: center">Medium (growing)</td>
+      <td style="text-align: center">Niche</td>
+      <td style="text-align: center">Small</td>
+    </tr>
+    <tr>
+      <td>Electron</td>
+      <td style="text-align: center">Low</td>
+      <td style="text-align: center">Largest</td>
+      <td style="text-align: center">Stable</td>
+      <td style="text-align: center">Richest</td>
+    </tr>
+    <tr>
+      <td>Qt</td>
+      <td style="text-align: center">High (C++)</td>
+      <td style="text-align: center">Mature</td>
+      <td style="text-align: center">Stable</td>
+      <td style="text-align: center">Mature</td>
+    </tr>
+    <tr>
+      <td>.NET MAUI</td>
+      <td style="text-align: center">Medium</td>
+      <td style="text-align: center">Small</td>
+      <td style="text-align: center">Niche</td>
+      <td style="text-align: center">Limited</td>
+    </tr>
+    <tr>
+      <td>Unity</td>
+      <td style="text-align: center">High (C# + 3D)</td>
+      <td style="text-align: center">Large (gaming)</td>
+      <td style="text-align: center">Gaming-focused</td>
+      <td style="text-align: center">Rich (gaming)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="bundle-size-comparison">Bundle Size Comparison</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Electron : ██████████████████████████████████████████████████ (100-300 MB)
+Unity    : ████████████                                       (20-200 MB)
+Flutter  : ████████                                           (15-50 MB)
+Qt       : ████████████                                       (20-70 MB)
+.NET MAUI: █████████                                           (20-40 MB)
+React Native: ██████                                         (10-30 MB)
+Tauri    : ██                                                  (3-10 MB)
+KMP      : █                                                   (~2 MB logic)
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="scenario-based-selection-guide">Scenario-Based Selection Guide</h2>
+
+<p>After studying all these options, here is my practical decision framework:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Your Situation</th>
+      <th>Best Choice</th>
+      <th>Why</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Consumer mobile app with rich UI</td>
+      <td><strong>Flutter</strong></td>
+      <td>Unmatched UI consistency, great animation support</td>
+    </tr>
+    <tr>
+      <td>Web-first team, need mobile ASAP</td>
+      <td><strong>React Native</strong></td>
+      <td>Huge dev pool, fast iteration, OTA updates</td>
+    </tr>
+    <tr>
+      <td>Existing native app, share logic</td>
+      <td><strong>KMP</strong></td>
+      <td>Zero bridge overhead, incrementally adoptable</td>
+    </tr>
+    <tr>
+      <td>Lightweight desktop tool</td>
+      <td><strong>Tauri</strong></td>
+      <td>Tiny bundle, low memory, fast startup</td>
+    </tr>
+    <tr>
+      <td>Complex desktop tool (IDE, design tool)</td>
+      <td><strong>Electron</strong></td>
+      <td>Mature ecosystem, proven at scale</td>
+    </tr>
+    <tr>
+      <td>Industrial/embedded software</td>
+      <td><strong>Qt</strong></td>
+      <td>Native performance, unmatched platform support</td>
+    </tr>
+    <tr>
+      <td>Enterprise .NET shop, internal tools</td>
+      <td><strong>.NET MAUI</strong></td>
+      <td>VS integration, Azure ecosystem</td>
+    </tr>
+    <tr>
+      <td>Game / AR / VR / interactive 3D</td>
+      <td><strong>Unity</strong></td>
+      <td>Best-in-class 2D/3D rendering</td>
+    </tr>
+    <tr>
+      <td>China market + multi-mini-program</td>
+      <td><strong>uni-app X</strong></td>
+      <td>Deep WeChat/Alipay miniprogram integration</td>
+    </tr>
+    <tr>
+      <td>Large-scale Chinese app, HarmonyOS target</td>
+      <td><strong>Kuikly</strong></td>
+      <td>Proven at Tencent scale, HarmonyOS support</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="personal-reflections">Personal Reflections</h2>
+
+<h3 id="what-i-learned">What I Learned</h3>
+
+<p><strong>1. There is no “best” framework — only “best for your context.”</strong>
+Every framework exists because it solves a specific set of problems. Flutter is amazing for UI consistency, but that comes at the cost of Dart adoption and bundle size. Tauri is incredibly lightweight, but you pay in ecosystem maturity. Understanding your constraints — team skills, target platforms, performance requirements, timeline — is the most important skill in framework selection.</p>
+
+<p><strong>2. The industry is converging on lighter, faster frameworks.</strong>
+The Electron era of “just bundle a browser” is giving way to a more thoughtful approach. Tauri, Flutter Desktop, and even improved React Native with the new architecture (JSI instead of bridge) all point in the same direction: smaller bundles, faster startup, lower memory. This trend will only accelerate.</p>
+
+<p><strong>3. Cross-platform is not just about code sharing.</strong>
+The hardest part of building multi-platform apps is not writing the code — it is handling platform-specific behaviors, testing across devices, and maintaining the app over time. KMP’s approach of sharing logic while keeping native UI has real merit here.</p>
+
+<p><strong>4. China’s cross-platform ecosystem is ahead in some ways.</strong>
+Kuikly’s deep integration with KMP and HarmonyOS, uni-app’s seamless miniprogram support, and Lynx’s low-code approach represent real innovations that the global ecosystem is only starting to catch up with.</p>
+
+<p><strong>5. AI is changing the calculus.</strong>
+With AI-assisted development tools in 2026, maintaining multiple codebases is less painful than it used to be. This weakens the case for cross-platform frameworks in some scenarios — if AI can generate and update your SwiftUI and Jetpack Compose code from a single description, do you still need a cross-platform runtime?</p>
+
+<hr />
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>The cross-platform framework landscape in 2026 is rich, diverse, and evolving rapidly. My personal recommendation:</p>
+
+<ul>
+  <li><strong>For mobile-first consumer apps</strong>: Flutter is the safe bet today</li>
+  <li><strong>For desktop tools</strong>: Tauri deserves serious evaluation — it is ready for production</li>
+  <li><strong>For team with no time to learn</strong>: React Native remains the pragmatic choice</li>
+  <li><strong>For industrial/embedded</strong>: Qt remains the only serious option</li>
+  <li><strong>For native teams wanting less duplicate work</strong>: KMP is the unsung hero</li>
+</ul>
+
+<p>The most important lesson? Do not treat framework selection as a religious debate. Evaluate honestly against your specific context, prototype with two candidates, and make a data-driven decision. The right framework can multiply your team’s output; the wrong one can become a drag that lasts for years.</p>
+
+<hr />
+
+<p><em>Originally published on <a href="https://dqdongg.com">David Dong’s Blog</a>. This article is a learning summary based on research and study of various cross-platform frameworks.</em></p>
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box" id = "sidebar">
+		    
+				<p class = "sidebar-title">About This Article</p>
+			
+			
+				
+					<P class = "sidebar-about-content sidebar-font-big">A comprehensive analysis of mainstream cross-platform UI development frameworks including Flutter, React Native, KMP, Tauri, Electron, Qt, .NET MAUI, Unity, and more. Covers architecture, performance, ecosystem, and selection guidance.</P>
+				
+				
+					<P class = "icon-link sidebar-about-content sidebar-font-medium" style = "margin-top:30px">Author: <a href="https://github.com/gangdong">david.dong</a></P>
+				
+					<P class = "icon-clock sidebar-about-content sidebar-font-medium">40 mins to read</P>
+					<P class = "icon-book-1 sidebar-about-content sidebar-font-medium">15810 words</P>
+				
+					<P class = "icon-th-list sidebar-about-content sidebar-font-medium">Key Words: cross-platform, UI framework, Flutter, React Native, Tauri, Electron, KMP, Qt</P>
+				
+				
+				    <P class = "icon-hashtag sidebar-about-content sidebar-font-medium">Tags: 
+					
+					<a href="/category#UI开发框架">UI开发框架&nbsp;</a>
+					
+					</P>
+				
+			
+		</div>
+		
+		
+	    <div class="sidebar-toc-box">
+			
+			<p class = "sidebar-title">Table of Contents</p>
+			<span class = "sidebar-font-medium sidebar-toc-content"><ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#why-cross-platform-matters-more-than-ever">Why Cross-Platform Matters More Than Ever</a></li>
+<li class="toc-entry toc-h2"><a href="#framework-overview">Framework Overview</a></li>
+<li class="toc-entry toc-h2"><a href="#deep-dive-each-framework-analyzed">Deep Dive: Each Framework Analyzed</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#1-flutter--the-cross-platform-consistency-king">1. Flutter — The Cross-Platform Consistency King</a></li>
+<li class="toc-entry toc-h3"><a href="#2-react-native--the-web-developers-gateway-to-mobile">2. React Native — The Web Developer’s Gateway to Mobile</a></li>
+<li class="toc-entry toc-h3"><a href="#3-kotlin-multiplatform-kmp--the-pragmatic-choice-for-native-teams">3. Kotlin Multiplatform (KMP) — The Pragmatic Choice for Native Teams</a></li>
+<li class="toc-entry toc-h3"><a href="#4-tauri--the-lightweight-challenger-to-electron">4. Tauri — The Lightweight Challenger to Electron</a></li>
+<li class="toc-entry toc-h3"><a href="#5-electron--the-battle-tested-veteran">5. Electron — The Battle-Tested Veteran</a></li>
+<li class="toc-entry toc-h3"><a href="#6-qt--the-industrial-standard">6. Qt — The Industrial Standard</a></li>
+<li class="toc-entry toc-h3"><a href="#7-net-maui--the-enterprise-contender">7. .NET MAUI — The Enterprise Contender</a></li>
+<li class="toc-entry toc-h3"><a href="#8-unity--beyond-gaming">8. Unity — Beyond Gaming</a></li>
+<li class="toc-entry toc-h3"><a href="#china-specific-frameworks-worth-knowing">China-Specific Frameworks Worth Knowing</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#framework-comparison-matrix">Framework Comparison Matrix</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#performance--technical">Performance &amp; Technical</a></li>
+<li class="toc-entry toc-h3"><a href="#developer-experience--ecosystem">Developer Experience &amp; Ecosystem</a></li>
+<li class="toc-entry toc-h3"><a href="#bundle-size-comparison">Bundle Size Comparison</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#scenario-based-selection-guide">Scenario-Based Selection Guide</a></li>
+<li class="toc-entry toc-h2"><a href="#personal-reflections">Personal Reflections</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#what-i-learned">What I Learned</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#conclusion">Conclusion</a></li>
+</ul></span>
+			
+		</div>
+		
+	</div>
+	 
+</div>
+<!-- no sidebar, use flex width box! -->
+<br>
+<div class="post-container">
+    <!-- post categories box! here  -->
+    
+   <div class="post-categories-meta">
+		<div class="post-categories-box post-categories-box-hide"><a href="/category#crossplatform">crossplatform</a></div>
+	</div>
+  
+  
+  <div class = "share-box-meta">
+    <div class="share-box">
+      <span style ="padding: 2px">Share:</span>
+      <a class="share-link" href="https://twitter.com/intent/tweet?text=Mainstream+UI+App+Development+Frameworks+in+2026+%E2%80%94+A+Learning+Summary&url=https://dqdongg.com%2Fcrossplatform%2F2026%2F05%2F15%2FMainstream-UI-App-Development-Frameworks.html" target="_blank" rel="noopener">Twitter</a>
+      <a class="share-link" href="https://www.linkedin.com/sharing/share-offsite/?url=https://dqdongg.com%2Fcrossplatform%2F2026%2F05%2F15%2FMainstream-UI-App-Development-Frameworks.html" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="share-link" href="mailto:?subject=Mainstream+UI+App+Development+Frameworks+in+2026+%E2%80%94+A+Learning+Summary&body=https://dqdongg.com%2Fcrossplatform%2F2026%2F05%2F15%2FMainstream-UI-App-Development-Frameworks.html" target="_blank" rel="noopener">Email</a>
+    </div>
+  </div>
+  
+  <!-- Related posts start here! -->
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">further reading</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta"><div class="navigation-bar">
+	 
+	 <a href="/rust/2024/02/15/Rust-startup-trait.html"><span>Previous Post</span><br>Rust startup - trait</a>
+	 
+    </div><div class="navigation-bar"> 
+	 
+     <a href="/ai/2026/05/26/Claude-Code-vs-CodeBuddy-Permission-System-Deep-Dive.html"><span>Next Post</span><br>Claude Code vs CodeBuddy：两大 AI 编程助手的权限系统设计深度对比</a>
+	 
+    </div></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'gangdong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+
+<!-- sidebar button, toggle display/hide sidebar -->
+<script>
+  document.querySelector('.btn')?.addEventListener('click', function() {
+    this.classList.toggle('btnc');
+    document.querySelector('.sidebar-container')?.classList.toggle('sidebar-container-hide');
+  });
+</script>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=G-3MXGF3F8QN"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-3MXGF3F8QN');
+	</script></body>
+</html>

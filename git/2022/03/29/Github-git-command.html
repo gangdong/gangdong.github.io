@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="keywords"  content="董刚, DavidDong, David, 董刚的博客, David Dong's Blog, 博客, 个人网站, 互联网, Web, 手机, 人机接口, Touch, Fingerprint，Github Pages TEE Java Python C Android">
+<!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>Git commands and usage tips | David Dong’s Blog</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Git commands and usage tips" />
+<meta name="author" content="david.dong" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="记录 Git 的常用命令和使用技巧." />
+<meta name="twitter:description" property="og:description" content="记录 Git 的常用命令和使用技巧." />
+<link rel="canonical" href="https://dqdongg.com/git/2022/03/29/Github-git-command.html" />
+<meta property="og:url" content="https://dqdongg.com/git/2022/03/29/Github-git-command.html" />
+<meta property="og:site_name" content="David Dong’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-03-29T15:17:03+00:00" />
+<meta property="article:modified_time" content="2022-03-29T15:17:03+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Git commands and usage tips" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"david.dong"},"dateModified":"2022-03-29T15:17:03+00:00","datePublished":"2022-03-29T15:17:03+00:00","description":"记录 Git 的常用命令和使用技巧.","headline":"Git commands and usage tips","mainEntityOfPage":{"@type":"WebPage","@id":"https://dqdongg.com/git/2022/03/29/Github-git-command.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://dqdongg.com/assets/logo.png"},"name":"david.dong"},"url":"https://dqdongg.com/git/2022/03/29/Github-git-command.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="alternate" type="application/rss+xml" title="David Dong's Blog - RSS" href="/rss.xml">
+
+<meta property="article:tag" content="Git">
+
+
+<link href="https://fonts.font.im/css?family=Poppins:400,900|Raleway|Roboto:400,900|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/favicon.ico">
+
+	<!-- default stylesheet monokai.sublime ! -->
+	
+	<link href="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/css/syntax/syntax.gruvbox.dark.css" rel="stylesheet"/>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
+
+<script defer>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js');
+  });
+}
+</script>
+</head><body>
+    <main class="container">
+      <section class="about condensed">
+	    <div class="about-header condensed">
+			<div class="about-title">
+				<a href="/blog/index.html">
+				  <img loading="lazy" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/my_new_avatar.jpg" alt="David Dong"/>
+				</a>
+				<div class = "title-meta">
+					<h2 id="title">
+					  <a href="/blog/index.html">David Dong</a>
+					</h2>
+					<p class = "tagline-small">Java/C/C#/Python</p>
+				</div>
+			</div>
+			<p class="tagline">Java/C/C#/Python</p>
+		</div>
+		<!--put dark mode button here -->
+		<div class = "about-footer condensed">
+		  <!--put rss/code link here -->
+			<div class="icon-box-container about-footer condensed"><div class = "icon-box" style = "padding-right:0px">
+					<a id="dark-mode-toggle" class="togglemode dark-mode" onclick="toggleDarkMode()">
+						<span id = "mode">Dark Mode</span>
+					</a>
+				</div>
+				<!-- toggle dark/light display mode, should loading darkmode.js here for avoiding flicker when switching -->
+				<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/gangdong/gangdong.github.io@dev/assets/js/darkmode.js"></script>
+				<script type="text/javascript">
+				$('.dark-mode').on('click',function(){
+					$('.dark-mode').toggleClass('light-mode');
+					if (document.getElementById("mode").innerHTML=="Light Mode")
+						document.getElementById("mode").innerHTML="Dark Mode";
+					else 
+						document.getElementById("mode").innerHTML="Light Mode";
+				})
+				</script><div class = "icon-box">
+					<a class="icon-rss" href="/rss.xml">
+						<span>Subscribe</span>
+					</a>
+				</div><div class = "icon-box">
+					<a class="icon-file-code" href="https://github.com/gangdong/gangdong.github.io">
+						<span>Source Code</span>
+					</a>
+				</div></div>
+		</div>
+		
+	    <!--show contact me -->
+		<div class = "about-footer condensed social-container">
+	    <p class = "contact about-footer condensed">CONTACT ME</p>
+		<!-- put social link here -->
+	      <ul class="social about-footer condensed" >
+		   <a href="https://rainbow-ux.github.io/traveler-blog.github.io">
+              <li>
+                <i class="icon-picture"></i>
+              </li>
+           </a><a href="https://github.com/gangdong">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/刚-董-25208ba0/">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="mailto:dqdongg@hotmail.com">
+              <li>
+                <i class="icon-mail" style = "font-size: 27px"></i>
+              </li>
+            </a></ul>
+		<!--put timestamp here -->
+		<p class ="timestamp about-footer condensed">&copy; 2026</p>
+		</div>
+	  <!-- about box end here -->
+      </section>
+	  
+      <section class="content">
+        
+
+
+<!-- add menu bar here! -->
+<div class="post-container">
+	<div  class = "menu-meta condensed">
+		<!--put top menu here, display @ big screen (> $mobileW) -->
+		<div  class = "menu-logo">BLOG</div>
+		<div  class = "menu">
+			<a href="/blog/index.html">
+				<li class="icon-home">Home</li>
+			</a><a href="/archive">
+				<li class="icon-archive">Archives</li>
+			</a><a href="/category">
+				<li class="icon-tags">Categories</li>
+			</a><a href="/about">
+				<li class="icon-help-circled">About</li>
+			</a>
+		</div>
+		<!--put hide menu button here, display @ small screen (< $mobileW) -->
+		<div class = "menu-btn-box"><a class="menu-btn"></a></div>
+		<!--put hide menu here, display @ small screen (< $mobileW) -->
+		<div class="context-menu">
+			<ul >
+				<li>
+					<a class="icon-home" href="/blog/index.html">Home</a>
+				</li><li>
+					<a class="icon-archive" href="/archive">Archives</a>
+				</li><li>
+					<a class="icon-tags" href="/category">Categories</a>
+				</li><li>
+					<a class="icon-help-circled" href="/about">About</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('.menu-btn').on('click',function(e){
+		
+	e.stopPropagation();
+	var tag = $('.context-menu');		
+	$(tag).toggleClass('context-menu-show');
+			
+	var flag = true;
+	/* hide the context-menu when other element is clicked */
+	$(document).bind('click',function(e){
+		var target = $(e.target);
+		if(target.closest(tag).length == 0 && flag == true){
+			$(tag).toggleClass('context-menu-show');
+			flag = false;
+		}
+	});
+})
+</script><div class="post-container" style = "margin-bottom:1rem">
+	<div class="posts-labelgroup" id="posts-labelgroup">
+		<h1 id="posts-label">POST</h1>
+	</div>  
+	<!-- post title -->
+	<h2 class="post-title-body">Git commands and usage tips</h2>
+	<div class="post-meta">
+		<div class="post-date icon-calendar" style = "padding-left:0px;font-size:14px">Mar 29, 2022</div>
+		
+		<!-- sidebar button for displaying/hiding sidebar -->
+		<div class = "sidebar-btn-box"><a class="btn"></a></div>
+		
+	</div>
+</div>
+  <!-- post content here! -->
+  <!-- set fix width box to put content! -->
+<div class="post-viewer-container">
+	<div class="post post-fix-width">
+		<p><img loading="lazy" src="\assets\image\github-git-command-01.jpg" alt="git-command-01" style="zoom:100%;" /></p>
+
+<p>Git is a powerful version control tool. I would even say it’s one of the best. However, being powerful sometimes means being complex in terms of functionality. Git has a lot of commands. The good thing is that you can do everything you want with them, the bad thing is that you need to remember them. Here, I’ll write down the commands that I’ll use often to keep better track of them and make them easier to search.😉 <!--more--></p>
+
+<h2 id="推送到远程分支">推送到远程分支</h2>
+
+<h3 id="用法git-push--">用法：git push <远程主机名> <本地分支名>:<远程分支名></远程分支名></本地分支名></远程主机名></h3>
+
+<h4 id="1-将本地的-master-分支推送到远程-master-分支">1. 将本地的 master 分支推送到远程 master 分支</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">master</span></code></pre></figure>
+
+<h4 id="2-将本地的-dev-分支推送到远程-master-分支">2. 将本地的 dev 分支推送到远程 master 分支</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">dev</span><span class="o">:</span><span class="n">master</span></code></pre></figure>
+
+<h4 id="3-删除远程-master-分支">3. 删除远程 master 分支</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="o">:</span><span class="n">master</span>
+<span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="o">--</span><span class="n">delete</span> <span class="n">master</span></code></pre></figure>
+
+<h4 id="4-添加远程主分支和本地-master-分支的绑定关系">4. 添加远程主分支和本地 master 分支的绑定关系</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">push</span> <span class="o">-</span><span class="n">u</span> <span class="n">origin</span> <span class="n">master</span></code></pre></figure>
+
+<p>绑定后可以直接将当前分支推送到origin主机的对应分支</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span></code></pre></figure>
+
+<h4 id="5-强制推送本地dev分支到远程master分支">5. 强制推送本地dev分支到远程master分支</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">push</span> <span class="o">--</span><span class="n">force</span> <span class="n">origin</span> <span class="n">dev</span><span class="o">:</span><span class="n">master</span></code></pre></figure>
+
+<h4 id="6-推送本地当前分支到远程-master分支">6. 推送本地当前分支到远程 master分支</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">HEAD</span><span class="o">:</span><span class="n">master</span></code></pre></figure>
+
+<h2 id="拉取远程分支到本地">拉取远程分支到本地</h2>
+
+<h3 id="用法git-pull--">用法：git pull <远程主机名> <远程分支名>:<本地分支名></本地分支名></远程分支名></远程主机名></h3>
+
+<h4 id="1-拉取远程-master-分支到本地-dev-分支">1. 拉取远程 master 分支到本地 dev 分支</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">pull</span> <span class="n">origin</span> <span class="n">master</span><span class="o">:</span><span class="n">dev</span></code></pre></figure>
+
+<h4 id="2-拉取远程-master-分支到本地当前分支">2. 拉取远程 master 分支到本地当前分支</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">pull</span> <span class="n">origin</span> <span class="n">master</span></code></pre></figure>
+
+<h4 id="3-建立本地分支与远程分支的追踪关系">3. 建立本地分支与远程分支的追踪关系</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">branch</span> <span class="o">--</span><span class="n">set</span><span class="o">-</span><span class="n">upstream</span> <span class="n">master</span> <span class="n">origin</span><span class="o">/</span><span class="n">next</span></code></pre></figure>
+
+<p>建立追踪后可以直接省略远程分支名</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">pull</span> <span class="n">origin</span></code></pre></figure>
+
+<h4 id="4-git-pull-origin-masterdev-等于">4. git pull origin master:dev 等于</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">fetch</span> <span class="n">origin</span> <span class="n">master</span><span class="o">:</span><span class="n">dev</span>
+<span class="n">git</span> <span class="n">diff</span> <span class="n">dev</span>
+<span class="n">git</span> <span class="n">merge</span> <span class="n">dev</span></code></pre></figure>
+
+<h4 id="5-采用-rebase-的方式合并本地分支">5. 采用 rebase 的方式合并本地分支</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">pull</span> <span class="o">--</span><span class="n">rebase</span> <span class="n">origin</span> <span class="n">master</span><span class="o">:</span><span class="n">dev</span></code></pre></figure>
+
+<h2 id="创建新分支">创建新分支</h2>
+
+<h3 id="1-创建-newbranch-分支">1. 创建 newbranch 分支</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">newbranch</span></code></pre></figure>
+
+<p>或者</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">branch</span> <span class="n">newbranch</span>
+<span class="n">git</span> <span class="n">checkout</span> <span class="n">newbranch</span></code></pre></figure>
+
+<h3 id="2-创建新分支并与远程分支关联">2. 创建新分支并与远程分支关联</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">tempbarch</span> <span class="o">--</span><span class="n">track</span> <span class="n">origin</span><span class="o">/</span><span class="n">testdevelop</span></code></pre></figure>
+
+<h2 id="删除分支">删除分支</h2>
+
+<h3 id="1-删除本地分支">1. 删除本地分支</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">branch</span> <span class="o">-</span><span class="n">d</span> <span class="n">newbranch</span></code></pre></figure>
+
+<h3 id="2-强制删除本地分支">2. 强制删除本地分支</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">branch</span> <span class="o">-</span><span class="n">D</span> <span class="n">newbranch</span></code></pre></figure>
+
+<h3 id="3-删除远程-master-分支-1">3. 删除远程 master 分支</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="o">:</span><span class="n">master</span>
+<span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="o">--</span><span class="n">delete</span> <span class="n">master</span></code></pre></figure>
+
+<h2 id="重命名分支">重命名分支</h2>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">branch</span> <span class="o">-</span><span class="n">m</span> <span class="n">oldbranch</span> <span class="n">newbranch</span>
+<span class="n">git</span> <span class="n">branch</span> <span class="o">-</span><span class="n">M</span> <span class="n">oldbranch</span> <span class="n">newbranch</span></code></pre></figure>
+
+<h2 id="添加远程分支">添加远程分支</h2>
+
+<h3 id="git-remote-add">git remote add</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">origin</span> <span class="n">https</span><span class="o">:</span><span class="c1">//github.com/gangdong/git_learn.git</span></code></pre></figure>
+
+<h2 id="克隆远程分支">克隆远程分支</h2>
+
+<h3 id="git-clone">git clone</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="o">:</span><span class="c1">//github.com/gangdong/git_learn.git</span></code></pre></figure>
+
+<h2 id="查看远程提交记录">查看远程提交记录</h2>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="n">remotes</span><span class="o">/</span><span class="n">origin</span><span class="o">/</span><span class="n">dev</span></code></pre></figure>
+
+<h2 id="添加-github-token-到本地仓库">添加 Github Token 到本地仓库</h2>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">remote</span> <span class="n">set</span><span class="o">-</span><span class="n">url</span> <span class="n">origin</span> <span class="n">https</span><span class="o">:</span><span class="c1">//&lt;your_token&gt;@github.com/&lt;USERNAME&gt;/&lt;REPO&gt;.git</span>
+<span class="n">git</span> <span class="n">remote</span> <span class="n">set</span><span class="o">-</span><span class="n">url</span> <span class="n">origin</span> <span class="n">https</span><span class="o">:</span><span class="c1">//ghp_YIKL6G9C5oWxxxxxxssssKsoYg@github.com/gangdong/git_learn.git</span></code></pre></figure>
+
+<h2 id="git-stash">git stash</h2>
+
+<h3 id="应用场景">应用场景</h3>
+
+<ul>
+  <li>当正在dev分支上开发某个项目，这时项目中出现一个bug，需要紧急修复，但是正在开发的内容只是完成一半，还不想提交，这时可以用git stash命令将修改的内容保存至堆栈区，然后顺利切换到hotfix分支进行bug修复，修复完成后，再次切回到dev分支，从堆栈中恢复刚刚保存的内容。</li>
+  <li>本应该在dev分支开发的内容，却在master上进行了开发，需要重新切回到dev分支上进行开发，可以用git stash将内容保存至堆栈中，切回到dev分支后，再次恢复内容即可。</li>
+  <li>git stash命令的作用就是将目前还不想提交的但是已经修改的内容进行保存至堆栈中，后续可以在某个分支上恢复出堆栈中的内容。这也就是说，stash中的内容不仅仅可以恢复到原先开发的分支，也可以恢复到其他任意指定的分支上</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c">  <span class="n">git</span> <span class="n">stash</span>
+  <span class="n">git</span> <span class="n">stash</span> <span class="n">save</span> <span class="s">"stash 01"</span>
+  
+  <span class="cp"># 恢复
+</span>  
+  <span class="n">git</span> <span class="n">stash</span> <span class="n">pop</span> 
+  
+  <span class="cp"># 不自动删除堆栈内的内容
+</span>  
+  <span class="n">git</span> <span class="n">stash</span> <span class="n">apply</span> <span class="n">stash</span><span class="err">@</span><span class="p">{</span><span class="n">n</span><span class="p">}</span>
+  
+  <span class="cp"># 堆栈中移除某个指定记录
+</span>  
+  <span class="n">git</span> <span class="n">stash</span> <span class="n">drop</span>
+  <span class="n">git</span> <span class="n">stash</span> <span class="n">clear</span>
+  <span class="n">git</span> <span class="n">stash</span> <span class="n">list</span>
+  
+  <span class="cp"># 查看某条 stash 的更改
+</span>  
+  <span class="n">git</span> <span class="n">stash</span> <span class="n">show</span> <span class="n">stash</span><span class="err">@</span><span class="p">{</span><span class="n">n</span><span class="p">}</span>
+  </code></pre></figure>
+
+<h2 id="合并分支">合并分支</h2>
+
+<h3 id="git-merge">git merge</h3>
+
+<h4 id="1-merge-dev-分支和-dev2-分支">1. merge dev 分支和 dev2 分支</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">checkout</span> <span class="n">dev</span>
+<span class="n">git</span> <span class="n">merge</span> <span class="n">dev2</span>
+<span class="n">git</span> <span class="n">mergetool</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">checkout</span> <span class="n">dev</span>
+<span class="n">git</span> <span class="n">fetch</span> <span class="n">origin</span> <span class="n">dev2</span>
+<span class="n">git</span> <span class="n">diff</span> <span class="n">origin</span><span class="o">/</span><span class="n">dev2</span>
+<span class="n">git</span> <span class="n">merge</span> <span class="n">origin</span><span class="o">/</span><span class="n">dev2</span></code></pre></figure>
+
+<h4 id="2-手动提交">2. 手动提交</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">checkout</span> <span class="n">dev</span>
+<span class="n">git</span> <span class="n">merge</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">commit</span> <span class="n">dev2</span></code></pre></figure>
+
+<h4 id="3-如果有冲突处理冲突">3. 如果有冲突，处理冲突</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">checkout</span> <span class="n">dev</span>
+<span class="n">git</span> <span class="n">merge</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">commit</span> <span class="n">dev2</span>
+<span class="n">git</span> <span class="n">ls</span><span class="o">-</span><span class="n">files</span> <span class="o">-</span><span class="n">s</span>
+<span class="n">git</span> <span class="n">show</span> <span class="o">:</span><span class="mi">1</span><span class="o">:</span><span class="n">filename</span>
+<span class="n">git</span> <span class="n">mergetool</span>
+<span class="n">git</span> <span class="n">add</span> <span class="p">.</span>
+<span class="n">git</span> <span class="n">commit</span></code></pre></figure>
+
+<h2 id="git-cherry-pick">git cherry-pick</h2>
+
+<h3 id="1-复制-dev2-的-aa3b6ca2--b821c4f7e1c-提交到-dev-分支">1. 复制 dev2 的 aa3b6ca2  b821c4f7e1c 提交到 dev 分支</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">checkout</span> <span class="n">dev</span>
+<span class="n">git</span> <span class="n">cherry</span><span class="o">-</span><span class="n">pick</span> <span class="n">aa3b6ca2</span> <span class="n">b821c4f7e1c</span></code></pre></figure>
+
+<p>注意cherry-pick 多个提交时注意顺序，否则会出现冲突。</p>
+
+<p>git-cherry-pick 只是复制其他分支提交的内容到本地分支，复制后的commit id 和之前 pick的不同。这一点和 git merge/git rebase 有区别。git merge/git rebase 合并的是分支，之前原分支的commit id会带到本地分支。</p>
+
+<h2 id="git-rebase">git rebase</h2>
+
+<h3 id="用法">用法：</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">rebase</span>   <span class="p">[</span><span class="n">startpoint</span><span class="p">]</span>   <span class="p">[</span><span class="n">endpoint</span><span class="p">]</span>  <span class="o">--</span><span class="n">onto</span>  <span class="p">[</span><span class="n">branchName</span><span class="p">]</span>
+<span class="n">git</span> <span class="n">rebase</span> <span class="o">-</span><span class="n">i</span>  <span class="p">[</span><span class="n">startpoint</span><span class="p">]</span>  <span class="p">[</span><span class="n">endpoint</span><span class="p">]</span></code></pre></figure>
+
+<p>注意：[startpoint] [endpoint]指定了一个编辑区间，如果不指定[endpoint]，则该区间的终点默认是当前分支HEAD所指向的commit (注：该区间指定的是一个前开后闭的区间)。</p>
+
+<h3 id="1-合并当前分支的多个提交记录">1. 合并当前分支的多个提交记录</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="mi">7</span><span class="n">f66117d96ac6db8661c66c55c5476c9be82622e</span> <span class="n">modify</span> <span class="n">readme</span><span class="p">.</span><span class="n">md</span>
+<span class="mi">6</span><span class="n">af9edd695f3f51120b888d724eea4d254fe5bb3</span> <span class="n">master</span> <span class="n">commit</span> <span class="mo">02</span>
+<span class="mi">3</span><span class="n">ce944b8cf3b35121936ae0fe59ca7ff76ed81d3</span> <span class="n">master</span> <span class="n">commit</span> <span class="mo">01</span>
+<span class="mi">3</span><span class="n">f901ec367853b7852b30f0023af4398ee48235d</span> <span class="n">my_dev</span> <span class="n">work</span> <span class="n">done</span><span class="p">.</span>
+<span class="mi">86624</span><span class="n">b76ac8a6f16334605e0ee44f64305c4d8c3</span> <span class="n">my_dev</span> <span class="n">first</span> <span class="n">commit</span></code></pre></figure>
+
+<h4 id="合并3ce944b8c7f66117d96ac6-三条提交记录">合并3ce944b8c..7f66117d96ac6 三条提交记录</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">rebase</span> <span class="o">-</span><span class="n">i</span> <span class="mi">3</span><span class="n">f901ec367853</span> <span class="mi">7</span><span class="n">f66117d96ac6db</span></code></pre></figure>
+
+<p>或者</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">rebase</span> <span class="o">-</span><span class="n">i</span> <span class="n">HEAD</span><span class="o">~</span><span class="mi">3</span></code></pre></figure>
+
+<h3 id="2-复制一段提交记录到dev2分支">2. 复制一段提交记录到dev2分支</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">rebase</span> <span class="o">-</span><span class="n">i</span> <span class="mi">3</span><span class="n">f901ec367853</span> <span class="mi">7</span><span class="n">f66117d96ac6db</span> <span class="n">onto</span> <span class="n">dev2</span>
+<span class="n">git</span> <span class="n">checkout</span> <span class="n">dev2</span>
+<span class="n">git</span> <span class="n">reset</span> <span class="o">--</span><span class="n">hard</span>  <span class="n">HEAD</span></code></pre></figure>
+
+<h3 id="3-合并分支">3. 合并分支</h3>
+
+<p>dev 分支rebase master 分支</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">checkout</span> <span class="n">dev</span>
+<span class="n">git</span> <span class="n">rebase</span> <span class="n">master</span></code></pre></figure>
+
+<h3 id="4-冲突处理">4. 冲突处理</h3>
+
+<p>如果有冲突，解决掉冲突后，执行</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">add</span> <span class="p">.</span>
+<span class="n">git</span> <span class="n">rebase</span> <span class="o">--</span><span class="k">continue</span></code></pre></figure>
+
+<div class="post-note warning">
+  <div class="header"></div>
+      <div class="body">
+        <p>rebase会改变原来的commit ID, 一旦对历史提交做出改变，那么从变基开始的那个提交往后所有的提交的commit ID 都会发生改变。<br />
+        因此rebase命令使用要遵循以下原则:<br />
+        1. “从来不要对任何已经提交到公共分支的提交记录做rebase操作，rebase操作会使得公共分支的提交记录变更，导致其他共用该分支的人的代码产生冲突。<br />
+        2. 不基于rebase分支切换新分支。<br />
+        3. 不对已经合入远程分支的本地分支做rebase。
+        </p>
+      </div>
+</div>
+
+<h2 id="git-fetch">git fetch</h2>
+
+<h3 id="1-fetch-远程-dev-分支并merge">1. fetch 远程 dev 分支并merge</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">fetch</span> <span class="n">origin</span> <span class="n">dev</span>
+<span class="n">git</span> <span class="n">diff</span> <span class="n">origin</span><span class="o">/</span><span class="n">dev</span>
+<span class="n">git</span> <span class="n">merge</span> <span class="n">origin</span><span class="o">/</span><span class="n">dev</span></code></pre></figure>
+
+<h2 id="git-log">Git log</h2>
+
+<h3 id="1-显示提交的差异">1. 显示提交的差异</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">-</span><span class="n">p</span> </code></pre></figure>
+
+<h3 id="2--显示-2-个提交信息">2.  显示 2 个提交信息</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">-</span><span class="mi">2</span></code></pre></figure>
+
+<h3 id="3-显示统计信息包括哪些文件被改动">3. 显示统计信息，包括哪些文件被改动</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">stat</span></code></pre></figure>
+
+<h3 id="4-显示格式一行显示">4. 显示格式，一行显示</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span></code></pre></figure>
+
+<h3 id="5-格式化输出">5. 格式化输出</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">format</span><span class="o">:</span><span class="s">"%h - %an, %ar-%cr : %s"</span></code></pre></figure>
+
+<p>按照 <strong>哈希值-作者，修改时间-提交时间：提交说明</strong> 显示</p>
+
+<h3 id="6-图形化输出">6. 图形化输出</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">graph</span></code></pre></figure>
+
+<p>通常比较有用的是</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">formate</span><span class="o">:</span><span class="s">"%h - %an, %ar:%s"</span> <span class="o">--</span><span class="n">graph</span>
+<span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">format</span><span class="o">:</span><span class="s">"%Cred%h%Creset -%C(yellow)%d%Cblue %s %Cgreen(%cd) %C(cyan)%ar %C(bold blue)&lt;%an&gt;"</span></code></pre></figure>
+
+<h3 id="7-按照作者查找提交">7. 按照作者查找提交</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">author</span><span class="o">=</span><span class="s">"david.dong"</span> </code></pre></figure>
+
+<p>通常比较常用</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">author</span><span class="o">=</span><span class="s">"david.dong"</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span></code></pre></figure>
+
+<h3 id="8-按照内容匹配指定字符串的提交">8. 按照内容匹配指定字符串的提交</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">-</span><span class="n">S</span></code></pre></figure>
+
+<p>通常比较常用</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">-</span><span class="n">S</span> <span class="s">"function_name"</span> <span class="o">-</span><span class="n">p</span></code></pre></figure>
+
+<h3 id="9--按照时间范围查找提交">9.  按照时间范围查找提交</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">since</span> <span class="o">--</span><span class="n">until</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">since</span><span class="o">=</span><span class="s">"2020-01-01"</span> <span class="o">--</span><span class="n">until</span><span class="o">=</span><span class="s">"2020-02-01"</span>
+<span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">since</span><span class="o">=</span><span class="s">"3 weeks ago"</span> <span class="o">--</span><span class="n">until</span><span class="o">=</span><span class="s">"2 days ago"</span></code></pre></figure>
+
+<h3 id="10-限定查找-pathfilename-的提交">10. 限定查找 path/filename 的提交</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">-</span><span class="n">p</span> <span class="o">--</span> <span class="n">path</span><span class="o">/</span><span class="n">filename</span></code></pre></figure>
+
+<p>查找 david 对 fpc_bio_interface 的提交</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">author</span><span class="o">=</span><span class="s">"david"</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span> <span class="o">--</span> <span class="n">my_interface</span> </code></pre></figure>
+
+<p>或者查找 Andy 对 my_db.c 的修改提交记录</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">author</span><span class="o">=</span><span class="s">"Andy"</span> <span class="o">--</span> <span class="n">my_db</span><span class="p">.</span><span class="n">c</span></code></pre></figure>
+
+<h3 id="11-查找提交说明中包含指定字符串的提交">11. 查找提交说明中包含指定字符串的提交</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">grep</span> </code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span> <span class="o">--</span><span class="n">grep</span><span class="o">=</span><span class="s">"Minor refinement"</span>
+<span class="n">git</span> <span class="n">log</span> <span class="o">-</span><span class="n">p</span> <span class="o">--</span><span class="n">grep</span><span class="o">=</span><span class="s">"ISEE"</span></code></pre></figure>
+
+<h3 id="12-仅显示merge的提交">12. 仅显示merge的提交</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">merges</span> </code></pre></figure>
+
+<h3 id="13-不显示merge-提交">13. 不显示merge 提交</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">merges</span> </code></pre></figure>
+
+<h3 id="14-只打印主线提交">14. 只打印主线提交</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">first</span><span class="o">-</span><span class="n">parent</span> </code></pre></figure>
+
+<h3 id="15-只打印某两个提交之间的记录">15. 只打印某两个提交之间的记录</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="n">cd50063c9a625</span><span class="p">..</span><span class="n">ad3d6ae40d271778ae6</span></code></pre></figure>
+
+<h3 id="16-显示某一个分支的提交记录">16. 显示某一个分支的提交记录</h3>
+
+<h4 id="1-显示-远程-dev-分支记录中有关-readmemd-的提交">1. 显示 远程 dev 分支记录中有关 README.md 的提交</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span> <span class="n">origin</span><span class="o">/</span><span class="n">dev</span> <span class="o">--</span> <span class="n">README</span><span class="p">.</span><span class="n">md</span></code></pre></figure>
+
+<h4 id="2-显示-master-分支记录">2. 显示 master 分支记录</h4>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span> <span class="n">master</span></code></pre></figure>
+
+<h3 id="17-查看只在一个分支中的提交">17. 查看只在一个分支中的提交</h3>
+
+<p>查看只在 master 中的提交记录</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span> <span class="o">--</span><span class="n">right</span><span class="o">-</span><span class="n">only</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">merges</span> <span class="o">--</span><span class="n">cherry</span><span class="o">-</span><span class="n">pick</span> <span class="n">my_dev</span><span class="p">...</span><span class="n">master</span></code></pre></figure>
+
+<p>查看只在 my_dev 中的提交记录</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span> <span class="o">--</span><span class="n">left</span><span class="o">-</span><span class="n">only</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">merges</span> <span class="o">--</span><span class="n">cherry</span><span class="o">-</span><span class="n">pick</span> <span class="n">my_dev</span><span class="p">...</span><span class="n">master</span></code></pre></figure>
+
+<p>查看只在 master 有， my_dev 没有的提交记录</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="n">master</span> <span class="o">^</span><span class="n">my_dev</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span></code></pre></figure>
+
+<p>或者</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="n">my_dev</span><span class="p">..</span><span class="n">master</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span></code></pre></figure>
+
+<p>查看只在 my_dev 有， master 没有的提交记录</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="n">my_dev</span> <span class="o">^</span><span class="n">master</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span> </code></pre></figure>
+
+<p>或者</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="n">master</span><span class="p">..</span><span class="n">my_dev</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span></code></pre></figure>
+
+<div class="post-note info">
+  <div class="header"></div>
+      <div class="body">
+        <p>说明：<br />
+... 是列出两个分支不同的提交，等于 master..dev + dev..master, 如果加上 --left-only/--right-only 就等于 .. <br />
+.. 是列出一个分支有，另一个分支没有的提交。 <br />
+因此：<br />
+git log --pretty=oneline --right-only --no-merges --cherry-pick my_dev...master <br />
+相当于 git log --pretty=oneline master ^my_dev <br />
+和 git log --pretty=oneline my_dev..master 
+        </p>
+      </div>
+</div>
+<h3 id="18-不显示-cherry-pick-的提交">18. 不显示 cherry-pick 的提交</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">cherry</span><span class="o">-</span><span class="n">pick</span> </code></pre></figure>
+
+<h2 id="git-grep">git grep</h2>
+
+<h3 id="在某个提交中查找字符串">在某个提交中查找字符串</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">grep</span> <span class="s">"ISEE"</span> <span class="n">cd5000634</span><span class="o">:</span> </code></pre></figure>
+
+<h2 id="git-archive">git archive</h2>
+
+<h3 id="打包某个提交的代码">打包某个提交的代码</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">archive</span> <span class="o">--</span><span class="n">format</span> <span class="n">tar</span><span class="p">.</span><span class="n">gz</span> <span class="o">--</span><span class="n">output</span> <span class="s">"linux.5.9.tar.gz"</span> <span class="mi">856</span><span class="n">deb866d16e29bd659</span></code></pre></figure>
+
+<h2 id="git-show">git show</h2>
+
+<h3 id="查看某个提交的内容">查看某个提交的内容</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">show</span> <span class="mi">856</span><span class="n">deb866d16e29bd659</span></code></pre></figure>
+
+<h2 id="重设分支">重设分支</h2>
+
+<h3 id="1-reset-hard">1. reset –hard</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">reset</span> <span class="o">--</span><span class="n">hard</span> <span class="mi">856</span><span class="n">deb866</span></code></pre></figure>
+
+<h3 id="2-reset-soft">2. reset –soft</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">reset</span> <span class="o">--</span><span class="n">soft</span> <span class="mi">856</span><span class="n">deb866</span></code></pre></figure>
+
+<p>区别：reset –hard 执行后之前的提交全部清除，reset –soft 执行后之前的提交会保留到暂存区，相当于staged.</p>
+
+<h2 id="撤消提交">撤消提交</h2>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">revert</span> <span class="mi">856</span><span class="n">deb866</span></code></pre></figure>
+
+<h2 id="查看全部操作历史">查看全部操作历史</h2>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">git</span> <span class="n">reflog</span></code></pre></figure>
+
+
+	</div>
+	<!-- put sidebar! -->
+	
+	<div class = "sidebar-container">
+	    
+	    <div class = "sidebar-about-box" id = "sidebar">
+		    
+				<p class = "sidebar-title">关于文章</p>
+			
+			
+				
+				<p class = "sidebar-about-content sidebar-font-big">记录 Git  的常用命令和使用技巧.</p>
+				
+				
+				<p class = "icon-link sidebar-about-content sidebar-font-medium" style = "margin-top:40px">文章作者: <a href="https://github.com/gangdong">david.dong</a></p>
+				
+				<p class = "icon-hourglass sidebar-about-content sidebar-font-medium">阅读时间：16 mins</p>
+				<p class = "icon-book sidebar-about-content sidebar-font-medium">全文字数：6028</p>
+				
+					<p class = "icon-th-list sidebar-about-content sidebar-font-medium">关键字: Git</p>
+				
+				
+					<p class = "icon-hashtag sidebar-about-content sidebar-font-medium">标签: 
+					
+					<a href="/category#Git">Git&nbsp;</a>
+					
+					</p>
+				
+			
+		</div>
+		
+		
+	    <div class="sidebar-toc-box">
+			
+			<p class = "sidebar-title">文章目录</p>
+			<span class = "sidebar-font-medium sidebar-toc-content"><ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#推送到远程分支">推送到远程分支</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#用法git-push--">用法：git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;远程分支名&gt;本地分支名&gt;远程主机名&gt;</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#1-将本地的-master-分支推送到远程-master-分支">1. 将本地的 master 分支推送到远程 master 分支</a></li>
+<li class="toc-entry toc-h4"><a href="#2-将本地的-dev-分支推送到远程-master-分支">2. 将本地的 dev 分支推送到远程 master 分支</a></li>
+<li class="toc-entry toc-h4"><a href="#3-删除远程-master-分支">3. 删除远程 master 分支</a></li>
+<li class="toc-entry toc-h4"><a href="#4-添加远程主分支和本地-master-分支的绑定关系">4. 添加远程主分支和本地 master 分支的绑定关系</a></li>
+<li class="toc-entry toc-h4"><a href="#5-强制推送本地dev分支到远程master分支">5. 强制推送本地dev分支到远程master分支</a></li>
+<li class="toc-entry toc-h4"><a href="#6-推送本地当前分支到远程-master分支">6. 推送本地当前分支到远程 master分支</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#拉取远程分支到本地">拉取远程分支到本地</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#用法git-pull--">用法：git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;本地分支名&gt;远程分支名&gt;远程主机名&gt;</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#1-拉取远程-master-分支到本地-dev-分支">1. 拉取远程 master 分支到本地 dev 分支</a></li>
+<li class="toc-entry toc-h4"><a href="#2-拉取远程-master-分支到本地当前分支">2. 拉取远程 master 分支到本地当前分支</a></li>
+<li class="toc-entry toc-h4"><a href="#3-建立本地分支与远程分支的追踪关系">3. 建立本地分支与远程分支的追踪关系</a></li>
+<li class="toc-entry toc-h4"><a href="#4-git-pull-origin-masterdev-等于">4. git pull origin master:dev 等于</a></li>
+<li class="toc-entry toc-h4"><a href="#5-采用-rebase-的方式合并本地分支">5. 采用 rebase 的方式合并本地分支</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#创建新分支">创建新分支</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#1-创建-newbranch-分支">1. 创建 newbranch 分支</a></li>
+<li class="toc-entry toc-h3"><a href="#2-创建新分支并与远程分支关联">2. 创建新分支并与远程分支关联</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#删除分支">删除分支</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#1-删除本地分支">1. 删除本地分支</a></li>
+<li class="toc-entry toc-h3"><a href="#2-强制删除本地分支">2. 强制删除本地分支</a></li>
+<li class="toc-entry toc-h3"><a href="#3-删除远程-master-分支-1">3. 删除远程 master 分支</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#重命名分支">重命名分支</a></li>
+<li class="toc-entry toc-h2"><a href="#添加远程分支">添加远程分支</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#git-remote-add">git remote add</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#克隆远程分支">克隆远程分支</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#git-clone">git clone</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#查看远程提交记录">查看远程提交记录</a></li>
+<li class="toc-entry toc-h2"><a href="#添加-github-token-到本地仓库">添加 Github Token 到本地仓库</a></li>
+<li class="toc-entry toc-h2"><a href="#git-stash">git stash</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#应用场景">应用场景</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#合并分支">合并分支</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#git-merge">git merge</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#1-merge-dev-分支和-dev2-分支">1. merge dev 分支和 dev2 分支</a></li>
+<li class="toc-entry toc-h4"><a href="#2-手动提交">2. 手动提交</a></li>
+<li class="toc-entry toc-h4"><a href="#3-如果有冲突处理冲突">3. 如果有冲突，处理冲突</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#git-cherry-pick">git cherry-pick</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#1-复制-dev2-的-aa3b6ca2--b821c4f7e1c-提交到-dev-分支">1. 复制 dev2 的 aa3b6ca2  b821c4f7e1c 提交到 dev 分支</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#git-rebase">git rebase</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#用法">用法：</a></li>
+<li class="toc-entry toc-h3"><a href="#1-合并当前分支的多个提交记录">1. 合并当前分支的多个提交记录</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#合并3ce944b8c7f66117d96ac6-三条提交记录">合并3ce944b8c..7f66117d96ac6 三条提交记录</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#2-复制一段提交记录到dev2分支">2. 复制一段提交记录到dev2分支</a></li>
+<li class="toc-entry toc-h3"><a href="#3-合并分支">3. 合并分支</a></li>
+<li class="toc-entry toc-h3"><a href="#4-冲突处理">4. 冲突处理</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#git-fetch">git fetch</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#1-fetch-远程-dev-分支并merge">1. fetch 远程 dev 分支并merge</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#git-log">Git log</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#1-显示提交的差异">1. 显示提交的差异</a></li>
+<li class="toc-entry toc-h3"><a href="#2--显示-2-个提交信息">2.  显示 2 个提交信息</a></li>
+<li class="toc-entry toc-h3"><a href="#3-显示统计信息包括哪些文件被改动">3. 显示统计信息，包括哪些文件被改动</a></li>
+<li class="toc-entry toc-h3"><a href="#4-显示格式一行显示">4. 显示格式，一行显示</a></li>
+<li class="toc-entry toc-h3"><a href="#5-格式化输出">5. 格式化输出</a></li>
+<li class="toc-entry toc-h3"><a href="#6-图形化输出">6. 图形化输出</a></li>
+<li class="toc-entry toc-h3"><a href="#7-按照作者查找提交">7. 按照作者查找提交</a></li>
+<li class="toc-entry toc-h3"><a href="#8-按照内容匹配指定字符串的提交">8. 按照内容匹配指定字符串的提交</a></li>
+<li class="toc-entry toc-h3"><a href="#9--按照时间范围查找提交">9.  按照时间范围查找提交</a></li>
+<li class="toc-entry toc-h3"><a href="#10-限定查找-pathfilename-的提交">10. 限定查找 path/filename 的提交</a></li>
+<li class="toc-entry toc-h3"><a href="#11-查找提交说明中包含指定字符串的提交">11. 查找提交说明中包含指定字符串的提交</a></li>
+<li class="toc-entry toc-h3"><a href="#12-仅显示merge的提交">12. 仅显示merge的提交</a></li>
+<li class="toc-entry toc-h3"><a href="#13-不显示merge-提交">13. 不显示merge 提交</a></li>
+<li class="toc-entry toc-h3"><a href="#14-只打印主线提交">14. 只打印主线提交</a></li>
+<li class="toc-entry toc-h3"><a href="#15-只打印某两个提交之间的记录">15. 只打印某两个提交之间的记录</a></li>
+<li class="toc-entry toc-h3"><a href="#16-显示某一个分支的提交记录">16. 显示某一个分支的提交记录</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#1-显示-远程-dev-分支记录中有关-readmemd-的提交">1. 显示 远程 dev 分支记录中有关 README.md 的提交</a></li>
+<li class="toc-entry toc-h4"><a href="#2-显示-master-分支记录">2. 显示 master 分支记录</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#17-查看只在一个分支中的提交">17. 查看只在一个分支中的提交</a></li>
+<li class="toc-entry toc-h3"><a href="#18-不显示-cherry-pick-的提交">18. 不显示 cherry-pick 的提交</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#git-grep">git grep</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#在某个提交中查找字符串">在某个提交中查找字符串</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#git-archive">git archive</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#打包某个提交的代码">打包某个提交的代码</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#git-show">git show</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#查看某个提交的内容">查看某个提交的内容</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#重设分支">重设分支</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#1-reset-hard">1. reset –hard</a></li>
+<li class="toc-entry toc-h3"><a href="#2-reset-soft">2. reset –soft</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#撤消提交">撤消提交</a></li>
+<li class="toc-entry toc-h2"><a href="#查看全部操作历史">查看全部操作历史</a></li>
+</ul></span>
+			
+		</div>
+		
+	</div>
+	 
+</div>
+<!-- no sidebar, use flex width box! -->
+<br>
+<div class="post-container">
+    <!-- post categories box! here  -->
+    
+   <div class="post-categories-meta">
+		<div class="post-categories-box post-categories-box-hide"><a href="/category#Git">Git</a></div>
+	</div>
+  
+  
+  <div class = "share-box-meta">
+    <div class="share-box">
+      <span style ="padding: 2px">分享:</span>
+      <a class="share-link" href="https://twitter.com/intent/tweet?text=Git+commands+and+usage+tips&url=https://dqdongg.com%2Fgit%2F2022%2F03%2F29%2FGithub-git-command.html" target="_blank" rel="noopener">Twitter</a>
+      <a class="share-link" href="https://www.linkedin.com/sharing/share-offsite/?url=https://dqdongg.com%2Fgit%2F2022%2F03%2F29%2FGithub-git-command.html" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="share-link" href="mailto:?subject=Git+commands+and+usage+tips&body=https://dqdongg.com%2Fgit%2F2022%2F03%2F29%2FGithub-git-command.html" target="_blank" rel="noopener">Email</a>
+    </div>
+  </div>
+  
+  <!-- Related posts start here! -->
+		
+		<h1 id="posts-label">相关文章</h1>
+		
+	  <div class = "related-posts-box">
+		<ul>
+			
+			<li><a href="/git/2022/08/11/gerrit.createchangeid.html">About gerrit.createChangeId</a></li>
+			
+			<li><a href="/git/2022/07/22/git-change-id.html">Keep old change-id when do git commit</a></li>
+			
+			<li><a href="/git/2022/07/01/Git-hooks.html">Git hook 配置与使用</a></li>
+			
+		</ul>
+	  </div>
+	  
+	
+  <!-- Page navigation start here! -->
+   <h1 id="posts-label">继续阅读</h1>
+  
+  <div class = "separator"></div>
+  <div class="navigation-meta"><div class="navigation-bar">
+	 
+	 <a href="/others/2022/02/15/Others-online-tools.html"><span>前一章</span><br>生产力工具</a>
+	 
+    </div><div class="navigation-bar"> 
+	 
+	 <a href="/java/2022/04/22/Java-ThreadSynchronization.html"><span>后一章</span><br>浅谈 Java 线程同步技术</a>
+	 
+    </div></div><br>
+  <!-- comment box starts here! -->
+    <!-- disqus start  --><!-- Gitalk start  -->
+  <!-- Link Gitalk support file  -->
+  <section class="gitalk">
+  <div id="gitalk_thread"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript" src="/assets/js/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+   var gitalk = new Gitalk({
+   // gitalk parameters
+   clientID: '5e24fc307693a6df3bc5',
+   clientSecret: '28c9c17e1174c705c42e9bdc92f87cadcc4ec8b8',
+   repo: 'gangdong.github.io',
+   owner: 'gangdong',
+   admin: ['gangdong'],
+   id: md5(location.pathname),
+   title: 'comments'
+    });
+   gitalk.render('gitalk-container');
+  </script>
+  </section>
+  <!-- Gitalk end -->
+  <br/><br/><br/><div class = "footer">© 2012-2021 David Dong. All rights reserved.</div>
+  
+  <br>
+</div>
+
+
+<!-- sidebar button, toggle display/hide sidebar -->
+<script>
+  document.querySelector('.btn')?.addEventListener('click', function() {
+    this.classList.toggle('btnc');
+    document.querySelector('.sidebar-container')?.classList.toggle('sidebar-container-hide');
+  });
+</script>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=G-3MXGF3F8QN"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-3MXGF3F8QN');
+	</script></body>
+</html>
